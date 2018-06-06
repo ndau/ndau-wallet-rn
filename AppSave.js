@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { AppRegistry, Navigator, StyleSheet, Text, View } from 'react-native';
+import { AppRegistry, Navigator } from 'react-native';
 
 // Importing scenes for our app
 import Home from './Home';
@@ -45,22 +45,3 @@ class MultipleSceneApp extends Component {
 }
 
 AppRegistry.registerComponent('MultipleSceneApp', () => MultipleSceneApp);
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <MultipleSceneApp />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});

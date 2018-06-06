@@ -1,10 +1,10 @@
 {
   "expo": {
     "name": "ndau wallet",
-    "icon": "./pn_icon_black.png",
+    "icon": "./ndau-glow-favicon.png",
     "version": "1.0.0",
     "slug": "ndau-wallet",
-    "sdkVersion": "1.0.0",
+    "sdkVersion": "27.0.0",
     "ios": {
       "bundleIdentifier": "ndau.wallet"
     },
