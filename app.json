@@ -11,5 +11,7 @@
     "android": {
       "package": "ndau.wallet"
     }
-  }
+  },
+  "name": "ndauwalletrn",
+  "displayName": "ndau wallet"
 }

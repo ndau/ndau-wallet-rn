@@ -46,7 +46,7 @@ class MultipleSceneApp extends Component {
 
 AppRegistry.registerComponent('MultipleSceneApp', () => MultipleSceneApp);
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       // <View style={styles.container}>
@@ -58,6 +58,8 @@ export default class App extends React.Component {
     );
   }
 }
+
+// AppRegistry.registerComponent('ndauwalletrn', () => App);
 
 const styles = StyleSheet.create({
   container: {
