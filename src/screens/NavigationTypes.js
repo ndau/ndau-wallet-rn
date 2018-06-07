@@ -134,7 +134,7 @@ class NavigationTypes extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Row title={'CHANGE Toggle Drawer'} onPress={this.toggleDrawer} />
+        <Row title={'ndau Toggle Drawer'} onPress={this.toggleDrawer} />
         <Row title={'Push Screen'} testID={'pushScreen'} onPress={this.pushScreen} />
         <Row
           ref={(ref) => (this.previewRef = ref)}
