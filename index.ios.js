@@ -5,10 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  Navigator
-} from 'react-native';
+import { AppRegistry, Navigator, StyleSheet, Text, View } from 'react-native';
 
 // Importing scenes for our app
 import Home from './Home';
@@ -16,17 +13,14 @@ import Movie from './Movie';
 import Splash from './Splash';
 
 class MultipleSceneApp extends Component {
-
   // Our renderScene function will choose which scene to render based on the route id
   renderScene(route, navigator) {
     if (route.id === 1) {
-      return <Home navigator={navigator} />
-    } 
-    else if (route.id === 2) {
-      return <Movie navigator={navigator} {...route.passProps} />
-    } 
-    else if (route.id === 3) {
-      return <Splash navigator={navigator} />
+      return <Home navigator={navigator} />;
+    } else if (route.id === 2) {
+      return <Movie navigator={navigator} {...route.passProps} />;
+    } else if (route.id === 3) {
+      return <Splash navigator={navigator} />;
     }
   }
 
@@ -48,7 +42,27 @@ class MultipleSceneApp extends Component {
       />
     );
   }
-
 }
 
 AppRegistry.registerComponent('MultipleSceneApp', () => MultipleSceneApp);
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <Text>Changes you make will automatically reload.</Text>
+        <Text>Shake your phone to open the developer menu.</Text>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
