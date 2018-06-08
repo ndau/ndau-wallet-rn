@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, Alert} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, Button, Alert } from 'react-native';
 
 class Push extends Component {
-
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -21,7 +20,7 @@ class Push extends Component {
 
   onPushAnother = () => {
     this.props.navigator.push({
-      screen: 'example.Types.Push',
+      screen: 'ndau.Types.Push',
       title: `Screen ${this.props.count || 1}`,
       passProps: {
         count: this.props.count ? this.props.count + 1 : 2
@@ -32,7 +31,7 @@ class Push extends Component {
   onResetTo = () => {
     this.props.navigator.resetTo({
       label: 'Navigation',
-      screen: 'example.Types',
+      screen: 'ndau.Types',
       icon: require('../../../img/list.png'),
       title: 'Navigation Types'
     });
@@ -47,19 +46,13 @@ class Push extends Component {
       <View style={styles.container}>
         <Text>Pushed Screen</Text>
         <View style={styles.button}>
-          <Button
-            onPress={this.onPushAnother}
-            title="Push Another Screen"/>
+          <Button onPress={this.onPushAnother} title="Push Another Screen" />
         </View>
         <View style={styles.button}>
-          <Button
-            onPress={this.onResetTo}
-            title="Reset Stack"/>
+          <Button onPress={this.onResetTo} title="Reset Stack" />
         </View>
         <View style={styles.button}>
-          <Button
-            onPress={this.onPopToRoot}
-            title="Pop To Root"/>
+          <Button onPress={this.onPopToRoot} title="Pop To Root" />
         </View>
       </View>
     );
@@ -71,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   button: {
     marginTop: 16
