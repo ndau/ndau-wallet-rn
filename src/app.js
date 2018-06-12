@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { registerScreens, registerScreenVisibilityListener } from './screens';
+import Image from 'react-native-remote-svg';
 
 // screen related book keeping
 registerScreens();

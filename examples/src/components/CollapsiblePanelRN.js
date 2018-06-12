@@ -7,8 +7,8 @@ class CollapsiblePanel extends Component {
     super(props);
 
     this.icons = {
-      up: require('../../img/Arrowhead-01-128.png'),
-      down: require('../../img/Arrowhead-Down-01-128.png')
+      up: require('../../../img/Arrowhead-01-128.png'),
+      down: require('../../../img/Arrowhead-Down-01-128.png')
     };
 
     this.state = {
@@ -29,6 +29,9 @@ class CollapsiblePanel extends Component {
       finalValue = this.state.expanded
         ? this.state.minHeight
         : this.state.maxHeight + this.state.minHeight;
+
+    console.log(`minHeight: ${this.state.minHeight}`);
+    console.log(`maxHeight: ${this.state.maxHeight}`);
 
     this.state.animation.setValue(initialValue);
     Animated.spring(this.state.animation, {

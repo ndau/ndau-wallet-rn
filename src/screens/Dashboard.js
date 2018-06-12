@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, Text, ScrollView } from 'react-native';
-import CollapsiblePanel from './CollapsiblePanel';
+import { StyleSheet, Text, ScrollView, Image } from 'react-native';
+import CollapsiblePanel from '../components/CollapsiblePanel';
 
-class Dashboard extends Component {
+export default class Dashboard extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,10 +12,12 @@ class Dashboard extends Component {
     return (
       <ScrollView style={styles.container}>
         <CollapsiblePanel title="A Panel with short content text">
-          <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+          <Text style={styles.panelText}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </Text>
         </CollapsiblePanel>
         <CollapsiblePanel title="A Panel with long content text">
-          <Text>
+          <Text style={styles.panelText}>
             Lorem ipsum dolor sit amet, ut vestibulum massa. Porttitor sed dis quis turpis ipsum
             est. Cursus mauris mattis nec in turpis quis, proin risus netus massa suspendisse nunc
             vitae, ut suspendisse sociosqu nulla, lobortis turpis amet dui vestibulum quis, sem
@@ -26,7 +28,7 @@ class Dashboard extends Component {
           </Text>
         </CollapsiblePanel>
         <CollapsiblePanel title="A Panel with long content text as well">
-          <Text>
+          <Text style={styles.panelText}>
             Lorem ipsum dolor sit amet, elit fermentum fringilla ac porta, rhoncus vulputate
             pellentesque pellentesque semper, turpis in turpis leo lobortis tellus. Velit eu arcu
             dignissim suspendisse, sit nec a viverra dui vel in. Nibh elit dui justo nibh, tortor
@@ -37,7 +39,7 @@ class Dashboard extends Component {
           </Text>
         </CollapsiblePanel>
         <CollapsiblePanel title="Another Panel">
-          <Text>Lorem ipsum dolor sit amet...</Text>
+          <Text style={styles.panelText}>Lorem ipsum dolor sit amet...</Text>
         </CollapsiblePanel>
       </ScrollView>
     );
@@ -47,9 +49,9 @@ class Dashboard extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333333',
-    paddingTop: 30
+    backgroundColor: '#333333'
+  },
+  panelText: {
+    color: '#fff'
   }
 });
-
-export default Dashboard;
