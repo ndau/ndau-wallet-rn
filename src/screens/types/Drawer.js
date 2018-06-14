@@ -1,12 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, Button} from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 
 class MyClass extends React.Component {
-
   onShowModal = () => {
     this.toggleDrawer();
     this.props.navigator.showModal({
-      screen: 'example.Types.Modal',
+      screen: 'ndau.Types.Modal',
       title: `Modal`
     });
   };
@@ -14,7 +13,7 @@ class MyClass extends React.Component {
   onPushToFirstTab = () => {
     this.toggleDrawer();
     this.props.navigator.handleDeepLink({
-      link: 'tab1/example.Types.Push'
+      link: 'tab1/ndau.Types.Push'
     });
   };
 
@@ -28,14 +27,10 @@ class MyClass extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.button}>
-          <Button
-            onPress={this.onShowModal}
-            title="Show Modal"/>
+          <Button onPress={this.onShowModal} title="Show Modal" />
         </View>
         <View style={styles.button}>
-          <Button
-            onPress={this.onPushToFirstTab}
-            title="Push to First Tab"/>
+          <Button onPress={this.onPushToFirstTab} title="Push to First Tab" />
         </View>
       </View>
     );
@@ -48,7 +43,7 @@ const styles = StyleSheet.create({
     width: 300,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   button: {
     marginTop: 16

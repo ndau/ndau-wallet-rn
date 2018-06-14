@@ -28,14 +28,14 @@ class NavigationTypes extends React.Component {
 
   pushScreen = () => {
     this.props.navigator.push({
-      screen: 'example.Types.Push',
+      screen: 'ndau.Types.Push',
       title: 'New Screen'
     });
   };
 
   previewScreen = () => {
     this.props.navigator.push({
-      screen: 'example.Types.Push',
+      screen: 'ndau.Types.Push',
       title: 'New Screen',
       previewCommit: true,
       previewHeight: 250,
@@ -63,35 +63,36 @@ class NavigationTypes extends React.Component {
   pushListScreen = () => {
     console.log('RANG', 'pushListScreen');
     this.props.navigator.push({
-      screen: 'example.Types.ListScreen',
+      screen: 'ndau.Types.ListScreen',
       title: 'List Screen'
     });
   };
 
   pushCustomTopBarScreen = () => {
     this.props.navigator.push({
-      screen: 'example.Types.CustomTopBarScreen'
+      screen: 'ndau.Types.CustomTopBarScreen'
     });
   };
 
   pushCustomButtonScreen = () => {
     this.props.navigator.push({
-      screen: 'example.Types.CustomButtonScreen',
+      screen: 'ndau.Types.CustomButtonScreen',
       title: 'Custom Buttons'
     });
+    ``;
   };
 
   pushTopTabsScreen = () => {
     this.props.navigator.push({
-      screen: 'example.Types.TopTabs',
+      screen: 'ndau.Types.TopTabs',
       title: 'Top Tabs',
       topTabs: [
         {
-          screenId: 'example.Types.TopTabs.TabOne',
+          screenId: 'ndau.Types.TopTabs.TabOne',
           title: 'Tab One'
         },
         {
-          screenId: 'example.Types.TopTabs.TabTwo',
+          screenId: 'ndau.Types.TopTabs.TabTwo',
           title: 'Tab Two'
         }
       ]
@@ -100,14 +101,14 @@ class NavigationTypes extends React.Component {
 
   showModal = () => {
     this.props.navigator.showModal({
-      screen: 'example.Types.Modal',
+      screen: 'ndau.Types.Modal',
       title: 'Modal'
     });
   };
 
   showLightBox = () => {
     this.props.navigator.showLightBox({
-      screen: 'example.Types.LightBox',
+      screen: 'ndau.Types.LightBox',
       passProps: {
         title: 'LightBox',
         content: "Hey there, I'm a light box screen :D",
@@ -127,7 +128,7 @@ class NavigationTypes extends React.Component {
 
   showInAppNotification = () => {
     this.props.navigator.showInAppNotification({
-      screen: 'example.Types.Notification'
+      screen: 'ndau.Types.Notification'
     });
   };
 

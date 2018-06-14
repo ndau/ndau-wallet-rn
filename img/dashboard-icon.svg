@@ -1,0 +1,22 @@
+<svg width="46px" height="40px" viewBox="0 0 46 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="1" y="10" width="40" height="31" rx="4"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Inverse-wallet" transform="translate(0.000000, -1.000000)">
+            <g id="Group">
+                <g id="Rectangle">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#FFFFFF" stroke-width="1" x="1.5" y="10.5" width="39" height="30" rx="4"></rect>
+                </g>
+                <rect id="Rectangle-Copy" stroke="#FFFFFF" stroke-width="3" transform="translate(23.102291, 19.897709) rotate(-13.000000) translate(-23.102291, -19.897709) " x="4.60229073" y="5.89770927" width="37" height="28" rx="4"></rect>
+                <g id="the-en" transform="translate(12.000000, 14.000000)" fill="#161E44">
+                    <path d="M17.152,8.544 C17.134,3.83 13.295,0 8.576,0 C3.858,0 0.018,3.83 0,8.544 L0,17.153 L3.118,17.153 L3.118,8.576 C3.118,5.567 5.567,3.118 8.576,3.118 C11.586,3.118 14.034,5.567 14.034,8.576 L14.034,17.153 L17.153,17.153 L17.153,8.544 L17.152,8.544 Z" id="Shape" fill-rule="nonzero"></path>
+                    <rect id="Rectangle-path" x="0" y="20" width="17.021" height="3.119"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
