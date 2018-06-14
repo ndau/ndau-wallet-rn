@@ -113,7 +113,7 @@ var styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: '#fff',
-    fontWeight: 'bold'
+    fontFamily: 'TitilliumWeb-Bold'
   },
   button: {},
   buttonImage: {

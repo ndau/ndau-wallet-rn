@@ -52,6 +52,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#333333'
   },
   panelText: {
-    color: '#fff'
+    color: '#fff',
+    fontFamily: 'TitilliumWeb-Light'
   }
 });

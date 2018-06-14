@@ -39,9 +39,8 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSAppTransportSecurity</key>
-	<!--See http://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/ -->
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
@@ -52,5 +51,19 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>TitilliumWeb-Black.ttf</string>
+		<string>TitilliumWeb-Bold.ttf</string>
+		<string>TitilliumWeb-BoldItalic.ttf</string>
+		<string>TitilliumWeb-ExtraLight.ttf</string>
+		<string>TitilliumWeb-ExtraLightItalic.ttf</string>
+		<string>TitilliumWeb-Italic.ttf</string>
+		<string>TitilliumWeb-Light.ttf</string>
+		<string>TitilliumWeb-LightItalic.ttf</string>
+		<string>TitilliumWeb-Regular.ttf</string>
+		<string>TitilliumWeb-SemiBold.ttf</string>
+		<string>TitilliumWeb-SemiBoldItalic.ttf</string>
+	</array>
 </dict>
 </plist>
