@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, Text, ScrollView, Image } from 'react-native';
+import { StyleSheet, ScrollView, Text } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 
 export default class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -52,6 +48,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#333333'
   },
   panelText: {
-    color: '#fff'
+    color: '#fff',
+    fontFamily: 'TitilliumWeb-Light'
   }
 });

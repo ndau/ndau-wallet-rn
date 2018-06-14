@@ -40,38 +40,29 @@ class CollapsiblePanel extends Component {
         ? this.state.minHeight
         : this.state.maxHeight + this.state.minHeight;
 
-    console.log(`initialValue: ${initialValue}`);
-    console.log(`finalValue: ${finalValue}`);
-    console.log(`minHeight: ${this.state.minHeight}`);
-    console.log(`maxHeight: ${this.state.maxHeight}`);
-
     this.state.animation.setValue(initialValue);
     Animated.spring(this.state.animation, {
       toValue: finalValue
     }).start();
   }
 
-  _setMaxHeight(event) {
+  setMaxHeight = (event) => {
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
       console.log(`setting maxHeight for first time: ${event.nativeEvent.layout.height}`);
       this.setState({
         maxHeight: event.nativeEvent.layout.height
       });
     }
-  }
+  };
 
-  _setMinHeight(event) {
+  setMinHeight = (event) => {
     this.setState({
       minHeight: event.nativeEvent.layout.height
     });
-  }
+  };
 
   render() {
-    let icon = this.icons['down'];
-
-    if (this.state.expanded) {
-      icon = this.icons['up'];
-    }
+    let icon = this.state.expanded ? this.icons.up : this.icons.down;
 
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
@@ -81,14 +72,14 @@ class CollapsiblePanel extends Component {
             onPress={this.toggle.bind(this)}
             underlayColor="transparent"
           >
-            <View style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)}>
+            <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.title}>{this.state.title}</Text>
 
               <Image style={styles.buttonImage} source={icon} />
             </View>
           </TouchableHighlight>
 
-          <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
+          <View style={styles.body} onLayout={this.setMaxHeight}>
             {this.props.children}
           </View>
         </ImageBackground>
@@ -113,7 +104,7 @@ var styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: '#fff',
-    fontWeight: 'bold'
+    fontFamily: 'TitilliumWeb-Bold'
   },
   button: {},
   buttonImage: {

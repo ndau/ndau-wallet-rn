@@ -132,10 +132,6 @@ export default class CollapsiblePanelRNC extends Component {
       >
         <Animatable.Text animation={isActive ? 'bounceIn' : undefined}>
           {section.content}
-          <Image
-            source={require('../../../img/dashboard-icon.svg')}
-            style={{ width: 20, height: 20 }}
-          />
         </Animatable.Text>
       </Animatable.View>
     );
