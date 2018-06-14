@@ -39,17 +39,17 @@ class CollapsiblePanel extends Component {
     }).start();
   }
 
-  _setMaxHeight(event) {
+  setMaxHeight = (event) => {
     this.setState({
       maxHeight: event.nativeEvent.layout.height
     });
-  }
+  };
 
-  _setMinHeight(event) {
+  setMinHeight = (event) => {
     this.setState({
       minHeight: event.nativeEvent.layout.height
     });
-  }
+  };
 
   render() {
     let icon = this.icons['down'];
@@ -60,7 +60,7 @@ class CollapsiblePanel extends Component {
 
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
-        <View style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)}>
+        <View style={styles.titleContainer} onLayout={this.setMinHeight}>
           <Text style={styles.title}>{this.state.title}</Text>
           <TouchableHighlight
             style={styles.button}
@@ -71,7 +71,7 @@ class CollapsiblePanel extends Component {
           </TouchableHighlight>
         </View>
 
-        <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
+        <View style={styles.body} onLayout={this.setMaxHeight}>
           {this.props.children}
         </View>
       </Animated.View>
