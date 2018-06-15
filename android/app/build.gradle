@@ -143,7 +143,14 @@ android {
 //     compile "com.facebook.react:react-native:+"  // From node_modules
 // }
 
+// project.ext.vectoricons = [
+//     iconFontNames: [ 'Ionicons.ttf', 'FontAwesome.ttf', 'iconmoon.ttf'] // Name of the font files you want to copy
+// ]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
 dependencies {
+    compile project(':react-native-vector-icons')
      compile fileTree(dir: "libs", include: ["*.jar"])
      compile "com.android.support:appcompat-v7:23.0.1"
      compile "com.facebook.react:react-native:+"
