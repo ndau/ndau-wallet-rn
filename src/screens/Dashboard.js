@@ -3,10 +3,14 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, Text, FlatList } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import ndauApi from '../api/NdauAPI';
+import Realm from 'realm';
+import Config from 'react-native-config';
+import RealmUtils from '../model/RealmUtils';
 
 export default class Dashboard extends Component {
   state = {
-    targetPrice: 0
+    targetPrice: 0,
+    realm: null
   };
 
   componentDidMount() {
@@ -20,13 +24,44 @@ export default class Dashboard extends Component {
       .catch((error) => {
         console.error(error);
       });
+
+    this.showSetup();
+
+    const realmEncryptionKey = new Int8Array(64);
+    console.log(`key from env is ${realmEncryptionKey}`);
+
+    Realm.open({
+      schema: [ { name: 'Dog', properties: { name: 'string' } } ]
+      // encryptionKey: realmEncryptionKey
+    }).then((realm) => {
+      realm.write(() => {
+        realm.create('Dog', { name: 'Rex' });
+      });
+      this.setState({ realm });
+    });
   }
 
+  showSetup = () => {
+    this.props.navigator.push({
+      screen: 'ndau.SetupMain',
+      title: 'Setup'
+    });
+  };
+
   render() {
+    const info = this.state.realm
+      ? 'Number of dogs in this Realm: ' + this.state.realm.objects('Dog').length
+      : 'Loading...';
+
+    const randomKey = Config.REALM_ENCRYPTION_KEY;
+    console.log(`randomKey is ${randomKey}`);
+
     return (
       <ScrollView style={styles.container}>
         <CollapsiblePanel title="Panel with some dynamic stuff">
           <Text style={styles.panelText}>Target Price: {this.state.targetPrice}</Text>
+          <Text style={styles.panelText}>{info}</Text>
+          <Text style={styles.panelText}>{randomKey}</Text>
         </CollapsiblePanel>
         <CollapsiblePanel title="A Panel with long content text">
           <Text style={styles.panelText}>

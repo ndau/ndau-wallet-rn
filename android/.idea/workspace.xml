@@ -39,10 +39,10 @@
             <state relative-caret-position="90">
               <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
               <folding>
-                <element signature="e#373#374#0" expanded="true" />
-                <element signature="e#413#414#0" expanded="true" />
-                <element signature="e#679#680#0" expanded="true" />
-                <element signature="e#709#710#0" expanded="true" />
+                <element signature="e#761#762#0" expanded="true" />
+                <element signature="e#791#792#0" expanded="true" />
+                <marker date="1529436639453" expanded="true" signature="665:691" ph="{...}" />
+                <marker date="1529436639453" expanded="true" signature="697:720" ph="@{...}" />
               </folding>
             </state>
           </provider>
@@ -72,7 +72,7 @@
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2355">
-              <caret line="157" column="2" lean-forward="false" selection-start-line="157" selection-start-column="2" selection-end-line="157" selection-end-column="2" />
+              <caret line="161" column="2" lean-forward="false" selection-start-line="161" selection-start-column="2" selection-end-line="161" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -4090,8 +4090,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3790" />
-    <option name="y" value="-923" />
+    <option name="x" value="3381" />
+    <option name="y" value="-941" />
     <option name="width" value="1400" />
     <option name="height" value="988" />
   </component>
@@ -4298,7 +4298,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3790" y="-923" width="1400" height="988" extended-state="0" />
+    <frame x="3381" y="-941" width="1400" height="988" extended-state="0" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -4352,10 +4352,10 @@
         <state relative-caret-position="90">
           <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
           <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <marker date="1529436639453" expanded="true" signature="665:691" ph="{...}" />
+            <marker date="1529436639453" expanded="true" signature="697:720" ph="@{...}" />
           </folding>
         </state>
       </provider>
@@ -4421,10 +4421,10 @@
         <state relative-caret-position="90">
           <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
           <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <marker date="1529436639453" expanded="true" signature="665:691" ph="{...}" />
+            <marker date="1529436639453" expanded="true" signature="697:720" ph="@{...}" />
           </folding>
         </state>
       </provider>
@@ -4442,10 +4442,10 @@
         <state relative-caret-position="405">
           <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
           <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <marker date="1529436639453" expanded="true" signature="665:691" ph="{...}" />
+            <marker date="1529436639453" expanded="true" signature="697:720" ph="@{...}" />
           </folding>
         </state>
       </provider>
@@ -4463,10 +4463,10 @@
         <state relative-caret-position="270">
           <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
           <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <marker date="1529436639453" expanded="true" signature="665:691" ph="{...}" />
+            <marker date="1529436639453" expanded="true" signature="697:720" ph="@{...}" />
           </folding>
         </state>
       </provider>
@@ -4492,10 +4492,10 @@
         <state relative-caret-position="360">
           <caret line="24" column="13" lean-forward="true" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <marker date="1529436639453" expanded="true" signature="665:691" ph="{...}" />
+            <marker date="1529436639453" expanded="true" signature="697:720" ph="@{...}" />
           </folding>
         </state>
       </provider>
@@ -4511,7 +4511,7 @@
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2355">
-          <caret line="157" column="2" lean-forward="false" selection-start-line="157" selection-start-column="2" selection-end-line="157" selection-end-column="2" />
+          <caret line="161" column="2" lean-forward="false" selection-start-line="161" selection-start-column="2" selection-end-line="161" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -4529,10 +4529,10 @@
         <state relative-caret-position="90">
           <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
           <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <marker date="1529436639453" expanded="true" signature="665:691" ph="{...}" />
+            <marker date="1529436639453" expanded="true" signature="697:720" ph="@{...}" />
           </folding>
         </state>
       </provider>
