@@ -20,7 +20,6 @@ class CollapsiblePanel extends Component {
     };
 
     this.state = {
-      title: props.title,
       expanded: true,
       animation: new Animated.Value(),
       maxHeight: 0,
@@ -73,7 +72,7 @@ class CollapsiblePanel extends Component {
             underlayColor="transparent"
           >
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
-              <Text style={styles.title}>{this.state.title}</Text>
+              <Text style={styles.title}>{this.props.title}</Text>
 
               <Image style={styles.buttonImage} source={icon} />
             </View>
