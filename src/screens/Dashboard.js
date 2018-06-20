@@ -42,7 +42,9 @@ export default class Dashboard extends Component {
     }
     this.props.navigator.push({
       screen: screen,
-      title: 'Setup'
+      title: 'Setup',
+      backButtonHidden: true,
+      passProps: { props: this.props }
     });
   };
 
@@ -104,7 +106,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#333333'
   },
   panelText: {
-    color: '#fff',
+    color: '#ffffff',
     fontFamily: 'TitilliumWeb-Light'
   }
 });
