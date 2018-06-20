@@ -3,15 +3,25 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, Text, FlatList } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import ndauApi from '../api/NdauAPI';
-import Realm from 'realm';
-import Config from 'react-native-config';
-import RealmUtils from '../model/RealmUtils';
+import RealmSchema from '../model/RealmSchema';
 
 export default class Dashboard extends Component {
-  state = {
-    targetPrice: 0,
-    realm: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      targetPrice: 0,
+      realm: null
+    };
+
+    RealmSchema.openRealm()
+      .then((realm) => {
+        this.setState({ realm: realm });
+        this.showSetupIfNeeded(realm);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   componentDidMount() {
     ndauApi
@@ -24,44 +34,39 @@ export default class Dashboard extends Component {
       .catch((error) => {
         console.error(error);
       });
-
-    this.showSetup();
-
-    const realmEncryptionKey = new Int8Array(64);
-    console.log(`key from env is ${realmEncryptionKey}`);
-
-    Realm.open({
-      schema: [ { name: 'Dog', properties: { name: 'string' } } ]
-      // encryptionKey: realmEncryptionKey
-    }).then((realm) => {
-      realm.write(() => {
-        realm.create('Dog', { name: 'Rex' });
-      });
-      this.setState({ realm });
-    });
   }
 
-  showSetup = () => {
+  showSetup = (screen) => {
+    if (!screen) {
+      screen = 'ndau.SetupMain';
+    }
     this.props.navigator.push({
-      screen: 'ndau.SetupMain',
+      screen: screen,
       title: 'Setup'
     });
   };
 
+  showSetupIfNeeded = (realm) => {
+    if (!realm) return;
+
+    let users = realm.objects('User');
+    console.log(`users is ${JSON.stringify(users, null, 2)}`);
+    if (users <= 0 || !users.setupStep) {
+      console.log(`showing screen ${users.setupStep}`);
+      this.showSetup(users.setupStep);
+    }
+  };
+
   render() {
     const info = this.state.realm
-      ? 'Number of dogs in this Realm: ' + this.state.realm.objects('Dog').length
+      ? 'Number of users in this Realm: ' + this.state.realm.objects('User').length
       : 'Loading...';
-
-    const randomKey = Config.REALM_ENCRYPTION_KEY;
-    console.log(`randomKey is ${randomKey}`);
 
     return (
       <ScrollView style={styles.container}>
         <CollapsiblePanel title="Panel with some dynamic stuff">
           <Text style={styles.panelText}>Target Price: {this.state.targetPrice}</Text>
           <Text style={styles.panelText}>{info}</Text>
-          <Text style={styles.panelText}>{randomKey}</Text>
         </CollapsiblePanel>
         <CollapsiblePanel title="A Panel with long content text">
           <Text style={styles.panelText}>

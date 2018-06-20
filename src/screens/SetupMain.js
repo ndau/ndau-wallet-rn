@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Button, Alert } from 'react-native';
 
-class Push extends Component {
+class SetupMain extends Component {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -44,15 +44,21 @@ class Push extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Pushed Screen</Text>
+        <Text style={styles.text}>
+          Welcome to ndau, a cryptocurrency designed to a long term store of value.{'\t'}
+        </Text>
+        <Text style={styles.text}>
+          Currently, ndau is only available to accredited investors. You will need to have made your
+          purchase through our site and have you six-digit ID code ready in order to access this app
+          before launch.{'\t'}
+        </Text>
+        <Text style={styles.text}>
+          To get you started securely, you will create a new wallet, protect this app with password,
+          and create a twelve-word phrase which you will need in order to restore your wallet if you
+          lose access to it.{'\t'}
+        </Text>
         <View style={styles.button}>
           <Button onPress={this.onPushAnother} title="Push Another Screen" />
-        </View>
-        <View style={styles.button}>
-          <Button onPress={this.onResetTo} title="Reset Stack" />
-        </View>
-        <View style={styles.button}>
-          <Button onPress={this.onPopToRoot} title="Pop To Root" />
         </View>
       </View>
     );
@@ -63,12 +69,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ffffff'
+    // justifyContent: 'left',
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingRight: 3,
+    paddingBottom: 10,
+    backgroundColor: '#333333'
   },
   button: {
-    marginTop: 16
+    marginTop: 0
+  },
+  text: {
+    color: '#4d9678',
+    fontSize: 24,
+    fontFamily: 'TitilliumWeb-Regular'
   }
 });
 
-export default Push;
+export default SetupMain;
