@@ -23,4 +23,5 @@ yarn-error.log*
 
 /ios/build/**
 android/app/build/**
+
 android/.idea/**

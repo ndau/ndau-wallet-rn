@@ -17,10 +17,7 @@ class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
-      confirmPassword: '',
-      showPasswords: false,
-      progress: false
+      password: ''
     };
   }
 
@@ -30,14 +27,6 @@ class SetupGetRandom extends Component {
       screen: 'ndau.SetupYourWallet',
       passProps: { props: this.props }
     });
-  };
-
-  checkedShowPasswords = () => {
-    this.setState({ showPasswords: !this.state.showPasswords });
-  };
-
-  checkedProgress = () => {
-    this.setState({ progress: !this.state.progress });
   };
 
   render() {
@@ -52,16 +41,12 @@ class SetupGetRandom extends Component {
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
-                  progress={0.125}
+                  progress={0.375}
                   style={styles.progress}
+                  indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS
-                  trackTintColor="#4d9678"
-                  progressTintColor="#dea85a"
-                  progress={0.125}
-                  style={styles.progress}
-                />
+                <ProgressViewIOS progress={0.375} style={styles.progress} />
               )}
             </View>
             <View>
@@ -74,37 +59,13 @@ class SetupGetRandom extends Component {
               style={styles.textInput}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
-              placeholder="Enter a password"
+              placeholder="Scribble area"
               placeholderTextColor="#f9f1f1"
               secureTextEntry={!this.state.showPasswords}
             />
-            <View>
-              <CheckBox
-                style={styles.checkbox}
-                onClick={() => this.checkedShowPasswords()}
-                isChecked={this.state.showPasswords}
-                rightText="Show passwords"
-                rightTextStyle={styles.text}
-              />
-            </View>
-            <View>
-              <CheckBox
-                style={styles.checkbox}
-                onClick={() => this.checkedProgress()}
-                isChecked={this.state.progress}
-                rightText="I understand that ndau cannot help me recover my passphrase.
-              To increase security, ndau does not store or have access to my passphrase"
-                rightTextStyle={styles.text}
-              />
-            </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              color="#4d9678"
-              onPress={this.onPushAnother}
-              title="Done"
-              disabled={!this.state.progress}
-            />
+            <Button color="#4d9678" onPress={this.onPushAnother} title="Done" />
           </View>
         </View>
       </SafeAreaView>
@@ -141,20 +102,20 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 10
+    paddingTop: 30,
+    paddingBottom: 30
   },
   textInput: {
-    height: 40,
+    height: 200,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     marginTop: 10,
     paddingLeft: 10,
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular'
-  },
-  checkbox: { flex: 1, padding: 10 }
+  }
 });
 
 export default SetupGetRandom;

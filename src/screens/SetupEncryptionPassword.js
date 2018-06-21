@@ -56,16 +56,12 @@ class SetupEncryptionPassword extends Component {
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
-                  progress={0.125}
+                  progress={0.25}
                   style={styles.progress}
+                  indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS
-                  trackTintColor="#4d9678"
-                  progressTintColor="#dea85a"
-                  progress={0.125}
-                  style={styles.progress}
-                />
+                <ProgressViewIOS progress={0.25} style={styles.progress} />
               )}
             </View>
             <View>
@@ -96,7 +92,11 @@ class SetupEncryptionPassword extends Component {
                 onClick={() => this.checkedShowPasswords()}
                 isChecked={this.state.showPasswords}
                 rightText="Show passwords"
-                rightTextStyle={styles.text}
+                rightTextStyle={{
+                  color: '#ffffff',
+                  fontSize: 20,
+                  fontFamily: 'TitilliumWeb-Regular'
+                }}
               />
             </View>
             <View>
@@ -106,7 +106,11 @@ class SetupEncryptionPassword extends Component {
                 isChecked={this.state.progress}
                 rightText="I understand that ndau cannot help me recover my passphrase.
               To increase security, ndau does not store or have access to my passphrase"
-                rightTextStyle={styles.text}
+                rightTextStyle={{
+                  color: '#ffffff',
+                  fontSize: 20,
+                  fontFamily: 'TitilliumWeb-Regular'
+                }}
               />
             </View>
           </ScrollView>
@@ -153,17 +157,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 10
+    paddingTop: 30,
+    paddingBottom: 30
   },
   textInput: {
-    height: 40,
+    height: 45,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     marginTop: 10,
     paddingLeft: 10,
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular'
   },
   checkbox: { flex: 1, padding: 10 }

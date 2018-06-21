@@ -8,7 +8,6 @@ import {
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
-  TextInput,
   SafeAreaView
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
@@ -47,16 +46,12 @@ class SetupYourWallet extends Component {
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
-                  progress={0.125}
+                  progress={0.5}
                   style={styles.progress}
+                  indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS
-                  trackTintColor="#4d9678"
-                  progressTintColor="#dea85a"
-                  progress={0.125}
-                  style={styles.progress}
-                />
+                <ProgressViewIOS progress={0.5} style={styles.progress} />
               )}
             </View>
             <View>
@@ -109,20 +104,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 10
-  },
-  textInput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  checkbox: { flex: 1, padding: 10 }
+    paddingTop: 30,
+    paddingBottom: 30
+  }
 });
 
 export default SetupYourWallet;

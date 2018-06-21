@@ -50,14 +50,10 @@ class SetupUserId extends Component {
                   styleAttr="Horizontal"
                   progress={0.125}
                   style={styles.progress}
+                  indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS
-                  trackTintColor="#4d9678"
-                  progressTintColor="#dea85a"
-                  progress={0.125}
-                  style={styles.progress}
-                />
+                <ProgressViewIOS progress={0.125} style={styles.progress} />
               )}
             </View>
             <View>
@@ -112,18 +108,17 @@ const styles = StyleSheet.create({
   },
   progress: {
     paddingTop: 30,
-    paddingBottom: 30,
-    paddingRight: 50
+    paddingBottom: 30
   },
   textInput: {
-    height: 40,
+    height: 45,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     marginTop: 10,
     paddingLeft: 10,
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular'
   }
 });
