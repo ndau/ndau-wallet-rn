@@ -4907,6 +4907,13 @@ prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
+prop-types@^15.5.7:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -4974,6 +4981,12 @@ react-devtools-core@3.1.0:
 react-is@^16.3.1:
   version "16.4.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.0.tgz#cc9fdc855ac34d2e7d9d2eb7059bbc240d35ffcf"
+
+react-native-check-box@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-check-box/-/react-native-check-box-2.1.0.tgz#a4e5fa2c1860cfc3f5758ae3493b6ec2ec7c2878"
+  dependencies:
+    prop-types "^15.5.7"
 
 react-native-navigation@^1.1.469:
   version "1.1.469"
