@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 
-class SetupUserToken extends Component {
+class SetupConfirmTwelveWordPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +46,7 @@ class SetupUserToken extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Get random</Text>
+              <Text style={styles.text}>Config twelve-word phrase</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -66,8 +66,7 @@ class SetupUserToken extends Component {
             </View>
             <View>
               <Text style={styles.text}>
-                Data in this app will be encrypted to protect your ndau. You will need to enter a
-                password to decrypt it whenever you are in this app.
+                Demonstrate that you wrote the phrase down by tapping them in order.
               </Text>
             </View>
             <TextInput
@@ -165,4 +164,4 @@ const styles = StyleSheet.create({
   checkbox: { flex: 1, padding: 10 }
 });
 
-export default SetupUserToken;
+export default SetupConfirmTwelveWordPhrase;

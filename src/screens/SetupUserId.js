@@ -12,7 +12,7 @@ import {
   SafeAreaView
 } from 'react-native';
 
-class SetupUserToken extends Component {
+class SetupUserId extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -128,4 +128,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupUserToken;
+export default SetupUserId;

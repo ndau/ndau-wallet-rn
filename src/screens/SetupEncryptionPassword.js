@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 
-class SetupUserToken extends Component {
+class SetupEncryptionPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -169,4 +169,4 @@ const styles = StyleSheet.create({
   checkbox: { flex: 1, padding: 10 }
 });
 
-export default SetupUserToken;
+export default SetupEncryptionPassword;

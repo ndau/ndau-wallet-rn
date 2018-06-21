@@ -46,7 +46,7 @@ class SetupTermsOfService extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Get random</Text>
+              <Text style={styles.text}>Terms of Service</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
-
     backgroundColor: '#333333'
   },
   button: {
