@@ -36,7 +36,7 @@ function startApp() {
     tabsStyle: {
       tabBarBackgroundColor: '#333333',
       tabBarButtonColor: '#ffffff',
-      tabBarSelectedButtonColor: '#ff505c',
+      tabBarSelectedButtonColor: '#4d9678',
       tabFontFamily: 'TitilliumWeb-Regular'
     },
     appStyle: {
@@ -44,7 +44,7 @@ function startApp() {
       navBarButtonColor: '#ffffff',
       tabBarButtonColor: '#ffffff',
       navBarTextColor: '#ffffff',
-      tabBarSelectedButtonColor: '#ff505c',
+      tabBarSelectedButtonColor: '#4d9678',
       navigationBarColor: '#333333',
       navBarBackgroundColor: '#333333',
       statusBarColor: '#333333',

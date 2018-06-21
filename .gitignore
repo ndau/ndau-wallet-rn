@@ -3,6 +3,9 @@
 # expo
 .expo/
 
+#environment variables
+.env
+
 # dependencies
 /node_modules
 
@@ -20,3 +23,5 @@ yarn-error.log*
 
 /ios/build/**
 android/app/build/**
+
+android/.idea/**
