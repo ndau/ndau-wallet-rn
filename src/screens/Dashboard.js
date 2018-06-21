@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import { StyleSheet, ScrollView, Text, FlatList } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
+import ndauApi from '../api/NdauAPI';
 
 export default class Dashboard extends Component {
+  state = {
+    targetPrice: 0
+  };
+
+  componentDidMount() {
+    ndauApi
+      .getTargetPrice()
+      .then((targetPrice) => {
+        this.setState({
+          targetPrice: targetPrice
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
     return (
       <ScrollView style={styles.container}>
-        <CollapsiblePanel title="A Panel with short content text">
-          <Text style={styles.panelText}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Text>
+        <CollapsiblePanel title="Panel with some dynamic stuff">
+          <Text style={styles.panelText}>Target Price: {this.state.targetPrice}</Text>
         </CollapsiblePanel>
         <CollapsiblePanel title="A Panel with long content text">
           <Text style={styles.panelText}>
