@@ -9,7 +9,10 @@ import {
   Platform,
   ProgressBarAndroid,
   TextInput,
-  SafeAreaView
+  SafeAreaView,
+  Alert,
+  TouchableHighlight,
+  Image
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 
@@ -20,7 +23,8 @@ class SetupEncryptionPassword extends Component {
       password: '',
       confirmPassword: '',
       showPasswords: false,
-      progress: false
+      progress: false,
+      textInputColor: '#ffffff'
     };
   }
 
@@ -28,7 +32,26 @@ class SetupEncryptionPassword extends Component {
     this.onPushAnother(event);
   }
 
+  checkPasswords = () => {
+    return this.state.password === this.state.confirmPassword;
+  };
+
+  persistPassword = () => {};
+
   onPushAnother = () => {
+    if (this.checkPasswords()) {
+      this.setState({ textInputColor: '#ffffff' });
+    } else {
+      Alert.alert(
+        'Error',
+        'The passwords entered do not match.',
+        [ { text: 'OK', onPress: () => console.log('OK Pressed') } ],
+        { cancelable: false }
+      );
+      this.setState({ textInputColor: '#ff0000' });
+      return;
+    }
+
     this.props.navigator.push({
       label: 'SetupGetRandom',
       screen: 'ndau.SetupGetRandom',
@@ -44,7 +67,20 @@ class SetupEncryptionPassword extends Component {
     this.setState({ progress: !this.state.progress });
   };
 
+  showInformation = () => {
+    Alert.alert(
+      'Information',
+      'We use encryption to protect your data. This password protects ' +
+        'this app on your mobile only. This is not the same thing as your ' +
+        'twelve-word phrase, which codes for the key to your wallet. We ' +
+        'recommend you use a strong password which you do not use anywhere else.',
+      [ { text: 'OK', onPress: () => console.log('OK Pressed') } ],
+      { cancelable: false }
+    );
+  };
+
   render() {
+    const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
@@ -69,9 +105,24 @@ class SetupEncryptionPassword extends Component {
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
                 password to decrypt it whenever you are in this app.
               </Text>
+              <View>
+                <TouchableHighlight onPress={this.showInformation}>
+                  <Image style={styles.infoIcon} source={require('../../img/info.png')} />
+                </TouchableHighlight>
+              </View>
             </View>
             <TextInput
-              style={styles.textInput}
+              style={{
+                height: 45,
+                borderColor: 'gray',
+                borderWidth: 1,
+                marginBottom: 10,
+                marginTop: 10,
+                paddingLeft: 10,
+                color: textInputColor,
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
               placeholder="Enter a password"
@@ -79,7 +130,17 @@ class SetupEncryptionPassword extends Component {
               secureTextEntry={!this.state.showPasswords}
             />
             <TextInput
-              style={styles.textInput}
+              style={{
+                height: 45,
+                borderColor: 'gray',
+                borderWidth: 1,
+                marginBottom: 10,
+                marginTop: 10,
+                paddingLeft: 10,
+                color: textInputColor,
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
               onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
               value={this.state.confirmPassword}
               placeholder="Confirm your password"
@@ -160,18 +221,14 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 30
   },
-  textInput: {
-    height: 45,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
+  checkbox: { flex: 1, padding: 10 },
+  infoParagraph: {
+    flexDirection: 'row'
   },
-  checkbox: { flex: 1, padding: 10 }
+  infoIcon: {
+    // marginLeft: 8,
+    // marginBottom: 3
+  }
 });
 
 export default SetupEncryptionPassword;
