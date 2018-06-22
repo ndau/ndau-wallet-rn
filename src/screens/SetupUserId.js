@@ -27,8 +27,7 @@ class SetupUserId extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupEncryptionPassword',
-      screen: 'ndau.SetupEncryptionPassword',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupEncryptionPassword'
     });
   };
 
@@ -107,8 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 30,
-    paddingBottom: 30
+    paddingTop: 15,
+    paddingBottom: 15
   },
   textInput: {
     height: 45,

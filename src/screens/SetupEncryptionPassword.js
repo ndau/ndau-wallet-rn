@@ -15,6 +15,7 @@ import {
   Image
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
+import User from '../model/User';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -41,6 +42,9 @@ class SetupEncryptionPassword extends Component {
   onPushAnother = () => {
     if (this.checkPasswords()) {
       this.setState({ textInputColor: '#ffffff' });
+      const user = new User();
+      user.password = this.state.password;
+      console.log(`user object is: ${user.toJSON()}`);
     } else {
       Alert.alert(
         'Error',
@@ -54,8 +58,7 @@ class SetupEncryptionPassword extends Component {
 
     this.props.navigator.push({
       label: 'SetupGetRandom',
-      screen: 'ndau.SetupGetRandom',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupGetRandom'
     });
   };
 
@@ -218,8 +221,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 30,
-    paddingBottom: 30
+    paddingTop: 15,
+    paddingBottom: 15
   },
   checkbox: { flex: 1, padding: 10 },
   infoParagraph: {

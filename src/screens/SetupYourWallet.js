@@ -21,8 +21,7 @@ class SetupYourWallet extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupTwelveWordPhrase',
-      screen: 'ndau.SetupTwelveWordPhrase',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupTwelveWordPhrase'
     });
   };
 
@@ -104,8 +103,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 30,
-    paddingBottom: 30
+    paddingTop: 15,
+    paddingBottom: 15
   }
 });
 

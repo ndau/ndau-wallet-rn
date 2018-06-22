@@ -9,8 +9,7 @@ class SetupMain extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupUserId',
-      screen: 'ndau.SetupUserId',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupUserId'
     });
   };
 

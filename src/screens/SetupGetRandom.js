@@ -24,8 +24,7 @@ class SetupGetRandom extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupYourWallet',
-      screen: 'ndau.SetupYourWallet',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupYourWallet'
     });
   };
 
