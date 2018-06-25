@@ -25,14 +25,6 @@ class SetupYourWallet extends Component {
     });
   };
 
-  checkedShowPasswords = () => {
-    this.setState({ showPasswords: !this.state.showPasswords });
-  };
-
-  checkedProgress = () => {
-    this.setState({ progress: !this.state.progress });
-  };
-
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>

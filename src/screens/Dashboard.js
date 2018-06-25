@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, Text, SafeAreaView } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import ndauApi from '../api/NdauAPI';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+// import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       targetPrice: 0,
-      user: AsyncStorageHelper.getUser(this.showSetupIfNeeded)
+      user: {}
     };
   }
 
@@ -25,29 +25,28 @@ export default class Dashboard extends Component {
       .catch((error) => {
         console.error(error);
       });
+
+    this.showSetupIfNeeded();
   }
 
-  showSetup = (user) => {
-    console.log(`showing screen ${user.setupStep}`);
-
-    if (!user.setupStep) {
-      user.setupStep = 'ndau.SetupMain';
-      AsyncStorageHelper.setUser(user);
-    }
-
+  showSetupIfNeeded = async (user) => {
+    // const user = await AsyncStorageHelper.isUserPresent();
+    //TODO: since we do not ask for the password we cannot successfully
+    //TODO: decrypt the user yet. Therefore we go through setup upon
+    //TODO: every launch until that functionality is in
+    // if (!user) {
     this.props.navigator.push({
-      screen: user.setupStep,
+      screen: 'ndau.SetupMain',
       title: 'Setup',
       backButtonHidden: true
     });
-  };
-
-  showSetupIfNeeded = (error, user) => {
-    const userObject = JSON.parse(user);
-    console.log(`user is ${JSON.stringify(userObject, null, 2)}`);
-    if (userObject) {
-      this.showSetup(userObject);
-    }
+    // } else if (user.setupStep) {
+    //   this.props.navigator.push({
+    //     screen: user.setupStep,
+    //     title: 'Setup',
+    //     backButtonHidden: true
+    //   });
+    // }
   };
 
   render() {

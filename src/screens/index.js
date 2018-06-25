@@ -13,6 +13,7 @@ import SetupEAINode from './SetupEAINode';
 
 export function registerScreens() {
   Navigation.registerComponent('ndau.Dashboard', () => Dashboard);
+
   Navigation.registerComponent('ndau.SetupMain', () => SetupMain);
   Navigation.registerComponent('ndau.SetupUserId', () => SetupUserId);
   Navigation.registerComponent('ndau.SetupEncryptionPassword', () => SetupEncryptionPassword);

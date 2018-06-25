@@ -20,15 +20,6 @@ function startApp() {
     }
   ];
 
-  // if (Platform.OS === 'android') {
-  //   tabs.push({
-  //     label: 'Transitions',
-  //     screen: 'example.Transitions',
-  //     icon: require('../img/transform.png'),
-  //     title: 'Navigation Transitions'
-  //   });
-  // }
-
   // this will start our app
   Navigation.startTabBasedApp({
     tabs,

@@ -15,7 +15,7 @@ import {
   Image
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
-import User from '../model/User';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -37,14 +37,13 @@ class SetupEncryptionPassword extends Component {
     return this.state.password === this.state.confirmPassword;
   };
 
-  persistPassword = () => {};
-
-  onPushAnother = () => {
+  onPushAnother = async () => {
     if (this.checkPasswords()) {
       this.setState({ textInputColor: '#ffffff' });
-      const user = new User();
-      user.password = this.state.password;
-      console.log(`user object is: ${user.toJSON()}`);
+      const user = await AsyncStorageHelper.getUser(this.state.password);
+      // user.password = this.state.password;
+      user.setupStep = 'ndau.SetupGetRandom';
+      await AsyncStorageHelper.setUser(user, this.state.password);
     } else {
       Alert.alert(
         'Error',
@@ -58,7 +57,8 @@ class SetupEncryptionPassword extends Component {
 
     this.props.navigator.push({
       label: 'SetupGetRandom',
-      screen: 'ndau.SetupGetRandom'
+      screen: 'ndau.SetupGetRandom',
+      passProps: { encryptionPassword: this.state.password, userId: this.props.userId }
     });
   };
 

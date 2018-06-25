@@ -13,17 +13,6 @@ class SetupMain extends Component {
     });
   };
 
-  onResetTo = () => {
-    this.props.navigator.resetTo({
-      label: 'Dashboard',
-      screen: 'ndau.Dashboard'
-    });
-  };
-
-  onPopToRoot = () => {
-    this.props.navigator.popToRoot();
-  };
-
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>

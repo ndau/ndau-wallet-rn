@@ -1,26 +1,54 @@
-import User from './User';
 import { AsyncStorage } from 'react-native';
+import CryptoJS from 'crypto-js';
 
-const getUser = async (callback) => {
+const STORAGE_KEY = '@NdauAsyncStorage:user';
+
+const getUser = async (encryptionPassword) => {
+  if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');
+
   try {
-    const user = await AsyncStorage.getItem('@NdauAsyncStorage:user', callback);
+    const user = await AsyncStorage.getItem(STORAGE_KEY);
+
     if (user !== null) {
-      console.log(`user from AsyncStorage is: ${user}`);
-      return user;
+      console.log(`getUser - encrypted user is: ${user}`);
+      const userDecryptedBytes = CryptoJS.AES.decrypt(user, encryptionPassword);
+      const userDecryptedString = userDecryptedBytes.toString(CryptoJS.enc.Utf8);
+      console.log(`getUser - decrypted user is: ${userDecryptedString}`);
+
+      return JSON.parse(userDecryptedString);
     } else {
-      const user = new User();
-      setUser(user);
-      console.log(`Created a new user: ${user}`);
+      const user = {};
+      await setUser(user, encryptionPassword);
+      return user;
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-const setUser = async (user) => {
+const setUser = async (user, encryptionPassword) => {
+  if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');
+
   try {
-    await AsyncStorage.setItem('@NdauAsyncStorage:user', JSON.stringify(user));
-    console.log(`Successfully set user to: ${JSON.stringify(user, null, 2)}`);
+    const userString = JSON.stringify(user);
+    console.log(`setUser - user to encrypt to ${STORAGE_KEY}: ${userString}`);
+    const userStringEncrypted = CryptoJS.AES.encrypt(userString, encryptionPassword);
+    console.log(`setUser - encrypted user is: ${userStringEncrypted}`);
+
+    await AsyncStorage.setItem(STORAGE_KEY, userStringEncrypted.toString());
+
+    const checkPersist = await getUser(encryptionPassword);
+    console.log(`Successfully set user to: ${JSON.stringify(checkPersist, null, 2)}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const isUserPresent = async () => {
+  try {
+    let user = await AsyncStorage.getItem(STORAGE_KEY);
+
+    return user ? user.setupStep : user;
   } catch (error) {
     console.error(error);
   }
@@ -28,5 +56,6 @@ const setUser = async (user) => {
 
 module.exports = {
   getUser,
-  setUser
+  setUser,
+  isUserPresent
 };

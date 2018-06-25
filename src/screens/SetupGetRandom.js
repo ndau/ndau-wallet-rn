@@ -11,20 +11,22 @@ import {
   TextInput,
   SafeAreaView
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      password: ''
-    };
+    this.state = {};
   }
 
-  onPushAnother = () => {
+  onPushAnother = async () => {
+    console.log(``);
+    const user = await AsyncStorageHelper.getUser(this.props.encryptionPassword);
+
     this.props.navigator.push({
       label: 'SetupYourWallet',
-      screen: 'ndau.SetupYourWallet'
+      screen: 'ndau.SetupYourWallet',
+      passProps: { encryptionPassword: this.props.password, userId: this.props.userId }
     });
   };
 
