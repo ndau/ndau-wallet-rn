@@ -16,16 +16,17 @@ class SetupTwelveWordPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      twelveWordPhrase: ''
+      twelveWordPhrase: []
     };
   }
 
   componentDidMount = () => {
     // defaults to BIP39 English word list
     // uses HEX strings for entropy
-    const mnemonic = bip39.entropyToMnemonic('133755ff');
-    this.setState({ twelveWordPhrase: mnemonic });
-    console.log(`here is the mnemonic: ${mnemonic}`);
+    const mnemonic = bip39.entropyToMnemonic('133755ff123456789111222333444555');
+
+    this.setState({ twelveWordPhrase: mnemonic.split(' ') });
+    console.log(`here is the mnemonic: ${mnemonic.split(' ')}`);
   };
 
   onPushAnother = () => {
@@ -37,6 +38,11 @@ class SetupTwelveWordPhrase extends Component {
   };
 
   render() {
+    const firstThree = this.state.twelveWordPhrase.slice(0, 3);
+    const secondThree = this.state.twelveWordPhrase.slice(3, 6);
+    const thirdThree = this.state.twelveWordPhrase.slice(6, 9);
+    const fourthThree = this.state.twelveWordPhrase.slice(9, 12);
+    let count = 1;
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
@@ -61,10 +67,49 @@ class SetupTwelveWordPhrase extends Component {
                 Write this phrase down. You will want to store it in a secure location.
               </Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <View style={{ width: 50, height: 50, backgroundColor: 'powderblue' }} />
-              <View style={{ width: 50, height: 50, backgroundColor: 'skyblue' }} />
-              <View style={{ width: 50, height: 50, backgroundColor: 'steelblue' }} />
+            <View style={styles.rowView}>
+              {firstThree.map((item, index) => {
+                return (
+                  <View key={index} style={styles.rowTextView}>
+                    <Text style={styles.text}>
+                      {count++}. {item}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+            <View style={styles.rowView}>
+              {secondThree.map((item, index) => {
+                return (
+                  <View key={index} style={styles.rowTextView}>
+                    <Text style={styles.text}>
+                      {count++}. {item}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+            <View style={styles.rowView}>
+              {thirdThree.map((item, index) => {
+                return (
+                  <View key={index} style={styles.rowTextView}>
+                    <Text style={styles.text}>
+                      {count++}. {item}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+            <View style={styles.rowView}>
+              {fourthThree.map((item, index) => {
+                return (
+                  <View key={index} style={styles.rowTextView}>
+                    <Text style={styles.text}>
+                      {count++}. {item}
+                    </Text>
+                  </View>
+                );
+              })}
             </View>
           </ScrollView>
           <View style={styles.footer}>
@@ -107,6 +152,17 @@ const styles = StyleSheet.create({
   progress: {
     paddingTop: 30,
     paddingBottom: 30
+  },
+  rowView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  rowTextView: {
+    height: 60,
+    width: 100,
+    marginBottom: 10,
+    marginTop: 10
   }
 });
 
