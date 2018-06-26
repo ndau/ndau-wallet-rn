@@ -29,11 +29,25 @@ The best place to start is the [Getting Started](https://facebook.github.io/reac
 
 ## Mandatory Scripts
 
-You must run the following script before you can begin. This combs the node_modules and makes sure all package.json's are correct in where they are pointing to for native node libraries:
+You must run the following scripts before you can begin using this application.
 
-- `./node_modules/.bin/rn-nodeify --hack --install`
+First we npm/yarn install:
 
-Once this completes you must
+`npm install`
+`yarn install` (just incase you use yarn)
+
+This next one combs the node_modules and makes sure all package.json's are correct in where they are pointing to for native node libraries:
+
+`./node_modules/.bin/rn-nodeify --hack --install`
+
+Once this completes you must also make sure to run this command. This one sets up iOS and Android projects pointing to all the correct node_module libraries we use:
+
+`react-native link`
+
+After the above is run you MUST now run the following commands:
+
+`npm install`
+`yarn install` (just incase you use yarn)
 
 ## Available Scripts
 
