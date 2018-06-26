@@ -21,7 +21,8 @@ class SetupYourWallet extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupTwelveWordPhrase',
-      screen: 'ndau.SetupTwelveWordPhrase'
+      screen: 'ndau.SetupTwelveWordPhrase',
+      passProps: { encryptionPassword: this.props.password, userId: this.props.userId }
     });
   };
 

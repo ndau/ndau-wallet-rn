@@ -51,6 +51,7 @@
 		816735AD47EE4E2C9AF92CFB /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A280014E72D4A48BE9D24C9 /* TitilliumWeb-Light.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9DF70CFD4E954C63A0AB5B60 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44D9AABC008F45C1BEDD4733 /* EvilIcons.ttf */; };
+		9E4928ED20E28BB6000EDBE0 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7CEE6020D9916100191F05 /* libRNRandomBytes.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B75396F442BE4D45AAF6090F /* TitilliumWeb-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B0FDA95FD9B425C9AA87799 /* TitilliumWeb-BoldItalic.ttf */; };
 		C6B36E839AA2414887D3D182 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D0349B8CEF746BF97EC1D39 /* libRNVectorIcons.a */; };
@@ -476,6 +477,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				9E4928ED20E28BB6000EDBE0 /* libRNRandomBytes.a in Frameworks */,
 				47E2B4891B954B06A0DC5BFA /* libReactNativeNavigation.a in Frameworks */,
 				C6B36E839AA2414887D3D182 /* libRNVectorIcons.a in Frameworks */,
 				2D0D351459FA4B1FB5970413 /* libRealmReact.a in Frameworks */,

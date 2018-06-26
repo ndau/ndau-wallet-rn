@@ -20,9 +20,6 @@ class SetupGetRandom extends Component {
   }
 
   onPushAnother = async () => {
-    console.log(``);
-    const user = await AsyncStorageHelper.getUser(this.props.encryptionPassword);
-
     this.props.navigator.push({
       label: 'SetupYourWallet',
       screen: 'ndau.SetupYourWallet',

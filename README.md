@@ -6,6 +6,7 @@ Below you will find instructions on how to get ndau wallet running in both Andro
 
 - [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
+- [Mandatory Scripts](#mandatory-scripts)
 - [Available Scripts](#available-scripts)
   - [`npm start`](#npm-start)
     - [`npm test`](#npm-test)
@@ -25,6 +26,14 @@ The best place to start is the [Getting Started](https://facebook.github.io/reac
 - [Java SE Development Kit (JDK) 8 or newer](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
 - [Android Studio](https://developer.android.com/studio/)
+
+## Mandatory Scripts
+
+You must run the following script before you can begin. This combs the node_modules and makes sure all package.json's are correct in where they are pointing to for native node libraries:
+
+- `./node_modules/.bin/rn-nodeify --hack --install`
+
+Once this completes you must
 
 ## Available Scripts
 

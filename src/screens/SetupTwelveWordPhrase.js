@@ -10,18 +10,29 @@ import {
   ProgressBarAndroid,
   SafeAreaView
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
+import bip39 from 'react-native-bip39';
 
 class SetupTwelveWordPhrase extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      twelveWordPhrase: ''
+    };
   }
+
+  componentDidMount = () => {
+    // defaults to BIP39 English word list
+    // uses HEX strings for entropy
+    const mnemonic = bip39.entropyToMnemonic('133755ff');
+    this.setState({ twelveWordPhrase: mnemonic });
+    console.log(`here is the mnemonic: ${mnemonic}`);
+  };
 
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupConfirmTwelveWordPhrase',
-      screen: 'ndau.SetupConfirmTwelveWordPhrase'
+      screen: 'ndau.SetupConfirmTwelveWordPhrase',
+      passProps: { encryptionPassword: this.props.password, userId: this.props.userId }
     });
   };
 
@@ -49,6 +60,11 @@ class SetupTwelveWordPhrase extends Component {
               <Text style={styles.text}>
                 Write this phrase down. You will want to store it in a secure location.
               </Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={{ width: 50, height: 50, backgroundColor: 'powderblue' }} />
+              <View style={{ width: 50, height: 50, backgroundColor: 'skyblue' }} />
+              <View style={{ width: 50, height: 50, backgroundColor: 'steelblue' }} />
             </View>
           </ScrollView>
           <View style={styles.footer}>
