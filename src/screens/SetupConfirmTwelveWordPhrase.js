@@ -22,7 +22,11 @@ class SetupConfirmTwelveWordPhrase extends Component {
     this.props.navigator.push({
       label: 'SetupTermsOfService',
       screen: 'ndau.SetupTermsOfService',
-      passProps: { encryptionPassword: this.props.password, userId: this.props.userId }
+      passProps: {
+        encryptionPassword: this.props.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles
+      }
     });
   };
 
@@ -32,7 +36,7 @@ class SetupConfirmTwelveWordPhrase extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Config twelve-word phrase</Text>
+              <Text style={this.props.parentStyles.wizardText}>Config twelve-word phrase</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -47,7 +51,7 @@ class SetupConfirmTwelveWordPhrase extends Component {
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 Demonstrate that you wrote the phrase down by tapping them in order.
               </Text>
             </View>
@@ -64,7 +68,7 @@ class SetupConfirmTwelveWordPhrase extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -73,15 +77,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen

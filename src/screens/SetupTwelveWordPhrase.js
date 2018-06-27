@@ -33,7 +33,11 @@ class SetupTwelveWordPhrase extends Component {
     this.props.navigator.push({
       label: 'SetupConfirmTwelveWordPhrase',
       screen: 'ndau.SetupConfirmTwelveWordPhrase',
-      passProps: { encryptionPassword: this.props.password, userId: this.props.userId }
+      passProps: {
+        encryptionPassword: this.props.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles
+      }
     });
   };
 
@@ -48,7 +52,7 @@ class SetupTwelveWordPhrase extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Twelve-word phrase</Text>
+              <Text style={this.props.parentStyles.wizardText}>Twelve-word phrase</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -63,7 +67,7 @@ class SetupTwelveWordPhrase extends Component {
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 Write this phrase down. You will want to store it in a secure location.
               </Text>
             </View>
@@ -71,7 +75,7 @@ class SetupTwelveWordPhrase extends Component {
               {firstThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={styles.text}>
+                    <Text style={this.props.parentStyles.wizardText}>
                       {count++}. {item}
                     </Text>
                   </View>
@@ -82,7 +86,7 @@ class SetupTwelveWordPhrase extends Component {
               {secondThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={styles.text}>
+                    <Text style={this.props.parentStyles.wizardText}>
                       {count++}. {item}
                     </Text>
                   </View>
@@ -93,7 +97,7 @@ class SetupTwelveWordPhrase extends Component {
               {thirdThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={styles.text}>
+                    <Text style={this.props.parentStyles.wizardText}>
                       {count++}. {item}
                     </Text>
                   </View>
@@ -104,7 +108,7 @@ class SetupTwelveWordPhrase extends Component {
               {fourthThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={styles.text}>
+                    <Text style={this.props.parentStyles.wizardText}>
                       {count++}. {item}
                     </Text>
                   </View>
@@ -124,7 +128,7 @@ class SetupTwelveWordPhrase extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -133,16 +137,9 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
+
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
   },

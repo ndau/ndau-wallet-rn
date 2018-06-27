@@ -38,7 +38,8 @@ export default class Dashboard extends Component {
     this.props.navigator.push({
       screen: 'ndau.SetupMain',
       title: 'Setup',
-      backButtonHidden: true
+      backButtonHidden: true,
+      passProps: { parentStyles: styles }
     });
     // } else if (user.setupStep) {
     //   this.props.navigator.push({
@@ -54,10 +55,10 @@ export default class Dashboard extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <ScrollView style={styles.container}>
           <CollapsiblePanel title="Panel with some dynamic stuff">
-            <Text style={styles.panelText}>Target Price: {this.state.targetPrice}</Text>
+            <Text style={styles.text}>Target Price: {this.state.targetPrice}</Text>
           </CollapsiblePanel>
           <CollapsiblePanel title="A Panel with long content text">
-            <Text style={styles.panelText}>
+            <Text style={styles.text}>
               Lorem ipsum dolor sit amet, ut vestibulum massa. Porttitor sed dis quis turpis ipsum
               est. Cursus mauris mattis nec in turpis quis, proin risus netus massa suspendisse nunc
               vitae, ut suspendisse sociosqu nulla, lobortis turpis amet dui vestibulum quis, sem
@@ -68,7 +69,7 @@ export default class Dashboard extends Component {
             </Text>
           </CollapsiblePanel>
           <CollapsiblePanel title="A Panel with long content text as well">
-            <Text style={styles.panelText}>
+            <Text style={styles.text}>
               Lorem ipsum dolor sit amet, elit fermentum fringilla ac porta, rhoncus vulputate
               pellentesque pellentesque semper, turpis in turpis leo lobortis tellus. Velit eu arcu
               dignissim suspendisse, sit nec a viverra dui vel in. Nibh elit dui justo nibh, tortor
@@ -79,7 +80,7 @@ export default class Dashboard extends Component {
             </Text>
           </CollapsiblePanel>
           <CollapsiblePanel title="Another Panel">
-            <Text style={styles.panelText}>Lorem ipsum dolor sit amet...</Text>
+            <Text style={styles.text}>Lorem ipsum dolor sit amet...</Text>
           </CollapsiblePanel>
         </ScrollView>
       </SafeAreaView>
@@ -90,14 +91,42 @@ export default class Dashboard extends Component {
 var styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
-  panelText: {
+  text: {
     color: '#ffffff',
+    fontSize: 16,
     fontFamily: 'TitilliumWeb-Light'
+  },
+  textInput: {
+    height: 45,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    marginTop: 10,
+    paddingLeft: 10,
+    color: '#000000',
+    backgroundColor: '#ffffff',
+    fontSize: 18,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
+  button: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#4d9678',
+    backgroundColor: '#4d9678',
+    borderRadius: 3,
+    fontFamily: 'TitilliumWeb-Light',
+    margin: '0.5%',
+    padding: '2px',
+    borderRadius: 3
+  },
+  wizardText: {
+    color: '#ffffff',
+    fontSize: 20
   }
 });

@@ -23,7 +23,11 @@ class SetupGetRandom extends Component {
     this.props.navigator.push({
       label: 'SetupYourWallet',
       screen: 'ndau.SetupYourWallet',
-      passProps: { encryptionPassword: this.props.password, userId: this.props.userId }
+      passProps: {
+        encryptionPassword: this.props.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles
+      }
     });
   };
 
@@ -33,7 +37,7 @@ class SetupGetRandom extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Get random</Text>
+              <Text style={this.props.parentStyles.wizardText}>Get random</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -48,7 +52,7 @@ class SetupGetRandom extends Component {
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 To generate the strongest possible encryption, we need a source of random input.
                 Scribble in the box below to add randomness to your key.
               </Text>
@@ -74,7 +78,7 @@ class SetupGetRandom extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -83,15 +87,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen

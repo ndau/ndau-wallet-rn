@@ -58,7 +58,11 @@ class SetupEncryptionPassword extends Component {
     this.props.navigator.push({
       label: 'SetupGetRandom',
       screen: 'ndau.SetupGetRandom',
-      passProps: { encryptionPassword: this.state.password, userId: this.props.userId }
+      passProps: {
+        encryptionPassword: this.state.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles
+      }
     });
   };
 
@@ -89,7 +93,7 @@ class SetupEncryptionPassword extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Encrypt your data</Text>
+              <Text style={this.props.parentStyles.wizardText}>Encrypt your data</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -104,7 +108,7 @@ class SetupEncryptionPassword extends Component {
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
                 password to decrypt it whenever you are in this app.
               </Text>
@@ -115,39 +119,19 @@ class SetupEncryptionPassword extends Component {
               </View>
             </View>
             <TextInput
-              style={{
-                height: 45,
-                borderColor: 'gray',
-                borderWidth: 1,
-                marginBottom: 10,
-                marginTop: 10,
-                paddingLeft: 10,
-                color: textInputColor,
-                fontSize: 20,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
+              style={this.props.parentStyles.textInput}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
               placeholder="Enter a password"
-              placeholderTextColor="#f9f1f1"
+              placeholderTextColor="#333"
               secureTextEntry={!this.state.showPasswords}
             />
             <TextInput
-              style={{
-                height: 45,
-                borderColor: 'gray',
-                borderWidth: 1,
-                marginBottom: 10,
-                marginTop: 10,
-                paddingLeft: 10,
-                color: textInputColor,
-                fontSize: 20,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
+              style={this.props.parentStyles.textInput}
               onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
               value={this.state.confirmPassword}
               placeholder="Confirm your password"
-              placeholderTextColor="#f9f1f1"
+              placeholderTextColor="#333"
               secureTextEntry={!this.state.showPasswords}
             />
             <View>
@@ -195,7 +179,7 @@ class SetupEncryptionPassword extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -204,7 +188,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   button: {
     marginTop: 0

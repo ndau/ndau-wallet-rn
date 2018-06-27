@@ -9,7 +9,8 @@ class SetupMain extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupUserId',
-      screen: 'ndau.SetupUserId'
+      screen: 'ndau.SetupUserId',
+      passProps: { parentStyles: this.props.parentStyles }
     });
   };
 
@@ -19,27 +20,32 @@ class SetupMain extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>
-                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.
+              <Text style={this.props.parentStyles.wizardText}>
+                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{'\n'}
               </Text>
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 Currently, ndau is only available to accredited investors. You will need to have
                 made your purchase through our site and have you six-digit ID code ready in order to
-                access this app before launch.
+                access this app before launch.{'\n'}
               </Text>
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 To get you started securely, you will create a new wallet, protect this app with
                 password, and create a twelve-word phrase which you will need in order to restore
-                your wallet if you lose access to it.
+                your wallet if you lose access to it.{'\n'}
               </Text>
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPushAnother} title="Create new wallet" />
+            <Button
+              style={this.props.parentStyles.button}
+              color="#4d9678"
+              onPress={this.onPushAnother}
+              title="Create new wallet"
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -50,7 +56,7 @@ class SetupMain extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -58,16 +64,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
-
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
