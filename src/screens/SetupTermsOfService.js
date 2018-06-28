@@ -21,8 +21,7 @@ class SetupTermsOfService extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupEAINode',
-      screen: 'ndau.SetupEAINode',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupEAINode'
     });
   };
 

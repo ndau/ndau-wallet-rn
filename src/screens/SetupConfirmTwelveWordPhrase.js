@@ -21,8 +21,7 @@ class SetupConfirmTwelveWordPhrase extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupTermsOfService',
-      screen: 'ndau.SetupTermsOfService',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupTermsOfService'
     });
   };
 

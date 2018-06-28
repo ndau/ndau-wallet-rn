@@ -3,24 +3,15 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, Text, SafeAreaView } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import ndauApi from '../api/NdauAPI';
-import RealmSchema from '../model/RealmSchema';
+// import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       targetPrice: 0,
-      realm: null
+      user: {}
     };
-
-    RealmSchema.openRealm()
-      .then((realm) => {
-        this.setState({ realm: realm });
-        this.showSetupIfNeeded(realm);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 
   componentDidMount() {
@@ -34,42 +25,36 @@ export default class Dashboard extends Component {
       .catch((error) => {
         console.error(error);
       });
+
+    this.showSetupIfNeeded();
   }
 
-  showSetup = (screen) => {
-    if (!screen) {
-      screen = 'ndau.SetupMain';
-    }
+  showSetupIfNeeded = async (user) => {
+    // const user = await AsyncStorageHelper.isUserPresent();
+    //TODO: since we do not ask for the password we cannot successfully
+    //TODO: decrypt the user yet. Therefore we go through setup upon
+    //TODO: every launch until that functionality is in
+    // if (!user) {
     this.props.navigator.push({
-      screen: screen,
+      screen: 'ndau.SetupMain',
       title: 'Setup',
-      backButtonHidden: true,
-      passProps: { props: this.props }
+      backButtonHidden: true
     });
-  };
-
-  showSetupIfNeeded = (realm) => {
-    if (!realm) return;
-
-    let users = realm.objects('User');
-    console.log(`users is ${JSON.stringify(users, null, 2)}`);
-    if (users <= 0 || !users.setupStep) {
-      console.log(`showing screen ${users.setupStep}`);
-      this.showSetup(users.setupStep);
-    }
+    // } else if (user.setupStep) {
+    //   this.props.navigator.push({
+    //     screen: user.setupStep,
+    //     title: 'Setup',
+    //     backButtonHidden: true
+    //   });
+    // }
   };
 
   render() {
-    const info = this.state.realm
-      ? 'Number of users in this Realm: ' + this.state.realm.objects('User').length
-      : 'Loading...';
-
     return (
       <SafeAreaView style={styles.safeContainer}>
         <ScrollView style={styles.container}>
           <CollapsiblePanel title="Panel with some dynamic stuff">
             <Text style={styles.panelText}>Target Price: {this.state.targetPrice}</Text>
-            <Text style={styles.panelText}>{info}</Text>
           </CollapsiblePanel>
           <CollapsiblePanel title="A Panel with long content text">
             <Text style={styles.panelText}>

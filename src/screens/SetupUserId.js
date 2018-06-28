@@ -9,7 +9,8 @@ import {
   Platform,
   ProgressBarAndroid,
   TextInput,
-  SafeAreaView
+  SafeAreaView,
+  Alert
 } from 'react-native';
 
 class SetupUserId extends Component {
@@ -20,20 +21,21 @@ class SetupUserId extends Component {
     };
   }
 
-  verifySixDigitCode(event) {
-    this.onPushAnother();
-  }
-
   onPushAnother = () => {
-    this.props.navigator.push({
-      label: 'SetupEncryptionPassword',
-      screen: 'ndau.SetupEncryptionPassword',
-      passProps: { props: this.props }
-    });
-  };
-
-  onPopToRoot = () => {
-    this.props.navigator.popToRoot();
+    if (this.state.userId) {
+      this.props.navigator.push({
+        label: 'SetupEncryptionPassword',
+        screen: 'ndau.SetupEncryptionPassword',
+        passProps: { userId: this.state.userId }
+      });
+    } else {
+      Alert.alert(
+        'Error',
+        'Please enter a value for the user ID.',
+        [ { text: 'OK', onPress: () => console.log('OK Pressed') } ],
+        { cancelable: false }
+      );
+    }
   };
 
   render() {
@@ -66,7 +68,7 @@ class SetupUserId extends Component {
               style={styles.textInput}
               onChangeText={(userId) => this.setState({ userId })}
               value={this.state.userId}
-              placeholder="Enter your unique ndau ID"
+              placeholder="Enter your unique User ID"
               placeholderTextColor="#f9f1f1"
             />
           </ScrollView>
@@ -107,8 +109,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 30,
-    paddingBottom: 30
+    paddingTop: 15,
+    paddingBottom: 15
   },
   textInput: {
     height: 45,

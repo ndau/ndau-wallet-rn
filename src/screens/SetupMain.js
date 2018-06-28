@@ -9,20 +9,8 @@ class SetupMain extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupUserId',
-      screen: 'ndau.SetupUserId',
-      passProps: { props: this.props }
+      screen: 'ndau.SetupUserId'
     });
-  };
-
-  onResetTo = () => {
-    this.props.navigator.resetTo({
-      label: 'Dashboard',
-      screen: 'ndau.Dashboard'
-    });
-  };
-
-  onPopToRoot = () => {
-    this.props.navigator.popToRoot();
   };
 
   render() {
