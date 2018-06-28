@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn/tree/josh-issue34.svg?style=svg&circle-token=78d92a0e256f79e59d9ca0b2b7617b910db81323)](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn/tree/josh-issue34)
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app). The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
 Below you will find instructions on how to get ndau wallet running in both Android and iOS. Please make sure to follow the [Getting Started](#getting-started) link first as there are quite a few things that need to be installed before you can start. Please also if you find something missing feel free to update! :)

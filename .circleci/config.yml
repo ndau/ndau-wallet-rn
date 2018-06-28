@@ -12,20 +12,21 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package-lock.json" }}
+          - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run:
           name: install deps
           command: |
-            sudo npm i -g react-native-cli
+            sudo npm i -g react-native-cli create-react-native-app
             npm install
 
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package-lock.json" }}
+            - /usr/local/lib/node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
       - run: npm test
