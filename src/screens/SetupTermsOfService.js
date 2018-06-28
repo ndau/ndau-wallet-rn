@@ -43,11 +43,11 @@ class SetupTermsOfService extends Component {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.875}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.875} style={styles.progress} />
+                <ProgressViewIOS progress={0.875} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>

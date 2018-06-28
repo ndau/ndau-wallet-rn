@@ -16,7 +16,9 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper';
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      entropy: '133755ff123456789111222333444555'
+    };
   }
 
   onPushAnother = async () => {
@@ -26,7 +28,8 @@ class SetupGetRandom extends Component {
       passProps: {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
-        parentStyles: this.props.parentStyles
+        parentStyles: this.props.parentStyles,
+        entropy: this.state.entropy
       }
     });
   };
@@ -44,11 +47,11 @@ class SetupGetRandom extends Component {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.375}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.375} style={styles.progress} />
+                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
@@ -59,11 +62,10 @@ class SetupGetRandom extends Component {
             </View>
             <TextInput
               style={styles.textInput}
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
+              // onChangeText={(password) => this.setState({ password })}
+              value={this.state.entropy}
               placeholder="Scribble area"
-              placeholderTextColor="#f9f1f1"
-              secureTextEntry={!this.state.showPasswords}
+              placeholderTextColor="#333"
             />
           </ScrollView>
           <View style={styles.footer}>

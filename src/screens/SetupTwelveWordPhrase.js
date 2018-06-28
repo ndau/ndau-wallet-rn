@@ -23,7 +23,7 @@ class SetupTwelveWordPhrase extends Component {
   componentDidMount = () => {
     // defaults to BIP39 English word list
     // uses HEX strings for entropy
-    const mnemonic = bip39.entropyToMnemonic('133755ff123456789111222333444555');
+    const mnemonic = bip39.entropyToMnemonic(this.props.entropy);
 
     this.setState({ twelveWordPhrase: mnemonic.split(' ') });
     console.log(`here is the mnemonic: ${mnemonic.split(' ')}`);
@@ -36,7 +36,8 @@ class SetupTwelveWordPhrase extends Component {
       passProps: {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
-        parentStyles: this.props.parentStyles
+        parentStyles: this.props.parentStyles,
+        entropy: this.props.entropy
       }
     });
   };
@@ -59,11 +60,11 @@ class SetupTwelveWordPhrase extends Component {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.625}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.625} style={styles.progress} />
+                <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
@@ -75,7 +76,13 @@ class SetupTwelveWordPhrase extends Component {
               {firstThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={this.props.parentStyles.wizardText}>
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        fontSize: 20,
+                        textAlign: 'center'
+                      }}
+                    >
                       {count++}. {item}
                     </Text>
                   </View>
@@ -86,7 +93,13 @@ class SetupTwelveWordPhrase extends Component {
               {secondThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={this.props.parentStyles.wizardText}>
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        fontSize: 20,
+                        textAlign: 'center'
+                      }}
+                    >
                       {count++}. {item}
                     </Text>
                   </View>
@@ -97,7 +110,13 @@ class SetupTwelveWordPhrase extends Component {
               {thirdThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={this.props.parentStyles.wizardText}>
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        fontSize: 20,
+                        textAlign: 'center'
+                      }}
+                    >
                       {count++}. {item}
                     </Text>
                   </View>
@@ -108,7 +127,13 @@ class SetupTwelveWordPhrase extends Component {
               {fourthThree.map((item, index) => {
                 return (
                   <View key={index} style={styles.rowTextView}>
-                    <Text style={this.props.parentStyles.wizardText}>
+                    <Text
+                      style={{
+                        color: '#ffffff',
+                        fontSize: 20,
+                        textAlign: 'center'
+                      }}
+                    >
                       {count++}. {item}
                     </Text>
                   </View>

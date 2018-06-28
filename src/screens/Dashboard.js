@@ -128,5 +128,9 @@ var styles = StyleSheet.create({
   wizardText: {
     color: '#ffffff',
     fontSize: 20
+  },
+  progress: {
+    paddingTop: 8,
+    paddingBottom: 8
   }
 });

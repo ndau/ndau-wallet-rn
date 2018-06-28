@@ -39,11 +39,11 @@ class SetupEAINode extends Component {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={1}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={1} style={styles.progress} />
+                <ProgressViewIOS progress={1} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>

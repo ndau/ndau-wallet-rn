@@ -25,7 +25,8 @@ class SetupYourWallet extends Component {
       passProps: {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
-        parentStyles: this.props.parentStyles
+        parentStyles: this.props.parentStyles,
+        entropy: this.props.entropy
       }
     });
   };
@@ -43,11 +44,11 @@ class SetupYourWallet extends Component {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.5}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.5} style={styles.progress} />
+                <ProgressViewIOS progress={0.5} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>

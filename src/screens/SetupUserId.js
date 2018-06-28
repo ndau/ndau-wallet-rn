@@ -54,11 +54,11 @@ class SetupUserId extends Component {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.125}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.125} style={styles.progress} />
+                <ProgressViewIOS progress={0.125} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
@@ -102,10 +102,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 15,
-    paddingBottom: 15
   }
 });
 
