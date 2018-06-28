@@ -28,6 +28,12 @@ jobs:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
 
       # run tests!
-      - run: yarn test
+      - run: npm test
+
+      # try to build for android
+      - run: npm run android
+
+      # try to build for ios
+      - run: npm run ios
 
 
