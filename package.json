@@ -19,7 +19,7 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator='iPhone X'",
-    "test": "echo 'No tests to run' # jest",
+    "test": "jest",
     "xcode-open": "open ios/ndauwalletrn.xcodeproj",
     "android-install": "cd android && ./gradlew installDebug"
   },
