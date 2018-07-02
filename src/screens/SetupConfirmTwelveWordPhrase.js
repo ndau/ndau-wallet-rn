@@ -22,7 +22,9 @@ class SetupConfirmTwelveWordPhrase extends Component {
       textColor: '#ffffff',
       showErrorText: false,
       errorWord: '',
-      selectedPhrase: ''
+      errorCount: 0,
+      selectedPhrase: '',
+      match: false
     };
   }
 
@@ -37,6 +39,18 @@ class SetupConfirmTwelveWordPhrase extends Component {
     this.props.navigator.push({
       label: 'SetupTermsOfService',
       screen: 'ndau.SetupTermsOfService',
+      passProps: {
+        encryptionPassword: this.props.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles
+      }
+    });
+  };
+
+  pushBackToGetRandom = () => {
+    this.props.navigator.push({
+      label: 'SetupGetRandom',
+      screen: 'ndau.SetupGetRandom',
       passProps: {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
@@ -89,23 +103,26 @@ class SetupConfirmTwelveWordPhrase extends Component {
                 fontSize: 18,
                 fontFamily: 'TitilliumWeb-Regular'
               }}
-              // onChangeText={(twelveWordPhraseFromSelection) =>
-              //   this.setState({
-              //     twelveWordPhraseFromSelection
-              //   })}
               value={this.state.twelveWordPhraseFromSelection}
               placeholder="Scribble area"
               placeholderTextColor="#333"
               multiline={true}
               numberOfLines={2}
             />
-            {this.state.showErrorText && (
+            {this.state.showErrorText ? this.state.errorCount < 3 ? (
               <View style={styles.errorContainer}>
                 <Text style={styles.errorText}>
                   Please enter the words in the correct order. De-select the last word to continue.{' '}
                 </Text>
               </View>
-            )}
+            ) : (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>
+                  After four errors, you will have to generate a new twelve-word phrase. Write down
+                  your phrase instead of memorizing it, or you may lose access to your ndau.{' '}
+                </Text>
+              </View>
+            ) : null}
             <View style={styles.rowView}>
               {firstThree.map((item, index) => {
                 return this.showWord(index, item);
@@ -128,7 +145,12 @@ class SetupConfirmTwelveWordPhrase extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPushAnother} title="Next" />
+            <Button
+              color="#4d9678"
+              onPress={this.onPushAnother}
+              title="Next"
+              disabled={!this.state.match}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -161,23 +183,30 @@ class SetupConfirmTwelveWordPhrase extends Component {
       this.props.twelveWordPhraseArray[twelveWordPhraseFromSelectionArray.length - 2] !==
       this.state.selectedPhrase
     ) {
+      this.setState(
+        {
+          [`${this.state.selectedPhrase}BackgroundColor`]: '#ff0000',
+          showErrorText: true,
+          errorCount: this.state.errorCount + 1,
+          errorWord: this.state.selectedPhrase
+        },
+        () => {
+          console.log(`errorCount is now at ${this.state.errorCount}`);
+          if (this.state.errorCount >= 4) {
+            this.pushBackToGetRandom();
+          }
+        }
+      );
+    } else {
       this.setState({
-        [`${this.state.selectedPhrase}BackgroundColor`]: '#ff0000',
-        showErrorText: true,
-        errorWord: this.state.selectedPhrase
+        [`${this.state.selectedPhrase}BackgroundColor`]: '#0000ff',
+        showErrorText: false,
+        errorWord: ''
       });
     }
   }
 
   handleClick(item) {
-    //if we have item in the phrase we don't want to add it again
-    // if (
-    //   !this.state.showErrorText &&
-    //   this.state.twelveWordPhraseFromSelection.indexOf(item) !== -1
-    // ) {
-    //   return;
-    // }
-
     if (this.state.showErrorText) {
       if (item === this.state.errorWord) {
         let newTWPFromSelection = this.state.twelveWordPhraseFromSelection.substring(
@@ -207,11 +236,18 @@ class SetupConfirmTwelveWordPhrase extends Component {
     } else if (this.state.twelveWordPhraseFromSelection.indexOf(item) !== -1) {
       return;
     } else {
-      const newValue = this.state.twelveWordPhraseFromSelection + item + ' ';
+      const newValue = this.state.twelveWordPhraseFromSelection + item;
+      const newValueArray = newValue.split(' ');
+      newValue += ' ';
+      const match =
+        JSON.stringify(this.props.twelveWordPhraseArray) == JSON.stringify(newValueArray);
+      console.log(`phrase to match is: ${JSON.stringify(this.props.twelveWordPhraseArray)}`);
+      console.log(`phrase entered by user is: ${JSON.stringify(newValueArray)}`);
       this.setState(
         {
           twelveWordPhraseFromSelection: newValue,
-          selectedPhrase: item
+          selectedPhrase: item,
+          match: match
         },
         this.confirmPhraseOrder
       );
