@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import bip39 from 'react-native-bip39';
 
+var _ = require('lodash');
+
 class SetupConfirmTwelveWordPhrase extends Component {
   constructor(props) {
     super(props);
@@ -191,7 +193,6 @@ class SetupConfirmTwelveWordPhrase extends Component {
           errorWord: this.state.selectedPhrase
         },
         () => {
-          console.log(`errorCount is now at ${this.state.errorCount}`);
           if (this.state.errorCount >= 4) {
             this.pushBackToGetRandom();
           }
@@ -239,10 +240,7 @@ class SetupConfirmTwelveWordPhrase extends Component {
       const newValue = this.state.twelveWordPhraseFromSelection + item;
       const newValueArray = newValue.split(' ');
       newValue += ' ';
-      const match =
-        JSON.stringify(this.props.twelveWordPhraseArray) == JSON.stringify(newValueArray);
-      console.log(`phrase to match is: ${JSON.stringify(this.props.twelveWordPhraseArray)}`);
-      console.log(`phrase entered by user is: ${JSON.stringify(newValueArray)}`);
+      const match = _.isEqual(this.props.twelveWordPhraseArray, newValueArray);
       this.setState(
         {
           twelveWordPhraseFromSelection: newValue,
