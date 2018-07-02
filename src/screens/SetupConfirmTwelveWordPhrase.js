@@ -18,23 +18,19 @@ class SetupConfirmTwelveWordPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      twelveWordPhraseFromEntropy: '',
-      twelveWordPhraseFromEntropyArray: [],
       twelveWordPhraseFromSelection: '',
-      textColor: '#ffffff'
+      textColor: '#ffffff',
+      showErrorText: false,
+      errorWord: '',
+      selectedPhrase: ''
     };
   }
 
   componentDidMount = () => {
-    // defaults to BIP39 English word list
-    // uses HEX strings for entropy
-    const mnemonic = bip39.entropyToMnemonic(this.props.entropy);
-
-    this.setState({
-      twelveWordPhraseFromEntropy: mnemonic,
-      twelveWordPhraseFromEntropyArray: mnemonic ? this.shuffleArray(mnemonic.split(' ')) : []
-    });
-    console.log(`here is the mnemonic: ${mnemonic}`);
+    //add default props
+    for (item in this.props.twelveWordPhraseArray) {
+      this.setState({ [`${item}BackgroundColor`]: '#1c2227' });
+    }
   };
 
   onPushAnother = () => {
@@ -49,11 +45,13 @@ class SetupConfirmTwelveWordPhrase extends Component {
     });
   };
 
+  disable;
+
   render() {
-    const firstThree = this.state.twelveWordPhraseFromEntropyArray.slice(0, 3);
-    const secondThree = this.state.twelveWordPhraseFromEntropyArray.slice(3, 6);
-    const thirdThree = this.state.twelveWordPhraseFromEntropyArray.slice(6, 9);
-    const fourthThree = this.state.twelveWordPhraseFromEntropyArray.slice(9, 12);
+    const firstThree = this.props.twelveWordPhraseArray.slice(0, 3);
+    const secondThree = this.props.twelveWordPhraseArray.slice(3, 6);
+    const thirdThree = this.props.twelveWordPhraseArray.slice(6, 9);
+    const fourthThree = this.props.twelveWordPhraseArray.slice(9, 12);
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
@@ -101,11 +99,13 @@ class SetupConfirmTwelveWordPhrase extends Component {
               multiline={true}
               numberOfLines={2}
             />
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>
-                Please enter the words in the correct order. De-select the last word to continue.{' '}
-              </Text>
-            </View>
+            {this.state.showErrorText && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>
+                  Please enter the words in the correct order. De-select the last word to continue.{' '}
+                </Text>
+              </View>
+            )}
             <View style={styles.rowView}>
               {firstThree.map((item, index) => {
                 return this.showWord(index, item);
@@ -155,15 +155,81 @@ class SetupConfirmTwelveWordPhrase extends Component {
     return array;
   }
 
+  confirmPhraseOrder() {
+    const twelveWordPhraseFromSelectionArray = this.state.twelveWordPhraseFromSelection.split(' ');
+    if (
+      this.props.twelveWordPhraseArray[twelveWordPhraseFromSelectionArray.length - 2] !==
+      this.state.selectedPhrase
+    ) {
+      this.setState({
+        [`${this.state.selectedPhrase}BackgroundColor`]: '#ff0000',
+        showErrorText: true,
+        errorWord: this.state.selectedPhrase
+      });
+    }
+  }
+
   handleClick(item) {
-    const newValue = this.state.twelveWordPhraseFromSelection + item + ' ';
-    this.setState({ twelveWordPhraseFromSelection: newValue });
+    //if we have item in the phrase we don't want to add it again
+    // if (
+    //   !this.state.showErrorText &&
+    //   this.state.twelveWordPhraseFromSelection.indexOf(item) !== -1
+    // ) {
+    //   return;
+    // }
+
+    if (this.state.showErrorText) {
+      if (item === this.state.errorWord) {
+        let newTWPFromSelection = this.state.twelveWordPhraseFromSelection.substring(
+          0,
+          this.state.twelveWordPhraseFromSelection.lastIndexOf(
+            ' ',
+            this.state.twelveWordPhraseFromSelection.length - 2
+          )
+        );
+        this.setState(
+          {
+            twelveWordPhraseFromSelection: newTWPFromSelection + ' '
+          },
+          () => {
+            this.setState({
+              [`${this.state.selectedPhrase}BackgroundColor`]: '#1c2227',
+              showErrorText: false,
+              errorWord: '',
+              selectedPhrase: ''
+            });
+            this.confirmPhraseOrder;
+          }
+        );
+      } else {
+        return;
+      }
+    } else if (this.state.twelveWordPhraseFromSelection.indexOf(item) !== -1) {
+      return;
+    } else {
+      const newValue = this.state.twelveWordPhraseFromSelection + item + ' ';
+      this.setState(
+        {
+          twelveWordPhraseFromSelection: newValue,
+          selectedPhrase: item
+        },
+        this.confirmPhraseOrder
+      );
+    }
   }
 
   showWord(index, item) {
     return (
-      <View key={index} style={styles.rowTextView}>
-        <TouchableHighlight onPress={(event) => this.handleClick(item, event)}>
+      <TouchableHighlight key={index} onPress={(event) => this.handleClick(item, event)}>
+        <View
+          style={{
+            height: 40,
+            width: 100,
+            marginBottom: 10,
+            marginTop: 10,
+            backgroundColor: eval(`this.state.${item}BackgroundColor`)
+          }}
+        >
           <Text
             style={{
               color: '#ffffff',
@@ -173,8 +239,8 @@ class SetupConfirmTwelveWordPhrase extends Component {
           >
             {item}
           </Text>
-        </TouchableHighlight>
-      </View>
+        </View>
+      </TouchableHighlight>
     );
   }
 }
@@ -209,11 +275,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly'
   },
-  rowTextView: {
-    height: 40,
-    width: 100,
-    marginBottom: 10,
-    marginTop: 10
+  errorText: {
+    color: '#f75f4b',
+    fontSize: 20
+  },
+  errorContainer: {
+    backgroundColor: '#f5d8d1'
   }
 });
 

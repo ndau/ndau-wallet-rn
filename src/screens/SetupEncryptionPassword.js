@@ -114,7 +114,7 @@ class SetupEncryptionPassword extends Component {
               </Text>
               <View>
                 <TouchableHighlight onPress={this.showInformation}>
-                  <Image style={styles.infoIcon} source={require('../../img/info.png')} />
+                  <Image source={require('../../img/info.png')} />
                 </TouchableHighlight>
               </View>
             </View>
@@ -233,10 +233,6 @@ const styles = StyleSheet.create({
   checkbox: { flex: 1, padding: 10 },
   infoParagraph: {
     flexDirection: 'row'
-  },
-  infoIcon: {
-    // marginLeft: 8,
-    // marginBottom: 3
   }
 });
 

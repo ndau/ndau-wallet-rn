@@ -25,8 +25,8 @@ class SetupTwelveWordPhrase extends Component {
     // uses HEX strings for entropy
     const mnemonic = bip39.entropyToMnemonic(this.props.entropy);
 
-    this.setState({ twelveWordPhrase: mnemonic.split(' ') });
-    console.log(`here is the mnemonic: ${mnemonic.split(' ')}`);
+    this.setState({ twelveWordPhrase: mnemonic.split(/\s+/g) });
+    console.log(`here is the mnemonic: ${mnemonic.split(/\s+/g)}`);
   };
 
   onPushAnother = () => {
@@ -37,7 +37,8 @@ class SetupTwelveWordPhrase extends Component {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
-        entropy: this.props.entropy
+        entropy: this.props.entropy,
+        twelveWordPhraseArray: this.state.twelveWordPhrase
       }
     });
   };

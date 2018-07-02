@@ -44,18 +44,7 @@ const setUser = async (user, encryptionPassword) => {
   }
 };
 
-const isUserPresent = async () => {
-  try {
-    let user = await AsyncStorage.getItem(STORAGE_KEY);
-
-    return user ? user.setupStep : user;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 module.exports = {
   getUser,
-  setUser,
-  isUserPresent
+  setUser
 };
