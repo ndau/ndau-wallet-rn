@@ -12,7 +12,6 @@ import {
   TextInput,
   TouchableHighlight
 } from 'react-native';
-import bip39 from 'react-native-bip39';
 
 var _ = require('lodash');
 
