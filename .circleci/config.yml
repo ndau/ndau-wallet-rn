@@ -12,13 +12,6 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
       - run:
           name: install deps
           command: |
@@ -69,12 +62,6 @@ jobs:
               /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
               /opt/jdk/jre/lib/amd64/libjavafx*.so \
               /opt/jdk/jre/lib/amd64/libjfx*.so
-
-      - save_cache:
-          paths:
-            - node_modules
-            - /usr/local/lib/node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
       - run: npm test
