@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.11
 
     working_directory: ~/repo
     environment:
@@ -22,7 +22,8 @@ jobs:
           name: install jdk
           command: |
             # Install cURL
-            apk --no-cache add curl ca-certificates tar
+            apt update
+            apt install curl ca-certificates tar -y
 
             # Java Version
             export JAVA_VERSION_MAJOR=8
