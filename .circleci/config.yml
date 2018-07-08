@@ -39,8 +39,9 @@ jobs:
 
             # Download and unarchive Java
             sudo mkdir /opt
-            sudo curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie"\
-              http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz | tar -xzf - -C /opt
+            sudo curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" \
+              http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz |\
+              sudo tar -xzf - -C /opt
             sudo ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
             sudo rm -rf /opt/jdk/*src.zip \
               /opt/jdk/lib/missioncontrol \
