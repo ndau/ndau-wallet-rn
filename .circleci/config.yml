@@ -13,12 +13,6 @@ jobs:
       - checkout
 
       - run:
-          name: install deps
-          command: |
-            sudo npm i -g react-native-cli create-react-native-app
-            npm install
-
-      - run:
           name: install jdk
           command: |
             # Install cURL
@@ -31,16 +25,16 @@ jobs:
             export JAVA_VERSION_BUILD=14
             export JAVA_PACKAGE=jdk
 
-            # Download and unarchive Java
-
+            # Download and extract Java
             curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" \
               http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz > jdk.tgz
 
-            mkdir ./jdk
-            tar -xzf jdk.tgz -C ./jdk
+            mkdir jdk
+            tar -xvf jdk.tgz -C jdk
 
             # ensure /opt
             sudo mkdir /opt
+
             sudo mv jdk/* /opt
             sudo ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
             sudo rm -rf /opt/jdk/*src.zip \
@@ -63,6 +57,14 @@ jobs:
               /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
               /opt/jdk/jre/lib/amd64/libjavafx*.so \
               /opt/jdk/jre/lib/amd64/libjfx*.so
+
+      - run:
+          name: install node deps
+          command: |
+            sudo npm i -g react-native-cli create-react-native-app
+            npm install
+            npx rn-nodeify --hack --install
+            react-native link
 
       # run tests!
       - run: npm test
