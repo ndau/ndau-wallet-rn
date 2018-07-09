@@ -30,7 +30,8 @@ jobs:
               http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz > jdk.tgz
 
             mkdir jdk
-            tar xvf jdk.tgz -C jdk
+            tar xf jdk.tgz
+            ls -apl
 
             # ensure /opt
             sudo mkdir /opt
