@@ -8,9 +8,9 @@ import {
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
-  SafeAreaView
+  SafeAreaView,
+  NativeModules
 } from 'react-native';
-import bip39 from 'react-native-bip39';
 
 class SetupTwelveWordPhrase extends Component {
   constructor(props) {
@@ -21,12 +21,14 @@ class SetupTwelveWordPhrase extends Component {
   }
 
   componentDidMount = () => {
-    // defaults to BIP39 English word list
-    // uses HEX strings for entropy
-    const mnemonic = bip39.entropyToMnemonic(this.props.entropy);
+    this.generateTwelveWords();
+  };
 
-    this.setState({ twelveWordPhrase: mnemonic.split(/\s+/g) });
-    console.log(`here is the mnemonic: ${mnemonic.split(/\s+/g)}`);
+  generateTwelveWords = async () => {
+    const KeyaddrManager = NativeModules.KeyaddrManager;
+    const twelveWords = await KeyaddrManager.KeyaddrWordsFromBytes('en', 'rushcounterparts');
+    console.log(`keyaddr's 12 words are: ${twelveWords}`);
+    this.setState({ twelveWordPhrase: twelveWords.split(/\s+/g) });
   };
 
   onPushAnother = () => {
