@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing SetupGetRandom... renders correctly 1`] = `
+<RCTSafeAreaView
+  style={
+    Object {
+      "backgroundColor": "#1c2227",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+        "paddingBottom": 10,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 10,
+      }
+    }
+  >
+    <RCTScrollView
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View>
+        <View>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 20,
+              }
+            }
+          >
+            Get random
+          </Text>
+        </View>
+        <View>
+          <RCTProgressView
+            progress={0.375}
+            style={
+              Array [
+                Object {
+                  "height": 2,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <View>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 20,
+              }
+            }
+          >
+            To generate the strongest possible encryption, we need a source of random input. Scribble in the box below to add randomness to your key.
+          </Text>
+        </View>
+        <TextInput
+          allowFontScaling={true}
+          placeholder="Scribble area"
+          placeholderTextColor="#333"
+          style={
+            Object {
+              "borderColor": "gray",
+              "borderWidth": 1,
+              "color": "#ffffff",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 20,
+              "height": 200,
+              "marginBottom": 10,
+              "marginTop": 10,
+              "paddingLeft": 10,
+            }
+          }
+          value="133755ff123456789111222333444555"
+        />
+      </View>
+    </RCTScrollView>
+    <View
+      style={
+        Object {
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <View
+        accessibilityComponentType="button"
+        accessibilityTraits={
+          Array [
+            "button",
+          ]
+        }
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {},
+            ]
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "#007AFF",
+                  "fontSize": 18,
+                  "padding": 8,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#4d9678",
+                },
+              ]
+            }
+          >
+            Done
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
