@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import SetupConfirmTwelveWordPhrase from '../SetupConfirmTwelveWordPhrase';
+import SetupConfirmSeedPhrase from '../SetupConfirmSeedPhrase';
 
 import renderer from 'react-test-renderer';
 
-describe('testing SetupConfirmTwelveWordPhrase...', () => {
+describe('testing SetupConfirmSeedPhrase...', () => {
   let twelveWordPhraseArray = [
     'test',
     'of',
@@ -31,7 +31,7 @@ describe('testing SetupConfirmTwelveWordPhrase...', () => {
 
     const tree = renderer
       .create(
-        <SetupConfirmTwelveWordPhrase
+        <SetupConfirmSeedPhrase
           parentStyles={styles}
           twelveWordPhraseArray={twelveWordPhraseArray}
         />

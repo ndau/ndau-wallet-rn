@@ -40,6 +40,9 @@ function startApp() {
       navBarBackgroundColor: '#1c2227',
       statusBarColor: '#1c2227',
       tabFontFamily: 'TitilliumWeb-Light'
+    },
+    passProps: {
+      iconsMap: iconsMap
     }
   });
 }

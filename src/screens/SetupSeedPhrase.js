@@ -12,11 +12,11 @@ import {
   NativeModules
 } from 'react-native';
 
-class SetupTwelveWordPhrase extends Component {
+class SetupSeedPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      twelveWordPhrase: []
+      seedPhrase: []
     };
   }
 
@@ -26,37 +26,38 @@ class SetupTwelveWordPhrase extends Component {
 
   generateTwelveWords = async () => {
     const KeyaddrManager = NativeModules.KeyaddrManager;
-    const twelveWords = await KeyaddrManager.KeyaddrWordsFromBytes('en', 'rushcounterparts');
-    console.log(`keyaddr's 12 words are: ${twelveWords}`);
-    this.setState({ twelveWordPhrase: twelveWords.split(/\s+/g) });
+    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', 'rushcounterparts');
+    console.log(`keyaddr's seed words are: ${seeds}`);
+    this.setState({ seedPhrase: seeds.split(/\s+/g) });
   };
 
   onPushAnother = () => {
     this.props.navigator.push({
-      label: 'SetupConfirmTwelveWordPhrase',
-      screen: 'ndau.SetupConfirmTwelveWordPhrase',
+      label: 'SetupConfirmSeedPhrase',
+      screen: 'ndau.SetupConfirmSeedPhrase',
       passProps: {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.props.entropy,
-        twelveWordPhraseArray: this.state.twelveWordPhrase
+        seedPhraseArray: this.state.seedPhrase,
+        iconsMap: this.props.iconsMap
       }
     });
   };
 
   render() {
-    const firstThree = this.state.twelveWordPhrase.slice(0, 3);
-    const secondThree = this.state.twelveWordPhrase.slice(3, 6);
-    const thirdThree = this.state.twelveWordPhrase.slice(6, 9);
-    const fourthThree = this.state.twelveWordPhrase.slice(9, 12);
+    const firstThree = this.state.seedPhrase.slice(0, 3);
+    const secondThree = this.state.seedPhrase.slice(3, 6);
+    const thirdThree = this.state.seedPhrase.slice(6, 9);
+    const fourthThree = this.state.seedPhrase.slice(9, 12);
     let count = 1;
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={this.props.parentStyles.wizardText}>Twelve-word phrase</Text>
+              <Text style={this.props.parentStyles.wizardText}>Seed phrase</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -191,4 +192,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupTwelveWordPhrase;
+export default SetupSeedPhrase;

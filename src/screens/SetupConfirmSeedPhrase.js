@@ -15,25 +15,38 @@ import {
 
 var _ = require('lodash');
 
-class SetupConfirmTwelveWordPhrase extends Component {
+class SetupConfirmSeedPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      twelveWordPhraseFromSelection: '',
+      seedPhraseFromSelection: '',
       textColor: '#ffffff',
       showErrorText: false,
       errorWord: '',
       errorCount: 0,
       selectedPhrase: '',
-      match: false
+      match: false,
+      firstThree: [],
+      secondThree: [],
+      thirdThree: [],
+      fourthThree: []
     };
   }
 
   componentDidMount = () => {
     //add default props
-    for (item in this.props.twelveWordPhraseArray) {
+    for (item in this.props.seedPhraseArray) {
       this.setState({ [`${item}BackgroundColor`]: '#1c2227' });
     }
+
+    //shuffle the deck
+    let shuffledArray = this.shuffleArray(this.props.seedPhraseArray);
+    this.setState({
+      firstThree: shuffledArray.slice(0, 3),
+      secondThree: shuffledArray.slice(3, 6),
+      thirdThree: shuffledArray.slice(6, 9),
+      fourthThree: shuffledArray.slice(9, 12)
+    });
   };
 
   onPushAnother = () => {
@@ -43,36 +56,19 @@ class SetupConfirmTwelveWordPhrase extends Component {
       passProps: {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
-        parentStyles: this.props.parentStyles
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap
       }
     });
   };
-
-  pushBackToGetRandom = () => {
-    this.props.navigator.push({
-      label: 'SetupGetRandom',
-      screen: 'ndau.SetupGetRandom',
-      passProps: {
-        encryptionPassword: this.props.password,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles
-      }
-    });
-  };
-
-  disable;
 
   render() {
-    const firstThree = this.props.twelveWordPhraseArray.slice(0, 3);
-    const secondThree = this.props.twelveWordPhraseArray.slice(3, 6);
-    const thirdThree = this.props.twelveWordPhraseArray.slice(6, 9);
-    const fourthThree = this.props.twelveWordPhraseArray.slice(9, 12);
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={this.props.parentStyles.wizardText}>Confirm twelve-word phrase</Text>
+              <Text style={this.props.parentStyles.wizardText}>Confirm seed phrase</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -104,13 +100,14 @@ class SetupConfirmTwelveWordPhrase extends Component {
                 fontSize: 18,
                 fontFamily: 'TitilliumWeb-Regular'
               }}
-              value={this.state.twelveWordPhraseFromSelection}
-              placeholder="Scribble area"
+              value={this.state.seedPhraseFromSelection}
+              placeholder=""
               placeholderTextColor="#333"
               multiline={true}
               numberOfLines={2}
+              editable={false}
             />
-            {this.state.showErrorText ? this.state.errorCount < 3 ? (
+            {this.state.showErrorText ? this.state.errorCount < 4 ? (
               <View style={styles.errorContainer}>
                 <Text style={styles.errorText}>
                   Please enter the words in the correct order. De-select the last word to continue.{' '}
@@ -119,28 +116,28 @@ class SetupConfirmTwelveWordPhrase extends Component {
             ) : (
               <View style={styles.errorContainer}>
                 <Text style={styles.errorText}>
-                  After four errors, you will have to generate a new twelve-word phrase. Write down
-                  your phrase instead of memorizing it, or you may lose access to your ndau.{' '}
+                  Please click the Back button to generate a new seed phrase. Write down your phrase
+                  instead of memorizing it, or you may lose access to your ndau.{' '}
                 </Text>
               </View>
             ) : null}
             <View style={styles.rowView}>
-              {firstThree.map((item, index) => {
+              {this.state.firstThree.map((item, index) => {
                 return this.showWord(index, item);
               })}
             </View>
             <View style={styles.rowView}>
-              {secondThree.map((item, index) => {
+              {this.state.secondThree.map((item, index) => {
                 return this.showWord(index, item);
               })}
             </View>
             <View style={styles.rowView}>
-              {thirdThree.map((item, index) => {
+              {this.state.thirdThree.map((item, index) => {
                 return this.showWord(index, item);
               })}
             </View>
             <View style={styles.rowView}>
-              {fourthThree.map((item, index) => {
+              {this.state.fourthThree.map((item, index) => {
                 return this.showWord(index, item);
               })}
             </View>
@@ -158,45 +155,31 @@ class SetupConfirmTwelveWordPhrase extends Component {
     );
   }
 
-  shuffleArray(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+  // shuffleArray implements a Fisher-Yates shuffle algorithm;
+  // walks through the array backwards once, exchanging each value
+  // with a random element from the remainder of the array
+  shuffleArray(b) {
+    let a = b.slice();
+    for (let i = a.length - 1; i >= 0; i--) {
+      let r = Math.floor(Math.random() * i);
+      // now swap r and i
+      [ a[i], a[r] ] = [ a[r], a[i] ];
     }
-
-    return array;
+    return a;
   }
 
   confirmPhraseOrder() {
-    const twelveWordPhraseFromSelectionArray = this.state.twelveWordPhraseFromSelection.split(' ');
+    const seedPhraseFromSelectionArray = this.state.seedPhraseFromSelection.split(' ');
     if (
-      this.props.twelveWordPhraseArray[twelveWordPhraseFromSelectionArray.length - 2] !==
+      this.props.seedPhraseArray[seedPhraseFromSelectionArray.length - 2] !==
       this.state.selectedPhrase
     ) {
-      this.setState(
-        {
-          [`${this.state.selectedPhrase}BackgroundColor`]: '#ff0000',
-          showErrorText: true,
-          errorCount: this.state.errorCount + 1,
-          errorWord: this.state.selectedPhrase
-        },
-        () => {
-          if (this.state.errorCount >= 4) {
-            this.pushBackToGetRandom();
-          }
-        }
-      );
+      this.setState({
+        [`${this.state.selectedPhrase}BackgroundColor`]: '#ff0000',
+        showErrorText: true,
+        errorCount: this.state.errorCount + 1,
+        errorWord: this.state.selectedPhrase
+      });
     } else {
       this.setState({
         [`${this.state.selectedPhrase}BackgroundColor`]: '#0000ff',
@@ -208,17 +191,17 @@ class SetupConfirmTwelveWordPhrase extends Component {
 
   handleClick(item) {
     if (this.state.showErrorText) {
-      if (item === this.state.errorWord) {
-        let newTWPFromSelection = this.state.twelveWordPhraseFromSelection.substring(
+      if (item === this.state.errorWord && this.state.errorCount < 4) {
+        let newTWPFromSelection = this.state.seedPhraseFromSelection.substring(
           0,
-          this.state.twelveWordPhraseFromSelection.lastIndexOf(
+          this.state.seedPhraseFromSelection.lastIndexOf(
             ' ',
-            this.state.twelveWordPhraseFromSelection.length - 2
+            this.state.seedPhraseFromSelection.length - 2
           )
         );
         this.setState(
           {
-            twelveWordPhraseFromSelection: newTWPFromSelection + ' '
+            seedPhraseFromSelection: newTWPFromSelection + ' '
           },
           () => {
             this.setState({
@@ -233,16 +216,16 @@ class SetupConfirmTwelveWordPhrase extends Component {
       } else {
         return;
       }
-    } else if (this.state.twelveWordPhraseFromSelection.indexOf(item) !== -1) {
+    } else if (this.state.seedPhraseFromSelection.indexOf(item) !== -1) {
       return;
     } else {
-      const newValue = this.state.twelveWordPhraseFromSelection + item;
+      const newValue = this.state.seedPhraseFromSelection + item;
       const newValueArray = newValue.split(' ');
       newValue += ' ';
-      const match = _.isEqual(this.props.twelveWordPhraseArray, newValueArray);
+      const match = _.isEqual(this.props.seedPhraseArray, newValueArray);
       this.setState(
         {
-          twelveWordPhraseFromSelection: newValue,
+          seedPhraseFromSelection: newValue,
           selectedPhrase: item,
           match: match
         },
@@ -317,4 +300,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupConfirmTwelveWordPhrase;
+export default SetupConfirmSeedPhrase;

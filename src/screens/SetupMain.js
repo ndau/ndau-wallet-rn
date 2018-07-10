@@ -10,7 +10,10 @@ class SetupMain extends Component {
     this.props.navigator.push({
       label: 'SetupUserId',
       screen: 'ndau.SetupUserId',
-      passProps: { parentStyles: this.props.parentStyles }
+      passProps: {
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap
+      }
     });
   };
 

@@ -29,7 +29,8 @@ class SetupGetRandom extends Component {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
-        entropy: this.state.entropy
+        entropy: this.state.entropy,
+        iconsMap: this.props.iconsMap
       }
     });
   };

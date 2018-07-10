@@ -33,7 +33,10 @@ export default class Dashboard extends Component {
       screen: 'ndau.SetupMain',
       title: 'Setup',
       backButtonHidden: true,
-      passProps: { parentStyles: styles }
+      passProps: {
+        parentStyles: styles,
+        iconsMap: this.props.iconsMap
+      }
     });
   };
 
