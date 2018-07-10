@@ -10,6 +10,96 @@
 #include "Universe.objc.h"
 
 
+@class KeyaddrAddress;
+@class KeyaddrKey;
+@class KeyaddrSignature;
+
+/**
+ * Address is an Ndau Address, derived from a public key.
+ */
+@interface KeyaddrAddress : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) id _ref;
+
+- (instancetype)initWithRef:(id)ref;
+- (instancetype)init;
+- (NSString*)address;
+- (void)setAddress:(NSString*)v;
+@end
+
+/**
+ * Key is the object that contains a public or private key
+ */
+@interface KeyaddrKey : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) id _ref;
+
+- (instancetype)initWithRef:(id)ref;
+/**
+ * NewKey takes a seed (an array of bytes) and creates a private master
+key from it. The key is returned as a string representation of the key;
+it is converted to and from the internal representation by its member functions.
+ */
+- (instancetype)init:(NSData*)seed;
+- (NSString*)key;
+- (void)setKey:(NSString*)v;
+/**
+ * Child returns the n'th child of the given extended key. The child is of the
+same type (public or private) as the parent. Although n is typed as a signed
+integer, this is due to the limitations of gomobile; n may not be negative.
+It is an error if the given key is a hardened key.
+ */
+- (KeyaddrKey*)child:(int32_t)n error:(NSError**)error;
+/**
+ * HardenedChild returns the n'th hardened public child of the given extended key.
+The parent key must be a private key.
+A HardenedChild cannot be used to derive further children, and is guaranteed to
+have been derived from a private key. Although n is typed as a signed
+integer, this is due to the limitations of gomobile; n may not be negative.
+It is an error if the given key is already a hardened key.
+ */
+- (KeyaddrKey*)hardenedChild:(int32_t)n error:(NSError**)error;
+/**
+ * NdauAddress returns the ndau address associated with the given key.
+Key can be either public or private; if it is private it will be
+converted to a public key first.
+ */
+- (KeyaddrAddress*)ndauAddress:(NSError**)error;
+/**
+ * Neuter returns an extended public key from any other extended key.
+If the key is an extended private key, it generates the matching public key.
+If the key is already a public key, it just returns itself.
+It is an error if the key is hardened.
+ */
+- (KeyaddrKey*)neuter:(NSError**)error;
+/**
+ * Sign uses the given key to sign a message; the message will usually be
+the hash of some longer message. It returns a signature object.
+The key must be a private key.
+ */
+- (KeyaddrSignature*)sign:(NSData*)msg error:(NSError**)error;
+@end
+
+/**
+ * Signature is the result of signing a block of data with a key.
+ */
+@interface KeyaddrSignature : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) id _ref;
+
+- (instancetype)initWithRef:(id)ref;
+- (instancetype)init;
+- (NSString*)signature;
+- (void)setSignature:(NSString*)v;
+@end
+
+/**
+ * NewKey takes a seed (an array of bytes) and creates a private master
+key from it. The key is returned as a string representation of the key;
+it is converted to and from the internal representation by its member functions.
+ */
+FOUNDATION_EXPORT KeyaddrKey* KeyaddrNewKey(NSData* seed, NSError** error);
+
 /**
  * WordsFromBytes takes an array of bytes and converts it to a space-separated list of
 words that act as a mnemonic. A 16-byte input array will generate a list of 12 words.
