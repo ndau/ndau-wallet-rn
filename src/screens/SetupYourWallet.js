@@ -21,7 +21,13 @@ class SetupYourWallet extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupTwelveWordPhrase',
-      screen: 'ndau.SetupTwelveWordPhrase'
+      screen: 'ndau.SetupTwelveWordPhrase',
+      passProps: {
+        encryptionPassword: this.props.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        entropy: this.props.entropy
+      }
     });
   };
 
@@ -31,22 +37,22 @@ class SetupYourWallet extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Setup your wallet</Text>
+              <Text style={this.props.parentStyles.wizardText}>Setup your wallet</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.5}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.5} style={styles.progress} />
+                <ProgressViewIOS progress={0.5} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 Next we will give you a twelve-word phrase which is the key to restoring your
                 wallet. You must WRITE IT DOWN and store it in a secure location or risk losing
                 access to your funds. Do not save this phrase on your device or in the cloud.
@@ -69,7 +75,7 @@ class SetupYourWallet extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -78,7 +84,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   button: {
     marginTop: 0

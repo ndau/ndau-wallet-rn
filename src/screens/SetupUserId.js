@@ -26,7 +26,10 @@ class SetupUserId extends Component {
       this.props.navigator.push({
         label: 'SetupEncryptionPassword',
         screen: 'ndau.SetupEncryptionPassword',
-        passProps: { userId: this.state.userId }
+        passProps: {
+          userId: this.state.userId,
+          parentStyles: this.props.parentStyles
+        }
       });
     } else {
       Alert.alert(
@@ -44,32 +47,32 @@ class SetupUserId extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Verify your user number </Text>
+              <Text style={this.props.parentStyles.wizardText}>Verify your user number </Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.125}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.125} style={styles.progress} />
+                <ProgressViewIOS progress={0.125} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 In order to deliver your ndau to this wallet on Genesis Day, we need the six-digit
                 code you use to access the ndau dashboard.
               </Text>
             </View>
             <TextInput
-              style={styles.textInput}
+              style={this.props.parentStyles.textInput}
               onChangeText={(userId) => this.setState({ userId })}
               value={this.state.userId}
               placeholder="Enter your unique User ID"
-              placeholderTextColor="#f9f1f1"
+              placeholderTextColor="#333"
             />
           </ScrollView>
           <View style={styles.footer}>
@@ -84,44 +87,21 @@ class SetupUserId extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
     paddingLeft: 10,
     paddingTop: 10,
     paddingRight: 10,
-
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    paddingBottom: 10,
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
   },
   footer: {
     justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 15,
-    paddingBottom: 15
-  },
-  textInput: {
-    height: 45,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
   }
 });
 

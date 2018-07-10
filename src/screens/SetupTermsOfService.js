@@ -21,7 +21,12 @@ class SetupTermsOfService extends Component {
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupEAINode',
-      screen: 'ndau.SetupEAINode'
+      screen: 'ndau.SetupEAINode',
+      passProps: {
+        encryptionPassword: this.props.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles
+      }
     });
   };
 
@@ -31,22 +36,22 @@ class SetupTermsOfService extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Terms of Service</Text>
+              <Text style={this.props.parentStyles.wizardText}>Terms of Service</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.875}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.875} style={styles.progress} />
+                <ProgressViewIOS progress={0.875} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 All POTENTIAL ndau holders should acknowledge that while the Target Price may rise
                 AS ADOPTION MOVES along the S-curve there is no guarantee that this will happen.
                 There is no guarantee that a holder of ndau WILL get any particular minimum price
@@ -153,7 +158,7 @@ class SetupTermsOfService extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -161,15 +166,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen

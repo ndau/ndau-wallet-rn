@@ -16,17 +16,21 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper';
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      entropy: '133755ff123456789111222333444555'
+    };
   }
 
   onPushAnother = async () => {
-    console.log(``);
-    const user = await AsyncStorageHelper.getUser(this.props.encryptionPassword);
-
     this.props.navigator.push({
       label: 'SetupYourWallet',
       screen: 'ndau.SetupYourWallet',
-      passProps: { encryptionPassword: this.props.password, userId: this.props.userId }
+      passProps: {
+        encryptionPassword: this.props.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        entropy: this.state.entropy
+      }
     });
   };
 
@@ -36,33 +40,32 @@ class SetupGetRandom extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Get random</Text>
+              <Text style={this.props.parentStyles.wizardText}>Get random</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.375}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.375} style={styles.progress} />
+                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 To generate the strongest possible encryption, we need a source of random input.
                 Scribble in the box below to add randomness to your key.
               </Text>
             </View>
             <TextInput
               style={styles.textInput}
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
+              // onChangeText={(password) => this.setState({ password })}
+              value={this.state.entropy}
               placeholder="Scribble area"
-              placeholderTextColor="#f9f1f1"
-              secureTextEntry={!this.state.showPasswords}
+              placeholderTextColor="#333"
             />
           </ScrollView>
           <View style={styles.footer}>
@@ -77,7 +80,7 @@ class SetupGetRandom extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -86,15 +89,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen

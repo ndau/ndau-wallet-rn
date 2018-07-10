@@ -25,21 +25,21 @@ function startApp() {
     tabs,
     animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
     tabsStyle: {
-      tabBarBackgroundColor: '#333333',
+      tabBarBackgroundColor: '#1c2227',
       tabBarButtonColor: '#ffffff',
       tabBarSelectedButtonColor: '#4d9678',
-      tabFontFamily: 'TitilliumWeb-Regular'
+      tabFontFamily: 'TitilliumWeb-Light'
     },
     appStyle: {
-      tabBarBackgroundColor: '#333333',
+      tabBarBackgroundColor: '#1c2227',
       navBarButtonColor: '#ffffff',
       tabBarButtonColor: '#ffffff',
       navBarTextColor: '#ffffff',
       tabBarSelectedButtonColor: '#4d9678',
-      navigationBarColor: '#333333',
-      navBarBackgroundColor: '#333333',
-      statusBarColor: '#333333',
-      tabFontFamily: 'TitilliumWeb-Regular'
+      navigationBarColor: '#1c2227',
+      navBarBackgroundColor: '#1c2227',
+      statusBarColor: '#1c2227',
+      tabFontFamily: 'TitilliumWeb-Light'
     }
   });
 }
