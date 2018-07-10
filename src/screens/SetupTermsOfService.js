@@ -25,7 +25,8 @@ class SetupTermsOfService extends Component {
       passProps: {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
-        parentStyles: this.props.parentStyles
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap
       }
     });
   };

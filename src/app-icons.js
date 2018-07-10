@@ -13,8 +13,6 @@ const icoMoon = createIconSetFromIcoMoon(icoMoonConfig);
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 const icons = {
   // Use other Icon provider, see the logic at L39
-  facebook: [ 30, '#bbb', FontAwesome ],
-  'facebook--active': [ 30, '#fff', FontAwesome ],
   'ndau-icon': [ 30, '#fff', icoMoon ]
 };
 

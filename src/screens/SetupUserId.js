@@ -28,7 +28,8 @@ class SetupUserId extends Component {
         screen: 'ndau.SetupEncryptionPassword',
         passProps: {
           userId: this.state.userId,
-          parentStyles: this.props.parentStyles
+          parentStyles: this.props.parentStyles,
+          iconsMap: this.props.iconsMap
         }
       });
     } else {

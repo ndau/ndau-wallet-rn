@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -61,7 +62,8 @@ class SetupEncryptionPassword extends Component {
       passProps: {
         encryptionPassword: this.state.password,
         userId: this.props.userId,
-        parentStyles: this.props.parentStyles
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap
       }
     });
   };
@@ -108,15 +110,11 @@ class SetupEncryptionPassword extends Component {
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={styles.text} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
-                password to decrypt it whenever you are in this app.
+                password to decrypt it whenever you are in this app.{'  '}
+                <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
               </Text>
-              <View>
-                <TouchableHighlight onPress={this.showInformation}>
-                  <Image source={require('../../img/info.png')} />
-                </TouchableHighlight>
-              </View>
             </View>
             <TextInput
               style={{
@@ -167,6 +165,7 @@ class SetupEncryptionPassword extends Component {
                   fontSize: 20,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
+                checkBoxColor="#ffffff"
               />
             </View>
             <View>
@@ -181,6 +180,7 @@ class SetupEncryptionPassword extends Component {
                   fontSize: 20,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
+                checkBoxColor="#ffffff"
               />
             </View>
           </ScrollView>

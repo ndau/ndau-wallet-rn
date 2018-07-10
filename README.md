@@ -36,10 +36,6 @@ First we npm/yarn install:
 `npm install`
 `yarn install` (just incase you use yarn)
 
-This next one combs the node_modules and makes sure all package.json's are correct in where they are pointing to for native node libraries:
-
-`./node_modules/.bin/rn-nodeify --hack --install`
-
 Once this completes you must also make sure to run this command. This one sets up iOS and Android projects pointing to all the correct node_module libraries we use:
 
 `react-native link`
