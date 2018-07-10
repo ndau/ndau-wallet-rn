@@ -21,7 +21,8 @@ public class MainApplication extends NavigationApplication {
     public List<ReactPackage> createAdditionalReactPackages() {
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
-                new RandomBytesPackage()
+                new RandomBytesPackage(),
+                new KeyaddrPackage()
         );
     }
 

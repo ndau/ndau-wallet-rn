@@ -17,3 +17,6 @@ include ':app'
 include ':react-native-navigation'
 project(':react-native-navigation').projectDir = new File(
         rootProject.projectDir, '../node_modules/react-native-navigation/android/app/')
+include ':keyaddr'
+project(':keyaddr').projectDir = new File(
+        rootProject.projectDir, './keyaddr')
