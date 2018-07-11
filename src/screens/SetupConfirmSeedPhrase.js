@@ -57,7 +57,8 @@ class SetupConfirmSeedPhrase extends Component {
         encryptionPassword: this.props.password,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.state.numberOfAccounts
       }
     });
   };
