@@ -12,8 +12,6 @@ import {
   PickerIOS,
   SafeAreaView
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class SetupEAINode extends Component {
   constructor(props) {

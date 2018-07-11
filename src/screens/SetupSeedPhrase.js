@@ -41,7 +41,8 @@ class SetupSeedPhrase extends Component {
         parentStyles: this.props.parentStyles,
         entropy: this.props.entropy,
         seedPhraseArray: this.state.seedPhrase,
-        iconsMap: this.props.iconsMap
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.state.numberOfAccounts
       }
     });
   };

@@ -30,7 +30,8 @@ class SetupGetRandom extends Component {
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.state.entropy,
-        iconsMap: this.props.iconsMap
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.state.numberOfAccounts
       }
     });
   };

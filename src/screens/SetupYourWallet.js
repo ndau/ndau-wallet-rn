@@ -27,7 +27,8 @@ class SetupYourWallet extends Component {
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.props.entropy,
-        iconsMap: this.props.iconsMap
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.state.numberOfAccounts
       }
     });
   };
