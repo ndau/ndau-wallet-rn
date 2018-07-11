@@ -21,13 +21,13 @@ class SetupSeedPhrase extends Component {
   }
 
   componentDidMount = () => {
-    this.generateTwelveWords();
+    this.generateSeedPhrase();
   };
 
-  generateTwelveWords = async () => {
+  generateSeedPhrase = async () => {
     const KeyaddrManager = NativeModules.KeyaddrManager;
-    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', 'rushcounterparts');
-    console.log(`keyaddr's seed words are: ${seeds}`);
+    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.entropy);
+    console.debug(`keyaddr's seed words are: ${seeds}`);
     this.setState({ seedPhrase: seeds.split(/\s+/g) });
   };
 

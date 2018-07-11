@@ -17,7 +17,7 @@ class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entropy: '133755ff123456789111222333444555'
+      entropy: 'rushcounterparts'
     };
   }
 
@@ -64,7 +64,7 @@ class SetupGetRandom extends Component {
             </View>
             <TextInput
               style={styles.textInput}
-              // onChangeText={(password) => this.setState({ password })}
+              onChangeText={(entropy) => this.setState({ entropy })}
               value={this.state.entropy}
               placeholder="Scribble area"
               placeholderTextColor="#333"

@@ -74,6 +74,7 @@ exports[`testing SetupGetRandom... renders correctly 1`] = `
         </View>
         <TextInput
           allowFontScaling={true}
+          onChangeText={[Function]}
           placeholder="Scribble area"
           placeholderTextColor="#333"
           style={
@@ -89,7 +90,7 @@ exports[`testing SetupGetRandom... renders correctly 1`] = `
               "paddingLeft": 10,
             }
           }
-          value="133755ff123456789111222333444555"
+          value="rushcounterparts"
         />
       </View>
     </RCTScrollView>

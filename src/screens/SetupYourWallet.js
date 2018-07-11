@@ -55,18 +55,14 @@ class SetupYourWallet extends Component {
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
-                Next we will give you a twelve-word phrase which is the key to restoring your
-                wallet. You must WRITE IT DOWN and store it in a secure location or risk losing
-                access to your funds. Do not save this phrase on your device or in the cloud.
+                Next we will give you a seed phrase which is the key to restoring your wallet. You
+                must WRITE IT DOWN and store it in a secure location or risk losing access to your
+                funds. Do not save this phrase on your device or in the cloud.
               </Text>
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              color="#4d9678"
-              onPress={this.onPushAnother}
-              title="Get my twelve-word phrase"
-            />
+            <Button color="#4d9678" onPress={this.onPushAnother} title="Get my seed phrase" />
           </View>
         </View>
       </SafeAreaView>
