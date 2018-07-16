@@ -15,7 +15,7 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_REMAP_METHOD(KeyaddrWordsFromBytes,lang:(NSString*)lang bytes:(NSData*)bytes KeyaddrWordsFromBytesWithResolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(KeyaddrWordsFromBytes,lang:(NSString*)lang bytes:(NSString*)bytes KeyaddrWordsFromBytesWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
   RCTLogInfo(@"KeyaddrWordsFromBytes call with %@ at %@", lang, bytes);
@@ -29,7 +29,22 @@ RCT_REMAP_METHOD(KeyaddrWordsFromBytes,lang:(NSString*)lang bytes:(NSData*)bytes
   }
 }
 
-RCT_REMAP_METHOD(CreatePrivateKey,seed:(NSData*)seed neuterithResolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(KeyaddrWordsToBytes,lang:(NSString*)lang words:(NSString*)words KeyaddrWordsToBytesWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject )
+{
+  RCTLogInfo(@"KeyaddrWordsToBytes call with lang:%@ and words:%@", lang, words);
+  NSError *__autoreleasing *error = NULL;
+  
+  NSString *bytes = KeyaddrWordsToBytes(lang, words, error);
+  if (error) {
+    reject(@"no_events", @"Issue calling KeyaddrWordsToBytes", *error);
+  } else {
+    RCTLogInfo(@"KeyaddrWordsToBytes converted words above to:%@", bytes);
+    resolve(bytes);
+  }
+}
+
+RCT_REMAP_METHOD(CreatePrivateKey,seed:(NSString*)seed neuterithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
   RCTLogInfo(@"CreatePrivateKey call on %@", seed);

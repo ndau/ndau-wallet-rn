@@ -24,24 +24,6 @@
   self.window.backgroundColor = [UIColor whiteColor];
   [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
   
-  NSString *str = @"helowrld";
-  // This converts the string to an NSData object
-  NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *__autoreleasing *error;
-  NSString *words = KeyaddrWordsFromBytes(@"en", data, error);
-  NSLog(@"HERE THEY ARE!!! %@", words);
-  
-  //Send all the fonts to the console window for debugging purposes
-//  for (NSString* family in [UIFont familyNames])
-//  {
-//    NSLog(@"%@", family);
-//
-//    for (NSString* name in [UIFont fontNamesForFamilyName: family])
-//    {
-//      NSLog(@"  %@", name);
-//    }
-//  }
-  
   return YES;
 }
 

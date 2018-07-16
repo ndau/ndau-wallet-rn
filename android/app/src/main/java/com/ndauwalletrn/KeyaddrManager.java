@@ -1,13 +1,11 @@
 package com.ndauwalletrn;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.common.ReactConstants;
 
+import keyaddr.Key;
 import keyaddr.Keyaddr;
 
 
@@ -26,13 +24,32 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
             String lang, String data,
             Promise promise) {
         try {
-            Log.w(ReactConstants.TAG, "======================================\n\n");
-            String words = Keyaddr.wordsFromBytes(lang, data.getBytes());
-            Log.w(ReactConstants.TAG,"THIS IS WORKING IN CONSTRUCTOR: " + words);
-
-            promise.resolve(words);
+            promise.resolve(Keyaddr.wordsFromBytes(lang, data));
         } catch (Exception e) {
-            promise.reject("problem getting words from bytes", e);
+            promise.reject("problem getting words from bytes", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
+    public void KeyaddrWordsToBytes(
+            String lang, String bytes,
+            Promise promise) {
+        try {
+            promise.resolve(Keyaddr.wordsToBytes(lang, bytes));
+        } catch (Exception e) {
+            promise.reject("problem getting words to bytes", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
+    public void CreatePrivateKey(
+            String bytes,
+            Promise promise) {
+        try {
+            Key privateKey = Keyaddr.newKey(bytes);
+            promise.resolve(privateKey.getKey());
+        } catch (Exception e) {
+            promise.reject("problem getting words to bytes", e.getLocalizedMessage());
         }
     }
 }
