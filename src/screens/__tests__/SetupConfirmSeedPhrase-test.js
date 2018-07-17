@@ -19,16 +19,15 @@ describe('testing SetupConfirmSeedPhrase...', () => {
     'repeats',
     'repeats'
   ];
+  let styles = StyleSheet.create({
+    wizardText: {
+      color: '#ffffff',
+      fontSize: 20
+    }
+  });
 
   beforeEach(() => {});
   it('renders correctly', () => {
-    var styles = StyleSheet.create({
-      wizardText: {
-        color: '#ffffff',
-        fontSize: 20
-      }
-    });
-
     const tree = renderer
       .create(<SetupConfirmSeedPhrase parentStyles={styles} seedPhraseArray={seedPhraseArray} />)
       .toJSON();

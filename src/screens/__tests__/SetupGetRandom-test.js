@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 describe('testing SetupGetRandom...', () => {
   beforeEach(() => {});
   it('renders correctly', () => {
-    var styles = StyleSheet.create({
+    let styles = StyleSheet.create({
       wizardText: {
         color: '#ffffff',
         fontSize: 20

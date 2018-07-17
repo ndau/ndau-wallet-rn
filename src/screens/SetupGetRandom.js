@@ -11,13 +11,12 @@ import {
   TextInput,
   SafeAreaView
 } from 'react-native';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entropy: 'rushcounterparts'
+      entropy: 'ZWEQAwQFBgcICQoLDA0ODw=='
     };
   }
 
@@ -26,12 +25,12 @@ class SetupGetRandom extends Component {
       label: 'SetupYourWallet',
       screen: 'ndau.SetupYourWallet',
       passProps: {
-        encryptionPassword: this.props.password,
+        encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.state.entropy,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts
       }
     });
   };

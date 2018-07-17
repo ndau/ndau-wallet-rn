@@ -44,19 +44,28 @@ RCT_REMAP_METHOD(KeyaddrWordsToBytes,lang:(NSString*)lang words:(NSString*)words
   }
 }
 
-RCT_REMAP_METHOD(CreatePrivateKey,seed:(NSString*)seed neuterithResolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count neuterithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"CreatePrivateKey call on %@", seed);
+  RCTLogInfo(@"CreatePublicAddress call on %@", seed);
   NSError *__autoreleasing *error = NULL;
-  
   KeyaddrKey *keyAddrKey = [[KeyaddrKey alloc] init:(seed)];
-  NSString* privateKey = [keyAddrKey key];
+  NSMutableArray *array = [NSMutableArray arrayWithCapacity:count];
+  
+  for (int i = 1; i <= count; i++) {
+    KeyaddrKey *publicKey = [keyAddrKey child:i error:error];
+    KeyaddrAddress *address = [publicKey ndauAddress:error];
+    NSString *addressString = [address address];
+    [array addObject:addressString];
+    RCTLogInfo(@"ndau addressString is:%@",addressString);
+  }
+  
+  RCTLogInfo(@"array of addresses is:%@",array);
   
   if (error) {
-    reject(@"no_events", @"Issue calling CreatePrivateKey", *error);
+    reject(@"no_events", @"Issue calling CreatePublicAddress", *error);
   } else {
-    resolve(privateKey);
+    resolve(array);
   }
 }
 

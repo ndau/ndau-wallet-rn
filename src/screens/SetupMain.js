@@ -15,17 +15,6 @@ class SetupMain extends Component {
   }
 
   onPushAnother = async () => {
-    const testWords =
-      'clarify say gorilla brass coach capable shock knock tongue width earn negative floor staff elbow aim';
-    const KeyaddrManager = NativeModules.KeyaddrManager;
-    console.log(`words before: ${testWords}`);
-    const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', testWords);
-    console.log(`SEED BYTES: ${seedBytes}`);
-    const phraseCheck = await KeyaddrManager.KeyaddrWordsFromBytes('en', seedBytes);
-    console.log(`words after: ${phraseCheck}`);
-    const privateKey = await KeyaddrManager.CreatePrivateKey(seedBytes);
-    console.log(`PRIVATE KEY: ${privateKey}`);
-
     this.props.navigator.push({
       label: 'SetupUserId',
       screen: 'ndau.SetupUserId',

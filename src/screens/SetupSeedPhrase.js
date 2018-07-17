@@ -36,13 +36,13 @@ class SetupSeedPhrase extends Component {
       label: 'SetupConfirmSeedPhrase',
       screen: 'ndau.SetupConfirmSeedPhrase',
       passProps: {
-        encryptionPassword: this.props.password,
+        encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.props.entropy,
         seedPhraseArray: this.state.seedPhrase,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts
       }
     });
   };
