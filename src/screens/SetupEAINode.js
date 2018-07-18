@@ -29,7 +29,7 @@ class SetupEAINode extends Component {
       ndauApi
         .sendAccountAddresses(userId, addresses)
         .then((whatPersisted) => {
-          console.log(`sendAccountAddresses persisted: ${whatPersisted}`);
+          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
           resolve(whatPersisted);
         })
         .catch((error) => {
@@ -40,6 +40,7 @@ class SetupEAINode extends Component {
   };
 
   finishSetup = async () => {
+    console.debug('Finishing Setup...');
     const addresses = await this.keyGeneration();
 
     this.sendAddressesToOneiro(addresses);
@@ -49,19 +50,20 @@ class SetupEAINode extends Component {
   };
 
   keyGeneration = async () => {
-    console.log('Generating all keys from phrase given...');
+    console.debug('Generating all keys from phrase given...');
     const seedPhraseString = this.props.seedPhraseArray.join().replace(/,/g, ' ');
-    console.log(`seedPhraseString: ${seedPhraseString}`);
+    console.debug(`seedPhraseString: ${seedPhraseString}`);
     const seedPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
       'en',
       seedPhraseString
     );
-    console.log(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
+    console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       seedPhraseAsBytes,
       this.props.numberOfAccounts
     );
-    console.log(`publicAddresses: ${publicAddresses}`);
+    console.debug(`publicAddresses: ${publicAddresses}`);
+
     return publicAddresses;
   };
 
@@ -129,7 +131,12 @@ class SetupEAINode extends Component {
             )}
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.finishSetup} title="Select and finish" />
+            <Button
+              color="#4d9678"
+              onPress={this.finishSetup}
+              title="Select and finish"
+              id="select-and-finish"
+            />
           </View>
         </View>
       </SafeAreaView>

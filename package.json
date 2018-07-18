@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "chai": "^4.1.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
@@ -17,7 +18,7 @@
     "jest-react-native": "^18.0.0",
     "jest-serializer-enzyme": "^1.0.0",
     "jsdom": "^11.11.0",
-    "mocha": "^3.4.2",
+    "react": "^16.3.1",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.4.1",
     "react-native-mock": "^0.3.1",
@@ -35,9 +36,7 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [
-      "./setupJest.js"
-    ]
+    "setupFiles": [ "./setupJest.js" ]
   },
   "dependencies": {
     "@tradle/react-native-http": "^2.0.1",
@@ -52,7 +51,6 @@
     "prop-types": "^15.6.2",
     "punycode": "^1.4.1",
     "querystring-es3": "^0.2.1",
-    "react": "16.3.1",
     "react-native": "~0.55.2",
     "react-native-check-box": "^2.1.0",
     "react-native-level-fs": "^3.0.1",
@@ -65,9 +63,7 @@
     "util": "^0.10.4"
   },
   "rnpm": {
-    "assets": [
-      "assets/fonts"
-    ]
+    "assets": [ "assets/fonts" ]
   },
   "react-native": {
     "zlib": "browserify-zlib",
