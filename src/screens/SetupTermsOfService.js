@@ -10,7 +10,6 @@ import {
   ProgressBarAndroid,
   SafeAreaView
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -74,12 +73,15 @@ class SetupTermsOfService extends Component {
                 increases the value of the whole ecosystem through participatory efforts. No
                 contractual guarantees are given directly to ndau holders since all policy and
                 features described herein are subject to governance by the BLOCKCHAIN POLICY
-                COUNCIL. THIS DASHBOARD DOES NOT CONSTITUTE A PROSPECTUS OR OFFERING DOCUMENT AND
-                DOES NOT AND IS NOT INTENDED TO CONSTITUTE AN OFFER TO SELL, NOR THE SOLICITATION OF
-                ANY OFFER TO BUY, AN INVESTMENT, A SECURITY OR A COMMODITY, OR AN OPTION ON OR ANY
-                OTHER RIGHT TO ACQUIRE ANY SUCH INVESTMENT, SECURITY OR COMMODITY. THIS DASHBOARD
-                HAS NOT BEEN REVIEWED BY, PASSED ON OR SUBMITTED TO ANY U.S. FEDERAL OR STATE AGENCY
-                OR SELF REGULATORY ORGANIZATION OR TO ANY OTHER FOREIGN AGENCY OR SELF-REGULATORY
+                COUNCIL.
+              </Text>
+              <Text style={this.props.parentStyles.wizardText}>
+                THIS DASHBOARD DOES NOT CONSTITUTE A PROSPECTUS OR OFFERING DOCUMENT AND DOES NOT
+                AND IS NOT INTENDED TO CONSTITUTE AN OFFER TO SELL, NOR THE SOLICITATION OF ANY
+                OFFER TO BUY, AN INVESTMENT, A SECURITY OR A COMMODITY, OR AN OPTION ON OR ANY OTHER
+                RIGHT TO ACQUIRE ANY SUCH INVESTMENT, SECURITY OR COMMODITY. THIS DASHBOARD HAS NOT
+                BEEN REVIEWED BY, PASSED ON OR SUBMITTED TO ANY U.S. FEDERAL OR STATE AGENCY OR SELF
+                REGULATORY ORGANIZATION OR TO ANY OTHER FOREIGN AGENCY OR SELF-REGULATORY
                 ORGANIZATION. THIS DASHBOARD DOES NOT CONSTITUTE ADVICE TO PURCHASE ANY NDAU NOR
                 SHOULD IT BE RELIED UPON IN CONNECTION WITH ANY CONTRACT OR CONTRIBUTION DECISION.
                 THE NDAU TOKENS HAVE NOT BEEN AND WILL NOT BE REGISTERED UNDER THE SECURITIES ACT OF

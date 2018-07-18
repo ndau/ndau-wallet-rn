@@ -42,7 +42,6 @@ class SetupUserId extends Component {
 
   onPushAnother = async () => {
     const userIdPresent = await this.confirmUserIdPresent();
-    console.log(`userIdPresent is ${userIdPresent}`);
     if (this.state.userId && userIdPresent) {
       this.props.navigator.push({
         label: 'SetupEncryptionPassword',
@@ -60,7 +59,7 @@ class SetupUserId extends Component {
         !userIdPresent
           ? `${this.state.userId} does not exist as a User ID holding ndau`
           : 'Please enter a value for the user ID.',
-        [ { text: 'OK', onPress: () => console.log('OK Pressed') } ],
+        [ { text: 'OK', onPress: () => {} } ],
         { cancelable: false }
       );
     }

@@ -49,7 +49,7 @@ class SetupEncryptionPassword extends Component {
       Alert.alert(
         'Error',
         'The passwords entered do not match.',
-        [ { text: 'OK', onPress: () => console.log('OK Pressed') } ],
+        [ { text: 'OK', onPress: () => {} } ],
         { cancelable: false }
       );
       this.setState({ textInputColor: '#ff0000' });
@@ -84,7 +84,7 @@ class SetupEncryptionPassword extends Component {
         'this app on your mobile only. This is not the same thing as your ' +
         'twelve-word phrase, which codes for the key to your wallet. We ' +
         'recommend you use a strong password which you do not use anywhere else.',
-      [ { text: 'OK', onPress: () => console.log('OK Pressed') } ],
+      [ { text: 'OK', onPress: () => {} } ],
       { cancelable: false }
     );
   };

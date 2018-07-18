@@ -10,10 +10,10 @@ const getUser = async (encryptionPassword) => {
     const user = await AsyncStorage.getItem(STORAGE_KEY);
 
     if (user !== null) {
-      console.log(`getUser - encrypted user is: ${user}`);
+      console.debug(`getUser - encrypted user is: ${user}`);
       const userDecryptedBytes = CryptoJS.AES.decrypt(user, encryptionPassword);
       const userDecryptedString = userDecryptedBytes.toString(CryptoJS.enc.Utf8);
-      console.log(`getUser - decrypted user is: ${userDecryptedString}`);
+      console.debug(`getUser - decrypted user is: ${userDecryptedString}`);
 
       return JSON.parse(userDecryptedString);
     } else {
@@ -31,14 +31,14 @@ const setUser = async (user, encryptionPassword) => {
 
   try {
     const userString = JSON.stringify(user);
-    console.log(`setUser - user to encrypt to ${STORAGE_KEY}: ${userString}`);
+    console.debug(`setUser - user to encrypt to ${STORAGE_KEY}: ${userString}`);
     const userStringEncrypted = CryptoJS.AES.encrypt(userString, encryptionPassword);
-    console.log(`setUser - encrypted user is: ${userStringEncrypted}`);
+    console.debug(`setUser - encrypted user is: ${userStringEncrypted}`);
 
     await AsyncStorage.setItem(STORAGE_KEY, userStringEncrypted.toString());
 
     const checkPersist = await getUser(encryptionPassword);
-    console.log(`Successfully set user to: ${JSON.stringify(checkPersist, null, 2)}`);
+    console.debug(`Successfully set user to: ${JSON.stringify(checkPersist, null, 2)}`);
   } catch (error) {
     console.error(error);
   }
