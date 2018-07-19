@@ -1,0 +1,281 @@
+2018-07-19 03:27:01 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x7ffd515afd70; archive(resolved)='<IDEArchive: 0x7ffd50d59960>', distributionTask(resolved)='1', distributionMethod(resolved)='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team(resolved)='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	Chain (11, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x7ffd515afd70; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionProcessingPipelineContext: 0x7ffd379aef20; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd39512810; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd37f27c40; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd4f5666f0; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd52459230; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd37e54e30; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd39514a10; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd3951f220; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd4ed49270; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7ffd52441380>', team='<IDEProvisioningBasicTeam: 0x7ffd3950cd00; teamID='52CMB5YQ7W', teamName='Oneiro NA, Inc.'>'>
+	<IDEDistributionContext: 0x7ffd37e8e1c0; archive = '<IDEArchive: 0x7ffd50d59960>', distributionMethod='(null)', team='(null)'>
+</IDEDistributionProcessingPipelineContext: 0x7ffd515afd70>
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionCreateDestRootStep
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionCopyItemStep
+2018-07-19 03:27:01 +0000  Running /usr/bin/ditto '-V' '/Users/kristoferpelchat/Library/Developer/Xcode/Archives/2018-07-18/ndauwalletrn 7-18-18, 11.01 PM.xcarchive/Products/Applications/ndauwalletrn.app' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root/Payload/ndauwalletrn.app'
+2018-07-19 03:27:01 +0000  >>> Copying /Users/kristoferpelchat/Library/Developer/Xcode/Archives/2018-07-18/ndauwalletrn 7-18-18, 11.01 PM.xcarchive/Products/Applications/ndauwalletrn.app 
+2018-07-19 03:27:01 +0000  copying file ./_CodeSignature/CodeResources ... 
+2018-07-19 03:27:01 +0000  10895 bytes for ./_CodeSignature/CodeResources
+2018-07-19 03:27:01 +0000  copying file ./icomoon.ttf ... 
+2018-07-19 03:27:01 +0000  2116 bytes for ./icomoon.ttf
+copying file ./Octicons.ttf ... 
+2018-07-19 03:27:01 +0000  27520 bytes for ./Octicons.ttf
+2018-07-19 03:27:01 +0000  copying file ./Feather.ttf ... 
+2018-07-19 03:27:01 +0000  55288 bytes for ./Feather.ttf
+copying file ./TitilliumWeb-Bold.ttf ... 
+2018-07-19 03:27:01 +0000  59908 bytes for ./TitilliumWeb-Bold.ttf
+copying file ./Entypo.ttf ... 
+2018-07-19 03:27:01 +0000  65584 bytes for ./Entypo.ttf
+copying file ./TitilliumWeb-Regular.ttf ... 
+2018-07-19 03:27:01 +0000  63752 bytes for ./TitilliumWeb-Regular.ttf
+copying file ./MaterialCommunityIcons.ttf ... 
+2018-07-19 03:27:01 +0000  322456 bytes for ./MaterialCommunityIcons.ttf
+copying file ./AppIcon60x60@2x.png ... 
+2018-07-19 03:27:01 +0000  5922 bytes for ./AppIcon60x60@2x.png
+copying file ./Foundation.ttf ... 
+2018-07-19 03:27:01 +0000  56976 bytes for ./Foundation.ttf
+2018-07-19 03:27:01 +0000  copying file ./Ionicons.ttf ... 
+2018-07-19 03:27:01 +0000  143936 bytes for ./Ionicons.ttf
+2018-07-19 03:27:01 +0000  copying file ./TitilliumWeb-BoldItalic.ttf ... 
+2018-07-19 03:27:01 +0000  69796 bytes for ./TitilliumWeb-BoldItalic.ttf
+2018-07-19 03:27:01 +0000  copying file ./Base.lproj/LaunchScreen.nib ... 
+2018-07-19 03:27:01 +0000  3155 bytes for ./Base.lproj/LaunchScreen.nib
+copying file ./FontAwesome.ttf ... 
+2018-07-19 03:27:01 +0000  165548 bytes for ./FontAwesome.ttf
+copying file ./Zocial.ttf ... 
+2018-07-19 03:27:01 +0000  25552 bytes for ./Zocial.ttf
+copying file ./ndauwalletrn ... 
+2018-07-19 03:27:01 +0000  5317600 bytes for ./ndauwalletrn
+2018-07-19 03:27:01 +0000  copying file ./Assets.car ... 
+135192 bytes for ./Assets.car
+copying file ./main.jsbundle.meta ... 
+21 bytes for ./main.jsbundle.meta
+copying file ./EvilIcons.ttf ... 
+13128 bytes for ./EvilIcons.ttf
+copying file ./AppIcon76x76@2x~ipad.png ... 
+2018-07-19 03:27:01 +0000  8501 bytes for ./AppIcon76x76@2x~ipad.png
+copying file ./main.jsbundle ... 
+2018-07-19 03:27:01 +0000  826131 bytes for ./main.jsbundle
+2018-07-19 03:27:01 +0000  copying file ./TitilliumWeb-LightItalic.ttf ... 
+2018-07-19 03:27:01 +0000  71720 bytes for ./TitilliumWeb-LightItalic.ttf
+copying file ./TitilliumWeb-Italic.ttf ... 
+2018-07-19 03:27:01 +0000  72416 bytes for ./TitilliumWeb-Italic.ttf
+copying file ./SimpleLineIcons.ttf ... 
+2018-07-19 03:27:01 +0000  54056 bytes for ./SimpleLineIcons.ttf
+2018-07-19 03:27:01 +0000  copying file ./embedded.mobileprovision ... 
+2018-07-19 03:27:01 +0000  7564 bytes for ./embedded.mobileprovision
+2018-07-19 03:27:01 +0000  copying file ./assets/node_modules/react-native-check-box/img/ic_check_box.png ... 
+2018-07-19 03:27:01 +0000  169 bytes for ./assets/node_modules/react-native-check-box/img/ic_check_box.png
+copying file ./assets/node_modules/react-native-check-box/img/ic_indeterminate_check_box.png ... 
+2018-07-19 03:27:01 +0000  118 bytes for ./assets/node_modules/react-native-check-box/img/ic_indeterminate_check_box.png
+2018-07-19 03:27:01 +0000  copying file ./assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@3x.png ... 
+2018-07-19 03:27:01 +0000  218 bytes for ./assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@3x.png
+copying file ./assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@2x.png ... 
+2018-07-19 03:27:01 +0000  159 bytes for ./assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@2x.png
+copying file ./assets/node_modules/react-native-check-box/img/ic_check_box@3x.png ... 
+2018-07-19 03:27:01 +0000  388 bytes for ./assets/node_modules/react-native-check-box/img/ic_check_box@3x.png
+copying file ./assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank.png ... 
+2018-07-19 03:27:01 +0000  116 bytes for ./assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank.png
+2018-07-19 03:27:01 +0000  copying file ./assets/node_modules/react-native-check-box/img/ic_check_box@2x.png ... 
+2018-07-19 03:27:01 +0000  265 bytes for ./assets/node_modules/react-native-check-box/img/ic_check_box@2x.png
+2018-07-19 03:27:01 +0000  copying file ./assets/img/gecko-green.jpg ... 
+2018-07-19 03:27:01 +0000  4808 bytes for ./assets/img/gecko-green.jpg
+copying file ./assets/img/Arrowhead-Down-01-128.png ... 
+2018-07-19 03:27:01 +0000  65838 bytes for ./assets/img/Arrowhead-Down-01-128.png
+copying file ./assets/img/Arrowhead-01-128.png ... 
+2018-07-19 03:27:01 +0000  65838 bytes for ./assets/img/Arrowhead-01-128.png
+2018-07-19 03:27:01 +0000  copying file ./TitilliumWeb-Light.ttf ... 
+2018-07-19 03:27:01 +0000  64032 bytes for ./TitilliumWeb-Light.ttf
+copying file ./Info.plist ... 
+2018-07-19 03:27:01 +0000  1930 bytes for ./Info.plist
+copying file ./PkgInfo ... 
+2018-07-19 03:27:01 +0000  8 bytes for ./PkgInfo
+copying file ./MaterialIcons.ttf ... 
+2018-07-19 03:27:01 +0000  128180 bytes for ./MaterialIcons.ttf
+2018-07-19 03:27:01 +0000  2018-07-19 03:27:01 +0000  
+
+2018-07-19 03:27:01 +0000  /usr/bin/ditto exited with 0
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionEmbedProfileStep
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionItemRemovalStep
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2018-07-19 03:27:01 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2018-07-19 03:27:01 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionSymbolsStep
+2018-07-19 03:27:01 +0000  Processing symbols for ndauwalletrn.app
+2018-07-19 03:27:01 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root/Payload/ndauwalletrn.app' '--link-dest' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root/Payload' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X'
+2018-07-19 03:27:01 +0000  building file list ... 
+2018-07-19 03:27:01 +0000   0 files...2018-07-19 03:27:01 +0000  47 files to consider
+2018-07-19 03:27:01 +0000  ndauwalletrn.app/
+2018-07-19 03:27:01 +0000  ndauwalletrn.app/Base.lproj/
+ndauwalletrn.app/_CodeSignature/
+2018-07-19 03:27:01 +0000  ndauwalletrn.app/assets/
+ndauwalletrn.app/assets/img/
+ndauwalletrn.app/assets/node_modules/
+ndauwalletrn.app/assets/node_modules/react-native-check-box/
+ndauwalletrn.app/assets/node_modules/react-native-check-box/img/
+2018-07-19 03:27:01 +0000  
+sent 1.37K bytes  received 68 bytes  2.87K bytes/sec
+2018-07-19 03:27:01 +0000  total size is 7.55M  speedup is 5396.55
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  2018-07-19 03:27:01 +0000  /usr/bin/rsync exited with 0
+
+2018-07-19 03:27:01 +0000  2018-07-19 03:27:01 +0000  Running /usr/bin/rsync '-8aPhhE' '/Users/kristoferpelchat/Library/Developer/Xcode/Archives/2018-07-18/ndauwalletrn 7-18-18, 11.01 PM.xcarchive/dSYMs/' '--link-dest' '/Users/kristoferpelchat/Library/Developer/Xcode/Archives/2018-07-18/ndauwalletrn 7-18-18, 11.01 PM.xcarchive/dSYMs/' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X'
+
+2018-07-19 03:27:01 +0000  building file list ... 
+2018-07-19 03:27:01 +0000   0 files...2018-07-19 03:27:01 +0000  7 files to consider
+2018-07-19 03:27:01 +0000  ./
+2018-07-19 03:27:01 +0000  ndauwalletrn.app.dSYM/
+2018-07-19 03:27:01 +0000  ndauwalletrn.app.dSYM/Contents/
+ndauwalletrn.app.dSYM/Contents/Resources/
+ndauwalletrn.app.dSYM/Contents/Resources/DWARF/
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  sent 255 bytes  received 50 bytes  610.00 bytes/sec
+total size is 1.63M  speedup is 5615.01
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  /usr/bin/rsync exited with 02018-07-19 03:27:01 +0000  
+
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  Running /Applications/Xcode.app/Contents/Developer/usr/bin/symbols '-noTextInSOD' '-noDaemon' '-arch' 'all' '-symbolsPackageDir' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Symbols' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/ndauwalletrn.app.dSYM/Contents/Resources/Dwarf/ndauwalletrn'
+2018-07-19 03:27:01 +0000  /var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/ndauwalletrn.app.dSYM/Contents/Resources/Dwarf/ndauwalletrn [arm64, 0.035179 seconds]:
+2018-07-19 03:27:01 +0000  2018-07-19 03:27:01 +0000  
+
+2018-07-19 03:27:01 +0000  /Applications/Xcode.app/Contents/Developer/usr/bin/symbols exited with 0
+2018-07-19 03:27:01 +0000  2018-07-19 03:27:01 +0000  
+
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionCopyAppleProvidedContentStep
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionAppThinningStep
+2018-07-19 03:27:01 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionODRStep
+2018-07-19 03:27:01 +0000  Processing step: IDEDistributionStripXattrsStep
+2018-07-19 03:27:01 +0000  Running /usr/bin/xattr '-crs' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root/Payload/ndauwalletrn.app'
+2018-07-19 03:27:01 +0000  
+2018-07-19 03:27:01 +0000  2018-07-19 03:27:01 +0000  /usr/bin/xattr exited with 0
+
+2018-07-19 03:27:01 +0000  2018-07-19 03:27:01 +0000  Processing step: IDEDistributionCodesignStep
+
+2018-07-19 03:27:01 +0000  Entitlements for <IDEDistributionItem: 0x7ffd3951e9e0 'org.oneiro.ndau.wallet' '<DVTFilePath:0x7ffd50e2dd30:'/Users/kristoferpelchat/Library/Developer/Xcode/Archives/2018-07-18/ndauwalletrn 7-18-18, 11.01 PM.xcarchive/Products/Applications/ndauwalletrn.app'>'>: {
+    "application-identifier" = "52CMB5YQ7W.org.oneiro.ndau.wallet";
+    "beta-reports-active" = 1;
+    "com.apple.developer.team-identifier" = 52CMB5YQ7W;
+    "get-task-allow" = 0;
+    "keychain-access-groups" =     (
+        "52CMB5YQ7W.org.oneiro.ndau.wallet"
+    );
+}
+2018-07-19 03:27:01 +0000  Writing entitlements for <IDEDistributionItem: 0x7ffd3951e9e0 'org.oneiro.ndau.wallet' '<DVTFilePath:0x7ffd50e2dd30:'/Users/kristoferpelchat/Library/Developer/Xcode/Archives/2018-07-18/ndauwalletrn 7-18-18, 11.01 PM.xcarchive/Products/Applications/ndauwalletrn.app'>'> to: /var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/entitlementsydkNP4
+2018-07-19 03:27:01 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '8F2481ABF99F29569F992FB8484B26406217AEAB' '--preserve-metadata=identifier,flags' '--entitlements' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/entitlementsydkNP4' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root/Payload/ndauwalletrn.app'
+2018-07-19 03:27:01 +0000  /var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root/Payload/ndauwalletrn.app: replacing existing signature
+2018-07-19 03:27:09 +0000  /var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root/Payload/ndauwalletrn.app: signed app bundle with Mach-O thin (arm64) [org.oneiro.ndau.wallet]
+2018-07-19 03:27:09 +0000  /usr/bin/codesign exited with 02018-07-19 03:27:09 +0000  
+
+2018-07-19 03:27:09 +0000  
+2018-07-19 03:27:09 +0000  Processing step: IDEDistributionStreamingZipItemStep
+2018-07-19 03:27:09 +0000  Skipping step: IDEDistributionStreamingZipItemStep because it said so
+2018-07-19 03:27:09 +0000  Processing step: IDEDistributionCreateIPAStep
+2018-07-19 03:27:09 +0000  Running /usr/bin/rsync '-8aPhhE' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Symbols' '--link-dest' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root'
+2018-07-19 03:27:09 +0000  building file list ... 
+2018-07-19 03:27:09 +0000   0 files...2018-07-19 03:27:09 +0000  2 files to consider
+2018-07-19 03:27:09 +0000  Symbols/
+2018-07-19 03:27:09 +0000  
+sent 153 bytes  received 26 bytes  358.00 bytes/sec
+total size is 1.34M  speedup is 7849.70
+2018-07-19 03:27:09 +0000  2018-07-19 03:27:09 +0000  
+
+2018-07-19 03:27:09 +0000  /usr/bin/rsync exited with 0
+2018-07-19 03:27:09 +0000  
+2018-07-19 03:27:09 +0000  
+2018-07-19 03:27:09 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root' '/var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Packages/ndauwalletrn.ipa'
+2018-07-19 03:27:09 +0000  >>> Copying /var/folders/7z/y_2qy7hn3w5dc43pgx1p8tbw0000gn/T/XcodeDistPipeline.R9X/Root 
+2018-07-19 03:27:09 +0000  copying file ./Payload/ndauwalletrn.app/_CodeSignature/CodeResources ... 
+2018-07-19 03:27:09 +0000  10895 bytes for ./Payload/ndauwalletrn.app/_CodeSignature/CodeResources
+2018-07-19 03:27:09 +0000  copying file ./Payload/ndauwalletrn.app/icomoon.ttf ... 
+2116 bytes for ./Payload/ndauwalletrn.app/icomoon.ttf
+copying file ./Payload/ndauwalletrn.app/Octicons.ttf ... 
+2018-07-19 03:27:09 +0000  27520 bytes for ./Payload/ndauwalletrn.app/Octicons.ttf
+2018-07-19 03:27:09 +0000  copying file ./Payload/ndauwalletrn.app/Feather.ttf ... 
+2018-07-19 03:27:09 +0000  55288 bytes for ./Payload/ndauwalletrn.app/Feather.ttf
+copying file ./Payload/ndauwalletrn.app/TitilliumWeb-Bold.ttf ... 
+2018-07-19 03:27:09 +0000  59908 bytes for ./Payload/ndauwalletrn.app/TitilliumWeb-Bold.ttf
+copying file ./Payload/ndauwalletrn.app/Entypo.ttf ... 
+2018-07-19 03:27:09 +0000  65584 bytes for ./Payload/ndauwalletrn.app/Entypo.ttf
+copying file ./Payload/ndauwalletrn.app/TitilliumWeb-Regular.ttf ... 
+2018-07-19 03:27:09 +0000  63752 bytes for ./Payload/ndauwalletrn.app/TitilliumWeb-Regular.ttf
+copying file ./Payload/ndauwalletrn.app/MaterialCommunityIcons.ttf ... 
+2018-07-19 03:27:09 +0000  322456 bytes for ./Payload/ndauwalletrn.app/MaterialCommunityIcons.ttf
+copying file ./Payload/ndauwalletrn.app/AppIcon60x60@2x.png ... 
+2018-07-19 03:27:09 +0000  5922 bytes for ./Payload/ndauwalletrn.app/AppIcon60x60@2x.png
+copying file ./Payload/ndauwalletrn.app/Foundation.ttf ... 
+2018-07-19 03:27:09 +0000  56976 bytes for ./Payload/ndauwalletrn.app/Foundation.ttf
+copying file ./Payload/ndauwalletrn.app/Ionicons.ttf ... 
+2018-07-19 03:27:09 +0000  143936 bytes for ./Payload/ndauwalletrn.app/Ionicons.ttf
+2018-07-19 03:27:09 +0000  copying file ./Payload/ndauwalletrn.app/TitilliumWeb-BoldItalic.ttf ... 
+2018-07-19 03:27:09 +0000  69796 bytes for ./Payload/ndauwalletrn.app/TitilliumWeb-BoldItalic.ttf
+2018-07-19 03:27:09 +0000  copying file ./Payload/ndauwalletrn.app/Base.lproj/LaunchScreen.nib ... 
+2018-07-19 03:27:09 +0000  3155 bytes for ./Payload/ndauwalletrn.app/Base.lproj/LaunchScreen.nib
+copying file ./Payload/ndauwalletrn.app/FontAwesome.ttf ... 
+2018-07-19 03:27:09 +0000  165548 bytes for ./Payload/ndauwalletrn.app/FontAwesome.ttf
+copying file ./Payload/ndauwalletrn.app/Zocial.ttf ... 
+2018-07-19 03:27:09 +0000  25552 bytes for ./Payload/ndauwalletrn.app/Zocial.ttf
+copying file ./Payload/ndauwalletrn.app/ndauwalletrn ... 
+2018-07-19 03:27:10 +0000  5317632 bytes for ./Payload/ndauwalletrn.app/ndauwalletrn
+copying file ./Payload/ndauwalletrn.app/Assets.car ... 
+2018-07-19 03:27:10 +0000  135192 bytes for ./Payload/ndauwalletrn.app/Assets.car
+copying file ./Payload/ndauwalletrn.app/main.jsbundle.meta ... 
+21 bytes for ./Payload/ndauwalletrn.app/main.jsbundle.meta
+copying file ./Payload/ndauwalletrn.app/EvilIcons.ttf ... 
+13128 bytes for ./Payload/ndauwalletrn.app/EvilIcons.ttf
+copying file ./Payload/ndauwalletrn.app/AppIcon76x76@2x~ipad.png ... 
+8501 bytes for ./Payload/ndauwalletrn.app/AppIcon76x76@2x~ipad.png
+copying file ./Payload/ndauwalletrn.app/main.jsbundle ... 
+2018-07-19 03:27:10 +0000  826131 bytes for ./Payload/ndauwalletrn.app/main.jsbundle
+copying file ./Payload/ndauwalletrn.app/TitilliumWeb-LightItalic.ttf ... 
+2018-07-19 03:27:10 +0000  71720 bytes for ./Payload/ndauwalletrn.app/TitilliumWeb-LightItalic.ttf
+copying file ./Payload/ndauwalletrn.app/TitilliumWeb-Italic.ttf ... 
+2018-07-19 03:27:10 +0000  72416 bytes for ./Payload/ndauwalletrn.app/TitilliumWeb-Italic.ttf
+copying file ./Payload/ndauwalletrn.app/SimpleLineIcons.ttf ... 
+2018-07-19 03:27:10 +0000  54056 bytes for ./Payload/ndauwalletrn.app/SimpleLineIcons.ttf
+copying file ./Payload/ndauwalletrn.app/embedded.mobileprovision ... 
+2018-07-19 03:27:10 +0000  7504 bytes for ./Payload/ndauwalletrn.app/embedded.mobileprovision
+2018-07-19 03:27:10 +0000  copying file ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box.png ... 
+2018-07-19 03:27:10 +0000  169 bytes for ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box.png
+copying file ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_indeterminate_check_box.png ... 
+118 bytes for ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_indeterminate_check_box.png
+copying file ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@3x.png ... 
+218 bytes for ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@3x.png
+2018-07-19 03:27:10 +0000  copying file ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@2x.png ... 
+159 bytes for ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank@2x.png
+copying file ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box@3x.png ... 
+388 bytes for ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box@3x.png
+2018-07-19 03:27:10 +0000  copying file ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank.png ... 
+116 bytes for ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box_outline_blank.png
+copying file ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box@2x.png ... 
+265 bytes for ./Payload/ndauwalletrn.app/assets/node_modules/react-native-check-box/img/ic_check_box@2x.png
+2018-07-19 03:27:10 +0000  copying file ./Payload/ndauwalletrn.app/assets/img/gecko-green.jpg ... 
+2018-07-19 03:27:10 +0000  4808 bytes for ./Payload/ndauwalletrn.app/assets/img/gecko-green.jpg
+copying file ./Payload/ndauwalletrn.app/assets/img/Arrowhead-Down-01-128.png ... 
+2018-07-19 03:27:10 +0000  65838 bytes for ./Payload/ndauwalletrn.app/assets/img/Arrowhead-Down-01-128.png
+2018-07-19 03:27:10 +0000  copying file ./Payload/ndauwalletrn.app/assets/img/Arrowhead-01-128.png ... 
+2018-07-19 03:27:10 +0000  65838 bytes for ./Payload/ndauwalletrn.app/assets/img/Arrowhead-01-128.png
+2018-07-19 03:27:10 +0000  copying file ./Payload/ndauwalletrn.app/TitilliumWeb-Light.ttf ... 
+2018-07-19 03:27:10 +0000  64032 bytes for ./Payload/ndauwalletrn.app/TitilliumWeb-Light.ttf
+copying file ./Payload/ndauwalletrn.app/Info.plist ... 
+2018-07-19 03:27:10 +0000  1930 bytes for ./Payload/ndauwalletrn.app/Info.plist
+copying file ./Payload/ndauwalletrn.app/PkgInfo ... 
+2018-07-19 03:27:10 +0000  8 bytes for ./Payload/ndauwalletrn.app/PkgInfo
+copying file ./Payload/ndauwalletrn.app/MaterialIcons.ttf ... 
+2018-07-19 03:27:10 +0000  128180 bytes for ./Payload/ndauwalletrn.app/MaterialIcons.ttf
+2018-07-19 03:27:10 +0000  copying file ./Symbols/52F5569D-2515-3F6A-91A9-64478738E1D3.symbols ... 
+2018-07-19 03:27:10 +0000  1405096 bytes for ./Symbols/52F5569D-2515-3F6A-91A9-64478738E1D3.symbols
+2018-07-19 03:27:10 +0000  2018-07-19 03:27:10 +0000  /usr/bin/ditto exited with 0
+
+2018-07-19 03:27:10 +0000  
+2018-07-19 03:27:10 +0000  Processing step: IDEDistributionCreateManifestStep
+2018-07-19 03:27:10 +0000  Skipping step: IDEDistributionCreateManifestStep because it said so

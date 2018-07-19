@@ -16,14 +16,11 @@ const getUser = async (encryptionPassword) => {
       console.debug(`getUser - decrypted user is: ${userDecryptedString}`);
 
       return JSON.parse(userDecryptedString);
-    } else {
-      const user = {};
-      await setUser(user, encryptionPassword);
-      return user;
     }
   } catch (error) {
     console.error(error);
   }
+  return undefined;
 };
 
 const setUser = async (user, encryptionPassword) => {

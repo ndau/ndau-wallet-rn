@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, Text, SafeAreaView } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import ndauApi from '../api/NdauAPI';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ export default class Dashboard extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     ndauApi
       .getTargetPrice()
       .then((targetPrice) => {
@@ -26,9 +27,9 @@ export default class Dashboard extends Component {
       });
 
     this.showSetupIfNeeded();
-  }
+  };
 
-  showSetupIfNeeded = async (user) => {
+  showSetupIfNeeded = (user) => {
     this.props.navigator.push({
       screen: 'ndau.SetupMain',
       title: 'Setup',
