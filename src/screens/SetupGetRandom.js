@@ -19,7 +19,8 @@ class SetupGetRandom extends Component {
     super(props);
     this.state = {
       entropy: '',
-      percentage: 0
+      percentage: 0,
+      doneDisabled: true
     };
     this.randal = new Randal()
     this.randal.onUpdate(() => {
@@ -28,7 +29,9 @@ class SetupGetRandom extends Component {
         percentage: this.randal.getPercentage()
       })
     })
-
+    this.randal.onDone(() => {
+      this.setState({ doneDisabled: false })
+    })
   }
 
   onPushAnother = async () => {
@@ -87,7 +90,7 @@ class SetupGetRandom extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPushAnother} title="Done" />
+            <Button disabled={this.state.doneDisabled} color="#4d9678" onPress={this.onPushAnother} title="Done" />
           </View>
         </View>
       </SafeAreaView>
