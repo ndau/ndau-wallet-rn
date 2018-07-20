@@ -21,6 +21,10 @@ class SetupSeedPhrase extends Component {
   }
 
   componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
     this.generateSeedPhrase();
   };
 
@@ -43,6 +47,10 @@ class SetupSeedPhrase extends Component {
         seedPhraseArray: this.state.seedPhrase,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
       }
     });
   };

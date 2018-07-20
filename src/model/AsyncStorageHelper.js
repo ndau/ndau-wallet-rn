@@ -3,24 +3,30 @@ import CryptoJS from 'crypto-js';
 
 const STORAGE_KEY = '@NdauAsyncStorage:user';
 
-const getUser = async (encryptionPassword) => {
-  if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');
+const getUser = (encryptionPassword) => {
+  return new Promise((resolve, reject) => {
+    if (!encryptionPassword) {
+      resolve({});
+    } else {
+      AsyncStorage.getItem(STORAGE_KEY)
+        .then((user) => {
+          if (user !== null) {
+            console.debug(`getUser - encrypted user is: ${user}`);
+            const userDecryptedBytes = CryptoJS.AES.decrypt(user, encryptionPassword);
+            const userDecryptedString = userDecryptedBytes.toString(CryptoJS.enc.Utf8);
+            console.debug(`getUser - decrypted user is: ${userDecryptedString}`);
 
-  try {
-    const user = await AsyncStorage.getItem(STORAGE_KEY);
-
-    if (user !== null) {
-      console.debug(`getUser - encrypted user is: ${user}`);
-      const userDecryptedBytes = CryptoJS.AES.decrypt(user, encryptionPassword);
-      const userDecryptedString = userDecryptedBytes.toString(CryptoJS.enc.Utf8);
-      console.debug(`getUser - decrypted user is: ${userDecryptedString}`);
-
-      return JSON.parse(userDecryptedString);
+            resolve(JSON.parse(userDecryptedString));
+          } else {
+            resolve({});
+          }
+        })
+        .catch((error) => {
+          console.debug(error);
+          resolve({});
+        });
     }
-  } catch (error) {
-    console.error(error);
-  }
-  return undefined;
+  });
 };
 
 const setUser = async (user, encryptionPassword) => {

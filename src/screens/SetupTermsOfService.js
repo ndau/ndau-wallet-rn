@@ -17,6 +17,13 @@ class SetupTermsOfService extends Component {
     this.state = {};
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupEAINode',
@@ -28,6 +35,10 @@ class SetupTermsOfService extends Component {
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts,
         seedPhraseArray: this.props.seedPhraseArray
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
       }
     });
   };

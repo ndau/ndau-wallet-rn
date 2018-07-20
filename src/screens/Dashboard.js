@@ -9,24 +9,41 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      targetPrice: 0,
-      user: {}
+      user: {},
+      passPhrase: null
     };
   }
 
-  componentDidMount = async () => {
-    ndauApi
-      .getTargetPrice()
-      .then((targetPrice) => {
-        this.setState({
-          targetPrice: targetPrice
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  componentDidMount = () => {
+    this.loginOrSetup(this.state.passPhrase);
+  };
 
-    this.showSetupIfNeeded();
+  setPassphrase = (passPhrase) => {
+    this.setState({ passPhrase: passPhrase });
+    this.loginOrSetup(passPhrase);
+  };
+
+  loginOrSetup = async (passPhrase) => {
+    const localUser = await !AsyncStorageHelper.getUser(passPhrase);
+    console.debug(`AsyncStorageHelper user is: ${localUser}`);
+    if (!localUser) {
+      this.showSetupIfNeeded();
+    } else {
+      this.props.navigator.push({
+        screen: 'ndau.Passphrase',
+        title: 'Passphrase',
+        backButtonHidden: true,
+        passProps: {
+          parentStyles: styles,
+          iconsMap: this.props.iconsMap,
+          setPassphrase: this.setPassphrase
+        },
+        navigatorStyle: {
+          drawUnderTabBar: true,
+          tabBarHidden: true
+        }
+      });
+    }
   };
 
   showSetupIfNeeded = (user) => {
@@ -37,6 +54,10 @@ export default class Dashboard extends Component {
       passProps: {
         parentStyles: styles,
         iconsMap: this.props.iconsMap
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
       }
     });
   };
@@ -45,34 +66,15 @@ export default class Dashboard extends Component {
     return (
       <SafeAreaView style={styles.safeContainer}>
         <ScrollView style={styles.container}>
-          <CollapsiblePanel title="Panel with some dynamic stuff">
-            <Text style={styles.text}>Target Price: {this.state.targetPrice}</Text>
-          </CollapsiblePanel>
-          <CollapsiblePanel title="A Panel with long content text">
-            <Text style={styles.text}>
-              Lorem ipsum dolor sit amet, ut vestibulum massa. Porttitor sed dis quis turpis ipsum
-              est. Cursus mauris mattis nec in turpis quis, proin risus netus massa suspendisse nunc
-              vitae, ut suspendisse sociosqu nulla, lobortis turpis amet dui vestibulum quis, sem
-              ornare purus diam orci. Condimentum nulla euismod. Lacinia non exercitationem felis
-              aenean cum, leo metus. Vel lectus id blandit massa, habitasse cum eget. Mi aliquet
-              lacus mauris a nullam, montes magna nunc, porta vestibulum proin laoreet, ut vitae
-              eros, non nullam. Lacus ac. Sapien tempor egestas curabitur, id molestie molestie.
-            </Text>
-          </CollapsiblePanel>
-          <CollapsiblePanel title="A Panel with long content text as well">
-            <Text style={styles.text}>
-              Lorem ipsum dolor sit amet, elit fermentum fringilla ac porta, rhoncus vulputate
-              pellentesque pellentesque semper, turpis in turpis leo lobortis tellus. Velit eu arcu
-              dignissim suspendisse, sit nec a viverra dui vel in. Nibh elit dui justo nibh, tortor
-              sodales iaculis est risus at urna. Etiam purus diam dignissim duis felis id, fusce
-              vehicula per vel vestibulum aenean etiam, ultrices non, tristique nunc dolor, ante ut
-              quam dignissim dolor sapien nonummy. Tellus molestie erat, vestibulum malesuada, vitae
-              accumsan, ac urna varius integer nunc, nibh ac dapibus ac enim praesent ultricies.
-            </Text>
-          </CollapsiblePanel>
-          <CollapsiblePanel title="Another Panel">
-            <Text style={styles.text}>Lorem ipsum dolor sit amet...</Text>
-          </CollapsiblePanel>
+          {this.user ? (
+            this.user.addresses.map((address, index) => {
+              <CollapsiblePanel key={address} title={address}>
+                <Text style={styles.text}>Target Price: {this.state.targetPrice}</Text>
+              </CollapsiblePanel>;
+            })
+          ) : (
+            ''
+          )}
         </ScrollView>
       </SafeAreaView>
     );

@@ -14,6 +14,13 @@ class SetupMain extends Component {
     super(props);
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   onPushAnother = async () => {
     this.props.navigator.push({
       label: 'SetupUserId',
@@ -21,6 +28,10 @@ class SetupMain extends Component {
       passProps: {
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
       }
     });
   };

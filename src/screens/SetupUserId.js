@@ -21,10 +21,21 @@ class SetupUserId extends Component {
       userId: '',
       numberOfAccounts: 0
     };
+    this.userIdPresent = false;
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   confirmUserIdPresent = () => {
+    if (!this.state.userId) return false;
+
     return new Promise((resolve, reject) => {
+      if (!this.state.userId) reject('userId is not set');
       ndauApi
         .getNumberOfAccounts(this.state.userId)
         .then((numberOfAccounts) => {
@@ -35,34 +46,46 @@ class SetupUserId extends Component {
         })
         .catch((error) => {
           console.error(error);
-          reject(error);
+          reject(false);
         });
     });
   };
 
   onPushAnother = async () => {
-    const userIdPresent = await this.confirmUserIdPresent();
-    if (this.state.userId && userIdPresent) {
-      this.props.navigator.push({
-        label: 'SetupEncryptionPassword',
-        screen: 'ndau.SetupEncryptionPassword',
-        passProps: {
-          userId: this.state.userId,
-          parentStyles: this.props.parentStyles,
-          iconsMap: this.props.iconsMap,
-          numberOfAccounts: this.state.numberOfAccounts
-        }
-      });
+    if (this.state.userId) {
+      this.userIdPresent = await this.confirmUserIdPresent();
+      if (this.userIdPresent) {
+        this.props.navigator.push({
+          label: 'SetupEncryptionPassword',
+          screen: 'ndau.SetupEncryptionPassword',
+          passProps: {
+            userId: this.state.userId,
+            parentStyles: this.props.parentStyles,
+            iconsMap: this.props.iconsMap,
+            numberOfAccounts: this.state.numberOfAccounts
+          },
+          navigatorStyle: {
+            drawUnderTabBar: true,
+            tabBarHidden: true
+          }
+        });
+      } else {
+        this.showErrorMessage();
+      }
     } else {
-      Alert.alert(
-        'Error',
-        !userIdPresent
-          ? `${this.state.userId} does not exist as a User ID holding ndau`
-          : 'Please enter a value for the user ID.',
-        [ { text: 'OK', onPress: () => {} } ],
-        { cancelable: false }
-      );
+      this.showErrorMessage();
     }
+  };
+
+  showErrorMessage = () => {
+    Alert.alert(
+      'Error',
+      this.state.userId
+        ? `${this.state.userId} does not exist as a User ID holding ndau`
+        : 'Please enter a value for the user ID.',
+      [ { text: 'OK', onPress: () => {} } ],
+      { cancelable: false }
+    );
   };
 
   render() {

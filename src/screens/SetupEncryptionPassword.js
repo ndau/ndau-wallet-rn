@@ -30,6 +30,13 @@ class SetupEncryptionPassword extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   usePassword(event) {
     this.onPushAnother(event);
   }
@@ -65,6 +72,10 @@ class SetupEncryptionPassword extends Component {
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
       }
     });
   };

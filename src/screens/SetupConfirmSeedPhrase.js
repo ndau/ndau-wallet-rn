@@ -34,6 +34,10 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
     //add default props
     for (item in this.props.seedPhraseArray) {
       this.setState({ [`${item}BackgroundColor`]: '#1c2227' });
@@ -60,6 +64,10 @@ class SetupConfirmSeedPhrase extends Component {
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts,
         seedPhraseArray: this.props.seedPhraseArray
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
       }
     });
   };

@@ -20,6 +20,13 @@ class SetupGetRandom extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   onPushAnother = async () => {
     this.props.navigator.push({
       label: 'SetupYourWallet',
@@ -31,6 +38,10 @@ class SetupGetRandom extends Component {
         entropy: this.state.entropy,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
       }
     });
   };

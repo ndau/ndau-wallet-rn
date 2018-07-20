@@ -24,6 +24,13 @@ class SetupEAINode extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   sendAccountAddresses = (userId, addresses) => {
     return new Promise((resolve, reject) => {
       ndauApi
