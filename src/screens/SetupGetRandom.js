@@ -9,16 +9,25 @@ import {
   Platform,
   ProgressBarAndroid,
   TextInput,
-  SafeAreaView
+  SafeAreaView,
+  TouchableWithoutFeedback
 } from 'react-native';
+import Randal from '../helpers/randal.js';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entropy: 'rushcounterparts'
+      entropy: '',
+      percentage: 0
     };
+    this.randal = new Randal()
+    this.randal.onUpdate(() => {
+      this.setState({ entropy: this.randal.hash.toString() })
+      this.setState({ percentage: this.randal.getPercentage() })
+    })
+
   }
 
   onPushAnother = async () => {
@@ -35,6 +44,10 @@ class SetupGetRandom extends Component {
       }
     });
   };
+
+  handleScribble(evt) {
+    this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
+  }
 
   render() {
     return (
@@ -62,13 +75,15 @@ class SetupGetRandom extends Component {
                 Scribble in the box below to add randomness to your key.
               </Text>
             </View>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={(entropy) => this.setState({ entropy })}
-              value={this.state.entropy}
-              placeholder="Scribble area"
-              placeholderTextColor="#333"
-            />
+            <View>
+              <ProgBar percentage={this.state.percentage} />
+              <View
+                onStartShouldSetResponderCapture={() => true}
+                onResponderMove={(evt) => this.handleScribble(evt)}
+                style={styles.scribbleArea}
+              >
+              </View>
+            </View>
           </ScrollView>
           <View style={styles.footer}>
             <Button color="#4d9678" onPress={this.onPushAnother} title="Done" />
@@ -77,6 +92,21 @@ class SetupGetRandom extends Component {
       </SafeAreaView>
     );
   }
+}
+
+function ProgBar(props) {
+  let percentage = Math.min(props.percentage, 100)
+  return (<View style={{
+    height: 20,
+    flex: 1,
+    backgroundColor: 'grey'
+  }}>
+    <View style={{
+      height: 20,
+      backgroundColor: percentage == 100 ? '#4d9678' : 'yellow',
+      width: String(percentage) + "%"
+    }}></View>
+  </View>)
 }
 
 const styles = StyleSheet.create({
@@ -113,6 +143,11 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular'
+  },
+  scribbleArea: {
+    backgroundColor: 'white',
+    flex: 1,
+    height: 200,
   }
 });
 
