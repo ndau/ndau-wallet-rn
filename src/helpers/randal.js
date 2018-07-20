@@ -8,7 +8,7 @@ const sha256 = require('crypto-js/sha256');
 //   update old hash with some new hash
 //   update trip length
 const distanceThreshold = 5; // in pixels
-const quota = 1028; // arbitrary
+const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
 export default class Randal {
     constructor() {
