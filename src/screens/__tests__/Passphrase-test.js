@@ -1,11 +1,11 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import SetupMain from '../SetupMain';
+import Passphrase from '../Passphrase';
 
 import renderer from 'react-test-renderer';
 
-describe('testing SetupMain...', () => {
+describe('testing Passphrase...', () => {
   let styles = StyleSheet.create({
     wizardText: {
       color: '#ffffff',
@@ -19,12 +19,12 @@ describe('testing SetupMain...', () => {
   beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer
-      .create(<SetupMain parentStyles={styles} navigator={navigator} />)
+      .create(<Passphrase navigator={navigator} parentStyles={styles} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
   it('can click the button', () => {
-    const wrapper = mount(<SetupMain navigator={navigator} parentStyles={styles} />);
+    const wrapper = mount(<Passphrase navigator={navigator} parentStyles={styles} />);
     const onlyButton = wrapper.find('Button').at(0);
     onlyButton.simulate('click');
   });

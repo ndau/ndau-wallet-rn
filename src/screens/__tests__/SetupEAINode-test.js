@@ -43,6 +43,9 @@ describe('testing SetupEAINode...', () => {
   KeyaddrWordsToBytes.mockReturnValue(bytes);
   const CreatePublicAddress = sinon.spy(NativeModules.KeyaddrManager, 'CreatePublicAddress');
   CreatePublicAddress.mockReturnValue([]);
+  const navigator = {
+    setStyle: () => {}
+  };
 
   beforeEach(() => {});
 
@@ -54,6 +57,7 @@ describe('testing SetupEAINode...', () => {
           seedPhraseArray={seedPhraseArray}
           userId={userId}
           numberOfAccounts={numberOfAccounts}
+          navigator={navigator}
         />
       )
       .toJSON();
@@ -67,6 +71,7 @@ describe('testing SetupEAINode...', () => {
         seedPhraseArray={seedPhraseArray}
         userId={userId}
         numberOfAccounts={numberOfAccounts}
+        navigator={navigator}
       />
     );
     wrapper.dive();
