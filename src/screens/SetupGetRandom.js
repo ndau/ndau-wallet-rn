@@ -8,7 +8,6 @@ import {
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
-  TextInput,
   SafeAreaView,
   TouchableWithoutFeedback
 } from 'react-native';
@@ -101,7 +100,9 @@ function ProgBar(props) {
   return (<View style={{
     height: 20,
     flex: 1,
-    backgroundColor: 'grey'
+    backgroundColor: 'grey',
+    marginBottom: 20,
+    marginTop: 10
   }}>
     <View style={{
       height: 20,
@@ -134,17 +135,6 @@ const styles = StyleSheet.create({
   progress: {
     paddingTop: 30,
     paddingBottom: 30
-  },
-  textInput: {
-    height: 200,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
   },
   scribbleArea: {
     backgroundColor: 'white',
