@@ -103,9 +103,7 @@ export default class Dashboard extends Component {
             addresses.map((address, index) => {
               return <CollapsiblePanel key={index} title={address} />;
             })
-          ) : (
-            <CollapsiblePanel title="" />
-          )}
+          ) : null}
         </ScrollView>
       </SafeAreaView>
     );
@@ -156,5 +154,12 @@ var styles = StyleSheet.create({
   progress: {
     paddingTop: 8,
     paddingBottom: 8
+  },
+  errorText: {
+    color: '#f75f4b',
+    fontSize: 20
+  },
+  errorContainer: {
+    backgroundColor: '#f5d8d1'
   }
 });

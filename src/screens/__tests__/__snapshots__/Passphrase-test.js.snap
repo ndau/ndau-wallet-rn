@@ -44,30 +44,84 @@ exports[`testing Passphrase... renders correctly 1`] = `
                 "testUri": "../../../img/n_icon_ko.png",
               }
             }
+            style={
+              Object {
+                "tintColor": "#4e957a",
+              }
+            }
           />
         </View>
-        <TextInput
-          allowFontScaling={true}
-          onChangeText={[Function]}
-          placeholder="Enter a password"
-          placeholderTextColor="#333"
-          secureTextEntry={true}
+        <View
           style={
             Object {
-              "backgroundColor": "#ffffff",
-              "borderColor": "gray",
-              "borderWidth": 1,
-              "color": undefined,
-              "fontFamily": "TitilliumWeb-Regular",
-              "fontSize": 18,
-              "height": 45,
-              "marginBottom": 10,
-              "marginTop": 10,
-              "paddingLeft": 10,
+              "flexDirection": "row",
             }
           }
-          value=""
-        />
+        >
+          <TextInput
+            allowFontScaling={true}
+            onChangeText={[Function]}
+            placeholder="Enter your app passphrase"
+            placeholderTextColor="#333"
+            secureTextEntry={true}
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "borderColor": "gray",
+                "borderWidth": 1,
+                "color": undefined,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 18,
+                "height": 45,
+                "marginBottom": 10,
+                "marginTop": 10,
+                "paddingLeft": 10,
+                "width": "93%",
+              }
+            }
+            value=""
+          />
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "color": "#ffffff",
+                    "fontSize": 20,
+                  },
+                  Object {
+                    "marginLeft": 12,
+                    "marginTop": 20,
+                  },
+                  Object {
+                    "fontFamily": "FontAwesome",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                ]
+              }
+            >
+              
+            </Text>
+          </View>
+        </View>
       </View>
     </RCTScrollView>
     <View

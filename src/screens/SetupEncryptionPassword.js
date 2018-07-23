@@ -15,7 +15,6 @@ import {
   Image
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class SetupEncryptionPassword extends Component {

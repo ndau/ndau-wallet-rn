@@ -17,9 +17,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
       }
     }
   >
-    <View>
-      
-    </View>
+    <View />
   </RCTScrollView>
 </RCTSafeAreaView>
 `;
