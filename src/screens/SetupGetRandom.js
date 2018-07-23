@@ -18,7 +18,7 @@ class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entropy: '',
+      entropy: 'ZWEQAwQFBgcICQoLDA0ODw==',
       percentage: 0,
       doneDisabled: true
     };
@@ -39,12 +39,12 @@ class SetupGetRandom extends Component {
       label: 'SetupYourWallet',
       screen: 'ndau.SetupYourWallet',
       passProps: {
-        encryptionPassword: this.props.password,
+        encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.state.entropy,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts
       }
     });
   };
@@ -70,8 +70,8 @@ class SetupGetRandom extends Component {
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
-              )}
+                  <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
+                )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>

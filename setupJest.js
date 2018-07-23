@@ -1,13 +1,6 @@
-// import Enzyme, { shallow, render, mount } from 'enzyme';
-// import Adapter from 'enzyme-adapter-react-16';
-// // React 16 Enzyme adapter
-// Enzyme.configure({ adapter: new Adapter() });
-// // Make Enzyme functions available in all test files without importing
-// global.shallow = shallow;
-// global.render = render;
-// global.mount = mount;
-const { JSDOM } = require('jsdom');
+import PropTypes from 'prop-types';
 
+const { JSDOM } = require('jsdom');
 const jsdom = new JSDOM();
 const { window } = jsdom;
 
@@ -39,6 +32,10 @@ console.error = (message) => {
 require('react-native-mock-render/mock');
 
 global.fetch = require('jest-fetch-mock');
+
+var chai = require('chai');
+
+global.expect = chai.expect;
 
 // This will mutate `react-native`'s require cache with `react-native-mock`'s.
 // require('react-native-mock/mock'); // <-- side-effects!!!

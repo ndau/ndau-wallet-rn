@@ -22,11 +22,12 @@ class SetupTermsOfService extends Component {
       label: 'SetupEAINode',
       screen: 'ndau.SetupEAINode',
       passProps: {
-        encryptionPassword: this.props.password,
+        encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts,
+        seedPhraseArray: this.props.seedPhraseArray
       }
     });
   };

@@ -27,7 +27,29 @@ getNumberOfAccounts = (userId) => {
     });
 };
 
+sendAccountAddresses = (userId, addresses) => {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+      addresses: addresses
+    })
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.info(`sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 module.exports = {
   getTargetPrice,
-  getNumberOfAccounts
+  getNumberOfAccounts,
+  sendAccountAddresses
 };

@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, Button, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  Button,
+  SafeAreaView,
+  NativeModules
+} from 'react-native';
 
 class SetupMain extends Component {
   constructor(props) {
     super(props);
   }
 
-  onPushAnother = () => {
+  onPushAnother = async () => {
     this.props.navigator.push({
       label: 'SetupUserId',
       screen: 'ndau.SetupUserId',

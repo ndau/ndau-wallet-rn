@@ -6,7 +6,7 @@ import SetupEncryptionPassword from '../SetupEncryptionPassword';
 import renderer from 'react-test-renderer';
 
 describe('testing SetupEncryptionPassword...', () => {
-  var styles = StyleSheet.create({
+  let styles = StyleSheet.create({
     wizardText: {
       color: '#ffffff',
       fontSize: 20
