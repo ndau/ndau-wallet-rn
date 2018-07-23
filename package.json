@@ -36,7 +36,9 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [ "./setupJest.js" ]
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   },
   "dependencies": {
     "@tradle/react-native-http": "^2.0.1",
@@ -63,7 +65,9 @@
     "util": "^0.10.4"
   },
   "rnpm": {
-    "assets": [ "assets/fonts" ]
+    "assets": [
+      "assets/fonts"
+    ]
   },
   "react-native": {
     "zlib": "browserify-zlib",
