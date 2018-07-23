@@ -36,11 +36,11 @@
 
 - (instancetype)initWithRef:(id)ref;
 /**
- * NewKey takes a seed (an array of bytes) and creates a private master
+ * NewKey takes a seed (an array of bytes encoded as a base64 string) and creates a private master
 key from it. The key is returned as a string representation of the key;
 it is converted to and from the internal representation by its member functions.
  */
-- (instancetype)init:(NSData*)seed;
+- (instancetype)init:(NSString*)seedstr;
 - (NSString*)key;
 - (void)setKey:(NSString*)v;
 /**
@@ -51,11 +51,11 @@ It is an error if the given key is a hardened key.
  */
 - (KeyaddrKey*)child:(int32_t)n error:(NSError**)error;
 /**
- * HardenedChild returns the n'th hardened public child of the given extended key.
+ * HardenedChild returns the n'th hardened child of the given extended key.
 The parent key must be a private key.
-A HardenedChild cannot be used to derive further children, and is guaranteed to
-have been derived from a private key. Although n is typed as a signed
-integer, this is due to the limitations of gomobile; n may not be negative.
+A HardenedChild is guaranteed to have been derived from a private key.
+Although n is typed as a signed integer, this is due to the limitations of gomobile;
+n may not be negative.
 It is an error if the given key is already a hardened key.
  */
 - (KeyaddrKey*)hardenedChild:(int32_t)n error:(NSError**)error;
@@ -73,11 +73,12 @@ It is an error if the key is hardened.
  */
 - (KeyaddrKey*)neuter:(NSError**)error;
 /**
- * Sign uses the given key to sign a message; the message will usually be
-the hash of some longer message. It returns a signature object.
+ * Sign uses the given key to sign a message; the message must be the
+standard base64 encoding of the bytes of the message.
+It returns a signature object.
 The key must be a private key.
  */
-- (KeyaddrSignature*)sign:(NSData*)msg error:(NSError**)error;
+- (KeyaddrSignature*)sign:(NSString*)msgstr error:(NSError**)error;
 @end
 
 /**
@@ -94,22 +95,23 @@ The key must be a private key.
 @end
 
 /**
- * NewKey takes a seed (an array of bytes) and creates a private master
+ * NewKey takes a seed (an array of bytes encoded as a base64 string) and creates a private master
 key from it. The key is returned as a string representation of the key;
 it is converted to and from the internal representation by its member functions.
  */
-FOUNDATION_EXPORT KeyaddrKey* KeyaddrNewKey(NSData* seed, NSError** error);
+FOUNDATION_EXPORT KeyaddrKey* KeyaddrNewKey(NSString* seedstr, NSError** error);
 
 /**
  * WordsFromBytes takes an array of bytes and converts it to a space-separated list of
 words that act as a mnemonic. A 16-byte input array will generate a list of 12 words.
  */
-FOUNDATION_EXPORT NSString* KeyaddrWordsFromBytes(NSString* lang, NSData* b, NSError** error);
+FOUNDATION_EXPORT NSString* KeyaddrWordsFromBytes(NSString* lang, NSString* data, NSError** error);
 
 /**
  * WordsToBytes takes a space-separated list of words and generates the set of bytes
-from which it was generated (or an error).
+from which it was generated (or an error). The bytes are encoded as a base64 string
+using standard base64 encoding, as defined in RFC 4648.
  */
-FOUNDATION_EXPORT NSData* KeyaddrWordsToBytes(NSString* lang, NSString* w, NSError** error);
+FOUNDATION_EXPORT NSString* KeyaddrWordsToBytes(NSString* lang, NSString* w, NSError** error);
 
 #endif

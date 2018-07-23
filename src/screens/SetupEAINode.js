@@ -10,8 +10,11 @@ import {
   ProgressBarAndroid,
   Picker,
   PickerIOS,
-  SafeAreaView
+  SafeAreaView,
+  NativeModules
 } from 'react-native';
+import ndauApi from '../api/NdauAPI';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -21,7 +24,62 @@ class SetupEAINode extends Component {
     };
   }
 
-  onPopToRoot = () => {
+  sendAccountAddresses = (userId, addresses) => {
+    return new Promise((resolve, reject) => {
+      ndauApi
+        .sendAccountAddresses(userId, addresses)
+        .then((whatPersisted) => {
+          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
+          resolve(whatPersisted);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+    });
+  };
+
+  finishSetup = async () => {
+    console.debug('Finishing Setup...');
+    const addresses = await this.keyGeneration();
+
+    this.sendAddressesToOneiro(addresses);
+    this.persistAddresses(addresses);
+
+    this.returnToDashboard();
+  };
+
+  keyGeneration = async () => {
+    console.debug('Generating all keys from phrase given...');
+    const seedPhraseString = this.props.seedPhraseArray.join().replace(/,/g, ' ');
+    console.debug(`seedPhraseString: ${seedPhraseString}`);
+    const seedPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
+      'en',
+      seedPhraseString
+    );
+    console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
+    const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
+      seedPhraseAsBytes,
+      this.props.numberOfAccounts
+    );
+    console.debug(`publicAddresses: ${publicAddresses}`);
+
+    return publicAddresses;
+  };
+
+  sendAddressesToOneiro = (addresses) => {
+    this.sendAccountAddresses(this.props.userId, addresses);
+  };
+
+  persistAddresses = (addresses) => {
+    const user = {
+      userId: this.props.userId,
+      addresses: addresses
+    };
+    AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
+  };
+
+  returnToDashboard = () => {
     this.props.navigator.popToRoot();
   };
 
@@ -73,7 +131,12 @@ class SetupEAINode extends Component {
             )}
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPopToRoot} title="Select and finish" />
+            <Button
+              color="#4d9678"
+              onPress={this.finishSetup}
+              title="Select and finish"
+              id="select-and-finish"
+            />
           </View>
         </View>
       </SafeAreaView>

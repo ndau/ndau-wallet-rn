@@ -23,12 +23,12 @@ class SetupYourWallet extends Component {
       label: 'SetupSeedPhrase',
       screen: 'ndau.SetupSeedPhrase',
       passProps: {
-        encryptionPassword: this.props.password,
+        encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.props.entropy,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts
       }
     });
   };

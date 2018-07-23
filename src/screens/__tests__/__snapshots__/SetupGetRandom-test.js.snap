@@ -90,7 +90,7 @@ exports[`testing SetupGetRandom... renders correctly 1`] = `
               "paddingLeft": 10,
             }
           }
-          value="rushcounterparts"
+          value="ZWEQAwQFBgcICQoLDA0ODw=="
         />
       </View>
     </RCTScrollView>

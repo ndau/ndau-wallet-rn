@@ -1,19 +1,39 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, NativeModules } from 'react-native';
 import SetupSeedPhrase from '../SetupSeedPhrase';
+import { shallow } from 'enzyme';
+import sinon from 'sinon';
 
-import renderer from 'react-test-renderer';
+jest.mock('NativeModules', () => {
+  return {
+    KeyaddrManager: {
+      KeyaddrWordsFromBytes: jest.fn()
+    },
+    KeyboardObserver: {}
+  };
+});
 
 describe('testing SetupSeedPhrase...', () => {
+  let styles = StyleSheet.create({
+    wizardText: {
+      color: '#ffffff',
+      fontSize: 20
+    }
+  });
   beforeEach(() => {});
+
+  const wrapper = shallow(<SetupSeedPhrase parentStyles={styles} />);
+  const render = wrapper.dive();
+
   it('renders correctly', () => {
-    var styles = StyleSheet.create({
-      wizardText: {
-        color: '#ffffff',
-        fontSize: 20
-      }
-    });
-    const tree = renderer.create(<SetupSeedPhrase parentStyles={styles} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(render).toMatchSnapshot();
+  });
+
+  const KeyaddrWordsFromBytes = sinon.spy(NativeModules.KeyaddrManager, 'KeyaddrWordsFromBytes');
+
+  it('calls KeyaddrWordsFromBytes as expected', () => {
+    const wrapper = shallow(<SetupSeedPhrase parentStyles={styles} />);
+    wrapper.dive();
+    expect(KeyaddrWordsFromBytes.calledOnce).toBe(true);
   });
 });

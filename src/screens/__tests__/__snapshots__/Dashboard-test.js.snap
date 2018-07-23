@@ -39,7 +39,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
           }
         >
           <Image
-            source={1}
+            source={
+              Object {
+                "testUri": "../../../img/gecko-green.jpg",
+              }
+            }
             style={
               Array [
                 Object {
@@ -92,7 +96,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
                 Panel with some dynamic stuff
               </Text>
               <Image
-                source={1}
+                source={
+                  Object {
+                    "testUri": "../../../img/Arrowhead-01-128.png",
+                  }
+                }
                 style={
                   Object {
                     "backgroundColor": "transparent",
@@ -151,7 +159,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
           }
         >
           <Image
-            source={1}
+            source={
+              Object {
+                "testUri": "../../../img/gecko-green.jpg",
+              }
+            }
             style={
               Array [
                 Object {
@@ -204,7 +216,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
                 A Panel with long content text
               </Text>
               <Image
-                source={1}
+                source={
+                  Object {
+                    "testUri": "../../../img/Arrowhead-01-128.png",
+                  }
+                }
                 style={
                   Object {
                     "backgroundColor": "transparent",
@@ -262,7 +278,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
           }
         >
           <Image
-            source={1}
+            source={
+              Object {
+                "testUri": "../../../img/gecko-green.jpg",
+              }
+            }
             style={
               Array [
                 Object {
@@ -315,7 +335,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
                 A Panel with long content text as well
               </Text>
               <Image
-                source={1}
+                source={
+                  Object {
+                    "testUri": "../../../img/Arrowhead-01-128.png",
+                  }
+                }
                 style={
                   Object {
                     "backgroundColor": "transparent",
@@ -373,7 +397,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
           }
         >
           <Image
-            source={1}
+            source={
+              Object {
+                "testUri": "../../../img/gecko-green.jpg",
+              }
+            }
             style={
               Array [
                 Object {
@@ -426,7 +454,11 @@ exports[`testing Dashboard... renders correctly 1`] = `
                 Another Panel
               </Text>
               <Image
-                source={1}
+                source={
+                  Object {
+                    "testUri": "../../../img/Arrowhead-01-128.png",
+                  }
+                }
                 style={
                   Object {
                     "backgroundColor": "transparent",

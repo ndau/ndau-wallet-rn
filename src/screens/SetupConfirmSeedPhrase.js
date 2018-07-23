@@ -54,11 +54,12 @@ class SetupConfirmSeedPhrase extends Component {
       label: 'SetupTermsOfService',
       screen: 'ndau.SetupTermsOfService',
       passProps: {
-        encryptionPassword: this.props.password,
+        encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts,
+        seedPhraseArray: this.props.seedPhraseArray
       }
     });
   };
