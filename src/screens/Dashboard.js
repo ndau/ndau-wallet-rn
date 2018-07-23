@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, ScrollView, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, Alert } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
@@ -10,12 +10,15 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       user: {},
-      passPhrase: null
+      passPhrase: null,
+      loginAttempt: 1
     };
+
+    this.maxLoginAttempts = 10;
   }
 
   componentDidMount = () => {
-    this.loginOrSetup(this.state.passPhrase);
+    this.loginOrSetup(this.props.encryptionPassword || this.state.passPhrase);
   };
 
   setPassphrase = (passPhrase) => {
@@ -23,30 +26,58 @@ export default class Dashboard extends Component {
     this.loginOrSetup(passPhrase);
   };
 
-  loginOrSetup = async (passPhrase) => {
-    const localUser = await !AsyncStorageHelper.getUser(passPhrase);
-    console.debug(`AsyncStorageHelper user is: ${localUser}`);
-    if (!localUser) {
-      this.showSetupIfNeeded();
-    } else {
-      this.props.navigator.push({
-        screen: 'ndau.Passphrase',
-        title: 'Passphrase',
-        backButtonHidden: true,
-        passProps: {
-          parentStyles: styles,
-          iconsMap: this.props.iconsMap,
-          setPassphrase: this.setPassphrase
-        },
-        navigatorStyle: {
-          drawUnderTabBar: true,
-          tabBarHidden: true
+  loginOrSetup = (passPhrase) => {
+    AsyncStorageHelper.getUser(passPhrase)
+      .then((user) => {
+        console.debug(`AsyncStorageHelper user is: ${JSON.stringify(user, null, 2)}`);
+        if (user === null) {
+          //if user is null then they have never been in the app
+          this.showSetup();
+        } else if (!passPhrase) {
+          //else if the user is {} then we don't have a password...so get it
+          this.getPassphrase();
+        } else if (!user.addresses && this.state.loginAttempt < this.maxLoginAttempts) {
+          //if the user {} and password was given then you did not give the right password
+          Alert.alert(
+            'Error',
+            `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
+            [
+              {
+                text: 'OK',
+                onPress: () => {
+                  this.getPassphrase();
+                  this.setState({ loginAttempt: this.state.loginAttempt + 1 });
+                }
+              }
+            ],
+            { cancelable: false }
+          );
         }
+        if (user) this.setState({ user });
+      })
+      .catch((error) => {
+        console.debug(error);
       });
-    }
   };
 
-  showSetupIfNeeded = (user) => {
+  getPassphrase = () => {
+    this.props.navigator.push({
+      screen: 'ndau.Passphrase',
+      title: 'Passphrase',
+      backButtonHidden: true,
+      passProps: {
+        parentStyles: styles,
+        iconsMap: this.props.iconsMap,
+        setPassphrase: this.setPassphrase
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
+      }
+    });
+  };
+
+  showSetup = () => {
     this.props.navigator.push({
       screen: 'ndau.SetupMain',
       title: 'Setup',
@@ -63,17 +94,17 @@ export default class Dashboard extends Component {
   };
 
   render() {
+    const { addresses } = this.state.user;
+    console.debug(`renders addresses: ${addresses}`);
     return (
       <SafeAreaView style={styles.safeContainer}>
         <ScrollView style={styles.container}>
-          {this.user ? (
-            this.user.addresses.map((address, index) => {
-              <CollapsiblePanel key={address} title={address}>
-                <Text style={styles.text}>Target Price: {this.state.targetPrice}</Text>
-              </CollapsiblePanel>;
+          {addresses ? (
+            addresses.map((address, index) => {
+              return <CollapsiblePanel key={index} title={address} />;
             })
           ) : (
-            ''
+            <CollapsiblePanel title="" />
           )}
         </ScrollView>
       </SafeAreaView>

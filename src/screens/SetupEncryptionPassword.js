@@ -46,13 +46,7 @@ class SetupEncryptionPassword extends Component {
   };
 
   onPushAnother = async () => {
-    if (this.checkPasswords()) {
-      this.setState({ textInputColor: '#ffffff' });
-      const user = await AsyncStorageHelper.getUser(this.state.password);
-      // user.password = this.state.password;
-      user.setupStep = 'ndau.SetupGetRandom';
-      await AsyncStorageHelper.setUser(user, this.state.password);
-    } else {
+    if (!this.checkPasswords()) {
       Alert.alert(
         'Error',
         'The passwords entered do not match.',

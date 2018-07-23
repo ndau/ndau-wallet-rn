@@ -5,27 +5,23 @@ const STORAGE_KEY = '@NdauAsyncStorage:user';
 
 const getUser = (encryptionPassword) => {
   return new Promise((resolve, reject) => {
-    if (!encryptionPassword) {
-      resolve({});
-    } else {
-      AsyncStorage.getItem(STORAGE_KEY)
-        .then((user) => {
-          if (user !== null) {
-            console.debug(`getUser - encrypted user is: ${user}`);
-            const userDecryptedBytes = CryptoJS.AES.decrypt(user, encryptionPassword);
-            const userDecryptedString = userDecryptedBytes.toString(CryptoJS.enc.Utf8);
-            console.debug(`getUser - decrypted user is: ${userDecryptedString}`);
+    AsyncStorage.getItem(STORAGE_KEY)
+      .then((user) => {
+        if (user !== null) {
+          console.debug(`getUser - encrypted user is: ${user}`);
+          const userDecryptedBytes = CryptoJS.AES.decrypt(user, encryptionPassword);
+          const userDecryptedString = userDecryptedBytes.toString(CryptoJS.enc.Utf8);
+          console.debug(`getUser - decrypted user is: ${userDecryptedString}`);
 
-            resolve(JSON.parse(userDecryptedString));
-          } else {
-            resolve({});
-          }
-        })
-        .catch((error) => {
-          console.debug(error);
-          resolve({});
-        });
-    }
+          resolve(JSON.parse(userDecryptedString));
+        } else {
+          resolve(null);
+        }
+      })
+      .catch((error) => {
+        console.debug(`User could be present but password is incorrect: ${error}`);
+        resolve({});
+      });
   });
 };
 
