@@ -62,6 +62,7 @@ export default class Randal {
     _addStep(delta, pos) {
         const posEnc = (delta[0] * this.coprimes[0]) + (delta[1] * this.coprimes[1]);
         this.hash = sha256(this.hash + posEnc);
+        this.hash = sha256(this.hash.concat(sha256(posEnc)).toString());
         this.steps++;
         this.home = pos;
         this.updateHandlers.forEach((fn) => fn());
