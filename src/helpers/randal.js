@@ -12,11 +12,11 @@ const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
 export default class Randal {
     constructor() {
-        this.coprimes = this._genCoprimes();
         this.seed = (new Date).getTime();
+        this.coprimes = this._genCoprimes();
         this.home = [0, 0];
         this.steps = 0;
-        this.hash = "";
+        this.hash = sha256((new Date).getTime());
         this.updateHandlers = [];
         this.doneHandlers = [];
     }
