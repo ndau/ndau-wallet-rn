@@ -39,6 +39,7 @@ class SetupSeedPhrase extends Component {
     this.props.navigator.push({
       label: 'SetupConfirmSeedPhrase',
       screen: 'ndau.SetupConfirmSeedPhrase',
+      backButtonHidden: false,
       passProps: {
         encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
@@ -50,7 +51,8 @@ class SetupSeedPhrase extends Component {
       },
       navigatorStyle: {
         drawUnderTabBar: true,
-        tabBarHidden: true
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };

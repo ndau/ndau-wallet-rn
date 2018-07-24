@@ -73,6 +73,9 @@ export default class Dashboard extends Component {
       navigatorStyle: {
         drawUnderTabBar: true,
         tabBarHidden: true
+      },
+      navigationOptions: {
+        gesturesEnabled: false
       }
     });
   };
@@ -88,7 +91,8 @@ export default class Dashboard extends Component {
       },
       navigatorStyle: {
         drawUnderTabBar: true,
-        tabBarHidden: true
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };

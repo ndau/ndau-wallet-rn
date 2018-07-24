@@ -68,7 +68,8 @@ class SetupEncryptionPassword extends Component {
       },
       navigatorStyle: {
         drawUnderTabBar: true,
-        tabBarHidden: true
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };
