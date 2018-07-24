@@ -13,8 +13,13 @@ describe('testing SetupGetRandom...', () => {
         fontSize: 20
       }
     });
+    const navigator = {
+      setStyle: () => {}
+    };
 
-    const tree = renderer.create(<SetupGetRandom parentStyles={styles} />).toJSON();
+    const tree = renderer
+      .create(<SetupGetRandom navigator={navigator} parentStyles={styles} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

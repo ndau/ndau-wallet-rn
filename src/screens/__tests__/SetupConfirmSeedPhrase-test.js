@@ -25,11 +25,20 @@ describe('testing SetupConfirmSeedPhrase...', () => {
       fontSize: 20
     }
   });
+  const navigator = {
+    setStyle: () => {}
+  };
 
   beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer
-      .create(<SetupConfirmSeedPhrase parentStyles={styles} seedPhraseArray={seedPhraseArray} />)
+      .create(
+        <SetupConfirmSeedPhrase
+          navigator={navigator}
+          parentStyles={styles}
+          seedPhraseArray={seedPhraseArray}
+        />
+      )
       .toJSON();
     //TODO; CAN'T do this as the text is randomized...so ignore it
     //expect(tree).toMatchSnapshot();

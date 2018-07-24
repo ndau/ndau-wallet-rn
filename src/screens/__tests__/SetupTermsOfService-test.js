@@ -13,8 +13,13 @@ describe('testing SetupTermsOfService...', () => {
         fontSize: 20
       }
     });
+    const navigator = {
+      setStyle: () => {}
+    };
 
-    const tree = renderer.create(<SetupTermsOfService parentStyles={styles} />).toJSON();
+    const tree = renderer
+      .create(<SetupTermsOfService navigator={navigator} parentStyles={styles} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

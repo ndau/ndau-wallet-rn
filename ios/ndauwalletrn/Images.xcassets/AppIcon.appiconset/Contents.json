@@ -1,111 +1,51 @@
 {
   "images" : [
     {
-      "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-20@2x.png",
+      "size" : "20x20",
       "scale" : "2x"
     },
     {
-      "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-20@3x.png",
+      "size" : "20x20",
       "scale" : "3x"
     },
     {
-      "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-29@2x.png",
+      "size" : "29x29",
       "scale" : "2x"
     },
     {
-      "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-29@3x.png",
+      "size" : "29x29",
       "scale" : "3x"
     },
     {
-      "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-40@2x.png",
+      "size" : "40x40",
       "scale" : "2x"
     },
     {
-      "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-40@3x.png",
+      "size" : "40x40",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-60@2x.png",
+      "filename" : "ndau 60pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "ndau favicon-60@3x.png",
+      "filename" : "ndau 60pt@3x.png",
       "scale" : "3x"
-    },
-    {
-      "size" : "20x20",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-20.png",
-      "scale" : "1x"
-    },
-    {
-      "size" : "20x20",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-20@2x.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "29x29",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-29.png",
-      "scale" : "1x"
-    },
-    {
-      "size" : "29x29",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-29@2x.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "40x40",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-40.png",
-      "scale" : "1x"
-    },
-    {
-      "size" : "40x40",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-40@2x.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "76x76",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-76.png",
-      "scale" : "1x"
-    },
-    {
-      "size" : "76x76",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-76@2x.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "83.5x83.5",
-      "idiom" : "ipad",
-      "filename" : "ndau favicon-83.5@2x.png",
-      "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "ndau favicon-1024.png",
+      "filename" : "ndau 1024pt@1x.png",
       "scale" : "1x"
     }
   ],

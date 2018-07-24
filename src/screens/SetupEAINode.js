@@ -24,6 +24,13 @@ class SetupEAINode extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   sendAccountAddresses = (userId, addresses) => {
     return new Promise((resolve, reject) => {
       ndauApi
@@ -80,7 +87,22 @@ class SetupEAINode extends Component {
   };
 
   returnToDashboard = () => {
-    this.props.navigator.popToRoot();
+    this.props.navigator.push({
+      label: 'Dashboard',
+      screen: 'ndau.Dashboard',
+      passProps: {
+        encryptionPassword: this.props.encryptionPassword,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts,
+        seedPhraseArray: this.props.seedPhraseArray
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
+      }
+    });
   };
 
   render() {

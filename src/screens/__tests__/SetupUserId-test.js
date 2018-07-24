@@ -12,15 +12,20 @@ describe('testing SetupUserId...', () => {
       fontSize: 20
     }
   });
+  const navigator = {
+    setStyle: () => {}
+  };
 
   beforeEach(() => {});
   it('renders correctly', () => {
-    const tree = renderer.create(<SetupUserId parentStyles={styles} />).toJSON();
+    const tree = renderer
+      .create(<SetupUserId navigator={navigator} parentStyles={styles} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('throws an error if click without userId', () => {
-    const wrapper = mount(<SetupUserId parentStyles={styles} />);
+    const wrapper = mount(<SetupUserId navigator={navigator} parentStyles={styles} />);
     const onlyButton = wrapper.find('Button').at(0);
     onlyButton.simulate('click');
     const alert = wrapper.find('Alert').at(0);
@@ -28,7 +33,7 @@ describe('testing SetupUserId...', () => {
   });
 
   it('throws an error if click without userId', () => {
-    const wrapper = mount(<SetupUserId parentStyles={styles} />);
+    const wrapper = mount(<SetupUserId navigator={navigator} parentStyles={styles} />);
     const onlyButton = wrapper.find('Button').at(0);
     onlyButton.simulate('click');
     const alert = wrapper.find('Alert').at(0);
@@ -36,7 +41,7 @@ describe('testing SetupUserId...', () => {
   });
 
   it('does not throw an error if user enters text', () => {
-    const wrapper = mount(<SetupUserId parentStyles={styles} />);
+    const wrapper = mount(<SetupUserId navigator={navigator} parentStyles={styles} />);
     const onlyButton = wrapper.find('Button').at(0);
 
     wrapper.find('TextInput').at(0).instance().value = 'foo';

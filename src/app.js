@@ -26,15 +26,15 @@ function startApp() {
     animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
     tabsStyle: {
       tabBarBackgroundColor: '#1c2227',
-      tabBarButtonColor: '#ffffff',
+      tabBarButtonColor: '#1c2227',
       tabBarSelectedButtonColor: '#4d9678',
       tabFontFamily: 'TitilliumWeb-Light'
     },
     appStyle: {
       tabBarBackgroundColor: '#1c2227',
-      navBarButtonColor: '#ffffff',
-      tabBarButtonColor: '#ffffff',
-      navBarTextColor: '#ffffff',
+      navBarButtonColor: '#1c2227',
+      tabBarButtonColor: '#1c2227',
+      navBarTextColor: '#1c2227',
       tabBarSelectedButtonColor: '#4d9678',
       navigationBarColor: '#1c2227',
       navBarBackgroundColor: '#1c2227',
