@@ -25,13 +25,15 @@ class SetupMain extends Component {
     this.props.navigator.push({
       label: 'SetupUserId',
       screen: 'ndau.SetupUserId',
+      backButtonHidden: true,
       passProps: {
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap
       },
       navigatorStyle: {
         drawUnderTabBar: true,
-        tabBarHidden: true
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };

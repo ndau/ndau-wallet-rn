@@ -39,7 +39,8 @@ class SetupYourWallet extends Component {
       },
       navigatorStyle: {
         drawUnderTabBar: true,
-        tabBarHidden: true
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };
