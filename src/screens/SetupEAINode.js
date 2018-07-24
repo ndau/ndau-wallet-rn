@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import base64 from 'base-64';
 
 class SetupEAINode extends Component {
   constructor(props) {
