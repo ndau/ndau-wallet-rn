@@ -1,5 +1,6 @@
+
 import React from 'react';
-import DashBoard from '../DashBoard';
+import DashBoard from '../Dashboard';
 
 import renderer from 'react-test-renderer';
 
