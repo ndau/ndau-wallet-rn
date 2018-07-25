@@ -1,101 +1,113 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, ScrollView, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, Alert } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import ndauApi from '../api/NdauAPI';
-import RealmSchema from '../model/RealmSchema';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      targetPrice: 0,
-      realm: null
+      user: {},
+      passPhrase: null,
+      loginAttempt: 1
     };
 
-    RealmSchema.openRealm()
-      .then((realm) => {
-        this.setState({ realm: realm });
-        this.showSetupIfNeeded(realm);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.maxLoginAttempts = 10;
   }
 
-  componentDidMount() {
-    ndauApi
-      .getTargetPrice()
-      .then((targetPrice) => {
-        this.setState({
-          targetPrice: targetPrice
-        });
+  componentDidMount = () => {
+    this.loginOrSetup(this.props.encryptionPassword || this.state.passPhrase);
+  };
+
+  setPassphrase = (passPhrase) => {
+    this.setState({ passPhrase: passPhrase });
+    this.loginOrSetup(passPhrase);
+  };
+
+  loginOrSetup = (passPhrase) => {
+    AsyncStorageHelper.getUser(passPhrase)
+      .then((user) => {
+        console.debug(`AsyncStorageHelper user is: ${JSON.stringify(user, null, 2)}`);
+        if (user === null) {
+          //if user is null then they have never been in the app
+          this.showSetup();
+        } else if (!passPhrase) {
+          //else if the user is {} then we don't have a password...so get it
+          this.getPassphrase();
+        } else if (!user.addresses && this.state.loginAttempt < this.maxLoginAttempts) {
+          //if the user {} and password was given then you did not give the right password
+          Alert.alert(
+            'Error',
+            `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
+            [
+              {
+                text: 'OK',
+                onPress: () => {
+                  this.getPassphrase();
+                  this.setState({ loginAttempt: this.state.loginAttempt + 1 });
+                }
+              }
+            ],
+            { cancelable: false }
+          );
+        }
+        if (user) this.setState({ user });
       })
       .catch((error) => {
-        console.error(error);
+        console.debug(error);
       });
-  }
+  };
 
-  showSetup = (screen) => {
-    if (!screen) {
-      screen = 'ndau.SetupMain';
-    }
+  getPassphrase = () => {
     this.props.navigator.push({
-      screen: screen,
-      title: 'Setup',
+      screen: 'ndau.Passphrase',
+      title: 'Passphrase',
       backButtonHidden: true,
-      passProps: { props: this.props }
+      passProps: {
+        parentStyles: styles,
+        iconsMap: this.props.iconsMap,
+        setPassphrase: this.setPassphrase
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
+      },
+      navigationOptions: {
+        gesturesEnabled: false
+      }
     });
   };
 
-  showSetupIfNeeded = (realm) => {
-    if (!realm) return;
-
-    let users = realm.objects('User');
-    console.log(`users is ${JSON.stringify(users, null, 2)}`);
-    if (users <= 0 || !users.setupStep) {
-      console.log(`showing screen ${users.setupStep}`);
-      this.showSetup(users.setupStep);
-    }
+  showSetup = () => {
+    this.props.navigator.push({
+      screen: 'ndau.SetupMain',
+      title: 'Setup',
+      backButtonHidden: true,
+      passProps: {
+        parentStyles: styles,
+        iconsMap: this.props.iconsMap
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      }
+    });
   };
 
   render() {
-    const info = this.state.realm
-      ? 'Number of users in this Realm: ' + this.state.realm.objects('User').length
-      : 'Loading...';
-
+    const { addresses } = this.state.user;
+    console.debug(`renders addresses: ${addresses}`);
     return (
       <SafeAreaView style={styles.safeContainer}>
         <ScrollView style={styles.container}>
-          <CollapsiblePanel title="Panel with some dynamic stuff">
-            <Text style={styles.panelText}>Target Price: {this.state.targetPrice}</Text>
-            <Text style={styles.panelText}>{info}</Text>
-          </CollapsiblePanel>
-          <CollapsiblePanel title="A Panel with long content text">
-            <Text style={styles.panelText}>
-              Lorem ipsum dolor sit amet, ut vestibulum massa. Porttitor sed dis quis turpis ipsum
-              est. Cursus mauris mattis nec in turpis quis, proin risus netus massa suspendisse nunc
-              vitae, ut suspendisse sociosqu nulla, lobortis turpis amet dui vestibulum quis, sem
-              ornare purus diam orci. Condimentum nulla euismod. Lacinia non exercitationem felis
-              aenean cum, leo metus. Vel lectus id blandit massa, habitasse cum eget. Mi aliquet
-              lacus mauris a nullam, montes magna nunc, porta vestibulum proin laoreet, ut vitae
-              eros, non nullam. Lacus ac. Sapien tempor egestas curabitur, id molestie molestie.
-            </Text>
-          </CollapsiblePanel>
-          <CollapsiblePanel title="A Panel with long content text as well">
-            <Text style={styles.panelText}>
-              Lorem ipsum dolor sit amet, elit fermentum fringilla ac porta, rhoncus vulputate
-              pellentesque pellentesque semper, turpis in turpis leo lobortis tellus. Velit eu arcu
-              dignissim suspendisse, sit nec a viverra dui vel in. Nibh elit dui justo nibh, tortor
-              sodales iaculis est risus at urna. Etiam purus diam dignissim duis felis id, fusce
-              vehicula per vel vestibulum aenean etiam, ultrices non, tristique nunc dolor, ante ut
-              quam dignissim dolor sapien nonummy. Tellus molestie erat, vestibulum malesuada, vitae
-              accumsan, ac urna varius integer nunc, nibh ac dapibus ac enim praesent ultricies.
-            </Text>
-          </CollapsiblePanel>
-          <CollapsiblePanel title="Another Panel">
-            <Text style={styles.panelText}>Lorem ipsum dolor sit amet...</Text>
-          </CollapsiblePanel>
+          {addresses ? (
+            addresses.map((address, index) => {
+              return <CollapsiblePanel key={index} title={address} />;
+            })
+          ) : null}
         </ScrollView>
       </SafeAreaView>
     );
@@ -105,14 +117,53 @@ export default class Dashboard extends Component {
 var styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
-  panelText: {
+  text: {
     color: '#ffffff',
+    fontSize: 16,
     fontFamily: 'TitilliumWeb-Light'
+  },
+  textInput: {
+    height: 45,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    marginTop: 10,
+    paddingLeft: 10,
+    color: '#000000',
+    backgroundColor: '#ffffff',
+    fontSize: 18,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
+  button: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#4d9678',
+    backgroundColor: '#4d9678',
+    borderRadius: 3,
+    fontFamily: 'TitilliumWeb-Light',
+    margin: '0.5%',
+    padding: '2px',
+    borderRadius: 3
+  },
+  wizardText: {
+    color: '#ffffff',
+    fontSize: 20
+  },
+  progress: {
+    paddingTop: 8,
+    paddingBottom: 8
+  },
+  errorText: {
+    color: '#f75f4b',
+    fontSize: 20
+  },
+  errorContainer: {
+    backgroundColor: '#f5d8d1'
   }
 });

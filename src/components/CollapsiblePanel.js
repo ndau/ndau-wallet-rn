@@ -47,7 +47,7 @@ class CollapsiblePanel extends Component {
 
   setMaxHeight = (event) => {
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
-      console.log(`setting maxHeight for first time: ${event.nativeEvent.layout.height}`);
+      console.debug(`setting maxHeight for first time: ${event.nativeEvent.layout.height}`);
       this.setState({
         maxHeight: event.nativeEvent.layout.height
       });
@@ -103,6 +103,7 @@ var styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: '#fff',
+    fontSize: 12,
     fontFamily: 'TitilliumWeb-Bold'
   },
   button: {},

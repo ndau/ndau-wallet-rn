@@ -7,7 +7,40 @@ getTargetPrice = () => {
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/targetprice`)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(`responseJson ${JSON.stringify(responseJson, null, 2)}`);
+      console.info(`getTargetPrice responseJson ${JSON.stringify(responseJson, null, 2)}`);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+getNumberOfAccounts = (userId) => {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.info(`getNumberOfAccounts responseJson ${JSON.stringify(responseJson, null, 2)}`);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+sendAccountAddresses = (userId, addresses) => {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+      addresses: addresses
+    })
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.info(`sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`);
       return responseJson;
     })
     .catch((error) => {
@@ -16,5 +49,7 @@ getTargetPrice = () => {
 };
 
 module.exports = {
-  getTargetPrice
+  getTargetPrice,
+  getNumberOfAccounts,
+  sendAccountAddresses
 };

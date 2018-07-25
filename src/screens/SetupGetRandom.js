@@ -2,32 +2,60 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  ScrollView,
   Text,
   Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
-  TextInput,
-  SafeAreaView
+  SafeAreaView,
+  ScrollView
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
+import Randal from '../helpers/randal.js';
+import Base64 from 'base-64';
 
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: ''
+      entropy: 'ZWEQAwQFBgcICQoLDA0ODw==',
+      percentage: 0,
+      doneDisabled: true
     };
+    this.randal = new Randal();
+    this.randal.onUpdate(() => {
+      this.setState({
+        entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
+        percentage: this.randal.getPercentage()
+      });
+    });
+    this.randal.onDone(() => {
+      this.setState({ doneDisabled: false });
+    });
   }
 
-  onPushAnother = () => {
+  onPushAnother = async () => {
     this.props.navigator.push({
       label: 'SetupYourWallet',
       screen: 'ndau.SetupYourWallet',
-      passProps: { props: this.props }
+      passProps: {
+        encryptionPassword: this.props.encryptionPassword,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        entropy: this.state.entropy,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      }
     });
   };
+
+  handleScribble(evt) {
+    this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
+  }
 
   render() {
     return (
@@ -35,37 +63,42 @@ class SetupGetRandom extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Get random</Text>
+              <Text style={this.props.parentStyles.wizardText}>Get random</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.375}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.375} style={styles.progress} />
+                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 To generate the strongest possible encryption, we need a source of random input.
                 Scribble in the box below to add randomness to your key.
               </Text>
             </View>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
-              placeholder="Scribble area"
-              placeholderTextColor="#f9f1f1"
-              secureTextEntry={!this.state.showPasswords}
-            />
+            <View>
+              <ProgBar percentage={this.state.percentage} />
+              <View
+                onStartShouldSetResponderCapture={() => true}
+                onResponderMove={(evt) => this.handleScribble(evt)}
+                style={styles.scribbleArea}
+              />
+            </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPushAnother} title="Done" />
+            <Button
+              disabled={this.state.doneDisabled}
+              color="#4d9678"
+              onPress={this.onPushAnother}
+              title="Done"
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -73,10 +106,33 @@ class SetupGetRandom extends Component {
   }
 }
 
+function ProgBar(props) {
+  let percentage = Math.min(props.percentage, 100);
+  return (
+    <View
+      style={{
+        height: 20,
+        flex: 1,
+        backgroundColor: 'grey',
+        marginBottom: 20,
+        marginTop: 10
+      }}
+    >
+      <View
+        style={{
+          height: 20,
+          backgroundColor: percentage == 100 ? '#4d9678' : 'yellow',
+          width: String(percentage) + '%'
+        }}
+      />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -85,15 +141,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
@@ -105,16 +153,10 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 30
   },
-  textInput: {
-    height: 200,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
+  scribbleArea: {
+    backgroundColor: 'white',
+    flex: 1,
+    height: 200
   }
 });
 

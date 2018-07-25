@@ -18,20 +18,31 @@ class SetupYourWallet extends Component {
     this.state = {};
   }
 
-  onPushAnother = () => {
-    this.props.navigator.push({
-      label: 'SetupTwelveWordPhrase',
-      screen: 'ndau.SetupTwelveWordPhrase',
-      passProps: { props: this.props }
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
     });
   };
 
-  checkedShowPasswords = () => {
-    this.setState({ showPasswords: !this.state.showPasswords });
-  };
-
-  checkedProgress = () => {
-    this.setState({ progress: !this.state.progress });
+  onPushAnother = () => {
+    this.props.navigator.push({
+      label: 'SetupSeedPhrase',
+      screen: 'ndau.SetupSeedPhrase',
+      passProps: {
+        encryptionPassword: this.props.encryptionPassword,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        entropy: this.props.entropy,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      }
+    });
   };
 
   render() {
@@ -40,34 +51,30 @@ class SetupYourWallet extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Setup your wallet</Text>
+              <Text style={this.props.parentStyles.wizardText}>Setup your wallet</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.5}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.5} style={styles.progress} />
+                <ProgressViewIOS progress={0.5} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
-                Next we will give you a twelve-word phrase which is the key to restoring your
-                wallet. You must WRITE IT DOWN and store it in a secure location or risk losing
-                access to your funds. Do not save this phrase on your device or in the cloud.
+              <Text style={this.props.parentStyles.wizardText}>
+                Next we will give you a seed phrase which is the key to restoring your wallet. You
+                must WRITE IT DOWN and store it in a secure location or risk losing access to your
+                funds. Do not save this phrase on your device or in the cloud.
               </Text>
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              color="#4d9678"
-              onPress={this.onPushAnother}
-              title="Get my twelve-word phrase"
-            />
+            <Button color="#4d9678" onPress={this.onPushAnother} title="Get my seed phrase" />
           </View>
         </View>
       </SafeAreaView>
@@ -78,7 +85,7 @@ class SetupYourWallet extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   button: {
     marginTop: 0
@@ -104,8 +111,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 30,
-    paddingBottom: 30
+    paddingTop: 15,
+    paddingBottom: 15
   }
 });
 

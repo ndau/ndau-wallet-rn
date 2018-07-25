@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing Dashboard... renders correctly 1`] = `
+<RCTSafeAreaView
+  style={
+    Object {
+      "backgroundColor": "#1c2227",
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+      }
+    }
+  >
+    <View />
+  </RCTScrollView>
+</RCTSafeAreaView>
+`;

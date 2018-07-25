@@ -30,8 +30,8 @@ class CollapsiblePanel extends Component {
         ? this.state.minHeight
         : this.state.maxHeight + this.state.minHeight;
 
-    console.log(`minHeight: ${this.state.minHeight}`);
-    console.log(`maxHeight: ${this.state.maxHeight}`);
+    console.debug(`minHeight: ${this.state.minHeight}`);
+    console.debug(`maxHeight: ${this.state.maxHeight}`);
 
     this.state.animation.setValue(initialValue);
     Animated.spring(this.state.animation, {

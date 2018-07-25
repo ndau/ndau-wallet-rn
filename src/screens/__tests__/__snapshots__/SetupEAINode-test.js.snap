@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing SetupEAINode... renders correctly 1`] = `
+<RCTSafeAreaView
+  style={
+    Object {
+      "backgroundColor": "#1c2227",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+        "paddingBottom": 10,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 10,
+      }
+    }
+  >
+    <RCTScrollView
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View>
+        <View>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 20,
+              }
+            }
+          >
+            Select a node
+          </Text>
+        </View>
+        <View>
+          <RCTProgressView
+            progress={1}
+            style={
+              Array [
+                Object {
+                  "height": 2,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <View>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 20,
+              }
+            }
+          >
+            In order to earn your Ecosystem Alignment Incentive (EAI) you must delegate your ndau to a node. Please select the default node for your accounts. You will be able to change this later.
+          </Text>
+        </View>
+        <View>
+          <RCTPicker
+            items={
+              Array [
+                Object {
+                  "label": "Node A",
+                  "textColor": undefined,
+                  "value": "nodeA",
+                },
+                Object {
+                  "label": "Node B",
+                  "textColor": undefined,
+                  "value": "nodeB",
+                },
+              ]
+            }
+            onChange={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            selectedIndex={0}
+            style={
+              Array [
+                Object {
+                  "height": 216,
+                },
+                Object {
+                  "borderColor": "gray",
+                  "borderWidth": 1,
+                  "color": "#ffffff",
+                  "height": 50,
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "paddingLeft": 10,
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+    </RCTScrollView>
+    <View
+      style={
+        Object {
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <View
+        accessibilityComponentType="button"
+        accessibilityTraits={
+          Array [
+            "button",
+          ]
+        }
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {},
+            ]
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "#007AFF",
+                  "fontSize": 18,
+                  "padding": 8,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#4d9678",
+                },
+              ]
+            }
+          >
+            Select and finish
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;

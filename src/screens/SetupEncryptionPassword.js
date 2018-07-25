@@ -9,9 +9,13 @@ import {
   Platform,
   ProgressBarAndroid,
   TextInput,
-  SafeAreaView
+  SafeAreaView,
+  Alert,
+  TouchableHighlight,
+  Image
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -20,19 +24,53 @@ class SetupEncryptionPassword extends Component {
       password: '',
       confirmPassword: '',
       showPasswords: false,
-      progress: false
+      progress: false,
+      textInputColor: '#000000'
     };
   }
+
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
 
   usePassword(event) {
     this.onPushAnother(event);
   }
 
-  onPushAnother = () => {
+  checkPasswords = () => {
+    return this.state.password === this.state.confirmPassword;
+  };
+
+  onPushAnother = async () => {
+    if (!this.checkPasswords()) {
+      Alert.alert(
+        'Error',
+        'The passwords entered do not match.',
+        [ { text: 'OK', onPress: () => {} } ],
+        { cancelable: false }
+      );
+      this.setState({ textInputColor: '#ff0000' });
+      return;
+    }
+
     this.props.navigator.push({
       label: 'SetupGetRandom',
       screen: 'ndau.SetupGetRandom',
-      passProps: { props: this.props }
+      passProps: {
+        encryptionPassword: this.state.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      }
     });
   };
 
@@ -44,7 +82,20 @@ class SetupEncryptionPassword extends Component {
     this.setState({ progress: !this.state.progress });
   };
 
+  showInformation = () => {
+    Alert.alert(
+      'Information',
+      'We use encryption to protect your data. This password protects ' +
+        'this app on your mobile only. This is not the same thing as your ' +
+        'twelve-word phrase, which codes for the key to your wallet. We ' +
+        'recommend you use a strong password which you do not use anywhere else.',
+      [ { text: 'OK', onPress: () => {} } ],
+      { cancelable: false }
+    );
+  };
+
   render() {
+    const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
@@ -57,33 +108,56 @@ class SetupEncryptionPassword extends Component {
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.25}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.25} style={styles.progress} />
+                <ProgressViewIOS progress={0.25} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={styles.text} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
-                password to decrypt it whenever you are in this app.
+                password to decrypt it whenever you are in this app.{'  '}
+                <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
               </Text>
             </View>
             <TextInput
-              style={styles.textInput}
+              style={{
+                height: 45,
+                borderColor: 'gray',
+                borderWidth: 1,
+                marginBottom: 10,
+                marginTop: 10,
+                paddingLeft: 10,
+                color: textInputColor,
+                backgroundColor: '#ffffff',
+                fontSize: 18,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
               placeholder="Enter a password"
-              placeholderTextColor="#f9f1f1"
+              placeholderTextColor="#333"
               secureTextEntry={!this.state.showPasswords}
             />
             <TextInput
-              style={styles.textInput}
+              style={{
+                height: 45,
+                borderColor: 'gray',
+                borderWidth: 1,
+                marginBottom: 10,
+                marginTop: 10,
+                paddingLeft: 10,
+                color: textInputColor,
+                backgroundColor: '#ffffff',
+                fontSize: 18,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
               onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
               value={this.state.confirmPassword}
               placeholder="Confirm your password"
-              placeholderTextColor="#f9f1f1"
+              placeholderTextColor="#333"
               secureTextEntry={!this.state.showPasswords}
             />
             <View>
@@ -97,6 +171,7 @@ class SetupEncryptionPassword extends Component {
                   fontSize: 20,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
+                checkBoxColor="#ffffff"
               />
             </View>
             <View>
@@ -111,6 +186,7 @@ class SetupEncryptionPassword extends Component {
                   fontSize: 20,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
+                checkBoxColor="#ffffff"
               />
             </View>
           </ScrollView>
@@ -131,7 +207,7 @@ class SetupEncryptionPassword extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -140,7 +216,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   button: {
     marginTop: 0
@@ -157,21 +233,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   progress: {
-    paddingTop: 30,
-    paddingBottom: 30
+    paddingTop: 15,
+    paddingBottom: 15
   },
-  textInput: {
-    height: 45,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  checkbox: { flex: 1, padding: 10 }
+  checkbox: { flex: 1, padding: 10 },
+  infoParagraph: {
+    flexDirection: 'row'
+  }
 });
 
 export default SetupEncryptionPassword;

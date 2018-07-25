@@ -9,31 +9,84 @@ import {
   Platform,
   ProgressBarAndroid,
   TextInput,
-  SafeAreaView
+  SafeAreaView,
+  Alert
 } from 'react-native';
+import ndauApi from '../api/NdauAPI';
 
 class SetupUserId extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: ''
+      userId: '',
+      numberOfAccounts: 0
     };
+    this.userIdPresent = false;
   }
 
-  verifySixDigitCode(event) {
-    this.onPushAnother();
-  }
-
-  onPushAnother = () => {
-    this.props.navigator.push({
-      label: 'SetupEncryptionPassword',
-      screen: 'ndau.SetupEncryptionPassword',
-      passProps: { props: this.props }
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
     });
   };
 
-  onPopToRoot = () => {
-    this.props.navigator.popToRoot();
+  confirmUserIdPresent = () => {
+    if (!this.state.userId) return false;
+
+    return new Promise((resolve, reject) => {
+      if (!this.state.userId) reject('userId is not set');
+      ndauApi
+        .getNumberOfAccounts(this.state.userId)
+        .then((numberOfAccounts) => {
+          this.setState({
+            numberOfAccounts: numberOfAccounts
+          });
+          resolve(numberOfAccounts > 0);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(false);
+        });
+    });
+  };
+
+  onPushAnother = async () => {
+    if (this.state.userId) {
+      this.userIdPresent = await this.confirmUserIdPresent();
+      if (this.userIdPresent) {
+        this.props.navigator.push({
+          label: 'SetupEncryptionPassword',
+          screen: 'ndau.SetupEncryptionPassword',
+          passProps: {
+            userId: this.state.userId,
+            parentStyles: this.props.parentStyles,
+            iconsMap: this.props.iconsMap,
+            numberOfAccounts: this.state.numberOfAccounts
+          },
+          navigatorStyle: {
+            drawUnderTabBar: true,
+            tabBarHidden: true,
+            disabledBackGesture: true
+          }
+        });
+      } else {
+        this.showErrorMessage();
+      }
+    } else {
+      this.showErrorMessage();
+    }
+  };
+
+  showErrorMessage = () => {
+    Alert.alert(
+      'Error',
+      this.state.userId
+        ? `${this.state.userId} does not exist as a User ID holding ndau`
+        : 'Please enter a value for the user ID.',
+      [ { text: 'OK', onPress: () => {} } ],
+      { cancelable: false }
+    );
   };
 
   render() {
@@ -42,32 +95,32 @@ class SetupUserId extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Verify your user number </Text>
+              <Text style={this.props.parentStyles.wizardText}>Verify your user number </Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.125}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.125} style={styles.progress} />
+                <ProgressViewIOS progress={0.125} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 In order to deliver your ndau to this wallet on Genesis Day, we need the six-digit
                 code you use to access the ndau dashboard.
               </Text>
             </View>
             <TextInput
-              style={styles.textInput}
+              style={this.props.parentStyles.textInput}
               onChangeText={(userId) => this.setState({ userId })}
               value={this.state.userId}
-              placeholder="Enter your unique ndau ID"
-              placeholderTextColor="#f9f1f1"
+              placeholder="Enter your unique User ID"
+              placeholderTextColor="#333"
             />
           </ScrollView>
           <View style={styles.footer}>
@@ -82,44 +135,21 @@ class SetupUserId extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
     paddingLeft: 10,
     paddingTop: 10,
     paddingRight: 10,
-
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    paddingBottom: 10,
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
   },
   footer: {
     justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 30,
-    paddingBottom: 30
-  },
-  textInput: {
-    height: 45,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
   }
 });
 

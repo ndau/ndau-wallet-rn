@@ -10,7 +10,6 @@ import {
   ProgressBarAndroid,
   SafeAreaView
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -18,11 +17,30 @@ class SetupTermsOfService extends Component {
     this.state = {};
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupEAINode',
       screen: 'ndau.SetupEAINode',
-      passProps: { props: this.props }
+      passProps: {
+        encryptionPassword: this.props.encryptionPassword,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts,
+        seedPhraseArray: this.props.seedPhraseArray
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      }
     });
   };
 
@@ -32,22 +50,22 @@ class SetupTermsOfService extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Terms of Service</Text>
+              <Text style={this.props.parentStyles.wizardText}>Terms of Service</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={0.875}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.875} style={styles.progress} />
+                <ProgressViewIOS progress={0.875} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 All POTENTIAL ndau holders should acknowledge that while the Target Price may rise
                 AS ADOPTION MOVES along the S-curve there is no guarantee that this will happen.
                 There is no guarantee that a holder of ndau WILL get any particular minimum price
@@ -68,12 +86,15 @@ class SetupTermsOfService extends Component {
                 increases the value of the whole ecosystem through participatory efforts. No
                 contractual guarantees are given directly to ndau holders since all policy and
                 features described herein are subject to governance by the BLOCKCHAIN POLICY
-                COUNCIL. THIS DASHBOARD DOES NOT CONSTITUTE A PROSPECTUS OR OFFERING DOCUMENT AND
-                DOES NOT AND IS NOT INTENDED TO CONSTITUTE AN OFFER TO SELL, NOR THE SOLICITATION OF
-                ANY OFFER TO BUY, AN INVESTMENT, A SECURITY OR A COMMODITY, OR AN OPTION ON OR ANY
-                OTHER RIGHT TO ACQUIRE ANY SUCH INVESTMENT, SECURITY OR COMMODITY. THIS DASHBOARD
-                HAS NOT BEEN REVIEWED BY, PASSED ON OR SUBMITTED TO ANY U.S. FEDERAL OR STATE AGENCY
-                OR SELF REGULATORY ORGANIZATION OR TO ANY OTHER FOREIGN AGENCY OR SELF-REGULATORY
+                COUNCIL.
+              </Text>
+              <Text style={this.props.parentStyles.wizardText}>
+                THIS DASHBOARD DOES NOT CONSTITUTE A PROSPECTUS OR OFFERING DOCUMENT AND DOES NOT
+                AND IS NOT INTENDED TO CONSTITUTE AN OFFER TO SELL, NOR THE SOLICITATION OF ANY
+                OFFER TO BUY, AN INVESTMENT, A SECURITY OR A COMMODITY, OR AN OPTION ON OR ANY OTHER
+                RIGHT TO ACQUIRE ANY SUCH INVESTMENT, SECURITY OR COMMODITY. THIS DASHBOARD HAS NOT
+                BEEN REVIEWED BY, PASSED ON OR SUBMITTED TO ANY U.S. FEDERAL OR STATE AGENCY OR SELF
+                REGULATORY ORGANIZATION OR TO ANY OTHER FOREIGN AGENCY OR SELF-REGULATORY
                 ORGANIZATION. THIS DASHBOARD DOES NOT CONSTITUTE ADVICE TO PURCHASE ANY NDAU NOR
                 SHOULD IT BE RELIED UPON IN CONNECTION WITH ANY CONTRACT OR CONTRIBUTION DECISION.
                 THE NDAU TOKENS HAVE NOT BEEN AND WILL NOT BE REGISTERED UNDER THE SECURITIES ACT OF
@@ -154,7 +175,7 @@ class SetupTermsOfService extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -162,15 +183,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    backgroundColor: '#333333'
-  },
-  button: {
-    marginTop: 0
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+    backgroundColor: '#1c2227'
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen

@@ -10,9 +10,11 @@ import {
   ProgressBarAndroid,
   Picker,
   PickerIOS,
-  SafeAreaView
+  SafeAreaView,
+  NativeModules
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
+import ndauApi from '../api/NdauAPI';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -22,8 +24,85 @@ class SetupEAINode extends Component {
     };
   }
 
-  onPopToRoot = () => {
-    this.props.navigator.popToRoot();
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
+  sendAccountAddresses = (userId, addresses) => {
+    return new Promise((resolve, reject) => {
+      ndauApi
+        .sendAccountAddresses(userId, addresses)
+        .then((whatPersisted) => {
+          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
+          resolve(whatPersisted);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+    });
+  };
+
+  finishSetup = async () => {
+    console.debug('Finishing Setup...');
+    const addresses = await this.keyGeneration();
+
+    this.sendAddressesToOneiro(addresses);
+    this.persistAddresses(addresses);
+
+    this.returnToDashboard();
+  };
+
+  keyGeneration = async () => {
+    console.debug('Generating all keys from phrase given...');
+    const seedPhraseString = this.props.seedPhraseArray.join().replace(/,/g, ' ');
+    console.debug(`seedPhraseString: ${seedPhraseString}`);
+    const seedPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
+      'en',
+      seedPhraseString
+    );
+    console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
+    const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
+      seedPhraseAsBytes,
+      this.props.numberOfAccounts
+    );
+    console.debug(`publicAddresses: ${publicAddresses}`);
+
+    return publicAddresses;
+  };
+
+  sendAddressesToOneiro = (addresses) => {
+    this.sendAccountAddresses(this.props.userId, addresses);
+  };
+
+  persistAddresses = (addresses) => {
+    const user = {
+      userId: this.props.userId,
+      addresses: addresses
+    };
+    AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
+  };
+
+  returnToDashboard = () => {
+    this.props.navigator.push({
+      label: 'Dashboard',
+      screen: 'ndau.Dashboard',
+      passProps: {
+        encryptionPassword: this.props.encryptionPassword,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts,
+        seedPhraseArray: this.props.seedPhraseArray
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true
+      }
+    });
   };
 
   render() {
@@ -32,22 +111,22 @@ class SetupEAINode extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Select a node</Text>
+              <Text style={this.props.parentStyles.wizardText}>Select a node</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   progress={1}
-                  style={styles.progress}
+                  style={this.props.parentStyles.progress}
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={1} style={styles.progress} />
+                <ProgressViewIOS progress={1} style={this.props.parentStyles.progress} />
               )}
             </View>
             <View>
-              <Text style={styles.text}>
+              <Text style={this.props.parentStyles.wizardText}>
                 In order to earn your Ecosystem Alignment Incentive (EAI) you must delegate your
                 ndau to a node. Please select the default node for your accounts. You will be able
                 to change this later.
@@ -74,7 +153,12 @@ class SetupEAINode extends Component {
             )}
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPopToRoot} title="Select and finish" />
+            <Button
+              color="#4d9678"
+              onPress={this.finishSetup}
+              title="Select and finish"
+              id="select-and-finish"
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -85,7 +169,7 @@ class SetupEAINode extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   container: {
     flex: 1,
@@ -94,7 +178,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
 
-    backgroundColor: '#333333'
+    backgroundColor: '#1c2227'
   },
   button: {
     marginTop: 0
@@ -113,17 +197,6 @@ const styles = StyleSheet.create({
   progress: {
     paddingTop: 30,
     paddingBottom: 30
-  },
-  textInput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
   },
   picker: {
     height: 50,

@@ -8,6 +8,7 @@ Below you will find instructions on how to get ndau wallet running in both Andro
 
 - [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
+- [Mandatory Scripts](#mandatory-scripts)
 - [Available Scripts](#available-scripts)
   - [`npm start`](#npm-start)
     - [`npm test`](#npm-test)
@@ -27,6 +28,24 @@ The best place to start is the [Getting Started](https://facebook.github.io/reac
 - [Java SE Development Kit (JDK) 8 or newer](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
 - [Android Studio](https://developer.android.com/studio/)
+
+## Mandatory Scripts
+
+You must run the following scripts before you can begin using this application.
+
+First we npm/yarn install:
+
+`npm install`
+`yarn install` (just incase you use yarn)
+
+Once this completes you must also make sure to run this command. This one sets up iOS and Android projects pointing to all the correct node_module libraries we use:
+
+`react-native link`
+
+After the above is run you MUST now run the following commands:
+
+`npm install`
+`yarn install` (just incase you use yarn)
 
 ## Available Scripts
 

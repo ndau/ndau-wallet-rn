@@ -20,35 +20,29 @@ function startApp() {
     }
   ];
 
-  // if (Platform.OS === 'android') {
-  //   tabs.push({
-  //     label: 'Transitions',
-  //     screen: 'example.Transitions',
-  //     icon: require('../img/transform.png'),
-  //     title: 'Navigation Transitions'
-  //   });
-  // }
-
   // this will start our app
   Navigation.startTabBasedApp({
     tabs,
     animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
     tabsStyle: {
-      tabBarBackgroundColor: '#333333',
-      tabBarButtonColor: '#ffffff',
+      tabBarBackgroundColor: '#1c2227',
+      tabBarButtonColor: '#1c2227',
       tabBarSelectedButtonColor: '#4d9678',
-      tabFontFamily: 'TitilliumWeb-Regular'
+      tabFontFamily: 'TitilliumWeb-Light'
     },
     appStyle: {
-      tabBarBackgroundColor: '#333333',
-      navBarButtonColor: '#ffffff',
-      tabBarButtonColor: '#ffffff',
-      navBarTextColor: '#ffffff',
+      tabBarBackgroundColor: '#1c2227',
+      navBarButtonColor: '#1c2227',
+      tabBarButtonColor: '#1c2227',
+      navBarTextColor: '#1c2227',
       tabBarSelectedButtonColor: '#4d9678',
-      navigationBarColor: '#333333',
-      navBarBackgroundColor: '#333333',
-      statusBarColor: '#333333',
-      tabFontFamily: 'TitilliumWeb-Regular'
+      navigationBarColor: '#1c2227',
+      navBarBackgroundColor: '#1c2227',
+      statusBarColor: '#1c2227',
+      tabFontFamily: 'TitilliumWeb-Light'
+    },
+    passProps: {
+      iconsMap: iconsMap
     }
   });
 }
