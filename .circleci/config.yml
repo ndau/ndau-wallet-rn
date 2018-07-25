@@ -15,4 +15,4 @@ jobs:
             ls ~/app/src/screens
             npm install
 
-      - run: npx jest
+      - run: npm test
