@@ -16,4 +16,3 @@ describe('testing Dashboard...', () => {
     expect(tree).toMatchSnapshot();
   });
 });
-*
