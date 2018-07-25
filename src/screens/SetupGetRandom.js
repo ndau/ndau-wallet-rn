@@ -19,7 +19,8 @@ class SetupGetRandom extends Component {
     this.state = {
       entropy: 'ZWEQAwQFBgcICQoLDA0ODw==',
       percentage: 0,
-      doneDisabled: true
+      doneDisabled: true,
+      scribbling: false
     };
     this.randal = new Randal();
     this.randal.onUpdate(() => {
@@ -54,14 +55,28 @@ class SetupGetRandom extends Component {
   };
 
   handleScribble(evt) {
+    this.onScribbleStart();
     this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
+  }
+
+  onScribbleStart() {
+    if (this.state.scribbling == true) {
+      return;
+    }
+    this.setState({ scribbling: true });
+  }
+  onScribbleEnd() {
+    if (this.state.scribbling == false) {
+      return;
+    }
+    this.setState({ scribbling: false });
   }
 
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={styles.contentContainer} scrollEnabled={!this.state.scribbling}>
             <View>
               <Text style={this.props.parentStyles.wizardText}>Get random</Text>
             </View>
@@ -89,11 +104,14 @@ class SetupGetRandom extends Component {
                 onStartShouldSetResponderCapture={() => true}
                 onResponderMove={(evt) => this.handleScribble(evt)}
                 style={styles.scribbleArea}
+                onResponderRelease={() => this.onScribbleEnd()}
+                onResponderTerminate={() => this.onScribbleEnd()}
               />
             </View>
           </ScrollView>
           <View style={styles.footer}>
             <Button
+              name="original"
               disabled={this.state.doneDisabled}
               color="#4d9678"
               onPress={this.onPushAnother}

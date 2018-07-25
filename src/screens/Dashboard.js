@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
-import { StyleSheet, ScrollView, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, Linking } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
-import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 export default class Dashboard extends Component {
@@ -11,7 +9,11 @@ export default class Dashboard extends Component {
     this.state = {
       user: {},
       passPhrase: null,
-      loginAttempt: 1
+      loginAttempt: 1,
+      newsLinks: [
+        { linkTitle: `The ndau Dashboard`, linkTarget: 'https://ndaudashboard.ndau.tech' },
+        { linkTitle: `Check Oneiro's site for ndau information`, linkTarget: 'https://oneiro.io' }
+      ]
     };
 
     this.maxLoginAttempts = 10;
@@ -84,7 +86,6 @@ export default class Dashboard extends Component {
     this.props.navigator.push({
       screen: 'ndau.SetupMain',
       title: 'Setup',
-      backButtonHidden: true,
       passProps: {
         parentStyles: styles,
         iconsMap: this.props.iconsMap
@@ -100,8 +101,35 @@ export default class Dashboard extends Component {
   render() {
     const { addresses } = this.state.user;
     console.debug(`renders addresses: ${addresses}`);
-    return (
+    return addresses ? (
       <SafeAreaView style={styles.safeContainer}>
+        <View style={styles.dashboardTextContainer}>
+          <Text style={styles.dashboardTextLarge}>User {this.state.user.userId}</Text>
+          <Text style={styles.dashboardTextSmall}>{addresses.length} addresses</Text>
+        </View>
+        <View style={styles.greenAlertContainer}>
+          <Text style={styles.greenAlertText}>
+            Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
+            sent to this app on Genesis Day. Until then, you can continue to view your holdings on
+            the online dashboard.
+          </Text>
+        </View>
+        <View style={styles.dashboardTextContainer}>
+          <Text style={styles.dashboardTextSmall}>News</Text>
+        </View>
+        <View style={styles.whiteLinksContainer}>
+          {this.state.newsLinks.map((link, index) => {
+            return (
+              <Text
+                key={index}
+                style={styles.whiteLinkText}
+                onPress={() => Linking.openURL(link.linkTarget)}
+              >
+                - {link.linkTitle}
+              </Text>
+            );
+          })}
+        </View>
         <ScrollView style={styles.container}>
           {addresses ? (
             addresses.map((address, index) => {
@@ -110,7 +138,7 @@ export default class Dashboard extends Component {
           ) : null}
         </ScrollView>
       </SafeAreaView>
-    );
+    ) : null;
   }
 }
 
@@ -165,5 +193,54 @@ var styles = StyleSheet.create({
   },
   errorContainer: {
     backgroundColor: '#f5d8d1'
+  },
+  dashboardTextContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  dashboardTextLarge: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#4d9678',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 40,
+    shadowOpacity: 0.5,
+    shadowColor: '#4e957a',
+    shadowRadius: 3
+  },
+  dashboardTextSmall: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#4d9678',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 30,
+    shadowOpacity: 0.5,
+    shadowColor: '#4e957a',
+    shadowRadius: 3,
+    paddingBottom: 10
+  },
+  greenAlertContainer: {
+    backgroundColor: '#c7f3e2',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#4d9678',
+    borderRadius: 3,
+    padding: 5,
+    borderRadius: 3
+  },
+  greenAlertText: {
+    color: '#4e957a',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 20
+  },
+  whiteLinkText: {
+    color: '#fff',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 15
+  },
+  whiteLinksContainer: {
+    paddingBottom: 10,
+    paddingLeft: 50,
+    paddingRight: 50
   }
 });
