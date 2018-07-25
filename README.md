@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn/tree/josh-issue34.svg?style=svg&circle-token=78d92a0e256f79e59d9ca0b2b7617b910db81323)](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn/tree/josh-issue34)
+[![CircleCI](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn.svg?style=svg&circle-token=78d92a0e256f79e59d9ca0b2b7617b910db81323)](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn)
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app). The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
