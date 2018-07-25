@@ -1,5 +1,8 @@
 console.log(`Current directory: ${process.cwd()}`);
 
+describe('testing Dashboard...', () => {
+  it('puts the lotion on its skin or it gets the hose again', () => { })
+})
 /*
 import React from 'react';
 import DashBoard from '../DashBoard';
