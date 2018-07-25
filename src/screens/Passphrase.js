@@ -70,7 +70,7 @@ class Passphrase extends Component {
                 }}
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
-                placeholder="Enter your app passphrase"
+                placeholder="Enter your app password"
                 placeholderTextColor="#333"
                 secureTextEntry={!this.state.showPasswords}
               />

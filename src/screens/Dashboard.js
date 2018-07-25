@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, Linking } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import ndauApi from '../api/NdauAPI';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -20,6 +21,14 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount = () => {
+    ndauApi
+      .getNdauNewsLinks()
+      .then((links) => {
+        this.setState({ newsLinks: link });
+      })
+      .catch((error) => {
+        console.debug(error);
+      });
     this.loginOrSetup(this.props.encryptionPassword || this.state.passPhrase);
   };
 
