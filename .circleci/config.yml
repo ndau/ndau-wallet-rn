@@ -7,7 +7,10 @@ jobs:
     working_directory: ~/app
 
     steps:
-      - checkout
+      - run:
+          name: Checkout code
+          command: |
+            git clone $CIRCLE_REPOSITORY_URL -b $CIRCLE_BRANCH ~/app --depth=1
 
       - run:
           name: install node deps
