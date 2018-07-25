@@ -4,47 +4,14 @@ jobs:
     docker:
       - image: circleci/node:8.11
 
-    working_directory: ~/repo
-    environment:
-      JAVA_HOME: "/opt/jdk"
-
+    working_directory: ~/app
 
     steps:
       - checkout
 
       - run:
-          name: install jdk
-          command: |
-            # Install cURL
-            export LANG=C.UTF-8
-
-            export JAVA_VERSION=8u171
-            export JAVA_ALPINE_VERSION=8.171.11-r0
-
-            apk add --no-cache openjdk8="$JAVA_ALPINE_VERSION"
-
-
-      - run:
           name: install node deps
           command: |
-            sudo npm i -g react-native-cli create-react-native-app
             npm install
-            npx rn-nodeify --hack --install
-            react-native link
 
-      # run tests!
       - run: npm test
-
-      # try to build for android
-      - run:
-          name: build android
-          command: |
-            export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
-            export PATH=$PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin::$(./docker-java-home)/bin
-
-            npm run android
-
-      # try to build for ios
-      - run: npm run ios
-
-
