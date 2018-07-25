@@ -56,16 +56,16 @@ class SetupGetRandom extends Component {
   };
 
   handleScribble(evt) {
-    this.onScribbleStart()
+    this.onScribbleStart();
     this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
   }
   onScribbleStart() {
-    if (this.state.scribbling == true) { return }
-    this.setState({ scribbling: true })
+    if (this.state.scribbling == true) { return; }
+    this.setState({ scribbling: true });
   }
   onScribbleEnd() {
-    if (this.state.scribbling == false) { return }
-    this.setState({ scribbling: false })
+    if (this.state.scribbling == false) { return; }
+    this.setState({ scribbling: false });
   }
 
   render() {
