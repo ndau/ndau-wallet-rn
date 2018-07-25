@@ -80,6 +80,12 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 
 This project is set up to use [jest](https://facebook.github.io/jest/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` or with the `.test` extension to have the files loaded by jest. See the [the template project](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/App.test.js) for an example test. The [jest documentation](https://facebook.github.io/jest/docs/en/getting-started.html) is also a wonderful resource, as is the [React Native testing tutorial](https://facebook.github.io/jest/docs/en/tutorial-react-native.html).
 
+## Circle-CI integration
+
+This project has been configured through CircleCI's GitHub integration to run tests on every commit. To view or change those settings, you may visit this repo's [CircleCI page](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn). If you log in with your GitHub account, and you have appropriate privleges you will be able to change the build settings.
+
+To run the CircleCI tests locally, you can execute the script `./.circleci/local.sh`. It will install the [CircleCI CLI](https://circleci.com/docs/2.0/local-cli/) tool, if you don't already have it.
+
 ## Troubleshooting
 
 ### iOS Simulator won't open
