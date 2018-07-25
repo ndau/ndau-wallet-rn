@@ -13,7 +13,6 @@ jobs:
           name: install node deps
           command: |
             ls ~/app/src/screens
-            tree
             npm install
 
-      - run: npm test
+      - run: npx jest
