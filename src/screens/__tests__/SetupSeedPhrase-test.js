@@ -20,9 +20,13 @@ describe('testing SetupSeedPhrase...', () => {
       fontSize: 20
     }
   });
+  const navigator = {
+    setStyle: () => {}
+  };
+
   beforeEach(() => {});
 
-  const wrapper = shallow(<SetupSeedPhrase parentStyles={styles} />);
+  const wrapper = shallow(<SetupSeedPhrase navigator={navigator} parentStyles={styles} />);
   const render = wrapper.dive();
 
   it('renders correctly', () => {
@@ -32,7 +36,7 @@ describe('testing SetupSeedPhrase...', () => {
   const KeyaddrWordsFromBytes = sinon.spy(NativeModules.KeyaddrManager, 'KeyaddrWordsFromBytes');
 
   it('calls KeyaddrWordsFromBytes as expected', () => {
-    const wrapper = shallow(<SetupSeedPhrase parentStyles={styles} />);
+    const wrapper = shallow(<SetupSeedPhrase navigator={navigator} parentStyles={styles} />);
     wrapper.dive();
     expect(KeyaddrWordsFromBytes.calledOnce).toBe(true);
   });

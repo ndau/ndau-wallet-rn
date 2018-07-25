@@ -18,6 +18,13 @@ class SetupYourWallet extends Component {
     this.state = {};
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   onPushAnother = () => {
     this.props.navigator.push({
       label: 'SetupSeedPhrase',
@@ -29,6 +36,11 @@ class SetupYourWallet extends Component {
         entropy: this.props.entropy,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };

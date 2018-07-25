@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  ScrollView,
   Text,
   Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
   SafeAreaView,
-  TouchableWithoutFeedback
+  ScrollView
 } from 'react-native';
 import Randal from '../helpers/randal.js';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import Base64 from 'base-64';
 
 
 class SetupGetRandom extends Component {
@@ -24,16 +23,16 @@ class SetupGetRandom extends Component {
       doneDisabled: true,
       scribbling: false
     };
-    this.randal = new Randal()
+    this.randal = new Randal();
     this.randal.onUpdate(() => {
       this.setState({
-        entropy: this.randal.hash.toString().substr(0, 16),
+        entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
         percentage: this.randal.getPercentage()
-      })
-    })
+      });
+    });
     this.randal.onDone(() => {
-      this.setState({ doneDisabled: false })
-    })
+      this.setState({ doneDisabled: false });
+    });
   }
 
   onPushAnother = async () => {
@@ -47,6 +46,11 @@ class SetupGetRandom extends Component {
         entropy: this.state.entropy,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };
@@ -98,12 +102,16 @@ class SetupGetRandom extends Component {
                 style={styles.scribbleArea}
                 onResponderRelease={() => this.onScribbleEnd()}
                 onResponderTerminate={() => this.onScribbleEnd()}
-              >
-              </View>
+              />
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button disabled={this.state.doneDisabled} color="#4d9678" onPress={this.onPushAnother} title="Done" />
+            <Button
+              disabled={this.state.doneDisabled}
+              color="#4d9678"
+              onPress={this.onPushAnother}
+              title="Done"
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -112,20 +120,26 @@ class SetupGetRandom extends Component {
 }
 
 function ProgBar(props) {
-  let percentage = Math.min(props.percentage, 100)
-  return (<View style={{
-    height: 20,
-    flex: 1,
-    backgroundColor: 'grey',
-    marginBottom: 20,
-    marginTop: 10
-  }}>
-    <View style={{
-      height: 20,
-      backgroundColor: percentage == 100 ? '#4d9678' : 'yellow',
-      width: String(percentage) + "%"
-    }}></View>
-  </View>)
+  let percentage = Math.min(props.percentage, 100);
+  return (
+    <View
+      style={{
+        height: 20,
+        flex: 1,
+        backgroundColor: 'grey',
+        marginBottom: 20,
+        marginTop: 10
+      }}
+    >
+      <View
+        style={{
+          height: 20,
+          backgroundColor: percentage == 100 ? '#4d9678' : 'yellow',
+          width: String(percentage) + '%'
+        }}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -155,7 +169,7 @@ const styles = StyleSheet.create({
   scribbleArea: {
     backgroundColor: 'white',
     flex: 1,
-    height: 200,
+    height: 200
   }
 });
 

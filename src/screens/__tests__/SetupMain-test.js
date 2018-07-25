@@ -12,14 +12,19 @@ describe('testing SetupMain...', () => {
       fontSize: 20
     }
   });
+  const navigator = {
+    setStyle: () => {}
+  };
 
   beforeEach(() => {});
   it('renders correctly', () => {
-    const tree = renderer.create(<SetupMain parentStyles={styles} />).toJSON();
+    const tree = renderer
+      .create(<SetupMain parentStyles={styles} navigator={navigator} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
   it('can click the button', () => {
-    const wrapper = mount(<SetupMain parentStyles={styles} />);
+    const wrapper = mount(<SetupMain navigator={navigator} parentStyles={styles} />);
     const onlyButton = wrapper.find('Button').at(0);
     onlyButton.simulate('click');
   });

@@ -10,9 +10,11 @@ import SetupSeedPhrase from './SetupSeedPhrase';
 import SetupConfirmSeedPhrase from './SetupConfirmSeedPhrase';
 import SetupTermsOfService from './SetupTermsOfService';
 import SetupEAINode from './SetupEAINode';
+import Passphrase from './Passphrase';
 
 export function registerScreens() {
   Navigation.registerComponent('ndau.Dashboard', () => Dashboard);
+  Navigation.registerComponent('ndau.Passphrase', () => Passphrase);
 
   Navigation.registerComponent('ndau.SetupMain', () => SetupMain);
   Navigation.registerComponent('ndau.SetupUserId', () => SetupUserId);

@@ -15,7 +15,6 @@ import {
   Image
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class SetupEncryptionPassword extends Component {
@@ -30,6 +29,13 @@ class SetupEncryptionPassword extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.props.navigator.setStyle({
+      drawUnderTabBar: true,
+      tabBarHidden: true
+    });
+  };
+
   usePassword(event) {
     this.onPushAnother(event);
   }
@@ -39,13 +45,7 @@ class SetupEncryptionPassword extends Component {
   };
 
   onPushAnother = async () => {
-    if (this.checkPasswords()) {
-      this.setState({ textInputColor: '#ffffff' });
-      const user = await AsyncStorageHelper.getUser(this.state.password);
-      // user.password = this.state.password;
-      user.setupStep = 'ndau.SetupGetRandom';
-      await AsyncStorageHelper.setUser(user, this.state.password);
-    } else {
+    if (!this.checkPasswords()) {
       Alert.alert(
         'Error',
         'The passwords entered do not match.',
@@ -65,6 +65,11 @@ class SetupEncryptionPassword extends Component {
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
       }
     });
   };
