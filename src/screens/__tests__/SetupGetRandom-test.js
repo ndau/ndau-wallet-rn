@@ -18,7 +18,7 @@ describe('SetupGetRandom snapshot', () => {
     expect(tree).toMatchSnapshot();
   });
 })
-const l = console.log
+
 describe('SetupGetRandom behavior', () => {
   beforeEach(() => {
     // set up default wrapper for every test.
