@@ -61,7 +61,7 @@ exports[`testing Passphrase... renders correctly 1`] = `
           <TextInput
             allowFontScaling={true}
             onChangeText={[Function]}
-            placeholder="Enter your app passphrase"
+            placeholder="Enter your app password"
             placeholderTextColor="#333"
             secureTextEntry={true}
             style={
