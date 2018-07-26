@@ -58,6 +58,18 @@ class SetupGetRandom extends Component {
     this.onScribbleStart();
     this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
   }
+  onScribbleStart() {
+    if (this.state.scribbling) {
+      return;
+    }
+    this.setState({ scribbling: true });
+  }
+  onScribbleEnd() {
+    if (!this.state.scribbling) {
+      return;
+    }
+    this.setState({ scribbling: false });
+  }
 
   onScribbleStart() {
     if (this.state.scribbling == true) {
@@ -73,10 +85,11 @@ class SetupGetRandom extends Component {
   }
 
   render() {
+    const { scribbling } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
-          <ScrollView style={styles.contentContainer} scrollEnabled={!this.state.scribbling}>
+          <ScrollView style={styles.contentContainer} scrollEnabled={!scribbling}>
             <View>
               <Text style={this.props.parentStyles.wizardText}>Get random</Text>
             </View>

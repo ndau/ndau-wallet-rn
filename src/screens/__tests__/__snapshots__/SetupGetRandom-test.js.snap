@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`testing SetupGetRandom... renders correctly 1`] = `
+exports[`SetupGetRandom snapshot renders correctly 1`] = `
 <RCTSafeAreaView
   style={
     Object {
@@ -22,6 +22,7 @@ exports[`testing SetupGetRandom... renders correctly 1`] = `
     }
   >
     <RCTScrollView
+      scrollEnabled={true}
       style={
         Object {
           "flex": 1,
@@ -96,6 +97,8 @@ exports[`testing SetupGetRandom... renders correctly 1`] = `
           </View>
           <View
             onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
             onStartShouldSetResponderCapture={[Function]}
             style={
               Object {
