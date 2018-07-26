@@ -12,8 +12,16 @@ export default class Dashboard extends Component {
       passPhrase: null,
       loginAttempt: 1,
       newsLinks: [
-        { linkTitle: `The ndau Dashboard`, linkTarget: 'https://ndaudashboard.ndau.tech' },
-        { linkTitle: `Check Oneiro's site for ndau information`, linkTarget: 'https://oneiro.io' }
+        {
+          _id: '5b593b4d3823e9a563447b94',
+          linkTitle: 'Your ndau Dashboard',
+          linkTarget: 'https://ndaudashboard.ndau.tech'
+        },
+        {
+          _id: '5b593b4d3823e9a563447b95',
+          linkTitle: "Please check Oneiro's site for ndau information",
+          linkTarget: 'https://oneiro.io'
+        }
       ]
     };
 
@@ -24,7 +32,7 @@ export default class Dashboard extends Component {
     ndauApi
       .getNdauNewsLinks()
       .then((links) => {
-        this.setState({ newsLinks: link });
+        this.setState({ newsLinks: links });
       })
       .catch((error) => {
         console.debug(error);
@@ -126,15 +134,15 @@ export default class Dashboard extends Component {
         <View style={styles.dashboardTextContainer}>
           <Text style={styles.dashboardTextSmall}>News</Text>
         </View>
-        <View style={styles.whiteLinksContainer}>
+        <View style={styles.linkContainer}>
           {this.state.newsLinks.map((link, index) => {
             return (
               <Text
                 key={index}
-                style={styles.whiteLinkText}
+                style={styles.linkText}
                 onPress={() => Linking.openURL(link.linkTarget)}
               >
-                - {link.linkTitle}
+                {link.linkTitle}
               </Text>
             );
           })}
@@ -221,7 +229,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     color: '#4d9678',
-    fontFamily: 'TitilliumWeb-Regular',
+    fontFamily: 'TitilliumWeb-Light',
     fontSize: 30,
     shadowOpacity: 0.5,
     shadowColor: '#4e957a',
@@ -242,12 +250,16 @@ var styles = StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 20
   },
-  whiteLinkText: {
-    color: '#fff',
+  linkText: {
+    color: '#dea85a',
     fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 15
+    fontSize: 15,
+    textDecorationLine: 'underline',
+    shadowOpacity: 0.5,
+    shadowColor: '#dea85a',
+    shadowRadius: 3
   },
-  whiteLinksContainer: {
+  linkContainer: {
     paddingBottom: 10,
     paddingLeft: 50,
     paddingRight: 50
