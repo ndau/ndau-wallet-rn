@@ -11,7 +11,7 @@ getTargetPrice = () => {
       return responseJson;
     })
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
@@ -21,9 +21,15 @@ getNumberOfAccounts = (userId) => {
     .then((responseJson) => {
       console.info(`getNumberOfAccounts responseJson ${JSON.stringify(responseJson, null, 2)}`);
       return responseJson;
-    })
-    .catch((error) => {
-      console.error(error);
+    });
+};
+
+getNdauNewsLinks = () => {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/news`)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.info(`getNdauNewsLinks responseJson ${JSON.stringify(responseJson, null, 2)}`);
+      return responseJson;
     });
 };
 
@@ -42,14 +48,12 @@ sendAccountAddresses = (userId, addresses) => {
     .then((responseJson) => {
       console.info(`sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`);
       return responseJson;
-    })
-    .catch((error) => {
-      console.error(error);
     });
 };
 
 module.exports = {
   getTargetPrice,
   getNumberOfAccounts,
-  sendAccountAddresses
+  sendAccountAddresses,
+  getNdauNewsLinks
 };

@@ -13,7 +13,6 @@ import {
 import Randal from '../helpers/randal.js';
 import Base64 from 'base-64';
 
-
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
@@ -60,11 +59,28 @@ class SetupGetRandom extends Component {
     this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
   }
   onScribbleStart() {
-    if (this.state.scribbling) { return; }
+    if (this.state.scribbling) {
+      return;
+    }
     this.setState({ scribbling: true });
   }
   onScribbleEnd() {
-    if (!this.state.scribbling) { return; }
+    if (!this.state.scribbling) {
+      return;
+    }
+    this.setState({ scribbling: false });
+  }
+
+  onScribbleStart() {
+    if (this.state.scribbling == true) {
+      return;
+    }
+    this.setState({ scribbling: true });
+  }
+  onScribbleEnd() {
+    if (this.state.scribbling == false) {
+      return;
+    }
     this.setState({ scribbling: false });
   }
 
@@ -86,8 +102,8 @@ class SetupGetRandom extends Component {
                   indeterminate={false}
                 />
               ) : (
-                  <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
-                )}
+                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
+              )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
@@ -108,6 +124,7 @@ class SetupGetRandom extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <Button
+              name="original"
               disabled={this.state.doneDisabled}
               color="#4d9678"
               onPress={this.onPushAnother}
