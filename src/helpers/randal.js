@@ -1,7 +1,6 @@
 import sha256 from 'crypto-js/sha256';
 import { generateSecureRandom } from 'react-native-securerandom';
 
-
 // Randal handles capturing randomness by taking scribbled points as input.
 // Basic algorithm is this:
 //   Get two random coprimes
@@ -27,8 +26,12 @@ export default class Randal {
                 this.hash = sha256(sSeed);
                 this.updateHandlers = [];
                 this.doneHandlers = [];
-            });
+            })
+            .catch((e) => {
+                console.log(`Randal.init: could not get random number: ${e}`);
+            })
     }
+
     // checkPoint adds a point and rehashes if it's far enough away
     checkPoint(x, y) {
         // sanitize
