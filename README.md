@@ -24,7 +24,9 @@ The best place to start is the [Getting Started](https://facebook.github.io/reac
 
 - `node` via `brew`
 - `watchman` via `brew`
+  - `brew install watchman`
 - `react-native-cli` via `npm`
+  - `npm install react-native-cli`
 - [Java SE Development Kit (JDK) 8 or newer](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
 - [Android Studio](https://developer.android.com/studio/)
