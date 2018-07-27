@@ -1,7 +1,11 @@
+jest.mock('react-native-securerandom')
+import { generateSecureRandom } from 'react-native-securerandom';
 import Randal from '../randal';
 
-beforeEach(() => {
+beforeEach(async (done) => {
     this.randal = new Randal();
+    await this.randal.init();
+    done();
 })
 
 test('randal defined', () => {

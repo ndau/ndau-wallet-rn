@@ -22,15 +22,25 @@ class SetupGetRandom extends Component {
       doneDisabled: true,
       scribbling: false
     };
-    this.randal = new Randal();
-    this.randal.onUpdate(() => {
-      this.setState({
-        entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
-        percentage: this.randal.getPercentage()
+    this.randalPromise = this.initRandal()
+      .catch((e) => {
+        console.error(e);
       });
-    });
-    this.randal.onDone(() => {
-      this.setState({ doneDisabled: false });
+  }
+
+  initRandal() {
+    this.randal = new Randal();
+    return this.randal.init().then(() => {
+      this.randal.onUpdate(() => {
+        this.setState({
+          entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
+          percentage: this.randal.getPercentage()
+        });
+      });
+
+      this.randal.onDone(() => {
+        this.setState({ doneDisabled: false });
+      });
     });
   }
 
@@ -102,8 +112,8 @@ class SetupGetRandom extends Component {
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
-              )}
+                  <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
+                )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
