@@ -22,7 +22,16 @@ class SetupGetRandom extends Component {
       doneDisabled: true,
       scribbling: false
     };
+    this.initRandal();
+  }
+
+  initRandal = async () => {
     this.randal = new Randal();
+    try {
+      await this.randal.init();
+    } catch (e) {
+      throw Error('Could not initialize Randal.')
+    }
     this.randal.onUpdate(() => {
       this.setState({
         entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
@@ -102,8 +111,8 @@ class SetupGetRandom extends Component {
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
-              )}
+                  <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
+                )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
