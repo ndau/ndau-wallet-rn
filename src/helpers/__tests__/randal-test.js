@@ -24,6 +24,18 @@ test('sufficient distance', () => {
     expect(this.randal.steps).toBe(1);
 })
 
+
+test('randomness on different initializations', async (done) => {
+    const anotherRandal = new Randal();
+    await anotherRandal.init();
+    try {
+        expect(this.randal.getHash()).not.toBe(anotherRandal.getHash());
+        done();
+    } catch (e) {
+        done.fail(e);
+    }
+})
+
 test('percentage is correct', () => {
     let flipper = 1;
     let ratio = 10;
