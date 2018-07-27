@@ -13,10 +13,11 @@ const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
 export default class Randal {
     init() {
-        return generateSecureRandom(32)
-            .then((seed) => {
+        return Promise.all([generateSecureRandom(32), generateSecureRandom(32)])
+            .then(([seed, xor]) => {
                 this.coprimes = this._genCoprimes();
                 this.home = [0, 0];
+                this.xor = xor;
                 this.steps = 0;
                 // converts from Uint8Array to a string
                 const sSeed = seed.reduce((a, e, i) => {
@@ -52,9 +53,16 @@ export default class Randal {
             this._addStep(deltas, [x, y]);
         }
     }
-    // getHash returns the hex representation of the hash
+    // getHash returns the hex representation of the hash xor'd with a number from securerandom
     getHash() {
-        return this.hash.toString();
+        let xored = ""
+
+        // xor our hash with the xor, save as hex
+        this._hashUint8Array().forEach((el, i) => {
+            xored += (el ^ this.xor[i]).toString(16)
+        })
+
+        return xored;
     }
     // getPercentage returns how much of the quota is fulfilled.
     getPercentage() {
@@ -98,6 +106,19 @@ export default class Randal {
             }
         }
         return [candidateA, candidateB];
+    }
+    // _hashUint8Array returns our hash as a Uint8Array
+    _hashUint8Array() {
+        return Uint8Array.from(this.hash.words.map((int32) => {
+            // convert to arrays of "uint8s"
+            var arr = [0, 0, 0, 0];
+            for (var i = 0; i < arr.length; i++) {
+                const b = int32 & 0xff;
+                arr[i] = b;
+                int32 = (int32 - b) / 256;
+            }
+            return arr
+        }).reduce((a, c) => a.concat(c), [])); // concat the arrays
     }
     // isCoprime returns true if a and b are coprime.
     _isCoprime(a, b) {
