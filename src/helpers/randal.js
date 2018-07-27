@@ -12,7 +12,7 @@ const distanceThreshold = 5; // in pixels
 const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
 export default class Randal {
-    async init() {
+    init() {
         return generateSecureRandom(32)
             .then((seed) => {
                 this.coprimes = this._genCoprimes();

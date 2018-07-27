@@ -22,24 +22,25 @@ class SetupGetRandom extends Component {
       doneDisabled: true,
       scribbling: false
     };
-    this.initRandal();
+    this.randalPromise = this.initRandal()
+      .catch((e) => {
+        console.error(e);
+      });
   }
 
-  initRandal = async () => {
+  initRandal() {
     this.randal = new Randal();
-    try {
-      await this.randal.init();
-    } catch (e) {
-      throw Error('Could not initialize Randal.')
-    }
-    this.randal.onUpdate(() => {
-      this.setState({
-        entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
-        percentage: this.randal.getPercentage()
+    return this.randal.init().then(() => {
+      this.randal.onUpdate(() => {
+        this.setState({
+          entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
+          percentage: this.randal.getPercentage()
+        });
       });
-    });
-    this.randal.onDone(() => {
-      this.setState({ doneDisabled: false });
+
+      this.randal.onDone(() => {
+        this.setState({ doneDisabled: false });
+      });
     });
   }
 
