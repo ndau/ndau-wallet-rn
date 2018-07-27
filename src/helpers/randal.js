@@ -76,7 +76,7 @@ export default class Randal {
     }
     // _addStep rehashes based on new position input.
     _addStep(delta, pos) {
-        const posEnc = (delta[0] * this.coprimes[0]) + (delta[1] * this.coprimes[1]);
+        const posEnc = (delta[0] * this.coprimes[0]) + (delta[1] * this.coprimes[1]).toString();
         this.hash = sha256(this.hash.concat(sha256(posEnc)).toString());
         this.steps++;
         this.home = pos;
