@@ -52,6 +52,10 @@ export default class Randal {
             this._addStep(deltas, [x, y]);
         }
     }
+    // getHash returns the hex representation of the hash
+    getHash() {
+        return this.hash.toString();
+    }
     // getPercentage returns how much of the quota is fulfilled.
     getPercentage() {
         return Math.round((this.steps / quota) * 100);

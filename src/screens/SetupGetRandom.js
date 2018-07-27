@@ -33,7 +33,7 @@ class SetupGetRandom extends Component {
     return this.randal.init().then(() => {
       this.randal.onUpdate(() => {
         this.setState({
-          entropy: Base64.encode(this.randal.hash.toString().substr(0, 16)),
+          entropy: Base64.encode(this.randal.getHash().substr(0, 16)),
           percentage: this.randal.getPercentage()
         });
       });
