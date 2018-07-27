@@ -24,7 +24,7 @@ describe('SetupGetRandom snapshot', () => {
 describe('SetupGetRandom behavior', () => {
   beforeEach((done) => {
     // set up default wrapper for every test.
-    this.wrapper = mount(<SetupGetRandom parentStyles={makeStyles()} />, this.context);
+    this.wrapper = mount(<SetupGetRandom parentStyles={makeStyles()} />);
     this.wrapper.instance().randalPromise.then(done);
   });
 
@@ -58,5 +58,40 @@ describe('SetupGetRandom behavior', () => {
     this.wrapper.update(); // important
     const doneButton = this.wrapper.find('Button').at(0);
     expect(doneButton.prop('disabled')).toBeFalsy();
+  });
+
+  it('subsequent scribbles should not produce the same output', (done) => {
+
+    const tickleScribbler = (wrapper) => {
+      const instance = wrapper.instance();
+      const handler = instance.handleScribble;
+
+      let flipper = -1;
+      const x = 500; // random position
+      // scribble for an arbitrary amount of time
+      for (var i = 0; i < 2048; i++) {
+        handler.apply(instance, [{
+          nativeEvent: {
+            locationX: x * flipper,
+            locationY: x * flipper
+          }
+        }]);
+        flipper *= -1;
+      }
+    }
+
+    anotherWrapper = mount(<SetupGetRandom parentStyles={makeStyles()} />);
+    anotherWrapper.instance().randalPromise.then(() => {
+      tickleScribbler(this.wrapper)
+      tickleScribbler(anotherWrapper)
+      try {
+        const hash = this.wrapper.instance().randal.getHash();
+        const anotherHash = anotherWrapper.instance().randal.getHash();
+        expect(hash).not.toBe(anotherHash);
+        done();
+      } catch (e) {
+        done.fail(e);
+      }
+    });
   });
 });
