@@ -85,7 +85,7 @@ class SetupConfirmSeedPhrase extends Component {
       !(i % ROW_LENGTH) ? arr.concat([org.slice(i, i + ROW_LENGTH)]) : arr, []
     );
 
-    // lookup table for highlights
+    // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => { arr[cur] = true; return arr; }, {})
     return (
       <SafeAreaView style={styles.safeContainer}>
@@ -195,7 +195,6 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   handleClick(index) {
-    const item = this.props.shuffledWords[index];
     const selected = this.state.selected.slice();
     const foundIndex = selected.indexOf(index);
     if (foundIndex !== -1) {
@@ -271,14 +270,11 @@ const styles = StyleSheet.create({
     display: 'flex'
   },
   navButtonWrapper: {
-    //flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   navButtons: {
-    width: '40%',
-    marginLeft: 50,
-    marginRight: 50
+    width: '40%'
   },
   progress: {
     paddingTop: 30,

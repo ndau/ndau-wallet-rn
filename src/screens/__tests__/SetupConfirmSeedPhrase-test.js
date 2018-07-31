@@ -42,7 +42,7 @@ describe('SetupConfirmSeedPhrase presentation', () => {
       .toJSON();
   });
 
-  it('renders correctly', () => {
+  test('renders correctly', () => {
     expect(this.tree).toMatchSnapshot();
   });
 });
@@ -87,7 +87,7 @@ describe('SetupConfirmSeedPhrase behavior', () => {
   });
 
 
-  it('done button is enabled after correct sequence', () => {
+  test('done button is enabled after correct sequence', () => {
     makeWords().forEach((e, i) => { this.wrapper.find('Word').at(i).props().onPress(); });
     this.wrapper.update();
     const doneButton = this.wrapper.find('Button').at(1);
@@ -95,7 +95,7 @@ describe('SetupConfirmSeedPhrase behavior', () => {
   });
 
 
-  it('trigger error state with incorrect word', () => {
+  test('trigger error state with incorrect word', () => {
     this.press(6); // wrong
     this.wrapper.update();
     expect(this.wrapper.state().inError).toBeTruthy();
@@ -103,7 +103,7 @@ describe('SetupConfirmSeedPhrase behavior', () => {
     expect(this.wrapper.state().errorCount).toBe(1);
   });
 
-  it('correct error state by deselecting word', () => {
+  test('correct error state by deselecting word', () => {
     this.press(6); // wrong
     this.press(6); // correction
     this.wrapper.update();
@@ -111,7 +111,15 @@ describe('SetupConfirmSeedPhrase behavior', () => {
     expect(this.wrapper.state().errorCount).toBe(1);
   });
 
-  it('trigger error state with incorrect sequence', () => {
+  it('should not be able to click any buttons after a mistake', () => {
+    this.press(6); // wrong
+    this.press(1); // another wrong
+    this.wrapper.update();
+    expect(this.wrapper.state().selected).toEqual([6]);
+    expect(this.wrapper.state().errorCount).toBe(1);
+  });
+
+  test('trigger error state with incorrect sequence', () => {
     this.press(0);
     this.press(1);
     this.press(2);
@@ -122,7 +130,7 @@ describe('SetupConfirmSeedPhrase behavior', () => {
     expect(this.wrapper.state().errorCount).toBe(1);
   });
 
-  it('lockem out after too many mistakes', () => {
+  test('lockem out after too many mistakes', () => {
     this.press(1); // wrong
     expect(this.wrapper.state().errorCount).toBe(1);
     this.press(1); // correction

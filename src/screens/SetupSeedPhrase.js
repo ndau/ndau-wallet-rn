@@ -12,6 +12,8 @@ import {
   NativeModules
 } from 'react-native';
 
+const ROW_LENGTH = 3; // 3 items per row
+
 class SetupSeedPhrase extends Component {
   constructor(props) {
     super(props);
@@ -74,12 +76,11 @@ class SetupSeedPhrase extends Component {
   };
 
   render() {
-    const words = [
-      this.state.seedPhrase.slice(0, 3),
-      this.state.seedPhrase.slice(3, 6),
-      this.state.seedPhrase.slice(6, 9),
-      this.state.seedPhrase.slice(9, 12)
-    ]
+    // chop the words into ROW_LENGTH-tuples
+    const words = this.state.seedPhrase.reduce((arr, _, i, org) =>
+      !(i % ROW_LENGTH) ? arr.concat([org.slice(i, i + ROW_LENGTH)]) : arr, []
+    );
+
     let count = 1;
     return (
       <SafeAreaView style={styles.safeContainer}>
@@ -105,9 +106,9 @@ class SetupSeedPhrase extends Component {
                 Write this phrase down. You will want to store it in a secure location.
               </Text>
             </View>
-            {words.map((threeWords, rowIndex) => {
+            {words.map((row, rowIndex) => {
               return (<View key={rowIndex} style={styles.rowView}>
-                {threeWords.map((item, index) => {
+                {row.map((item, index) => {
                   return (<View key={index} style={styles.rowTextView}>
                     <Text
                       style={{
