@@ -6,6 +6,7 @@ import SetupUserId from './SetupUserId';
 import SetupEncryptionPassword from './SetupEncryptionPassword';
 import SetupGetRandom from './SetupGetRandom';
 import SetupYourWallet from './SetupYourWallet';
+import SetupQRCode from './SetupQRCode';
 import SetupSeedPhrase from './SetupSeedPhrase';
 import SetupConfirmSeedPhrase from './SetupConfirmSeedPhrase';
 import SetupTermsOfService from './SetupTermsOfService';
@@ -23,6 +24,7 @@ export function registerScreens() {
   Navigation.registerComponent('ndau.SetupYourWallet', () => SetupYourWallet);
   Navigation.registerComponent('ndau.SetupSeedPhrase', () => SetupSeedPhrase);
   Navigation.registerComponent('ndau.SetupConfirmSeedPhrase', () => SetupConfirmSeedPhrase);
-  Navigation.registerComponent('ndau.SetupEAINode', () => SetupEAINode);
+  Navigation.registerComponent('ndau.SetupQRCode', () => SetupQRCode);
   Navigation.registerComponent('ndau.SetupTermsOfService', () => SetupTermsOfService);
+  Navigation.registerComponent('ndau.SetupEAINode', () => SetupEAINode);
 }

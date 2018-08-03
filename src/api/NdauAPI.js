@@ -33,13 +33,15 @@ getNdauNewsLinks = () => {
     });
 };
 
-sendAccountAddresses = (userId, addresses) => {
+sendAccountAddresses = (userId, addresses, token) => {
+
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      token: token,
       userId: userId,
       addresses: addresses
     })

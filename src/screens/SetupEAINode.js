@@ -31,10 +31,10 @@ class SetupEAINode extends Component {
     });
   };
 
-  sendAccountAddresses = (userId, addresses) => {
+  sendAccountAddresses = (userId, addresses, token) => {
     return new Promise((resolve, reject) => {
       ndauApi
-        .sendAccountAddresses(userId, addresses)
+        .sendAccountAddresses(userId, addresses, token)
         .then((whatPersisted) => {
           console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
           resolve(whatPersisted);
@@ -75,7 +75,7 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    this.sendAccountAddresses(this.props.userId, addresses);
+    this.sendAccountAddresses(this.props.userId, addresses, this.props.token);
   };
 
   persistAddresses = (addresses) => {
@@ -122,8 +122,8 @@ class SetupEAINode extends Component {
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={1} style={this.props.parentStyles.progress} />
-              )}
+                  <ProgressViewIOS progress={1} style={this.props.parentStyles.progress} />
+                )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
@@ -142,15 +142,15 @@ class SetupEAINode extends Component {
                 <Picker.Item label="Node B" value="nodeB" />
               </Picker>
             ) : (
-              <PickerIOS
-                selectedValue={this.state.node}
-                itemStyle={styles.picker}
-                onValueChange={(itemValue, itemIndex) => this.setState({ node: itemValue })}
-              >
-                <PickerIOS.Item label="Node A" value="nodeA" />
-                <PickerIOS.Item label="Node B" value="nodeB" />
-              </PickerIOS>
-            )}
+                <PickerIOS
+                  selectedValue={this.state.node}
+                  itemStyle={styles.picker}
+                  onValueChange={(itemValue, itemIndex) => this.setState({ node: itemValue })}
+                >
+                  <PickerIOS.Item label="Node A" value="nodeA" />
+                  <PickerIOS.Item label="Node B" value="nodeB" />
+                </PickerIOS>
+              )}
           </ScrollView>
           <View style={styles.footer}>
             <Button
