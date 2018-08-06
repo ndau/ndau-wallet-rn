@@ -1,7 +1,11 @@
+jest.mock('react-native-securerandom')
+import { generateSecureRandom } from 'react-native-securerandom';
 import Randal from '../randal';
 
-beforeEach(() => {
+beforeEach(async (done) => {
     this.randal = new Randal();
+    await this.randal.init();
+    done();
 })
 
 test('randal defined', () => {
@@ -18,6 +22,18 @@ test('sufficient distance', () => {
     let x = Randal.DistanceThreshold * 2;
     this.randal.checkPoint(x, x);
     expect(this.randal.steps).toBe(1);
+})
+
+
+test('randomness on different initializations', async (done) => {
+    const anotherRandal = new Randal();
+    await anotherRandal.init();
+    try {
+        expect(this.randal.getHash()).not.toBe(anotherRandal.getHash());
+        done();
+    } catch (e) {
+        done.fail(e);
+    }
 })
 
 test('percentage is correct', () => {

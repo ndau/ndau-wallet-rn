@@ -25,3 +25,6 @@ yarn-error.log*
 android/app/build/**
 
 android/.idea/**
+
+## Xcode User settings
+xcuserdata/
