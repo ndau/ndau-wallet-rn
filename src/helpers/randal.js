@@ -114,7 +114,7 @@ export default class Randal {
             (w >> 16) & 0xFF,
             (w >> 8) & 0xFF,
             (w & 0xFF),
-        ]), [])
+        ]), []))
     }
     // isCoprime returns true if a and b are coprime.
     _isCoprime(a, b) {
