@@ -82,7 +82,7 @@ class SetupConfirmSeedPhrase extends Component {
   render() {
 
     // chop the words into ROW_LENGTH-tuples
-    const words = groupIntoRows(this.props.shuffledWords);
+    const words = groupIntoRows(this.props.shuffledWords, ROW_LENGTH);
 
     // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => { arr[cur] = true; return arr; }, {})

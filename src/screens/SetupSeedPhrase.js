@@ -78,7 +78,7 @@ class SetupSeedPhrase extends Component {
 
   render() {
     // chop the words into ROW_LENGTH-tuples
-    const words = groupIntoRows(this.state.seedPhrase);
+    const words = groupIntoRows(this.state.seedPhrase, ROW_LENGTH);
 
     let count = 1;
     return (
