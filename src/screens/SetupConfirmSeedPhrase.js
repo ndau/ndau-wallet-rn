@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight
 } from 'react-native';
+import groupIntoRows from '../helpers/groupIntoRows';
 
 var _ = require('lodash');
 
@@ -81,9 +82,7 @@ class SetupConfirmSeedPhrase extends Component {
   render() {
 
     // chop the words into ROW_LENGTH-tuples
-    const words = this.props.shuffledWords.reduce((arr, _, i, org) =>
-      !(i % ROW_LENGTH) ? arr.concat([org.slice(i, i + ROW_LENGTH)]) : arr, []
-    );
+    const words = groupIntoRows(this.props.shuffledWords);
 
     // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => { arr[cur] = true; return arr; }, {})

@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   NativeModules
 } from 'react-native';
+import groupIntoRows from '../helpers/groupIntoRows';
 
 const ROW_LENGTH = 3; // 3 items per row
 
@@ -77,9 +78,7 @@ class SetupSeedPhrase extends Component {
 
   render() {
     // chop the words into ROW_LENGTH-tuples
-    const words = this.state.seedPhrase.reduce((arr, _, i, org) =>
-      !(i % ROW_LENGTH) ? arr.concat([org.slice(i, i + ROW_LENGTH)]) : arr, []
-    );
+    const words = groupIntoRows(this.state.seedPhrase);
 
     let count = 1;
     return (
