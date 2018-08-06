@@ -109,16 +109,12 @@ export default class Randal {
     }
     // _hashUint8Array returns our hash as a Uint8Array
     _hashUint8Array() {
-        return Uint8Array.from(this.hash.words.map((int32) => {
-            // convert to arrays of "uint8s"
-            var arr = [0, 0, 0, 0];
-            for (var i = 0; i < arr.length; i++) {
-                const b = int32 & 0xff;
-                arr[i] = b;
-                int32 = (int32 - b) / 256;
-            }
-            return arr
-        }).reduce((a, c) => a.concat(c), [])); // concat the arrays
+        return Uint8Array.from(this.hash.words.reduce((a, w) => a.concat([
+            (w >> 24) & 0xFF,
+            (w >> 16) & 0xFF,
+            (w >> 8) & 0xFF,
+            (w & 0xFF),
+        ]), [])
     }
     // isCoprime returns true if a and b are coprime.
     _isCoprime(a, b) {
