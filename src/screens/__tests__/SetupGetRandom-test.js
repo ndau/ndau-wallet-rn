@@ -1,3 +1,5 @@
+jest.mock('react-native-securerandom')
+
 import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -20,9 +22,10 @@ describe('SetupGetRandom snapshot', () => {
 })
 
 describe('SetupGetRandom behavior', () => {
-  beforeEach(() => {
+  beforeEach((done) => {
     // set up default wrapper for every test.
     this.wrapper = mount(<SetupGetRandom parentStyles={makeStyles()} />, this.context);
+    this.wrapper.instance().randalPromise.then(done);
   });
 
   it('done button starts disabled', () => {
