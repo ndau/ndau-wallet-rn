@@ -1,11 +1,12 @@
 
 // Import this named export into your test file:
 module.exports = {
-    generateSecureRandom: jest.fn(() => {
+    generateSecureRandom: jest.fn((length) => {
         return new Promise((resolve) => {
-            const a = new Uint8Array(1);
-            a[0] = 4; // chosen by fair dice roll. guaranteed to be random. xkcd.com/221
-            resolve(a);
+            const arr = (new Array(length)).fill(0)
+            resolve(Uint8Array.from(arr.map(
+                () => Math.floor(Math.random() * 256)
+            )));
         })
     })
 }
