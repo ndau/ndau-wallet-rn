@@ -41,7 +41,7 @@ exports[`testing SetupUserId... renders correctly 1`] = `
               }
             }
           >
-            Verify your user number 
+            Verify your User ID 
           </Text>
         </View>
         <View>
@@ -69,7 +69,7 @@ exports[`testing SetupUserId... renders correctly 1`] = `
               }
             }
           >
-            In order to deliver your ndau to this wallet on Genesis Day, we need the six-digit code you use to access the ndau dashboard.
+            In order to deliver your ndau to this wallet on Genesis Day, we need the six-character code you use to access the ndau dashboard.
           </Text>
         </View>
         <TextInput
