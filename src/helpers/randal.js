@@ -1,4 +1,5 @@
-const sha256 = require('crypto-js/sha256');
+import sha256 from 'crypto-js/sha256';
+import { generateSecureRandom } from 'react-native-securerandom';
 
 // Randal handles capturing randomness by taking scribbled points as input.
 // Basic algorithm is this:
@@ -11,15 +12,27 @@ const distanceThreshold = 5; // in pixels
 const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
 export default class Randal {
-    constructor() {
-        this.seed = (new Date).getTime();
-        this.coprimes = this._genCoprimes();
-        this.home = [0, 0];
-        this.steps = 0;
-        this.hash = sha256((new Date).getTime());
-        this.updateHandlers = [];
-        this.doneHandlers = [];
+    init() {
+        return Promise.all([generateSecureRandom(32), generateSecureRandom(32)])
+            .then(([seed, xor]) => {
+                this.coprimes = this._genCoprimes();
+                this.home = [0, 0];
+                this.xor = xor;
+                this.steps = 0;
+                // converts from Uint8Array to a string
+                const sSeed = seed.reduce((a, e, i) => {
+                    a[i] = String.fromCharCode(e);
+                    return a
+                }, []).join('');
+                this.hash = sha256(sSeed);
+                this.updateHandlers = [];
+                this.doneHandlers = [];
+            })
+            .catch((e) => {
+                console.log(`Randal.init: could not get random number: ${e}`);
+            })
     }
+
     // checkPoint adds a point and rehashes if it's far enough away
     checkPoint(x, y) {
         // sanitize
@@ -39,6 +52,17 @@ export default class Randal {
         if (distance >= distanceThreshold) {
             this._addStep(deltas, [x, y]);
         }
+    }
+    // getHash returns the hex representation of the hash xor'd with a number from securerandom
+    getHash() {
+        let xored = ""
+
+        // xor our hash with the xor, save as hex
+        this._hashUint8Array().forEach((el, i) => {
+            xored += (el ^ this.xor[i]).toString(16)
+        })
+
+        return xored;
     }
     // getPercentage returns how much of the quota is fulfilled.
     getPercentage() {
@@ -60,7 +84,7 @@ export default class Randal {
     }
     // _addStep rehashes based on new position input.
     _addStep(delta, pos) {
-        const posEnc = (delta[0] * this.coprimes[0]) + (delta[1] * this.coprimes[1]);
+        const posEnc = (delta[0] * this.coprimes[0]) + (delta[1] * this.coprimes[1]).toString();
         this.hash = sha256(this.hash.concat(sha256(posEnc)).toString());
         this.steps++;
         this.home = pos;
@@ -82,6 +106,15 @@ export default class Randal {
             }
         }
         return [candidateA, candidateB];
+    }
+    // _hashUint8Array returns our hash as a Uint8Array
+    _hashUint8Array() {
+        return Uint8Array.from(this.hash.words.reduce((a, w) => a.concat([
+            (w >> 24) & 0xFF,
+            (w >> 16) & 0xFF,
+            (w >> 8) & 0xFF,
+            (w & 0xFF),
+        ]), []))
     }
     // isCoprime returns true if a and b are coprime.
     _isCoprime(a, b) {

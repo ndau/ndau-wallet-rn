@@ -11,6 +11,9 @@ import {
   SafeAreaView,
   NativeModules
 } from 'react-native';
+import groupIntoRows from '../helpers/groupIntoRows';
+
+const ROW_LENGTH = 3; // 3 items per row
 
 class SetupSeedPhrase extends Component {
   constructor(props) {
@@ -32,7 +35,22 @@ class SetupSeedPhrase extends Component {
     const KeyaddrManager = NativeModules.KeyaddrManager;
     const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.entropy);
     console.debug(`keyaddr's seed words are: ${seeds}`);
-    this.setState({ seedPhrase: seeds.split(/\s+/g) });
+    const seedPhrase = seeds.split(/\s+/g);
+    this.setState({ seedPhrase: seedPhrase });
+
+    // Shuffle the deck with a Fisher-Yates shuffle algorithm;
+    // walks through the array backwards once, exchanging each value
+    // with a random element from the remainder of the array
+    let map = seedPhrase.map((e, i) => i)
+    let arr = seedPhrase.slice();
+    for (let i = arr.length - 1; i >= 0; i--) {
+      let r = Math.floor(Math.random() * i);
+      [map[i], map[r]] = [map[r], map[i]];
+      [arr[i], arr[r]] = [arr[r], arr[i]];
+    }
+    this.shuffledWords = arr;
+    // turn array inside out
+    this.shuffleMap = map.reduce((a, c, i) => { a[c] = i; return a }, []);
   };
 
   onPushAnother = () => {
@@ -46,7 +64,9 @@ class SetupSeedPhrase extends Component {
         entropy: this.props.entropy,
         seedPhraseArray: this.state.seedPhrase,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts,
+        shuffledWords: this.shuffledWords,
+        shuffleMap: this.shuffleMap
       },
       navigatorStyle: {
         drawUnderTabBar: true,
@@ -57,10 +77,9 @@ class SetupSeedPhrase extends Component {
   };
 
   render() {
-    const firstThree = this.state.seedPhrase.slice(0, 3);
-    const secondThree = this.state.seedPhrase.slice(3, 6);
-    const thirdThree = this.state.seedPhrase.slice(6, 9);
-    const fourthThree = this.state.seedPhrase.slice(9, 12);
+    // chop the words into ROW_LENGTH-tuples
+    const words = groupIntoRows(this.state.seedPhrase, ROW_LENGTH);
+
     let count = 1;
     return (
       <SafeAreaView style={styles.safeContainer}>
@@ -78,18 +97,18 @@ class SetupSeedPhrase extends Component {
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
-              )}
+                  <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
+                )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 Write this phrase down. You will want to store it in a secure location.
               </Text>
             </View>
-            <View style={styles.rowView}>
-              {firstThree.map((item, index) => {
-                return (
-                  <View key={index} style={styles.rowTextView}>
+            {words.map((row, rowIndex) => {
+              return (<View key={rowIndex} style={styles.rowView}>
+                {row.map((item, index) => {
+                  return (<View key={index} style={styles.rowTextView}>
                     <Text
                       style={{
                         color: '#ffffff',
@@ -99,61 +118,11 @@ class SetupSeedPhrase extends Component {
                     >
                       {count++}. {item}
                     </Text>
-                  </View>
-                );
-              })}
-            </View>
-            <View style={styles.rowView}>
-              {secondThree.map((item, index) => {
-                return (
-                  <View key={index} style={styles.rowTextView}>
-                    <Text
-                      style={{
-                        color: '#ffffff',
-                        fontSize: 20,
-                        textAlign: 'center'
-                      }}
-                    >
-                      {count++}. {item}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
-            <View style={styles.rowView}>
-              {thirdThree.map((item, index) => {
-                return (
-                  <View key={index} style={styles.rowTextView}>
-                    <Text
-                      style={{
-                        color: '#ffffff',
-                        fontSize: 20,
-                        textAlign: 'center'
-                      }}
-                    >
-                      {count++}. {item}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
-            <View style={styles.rowView}>
-              {fourthThree.map((item, index) => {
-                return (
-                  <View key={index} style={styles.rowTextView}>
-                    <Text
-                      style={{
-                        color: '#ffffff',
-                        fontSize: 20,
-                        textAlign: 'center'
-                      }}
-                    >
-                      {count++}. {item}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
+                  </View>);
+                })}
+              </View>);
+            })}
+
           </ScrollView>
           <View style={styles.footer}>
             <Button color="#4d9678" onPress={this.onPushAnother} title="I wrote it down" />
