@@ -1,6 +1,7 @@
 package com.ndauwalletrn;
 
 import android.support.annotation.Nullable;
+import org.reactnative.camera.RNCameraPackage;
 
 import com.facebook.react.ReactPackage;
 import com.reactnativenavigation.NavigationApplication;
@@ -20,7 +21,8 @@ public class MainApplication extends NavigationApplication {
     public List<ReactPackage> createAdditionalReactPackages() {
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
-                new KeyaddrPackage()
+                new KeyaddrPackage(),
+                new RNCameraPackage()
         );
     }
 
