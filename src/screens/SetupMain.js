@@ -50,13 +50,13 @@ class SetupMain extends Component {
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 Currently, ndau is only available to accredited investors. You will need to have
-                made your purchase through our site and have you six-digit ID code ready in order to
-                access this app before launch.{'\n'}
+                made your purchase through our site and have you six-character ID code ready in
+                order to access this app before launch.{'\n'}
               </Text>
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
-                To get you started securely, you will create a new wallet, protect this app with
+                To get you started securely, you will create a new wallet, protect this app with a
                 password, and create a twelve-word phrase which you will need in order to restore
                 your wallet if you lose access to it.{'\n'}
               </Text>
