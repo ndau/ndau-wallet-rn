@@ -15,6 +15,10 @@ Below you will find instructions on how to get ndau wallet running in both Andro
     - [`npm run ios`](#npm-run-ios)
     - [`npm run android`](#npm-run-android)
 - [Writing and Running Tests](#writing-and-running-tests)
+- [Circle-CI integration](#circle-ci-integration)
+- [Deployment](#deployment)
+  - [iOS Deployment](#ios-deployment)
+  - [Android Deployment](#android-deployment)
 - [Troubleshooting](#troubleshooting)
   - [iOS Simulator won't open](#ios-simulator-wont-open)
 
@@ -87,6 +91,13 @@ This project is set up to use [jest](https://facebook.github.io/jest/) for tests
 This project has been configured through CircleCI's GitHub integration to run tests on every commit. To view or change those settings, you may visit this repo's [CircleCI page](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn). If you log in with your GitHub account, and you have appropriate privleges you will be able to change the build settings.
 
 To run the CircleCI tests locally, you can execute the script `./.circleci/local.sh`. It will install the [CircleCI CLI](https://circleci.com/docs/2.0/local-cli/) tool, if you don't already have it.
+
+## Deployment
+### iOS Deployment
+
+### Android Deployment
+
+- Use [this](https://facebook.github.io/react-native/docs/signed-apk-android.html) link to create the APK
 
 ## Troubleshooting
 

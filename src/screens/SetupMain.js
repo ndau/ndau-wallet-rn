@@ -50,7 +50,7 @@ class SetupMain extends Component {
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 Currently, ndau is only available to accredited investors. You will need to have
-                made your purchase through our site and have you six-character ID code ready in
+                made your purchase through our site and have your six-character ID code ready in
                 order to access this app before launch.{'\n'}
               </Text>
             </View>
