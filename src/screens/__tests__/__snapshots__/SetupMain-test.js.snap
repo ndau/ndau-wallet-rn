@@ -75,7 +75,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
               }
             }
           >
-            To get you started securely, you will create a new wallet, protect this app with password, and create a twelve-word phrase which you will need in order to restore your wallet if you lose access to it.
+            To get you started securely, you will create a new wallet, protect this app with a password, and create a twelve-word phrase which you will need in order to restore your wallet if you lose access to it.
             
 
           </Text>

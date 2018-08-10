@@ -56,7 +56,7 @@ class SetupMain extends Component {
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
-                To get you started securely, you will create a new wallet, protect this app with
+                To get you started securely, you will create a new wallet, protect this app with a
                 password, and create a twelve-word phrase which you will need in order to restore
                 your wallet if you lose access to it.{'\n'}
               </Text>
