@@ -58,7 +58,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
               }
             }
           >
-            Currently, ndau is only available to accredited investors. You will need to have made your purchase through our site and have you six-digit ID code ready in order to access this app before launch.
+            Currently, ndau is only available to accredited investors. You will need to have made your purchase through our site and have you six-character ID code ready in order to access this app before launch.
             
 
           </Text>
@@ -75,7 +75,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
               }
             }
           >
-            To get you started securely, you will create a new wallet, protect this app with password, and create a twelve-word phrase which you will need in order to restore your wallet if you lose access to it.
+            To get you started securely, you will create a new wallet, protect this app with a password, and create a twelve-word phrase which you will need in order to restore your wallet if you lose access to it.
             
 
           </Text>

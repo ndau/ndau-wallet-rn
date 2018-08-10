@@ -179,8 +179,8 @@ class SetupEncryptionPassword extends Component {
                 style={styles.checkbox}
                 onClick={() => this.checkedProgress()}
                 isChecked={this.state.progress}
-                rightText="I understand that ndau cannot help me recover my passphrase.
-              To increase security, ndau does not store or have access to my passphrase"
+                rightText="I understand that ndau cannot help me recover my password.
+              To increase security, ndau does not store or have access to my password"
                 rightTextStyle={{
                   color: '#ffffff',
                   fontSize: 20,

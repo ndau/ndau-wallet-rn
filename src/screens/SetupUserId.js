@@ -95,7 +95,7 @@ class SetupUserId extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={this.props.parentStyles.wizardText}>Verify your user number </Text>
+              <Text style={this.props.parentStyles.wizardText}>Verify your User ID </Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -111,8 +111,8 @@ class SetupUserId extends Component {
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
-                In order to deliver your ndau to this wallet on Genesis Day, we need the six-digit
-                code you use to access the ndau dashboard.
+                In order to deliver your ndau to this wallet on Genesis Day, we need the
+                six-character code you use to access the ndau dashboard.
               </Text>
             </View>
             <TextInput
