@@ -75,7 +75,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
               }
             }
           >
-            To get you started securely, you will create a new wallet, protect this app with a password, and create a twelve-word phrase which you will need in order to restore your wallet if you lose access to it.
+            To get started securely, we will walk you through creating a new wallet. You will create a password to access this wallet, and a 12-word recovery passphrase that can be used to restore this wallet should you lose access to it (e.g. if you were to lose your mobile device).
             
 
           </Text>
