@@ -66,13 +66,18 @@ class SetupMain extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <TextButton color="#4d9678" onPress={this.onPushAnother} title="Create new wallet" />
-            <Button
+            <TextButton
+              color="#4d9678"
+              titleColor="#ffffff"
+              onPress={this.onPushAnother}
+              title="Create new wallet"
+            />
+            {/* <Button
               style={this.props.parentStyles.button}
               color="#4d9678"
               onPress={this.onPushAnother}
               title="Create new wallet"
-            />
+            /> */}
           </View>
         </View>
       </SafeAreaView>
