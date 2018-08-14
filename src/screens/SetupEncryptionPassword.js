@@ -101,7 +101,7 @@ class SetupEncryptionPassword extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={styles.text}>Encrypt your data</Text>
+              <Text style={styles.text}>Create an app password</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (

@@ -89,6 +89,13 @@ class SetupUserId extends Component {
     );
   };
 
+  textChanged = (userId) => {
+    if (userId.length === 3) {
+      userId += '-';
+    }
+    this.setState({ userId });
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
@@ -117,10 +124,11 @@ class SetupUserId extends Component {
             </View>
             <TextInput
               style={this.props.parentStyles.textInput}
-              onChangeText={(userId) => this.setState({ userId })}
+              onChangeText={(userId) => this.textChanged(userId)}
               value={this.state.userId}
               placeholder="Enter your unique User ID"
               placeholderTextColor="#333"
+              autoCapitalize="characters"
             />
           </ScrollView>
           <View style={styles.footer}>
