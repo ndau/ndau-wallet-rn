@@ -101,7 +101,8 @@ class SetupEAINode extends Component {
       navigatorStyle: {
         drawUnderTabBar: true,
         tabBarHidden: true
-      }
+      },
+      backButtonHidden: true
     });
   };
 

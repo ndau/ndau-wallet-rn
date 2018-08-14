@@ -68,7 +68,8 @@ class SetupUserId extends Component {
             drawUnderTabBar: true,
             tabBarHidden: true,
             disabledBackGesture: true
-          }
+          },
+          backButtonHidden: true
         });
       } else {
         this.showErrorMessage();

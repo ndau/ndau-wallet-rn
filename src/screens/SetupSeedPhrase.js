@@ -41,16 +41,19 @@ class SetupSeedPhrase extends Component {
     // Shuffle the deck with a Fisher-Yates shuffle algorithm;
     // walks through the array backwards once, exchanging each value
     // with a random element from the remainder of the array
-    let map = seedPhrase.map((e, i) => i)
+    let map = seedPhrase.map((e, i) => i);
     let arr = seedPhrase.slice();
     for (let i = arr.length - 1; i >= 0; i--) {
       let r = Math.floor(Math.random() * i);
-      [map[i], map[r]] = [map[r], map[i]];
-      [arr[i], arr[r]] = [arr[r], arr[i]];
+      [ map[i], map[r] ] = [ map[r], map[i] ];
+      [ arr[i], arr[r] ] = [ arr[r], arr[i] ];
     }
     this.shuffledWords = arr;
     // turn array inside out
-    this.shuffleMap = map.reduce((a, c, i) => { a[c] = i; return a }, []);
+    this.shuffleMap = map.reduce((a, c, i) => {
+      a[c] = i;
+      return a;
+    }, []);
   };
 
   onPushAnother = () => {
@@ -72,7 +75,8 @@ class SetupSeedPhrase extends Component {
         drawUnderTabBar: true,
         tabBarHidden: true,
         disabledBackGesture: true
-      }
+      },
+      backButtonHidden: true
     });
   };
 
@@ -97,8 +101,8 @@ class SetupSeedPhrase extends Component {
                   indeterminate={false}
                 />
               ) : (
-                  <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
-                )}
+                <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
+              )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
@@ -106,23 +110,26 @@ class SetupSeedPhrase extends Component {
               </Text>
             </View>
             {words.map((row, rowIndex) => {
-              return (<View key={rowIndex} style={styles.rowView}>
-                {row.map((item, index) => {
-                  return (<View key={index} style={styles.rowTextView}>
-                    <Text
-                      style={{
-                        color: '#ffffff',
-                        fontSize: 20,
-                        textAlign: 'center'
-                      }}
-                    >
-                      {count++}. {item}
-                    </Text>
-                  </View>);
-                })}
-              </View>);
+              return (
+                <View key={rowIndex} style={styles.rowView}>
+                  {row.map((item, index) => {
+                    return (
+                      <View key={index} style={styles.rowTextView}>
+                        <Text
+                          style={{
+                            color: '#ffffff',
+                            fontSize: 20,
+                            textAlign: 'center'
+                          }}
+                        >
+                          {count++}. {item}
+                        </Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
             })}
-
           </ScrollView>
           <View style={styles.footer}>
             <Button color="#4d9678" onPress={this.onPushAnother} title="I wrote it down" />

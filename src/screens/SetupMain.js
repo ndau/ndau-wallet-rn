@@ -33,7 +33,8 @@ class SetupMain extends Component {
         drawUnderTabBar: true,
         tabBarHidden: true,
         disabledBackGesture: true
-      }
+      },
+      backButtonHidden: true
     });
   };
 

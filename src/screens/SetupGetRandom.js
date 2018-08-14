@@ -22,10 +22,9 @@ class SetupGetRandom extends Component {
       doneDisabled: true,
       scribbling: false
     };
-    this.randalPromise = this.initRandal()
-      .catch((e) => {
-        console.error(e);
-      });
+    this.randalPromise = this.initRandal().catch((e) => {
+      console.error(e);
+    });
   }
 
   initRandal() {
@@ -60,7 +59,8 @@ class SetupGetRandom extends Component {
         drawUnderTabBar: true,
         tabBarHidden: true,
         disabledBackGesture: true
-      }
+      },
+      backButtonHidden: true
     });
   };
 
@@ -112,8 +112,8 @@ class SetupGetRandom extends Component {
                   indeterminate={false}
                 />
               ) : (
-                  <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
-                )}
+                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
+              )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
@@ -162,7 +162,7 @@ function ProgBar(props) {
       <View
         style={{
           height: 20,
-          backgroundColor: percentage == 100 ? '#4d9678' : 'yellow',
+          backgroundColor: percentage == 100 ? '#4e957a' : '#f99d1c',
           width: String(percentage) + '%'
         }}
       />

@@ -13,6 +13,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
+import ErrorPanel from '../components/ErrorPanel';
 
 var _ = require('lodash');
 
@@ -32,13 +33,12 @@ class SetupConfirmSeedPhrase extends Component {
     };
   }
 
-
   componentDidMount() {
     this.props.navigator.setStyle({
       drawUnderTabBar: true,
       tabBarHidden: true
     });
-  };
+  }
 
   onPushAnother() {
     this.props.navigator.push({
@@ -58,7 +58,7 @@ class SetupConfirmSeedPhrase extends Component {
         disabledBackGesture: true
       }
     });
-  };
+  }
 
   onPushBack() {
     this.props.navigator.push({
@@ -75,17 +75,21 @@ class SetupConfirmSeedPhrase extends Component {
         drawUnderTabBar: true,
         tabBarHidden: true,
         disabledBackGesture: true
-      }
+      },
+      backButtonHidden: true
     });
-  };
+  }
 
   render() {
-
     // chop the words into ROW_LENGTH-tuples
     const words = groupIntoRows(this.props.shuffledWords, ROW_LENGTH);
 
     // lookup table for word highlights
-    const selected = this.state.selected.reduce((arr, cur) => { arr[cur] = true; return arr; }, {})
+    const selected = this.state.selected.reduce((arr, cur) => {
+      arr[cur] = true;
+      return arr;
+    }, {});
+
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
@@ -102,8 +106,8 @@ class SetupConfirmSeedPhrase extends Component {
                   indeterminate={false}
                 />
               ) : (
-                  <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
-                )}
+                <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
+              )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
@@ -118,32 +122,39 @@ class SetupConfirmSeedPhrase extends Component {
               multiline={true}
               numberOfLines={2}
               editable={false}
+              selectTextOnFocus={false}
+              caretHidden={true}
             />
             {this.state.inError ? (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>
-                  {this.state.mustRetry ?
+              <ErrorPanel
+                errorText={
+                  this.state.mustRetry ? (
                     'Please click the Back button to generate a new seed phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
-                    :
+                  ) : (
                     'Please enter the words in the correct order. De-select the last word to continue.'
-                  }
-                </Text>
-              </View>
+                  )
+                }
+              />
             ) : null}
 
-
             {words.map((row, rowIndex) => {
-              return (<View key={rowIndex} style={styles.rowView}>
-                {row.map((item, index) => {
-                  const i = index + (row.length * rowIndex)
-                  return <Word
-                    key={i}
-                    error={this.state.errorWord == i}
-                    selected={selected[i]}
-                    onPress={(event) => this.handleClick(i, event)}
-                  >{item}</Word>
-                })}
-              </View>)
+              return (
+                <View key={rowIndex} style={styles.rowView}>
+                  {row.map((item, index) => {
+                    const i = index + row.length * rowIndex;
+                    return (
+                      <Word
+                        key={i}
+                        error={this.state.errorWord == i}
+                        selected={selected[i]}
+                        onPress={(event) => this.handleClick(i, event)}
+                      >
+                        {item}
+                      </Word>
+                    );
+                  })}
+                </View>
+              );
             })}
           </ScrollView>
           <View style={styles.footer}>
@@ -168,9 +179,8 @@ class SetupConfirmSeedPhrase extends Component {
     );
   }
 
-
   checkMistakes() {
-    const correctSoFar = this.props.shuffleMap.slice(0, this.state.selected.length)
+    const correctSoFar = this.props.shuffleMap.slice(0, this.state.selected.length);
     if (!_(this.state.selected).isEqual(correctSoFar)) {
       let errorCount = this.state.errorCount + 1;
       this.setState({
@@ -178,12 +188,12 @@ class SetupConfirmSeedPhrase extends Component {
         mustRetry: errorCount >= MAX_ERRORS,
         errorCount: errorCount,
         errorWord: this.state.selected[this.state.selected.length - 1]
-      })
+      });
     } else {
       this.setState({
         inError: false,
         errorWord: null
-      })
+      });
     }
   }
 
@@ -216,7 +226,7 @@ function Word(props) {
   if (props.error) {
     bgColor = '#ff0000';
   } else if (props.selected) {
-    bgColor = '#0000ff'
+    bgColor = '#0000ff';
   }
 
   return (
@@ -283,13 +293,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
-  },
-  errorText: {
-    color: '#f75f4b',
-    fontSize: 20
-  },
-  errorContainer: {
-    backgroundColor: '#f5d8d1'
   },
   textArea: {
     height: 70,
