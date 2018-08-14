@@ -22,6 +22,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
     }
   >
     <RCTScrollView
+      indicatorStyle="white"
+      showsVerticalScrollIndicator={true}
       style={
         Object {
           "flex": 1,
@@ -41,7 +43,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
               }
             }
           >
-            Terms of Service
+            Terms of Seryarn vice
           </Text>
         </View>
         <View>
@@ -432,7 +434,62 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             
 
             - If you have cause to believe any content found in the Website (including such content provided by other users) to be in violation of these Terms and/or infringe any 3rd party proprietary rights and/or applicable law, kindly notify us of such content via email to info@Oneiro.io stating the violating content and the nature of violation.
+            
+
           </Text>
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={null}
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../react-native-check-box/img/ic_check_box_outline_blank.png",
+                  }
+                }
+                style={
+                  Object {
+                    "tintColor": "#ffffff",
+                  }
+                }
+              />
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "flex": 1,
+                      "marginLeft": 10,
+                    },
+                    Object {
+                      "color": "#ffffff",
+                      "fontFamily": "TitilliumWeb-Regular",
+                      "fontSize": 20,
+                    },
+                  ]
+                }
+              >
+                I agree to the terms of use
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
     </RCTScrollView>
@@ -448,6 +505,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
         accessibilityTraits={
           Array [
             "button",
+            "disabled",
           ]
         }
         accessible={true}
@@ -468,12 +526,14 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           style={
             Array [
               Object {},
+              Object {},
             ]
           }
         >
           <Text
             accessible={true}
             allowFontScaling={true}
+            disabled={true}
             ellipsizeMode="tail"
             style={
               Array [
@@ -485,6 +545,9 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
                 },
                 Object {
                   "color": "#4d9678",
+                },
+                Object {
+                  "color": "#cdcdcd",
                 },
               ]
             }

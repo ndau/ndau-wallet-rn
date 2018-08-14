@@ -15,7 +15,6 @@ export default class Randal {
   init() {
     return Promise.all([ generateSecureRandom(32), generateSecureRandom(32) ])
       .then(([ seed, xor ]) => {
-        console.log('IM HERE');
         this.coprimes = this._genCoprimes();
         this.home = [ 0, 0 ];
         this.xor = xor;
@@ -30,7 +29,6 @@ export default class Randal {
         this.hash = sha256(sSeed);
         this.updateHandlers = [];
         this.doneHandlers = [];
-        console.log('FINISHED');
       })
       .catch((e) => {
         console.log(`Randal.init: could not get random number: ${e}`);
@@ -77,14 +75,14 @@ export default class Randal {
     if (typeof fn !== 'function') {
       throw Randal.UpdateFunctionError;
     }
-    if (this.updateHandlers) this.updateHandlers.push(fn);
+    this.updateHandlers.push(fn);
   }
   // onDone adds a subscriber to the done event.
   onDone(fn) {
     if (typeof fn !== 'function') {
       throw Randal.DoneFunctionError;
     }
-    if (this.doneHandlers) this.doneHandlers.push(fn);
+    this.doneHandlers.push(fn);
   }
   // _addStep rehashes based on new position input.
   _addStep(delta, pos) {

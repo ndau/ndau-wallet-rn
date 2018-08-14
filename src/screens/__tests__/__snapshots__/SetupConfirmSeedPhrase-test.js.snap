@@ -75,11 +75,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
         </View>
         <TextInput
           allowFontScaling={true}
+          caretHidden={true}
           editable={false}
           multiline={true}
           numberOfLines={2}
           placeholder=""
           placeholderTextColor="#333"
+          selectTextOnFocus={false}
           style={
             Object {
               "backgroundColor": "#ffffff",

@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   NativeModules
 } from 'react-native';
+import { TextButton } from 'react-native-material-buttons';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -65,6 +66,7 @@ class SetupMain extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
+            <TextButton color="#4d9678" onPress={this.onPushAnother} title="Create new wallet" />
             <Button
               style={this.props.parentStyles.button}
               color="#4d9678"
