@@ -198,7 +198,8 @@ var styles = StyleSheet.create({
   },
   wizardText: {
     color: '#ffffff',
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: 'TitilliumWeb-Regular'
   },
   progress: {
     paddingTop: 8,

@@ -36,7 +36,7 @@ class Passphrase extends Component {
   showInformation = () => {
     Alert.alert(
       'Information',
-      'Please enter the passphrase you chose to encrypt this app. ' +
+      'Please enter the password you chose to encrypt this app. ' +
         'This is not the same thing as your six-character ID or key ' +
         'seed phrase.',
       [ { text: 'OK', onPress: () => {} } ],

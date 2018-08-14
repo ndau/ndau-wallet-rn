@@ -74,6 +74,7 @@ exports[`testing SetupUserId... renders correctly 1`] = `
         </View>
         <TextInput
           allowFontScaling={true}
+          autoCapitalize="characters"
           onChangeText={[Function]}
           placeholder="Enter your unique User ID"
           placeholderTextColor="#333"
