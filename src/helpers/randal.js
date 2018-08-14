@@ -13,8 +13,12 @@ const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
 export default class Randal {
   init() {
-    return Promise.all([ generateSecureRandom(32), generateSecureRandom(32) ])
-      .then(([ seed, xor ]) => {
+    return new Promise( (resolve) => {
+      Promise.all([generateSecureRandom(32),generateSecureRandom(32)])
+        .then((randomNumbers) => {
+          resolve(randomNumbers)
+        })
+      }).then(([seed, xor]) => {
         this.coprimes = this._genCoprimes();
         this.home = [ 0, 0 ];
         this.xor = xor;
