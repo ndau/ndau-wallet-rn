@@ -113,7 +113,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         pointerEvents="box-only"
         rippleCentered={false}
-        rippleColor="rgb(0, 0, 0)"
+        rippleColor="#0a1724"
         rippleDuration={400}
         rippleFades={true}
         rippleOpacity={0.3}
@@ -121,7 +121,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
         rippleSize={0}
         style={
           Object {
-            "backgroundColor": "#4d9678",
+            "backgroundColor": "#ffffff",
             "borderRadius": 2,
             "height": 36,
             "justifyContent": "space-around",
@@ -143,9 +143,13 @@ exports[`testing SetupMain... renders correctly 1`] = `
                 "fontWeight": "500",
                 "textAlign": "center",
               },
-              undefined,
               Object {
-                "color": "rgb(0, 0, 0)",
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 14,
+              },
+              Object {
+                "color": "#0a1724",
               },
             ]
           }
@@ -155,7 +159,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "rgb(0, 0, 0)",
+              "backgroundColor": "#0a1724",
               "borderRadius": 2,
               "bottom": 0,
               "left": 0,
@@ -184,56 +188,6 @@ exports[`testing SetupMain... renders correctly 1`] = `
             ]
           }
         />
-      </View>
-      <View
-        accessibilityComponentType="button"
-        accessibilityTraits={
-          Array [
-            "button",
-          ]
-        }
-        accessible={true}
-        isTVSelectable={true}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
-      >
-        <View
-          style={
-            Array [
-              Object {},
-            ]
-          }
-        >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "color": "#007AFF",
-                  "fontSize": 18,
-                  "padding": 8,
-                  "textAlign": "center",
-                },
-                Object {
-                  "color": "#4d9678",
-                },
-              ]
-            }
-          >
-            Create new wallet
-          </Text>
-        </View>
       </View>
     </View>
   </View>

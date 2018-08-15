@@ -210,23 +210,21 @@ var styles = StyleSheet.create({
   dashboardTextLarge: {
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#4d9678',
+    color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 40,
-    shadowOpacity: 0.5,
-    shadowColor: '#4e957a',
-    shadowRadius: 3
+    fontSize: 28
   },
   dashboardTextSmall: {
     justifyContent: 'center',
     alignItems: 'center',
     color: '#4d9678',
     fontFamily: 'TitilliumWeb-Light',
-    fontSize: 30,
+    fontSize: 22,
     shadowOpacity: 0.5,
     shadowColor: '#4e957a',
     shadowRadius: 3,
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingTop: 10
   },
   linkText: {
     color: '#dea85a',

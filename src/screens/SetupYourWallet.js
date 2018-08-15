@@ -4,13 +4,12 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
   SafeAreaView
 } from 'react-native';
-import CheckBox from 'react-native-check-box';
+import CommonButton from '../components/CommonButton';
 
 class SetupYourWallet extends Component {
   constructor(props) {
@@ -76,7 +75,7 @@ class SetupYourWallet extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPushAnother} title="Get my seed phrase" />
+            <CommonButton onPress={this.onPushAnother} title="Get my seed phrase" />
           </View>
         </View>
       </SafeAreaView>

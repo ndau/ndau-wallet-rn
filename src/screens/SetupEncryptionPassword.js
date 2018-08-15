@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
@@ -14,6 +13,7 @@ import {
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CommonButton from '../components/CommonButton';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -190,8 +190,7 @@ class SetupEncryptionPassword extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              color="#4d9678"
+            <CommonButton
               onPress={this.onPushAnother}
               title="Next"
               disabled={!this.state.progress}

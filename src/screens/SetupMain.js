@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  Button,
-  SafeAreaView,
-  NativeModules
-} from 'react-native';
-import { TextButton } from 'react-native-material-buttons';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
+import CommonButton from '../components/CommonButton';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -66,18 +58,7 @@ class SetupMain extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <TextButton
-              color="#4d9678"
-              titleColor="#ffffff"
-              onPress={this.onPushAnother}
-              title="Create new wallet"
-            />
-            {/* <Button
-              style={this.props.parentStyles.button}
-              color="#4d9678"
-              onPress={this.onPushAnother}
-              title="Create new wallet"
-            /> */}
+            <CommonButton onPress={this.onPushAnother} title="Create new wallet" />
           </View>
         </View>
       </SafeAreaView>

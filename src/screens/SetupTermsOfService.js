@@ -4,13 +4,13 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
   SafeAreaView
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
+import CommonButton from '../components/CommonButton';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -399,12 +399,7 @@ class SetupTermsOfService extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              color="#4d9678"
-              onPress={this.onPushAnother}
-              title="Next"
-              disabled={!this.state.agree}
-            />
+            <CommonButton onPress={this.onPushAnother} title="Next" disabled={!this.state.agree} />
           </View>
         </View>
       </SafeAreaView>

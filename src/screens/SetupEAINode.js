@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
@@ -15,6 +14,7 @@ import {
 } from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import CommonButton from '../components/CommonButton';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -154,10 +154,9 @@ class SetupEAINode extends Component {
             )}
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              color="#4d9678"
+            <CommonButton
               onPress={this.finishSetup}
-              title="Select and finish"
+              title="Select and Finish"
               id="select-and-finish"
             />
           </View>

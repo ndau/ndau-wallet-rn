@@ -11,6 +11,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CommonButton from '../components/CommonButton';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -87,7 +88,7 @@ class Passphrase extends Component {
             ) : null}
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.login} title="Login" />
+            <CommonButton onPress={this.login} title="Login" />
           </View>
         </View>
       </SafeAreaView>

@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
@@ -14,6 +13,7 @@ import {
 } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import ErrorPanel from '../components/ErrorPanel';
+import CommonButton from '../components/CommonButton';
 
 var _ = require('lodash');
 
@@ -56,7 +56,8 @@ class SetupConfirmSeedPhrase extends Component {
         drawUnderTabBar: true,
         tabBarHidden: true,
         disabledBackGesture: true
-      }
+      },
+      backButtonHidden: true
     });
   }
 
@@ -159,18 +160,11 @@ class SetupConfirmSeedPhrase extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <View style={styles.navButtonWrapper}>
-              <Button
-                color="#4d9678"
-                onPress={() => this.onPushBack()}
-                title="Back (resets phrase)"
-                style={styles.navButtons}
-              />
-              <Button
-                color="#4d9678"
+              <CommonButton onPress={() => this.onPushBack()} title="Back (resets phrase)" />
+              <CommonButton
                 onPress={() => this.onPushAnother()}
                 title="Next"
                 disabled={!this.state.match}
-                style={styles.navButtons}
               />
             </View>
           </View>
@@ -224,9 +218,9 @@ class SetupConfirmSeedPhrase extends Component {
 function Word(props) {
   let bgColor = 'transparent';
   if (props.error) {
-    bgColor = '#ff0000';
+    bgColor = '#f05123';
   } else if (props.selected) {
-    bgColor = '#0000ff';
+    bgColor = '#4e957a';
   }
 
   return (

@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
@@ -12,6 +11,7 @@ import {
   NativeModules
 } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
+import CommonButton from '../components/CommonButton';
 
 const ROW_LENGTH = 3; // 3 items per row
 
@@ -132,7 +132,7 @@ class SetupSeedPhrase extends Component {
             })}
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPushAnother} title="I wrote it down" />
+            <CommonButton onPress={this.onPushAnother} title="I wrote it down" />
           </View>
         </View>
       </SafeAreaView>

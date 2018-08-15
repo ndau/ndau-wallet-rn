@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
@@ -13,6 +12,7 @@ import {
   Alert
 } from 'react-native';
 import ndauApi from '../api/NdauAPI';
+import CommonButton from '../components/CommonButton';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -133,7 +133,7 @@ class SetupUserId extends Component {
             />
           </ScrollView>
           <View style={styles.footer}>
-            <Button color="#4d9678" onPress={this.onPushAnother} title="Verify" />
+            <CommonButton onPress={this.onPushAnother} title="Verify" />
           </View>
         </View>
       </SafeAreaView>

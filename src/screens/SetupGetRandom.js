@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import Randal from '../helpers/randal.js';
 import Base64 from 'base-64';
+import CommonButton from '../components/CommonButton.js';
 
 class SetupGetRandom extends Component {
   constructor(props) {
@@ -133,12 +133,10 @@ class SetupGetRandom extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              name="original"
-              disabled={this.state.doneDisabled}
-              color="#4d9678"
+            <CommonButton
               onPress={this.onPushAnother}
               title="Done"
+              disabled={this.state.doneDisabled}
             />
           </View>
         </View>
