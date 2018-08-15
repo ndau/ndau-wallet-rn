@@ -9,7 +9,6 @@ import {
   SafeAreaView,
   ScrollView
 } from 'react-native';
-import Randal from '../helpers/randal.js';
 import Base64 from 'base-64';
 import CommonButton from '../components/CommonButton.js';
 
@@ -22,24 +21,16 @@ class SetupGetRandom extends Component {
       doneDisabled: true,
       scribbling: false
     };
-    this.randalPromise = this.initRandal().catch((e) => {
-      console.error(e);
+
+    this.props.randal.onUpdate(() => {
+      this.setState({
+        entropy: Base64.encode(this.props.randal.getHash().substr(0, 16)),
+        percentage: this.props.randal.getPercentage()
+      });
     });
-  }
 
-  initRandal() {
-    this.randal = new Randal();
-    return this.randal.init().then(() => {
-      this.randal.onUpdate(() => {
-        this.setState({
-          entropy: Base64.encode(this.randal.getHash().substr(0, 16)),
-          percentage: this.randal.getPercentage()
-        });
-      });
-
-      this.randal.onDone(() => {
-        this.setState({ doneDisabled: false });
-      });
+    this.props.randal.onDone(() => {
+      this.setState({ doneDisabled: false });
     });
   }
 
@@ -66,7 +57,7 @@ class SetupGetRandom extends Component {
 
   handleScribble(evt) {
     this.onScribbleStart();
-    this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
+    this.props.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
   }
   onScribbleStart() {
     if (this.state.scribbling) {

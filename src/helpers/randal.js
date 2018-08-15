@@ -13,30 +13,65 @@ const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
 export default class Randal {
   init() {
-    return new Promise( (resolve) => {
-      Promise.all([generateSecureRandom(32),generateSecureRandom(32)])
-        .then((randomNumbers) => {
-          resolve(randomNumbers)
+    // return new Promise((resolve) => {
+    //   Promise.all([ generateSecureRandom(32), generateSecureRandom(32) ]).then((randomNumbers) => {
+    //     resolve(randomNumbers);
+    //   });
+    // })
+    //   .then(([ seed, xor ]) => {
+    //     this.coprimes = this._genCoprimes();
+    //     this.home = [ 0, 0 ];
+    //     this.xor = xor;
+    //     Alert.alert(
+    //       'Error',
+    //       `seed is ${seed} and xor is ${xor}`,
+    //       [ { text: 'OK', onPress: () => {} } ],
+    //       { cancelable: false }
+    //     );
+    //     this.steps = 0;
+    //     // converts from Uint8Array to a string
+    //     const sSeed = seed
+    //       .reduce((a, e, i) => {
+    //         a[i] = String.fromCharCode(e);
+    //         return a;
+    //       }, [])
+    //       .join('');
+    //     this.hash = sha256(sSeed);
+    //     this.updateHandlers = [];
+    //     this.doneHandlers = [];
+    //   })
+    //   .catch((e) => {
+    //     console.log(`Randal.init: could not get random number: ${e}`);
+    //   });
+    return new Promise((resolve, reject) => {
+      Promise.all([ generateSecureRandom(32), generateSecureRandom(32) ])
+        .then(([ seed, xor ]) => {
+          doStuff = () => {
+            //do some things
+            setTimeout(continueExecution, 5000); //wait ten seconds before continuing
+          };
+
+          continueExecution = () => {
+            this.coprimes = this._genCoprimes();
+            this.home = [ 0, 0 ];
+            this.xor = xor;
+            this.steps = 0;
+            // alert(`seed is ${seed} and xor is ${xor}`);
+            // converts from Uint8Array to a string
+            const sSeed = String.fromCharCode.apply(null, seed);
+            this.hash = sha256(sSeed);
+            this.updateHandlers = [];
+            this.doneHandlers = [];
+            resolve(true);
+          };
+
+          doStuff();
         })
-      }).then(([seed, xor]) => {
-        this.coprimes = this._genCoprimes();
-        this.home = [ 0, 0 ];
-        this.xor = xor;
-        this.steps = 0;
-        // converts from Uint8Array to a string
-        const sSeed = seed
-          .reduce((a, e, i) => {
-            a[i] = String.fromCharCode(e);
-            return a;
-          }, [])
-          .join('');
-        this.hash = sha256(sSeed);
-        this.updateHandlers = [];
-        this.doneHandlers = [];
-      })
-      .catch((e) => {
-        console.log(`Randal.init: could not get random number: ${e}`);
-      });
+        .catch((e) => {
+          console.error(`Randal.init: could not get random number: ${e}`);
+          reject(false);
+        });
+    });
   }
 
   // checkPoint adds a point and rehashes if it's far enough away
