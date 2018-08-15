@@ -13,9 +13,6 @@ import Base64 from 'base-64';
 import CommonButton from '../components/CommonButton.js';
 import Randal from '../helpers/randal.js';
 
-const newRandal = new Randal();
-newRandal.init()
-
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
@@ -26,16 +23,18 @@ class SetupGetRandom extends Component {
       scribbling: false
     };
 
-    this.randal = newRandal;
-    this.randal.onUpdate(() => {
-      this.setState({
-        entropy: Base64.encode(this.randal.getHash().substr(0, 16)),
-        percentage: this.randal.getPercentage()
+    this.randal = new Randal()
+    this.randal.init().then(()=>{
+      this.randal.onUpdate(() => {
+        this.setState({
+          entropy: Base64.encode(this.randal.getHash().substr(0, 16)),
+          percentage: this.randal.getPercentage()
+        });
       });
-    });
 
-    this.randal.onDone(() => {
-      this.setState({ doneDisabled: false });
+      this.randal.onDone(() => {
+        this.setState({ doneDisabled: false });
+      });
     });
   }
 
