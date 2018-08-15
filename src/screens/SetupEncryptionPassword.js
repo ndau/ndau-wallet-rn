@@ -14,7 +14,6 @@ import {
 import CheckBox from 'react-native-check-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
-import Randal from '../helpers/randal.js';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -55,13 +54,10 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    newRandal = new Randal();
-    newRandal.init().then(() => {
       this.props.navigator.push({
         label: 'SetupGetRandom',
         screen: 'ndau.SetupGetRandom',
         passProps: {
-          randal: newRandal,
           encryptionPassword: this.state.password,
           userId: this.props.userId,
           parentStyles: this.props.parentStyles,
@@ -75,7 +71,7 @@ class SetupEncryptionPassword extends Component {
         },
         backButtonHidden: true
       });
-    });
+
   };
 
   checkedShowPasswords = () => {

@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 import Base64 from 'base-64';
 import CommonButton from '../components/CommonButton.js';
+import Randal from '../helpers/randal.js';
+
+const newRandal = new Randal();
+newRandal.init()
 
 class SetupGetRandom extends Component {
   constructor(props) {
@@ -22,14 +26,15 @@ class SetupGetRandom extends Component {
       scribbling: false
     };
 
-    this.props.randal.onUpdate(() => {
+    this.randal = newRandal;
+    this.randal.onUpdate(() => {
       this.setState({
-        entropy: Base64.encode(this.props.randal.getHash().substr(0, 16)),
-        percentage: this.props.randal.getPercentage()
+        entropy: Base64.encode(this.randal.getHash().substr(0, 16)),
+        percentage: this.randal.getPercentage()
       });
     });
 
-    this.props.randal.onDone(() => {
+    this.randal.onDone(() => {
       this.setState({ doneDisabled: false });
     });
   }
@@ -57,7 +62,7 @@ class SetupGetRandom extends Component {
 
   handleScribble(evt) {
     this.onScribbleStart();
-    this.props.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
+    this.randal.checkPoint(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
   }
   onScribbleStart() {
     if (this.state.scribbling) {
