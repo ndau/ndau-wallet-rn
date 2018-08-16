@@ -123,27 +123,13 @@ export default class Dashboard extends Component {
     return addresses ? (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.dashboardTextContainer}>
-          <Text style={styles.dashboardTextLarge}>User {this.state.user.userId}</Text>
-          <Text style={styles.dashboardTextSmall}>{addresses.length} addresses</Text>
+          <Text style={styles.dashboardTextLarge}>Wallet {this.state.user.userId}</Text>
         </View>
         <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
             sent to this app on Genesis Day. Until then, you can continue to view your holdings on
             the online dashboard." />
         <View style={styles.dashboardTextContainer}>
-          <Text style={styles.dashboardTextSmall}>News</Text>
-        </View>
-        <View style={styles.linkContainer}>
-          {this.state.newsLinks.map((link, index) => {
-            return (
-              <Text
-                key={index}
-                style={styles.linkText}
-                onPress={() => Linking.openURL(link.linkTarget)}
-              >
-                {link.linkTitle}
-              </Text>
-            );
-          })}
+          <Text style={styles.dashboardTextSmall}>{addresses.length} addresses</Text>
         </View>
         <ScrollView style={styles.container}>
           {addresses ? (
@@ -212,7 +198,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 28
+    fontSize: 28,
+    paddingBottom: 10
   },
   dashboardTextSmall: {
     justifyContent: 'center',
@@ -220,7 +207,7 @@ var styles = StyleSheet.create({
     color: '#4d9678',
     fontFamily: 'TitilliumWeb-Light',
     fontSize: 22,
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.2,
     shadowColor: '#4e957a',
     shadowRadius: 3,
     paddingBottom: 10,

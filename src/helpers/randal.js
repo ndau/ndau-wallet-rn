@@ -11,61 +11,22 @@ import { generateSecureRandom } from 'react-native-securerandom';
 const distanceThreshold = 5; // in pixels
 const quota = 256; // arbitrary
 const coprimeSpace = 65536; // 2^16, arbitrary
+
 export default class Randal {
   init() {
-    // return new Promise((resolve) => {
-    //   Promise.all([ generateSecureRandom(32), generateSecureRandom(32) ]).then((randomNumbers) => {
-    //     resolve(randomNumbers);
-    //   });
-    // })
-    //   .then(([ seed, xor ]) => {
-    //     this.coprimes = this._genCoprimes();
-    //     this.home = [ 0, 0 ];
-    //     this.xor = xor;
-    //     Alert.alert(
-    //       'Error',
-    //       `seed is ${seed} and xor is ${xor}`,
-    //       [ { text: 'OK', onPress: () => {} } ],
-    //       { cancelable: false }
-    //     );
-    //     this.steps = 0;
-    //     // converts from Uint8Array to a string
-    //     const sSeed = seed
-    //       .reduce((a, e, i) => {
-    //         a[i] = String.fromCharCode(e);
-    //         return a;
-    //       }, [])
-    //       .join('');
-    //     this.hash = sha256(sSeed);
-    //     this.updateHandlers = [];
-    //     this.doneHandlers = [];
-    //   })
-    //   .catch((e) => {
-    //     console.log(`Randal.init: could not get random number: ${e}`);
-    //   });
     return new Promise((resolve, reject) => {
       Promise.all([ generateSecureRandom(32), generateSecureRandom(32) ])
         .then(([ seed, xor ]) => {
-          doStuff = () => {
-            //do some things
-            setTimeout(continueExecution, 5000); //wait ten seconds before continuing
-          };
-
-          continueExecution = () => {
-            this.coprimes = this._genCoprimes();
-            this.home = [ 0, 0 ];
-            this.xor = xor;
-            this.steps = 0;
-            // alert(`seed is ${seed} and xor is ${xor}`);
-            // converts from Uint8Array to a string
-            const sSeed = String.fromCharCode.apply(null, seed);
-            this.hash = sha256(sSeed);
-            this.updateHandlers = [];
-            this.doneHandlers = [];
-            resolve(true);
-          };
-
-          doStuff();
+          this.coprimes = this._genCoprimes();
+          this.home = [ 0, 0 ];
+          this.xor = xor;
+          this.steps = 0;
+          // converts from Uint8Array to a string
+          const sSeed = String.fromCharCode.apply(null, seed);
+          this.hash = sha256(sSeed);
+          this.updateHandlers = [];
+          this.doneHandlers = [];
+          resolve(true);
         })
         .catch((e) => {
           console.error(`Randal.init: could not get random number: ${e}`);
@@ -99,9 +60,10 @@ export default class Randal {
     let xored = '';
 
     // xor our hash with the xor, save as hex
-    this._hashUint8Array().forEach((el, i) => {
-      xored += (el ^ this.xor[i]).toString(16);
-    });
+    const uint8Array = this._hashUint8Array();
+    for (let i = 0; i < uint8Array.length; i++) {
+      xored += (uint8Array[i] ^ this.xor[i]).toString(16);
+    }
 
     return xored;
   }
@@ -148,14 +110,16 @@ export default class Randal {
     }
     return [ candidateA, candidateB ];
   }
+  getMethods(obj) {
+    return Object.keys(this).filter((key) => typeof this[key] === 'function');
+  }
   // _hashUint8Array returns our hash as a Uint8Array
   _hashUint8Array() {
-    return Uint8Array.from(
-      this.hash.words.reduce(
-        (a, w) => a.concat([ (w >> 24) & 0xff, (w >> 16) & 0xff, (w >> 8) & 0xff, w & 0xff ]),
-        []
-      )
+    const hashArray = this.hash.words.reduce(
+      (a, w) => a.concat([ (w >> 24) & 0xff, (w >> 16) & 0xff, (w >> 8) & 0xff, w & 0xff ]),
+      []
     );
+    return new Uint8Array(hashArray);
   }
   // isCoprime returns true if a and b are coprime.
   _isCoprime(a, b) {

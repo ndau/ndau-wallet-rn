@@ -8,8 +8,8 @@ class CommonButton extends Component {
     return (
       <TextButton
         titleStyle={styles.text}
-        color="#ffffff"
-        titleColor="#0a1724"
+        color="#4e957a"
+        titleColor="#ffffff"
         disabledColor="#696969"
         {...this.props}
       />
@@ -22,7 +22,6 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 14,
     fontFamily: 'TitilliumWeb-Regular'
-    // padding: '4%'
   }
 });
 

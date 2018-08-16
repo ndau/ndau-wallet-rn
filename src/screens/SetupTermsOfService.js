@@ -60,7 +60,7 @@ class SetupTermsOfService extends Component {
             indicatorStyle="white"
           >
             <View>
-              <Text style={this.props.parentStyles.wizardText}>Terms of Seryarn vice</Text>
+              <Text style={styles.legalText}>Terms of Use</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -75,8 +75,8 @@ class SetupTermsOfService extends Component {
               )}
             </View>
             <View>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Scope
+              <Text style={styles.legalTextHeading}>{'\n'}Scope</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- These Terms of Use (“Terms”), together with our Privacy Notice , are a
                 legally binding agreement between you (“User”, “you”, or any variations thereof) and
                 Oneiro NA Inc. (collectively: “Oneiro”, “us”, “we”, or any variations thereof).
@@ -92,8 +92,8 @@ class SetupTermsOfService extends Component {
                 If you do not agree to the new or different Terms, you should not use or access the
                 content offered under the Website.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}The Website
+              <Text style={styles.legalTextHeading}>{'\n'}The Website</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- The Website is designated to enable you to receive information regarding a
                 unique type of Tokens by the name of NDAU, which we contemplate on issuing, as
                 further detailed on the Website.
@@ -105,8 +105,8 @@ class SetupTermsOfService extends Component {
                 {'\n'}- Nothing herein shall be deemed as any obligation and/or commitment Oneiro
                 tgat you will actually be eligible to subscribe for any tokens.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Tokens
+              <Text style={styles.legalTextHeading}>{'\n'}Tokens</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- The designated issuance of the Tokens is as further detailed here
                 https://Oneiro.io/.
                 {'\n'}- We do not make any representation and/or commitment in connection with the
@@ -139,8 +139,8 @@ class SetupTermsOfService extends Component {
                 representations (such as you being deemed as an acceredited investor) in order for
                 us to determine whether to allow you to subscribe for our tokens.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Third party Vendors
+              <Text style={styles.legalTextHeading}>{'\n'}Third party Vendors</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- Currently, we use the third party vendors (each: a “Third Party Vendor”), as
                 described under our Privacy Notice [add link + anchor]:
                 {'\n'}- You understand that we have no control over the Third Party Vendor and its
@@ -157,15 +157,15 @@ class SetupTermsOfService extends Component {
                 which you are subject to pursuant to your use of the Third Party Vendor, imposed by
                 it.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Security
+              <Text style={styles.legalTextHeading}>{'\n'}Security</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- DESPITE US MAINTAINING REASONABLE MEASURES TO SECURE the Website, WE CAN NOT
                 ENSURE FULL PROTECTION FROM EXPOSURE DUE TO MALICIOUS ACTS, AND THEREFORE ARE NOT
                 LIABLE TO ANY DAMAGES, WHETHER DIRECT, INDIRECT, INCIDENTAL OR CONSEQUENTIAL,
                 INCURRED BY USER.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Use of Website
+              <Text style={styles.legalTextHeading}>{'\n'}Use of Website</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- You acknowledge that any rights granted to you herein, are non-exclusive,
                 such that any use of the content offered to you and/or made available to you via the
                 Website, is subject to the herein terms.
@@ -230,8 +230,8 @@ class SetupTermsOfService extends Component {
                 highly recommend you to verify the origin of any External Content prior to gaining
                 access or otherwise using it.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Content and Ownership
+              <Text style={styles.legalTextHeading}>{'\n'}Content and Ownership</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- Ownership. All rights, title and interest in and to the Website, including
                 any and all copyrightable materials or any other content thereof which is or may be
                 subject to any intellectual property rights under any applicable law, including any
@@ -256,8 +256,8 @@ class SetupTermsOfService extends Component {
                 limited license expressly granted above. Nothing in these Terms constitutes an
                 assignment or waiver of any of our property rights under any law.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Privacy and Data Protection
+              <Text style={styles.legalTextHeading}>{'\n'}Privacy and Data Protection</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- In addition to these Terms, your use of the Website is also subject to our
                 Privacy Notice, which informs you of our policies and procedures regarding the
                 collection, use and disclosure of information we receive when you visit our Website
@@ -271,8 +271,8 @@ class SetupTermsOfService extends Component {
                 SUCH AS MAINTANING AN UP-TO-DATE ANTIVIRUS AND/OR ANY ANTIMALWARE OR PHISHING
                 SOFTWARE.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Limited Warranties
+              <Text style={styles.legalTextHeading}>{'\n'}Limited Warranties</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- THE WEBSITE and any content associated thereto ARE PROVIDED ON AN “AS IS”
                 AND “AS AVAILABLE” BASIS. WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER
                 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
@@ -295,8 +295,8 @@ class SetupTermsOfService extends Component {
                 RELIABILITY OR OTHERWISE. NOTHING HEREIN SHALL DEROGATE FROM ANY OTHER LIMITATION OF
                 LIABILITY PRESCRIBED UNDER THESE TERMS.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Limitation of Liability
+              <Text style={styles.legalTextHeading}>{'\n'}Limitation of Liability</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- TO THE FULLEST EXTENT PERMITTED BY LAW, UNDER NO CIRCUMSTANCES SHALL WE BE
                 LIABLE FOR ANY DIRECT OR INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, EXEMPLARY OR
                 CONSEQUENTIAL DAMAGES (including any financial losses) ARISING OUT OF ANY (I) USE,
@@ -318,15 +318,15 @@ class SetupTermsOfService extends Component {
                 LIABILITY FOR ANY DAMAGES CAUSED BY VIRUSES, WORMS AND/OR OTHER MALICIOUS SOFTWARE
                 WHICH MAY INFECT THE USER'S MACHINE(S) WITHIN THE SCOPE OF THE USE OF THE website.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Indemnification
+              <Text style={styles.legalTextHeading}>{'\n'}Indemnification</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- YOU SHALL INDEMNIFY US, including our DIRECTORS AND OFFICERS, EMPLOYEES,
                 SERVICE PROVIDERS AND/OR ANY AFFILIATES (COLLECTIVELY: THE “INDEMNITEES”), FOR
                 CLAIMS, SUITS, LOSSES AND/OR DAMAGES RESULTING FROM YOUR USE OF, ACCESS TO OR
                 RELIANCE ON THE WEBSITE ANS/OR any content presented thereto.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Governing Law; Class Action Waiver
+              <Text style={styles.legalTextHeading}>{'\n'}Governing Law; Class Action Waiver</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- Subject to any applicable law, all disputes between you and we shall only be
                 resolved on an individual basis and you shall not have the right to bring any claim
                 against us as a plaintiff or a member of a class, consolidated or representative
@@ -363,21 +363,21 @@ class SetupTermsOfService extends Component {
                 {'\n'}- For the purposes hereof “Terms” shall also include our Privacy Notice, as
                 amended from time to time.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Assignment
+              <Text style={styles.legalTextHeading}>{'\n'}Assignment</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- You may not assign any rights and/or obligations you may have under these
                 Terms and/or Privacy Notice without our prior written consent. We may freely assign
                 any of its rights and/or obligations herein, without limitations; provided that,
                 your rights herein shall not be adversely affected.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Survival
+              <Text style={styles.legalTextHeading}>{'\n'}Survival</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- It is hereby clarifeid that THE TERMS OF SECTIONS ‎7, ‎9 THROUGH ‎11
                 (Inclusive), AND SECTION ‎12 SHALL SURVIVE ANY TERMINATION of our engagement in
                 connection with the website, REGARDLESS OF REASON.
               </Text>
-              <Text style={this.props.parentStyles.wizardText}>
-                {'\n'}Contacting Us
+              <Text style={styles.legalTextHeading}>{'\n'}Contacting Us</Text>
+              <Text style={styles.legalText}>
                 {'\n'}- If you have cause to believe any content found in the Website (including
                 such content provided by other users) to be in violation of these Terms and/or
                 infringe any 3rd party proprietary rights and/or applicable law, kindly notify us of
@@ -429,6 +429,18 @@ const styles = StyleSheet.create({
   progress: {
     paddingTop: 30,
     paddingBottom: 30
+  },
+  legalText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
+  legalTextHeading: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontFamily: 'TitilliumWeb-Regular',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline'
   }
 });
 
