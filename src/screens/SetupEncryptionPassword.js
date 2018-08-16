@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  TextInput,
-  SafeAreaView,
-  Alert
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -54,24 +44,23 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-      this.props.navigator.push({
-        label: 'SetupGetRandom',
-        screen: 'ndau.SetupGetRandom',
-        passProps: {
-          encryptionPassword: this.state.password,
-          userId: this.props.userId,
-          parentStyles: this.props.parentStyles,
-          iconsMap: this.props.iconsMap,
-          numberOfAccounts: this.props.numberOfAccounts
-        },
-        navigatorStyle: {
-          drawUnderTabBar: true,
-          tabBarHidden: true,
-          disabledBackGesture: true
-        },
-        backButtonHidden: true
-      });
-
+    this.props.navigator.push({
+      label: 'SetupGetRandom',
+      screen: 'ndau.SetupGetRandom',
+      passProps: {
+        encryptionPassword: this.state.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      },
+      backButtonHidden: true
+    });
   };
 
   checkedShowPasswords = () => {
@@ -98,23 +87,9 @@ class SetupEncryptionPassword extends Component {
     const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={styles.text}>Create an app password</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.25}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.25} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={2} />
             <View>
               <Text style={styles.text} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
@@ -206,15 +181,6 @@ class SetupEncryptionPassword extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
     backgroundColor: '#1c2227'
   },
   button: {

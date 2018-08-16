@@ -134,7 +134,9 @@ export default class Dashboard extends Component {
         <ScrollView style={styles.container}>
           {addresses ? (
             addresses.map((address, index) => {
-              return <CollapsiblePanel key={index} title={`Address ${index}`} address={address} />;
+              return (
+                <CollapsiblePanel key={index} title={`Address ${++index}`} address={address} />
+              );
             })
           ) : null}
         </ScrollView>
@@ -150,6 +152,8 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
     backgroundColor: '#1c2227'
   },
   text: {
@@ -161,8 +165,8 @@ var styles = StyleSheet.create({
     height: 45,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 20,
+    marginTop: 20,
     paddingLeft: 10,
     color: '#000000',
     backgroundColor: '#ffffff',
@@ -227,10 +231,5 @@ var styles = StyleSheet.create({
     paddingLeft: 50,
     paddingRight: 50
   },
-  checkbox: { flex: 1, padding: 10 },
-  stepper: {
-    width: 30,
-    height: 25,
-    backgroundColor: 'transparent'
-  }
+  checkbox: { flex: 1, padding: 10 }
 });

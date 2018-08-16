@@ -90,8 +90,8 @@ class CollapsiblePanel extends Component {
 var styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    margin: 5,
     overflow: 'hidden',
+    marginBottom: 5,
     borderRadius: 5,
     borderColor: '#4d9678',
     borderWidth: 2

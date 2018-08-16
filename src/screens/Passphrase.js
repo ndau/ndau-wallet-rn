@@ -54,7 +54,7 @@ class Passphrase extends Component {
             <View style={styles.imageView}>
               <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
               <TextInput
                 style={{
                   height: 45,
@@ -122,7 +122,9 @@ const styles = StyleSheet.create({
     flex: 1 // pushes the footer to the end of the screen
   },
   footer: {
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginLeft: 10,
+    marginRight: 10
   },
   imageView: {
     justifyContent: 'center',

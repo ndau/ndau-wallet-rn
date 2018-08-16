@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  SafeAreaView,
-  NativeModules
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView, NativeModules } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 const ROW_LENGTH = 3; // 3 items per row
 
@@ -87,23 +78,9 @@ class SetupSeedPhrase extends Component {
     let count = 1;
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>Seed phrase</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.625}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={5} />
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 Write this phrase down. You will want to store it in a secure location.
@@ -145,16 +122,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1c2227'
   },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
-    backgroundColor: '#1c2227'
-  },
-
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
   },

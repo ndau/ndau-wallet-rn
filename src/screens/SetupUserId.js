@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  TextInput,
-  SafeAreaView,
-  Alert
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -100,23 +90,9 @@ class SetupUserId extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>Verify your User ID </Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.125}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.125} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={1} />
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 In order to deliver your ndau to this wallet on Genesis Day, we need the
@@ -144,14 +120,6 @@ class SetupUserId extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
     backgroundColor: '#1c2227'
   },
   contentContainer: {

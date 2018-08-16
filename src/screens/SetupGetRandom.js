@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  SafeAreaView,
-  ScrollView
-} from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native';
 import Base64 from 'base-64';
 import CommonButton from '../components/CommonButton.js';
 import Randal from '../helpers/randal.js';
+import Stepper from '../components/Stepper';
 
 class SetupGetRandom extends Component {
   constructor(props) {
@@ -99,23 +91,10 @@ class SetupGetRandom extends Component {
     const { scribbling } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer} scrollEnabled={!scribbling}>
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>Get random</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.375}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.375} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={3} />
+
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 To generate the strongest possible encryption, we need a source of random input.
@@ -172,15 +151,6 @@ function ProgBar(props) {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
     backgroundColor: '#1c2227'
   },
   contentContainer: {

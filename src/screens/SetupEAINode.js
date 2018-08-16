@@ -4,9 +4,7 @@ import {
   View,
   ScrollView,
   Text,
-  ProgressViewIOS,
   Platform,
-  ProgressBarAndroid,
   Picker,
   PickerIOS,
   SafeAreaView,
@@ -15,6 +13,7 @@ import {
 import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -109,23 +108,9 @@ class SetupEAINode extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>Select a node</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={1}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={1} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={8} />
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 In order to earn your Ecosystem Alignment Incentive (EAI) you must delegate your
@@ -169,15 +154,6 @@ class SetupEAINode extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
     backgroundColor: '#1c2227'
   },
   button: {

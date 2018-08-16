@@ -34,7 +34,7 @@ class SetupMain extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
@@ -69,14 +69,6 @@ class SetupMain extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
     backgroundColor: '#1c2227'
   },
   contentContainer: {

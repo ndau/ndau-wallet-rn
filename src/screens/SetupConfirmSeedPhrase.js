@@ -4,9 +4,6 @@ import {
   View,
   ScrollView,
   Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
   SafeAreaView,
   TextInput,
   TouchableHighlight
@@ -14,6 +11,7 @@ import {
 import groupIntoRows from '../helpers/groupIntoRows';
 import ErrorPanel from '../components/ErrorPanel';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 var _ = require('lodash');
 
@@ -93,23 +91,9 @@ class SetupConfirmSeedPhrase extends Component {
 
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>Confirm seed phrase</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.625}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={6} />
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 Demonstrate that you wrote the phrase down by tapping the words below in order.{' '}
@@ -255,16 +239,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1c2227'
   },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
-    backgroundColor: '#1c2227'
-  },
-
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
   },
