@@ -39,11 +39,12 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
               }
             }
           >
-            Terms of Seryarn vice
+            Terms of Use
           </Text>
         </View>
         <View>
@@ -67,13 +68,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Scope
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - These Terms of Use (“Terms”), together with our Privacy Notice , are a legally binding agreement between you (“User”, “you”, or any variations thereof) and Oneiro NA Inc. (collectively: “Oneiro”, “us”, “we”, or any variations thereof).
@@ -94,13 +111,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             The Website
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - The Website is designated to enable you to receive information regarding a unique type of Tokens by the name of NDAU, which we contemplate on issuing, as further detailed on the Website.
@@ -118,13 +151,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Tokens
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - The designated issuance of the Tokens is as further detailed here https://Oneiro.io/.
@@ -145,13 +194,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Third party Vendors
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - Currently, we use the third party vendors (each: a “Third Party Vendor”), as described under our Privacy Notice [add link + anchor]:
@@ -166,13 +231,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Security
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - DESPITE US MAINTAINING REASONABLE MEASURES TO SECURE the Website, WE CAN NOT ENSURE FULL PROTECTION FROM EXPOSURE DUE TO MALICIOUS ACTS, AND THEREFORE ARE NOT LIABLE TO ANY DAMAGES, WHETHER DIRECT, INDIRECT, INCIDENTAL OR CONSEQUENTIAL, INCURRED BY USER.
@@ -184,13 +265,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Use of Website
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - You acknowledge that any rights granted to you herein, are non-exclusive, such that any use of the content offered to you and/or made available to you via the Website, is subject to the herein terms.
@@ -250,13 +347,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Content and Ownership
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - Ownership. All rights, title and interest in and to the Website, including any and all copyrightable materials or any other content thereof which is or may be subject to any intellectual property rights under any applicable law, including any artwork, graphics, images, documents, content, website templates and widgets, literary work, source and object code, computer code (including HTML), applications, audio, music, video and other media, designs, animations, interfaces, methods, products, algorithms, data, interactive features and objects, advertising and acquisition tools and methods, inventions, trade secrets, logos, domains, customized URLs, service marks, trade names and other proprietary identifiers, whether or not registered and/or capable of being registered, and any derivations thereof, are owned by and/or licensed to us (“Proprietary Content”). In the event that the Proprietary Content is licensed to us, then such content might be subject to additional restrictions by its owners.
@@ -274,13 +387,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Privacy and Data Protection
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - In addition to these Terms, your use of the Website is also subject to our Privacy Notice, which informs you of our policies and procedures regarding the collection, use and disclosure of information we receive when you visit our Website and when communicating with us.
@@ -295,13 +424,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Limited Warranties
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - THE WEBSITE and any content associated thereto ARE PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS. WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
@@ -316,13 +461,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Limitation of Liability
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - TO THE FULLEST EXTENT PERMITTED BY LAW, UNDER NO CIRCUMSTANCES SHALL WE BE LIABLE FOR ANY DIRECT OR INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES (including any financial losses) ARISING OUT OF ANY (I) USE, OR THE INABILITY (FOR ANY REASON) TO USE ANY PART OF THIS WEBSITE (INCLUDING WITHOUT LIMITATION INACCURACIES OR ERRORS OF INFORMATION AS A RESULT OF ACCESSING THIS WEBSITE) or any failed transfer of any funds under a Wallet to its designated location, (II) ACTION OR INACTION IN CONNECTION WITH THESE TERMS, OR (III) STATEMENTS OR CONDUCT OF YOU OR ANY THIRD PARTY ON THIS WEBSITE OR YOUR WEBSITE, INCULDING WITHOUT LIMITATION ANY SUBMISSIONS THEREON; IN EACH CASE, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, WHETHER BASED ON CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY OR OTHERWISE.
@@ -340,13 +501,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Indemnification
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - YOU SHALL INDEMNIFY US, including our DIRECTORS AND OFFICERS, EMPLOYEES, SERVICE PROVIDERS AND/OR ANY AFFILIATES (COLLECTIVELY: THE “INDEMNITEES”), FOR CLAIMS, SUITS, LOSSES AND/OR DAMAGES RESULTING FROM YOUR USE OF, ACCESS TO OR RELIANCE ON THE WEBSITE ANS/OR any content presented thereto.
@@ -358,13 +535,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Governing Law; Class Action Waiver
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - Subject to any applicable law, all disputes between you and we shall only be resolved on an individual basis and you shall not have the right to bring any claim against us as a plaintiff or a member of a class, consolidated or representative actions (or any other legal proceedings conducted by a group or by representatives on behalf of others).
@@ -388,13 +581,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Assignment
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - You may not assign any rights and/or obligations you may have under these Terms and/or Privacy Notice without our prior written consent. We may freely assign any of its rights and/or obligations herein, without limitations; provided that, your rights herein shall not be adversely affected.
@@ -406,13 +615,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Survival
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - It is hereby clarifeid that THE TERMS OF SECTIONS ‎7, ‎9 THROUGH ‎11 (Inclusive), AND SECTION ‎12 SHALL SURVIVE ANY TERMINATION of our engagement in connection with the website, REGARDLESS OF REASON.
@@ -424,13 +649,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
-                "fontSize": 20,
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
               }
             }
           >
             
 
             Contacting Us
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
             
 
             - If you have cause to believe any content found in the Website (including such content provided by other users) to be in violation of these Terms and/or infringe any 3rd party proprietary rights and/or applicable law, kindly notify us of such content via email to info@Oneiro.io stating the violating content and the nature of violation.
@@ -524,7 +765,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         pointerEvents="box-only"
         rippleCentered={false}
-        rippleColor="#0a1724"
+        rippleColor="#ffffff"
         rippleDuration={400}
         rippleFades={true}
         rippleOpacity={0.3}
@@ -570,7 +811,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "#0a1724",
+              "backgroundColor": "#ffffff",
               "borderRadius": 2,
               "bottom": 0,
               "left": 0,

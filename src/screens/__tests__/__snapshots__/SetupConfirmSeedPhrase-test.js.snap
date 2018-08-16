@@ -660,7 +660,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
           onStartShouldSetResponder={[Function]}
           pointerEvents="box-only"
           rippleCentered={false}
-          rippleColor="#0a1724"
+          rippleColor="#ffffff"
           rippleDuration={400}
           rippleFades={true}
           rippleOpacity={0.3}
@@ -668,7 +668,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
           rippleSize={0}
           style={
             Object {
-              "backgroundColor": "#ffffff",
+              "backgroundColor": "#4e957a",
               "borderRadius": 2,
               "height": 36,
               "justifyContent": "space-around",
@@ -696,7 +696,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                   "fontSize": 14,
                 },
                 Object {
-                  "color": "#0a1724",
+                  "color": "#ffffff",
                 },
               ]
             }
@@ -706,7 +706,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
           <View
             style={
               Object {
-                "backgroundColor": "#0a1724",
+                "backgroundColor": "#ffffff",
                 "borderRadius": 2,
                 "bottom": 0,
                 "left": 0,
@@ -760,7 +760,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
           onStartShouldSetResponder={[Function]}
           pointerEvents="box-only"
           rippleCentered={false}
-          rippleColor="#0a1724"
+          rippleColor="#ffffff"
           rippleDuration={400}
           rippleFades={true}
           rippleOpacity={0.3}
@@ -806,7 +806,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
           <View
             style={
               Object {
-                "backgroundColor": "#0a1724",
+                "backgroundColor": "#ffffff",
                 "borderRadius": 2,
                 "bottom": 0,
                 "left": 0,

@@ -134,7 +134,7 @@ export default class Dashboard extends Component {
         <ScrollView style={styles.container}>
           {addresses ? (
             addresses.map((address, index) => {
-              return <CollapsiblePanel key={index} title={address} />;
+              return <CollapsiblePanel key={index} title={`Address ${index}`} address={address} />;
             })
           ) : null}
         </ScrollView>
@@ -227,5 +227,10 @@ var styles = StyleSheet.create({
     paddingLeft: 50,
     paddingRight: 50
   },
-  checkbox: { flex: 1, padding: 10 }
+  checkbox: { flex: 1, padding: 10 },
+  stepper: {
+    width: 30,
+    height: 25,
+    backgroundColor: 'transparent'
+  }
 });

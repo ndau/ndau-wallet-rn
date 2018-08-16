@@ -23,8 +23,14 @@ class SetupGetRandom extends Component {
       scribbling: false
     };
 
-    this.randal = new Randal()
-    this.randal.init().then(()=>{
+    this.randalPromise = this.initRandal().catch((e) => {
+      console.error(e);
+    });
+  }
+
+  initRandal() {
+    this.randal = new Randal();
+    return this.randal.init().then(() => {
       this.randal.onUpdate(() => {
         this.setState({
           entropy: Base64.encode(this.randal.getHash().substr(0, 16)),
