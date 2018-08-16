@@ -48,8 +48,8 @@ class SetupYourWallet extends Component {
               <Text style={this.props.parentStyles.wizardText}>
                 Next we will give you a seed phrase which is the key to restoring your wallet. You
                 must WRITE IT DOWN and store it in a secure location or risk losing access to your
-                funds. Do not save this phrase on your device or in the cloud. Do not do this in a
-                public place.
+                funds. Do not save this phrase on your device or in the cloud. Do not do this step
+                in a public place.
               </Text>
             </View>
           </ScrollView>
