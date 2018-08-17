@@ -64,7 +64,7 @@ It is an error if the given key is already a hardened key.
 Key can be either public or private; if it is private it will be
 converted to a public key first.
  */
-- (KeyaddrAddress*)ndauAddress:(NSError**)error;
+- (KeyaddrAddress*)ndauAddress:(NSString*)chainid error:(NSError**)error;
 /**
  * Neuter returns an extended public key from any other extended key.
 If the key is an extended private key, it generates the matching public key.
