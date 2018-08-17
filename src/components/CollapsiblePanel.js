@@ -65,7 +65,7 @@ class CollapsiblePanel extends Component {
 
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
-        <ImageBackground source={require('../../img/gecko-green.jpg')} style={{ width: '100%' }}>
+        <ImageBackground source={require('../../img/green-card.jpg')} style={{ width: '100%' }}>
           <TouchableHighlight
             style={styles.button}
             onPress={this.toggle.bind(this)}

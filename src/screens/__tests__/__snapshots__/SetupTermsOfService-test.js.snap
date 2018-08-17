@@ -9,18 +9,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "backgroundColor": "#1c2227",
-        "flex": 1,
-        "paddingBottom": 10,
-        "paddingLeft": 10,
-        "paddingRight": 10,
-        "paddingTop": 10,
-      }
-    }
-  >
+  <View>
     <RCTScrollView
       indicatorStyle="white"
       showsVerticalScrollIndicator={true}
@@ -31,35 +20,23 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
       }
     >
       <View>
-        <View>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-              }
+        <Image
+          resizeMode="contain"
+          screenNumber={7}
+          source={
+            Object {
+              "testUri": "../../../img/step-7.png",
             }
-          >
-            Terms of Use
-          </Text>
-        </View>
-        <View>
-          <RCTProgressView
-            progress={0.875}
-            style={
-              Array [
-                Object {
-                  "height": 2,
-                },
-                undefined,
-              ]
+          }
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "height": 60,
+              "marginBottom": 5,
+              "width": "100%",
             }
-          />
-        </View>
+          }
+        />
         <View>
           <Text
             accessible={true}
@@ -738,6 +715,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
       style={
         Object {
           "justifyContent": "flex-end",
+          "marginTop": 20,
         }
       }
     >

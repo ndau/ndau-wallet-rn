@@ -9,18 +9,7 @@ exports[`SetupGetRandom snapshot renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "backgroundColor": "#1c2227",
-        "flex": 1,
-        "paddingBottom": 10,
-        "paddingLeft": 10,
-        "paddingRight": 10,
-        "paddingTop": 10,
-      }
-    }
-  >
+  <View>
     <RCTScrollView
       scrollEnabled={true}
       style={
@@ -30,34 +19,23 @@ exports[`SetupGetRandom snapshot renders correctly 1`] = `
       }
     >
       <View>
-        <View>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontSize": 20,
-              }
+        <Image
+          resizeMode="contain"
+          screenNumber={3}
+          source={
+            Object {
+              "testUri": "../../../img/step-3.png",
             }
-          >
-            Get random
-          </Text>
-        </View>
-        <View>
-          <RCTProgressView
-            progress={0.375}
-            style={
-              Array [
-                Object {
-                  "height": 2,
-                },
-                undefined,
-              ]
+          }
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "height": 60,
+              "marginBottom": 5,
+              "width": "100%",
             }
-          />
-        </View>
+          }
+        />
         <View>
           <Text
             accessible={true}
@@ -73,7 +51,13 @@ exports[`SetupGetRandom snapshot renders correctly 1`] = `
             To generate the strongest possible encryption, we need a source of random input. Scribble in the box below to add randomness to your key.
           </Text>
         </View>
-        <View>
+        <View
+          style={
+            Object {
+              "marginTop": 8,
+            }
+          }
+        >
           <View
             style={
               Object {

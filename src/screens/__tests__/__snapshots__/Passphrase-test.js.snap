@@ -55,6 +55,8 @@ exports[`testing Passphrase... renders correctly 1`] = `
           style={
             Object {
               "flexDirection": "row",
+              "marginLeft": 10,
+              "marginRight": 10,
             }
           }
         >
@@ -128,6 +130,7 @@ exports[`testing Passphrase... renders correctly 1`] = `
       style={
         Object {
           "justifyContent": "flex-end",
+          "margin": 10,
         }
       }
     >
