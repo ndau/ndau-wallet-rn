@@ -101,7 +101,7 @@ class SetupGetRandom extends Component {
                 Scribble in the box below to add randomness to your key.
               </Text>
             </View>
-            <View>
+            <View style={{ marginTop: 8 }}>
               <ProgBar percentage={this.state.percentage} />
               <View
                 onStartShouldSetResponderCapture={() => true}

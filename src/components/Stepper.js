@@ -34,7 +34,8 @@ var styles = StyleSheet.create({
   stepper: {
     width: '100%',
     height: 60,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    marginBottom: 5
   }
 });
 

@@ -94,7 +94,7 @@ class SetupConfirmSeedPhrase extends Component {
         <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={6} />
-            <View>
+            <View style={{ marginBottom: 10 }}>
               <Text style={this.props.parentStyles.wizardText}>
                 Demonstrate that you wrote the phrase down by tapping the words below in order.{' '}
               </Text>
@@ -224,7 +224,8 @@ function Word(props) {
         <Text
           style={{
             color: '#ffffff',
-            fontSize: 20
+            fontSize: 20,
+            fontFamily: 'TitilliumWeb-Regular'
           }}
         >
           {props.children}

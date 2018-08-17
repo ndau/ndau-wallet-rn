@@ -394,7 +394,8 @@ const styles = StyleSheet.create({
     flex: 1 // pushes the footer to the end of the screen
   },
   footer: {
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginTop: 20
   },
   progress: {
     paddingTop: 30,

@@ -81,7 +81,7 @@ class SetupSeedPhrase extends Component {
         <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={5} />
-            <View>
+            <View style={{ marginBottom: 10 }}>
               <Text style={this.props.parentStyles.wizardText}>
                 Write this phrase down. You will want to store it in a secure location.
               </Text>
@@ -96,6 +96,7 @@ class SetupSeedPhrase extends Component {
                           style={{
                             color: '#ffffff',
                             fontSize: 20,
+                            fontFamily: 'TitilliumWeb-Regular',
                             textAlign: 'center'
                           }}
                         >

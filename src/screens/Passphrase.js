@@ -123,8 +123,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     justifyContent: 'flex-end',
-    marginLeft: 10,
-    marginRight: 10
+    margin: 10
   },
   imageView: {
     justifyContent: 'center',

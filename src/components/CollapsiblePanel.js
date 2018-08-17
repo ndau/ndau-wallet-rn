@@ -103,13 +103,14 @@ var styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: '#fff',
-    fontSize: 12,
+    fontSize: 18,
     fontFamily: 'TitilliumWeb-Bold'
   },
   button: {},
   buttonImage: {
     width: 30,
     height: 25,
+    margin: 8,
     backgroundColor: 'transparent'
   },
   body: {

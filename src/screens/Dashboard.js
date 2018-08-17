@@ -135,7 +135,9 @@ export default class Dashboard extends Component {
           {addresses ? (
             addresses.map((address, index) => {
               return (
-                <CollapsiblePanel key={index} title={`Address ${++index}`} address={address} />
+                <CollapsiblePanel key={index} title={`Address ${++index}`} address={address}>
+                  <Text style={styles.text}>{address}</Text>
+                </CollapsiblePanel>
               );
             })
           ) : null}
@@ -154,12 +156,13 @@ var styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 20,
     backgroundColor: '#1c2227'
   },
   text: {
     color: '#ffffff',
-    fontSize: 16,
-    fontFamily: 'TitilliumWeb-Light'
+    fontSize: 14,
+    fontFamily: 'TitilliumWeb-Bold'
   },
   textInput: {
     height: 45,
@@ -231,5 +234,5 @@ var styles = StyleSheet.create({
     paddingLeft: 50,
     paddingRight: 50
   },
-  checkbox: { flex: 1, padding: 10 }
+  checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 }
 });
