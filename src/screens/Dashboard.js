@@ -134,8 +134,15 @@ export default class Dashboard extends Component {
         <ScrollView style={styles.container}>
           {addresses ? (
             addresses.map((address, index) => {
+              const counter = index + 1;
               return (
-                <CollapsiblePanel key={index} title={`Address ${++index}`} address={address}>
+                <CollapsiblePanel
+                  key={index}
+                  index={index}
+                  title={`Address ${counter}`}
+                  address={address}
+                  addressLength={addresses.length}
+                >
                   <Text style={styles.text}>{address}</Text>
                 </CollapsiblePanel>
               );

@@ -19,6 +19,12 @@ class CollapsiblePanel extends Component {
       down: require('../../img/Arrowhead-Down-01-128.png')
     };
 
+    this.cardBackgrounds = [
+      require('../../img/green-card.jpg'),
+      require('../../img/blue-card.jpg'),
+      require('../../img/dark-blue-card.jpg')
+    ];
+
     this.state = {
       expanded: true,
       animation: new Animated.Value(),
@@ -65,7 +71,10 @@ class CollapsiblePanel extends Component {
 
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
-        <ImageBackground source={require('../../img/green-card.jpg')} style={{ width: '100%' }}>
+        <ImageBackground
+          source={this.cardBackgrounds[this.props.index % this.props.addressLength]}
+          style={{ width: '100%' }}
+        >
           <TouchableHighlight
             style={styles.button}
             onPress={this.toggle.bind(this)}
