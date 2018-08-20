@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>63</string>
+	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -35,8 +35,20 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>The ndau wallet does not currently use music data.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The ndau wallet does not currently use Bluetooth data.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>The ndau wallet does not currently use calendar data.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>The ndau wallet will use your camera to scan a QR token for account verification purposes.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMotionUsageDescription</key>
+	<string>The ndau wallet does not currently use motion data.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>The ndau wallet does not currently use speech data.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TitilliumWeb-Bold.ttf</string>

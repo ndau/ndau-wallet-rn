@@ -46,6 +46,7 @@ class SetupConfirmSeedPhrase extends Component {
       screen: 'ndau.SetupTermsOfService',
       passProps: {
         encryptionPassword: this.props.encryptionPassword,
+        qrToken: this.props.qrToken,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
@@ -66,6 +67,7 @@ class SetupConfirmSeedPhrase extends Component {
       screen: 'ndau.SetupGetRandom',
       passProps: {
         encryptionPassword: this.props.encryptionPassword,
+        qrToken: this.props.qrToken,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
