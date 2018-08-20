@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  SafeAreaView,
+  Alert,
+  Button
+} from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
+import RNExitApp from 'react-native-exit-app';
 
 class SetupUserId extends Component {
   constructor(props) {

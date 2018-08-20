@@ -297,11 +297,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                     }
                     underlineColorAndroid="transparent"
                     useNativeDriver={false}
-<<<<<<< HEAD
-                    value="Commonwealth"
-=======
-                    value="Botolph"
->>>>>>> 27ff815dbb2a5637830ff1979b2caa6d08ec25b5
+                    value="Clarendon"
                     valueExtractor={[Function]}
                   />
                   <View
