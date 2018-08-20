@@ -137,10 +137,10 @@ class SetupEAINode extends Component {
     });
   };
 
-  sendAccountAddresses = (userId, addresses) => {
+  sendAccountAddresses = (userId, addresses, token) => {
     return new Promise((resolve, reject) => {
       ndauApi
-        .sendAccountAddresses(userId, addresses)
+        .sendAccountAddresses(userId, addresses, token)
         .then((whatPersisted) => {
           console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
           resolve(whatPersisted);
@@ -181,7 +181,7 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    this.sendAccountAddresses(this.props.userId, addresses);
+    this.sendAccountAddresses(this.props.userId, addresses, this.props.qrToken);
   };
 
   persistAddresses = (addresses) => {

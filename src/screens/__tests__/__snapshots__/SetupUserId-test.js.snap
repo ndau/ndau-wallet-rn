@@ -58,6 +58,201 @@ exports[`testing SetupUserId... renders correctly 1`] = `
           placeholderTextColor="#333"
           value=""
         />
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "space-between",
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <View
+            accessibilityComponentType="button"
+            accessibilityTraits={
+              Array [
+                "button",
+              ]
+            }
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "padding": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "#4d9678",
+                    },
+                  ]
+                }
+              >
+                Verify
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "space-between",
+              "paddingBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <View
+            accessibilityComponentType="button"
+            accessibilityTraits={
+              Array [
+                "button",
+              ]
+            }
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "padding": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "#4d9678",
+                    },
+                  ]
+                }
+              >
+                I don't have an ID
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "paddingTop": 40,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontSize": 20,
+              }
+            }
+          >
+            We will send you an email to confirm you are the account holder.
+          </Text>
+          <View
+            accessibilityComponentType="button"
+            accessibilityTraits={
+              Array [
+                "button",
+              ]
+            }
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "padding": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "#4d9678",
+                    },
+                  ]
+                }
+              >
+                Send email
+              </Text>
+            </View>
+          </View>
+        </View>
       </View>
     </RCTScrollView>
     <View

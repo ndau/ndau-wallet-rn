@@ -42,6 +42,7 @@ class SetupGetRandom extends Component {
       screen: 'ndau.SetupYourWallet',
       passProps: {
         encryptionPassword: this.props.encryptionPassword,
+        qrToken: this.props.qrToken,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.state.entropy,

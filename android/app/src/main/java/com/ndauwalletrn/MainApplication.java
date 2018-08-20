@@ -1,15 +1,17 @@
 package com.ndauwalletrn;
 
 import android.support.annotation.Nullable;
+import org.reactnative.camera.RNCameraPackage;
 
 import com.facebook.react.ReactPackage;
 import com.reactnativenavigation.NavigationApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 
-import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.github.wumke.RNExitApp.RNExitAppPackage;
+import net.rhogan.rnsecurerandom.RNSecureRandomPackage
 
 public class MainApplication extends NavigationApplication {
     @Override
@@ -22,8 +24,10 @@ public class MainApplication extends NavigationApplication {
     public List<ReactPackage> createAdditionalReactPackages() {
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
-                new RNSecureRandomPackage(),
-                new KeyaddrPackage()
+                new KeyaddrPackage(),
+                new RNCameraPackage(),
+                new RNExitAppPackage(),
+                new RNSecureRandomPackage()
         );
     }
 
