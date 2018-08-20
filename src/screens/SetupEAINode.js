@@ -9,122 +9,124 @@ import { Dropdown } from 'react-native-material-dropdown';
 class SetupEAINode extends Component {
   constructor(props) {
     super(props);
+    const nodeNames = [
+      {
+        value: 'Germain'
+      },
+      {
+        value: 'Clearway'
+      },
+      {
+        value: 'Belvidere'
+      },
+      {
+        value: 'Marlborough'
+      },
+      {
+        value: 'Boylston'
+      },
+      {
+        value: 'Botolph'
+      },
+      {
+        value: 'Garrison'
+      },
+      {
+        value: 'Harcourt'
+      },
+      {
+        value: 'Fairfield'
+      },
+      {
+        value: 'Gloucester'
+      },
+      {
+        value: 'Newbury'
+      },
+      {
+        value: 'Exeter'
+      },
+      {
+        value: 'Ring'
+      },
+      {
+        value: 'Hereford'
+      },
+      {
+        value: 'Massachusetts'
+      },
+      {
+        value: 'Back'
+      },
+      {
+        value: 'Commonwealth'
+      },
+      {
+        value: 'Dartmouth'
+      },
+      {
+        value: 'Clarendon'
+      },
+      {
+        value: 'Berkeley'
+      },
+      {
+        value: 'Beacon'
+      },
+      {
+        value: 'James'
+      },
+      {
+        value: 'Stuart'
+      },
+      {
+        value: 'Studio'
+      },
+      {
+        value: 'Follen'
+      },
+      {
+        value: 'Durham'
+      },
+      {
+        value: 'Huntington'
+      },
+      {
+        value: 'Blackwood'
+      },
+      {
+        value: 'Albemarle'
+      },
+      {
+        value: 'Cumberland'
+      },
+      {
+        value: 'Stanhope'
+      },
+      {
+        value: 'Providence'
+      },
+      {
+        value: 'Storrow'
+      },
+      {
+        value: 'Charlesgate'
+      },
+      {
+        value: 'Esplanade'
+      },
+      {
+        value: 'Arlington'
+      },
+      {
+        value: 'Blagden'
+      }
+    ];
+
     this.state = {
       node: '',
-      //This should soon be replaced with an API
-      data: [
-        {
-          value: 'Germain'
-        },
-        {
-          value: 'Clearway'
-        },
-        {
-          value: 'Belvidere'
-        },
-        {
-          value: 'Marlborough'
-        },
-        {
-          value: 'Boylston'
-        },
-        {
-          value: 'Botolph'
-        },
-        {
-          value: 'Garrison'
-        },
-        {
-          value: 'Harcourt'
-        },
-        {
-          value: 'Fairfield'
-        },
-        {
-          value: 'Gloucester'
-        },
-        {
-          value: 'Newbury'
-        },
-        {
-          value: 'Exeter'
-        },
-        {
-          value: 'Ring'
-        },
-        {
-          value: 'Hereford'
-        },
-        {
-          value: 'Massachusetts'
-        },
-        {
-          value: 'Back'
-        },
-        {
-          value: 'Commonwealth'
-        },
-        {
-          value: 'Dartmouth'
-        },
-        {
-          value: 'Clarendon'
-        },
-        {
-          value: 'Berkeley'
-        },
-        {
-          value: 'Beacon'
-        },
-        {
-          value: 'James'
-        },
-        {
-          value: 'Stuart'
-        },
-        {
-          value: 'Studio'
-        },
-        {
-          value: 'Follen'
-        },
-        {
-          value: 'Durham'
-        },
-        {
-          value: 'Huntington'
-        },
-        {
-          value: 'Blackwood'
-        },
-        {
-          value: 'Albemarle'
-        },
-        {
-          value: 'Cumberland'
-        },
-        {
-          value: 'Stanhope'
-        },
-        {
-          value: 'Providence'
-        },
-        {
-          value: 'Storrow'
-        },
-        {
-          value: 'Charlesgate'
-        },
-        {
-          value: 'Esplanade'
-        },
-        {
-          value: 'Arlington'
-        },
-        {
-          value: 'Blagden'
-        }
-      ]
+      data: nodeNames,
+      selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)].value
     };
   }
 
@@ -185,7 +187,8 @@ class SetupEAINode extends Component {
   persistAddresses = (addresses) => {
     const user = {
       userId: this.props.userId,
-      addresses: addresses
+      addresses: addresses,
+      selectedNode: this.state.selectedNode
     };
     AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
   };
@@ -232,7 +235,7 @@ class SetupEAINode extends Component {
               itemTextStyle={this.props.parentStyles.wizardText}
               fontSize={20}
               labelFontSize={14}
-              value={this.state.data[Math.floor(Math.random() * this.state.data.length)].value}
+              value={this.state.selectedNode}
             />
           </ScrollView>
           <View style={styles.footer}>
