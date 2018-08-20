@@ -29,16 +29,14 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator='iPhone X'",
+    "ios": "react-native run-ios --simulator='iPhone 8 Plus'",
     "test": "jest",
     "xcode-open": "open ios/ndauwalletrn.xcodeproj",
     "android-install": "cd android && ./gradlew installDebug"
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [
-      "./setupJest.js"
-    ]
+    "setupFiles": [ "./setupJest.js" ]
   },
   "dependencies": {
     "@tradle/react-native-http": "^2.0.1",
@@ -70,9 +68,7 @@
     "util": "^0.10.4"
   },
   "rnpm": {
-    "assets": [
-      "assets/fonts"
-    ]
+    "assets": [ "assets/fonts" ]
   },
   "react-native": {
     "zlib": "browserify-zlib",

@@ -1,7 +1,5 @@
-//TODO: Replace this with a configuration file solution
-//TODO: Realm might work well or react-native-keychain
-const ndauApiHost = '192.168.64.1:3000';//'ndaudashboard.ndau.tech';
-const ndauApiProtocol = 'http';//'https';
+const ndauApiHost = 'ndaudashboard.ndau.tech';
+const ndauApiProtocol = 'https';
 
 getTargetPrice = () => {
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/targetprice`)
@@ -34,11 +32,10 @@ getNdauNewsLinks = () => {
 };
 
 sendAccountAddresses = (userId, addresses, hexToken) => {
-
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/accountAddress`, {
     method: 'POST',
     headers: {
-      'Authentication': `qr-token ${token}`,
+      Authentication: `qr-token ${token}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -70,11 +67,10 @@ triggerQRTEmail = (userId) => {
     });
 };
 
-
 module.exports = {
   getTargetPrice,
   getNumberOfAccounts,
   sendAccountAddresses,
   getNdauNewsLinks,
-  triggerQRTEmail,
+  triggerQRTEmail
 };
