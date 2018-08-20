@@ -10,6 +10,9 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import com.github.wumke.RNExitApp.RNExitAppPackage;
+import net.rhogan.rnsecurerandom.RNSecureRandomPackage
+
 public class MainApplication extends NavigationApplication {
     @Override
     public boolean isDebug() {
@@ -22,7 +25,9 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
                 new KeyaddrPackage(),
-                new RNCameraPackage()
+                new RNCameraPackage(),
+                new RNExitAppPackage(),
+                new RNSecureRandomPackage()
         );
     }
 

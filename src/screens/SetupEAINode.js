@@ -75,7 +75,7 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    this.sendAccountAddresses(this.props.userId, addresses, this.props.token);
+    this.sendAccountAddresses(this.props.userId, addresses, this.props.qrToken);
   };
 
   persistAddresses = (addresses) => {

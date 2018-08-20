@@ -1,7 +1,7 @@
 //TODO: Replace this with a configuration file solution
 //TODO: Realm might work well or react-native-keychain
-const ndauApiHost = 'ndaudashboard.ndau.tech';
-const ndauApiProtocol = 'https';
+const ndauApiHost = '192.168.64.1:3000';//'ndaudashboard.ndau.tech';
+const ndauApiProtocol = 'http';//'https';
 
 getTargetPrice = () => {
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/targetprice`)
@@ -33,15 +33,15 @@ getNdauNewsLinks = () => {
     });
 };
 
-sendAccountAddresses = (userId, addresses, token) => {
+sendAccountAddresses = (userId, addresses, hexToken) => {
 
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/accountAddress`, {
     method: 'POST',
     headers: {
+      'Authentication': `qr-token ${token}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      token: token,
       userId: userId,
       addresses: addresses
     })
@@ -53,9 +53,28 @@ sendAccountAddresses = (userId, addresses, token) => {
     });
 };
 
+triggerQRTEmail = (userId) => {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/qr-token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId
+    })
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.info(`sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`);
+      return responseJson;
+    });
+};
+
+
 module.exports = {
   getTargetPrice,
   getNumberOfAccounts,
   sendAccountAddresses,
-  getNdauNewsLinks
+  getNdauNewsLinks,
+  triggerQRTEmail,
 };

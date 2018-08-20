@@ -9,61 +9,66 @@ import {
   Platform,
   ProgressBarAndroid,
   SafeAreaView,
-  TextInput,
-  TouchableHighlight
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 
-var _ = require('lodash');
+import QRCodeScanner from 'react-native-qrcode-scanner';
 
 class SetupConfirmSeedPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      seedPhraseFromSelection: '',
       textColor: '#ffffff',
       showErrorText: false,
-      errorWord: '',
-      errorCount: 0,
-      selectedPhrase: '',
-      match: false,
-      firstThree: [],
-      secondThree: [],
-      thirdThree: [],
-      fourthThree: []
+      qrToken: '',
+      codeCaptured: false,
+      scanning: true,
+      cameraPermission: false,
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.navigator.setStyle({
       drawUnderTabBar: true,
       tabBarHidden: true
     });
-    //add default props
-    for (item in this.props.seedPhraseArray) {
-      this.setState({ [`${item}BackgroundColor`]: '#1c2227' });
-    }
 
-    //shuffle the deck
-    let shuffledArray = this.shuffleArray(this.props.seedPhraseArray);
-    this.setState({
-      firstThree: shuffledArray.slice(0, 3),
-      secondThree: shuffledArray.slice(3, 6),
-      thirdThree: shuffledArray.slice(6, 9),
-      fourthThree: shuffledArray.slice(9, 12)
-    });
   };
 
-  onPushAnother = () => {
+  onSuccess(e) {
+    console.log(e.data)
+    if (e.data.substr(0, 4) !== 'ndqr') {
+      Alert.alert(
+        'Confirmation Error',
+        'The QR code square that you scanned was not a valid confirmation code.',
+        [
+          {
+            text: 'OK', onPress: () => {
+              this.scanner.reactivate();
+            },
+          }
+        ],
+        { cancelable: false }
+      )
+    } else {
+      this.setState({
+        codeCaptured: true,
+        qrToken: e.data,
+      });
+    }
+  }
+
+  onPushAnother() {
     this.props.navigator.push({
-      label: 'SetupTermsOfService',
-      screen: 'ndau.SetupTermsOfService',
+      label: 'SetupEncryptionPassword',
+      screen: 'ndau.SetupEncryptionPassword',
       passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        userId: this.props.userId,
+        qrToken: this.state.qrToken,
+        userId: this.state.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts,
-        seedPhraseArray: this.props.seedPhraseArray
+        numberOfAccounts: this.state.numberOfAccounts
       },
       navigatorStyle: {
         drawUnderTabBar: true,
@@ -79,7 +84,7 @@ class SetupConfirmSeedPhrase extends Component {
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
-              <Text style={this.props.parentStyles.wizardText}>Confirm seed phrase</Text>
+              <Text style={this.props.parentStyles.wizardText}>Scan your confirmation</Text>
             </View>
             <View>
               {Platform.OS === 'android' ? (
@@ -90,75 +95,46 @@ class SetupConfirmSeedPhrase extends Component {
                   indeterminate={false}
                 />
               ) : (
-                <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
-              )}
+                  <ProgressViewIOS progress={0.625} style={this.props.parentStyles.progress} />
+                )}
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
-                Demonstrate that you wrote the phrase down by tapping the words below in order.{' '}
+                This app will need access to your device's camera to scan address codes, so you can send and receive ndau. Start the permission process to scan the code we just sent you.
               </Text>
+              <Button
+                color="#4d9678"
+                onPress={() => { this.setState({cameraPermision: true}) }}
+                disabled={this.state.cameraPermision}
+                title="Give camera permission"
+              />
             </View>
-            <TextInput
-              style={{
-                height: 70,
-                borderColor: 'gray',
-                borderWidth: 1,
-                marginBottom: 10,
-                marginTop: 10,
-                paddingLeft: 10,
-                color: '#000000',
-                backgroundColor: '#ffffff',
-                fontSize: 18,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
-              value={this.state.seedPhraseFromSelection}
-              placeholder=""
-              placeholderTextColor="#333"
-              multiline={true}
-              numberOfLines={2}
-              editable={false}
-            />
-            {this.state.showErrorText ? this.state.errorCount < 4 ? (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>
-                  Please enter the words in the correct order. De-select the last word to continue.{' '}
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>
-                  Please click the Back button to generate a new seed phrase. Write down your phrase
-                  instead of memorizing it, or you may lose access to your ndau.{' '}
-                </Text>
-              </View>
-            ) : null}
-            <View style={styles.rowView}>
-              {this.state.firstThree.map((item, index) => {
-                return this.showWord(index, item);
-              })}
-            </View>
-            <View style={styles.rowView}>
-              {this.state.secondThree.map((item, index) => {
-                return this.showWord(index, item);
-              })}
-            </View>
-            <View style={styles.rowView}>
-              {this.state.thirdThree.map((item, index) => {
-                return this.showWord(index, item);
-              })}
-            </View>
-            <View style={styles.rowView}>
-              {this.state.fourthThree.map((item, index) => {
-                return this.showWord(index, item);
-              })}
-            </View>
+
+            { this.state.cameraPermision && this.state.codeCaptured ?
+              <Text style={styles.successText}>
+                Code successfully scanned.
+              </Text>
+              :
+                this.state.cameraPermision && ! this.state.codeCaptured ?
+                  <QRCodeScanner
+                    ref={(node) => { this.scanner = node }}
+                    onRead={(e) => this.onSuccess(e)}
+                    topContent={
+                      <Text style={[this.props.parentStyles.wizardText, { flex: 1, flexWrap: 'wrap' }]}>
+                        Point this device's camera at the QR code square in the email we sent, so that it appears below.
+                      </Text>
+                    }
+                  />
+                :
+                  null
+            }
           </ScrollView>
           <View style={styles.footer}>
             <Button
               color="#4d9678"
-              onPress={this.onPushAnother}
+              onPress={() => this.onPushAnother()}
               title="Next"
-              disabled={!this.state.match}
+              disabled={!this.state.codeCaptured}
             />
           </View>
         </View>
@@ -166,113 +142,44 @@ class SetupConfirmSeedPhrase extends Component {
     );
   }
 
-  // shuffleArray implements a Fisher-Yates shuffle algorithm;
-  // walks through the array backwards once, exchanging each value
-  // with a random element from the remainder of the array
-  shuffleArray(b) {
-    let a = b.slice();
-    for (let i = a.length - 1; i >= 0; i--) {
-      let r = Math.floor(Math.random() * i);
-      // now swap r and i
-      [ a[i], a[r] ] = [ a[r], a[i] ];
-    }
-    return a;
-  }
-
-  confirmPhraseOrder() {
-    const seedPhraseFromSelectionArray = this.state.seedPhraseFromSelection.split(' ');
-    if (
-      this.props.seedPhraseArray[seedPhraseFromSelectionArray.length - 2] !==
-      this.state.selectedPhrase
-    ) {
-      this.setState({
-        [`${this.state.selectedPhrase}BackgroundColor`]: '#ff0000',
-        showErrorText: true,
-        errorCount: this.state.errorCount + 1,
-        errorWord: this.state.selectedPhrase
-      });
-    } else {
-      this.setState({
-        [`${this.state.selectedPhrase}BackgroundColor`]: '#0000ff',
-        showErrorText: false,
-        errorWord: ''
-      });
-    }
-  }
-
-  handleClick(item) {
-    if (this.state.showErrorText) {
-      if (item === this.state.errorWord && this.state.errorCount < 4) {
-        let newTWPFromSelection = this.state.seedPhraseFromSelection.substring(
-          0,
-          this.state.seedPhraseFromSelection.lastIndexOf(
-            ' ',
-            this.state.seedPhraseFromSelection.length - 2
-          )
-        );
-        this.setState(
-          {
-            seedPhraseFromSelection: newTWPFromSelection + ' '
-          },
-          () => {
-            this.setState({
-              [`${this.state.selectedPhrase}BackgroundColor`]: '#1c2227',
-              showErrorText: false,
-              errorWord: '',
-              selectedPhrase: ''
-            });
-            this.confirmPhraseOrder;
-          }
-        );
-      } else {
-        return;
-      }
-    } else if (this.state.seedPhraseFromSelection.indexOf(item) !== -1) {
-      return;
-    } else {
-      const newValue = this.state.seedPhraseFromSelection + item;
-      const newValueArray = newValue.split(' ');
-      newValue += ' ';
-      const match = _.isEqual(this.props.seedPhraseArray, newValueArray);
-      this.setState(
-        {
-          seedPhraseFromSelection: newValue,
-          selectedPhrase: item,
-          match: match
-        },
-        this.confirmPhraseOrder
-      );
-    }
-  }
-
-  showWord(index, item) {
-    return (
-      <TouchableHighlight key={index} onPress={(event) => this.handleClick(item, event)}>
-        <View
-          style={{
-            height: 40,
-            width: 100,
-            marginBottom: 10,
-            marginTop: 10,
-            backgroundColor: eval(`this.state.${item}BackgroundColor`)
-          }}
-        >
-          <Text
-            style={{
-              color: '#ffffff',
-              fontSize: 20,
-              textAlign: 'center'
-            }}
-          >
-            {item}
-          </Text>
-        </View>
-      </TouchableHighlight>
-    );
-  }
 }
 
+
 const styles = StyleSheet.create({
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: '#777',
+  },
+  textBold: {
+    fontWeight: '500',
+    color: '#000',
+  },
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)',
+  },
+  buttonTouchable: {
+    padding: 16,
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: 5
+  },
+  successText: {
+    flex: 1,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    marginTop: 80,
+    paddingLeft: 10,
+    color: '#ffffff',
+    fontSize: 20,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
+
   safeContainer: {
     flex: 1,
     backgroundColor: '#1c2227'
@@ -296,11 +203,6 @@ const styles = StyleSheet.create({
   progress: {
     paddingTop: 30,
     paddingBottom: 30
-  },
-  rowView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly'
   },
   errorText: {
     color: '#f75f4b',
