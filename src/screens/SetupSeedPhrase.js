@@ -54,6 +54,7 @@ class SetupSeedPhrase extends Component {
       passProps: {
         encryptionPassword: this.props.encryptionPassword,
         userId: this.props.userId,
+        qrToken: this.props.qrToken,
         parentStyles: this.props.parentStyles,
         entropy: this.props.entropy,
         seedPhraseArray: this.state.seedPhrase,

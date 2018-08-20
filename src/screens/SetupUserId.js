@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  ProgressViewIOS,
+  Platform,
+  ProgressBarAndroid,
+  TextInput,
+  SafeAreaView,
+  Button,
+  Alert
+} from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import RNExitApp from 'react-native-exit-app';
 
 class SetupUserId extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userId: '',
-      numberOfAccounts: 0
+      numberOfAccounts: 0,
+      userIdPresent: false
     };
-    this.userIdPresent = false;
   }
 
   componentDidMount = () => {
@@ -23,9 +35,7 @@ class SetupUserId extends Component {
 
   confirmUserIdPresent = () => {
     if (!this.state.userId) return false;
-
     return new Promise((resolve, reject) => {
-      if (!this.state.userId) reject('userId is not set');
       ndauApi
         .getNumberOfAccounts(this.state.userId)
         .then((numberOfAccounts) => {
@@ -41,44 +51,74 @@ class SetupUserId extends Component {
     });
   };
 
-  onPushAnother = async () => {
-    if (this.state.userId) {
-      this.userIdPresent = await this.confirmUserIdPresent();
-      if (this.userIdPresent) {
-        this.props.navigator.push({
-          label: 'SetupEncryptionPassword',
-          screen: 'ndau.SetupEncryptionPassword',
-          passProps: {
-            userId: this.state.userId,
-            parentStyles: this.props.parentStyles,
-            iconsMap: this.props.iconsMap,
-            numberOfAccounts: this.state.numberOfAccounts
-          },
-          navigatorStyle: {
-            drawUnderTabBar: true,
-            tabBarHidden: true,
-            disabledBackGesture: true
-          },
-          backButtonHidden: true
-        });
-      } else {
-        this.showErrorMessage();
-      }
-    } else {
-      this.showErrorMessage();
-    }
-  };
+  async verify() {
+    if (!this.state.userId) this.showErrorMessage('Please enter a User ID first.');
+    const userIdPresent = await this.confirmUserIdPresent();
+    this.setState({ userIdPresent: userIdPresent });
+    if (!userIdPresent) this.showErrorMessage('No user associated with that ID.');
+    if (userIdPresent) this.showInfoMessage('Account verified.');
+  }
 
-  showErrorMessage = () => {
+  nextScreen() {
+    this.props.navigator.push({
+      label: 'SetupQRCode',
+      screen: 'ndau.SetupQRCode',
+      passProps: {
+        userId: this.state.userId,
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.state.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      }
+    });
+  }
+
+  showExitApp() {
     Alert.alert(
-      'Error',
-      this.state.userId
-        ? `${this.state.userId} does not exist as a User ID holding ndau`
-        : 'Please enter a value for the user ID.',
-      [ { text: 'OK', onPress: () => {} } ],
+      '',
+      `We are thrilled you're excited about ndau! At the moment, this wallet app is only useful to accredited investors who have already purchased ndau. Once you have purchased ndau and received your ID, please come back and set your wallet up.`,
+      [
+        {
+          text: 'Exit app',
+          onPress: () => {
+            RNExitApp.exitApp();
+          }
+        }
+      ],
       { cancelable: false }
     );
+  }
+
+  showErrorMessage(msg) {
+    Alert.alert('Error', msg, [ { text: 'OK', onPress: () => {} } ], { cancelable: false });
+  }
+
+  showInfoMessage(msg) {
+    Alert.alert('Information', msg, [ { text: 'OK', onPress: () => {} } ], { cancelable: false });
+  }
+  textChanged = (userId) => {
+    if (userId.length === 3) {
+      userId += '-';
+    }
+    this.setState({ userId });
   };
+
+  onSendEmail() {
+    if (!this.state.userId) this.showErrorMessage('Please enter a User ID first.');
+    ndauApi
+      .triggerQRTEmail(this.state.userId)
+      .then(() => {
+        this.nextScreen();
+      })
+      .catch((error) => {
+        this.showErrorMessage('Email could not be sent.');
+        console.error(error);
+      });
+  }
 
   textChanged = (userId) => {
     if (userId.length === 3) {
@@ -107,6 +147,32 @@ class SetupUserId extends Component {
               placeholderTextColor="#333"
               autoCapitalize="characters"
             />
+
+            <View style={styles.buttonContainer}>
+              <Button
+                color="#4d9678"
+                onPress={() => {
+                  this.verify();
+                }}
+                title="Verify"
+              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button color="#4d9678" onPress={this.showExitApp} title="I don't have an ID" />
+            </View>
+            <View style={styles.section}>
+              <Text style={this.props.parentStyles.wizardText}>
+                We will send you an email to confirm you are the account holder.
+              </Text>
+
+              <Button
+                color="#4d9678"
+                onPress={() => {
+                  this.onSendEmail();
+                }}
+                title="Send email"
+              />
+            </View>
           </ScrollView>
           <View style={styles.footer}>
             <CommonButton onPress={this.onPushAnother} title="Verify" />
