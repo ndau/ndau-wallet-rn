@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  SafeAreaView
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -54,27 +46,13 @@ class SetupTermsOfService extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView
             style={styles.contentContainer}
             showsVerticalScrollIndicator={true}
             indicatorStyle="white"
           >
-            <View>
-              <Text style={styles.legalText}>Terms of Use</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.875}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.875} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={7} />
             <View>
               <Text style={styles.legalTextHeading}>{'\n'}Scope</Text>
               <Text style={styles.legalText}>
@@ -413,19 +391,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1c2227'
   },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    backgroundColor: '#1c2227'
-  },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
   },
   footer: {
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginTop: 20
   },
   progress: {
     paddingTop: 30,

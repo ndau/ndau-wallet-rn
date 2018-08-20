@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, Linking } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, BackHandler } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import ndauApi from '../api/NdauAPI';
@@ -29,7 +29,17 @@ export default class Dashboard extends Component {
     this.maxLoginAttempts = 10;
   }
 
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
+  }
+
   componentDidMount = () => {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
     ndauApi
       .getNdauNewsLinks()
       .then((links) => {
@@ -134,7 +144,17 @@ export default class Dashboard extends Component {
         <ScrollView style={styles.container}>
           {addresses ? (
             addresses.map((address, index) => {
-              return <CollapsiblePanel key={index} title={`Address ${index}`} address={address} />;
+              const counter = index + 1;
+              return (
+                <CollapsiblePanel
+                  key={index}
+                  index={index}
+                  title={`Address ${counter}`}
+                  address={address}
+                >
+                  <Text style={styles.text}>{address}</Text>
+                </CollapsiblePanel>
+              );
             })
           ) : null}
         </ScrollView>
@@ -150,19 +170,22 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
     backgroundColor: '#1c2227'
   },
   text: {
     color: '#ffffff',
-    fontSize: 16,
-    fontFamily: 'TitilliumWeb-Light'
+    fontSize: 14,
+    fontFamily: 'TitilliumWeb-Regular'
   },
   textInput: {
     height: 45,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 20,
+    marginTop: 20,
     paddingLeft: 10,
     color: '#000000',
     backgroundColor: '#ffffff',
@@ -227,10 +250,5 @@ var styles = StyleSheet.create({
     paddingLeft: 50,
     paddingRight: 50
   },
-  checkbox: { flex: 1, padding: 10 },
-  stepper: {
-    width: 30,
-    height: 25,
-    backgroundColor: 'transparent'
-  }
+  checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 }
 });

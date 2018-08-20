@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  SafeAreaView
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 class SetupYourWallet extends Component {
   constructor(props) {
@@ -49,29 +41,16 @@ class SetupYourWallet extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>Setup your wallet</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.5}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.5} style={this.props.parentStyles.progress} />
-              )}
-            </View>
+            <Stepper screenNumber={4} />
+
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 Next we will give you a seed phrase which is the key to restoring your wallet. You
                 must WRITE IT DOWN and store it in a secure location or risk losing access to your
-                funds. Do not save this phrase on your device or in the cloud. Do not do this in a
-                public place.
+                funds. Do not save this phrase on your device or in the cloud. Do not do this step
+                in a public place.
               </Text>
             </View>
           </ScrollView>
@@ -87,15 +66,6 @@ class SetupYourWallet extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
     backgroundColor: '#1c2227'
   },
   button: {

@@ -9,18 +9,7 @@ exports[`testing SetupUserId... renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "backgroundColor": "#1c2227",
-        "flex": 1,
-        "paddingBottom": 10,
-        "paddingLeft": 10,
-        "paddingRight": 10,
-        "paddingTop": 10,
-      }
-    }
-  >
+  <View>
     <RCTScrollView
       style={
         Object {
@@ -29,34 +18,23 @@ exports[`testing SetupUserId... renders correctly 1`] = `
       }
     >
       <View>
-        <View>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontSize": 20,
-              }
+        <Image
+          resizeMode="contain"
+          screenNumber={1}
+          source={
+            Object {
+              "testUri": "../../../img/step-1.png",
             }
-          >
-            Verify your User ID 
-          </Text>
-        </View>
-        <View>
-          <RCTProgressView
-            progress={0.125}
-            style={
-              Array [
-                Object {
-                  "height": 2,
-                },
-                undefined,
-              ]
+          }
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "height": 60,
+              "marginBottom": 5,
+              "width": "100%",
             }
-          />
-        </View>
+          }
+        />
         <View>
           <Text
             accessible={true}

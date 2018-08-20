@@ -1,26 +1,132 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  Picker,
-  PickerIOS,
-  SafeAreaView,
-  NativeModules
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView, NativeModules } from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
+import { Dropdown } from 'react-native-material-dropdown';
 
 class SetupEAINode extends Component {
   constructor(props) {
     super(props);
+    const nodeNames = [
+      {
+        value: 'Germain'
+      },
+      {
+        value: 'Clearway'
+      },
+      {
+        value: 'Belvidere'
+      },
+      {
+        value: 'Marlborough'
+      },
+      {
+        value: 'Boylston'
+      },
+      {
+        value: 'Botolph'
+      },
+      {
+        value: 'Garrison'
+      },
+      {
+        value: 'Harcourt'
+      },
+      {
+        value: 'Fairfield'
+      },
+      {
+        value: 'Gloucester'
+      },
+      {
+        value: 'Newbury'
+      },
+      {
+        value: 'Exeter'
+      },
+      {
+        value: 'Ring'
+      },
+      {
+        value: 'Hereford'
+      },
+      {
+        value: 'Massachusetts'
+      },
+      {
+        value: 'Back'
+      },
+      {
+        value: 'Commonwealth'
+      },
+      {
+        value: 'Dartmouth'
+      },
+      {
+        value: 'Clarendon'
+      },
+      {
+        value: 'Berkeley'
+      },
+      {
+        value: 'Beacon'
+      },
+      {
+        value: 'James'
+      },
+      {
+        value: 'Stuart'
+      },
+      {
+        value: 'Studio'
+      },
+      {
+        value: 'Follen'
+      },
+      {
+        value: 'Durham'
+      },
+      {
+        value: 'Huntington'
+      },
+      {
+        value: 'Blackwood'
+      },
+      {
+        value: 'Albemarle'
+      },
+      {
+        value: 'Cumberland'
+      },
+      {
+        value: 'Stanhope'
+      },
+      {
+        value: 'Providence'
+      },
+      {
+        value: 'Storrow'
+      },
+      {
+        value: 'Charlesgate'
+      },
+      {
+        value: 'Esplanade'
+      },
+      {
+        value: 'Arlington'
+      },
+      {
+        value: 'Blagden'
+      }
+    ];
+
     this.state = {
-      node: ''
+      node: '',
+      data: nodeNames,
+      selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)].value
     };
   }
 
@@ -81,7 +187,8 @@ class SetupEAINode extends Component {
   persistAddresses = (addresses) => {
     const user = {
       userId: this.props.userId,
-      addresses: addresses
+      addresses: addresses,
+      selectedNode: this.state.selectedNode
     };
     AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
   };
@@ -109,49 +216,27 @@ class SetupEAINode extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={this.props.parentStyles.wizardText}>Select a node</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={1}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                  <ProgressViewIOS progress={1} style={this.props.parentStyles.progress} />
-                )}
-            </View>
-            <View>
+            <Stepper screenNumber={8} />
+            <View style={styles.textContainer}>
               <Text style={this.props.parentStyles.wizardText}>
                 In order to earn your Ecosystem Alignment Incentive (EAI) you must delegate your
                 ndau to a node. Please select the default node for your accounts. You will be able
                 to change this later.
               </Text>
             </View>
-            {Platform.OS === 'android' ? (
-              <Picker
-                selectedValue={this.state.node}
-                style={styles.picker}
-                onValueChange={(itemValue, itemIndex) => this.setState({ node: itemValue })}
-              >
-                <Picker.Item label="Node A" value="nodeA" />
-                <Picker.Item label="Node B" value="nodeB" />
-              </Picker>
-            ) : (
-                <PickerIOS
-                  selectedValue={this.state.node}
-                  itemStyle={styles.picker}
-                  onValueChange={(itemValue, itemIndex) => this.setState({ node: itemValue })}
-                >
-                  <PickerIOS.Item label="Node A" value="nodeA" />
-                  <PickerIOS.Item label="Node B" value="nodeB" />
-                </PickerIOS>
-              )}
+            <Dropdown
+              label="Please choose an EAI node"
+              data={this.state.data}
+              baseColor="#ffffff"
+              selectedItemColor="#000000"
+              textColor="#ffffff"
+              itemTextStyle={this.props.parentStyles.wizardText}
+              fontSize={20}
+              labelFontSize={14}
+              value={this.state.selectedNode}
+            />
           </ScrollView>
           <View style={styles.footer}>
             <CommonButton
@@ -171,22 +256,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1c2227'
   },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
-    backgroundColor: '#1c2227'
-  },
   button: {
     marginTop: 0
   },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+  textContainer: {
+    marginBottom: 5
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
@@ -197,15 +271,6 @@ const styles = StyleSheet.create({
   progress: {
     paddingTop: 30,
     paddingBottom: 30
-  },
-  picker: {
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
-    color: '#ffffff'
   },
   checkbox: { flex: 1, padding: 10 }
 });

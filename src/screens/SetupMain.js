@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView, Platform } from 'react-native';
 import CommonButton from '../components/CommonButton';
 
 class SetupMain extends Component {
@@ -34,18 +34,19 @@ class SetupMain extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
-                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{'\n'}
+                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.
+                {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
                 Currently, ndau is only available to accredited investors. You will need to have
                 made your purchase through our site and have your six-character ID code ready in
-                order to access this app before launch.{'\n'}
+                order to access this app before launch.{Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
             <View>
@@ -53,7 +54,7 @@ class SetupMain extends Component {
                 To get started securely, we will walk you through creating a new wallet. You will
                 create a password to access this wallet, and a 12-word recovery passphrase that can
                 be used to restore this wallet should you lose access to it (e.g. if you were to
-                lose your mobile device).{'\n'}
+                lose your mobile device).{Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
           </ScrollView>
@@ -69,14 +70,6 @@ class SetupMain extends Component {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
     backgroundColor: '#1c2227'
   },
   contentContainer: {

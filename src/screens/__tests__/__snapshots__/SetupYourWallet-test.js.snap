@@ -9,18 +9,7 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "backgroundColor": "#1c2227",
-        "flex": 1,
-        "paddingBottom": 10,
-        "paddingLeft": 10,
-        "paddingRight": 10,
-        "paddingTop": 10,
-      }
-    }
-  >
+  <View>
     <RCTScrollView
       style={
         Object {
@@ -29,6 +18,23 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
       }
     >
       <View>
+        <Image
+          resizeMode="contain"
+          screenNumber={4}
+          source={
+            Object {
+              "testUri": "../../../img/step-4.png",
+            }
+          }
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "height": 60,
+              "marginBottom": 5,
+              "width": "100%",
+            }
+          }
+        />
         <View>
           <Text
             accessible={true}
@@ -41,35 +47,7 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
               }
             }
           >
-            Setup your wallet
-          </Text>
-        </View>
-        <View>
-          <RCTProgressView
-            progress={0.5}
-            style={
-              Array [
-                Object {
-                  "height": 2,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
-        <View>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontSize": 20,
-              }
-            }
-          >
-            Next we will give you a seed phrase which is the key to restoring your wallet. You must WRITE IT DOWN and store it in a secure location or risk losing access to your funds. Do not save this phrase on your device or in the cloud. Do not do this in a public place.
+            Next we will give you a seed phrase which is the key to restoring your wallet. You must WRITE IT DOWN and store it in a secure location or risk losing access to your funds. Do not save this phrase on your device or in the cloud. Do not do this step in a public place.
           </Text>
         </View>
       </View>

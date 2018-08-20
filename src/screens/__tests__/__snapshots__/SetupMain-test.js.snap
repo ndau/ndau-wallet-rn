@@ -9,18 +9,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "backgroundColor": "#1c2227",
-        "flex": 1,
-        "paddingBottom": 10,
-        "paddingLeft": 10,
-        "paddingRight": 10,
-        "paddingTop": 10,
-      }
-    }
-  >
+  <View>
     <RCTScrollView
       style={
         Object {
@@ -43,7 +32,6 @@ exports[`testing SetupMain... renders correctly 1`] = `
           >
             Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.
             
-
           </Text>
         </View>
         <View>
@@ -60,7 +48,6 @@ exports[`testing SetupMain... renders correctly 1`] = `
           >
             Currently, ndau is only available to accredited investors. You will need to have made your purchase through our site and have your six-character ID code ready in order to access this app before launch.
             
-
           </Text>
         </View>
         <View>
@@ -77,7 +64,6 @@ exports[`testing SetupMain... renders correctly 1`] = `
           >
             To get started securely, we will walk you through creating a new wallet. You will create a password to access this wallet, and a 12-word recovery passphrase that can be used to restore this wallet should you lose access to it (e.g. if you were to lose your mobile device).
             
-
           </Text>
         </View>
       </View>

@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
-  TextInput,
-  SafeAreaView,
-  Alert
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -54,24 +44,23 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-      this.props.navigator.push({
-        label: 'SetupGetRandom',
-        screen: 'ndau.SetupGetRandom',
-        passProps: {
-          encryptionPassword: this.state.password,
-          userId: this.props.userId,
-          parentStyles: this.props.parentStyles,
-          iconsMap: this.props.iconsMap,
-          numberOfAccounts: this.props.numberOfAccounts
-        },
-        navigatorStyle: {
-          drawUnderTabBar: true,
-          tabBarHidden: true,
-          disabledBackGesture: true
-        },
-        backButtonHidden: true
-      });
-
+    this.props.navigator.push({
+      label: 'SetupGetRandom',
+      screen: 'ndau.SetupGetRandom',
+      passProps: {
+        encryptionPassword: this.state.password,
+        userId: this.props.userId,
+        parentStyles: this.props.parentStyles,
+        iconsMap: this.props.iconsMap,
+        numberOfAccounts: this.props.numberOfAccounts
+      },
+      navigatorStyle: {
+        drawUnderTabBar: true,
+        tabBarHidden: true,
+        disabledBackGesture: true
+      },
+      backButtonHidden: true
+    });
   };
 
   checkedShowPasswords = () => {
@@ -87,7 +76,7 @@ class SetupEncryptionPassword extends Component {
       'Information',
       'We use encryption to protect your data. This password protects ' +
         'this app on your mobile only. This is not the same thing as your ' +
-        'twelve-word phrase, which codes for the key to your wallet. We ' +
+        'recovery phrase, which codes for the key to your wallet. We ' +
         'recommend you use a strong password which you do not use anywhere else.',
       [ { text: 'OK', onPress: () => {} } ],
       { cancelable: false }
@@ -98,25 +87,11 @@ class SetupEncryptionPassword extends Component {
     const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.container}>
+        <View style={this.props.parentStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <View>
-              <Text style={styles.text}>Create an app password</Text>
-            </View>
-            <View>
-              {Platform.OS === 'android' ? (
-                <ProgressBarAndroid
-                  styleAttr="Horizontal"
-                  progress={0.25}
-                  style={this.props.parentStyles.progress}
-                  indeterminate={false}
-                />
-              ) : (
-                <ProgressViewIOS progress={0.25} style={this.props.parentStyles.progress} />
-              )}
-            </View>
-            <View>
-              <Text style={styles.text} onPress={this.showInformation}>
+            <Stepper screenNumber={2} />
+            <View style={styles.textContainer}>
+              <Text style={this.props.parentStyles.wizardText} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
                 password to decrypt it whenever you open this app.{'  '}
                 <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
@@ -128,7 +103,7 @@ class SetupEncryptionPassword extends Component {
                 borderColor: 'gray',
                 borderWidth: 1,
                 marginBottom: 10,
-                marginTop: 10,
+                marginTop: 12,
                 paddingLeft: 10,
                 color: textInputColor,
                 backgroundColor: '#ffffff',
@@ -147,7 +122,7 @@ class SetupEncryptionPassword extends Component {
                 borderColor: 'gray',
                 borderWidth: 1,
                 marginBottom: 10,
-                marginTop: 10,
+                marginTop: 12,
                 paddingLeft: 10,
                 color: textInputColor,
                 backgroundColor: '#ffffff',
@@ -208,22 +183,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1c2227'
   },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
-    backgroundColor: '#1c2227'
-  },
   button: {
     marginTop: 0
   },
-  text: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontFamily: 'TitilliumWeb-Regular'
+  textContainer: {
+    marginBottom: 8
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen

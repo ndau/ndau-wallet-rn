@@ -9,18 +9,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "backgroundColor": "#1c2227",
-        "flex": 1,
-        "paddingBottom": 10,
-        "paddingLeft": 10,
-        "paddingRight": 10,
-        "paddingTop": 10,
-      }
-    }
-  >
+  <View>
     <RCTScrollView
       style={
         Object {
@@ -29,35 +18,30 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
       }
     >
       <View>
-        <View>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontSize": 20,
-              }
+        <Image
+          resizeMode="contain"
+          screenNumber={6}
+          source={
+            Object {
+              "testUri": "../../../img/step-6.png",
             }
-          >
-            Confirm seed phrase
-          </Text>
-        </View>
-        <View>
-          <RCTProgressView
-            progress={0.625}
-            style={
-              Array [
-                Object {
-                  "height": 2,
-                },
-                undefined,
-              ]
+          }
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "height": 60,
+              "marginBottom": 5,
+              "width": "100%",
             }
-          />
-        </View>
-        <View>
+          }
+        />
+        <View
+          style={
+            Object {
+              "marginBottom": 10,
+            }
+          }
+        >
           <Text
             accessible={true}
             allowFontScaling={true}
@@ -139,6 +123,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -179,6 +164,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -219,6 +205,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -269,6 +256,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -309,6 +297,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -349,6 +338,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -399,6 +389,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -439,6 +430,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -479,6 +471,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -529,6 +522,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -569,6 +563,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
@@ -609,6 +604,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 style={
                   Object {
                     "color": "#ffffff",
+                    "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
                   }
                 }
