@@ -35,6 +35,7 @@ class SetupTermsOfService extends Component {
       screen: 'ndau.SetupEAINode',
       passProps: {
         encryptionPassword: this.props.encryptionPassword,
+        qrToken: this.props.qrToken,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,

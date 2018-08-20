@@ -30,6 +30,7 @@ class SetupYourWallet extends Component {
       screen: 'ndau.SetupSeedPhrase',
       passProps: {
         encryptionPassword: this.props.encryptionPassword,
+        qrToken: this.props.qrToken,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         entropy: this.props.entropy,
