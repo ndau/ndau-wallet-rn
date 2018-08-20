@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, Linking } from
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import ndauApi from '../api/NdauAPI';
+import AlertPanel from '../components/AlertPanel';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -111,7 +112,8 @@ export default class Dashboard extends Component {
         drawUnderTabBar: true,
         tabBarHidden: true,
         disabledBackGesture: true
-      }
+      },
+      backButtonHidden: true
     });
   };
 
@@ -121,36 +123,18 @@ export default class Dashboard extends Component {
     return addresses ? (
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.dashboardTextContainer}>
-          <Text style={styles.dashboardTextLarge}>User {this.state.user.userId}</Text>
-          <Text style={styles.dashboardTextSmall}>{addresses.length} addresses</Text>
+          <Text style={styles.dashboardTextLarge}>Wallet {this.state.user.userId}</Text>
         </View>
-        <View style={styles.greenAlertContainer}>
-          <Text style={styles.greenAlertText}>
-            Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
+        <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
             sent to this app on Genesis Day. Until then, you can continue to view your holdings on
-            the online dashboard.
-          </Text>
-        </View>
+            the online dashboard." />
         <View style={styles.dashboardTextContainer}>
-          <Text style={styles.dashboardTextSmall}>News</Text>
-        </View>
-        <View style={styles.linkContainer}>
-          {this.state.newsLinks.map((link, index) => {
-            return (
-              <Text
-                key={index}
-                style={styles.linkText}
-                onPress={() => Linking.openURL(link.linkTarget)}
-              >
-                {link.linkTitle}
-              </Text>
-            );
-          })}
+          <Text style={styles.dashboardTextSmall}>{addresses.length} addresses</Text>
         </View>
         <ScrollView style={styles.container}>
           {addresses ? (
             addresses.map((address, index) => {
-              return <CollapsiblePanel key={index} title={address} />;
+              return <CollapsiblePanel key={index} title={`Address ${index}`} address={address} />;
             })
           ) : null}
         </ScrollView>
@@ -205,13 +189,6 @@ var styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8
   },
-  errorText: {
-    color: '#f75f4b',
-    fontSize: 20
-  },
-  errorContainer: {
-    backgroundColor: '#f5d8d1'
-  },
   dashboardTextContainer: {
     justifyContent: 'center',
     alignItems: 'center'
@@ -219,37 +196,22 @@ var styles = StyleSheet.create({
   dashboardTextLarge: {
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#4d9678',
+    color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 40,
-    shadowOpacity: 0.5,
-    shadowColor: '#4e957a',
-    shadowRadius: 3
+    fontSize: 28,
+    paddingBottom: 10
   },
   dashboardTextSmall: {
     justifyContent: 'center',
     alignItems: 'center',
     color: '#4d9678',
     fontFamily: 'TitilliumWeb-Light',
-    fontSize: 30,
-    shadowOpacity: 0.5,
+    fontSize: 22,
+    shadowOpacity: 0.2,
     shadowColor: '#4e957a',
     shadowRadius: 3,
-    paddingBottom: 10
-  },
-  greenAlertContainer: {
-    backgroundColor: '#c7f3e2',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#4d9678',
-    borderRadius: 3,
-    padding: 5,
-    borderRadius: 3
-  },
-  greenAlertText: {
-    color: '#4e957a',
-    fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 20
+    paddingBottom: 10,
+    paddingTop: 10
   },
   linkText: {
     color: '#dea85a',
@@ -264,5 +226,11 @@ var styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 50,
     paddingRight: 50
+  },
+  checkbox: { flex: 1, padding: 10 },
+  stepper: {
+    width: 30,
+    height: 25,
+    backgroundColor: 'transparent'
   }
 });

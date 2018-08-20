@@ -29,14 +29,18 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator='iPhone 8 Plus'",
+    "android-test-prod": "react-native run-android --variant=release",
+    "ios": "react-native run-ios --simulator='iPhone X'",
+    "android-prod": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release && zipalign -v -p 4 app-release.apk app-release-signed.apk && apksigner sign --ks ../../../../ndau-wallet-release-key.jks --out app-release.apk app-release-signed.apk",
     "test": "jest",
     "xcode-open": "open ios/ndauwalletrn.xcodeproj",
     "android-install": "cd android && ./gradlew installDebug"
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [ "./setupJest.js" ]
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   },
   "dependencies": {
     "@tradle/react-native-http": "^2.0.1",
@@ -57,6 +61,7 @@
     "react-native-check-box": "^2.1.0",
     "react-native-exit-app": "^1.0.0",
     "react-native-level-fs": "^3.0.1",
+    "react-native-material-buttons": "^0.5.0",
     "react-native-navigation": "^1.1.469",
     "react-native-qrcode-scanner": "^1.0.1",
     "react-native-remote-svg": "^1.2.0",
@@ -68,7 +73,9 @@
     "util": "^0.10.4"
   },
   "rnpm": {
-    "assets": [ "assets/fonts" ]
+    "assets": [
+      "assets/fonts"
+    ]
   },
   "react-native": {
     "zlib": "browserify-zlib",

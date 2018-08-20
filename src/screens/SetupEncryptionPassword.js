@@ -4,18 +4,16 @@ import {
   View,
   ScrollView,
   Text,
-  Button,
   ProgressViewIOS,
   Platform,
   ProgressBarAndroid,
   TextInput,
   SafeAreaView,
-  Alert,
-  TouchableHighlight,
-  Image
+  Alert
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CommonButton from '../components/CommonButton';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -56,22 +54,24 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    this.props.navigator.push({
-      label: 'SetupGetRandom',
-      screen: 'ndau.SetupGetRandom',
-      passProps: {
-        encryptionPassword: this.state.password,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      }
-    });
+      this.props.navigator.push({
+        label: 'SetupGetRandom',
+        screen: 'ndau.SetupGetRandom',
+        passProps: {
+          encryptionPassword: this.state.password,
+          userId: this.props.userId,
+          parentStyles: this.props.parentStyles,
+          iconsMap: this.props.iconsMap,
+          numberOfAccounts: this.props.numberOfAccounts
+        },
+        navigatorStyle: {
+          drawUnderTabBar: true,
+          tabBarHidden: true,
+          disabledBackGesture: true
+        },
+        backButtonHidden: true
+      });
+
   };
 
   checkedShowPasswords = () => {
@@ -118,7 +118,7 @@ class SetupEncryptionPassword extends Component {
             <View>
               <Text style={styles.text} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
-                password to decrypt it whenever you are in this app.{'  '}
+                password to decrypt it whenever you open this app.{'  '}
                 <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
               </Text>
             </View>
@@ -162,7 +162,7 @@ class SetupEncryptionPassword extends Component {
             />
             <View>
               <CheckBox
-                style={styles.checkbox}
+                style={this.props.parentStyles.checkbox}
                 onClick={() => this.checkedShowPasswords()}
                 isChecked={this.state.showPasswords}
                 rightText="Show passwords"
@@ -176,7 +176,7 @@ class SetupEncryptionPassword extends Component {
             </View>
             <View>
               <CheckBox
-                style={styles.checkbox}
+                style={this.props.parentStyles.checkbox}
                 onClick={() => this.checkedProgress()}
                 isChecked={this.state.progress}
                 rightText="I understand that ndau cannot help me recover my password.
@@ -191,8 +191,7 @@ class SetupEncryptionPassword extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <Button
-              color="#4d9678"
+            <CommonButton
               onPress={this.onPushAnother}
               title="Next"
               disabled={!this.state.progress}
@@ -236,7 +235,6 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15
   },
-  checkbox: { flex: 1, padding: 10 },
   infoParagraph: {
     flexDirection: 'row'
   }
