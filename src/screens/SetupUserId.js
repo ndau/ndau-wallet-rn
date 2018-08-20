@@ -122,6 +122,13 @@ class SetupUserId extends Component {
       });
   }
 
+  textChanged = (userId) => {
+    if (userId.length === 3) {
+      userId += '-';
+    }
+    this.setState({ userId });
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
@@ -144,7 +151,8 @@ class SetupUserId extends Component {
             </View>
             <View>
               <Text style={this.props.parentStyles.wizardText}>
-                Enter your User ID to begin the setup process.
+                In order to deliver your ndau to this wallet on Genesis Day, we need the
+                six-character code you use to access the ndau dashboard.
               </Text>
             </View>
             <TextInput
