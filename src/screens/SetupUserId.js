@@ -4,16 +4,14 @@ import {
   View,
   ScrollView,
   Text,
-  ProgressViewIOS,
-  Platform,
-  ProgressBarAndroid,
   TextInput,
   SafeAreaView,
-  Button,
-  Alert
+  Alert,
+  Button
 } from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
+import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
 
 class SetupUserId extends Component {

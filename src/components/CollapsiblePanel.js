@@ -72,7 +72,7 @@ class CollapsiblePanel extends Component {
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
         <ImageBackground
-          source={this.cardBackgrounds[this.props.index % this.props.addressLength]}
+          source={this.cardBackgrounds[this.props.index % this.cardBackgrounds.length]}
           style={{ width: '100%' }}
         >
           <TouchableHighlight

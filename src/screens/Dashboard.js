@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, Linking } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, BackHandler } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import ndauApi from '../api/NdauAPI';
@@ -29,7 +29,17 @@ export default class Dashboard extends Component {
     this.maxLoginAttempts = 10;
   }
 
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
+  }
+
   componentDidMount = () => {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
     ndauApi
       .getNdauNewsLinks()
       .then((links) => {
@@ -141,7 +151,6 @@ export default class Dashboard extends Component {
                   index={index}
                   title={`Address ${counter}`}
                   address={address}
-                  addressLength={addresses.length}
                 >
                   <Text style={styles.text}>{address}</Text>
                 </CollapsiblePanel>
@@ -169,7 +178,7 @@ var styles = StyleSheet.create({
   text: {
     color: '#ffffff',
     fontSize: 14,
-    fontFamily: 'TitilliumWeb-Bold'
+    fontFamily: 'TitilliumWeb-Regular'
   },
   textInput: {
     height: 45,
