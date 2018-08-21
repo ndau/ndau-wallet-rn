@@ -44,7 +44,7 @@ RCT_REMAP_METHOD(KeyaddrWordsToBytes,lang:(NSString*)lang words:(NSString*)words
   }
 }
 
-RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count neuterithResolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count chainId:(NSString*)chainId neuterithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
   RCTLogInfo(@"CreatePublicAddress call on %@", seed);
@@ -54,7 +54,7 @@ RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count
   
   for (int i = 1; i <= count; i++) {
     KeyaddrKey *publicKey = [keyAddrKey child:i error:error];
-    KeyaddrAddress *address = [publicKey ndauAddress:error];
+    KeyaddrAddress *address = [publicKey ndauAddress:chainId error:error];
     NSString *addressString = [address address];
     [array addObject:addressString];
     RCTLogInfo(@"ndau addressString is:%@",addressString);

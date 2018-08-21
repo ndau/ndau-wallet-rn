@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  Alert,
-  Button
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
 import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
@@ -71,7 +62,8 @@ class SetupUserId extends Component {
         drawUnderTabBar: true,
         tabBarHidden: true,
         disabledBackGesture: true
-      }
+      },
+      backButtonHidden: true
     });
   }
 
@@ -147,8 +139,7 @@ class SetupUserId extends Component {
             />
 
             <View style={styles.buttonContainer}>
-              <Button
-                color="#4d9678"
+              <CommonButton
                 onPress={() => {
                   this.verify();
                 }}
@@ -156,24 +147,22 @@ class SetupUserId extends Component {
               />
             </View>
             <View style={styles.buttonContainer}>
-              <Button color="#4d9678" onPress={this.showExitApp} title="I don't have an ID" />
+              <CommonButton onPress={this.showExitApp} title="I don't have an ID" />
             </View>
-            <View style={styles.section}>
-              <Text style={this.props.parentStyles.wizardText}>
-                We will send you an email to confirm you are the account holder.
-              </Text>
-
-              <Button
-                color="#4d9678"
-                onPress={() => {
-                  this.onSendEmail();
-                }}
-                title="Send email"
-              />
-            </View>
+            <View style={styles.section} />
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.onPushAnother} title="Verify" />
+            <Text style={this.props.parentStyles.wizardText}>
+              We will send you an email to confirm you are the account holder.
+            </Text>
+
+            <CommonButton
+              style={{ marginTop: 15 }}
+              onPress={() => {
+                this.onSendEmail();
+              }}
+              title="Send email"
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -188,6 +177,9 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1 // pushes the footer to the end of the screen
+  },
+  buttonContainer: {
+    marginBottom: 20
   },
   footer: {
     justifyContent: 'flex-end'
