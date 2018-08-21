@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing ErrorPanel... renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#f5d8d1",
+      "borderColor": "#f5d8d1",
+      "borderRadius": 3,
+      "borderWidth": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#f5d8d1",
+        "borderColor": "#f75f4b",
+        "borderRadius": 3,
+        "borderWidth": 2,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#f75f4b",
+          "fontFamily": "TitilliumWeb-Regular",
+          "fontSize": 20,
+          "padding": "4%",
+        }
+      }
+    />
+  </View>
+</View>
+`;

@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing CollapsiblePanel... renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderColor": "#4d9678",
+      "borderRadius": 5,
+      "borderWidth": 2,
+      "height": NaN,
+      "marginBottom": 5,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <Image
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": undefined,
+            "width": "100%",
+          },
+          undefined,
+        ]
+      }
+    />
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={Object {}}
+    >
+      <View
+        onLayout={[Function]}
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#fff",
+              "flex": 1,
+              "fontFamily": "TitilliumWeb-Bold",
+              "fontSize": 18,
+              "padding": 10,
+            }
+          }
+        />
+        <Image
+          source={
+            Object {
+              "testUri": "../../../img/Arrowhead-01-128.png",
+            }
+          }
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "height": 25,
+              "margin": 8,
+              "width": 30,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={
+        Object {
+          "padding": 10,
+          "paddingTop": 0,
+        }
+      }
+    />
+  </View>
+</View>
+`;
