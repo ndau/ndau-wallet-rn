@@ -49,11 +49,12 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     public void CreatePublicAddress(
             String bytes,
             Integer count,
+            String chainId,
             Promise promise) {
         try {
             WritableNativeArray array = new WritableNativeArray();
             for (int i = 1; i <= count; i++) {
-                Address publicAddress = Keyaddr.newKey(bytes).child(i).ndauAddress();
+                Address publicAddress = Keyaddr.newKey(bytes).child(i).ndauAddress(chainId);
                 array.pushString(publicAddress.getAddress());
             }
 

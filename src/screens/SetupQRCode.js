@@ -11,7 +11,7 @@ class SetupConfirmSeedPhrase extends Component {
       textColor: '#ffffff',
       showErrorText: false,
       qrToken: '',
-      codeCaptured: false,
+      codeCaptured: true,
       scanning: true,
       cameraPermission: false
     };
@@ -57,7 +57,7 @@ class SetupConfirmSeedPhrase extends Component {
         userId: this.state.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
+        numberOfAccounts: this.props.numberOfAccounts
       },
       navigatorStyle: {
         drawUnderTabBar: true,

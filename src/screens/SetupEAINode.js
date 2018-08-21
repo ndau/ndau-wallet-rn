@@ -6,6 +6,9 @@ import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 
+//"nd" for mainnet, or "tn" for testnet.
+const addressGenerationType = 'tn';
+
 class SetupEAINode extends Component {
   constructor(props) {
     super(props);
@@ -173,7 +176,8 @@ class SetupEAINode extends Component {
     console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       seedPhraseAsBytes,
-      this.props.numberOfAccounts
+      this.props.numberOfAccounts,
+      addressGenerationType
     );
     console.debug(`publicAddresses: ${publicAddresses}`);
 
