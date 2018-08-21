@@ -4,6 +4,7 @@ import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
+import { TextInputMask } from 'react-native-masked-text';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class SetupUserId extends Component {
     if (userId.length === 3) {
       userId += '-';
     }
-    this.setState({ userId });
+    this.setState({ userId: userId.toUpperCase() });
   };
 
   render() {
@@ -136,6 +137,7 @@ class SetupUserId extends Component {
               placeholder="Enter your unique User ID"
               placeholderTextColor="#333"
               autoCapitalize="characters"
+              maxLength={7}
             />
 
             <View style={styles.buttonContainer}>
@@ -162,6 +164,7 @@ class SetupUserId extends Component {
                 this.onSendEmail();
               }}
               title="Send email"
+              disabled={this.state.numberOfAccounts === 0}
             />
           </View>
         </View>
