@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.github.wumke.RNExitApp.RNExitAppPackage;
-import net.rhogan.rnsecurerandom.RNSecureRandomPackage
+import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
 
 public class MainApplication extends NavigationApplication {
     @Override

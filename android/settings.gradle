@@ -12,3 +12,4 @@ project(':react-native-camera').projectDir = new File(rootProject.projectDir, '.
 include ':keyaddr'
 project(':keyaddr').projectDir = new File(
         rootProject.projectDir, './keyaddr')
+include ':app'
