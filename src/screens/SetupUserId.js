@@ -4,7 +4,6 @@ import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
-import { TextInputMask } from 'react-native-masked-text';
 
 class SetupUserId extends Component {
   constructor(props) {
