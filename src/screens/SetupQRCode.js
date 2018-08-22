@@ -11,7 +11,7 @@ class SetupConfirmSeedPhrase extends Component {
       textColor: '#ffffff',
       showErrorText: false,
       qrToken: '',
-      codeCaptured: true,
+      codeCaptured: false,
       scanning: true,
       cameraPermission: false
     };
@@ -41,6 +41,7 @@ class SetupConfirmSeedPhrase extends Component {
         { cancelable: false }
       );
     } else {
+
       this.setState({
         codeCaptured: true,
         qrToken: e.data
@@ -54,7 +55,7 @@ class SetupConfirmSeedPhrase extends Component {
       screen: 'ndau.SetupEncryptionPassword',
       passProps: {
         qrToken: this.state.qrToken,
-        userId: this.state.userId,
+        userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts

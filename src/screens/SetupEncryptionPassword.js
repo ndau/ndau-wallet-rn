@@ -49,6 +49,7 @@ class SetupEncryptionPassword extends Component {
       screen: 'ndau.SetupGetRandom',
       passProps: {
         encryptionPassword: this.state.password,
+        qrToken: this.props.qrToken,
         userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,

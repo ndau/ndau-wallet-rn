@@ -14,6 +14,7 @@ getTargetPrice = () => {
 };
 
 getNumberOfAccounts = (userId) => {
+  console.log(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
     .then((response) => response.json())
     .then((responseJson) => {
@@ -31,8 +32,8 @@ getNdauNewsLinks = () => {
     });
 };
 
-sendAccountAddresses = (userId, addresses, hexToken) => {
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/accountAddress`, {
+sendAccountAddresses = (userId, addresses, token) => {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
     method: 'POST',
     headers: {
       Authentication: `qr-token ${token}`,
