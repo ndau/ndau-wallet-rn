@@ -1,5 +1,5 @@
-const ndauApiHost = '10.1.10.114:3000';
-const ndauApiProtocol = 'http';
+const ndauApiHost = 'ndaudashboard.ndau.tech';
+const ndauApiProtocol = 'https';
 
 getTargetPrice = () => {
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/targetprice`)
@@ -44,10 +44,7 @@ sendAccountAddresses = (userId, addresses, token) => {
       addresses: addresses
     })
   })
-    .then((response) => {
-      console.log(response)
-      response.json()
-    })
+    .then((response) => response.json())
     .then((responseJson) => {
       console.info(`sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`);
       return responseJson;

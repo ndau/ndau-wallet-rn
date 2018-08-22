@@ -17,7 +17,6 @@ class SetupYourWallet extends Component {
   };
 
   onPushAnother = () => {
-    console.log("setupYourWallet token", this.props.qrToken)
     this.props.navigator.push({
       label: 'SetupSeedPhrase',
       screen: 'ndau.SetupSeedPhrase',
