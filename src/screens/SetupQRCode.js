@@ -11,7 +11,7 @@ class SetupConfirmSeedPhrase extends Component {
       textColor: '#ffffff',
       showErrorText: false,
       qrToken: '',
-      codeCaptured: true,
+      codeCaptured: false,
       scanning: true,
       cameraPermission: false
     };
@@ -41,6 +41,7 @@ class SetupConfirmSeedPhrase extends Component {
         { cancelable: false }
       );
     } else {
+
       this.setState({
         codeCaptured: true,
         qrToken: e.data

@@ -141,6 +141,8 @@ class SetupEAINode extends Component {
   };
 
   sendAccountAddresses = (userId, addresses, token) => {
+    console.log("userid, account addresses and token")
+    console.log(userId, addresses, token)
     return new Promise((resolve, reject) => {
       ndauApi
         .sendAccountAddresses(userId, addresses, token)
@@ -185,6 +187,7 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
+    console.log("setup, sending ", this.props.qrToken)
     this.sendAccountAddresses(this.props.userId, addresses, this.props.qrToken);
   };
 

@@ -1,5 +1,5 @@
-const ndauApiHost = 'ndaudashboard.ndau.tech';
-const ndauApiProtocol = 'https';
+const ndauApiHost = '10.1.10.114:3000';
+const ndauApiProtocol = 'http';
 
 getTargetPrice = () => {
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/targetprice`)
@@ -14,6 +14,7 @@ getTargetPrice = () => {
 };
 
 getNumberOfAccounts = (userId) => {
+  console.log(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
     .then((response) => response.json())
     .then((responseJson) => {
@@ -31,7 +32,9 @@ getNdauNewsLinks = () => {
     });
 };
 
-sendAccountAddresses = (userId, addresses, hexToken) => {
+sendAccountAddresses = (userId, addresses, token) => {
+  console.log("sending account addresses", userId, addresses, token)
+  console.log(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/accountAddress`)
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/accountAddress`, {
     method: 'POST',
     headers: {
@@ -43,7 +46,10 @@ sendAccountAddresses = (userId, addresses, hexToken) => {
       addresses: addresses
     })
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response)
+      response.json()
+    })
     .then((responseJson) => {
       console.info(`sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`);
       return responseJson;

@@ -22,6 +22,7 @@ class SetupTermsOfService extends Component {
   };
 
   onPushAnother = () => {
+    console.log("at this point", this.props.qrToken)
     this.props.navigator.push({
       label: 'SetupEAINode',
       screen: 'ndau.SetupEAINode',
