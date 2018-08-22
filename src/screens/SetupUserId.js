@@ -111,10 +111,15 @@ class SetupUserId extends Component {
   }
 
   textChanged = (userId) => {
-    if (userId.length === 3) {
-      userId += '-';
+    let u;
+    if (userId.substr(-1) === '-') {
+      u = userId
+    } else {
+      // c = cleaned
+      const c = userId.toUpperCase().replace(/[^A-Z0-9]/g, '').split('')
+      u = c.length > 3 ? c.map((c, i)=>i===2?`${c}-` : c).join('') : c.join('')
     }
-    this.setState({ userId: userId.toUpperCase() });
+    this.setState({userId:u})
   };
 
   render() {
