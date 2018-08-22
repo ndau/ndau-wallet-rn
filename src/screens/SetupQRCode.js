@@ -55,7 +55,7 @@ class SetupConfirmSeedPhrase extends Component {
       screen: 'ndau.SetupEncryptionPassword',
       passProps: {
         qrToken: this.state.qrToken,
-        userId: this.state.userId,
+        userId: this.props.userId,
         parentStyles: this.props.parentStyles,
         iconsMap: this.props.iconsMap,
         numberOfAccounts: this.props.numberOfAccounts
