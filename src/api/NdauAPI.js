@@ -33,9 +33,7 @@ getNdauNewsLinks = () => {
 };
 
 sendAccountAddresses = (userId, addresses, token) => {
-  console.log("sending account addresses", userId, addresses, token)
-  console.log(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/accountAddress`)
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/accountAddress`, {
+  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
     method: 'POST',
     headers: {
       Authentication: `qr-token ${token}`,
