@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly'
   },
   rowTextView: {
-    height: 60,
+    height: 80,
     width: 100,
     marginBottom: 10,
     marginTop: 10
