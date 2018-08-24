@@ -3,6 +3,9 @@ import { StyleSheet, View, ScrollView, Text, SafeAreaView, NativeModules } from 
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
+import RNExitApp from 'react-native-exit-app';
+
+var _ = require('lodash');
 
 const ROW_LENGTH = 3; // 3 items per row
 
@@ -22,9 +25,31 @@ class SetupSeedPhrase extends Component {
     this.generateSeedPhrase();
   };
 
+  showExitApp() {
+    Alert.alert(
+      '',
+      `Problem occurred validating the phrase, please contact Oneiro.`,
+      [
+        {
+          text: 'Exit app',
+          onPress: () => {
+            RNExitApp.exitApp();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
   generateSeedPhrase = async () => {
     const KeyaddrManager = NativeModules.KeyaddrManager;
     const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.entropy);
+    const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', seeds);
+    if (!_(seedBytes).isEqual(this.props.entropy)) {
+      this.showExitApp();
+    } else {
+      console.debug(`${seedBytes} and ${this.props.entropy} are equal.`);
+    }
     console.debug(`keyaddr's seed words are: ${seeds}`);
     const seedPhrase = seeds.split(/\s+/g);
     this.setState({ seedPhrase: seedPhrase });
@@ -101,7 +126,8 @@ class SetupSeedPhrase extends Component {
                             textAlign: 'center'
                           }}
                         >
-                          {count++}. {item}
+                          {count++}.{'\n'}
+                          {item}
                         </Text>
                       </View>
                     );
@@ -140,7 +166,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly'
   },
   rowTextView: {
-    height: 60,
+    height: 80,
     width: 100,
     marginBottom: 10,
     marginTop: 10

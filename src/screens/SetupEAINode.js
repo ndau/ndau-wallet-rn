@@ -159,10 +159,15 @@ class SetupEAINode extends Component {
     console.debug('Finishing Setup...');
     const addresses = await this.keyGeneration();
 
-    this.sendAddressesToOneiro(addresses);
-    this.persistAddresses(addresses);
+    this.sendAddressesToOneiro(addresses)
+      .then(() => {
+        this.persistAddresses(addresses);
 
-    this.returnToDashboard();
+        this.returnToDashboard();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   keyGeneration = async () => {
@@ -185,7 +190,7 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    this.sendAccountAddresses(this.props.userId, addresses, this.props.qrToken);
+    return this.sendAccountAddresses(this.props.userId, addresses, this.props.qrToken);
   };
 
   persistAddresses = (addresses) => {

@@ -14,7 +14,7 @@ getTargetPrice = () => {
 };
 
 getNumberOfAccounts = (userId) => {
-  console.log(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
+  console.log(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`);
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
     .then((response) => response.json())
     .then((responseJson) => {
@@ -33,6 +33,7 @@ getNdauNewsLinks = () => {
 };
 
 sendAccountAddresses = (userId, addresses, token) => {
+  console.log(`Sending ${userId}, ${addresses} and ${token} to Oneiro`);
   return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
     method: 'POST',
     headers: {
