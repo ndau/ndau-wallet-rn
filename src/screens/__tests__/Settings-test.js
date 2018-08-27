@@ -1,11 +1,11 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import Dashboard from '../Dashboard';
+import Settings from '../Settings';
 
 import renderer from 'react-test-renderer';
 
-describe('testing Dashboard...', () => {
+describe('testing Settings...', () => {
   let styles = StyleSheet.create({
     wizardText: {
       color: '#ffffff',
@@ -18,9 +18,7 @@ describe('testing Dashboard...', () => {
 
   beforeEach(() => {});
   it('renders correctly', () => {
-    const tree = renderer
-      .create(<Dashboard parentStyles={styles} navigator={navigator} />)
-      .toJSON();
+    const tree = renderer.create(<Settings parentStyles={styles} navigator={navigator} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
