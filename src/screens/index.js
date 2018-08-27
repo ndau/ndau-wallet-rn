@@ -12,6 +12,7 @@ import SetupConfirmSeedPhrase from './SetupConfirmSeedPhrase';
 import SetupTermsOfService from './SetupTermsOfService';
 import SetupEAINode from './SetupEAINode';
 import Passphrase from './Passphrase';
+import Settings from './Settings';
 
 export function registerScreens() {
   Navigation.registerComponent('ndau.Dashboard', () => Dashboard);
@@ -27,4 +28,5 @@ export function registerScreens() {
   Navigation.registerComponent('ndau.SetupQRCode', () => SetupQRCode);
   Navigation.registerComponent('ndau.SetupTermsOfService', () => SetupTermsOfService);
   Navigation.registerComponent('ndau.SetupEAINode', () => SetupEAINode);
+  Navigation.registerComponent('ndau.Settings', () => Settings);
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, BackHandler } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import ndauApi from '../api/NdauAPI';
 import AlertPanel from '../components/AlertPanel';
 
 export default class Dashboard extends Component {
@@ -11,19 +10,7 @@ export default class Dashboard extends Component {
     this.state = {
       user: {},
       passPhrase: null,
-      loginAttempt: 1,
-      newsLinks: [
-        {
-          _id: '5b593b4d3823e9a563447b94',
-          linkTitle: 'Your ndau Dashboard',
-          linkTarget: 'https://ndaudashboard.ndau.tech'
-        },
-        {
-          _id: '5b593b4d3823e9a563447b95',
-          linkTitle: "Please check Oneiro's site for ndau information",
-          linkTarget: 'https://oneiro.io'
-        }
-      ]
+      loginAttempt: 1
     };
 
     this.maxLoginAttempts = 10;
@@ -40,14 +27,6 @@ export default class Dashboard extends Component {
   componentDidMount = () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
-    ndauApi
-      .getNdauNewsLinks()
-      .then((links) => {
-        this.setState({ newsLinks: links });
-      })
-      .catch((error) => {
-        console.debug(error);
-      });
     this.loginOrSetup(this.props.encryptionPassword || this.state.passPhrase);
   };
 
@@ -159,7 +138,9 @@ export default class Dashboard extends Component {
           ) : null}
         </ScrollView>
       </SafeAreaView>
-    ) : null;
+    ) : (
+      <SafeAreaView style={styles.safeContainer} />
+    );
   }
 }
 
