@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -43,8 +43,10 @@
 	<string>The ndau wallet does not currently use calendar data.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>The ndau wallet will use your camera to scan a QR token for account verification purposes.</string>
+	<key>NSLocationAlwaysUseUsageDescription</key>
+	<string>The ndau wallet app does NOT use your location in any way.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>The ndau wallet app does NOT use your location in any way.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>The ndau wallet does not currently use motion data.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
