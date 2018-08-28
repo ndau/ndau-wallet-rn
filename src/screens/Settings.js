@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Alert, ScrollView } from 'react-native';
 import Row from '../components/Row';
 
-class LogoutTransition extends React.Component {
+class Settings extends React.Component {
   static navigatorStyle = {
     disabledBackGesture: true
   };
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LogoutTransition;
+export default Settings;

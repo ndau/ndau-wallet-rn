@@ -3,22 +3,26 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  Button,
   TextInput,
   SafeAreaView,
   Alert,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Text
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import { Dropdown } from 'react-native-material-dropdown';
 
 class Passphrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
       password: '',
-      showErrorText: false
+      userId: '',
+      showErrorText: false,
+      userIds: []
     };
   }
 
@@ -53,6 +57,19 @@ class Passphrase extends Component {
           <ScrollView style={styles.contentContainer}>
             <View style={styles.imageView}>
               <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
+            </View>
+            <View style={styles.footer}>
+              <Dropdown
+                label="Please choose a User ID"
+                data={this.state.userIds}
+                baseColor="#ffffff"
+                selectedItemColor="#000000"
+                textColor="#ffffff"
+                itemTextStyle={styles.text}
+                fontSize={18}
+                labelFontSize={14}
+                value={this.state.userId}
+              />
             </View>
             <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
               <TextInput
@@ -89,6 +106,14 @@ class Passphrase extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <CommonButton onPress={this.login} title="Login" />
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>or</Text>
+            </View>
+            <View style={styles.textContainer}>
+              <Text onPress={this.props.showSetup()} style={styles.linkText}>
+                Create a new user
+              </Text>
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -113,9 +138,14 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 0
   },
+  textContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20
+  },
   text: {
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 18,
     fontFamily: 'TitilliumWeb-Regular'
   },
   contentContainer: {
@@ -136,6 +166,12 @@ const styles = StyleSheet.create({
   infoIcon: {
     marginLeft: 12,
     marginTop: 20
+  },
+  linkText: {
+    color: '#dea85a',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 18,
+    textDecorationLine: 'underline'
   }
 });
 

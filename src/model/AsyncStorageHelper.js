@@ -1,11 +1,16 @@
 import { AsyncStorage } from 'react-native';
 import CryptoJS from 'crypto-js';
 
-const STORAGE_KEY = '@NdauAsyncStorage:user';
+const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:';
 
-const getUser = (encryptionPassword) => {
+//TODO: SHOULD WE MIGRATE @NdauAsyncStorage:user?
+const STORAGE_KEY_USER = '@NdauAsyncStorage:user';
+
+const getUser = (userId, encryptionPassword) => {
   return new Promise((resolve, reject) => {
-    AsyncStorage.getItem(STORAGE_KEY)
+    const storageKey = STORAGE_KEY_PREFIX + userId;
+    console.debug(`storage key to check is ${storageKey}`);
+    AsyncStorage.getItem(STORAGE_KEY_PREFIX + userId)
       .then((user) => {
         if (user !== null) {
           console.debug(`getUser - encrypted user is: ${user}`);
@@ -15,35 +20,51 @@ const getUser = (encryptionPassword) => {
 
           resolve(JSON.parse(userDecryptedString));
         } else {
-          resolve(null);
+          reject(null);
         }
       })
       .catch((error) => {
         console.debug(`User could be present but password is incorrect: ${error}`);
-        resolve({});
+        reject(error);
       });
   });
 };
 
 const setUser = async (user, encryptionPassword) => {
-  if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');
-
   try {
+    if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');
+    if (!user.userId) throw Error('you must pass user.userId containing a valid ID');
+
     const userString = JSON.stringify(user);
-    console.debug(`setUser - user to encrypt to ${STORAGE_KEY}: ${userString}`);
+    const storageKey = STORAGE_KEY_PREFIX + user.userId;
+
+    console.debug(`setUser - user to encrypt to ${storageKey}: ${userString}`);
     const userStringEncrypted = CryptoJS.AES.encrypt(userString, encryptionPassword);
     console.debug(`setUser - encrypted user is: ${userStringEncrypted}`);
 
-    await AsyncStorage.setItem(STORAGE_KEY, userStringEncrypted.toString());
+    await AsyncStorage.setItem(storageKey, userStringEncrypted.toString());
 
-    const checkPersist = await getUser(encryptionPassword);
+    const checkPersist = await getUser(user.userId, encryptionPassword);
     console.debug(`Successfully set user to: ${JSON.stringify(checkPersist, null, 2)}`);
   } catch (error) {
     console.error(error);
+    throw error;
+  }
+};
+
+const getAllKeys = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    return keys.map((key) => {
+      return key.replace(STORAGE_KEY_PREFIX, '');
+    });
+  } catch (error) {
+    return [];
   }
 };
 
 module.exports = {
   getUser,
-  setUser
+  setUser,
+  getAllKeys
 };

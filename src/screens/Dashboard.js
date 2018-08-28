@@ -10,6 +10,7 @@ export default class Dashboard extends Component {
     this.state = {
       user: {},
       passPhrase: null,
+      userId: '',
       loginAttempt: 1
     };
 
@@ -30,13 +31,13 @@ export default class Dashboard extends Component {
     this.loginOrSetup(this.props.encryptionPassword || this.state.passPhrase);
   };
 
-  setPassphrase = (passPhrase) => {
-    this.setState({ passPhrase: passPhrase });
-    this.loginOrSetup(passPhrase);
+  setPassphrase = (userId, passPhrase) => {
+    this.setState({ userId: userId, passPhrase: passPhrase });
+    this.loginOrSetup(userId, passPhrase);
   };
 
-  loginOrSetup = (passPhrase) => {
-    AsyncStorageHelper.getUser(passPhrase)
+  loginOrSetup = (userId, passPhrase) => {
+    AsyncStorageHelper.getUser(userId, passPhrase)
       .then((user) => {
         console.debug(`AsyncStorageHelper user is: ${JSON.stringify(user, null, 2)}`);
         if (user === null) {
@@ -77,7 +78,8 @@ export default class Dashboard extends Component {
       passProps: {
         parentStyles: styles,
         iconsMap: this.props.iconsMap,
-        setPassphrase: this.setPassphrase
+        setPassphrase: this.setPassphrase,
+        showSetup: this.showSetup
       },
       navigatorStyle: {
         drawUnderTabBar: true,
@@ -216,20 +218,6 @@ var styles = StyleSheet.create({
     shadowRadius: 3,
     paddingBottom: 10,
     paddingTop: 10
-  },
-  linkText: {
-    color: '#dea85a',
-    fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 15,
-    textDecorationLine: 'underline',
-    shadowOpacity: 0.5,
-    shadowColor: '#dea85a',
-    shadowRadius: 3
-  },
-  linkContainer: {
-    paddingBottom: 10,
-    paddingLeft: 50,
-    paddingRight: 50
   },
   checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 }
 });
