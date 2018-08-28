@@ -43,7 +43,7 @@
 	<string>The ndau wallet does not currently use calendar data.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>The ndau wallet will use your camera to scan a QR token for account verification purposes.</string>
-	<key>NSLocationAlwaysUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>The ndau wallet app does NOT use your location in any way.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The ndau wallet app does NOT use your location in any way.</string>
