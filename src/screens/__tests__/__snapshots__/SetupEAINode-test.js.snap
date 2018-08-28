@@ -131,52 +131,10 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                     data={
                       Array [
                         Object {
-                          "value": "Germain",
-                        },
-                        Object {
-                          "value": "Clearway",
-                        },
-                        Object {
-                          "value": "Belvidere",
-                        },
-                        Object {
-                          "value": "Marlborough",
-                        },
-                        Object {
                           "value": "Boylston",
                         },
                         Object {
-                          "value": "Botolph",
-                        },
-                        Object {
-                          "value": "Garrison",
-                        },
-                        Object {
-                          "value": "Harcourt",
-                        },
-                        Object {
-                          "value": "Fairfield",
-                        },
-                        Object {
-                          "value": "Gloucester",
-                        },
-                        Object {
                           "value": "Newbury",
-                        },
-                        Object {
-                          "value": "Exeter",
-                        },
-                        Object {
-                          "value": "Ring",
-                        },
-                        Object {
-                          "value": "Hereford",
-                        },
-                        Object {
-                          "value": "Massachusetts",
-                        },
-                        Object {
-                          "value": "Back",
                         },
                         Object {
                           "value": "Commonwealth",
@@ -185,61 +143,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                           "value": "Dartmouth",
                         },
                         Object {
-                          "value": "Clarendon",
-                        },
-                        Object {
-                          "value": "Berkeley",
-                        },
-                        Object {
-                          "value": "Beacon",
-                        },
-                        Object {
-                          "value": "James",
-                        },
-                        Object {
-                          "value": "Stuart",
-                        },
-                        Object {
-                          "value": "Studio",
-                        },
-                        Object {
-                          "value": "Follen",
-                        },
-                        Object {
-                          "value": "Durham",
-                        },
-                        Object {
-                          "value": "Huntington",
-                        },
-                        Object {
-                          "value": "Blackwood",
-                        },
-                        Object {
-                          "value": "Albemarle",
-                        },
-                        Object {
-                          "value": "Cumberland",
-                        },
-                        Object {
-                          "value": "Stanhope",
-                        },
-                        Object {
-                          "value": "Providence",
-                        },
-                        Object {
                           "value": "Storrow",
-                        },
-                        Object {
-                          "value": "Charlesgate",
-                        },
-                        Object {
-                          "value": "Esplanade",
-                        },
-                        Object {
-                          "value": "Arlington",
-                        },
-                        Object {
-                          "value": "Blagden",
                         },
                       ]
                     }
@@ -297,7 +201,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                     }
                     underlineColorAndroid="transparent"
                     useNativeDriver={false}
-                    value="Clarendon"
+                    value="Commonwealth"
                     valueExtractor={[Function]}
                   />
                   <View
@@ -547,52 +451,10 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                   data={
                     Array [
                       Object {
-                        "value": "Germain",
-                      },
-                      Object {
-                        "value": "Clearway",
-                      },
-                      Object {
-                        "value": "Belvidere",
-                      },
-                      Object {
-                        "value": "Marlborough",
-                      },
-                      Object {
                         "value": "Boylston",
                       },
                       Object {
-                        "value": "Botolph",
-                      },
-                      Object {
-                        "value": "Garrison",
-                      },
-                      Object {
-                        "value": "Harcourt",
-                      },
-                      Object {
-                        "value": "Fairfield",
-                      },
-                      Object {
-                        "value": "Gloucester",
-                      },
-                      Object {
                         "value": "Newbury",
-                      },
-                      Object {
-                        "value": "Exeter",
-                      },
-                      Object {
-                        "value": "Ring",
-                      },
-                      Object {
-                        "value": "Hereford",
-                      },
-                      Object {
-                        "value": "Massachusetts",
-                      },
-                      Object {
-                        "value": "Back",
                       },
                       Object {
                         "value": "Commonwealth",
@@ -601,61 +463,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                         "value": "Dartmouth",
                       },
                       Object {
-                        "value": "Clarendon",
-                      },
-                      Object {
-                        "value": "Berkeley",
-                      },
-                      Object {
-                        "value": "Beacon",
-                      },
-                      Object {
-                        "value": "James",
-                      },
-                      Object {
-                        "value": "Stuart",
-                      },
-                      Object {
-                        "value": "Studio",
-                      },
-                      Object {
-                        "value": "Follen",
-                      },
-                      Object {
-                        "value": "Durham",
-                      },
-                      Object {
-                        "value": "Huntington",
-                      },
-                      Object {
-                        "value": "Blackwood",
-                      },
-                      Object {
-                        "value": "Albemarle",
-                      },
-                      Object {
-                        "value": "Cumberland",
-                      },
-                      Object {
-                        "value": "Stanhope",
-                      },
-                      Object {
-                        "value": "Providence",
-                      },
-                      Object {
                         "value": "Storrow",
-                      },
-                      Object {
-                        "value": "Charlesgate",
-                      },
-                      Object {
-                        "value": "Esplanade",
-                      },
-                      Object {
-                        "value": "Arlington",
-                      },
-                      Object {
-                        "value": "Blagden",
                       },
                     ]
                   }
@@ -689,418 +497,6 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                   windowSize={21}
                 >
                   <View>
-                    <View
-                      onLayout={[Function]}
-                      style={null}
-                    >
-                      <View
-                        accessible={true}
-                        focusAnimation={null}
-                        focusAnimationDuration={225}
-                        hitSlop={
-                          Object {
-                            "bottom": 6,
-                            "left": 4,
-                            "right": 4,
-                            "top": 6,
-                          }
-                        }
-                        onLayout={[Function]}
-                        onPress={[Function]}
-                        onPressIn={[Function]}
-                        onPressOut={[Function]}
-                        onResponderGrant={[Function]}
-                        onResponderMove={[Function]}
-                        onResponderRelease={[Function]}
-                        onResponderTerminate={[Function]}
-                        onResponderTerminationRequest={[Function]}
-                        onStartShouldSetResponder={[Function]}
-                        pointerEvents="box-only"
-                        rippleCentered={false}
-                        rippleColor="#ffffff"
-                        rippleDuration={400}
-                        rippleFades={true}
-                        rippleOpacity={0.54}
-                        rippleSequential={true}
-                        rippleSize={0}
-                        style={
-                          Object {
-                            "backgroundColor": "transparent",
-                            "borderRadius": 0,
-                            "height": 46,
-                            "justifyContent": "center",
-                            "paddingLeft": undefined,
-                            "paddingRight": undefined,
-                            "paddingVertical": 8,
-                          }
-                        }
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          ellipsizeMode="tail"
-                          numberOfLines={1}
-                          style={
-                            Array [
-                              Object {
-                                "textAlign": "left",
-                              },
-                              Object {
-                                "color": "#ffffff",
-                                "fontSize": 20,
-                              },
-                              Object {
-                                "color": "#000000",
-                                "fontSize": 20,
-                              },
-                            ]
-                          }
-                        >
-                          Germain
-                        </Text>
-                        <View
-                          style={
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "borderRadius": 0,
-                              "bottom": 0,
-                              "left": 0,
-                              "opacity": 0,
-                              "position": "absolute",
-                              "right": 0,
-                              "top": 0,
-                            }
-                          }
-                        />
-                        <View
-                          style={
-                            Array [
-                              Object {
-                                "backgroundColor": "transparent",
-                                "bottom": 0,
-                                "left": 0,
-                                "overflow": "hidden",
-                                "position": "absolute",
-                                "right": 0,
-                                "top": 0,
-                              },
-                              Object {
-                                "borderRadius": 0,
-                              },
-                            ]
-                          }
-                        />
-                      </View>
-                    </View>
-                    <View
-                      onLayout={[Function]}
-                      style={null}
-                    >
-                      <View
-                        accessible={true}
-                        focusAnimation={null}
-                        focusAnimationDuration={225}
-                        hitSlop={
-                          Object {
-                            "bottom": 6,
-                            "left": 4,
-                            "right": 4,
-                            "top": 6,
-                          }
-                        }
-                        onLayout={[Function]}
-                        onPress={[Function]}
-                        onPressIn={[Function]}
-                        onPressOut={[Function]}
-                        onResponderGrant={[Function]}
-                        onResponderMove={[Function]}
-                        onResponderRelease={[Function]}
-                        onResponderTerminate={[Function]}
-                        onResponderTerminationRequest={[Function]}
-                        onStartShouldSetResponder={[Function]}
-                        pointerEvents="box-only"
-                        rippleCentered={false}
-                        rippleColor="#ffffff"
-                        rippleDuration={400}
-                        rippleFades={true}
-                        rippleOpacity={0.54}
-                        rippleSequential={true}
-                        rippleSize={0}
-                        style={
-                          Object {
-                            "backgroundColor": "transparent",
-                            "borderRadius": 0,
-                            "height": 46,
-                            "justifyContent": "center",
-                            "paddingLeft": undefined,
-                            "paddingRight": undefined,
-                            "paddingVertical": 8,
-                          }
-                        }
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          ellipsizeMode="tail"
-                          numberOfLines={1}
-                          style={
-                            Array [
-                              Object {
-                                "textAlign": "left",
-                              },
-                              Object {
-                                "color": "#ffffff",
-                                "fontSize": 20,
-                              },
-                              Object {
-                                "color": "#000000",
-                                "fontSize": 20,
-                              },
-                            ]
-                          }
-                        >
-                          Clearway
-                        </Text>
-                        <View
-                          style={
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "borderRadius": 0,
-                              "bottom": 0,
-                              "left": 0,
-                              "opacity": 0,
-                              "position": "absolute",
-                              "right": 0,
-                              "top": 0,
-                            }
-                          }
-                        />
-                        <View
-                          style={
-                            Array [
-                              Object {
-                                "backgroundColor": "transparent",
-                                "bottom": 0,
-                                "left": 0,
-                                "overflow": "hidden",
-                                "position": "absolute",
-                                "right": 0,
-                                "top": 0,
-                              },
-                              Object {
-                                "borderRadius": 0,
-                              },
-                            ]
-                          }
-                        />
-                      </View>
-                    </View>
-                    <View
-                      onLayout={[Function]}
-                      style={null}
-                    >
-                      <View
-                        accessible={true}
-                        focusAnimation={null}
-                        focusAnimationDuration={225}
-                        hitSlop={
-                          Object {
-                            "bottom": 6,
-                            "left": 4,
-                            "right": 4,
-                            "top": 6,
-                          }
-                        }
-                        onLayout={[Function]}
-                        onPress={[Function]}
-                        onPressIn={[Function]}
-                        onPressOut={[Function]}
-                        onResponderGrant={[Function]}
-                        onResponderMove={[Function]}
-                        onResponderRelease={[Function]}
-                        onResponderTerminate={[Function]}
-                        onResponderTerminationRequest={[Function]}
-                        onStartShouldSetResponder={[Function]}
-                        pointerEvents="box-only"
-                        rippleCentered={false}
-                        rippleColor="#ffffff"
-                        rippleDuration={400}
-                        rippleFades={true}
-                        rippleOpacity={0.54}
-                        rippleSequential={true}
-                        rippleSize={0}
-                        style={
-                          Object {
-                            "backgroundColor": "transparent",
-                            "borderRadius": 0,
-                            "height": 46,
-                            "justifyContent": "center",
-                            "paddingLeft": undefined,
-                            "paddingRight": undefined,
-                            "paddingVertical": 8,
-                          }
-                        }
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          ellipsizeMode="tail"
-                          numberOfLines={1}
-                          style={
-                            Array [
-                              Object {
-                                "textAlign": "left",
-                              },
-                              Object {
-                                "color": "#ffffff",
-                                "fontSize": 20,
-                              },
-                              Object {
-                                "color": "#000000",
-                                "fontSize": 20,
-                              },
-                            ]
-                          }
-                        >
-                          Belvidere
-                        </Text>
-                        <View
-                          style={
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "borderRadius": 0,
-                              "bottom": 0,
-                              "left": 0,
-                              "opacity": 0,
-                              "position": "absolute",
-                              "right": 0,
-                              "top": 0,
-                            }
-                          }
-                        />
-                        <View
-                          style={
-                            Array [
-                              Object {
-                                "backgroundColor": "transparent",
-                                "bottom": 0,
-                                "left": 0,
-                                "overflow": "hidden",
-                                "position": "absolute",
-                                "right": 0,
-                                "top": 0,
-                              },
-                              Object {
-                                "borderRadius": 0,
-                              },
-                            ]
-                          }
-                        />
-                      </View>
-                    </View>
-                    <View
-                      onLayout={[Function]}
-                      style={null}
-                    >
-                      <View
-                        accessible={true}
-                        focusAnimation={null}
-                        focusAnimationDuration={225}
-                        hitSlop={
-                          Object {
-                            "bottom": 6,
-                            "left": 4,
-                            "right": 4,
-                            "top": 6,
-                          }
-                        }
-                        onLayout={[Function]}
-                        onPress={[Function]}
-                        onPressIn={[Function]}
-                        onPressOut={[Function]}
-                        onResponderGrant={[Function]}
-                        onResponderMove={[Function]}
-                        onResponderRelease={[Function]}
-                        onResponderTerminate={[Function]}
-                        onResponderTerminationRequest={[Function]}
-                        onStartShouldSetResponder={[Function]}
-                        pointerEvents="box-only"
-                        rippleCentered={false}
-                        rippleColor="#ffffff"
-                        rippleDuration={400}
-                        rippleFades={true}
-                        rippleOpacity={0.54}
-                        rippleSequential={true}
-                        rippleSize={0}
-                        style={
-                          Object {
-                            "backgroundColor": "transparent",
-                            "borderRadius": 0,
-                            "height": 46,
-                            "justifyContent": "center",
-                            "paddingLeft": undefined,
-                            "paddingRight": undefined,
-                            "paddingVertical": 8,
-                          }
-                        }
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          ellipsizeMode="tail"
-                          numberOfLines={1}
-                          style={
-                            Array [
-                              Object {
-                                "textAlign": "left",
-                              },
-                              Object {
-                                "color": "#ffffff",
-                                "fontSize": 20,
-                              },
-                              Object {
-                                "color": "#000000",
-                                "fontSize": 20,
-                              },
-                            ]
-                          }
-                        >
-                          Marlborough
-                        </Text>
-                        <View
-                          style={
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "borderRadius": 0,
-                              "bottom": 0,
-                              "left": 0,
-                              "opacity": 0,
-                              "position": "absolute",
-                              "right": 0,
-                              "top": 0,
-                            }
-                          }
-                        />
-                        <View
-                          style={
-                            Array [
-                              Object {
-                                "backgroundColor": "transparent",
-                                "bottom": 0,
-                                "left": 0,
-                                "overflow": "hidden",
-                                "position": "absolute",
-                                "right": 0,
-                                "top": 0,
-                              },
-                              Object {
-                                "borderRadius": 0,
-                              },
-                            ]
-                          }
-                        />
-                      </View>
-                    </View>
                     <View
                       onLayout={[Function]}
                       style={null}
@@ -1271,7 +667,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                             ]
                           }
                         >
-                          Botolph
+                          Newbury
                         </Text>
                         <View
                           style={
@@ -1374,7 +770,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                             ]
                           }
                         >
-                          Garrison
+                          Commonwealth
                         </Text>
                         <View
                           style={
@@ -1477,7 +873,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                             ]
                           }
                         >
-                          Harcourt
+                          Dartmouth
                         </Text>
                         <View
                           style={
@@ -1580,7 +976,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                             ]
                           }
                         >
-                          Fairfield
+                          Storrow
                         </Text>
                         <View
                           style={
@@ -1616,116 +1012,6 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                         />
                       </View>
                     </View>
-                    <View
-                      onLayout={[Function]}
-                      style={null}
-                    >
-                      <View
-                        accessible={true}
-                        focusAnimation={null}
-                        focusAnimationDuration={225}
-                        hitSlop={
-                          Object {
-                            "bottom": 6,
-                            "left": 4,
-                            "right": 4,
-                            "top": 6,
-                          }
-                        }
-                        onLayout={[Function]}
-                        onPress={[Function]}
-                        onPressIn={[Function]}
-                        onPressOut={[Function]}
-                        onResponderGrant={[Function]}
-                        onResponderMove={[Function]}
-                        onResponderRelease={[Function]}
-                        onResponderTerminate={[Function]}
-                        onResponderTerminationRequest={[Function]}
-                        onStartShouldSetResponder={[Function]}
-                        pointerEvents="box-only"
-                        rippleCentered={false}
-                        rippleColor="#ffffff"
-                        rippleDuration={400}
-                        rippleFades={true}
-                        rippleOpacity={0.54}
-                        rippleSequential={true}
-                        rippleSize={0}
-                        style={
-                          Object {
-                            "backgroundColor": "transparent",
-                            "borderRadius": 0,
-                            "height": 46,
-                            "justifyContent": "center",
-                            "paddingLeft": undefined,
-                            "paddingRight": undefined,
-                            "paddingVertical": 8,
-                          }
-                        }
-                      >
-                        <Text
-                          accessible={true}
-                          allowFontScaling={true}
-                          ellipsizeMode="tail"
-                          numberOfLines={1}
-                          style={
-                            Array [
-                              Object {
-                                "textAlign": "left",
-                              },
-                              Object {
-                                "color": "#ffffff",
-                                "fontSize": 20,
-                              },
-                              Object {
-                                "color": "#000000",
-                                "fontSize": 20,
-                              },
-                            ]
-                          }
-                        >
-                          Gloucester
-                        </Text>
-                        <View
-                          style={
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "borderRadius": 0,
-                              "bottom": 0,
-                              "left": 0,
-                              "opacity": 0,
-                              "position": "absolute",
-                              "right": 0,
-                              "top": 0,
-                            }
-                          }
-                        />
-                        <View
-                          style={
-                            Array [
-                              Object {
-                                "backgroundColor": "transparent",
-                                "bottom": 0,
-                                "left": 0,
-                                "overflow": "hidden",
-                                "position": "absolute",
-                                "right": 0,
-                                "top": 0,
-                              },
-                              Object {
-                                "borderRadius": 0,
-                              },
-                            ]
-                          }
-                        />
-                      </View>
-                    </View>
-                    <View
-                      style={
-                        Object {
-                          "height": 0,
-                        }
-                      }
-                    />
                   </View>
                 </RCTScrollView>
               </View>

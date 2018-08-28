@@ -54,7 +54,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            Scope
+            1. Scope
           </Text>
           <Text
             accessible={true}
@@ -70,170 +70,147 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            - These Terms of Use (“Terms”), together with our Privacy Notice , are a legally binding agreement between you (“User”, “you”, or any variations thereof) and Oneiro NA Inc. (collectively: “Oneiro”, “us”, “we”, or any variations thereof).
-            
-
-            If you do not agree with any of the Terms herein, kindly immediately cease any use of the Website and/or the platform (as defined below).
-            
-
-            - These Terms governs your browsing and any other use of the ndau.io website, including those matter pertaining to potential subscription for the NDAU tokens (the “Website” and “Tokens”, respectively), as further detailed on [https://Oneiro.io/].
-            
-
-            - From time to time, at our sole discretion, we may amend, change or replace these Terms, by posting updated versions on the Website, or by notifying you by other means. All such modifications to the Terms shall become effective upon the posting of the revised Terms or by receipt of notification of a change to the Terms. If you do not agree to the new or different Terms, you should not use or access the content offered under the Website.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
+            1.1. These Terms of Use (“
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
-            
-
-            The Website
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
+            >
+              Terms
+            </Text>
+            ”), together with our Privacy Notice, are a legally binding agreement between you (“
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
-            
-
-            - The Website is designated to enable you to receive information regarding a unique type of Tokens by the name of NDAU, which we contemplate on issuing, as further detailed on the Website.
-            
-
-            - Users who desire to be eligible to subscribe for the Tokens, will be required to provide us with certain information and details, including without limitations, KYC (know-your-client) forms, AML identification forms, accredited investor forms (or other similar forms) and all other forms or information which we are required to maintain in connection thereto.
-            
-
-            - Nothing herein shall be deemed as any obligation and/or commitment Oneiro tgat you will actually be eligible to subscribe for any tokens.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
+            >
+              User
+            </Text>
+            ”, “you”, or any variations thereof) and Oneiro NA Inc. (collectively: “
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
+            >
+              Oneiro
+            </Text>
+            ”, “us”, “we”, or any variations thereof).
             
 
-            Tokens
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
+            1.2. THESE TERMS GOVERN YOUR BROWSING AND ANY OTHER USE OF THE NDAU.IO WEBSITE, (THE “
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
-            
-
-            - The designated issuance of the Tokens is as further detailed here https://Oneiro.io/.
-            
-
-            - We do not make any representation and/or commitment in connection with the Tokens. In that respect, you hereby warrant and acknowledge that you have experience in cryptocurrency trading and acknowledges that (i) the cryptocurrency market is inherently volatile and is characterized in high risks, and thus subject to inherent uncertainties (such that no profits might derived in your favor, and furthermore that you might be subject to substantial losses regarding the Tokens subject matter to the Service provided herein, or the cryptocurrency acquired by you to exchange for our Tokens), and that (ii) you are able to fend for yourself, bear the economic risk associated in subscribing for the Tokens or other applicable cryptocurrency, and have such knowledge and experience in order to evaluate the merits and risks of the provision of subscribing for the Tokens.
-            
-
-            - Under no circumstances should any information presented under the website pertaining to the tokens, and specifically, any whitepaper we provide, be deemed as any recommendation to purchase, sell or otherwise trade in any cryptocurrencies prescribed thereunder, subject to applicable law. we do not possess any license or permit to recommend and/or otherwise make any investment on your behalf or favor, and thus you should consult with applicable professionals prior to making any decisions involving the trade of any cryptocurrency.
-            
-
-            - Specifically, we make no commitment as to the value of the tokens, THEIR ECONOMIC VALUE, nor the tradability of any tokens. We assume no responsibility regarding any decision undertaken by the applicable bodies which may affect the value of the tokens. FURTHERMORE, WE MAKE NO WARRANTY REGARDING the CLASSIFICATION OF the TOKENS (E.G., UTILITY, CURRENCY, EQUITY OR ANY EQUIVALENT THEREOF), SUCH THAT, among other matters, WE CANNOT REASONABLY advise WHICH TAX REGIME AND/OR SECURITIES REGULATION, SHALL APPLY TO THE TOKENS, if any. understanding the applicable regulation that applies to you is at your sole responsibility. However, we may, at our sole discretion, require you to provide us with certain information / representations (such as you being deemed as an acceredited investor) in order for us to determine whether to allow you to subscribe for our tokens.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
+            >
+              WEBSITE
+            </Text>
+            ”) AND OUR NDAU MOBILE APPLICATION, AS APPLICABLE (THE “
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
-            
-
-            Third party Vendors
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
+            >
+              APPLICATION
+            </Text>
+            ”, AND COLLECTIVELY: THE “
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
+            >
+              PLATFORM
+            </Text>
+            ”).
             
 
-            - Currently, we use the third party vendors (each: a “Third Party Vendor”), as described under our Privacy Notice [add link + anchor]:
-            
-
-            - You understand that we have no control over the Third Party Vendor and its specific terms and conditions / privacy policy (regarding specific privacy matters, we do however periodically review with respect to each such Third Party Vendor [Note to NDAU- this should include all third party services you are utilizing – for example “mailchimp” or other platforms that you use to deliver newsletters, etc.], and thus shall not be responsible any services provided by the Third Party Vendor including any security compromise related thereto (including, without limitations, with respect to identity, password or any other information theft, security measures or lack thereof, data traffic, runtime, downtime, etc.) and/or any damage arising in connection with the use of such Third Party Vendor. You further acknowledge that you will be solely responsible to meet all applicable requirements and/or license terms which you are subject to pursuant to your use of the Third Party Vendor, imposed by it.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
+            1.3. THESE TERMS MAY ALSO PERTAIN TO MATTERS REGARDING POTENTIAL SUBSCRIPTION FOR THE NDAU TOKENS (“
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
-            
-
-            Security
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
+            >
+              TOKENS
+            </Text>
+            ”), AS FURTHER DETAILED ON [HTTPS://NDAU.IO] (THE “
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
+            >
+              GENERAL PURPOSE
+            </Text>
+            ”).
             
 
-            - DESPITE US MAINTAINING REASONABLE MEASURES TO SECURE the Website, WE CAN NOT ENSURE FULL PROTECTION FROM EXPOSURE DUE TO MALICIOUS ACTS, AND THEREFORE ARE NOT LIABLE TO ANY DAMAGES, WHETHER DIRECT, INDIRECT, INCIDENTAL OR CONSEQUENTIAL, INCURRED BY USER.
+            1.4. IF YOU DO NOT AGREE WITH ANY OF THE TERMS HEREIN, KINDLY AND IMMEDIATELY CEASE ANY USE OF THE WEBSITE AND/OR, AS APPLICABLE, CEASE ANY USE OF THE APPLICATION AND PROMPTLY DELETE IT FROM YOUR DEVICE.
+            
+
+            1.5. We may amend, change, or replace these Terms, by posting updated versions on the Platform or by notifying you by other means. All such modifications to the Terms shall become effective upon the posting of the revised Terms or by receipt of notification of a change to the Terms. If you do not agree to the new or different Terms, you must act in accordance with instructions of Section ‎1.4 above.
           </Text>
           <Text
             accessible={true}
@@ -251,7 +228,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            Use of Website
+            2. The Platform
           </Text>
           <Text
             accessible={true}
@@ -267,55 +244,29 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            - You acknowledge that any rights granted to you herein, are non-exclusive, such that any use of the content offered to you and/or made available to you via the Website, is subject to the herein terms.
+            2.1. The Platform is designated to enable you to receive information regarding a unique type of Tokens by the name of ndau, which we contemplate on issuing, as further detailed on the Platform.
             
 
-            - Legal Age. You are not allowed to make any use of the Website in the event that you are under the age of 16 [or higher?].
+            2.2. Users who desire to be eligible to subscribe for the Tokens, will be required to provide us with certain information and details which may contain personal information. Our collection, processing, and use of such personal information is as described under our Privacy Notice. However, when subscribing for our tokens, we may require you to provide us with additional personal information which we do not collect from you while making use of the Platform for the General Purpose (the “
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Additional Information
+            </Text>
+            ”). In such an event, we will, if applicable, provide you with information regarding our use, processing, and/other matters pertaining to such Additional Information.
             
 
-            - Compliance. Notwithstanding anything to the contrary herein, you agree to abide by all applicable local, state, national and international laws and regulations in regards to your use of the Website and any content offered thereto. For the avoidance of doubt, the ability to access our Website does not necessarily means that your use is permitted under relevant laws, regulations and directives.
-            
-
-            - Additional Policies. In addition to the foregoing, while using the Website, you will strictly adhere with the Website policies published by us from time to time, such that, you should not:
-            
-
-             a. Browse, surf, process, scan or use the Website via operation of a computer program designed to gather information or perform operations imitating a human user (including, without limitation, Bots or Crawlers);
-            
-
-             b. Manipulate the URL of the Website, or otherwise gain access to any internal pages to which we did not provided you with a direct link (including, without limitation, URL Hacking);
-            
-
-             c. Transmit or otherwise make available any worm, virus, Trojan Horse, web-bug, spyware or any other program that is intended to damage the operation of the Website;
-            
-
-             d. Carry out any action which may infringe the copyrights and/or any other proprietary of us or any other copyright holder;
-            
-
-             e. Promote advertisements or disruptive commercial messages;
-            
-
-             f. Copy, transmit, decompile, modify, create derivative works, reproduce, disassemble, republish, scrape, and/or reverse engineer any algorithm, code, syntax and/or any other content associated with the Website and/or any components thereof and/or act to collect, harvest and/or data mine any data associated with the Website and/or any of its users (whether by computer programs, identity theft, impersonation, or otherwise) and/or take any action which may be deemed as impersonating another person or entity, identity theft, holding multiple Accounts, etc.;
-            
-
-             g. Handle and/or otherwise use any content offered or displayed on the Website in any manner or way that violates these Terms;
-            
-
-             h. Carry out any action which may infringe any laws, regulations, orders or any guidelines of any governmental authority, is likely to offend or harm any other users of the Website and/or the general public;
-            
-
-             i. Intimidate, threaten, harass or abuse anyone in any manner;
-            
-
-             j. Steal or attempt to steal passwords or other private information from other users of the Website;
-            
-
-             k. Distribute, post or make any other use (or otherwise encourage or solicit the consumption or performance of) any illegal, explicit, inappropriate, racist, offending, defaming, disparaging and/or abusing content, or any content which deems to infringe any third party proprietary rights (including our rights); and,
-            
-
-             l. Carry out any action which violates any community guidelines, Terms and/or Privacy Notice, as prescribed herein and/or as otherwise published us from time to time.
-            
-
-            - External Links. You understand that our Website may contain certain external links to third party websites (the “External Content”). The External Content might be based upon information collected by us from our users, in accordance with our Privacy Notice. Regardless, we have no control over the content of the External Content, the order of its presentation or its accuracy, and we are not a direct party to any transaction resulting from such External Content (if applicable), and therefore assume no responsibility and/or any liability in that respect. In addition, we provide no warranty that the access, browsing and/or consummation of any External Content shall be safe, nor that the owners or controllers of such External Content have undertaken any security or protection measures (for example, we cannot verify, nor do we warrant, that the External Content shall be free of any errors, malware, spyware, phishing, Trojan horses, data mining and/or collection, or the likes thereof). Your use of any External Content shall be at your sole risk. We highly recommend you to verify the origin of any External Content prior to gaining access or otherwise using it.
+            2.3 YOUR USE OF THE PLATFORM DOES NOT INDICATE ANY COMMITMENT THAT WE CONSIDER YOU AS ELIGIBLE TO SUBSCRIBE FOR ANY TOKENS.
           </Text>
           <Text
             accessible={true}
@@ -333,7 +284,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            Content and Ownership
+            3. Tokens
           </Text>
           <Text
             accessible={true}
@@ -349,87 +300,50 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            - Ownership. All rights, title and interest in and to the Website, including any and all copyrightable materials or any other content thereof which is or may be subject to any intellectual property rights under any applicable law, including any artwork, graphics, images, documents, content, website templates and widgets, literary work, source and object code, computer code (including HTML), applications, audio, music, video and other media, designs, animations, interfaces, methods, products, algorithms, data, interactive features and objects, advertising and acquisition tools and methods, inventions, trade secrets, logos, domains, customized URLs, service marks, trade names and other proprietary identifiers, whether or not registered and/or capable of being registered, and any derivations thereof, are owned by and/or licensed to us (“Proprietary Content”). In the event that the Proprietary Content is licensed to us, then such content might be subject to additional restrictions by its owners.
-            
-
-            - Right to Use. You may only use the Proprietary Content for view under our Website, and for this purpose alone; subject further to the specific provisions of these Terms. In order to remove any doubt, you are restricted from making any copies of the Proprietary Content (whether tangible or electronic), transfer, distribute and/or otherwise disseminate any Proprietary Content (or any portion thereof).
-            
-
-            - No Other Rights. It is hereby clarified that these Terms do not grant any right or interest in or to our intellectual property (or any part thereof), including without limitations, any of our Proprietary Content, except only for the limited license expressly granted above. Nothing in these Terms constitutes an assignment or waiver of any of our property rights under any law.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
+            3.1.
+             
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
+            >
+              Further Information Regarding Token Issuance
+            </Text>
+            . The designated issuance of the Tokens is as further detailed here https://ndau.io.
             
 
-            Privacy and Data Protection
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
+            3.2.
+             
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
+            >
+              No Representations Regarding Cryptocurrency Trade
+            </Text>
+            . We do not make any representation and/or commitment in connection with the Tokens. In that respect, you hereby warrant and acknowledge that you have experience in cryptocurrency trading and acknowledge that (i) the cryptocurrency market is inherently volatile and is characterized as high risk, and thus subject to inherent uncertainties (such that no profits might be derived in your favor, and furthermore that you might be subject to substantial losses regarding the Tokens, or the cryptocurrency acquired by you used to purchase our Tokens), and that (ii) you are able to bear the economic risk associated with subscribing for the Tokens or other applicable cryptocurrency, and have such knowledge and experience in order to evaluate the merits and risks of the provision of subscribing for the Tokens.
             
 
-            - In addition to these Terms, your use of the Website is also subject to our Privacy Notice, which informs you of our policies and procedures regarding the collection, use and disclosure of information we receive when you visit our Website and when communicating with us.
+            3.3. UNDER NO CIRCUMSTANCES SHOULD YOU DEEM ANY INFORMATION PRESENTED ON THE PLATFORM PERTAINING TO THE TOKENS, AND SPECIFICALLY, ANY WHITE PAPER WE PROVIDE, AS ANY RECOMMENDATION TO PURCHASE, SELL, OR OTHERWISE TRADE IN ANY CRYPTOCURRENCIES PRESCRIBED UNDER THE PLATFORM. WE DO NOT POSSESS ANY LICENSE OR PERMIT TO RECOMMEND AND/OR OTHERWISE MAKE ANY INVESTMENT ON YOUR BEHALF OR FAVOR, AND THUS YOU SHOULD CONSULT WITH APPLICABLE PROFESSIONALS PRIOR TO MAKING ANY DECISIONS INVOLVING THE TRADE OF ANY CRYPTOCURRENCY.
             
 
-            - DESPITE US MAINTAINING REASONABLE MEASURES TO SECURE AND PROTECT YOUR ACCOUNT INFORMATION REGARDING USER’S ACCESS TO THE WEBSITE, WE CANNOT ENSURE FULL PROTECTION FROM EXPOSURE DUE TO MALICIOUS ACTS, AND THEREFORE ARE NOT BE LIABLE TO ANY DAMAGES, WHETHER DIRECT, INDIRECT, INCIDENTAL OR CONSEQUENTIAL, INCURRED BY USER DUE TO ANY SUCH EXPOSURE OF ACCOUNT CONTENTS OR INFORMATION REGARDING USER’S ACCESS. YOU ARE HIGHLY ENCOURAGED TO MAINTAIN THE REQUISITE PROTECTION FOR YOUR MACHINE, SUCH AS MAINTANING AN UP-TO-DATE ANTIVIRUS AND/OR ANY ANTIMALWARE OR PHISHING SOFTWARE.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
-              }
-            }
-          >
-            
-
-            Limited Warranties
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-              }
-            }
-          >
-            
-
-            - THE WEBSITE and any content associated thereto ARE PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS. WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
-            
-
-            - WITHOUT LIMITING THE ABOVE, (I) WE MAKE NO WARRANTY THAT THE WEBSITE, analysis under any of our whitepaer and/OR any other CONTENT WILL MEET YOUR REQUIREMENTS, OR WILL BE UNINTERRUPTED, CONTINUOUS, TIMELY, SECURE, ACCURATE, CORRECT, COMPLETE OR AVAILABILE; including without limitations, in connection with any errors, bugs, viruses, Trojan horses and/or any other form of malware, server runtime and/or downtime (including any interruption or cessation of any data received and/or otherwise transmitted within the scope of the use of the Website), server security measures, content Provided by other users and/or yourself (including any personal, financial and/or any other information) or for any loss or damage of any kind incurred as a result of the use of any content posted, transmitted, or otherwise made available via the Website, OR IN CONNECTION WITH ANY USERS' (INCLUDING YOURSELF) VIOLATION OF THESE TERMS. (II) WE DO NO ENDORSE OR APPROVE ANY CONTENT PROVIDED BY ANY PARTY THAN US AND DISCLAIM ALL LIABLITY WHATSOEVER THERETO; AND (III) WE DO NOT WARRANT OR MAKE ANY REPRESENTATIONS REGARDING THE USE of the website, nOR THEir RESULTS, CORRECTNESS, COMPLETENESS, AVAILABILITY, ACCURACY, RELIABILITY OR OTHERWISE. NOTHING HEREIN SHALL DEROGATE FROM ANY OTHER LIMITATION OF LIABILITY PRESCRIBED UNDER THESE TERMS.
+            3.4. SPECIFICALLY, WE MAKE NO COMMITMENT AS TO THE VALUE OF THE TOKENS, THEIR ECONOMIC VALUE, NOR THE TRADABILITY OF ANY TOKENS. WE ASSUME NO RESPONSIBILITY REGARDING ANY DECISION UNDERTAKEN BY THE APPLICABLE BODIES WHICH MAY AFFECT THE VALUE OF THE TOKENS. FURTHERMORE, WE MAKE NO WARRANTY REGARDING THE CLASSIFICATION OF THE TOKENS (E.G., UTILITY, CURRENCY, EQUITY, OR ANY EQUIVALENT THEREOF), SUCH THAT, AMONG OTHER MATTERS, WE CANNOT REASONABLY ADVISE WHICH TAX REGIME AND/OR SECURITIES REGULATION SHALL APPLY TO THE TOKENS, IF ANY. IT IS YOUR RESPONSIBILITY TO UNDERSTAND THE APPLICABLE REGULATION THAT APPLIES TO YOU. HOWEVER, WE MAY, AT OUR SOLE DISCRETION, REQUIRE YOU TO PROVIDE US WITH CERTAIN INFORMATION / REPRESENTATIONS (SUCH AS YOUR STATUS AS AN ACCREDITED INVESTOR) IN ORDER FOR US TO DETERMINE WHETHER OR NOT TO ALLOW YOU TO SUBSCRIBE FOR OUR TOKENS.
           </Text>
           <Text
             accessible={true}
@@ -447,7 +361,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            Limitation of Liability
+            4. Third party Vendors
           </Text>
           <Text
             accessible={true}
@@ -463,93 +377,43 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            - TO THE FULLEST EXTENT PERMITTED BY LAW, UNDER NO CIRCUMSTANCES SHALL WE BE LIABLE FOR ANY DIRECT OR INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES (including any financial losses) ARISING OUT OF ANY (I) USE, OR THE INABILITY (FOR ANY REASON) TO USE ANY PART OF THIS WEBSITE (INCLUDING WITHOUT LIMITATION INACCURACIES OR ERRORS OF INFORMATION AS A RESULT OF ACCESSING THIS WEBSITE) or any failed transfer of any funds under a Wallet to its designated location, (II) ACTION OR INACTION IN CONNECTION WITH THESE TERMS, OR (III) STATEMENTS OR CONDUCT OF YOU OR ANY THIRD PARTY ON THIS WEBSITE OR YOUR WEBSITE, INCULDING WITHOUT LIMITATION ANY SUBMISSIONS THEREON; IN EACH CASE, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, WHETHER BASED ON CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY OR OTHERWISE.
-            
-
-            - SHOULD ABOVE EXCLUSION BE HELD BY THE COMPETENT COURTS AS UNENFORCEABLE OR VOID, THE CUMULATIVE LIABILITY TO USER FOR ANY AND ALL CLAIMS RELATING TO THE Website (WHETHER OR NOT PROVIDED BY THE USER) AND/OR DUE TO THE NON-AVAILABILITY THEREOF, SHALL NOT EXCEED THE LOWER OF THE TOTAL AMOUNT PAID BY USER AS CONSIDERATION FOR THE USE OF THE WEBSITE (IF PAID) OR $100.
-            
-
-            - WITHOUT DEROGATING FROM THE GENERAL NATURE OF THE FOREGOING, WE ASSUME NO LIABILITY FOR ANY DAMAGES CAUSED BY VIRUSES, WORMS AND/OR OTHER MALICIOUS SOFTWARE WHICH MAY INFECT THE USER'S MACHINE(S) WITHIN THE SCOPE OF THE USE OF THE website.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
+            4.1. We may use third-party vendors (each: a “
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
+            >
+              Third-Party Vendor
+            </Text>
+            ”), in order to assist us in the operation of the Platform.
             
 
-            Indemnification
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
+            4.2.
+             
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
               }
-            }
-          >
-            
-
-            - YOU SHALL INDEMNIFY US, including our DIRECTORS AND OFFICERS, EMPLOYEES, SERVICE PROVIDERS AND/OR ANY AFFILIATES (COLLECTIVELY: THE “INDEMNITEES”), FOR CLAIMS, SUITS, LOSSES AND/OR DAMAGES RESULTING FROM YOUR USE OF, ACCESS TO OR RELIANCE ON THE WEBSITE ANS/OR any content presented thereto.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
-              }
-            }
-          >
-            
-
-            Governing Law; Class Action Waiver
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-              }
-            }
-          >
-            
-
-            - Subject to any applicable law, all disputes between you and we shall only be resolved on an individual basis and you shall not have the right to bring any claim against us as a plaintiff or a member of a class, consolidated or representative actions (or any other legal proceedings conducted by a group or by representatives on behalf of others).
-            
-
-            - To the maximum extent permitted by law, these Terms is governed by the laws of the State of Washington, U.S.A. and you hereby consent to the exclusive jurisdiction and venue of courts in San Mateo County, California, U.S.A. in all disputes arising out of or relating to the use of the Website. Use of the Website is unauthorized in any jurisdiction that does not give effect to all provisions of these terms and conditions, including without limitation this paragraph. You agree that no joint venture, partnership, employment, or agency relationship exists between you and Oneiro as a result of this agreement or use of the Website.
-            
-
-            - Out performance of these Terms is subject to existing laws and legal process, and nothing contained in this agreement is in derogation of our right / obligation to comply with governmental, court and law enforcement requests or requirements relating to your use of the Website or information provided to or gathered by us with respect to such use. If any part of these Terms is determined to be invalid or unenforceable pursuant to applicable law including, but not limited to, the warranty disclaimers and liability limitations set forth above, then the invalid or unenforceable provision will be deemed superseded by a valid, enforceable provision that most closely matches the intent of the original provision and the remainder of the agreement shall continue in effect.
-            
-
-            - Unless otherwise specified herein, these Terms constitute the entire agreement between the User and Oneiro with respect to the Website and it supersedes all prior or contemporaneous communications and proposals, whether electronic, oral or written, between the User and Oneiro with respect to the Website and/or any content provided thereto. A printed version of these Terms and of any notice given in electronic form shall be admissible in judicial or administrative proceedings based upon or relating to these Terms to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form. It is the express wish to the parties that these Terms and all related documents be drawn up in English.
-            
-
-            - For the purposes hereof “Terms” shall also include our Privacy Notice, as amended from time to time.
+            >
+              Limited Warranties Regarding Third-Party Vendors
+            </Text>
+            . You understand that we have no control over Third-Party Vendors and their specific terms and conditions / privacy policies (regarding specific privacy matters, we do however periodically review our Third-Party Vendors) and thus shall not be responsible for any services provided by Third-Party Vendors. Furthermore, you will be solely responsible to meet all applicable requirements and/or license terms imposed by Third-Party Vendors you may use. A list of current Third-Party Vendors can be found in our Privacy Statement.
           </Text>
           <Text
             accessible={true}
@@ -567,7 +431,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            Assignment
+            5. Security
           </Text>
           <Text
             accessible={true}
@@ -583,41 +447,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            - You may not assign any rights and/or obligations you may have under these Terms and/or Privacy Notice without our prior written consent. We may freely assign any of its rights and/or obligations herein, without limitations; provided that, your rights herein shall not be adversely affected.
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "textDecorationLine": "underline",
-              }
-            }
-          >
-            
-
-            Survival
-          </Text>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#ffffff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-              }
-            }
-          >
-            
-
-            - It is hereby clarifeid that THE TERMS OF SECTIONS ‎7, ‎9 THROUGH ‎11 (Inclusive), AND SECTION ‎12 SHALL SURVIVE ANY TERMINATION of our engagement in connection with the website, REGARDLESS OF REASON.
+            DESPITE MAINTAINING REASONABLE MEASURES TO SECURE THE PLATFORM, WE CANNOT ENSURE FULL PROTECTION FROM EXPOSURE DUE TO MALICIOUS ACTS, AND THEREFORE ARE NOT LIABLE FOR ANY DAMAGES, WHETHER DIRECT, INDIRECT, INCIDENTAL OR CONSEQUENTIAL, INCURRED BY ANY USER.
           </Text>
           <Text
             accessible={true}
@@ -635,7 +465,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            Contacting Us
+            6. Use of Platform
           </Text>
           <Text
             accessible={true}
@@ -651,7 +481,567 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            - If you have cause to believe any content found in the Website (including such content provided by other users) to be in violation of these Terms and/or infringe any 3rd party proprietary rights and/or applicable law, kindly notify us of such content via email to info@Oneiro.io stating the violating content and the nature of violation.
+            6.1. ANY USE OF THE CONTENT OFFERED TO YOU AND/OR MADE AVAILABLE TO YOU VIA THE PLATFORM IS SUBJECT TO THESE TERMS AND IS NOT PROVIDED EXCLUSIVELY FOR YOU.
+            
+
+            6.2. 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Legal Age
+            </Text>
+            . You are not allowed to make any use of the Platform in the event that you are under the age of 16.
+            
+
+            6.3. 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Compliance
+            </Text>
+            . Notwithstanding anything to the contrary herein, you agree to abide by all applicable local, state, national, and international laws and regulations in regard to your use of the Platform and any content offered therein. For the avoidance of doubt, the ability to access our Platform does not necessarily mean that your use is permitted under relevant laws, regulations, and directives.
+            
+
+            6.4. 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Additional Policies
+            </Text>
+            . In addition to the foregoing, while using the Platform, you will strictly adhere to the respective Platform policies published by us from time to time, such that you should not:
+            
+	
+             (a) Browse, surf, process, scan, or use the Platform via operation of a computer program designed to gather information or perform operations imitating a human user (including, without limitation, Bots or Crawlers);
+            
+	
+            (b) Manipulate the URL of the Website (or if applicable, the Application), gain access to any internal pages to which we did not provide you with a direct link (including, without limitation, URL Hacking), whether via the Website and/or Application, nor otherwise create any link to (or otherwise embed) the Platform via any Application Program Interface (API);
+            
+	
+            (c) Transmit or otherwise make available any worm, virus, Trojan Horse, web-bug, spyware, or any other program that is intended to damage the operation of the Platform;
+            
+	
+            (d) Carry out any action which may infringe upon the copyrights and/or any other intellectual property rights and/or information of us or any other copyright holder;
+            
+	
+            (e) Promote advertisements or disruptive commercial messages; Copy, transmit, decompile, modify, create derivative works, reproduce, disassemble, republish, scrape, and/or reverse engineer any algorithm, code, syntax and/or any other content associated with the Platform and/or any components thereof and/or act to collect, harvest, and/or data mine any data associated with the Platform and/or any of its users (whether by computer programs, identity theft, impersonation, or otherwise) and/or take any action which may be deemed as impersonating another person or entity, identity theft, holding multiple accounts (if applicable), etc.;
+            
+	
+            (f) Handle and/or otherwise use any content offered or displayed on the Platform in any manner or way that violates these Terms;
+            
+	
+            (g) Carry out any action which may infringe upon any laws, regulations, orders, or any guidelines of any governmental authority, and/or is likely to offend or harm any other users of the Platform and/or the general public;
+            
+	
+            (h) Intimidate, threaten, harass, or abuse anyone in any manner;
+            
+	
+            (i) Steal or attempt to steal passwords or other private information from other users of the Platform;
+            
+	
+            (j) Distribute, post or make any other use (or otherwise encourage or solicit the consumption or performance) of any illegal, explicit, inappropriate, racist, offending, defaming, disparaging and/or abusing content, or any content which might be deemed as infringing any third-party intellectual property rights (including our rights); and,
+            
+	
+            (k) Carry out any action which violates any community guidelines, Terms and/or Privacy Notice, as prescribed herein and/or as otherwise published by us.
+            
+
+            6.5. 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              External Links
+            </Text>
+            . The Platform may contain external links to third-party websites (“
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              External Content
+            </Text>
+            ”). External Content might be based upon information collected by us from our users, in accordance with our Privacy Notice. Regardless, we have no control over the content of External Content, the order of its presentation or its accuracy, and we are not a direct party to any transaction resulting from such External Content (if applicable), and therefore assume no responsibility and/or liability in that respect. In addition, we provide no warranty that the access, browsing and/or consummation of any External Content shall be safe, nor that the owners or controllers of such External Content have undertaken any security or protection measures (for example, we cannot verify, nor do we warrant, that the External Content shall be free of any errors, malware, spyware, phishing, Trojan horses, data mining and/or collection, etc.). Your use of any External Content shall be at your sole risk. We highly recommend that you verify the origin of any External Content prior to gaining access or otherwise using it.
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            7. Content and Ownership
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            7.1. 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Ownership
+            </Text>
+            . As between you and Oneiro, other than Tokens that you have subscribed in full compliance with all of our requirements and other materials licensed to us, Oneiro is the sole owner, and retains all rights, titles, and interest in and to the Platform, including any and all copyrightable materials or any other content included in the Platform, whether or not registrable rights under any applicable law (“
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Proprietary Content
+            </Text>
+            ”). In the event that the Proprietary Content is licensed to us, then such content might be subject to additional restrictions by its owners.
+            
+
+            7.2. 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Right to Use
+            </Text>
+            . You may only use the Proprietary Content in the context of viewing it as an integral part of our Platform, and for the General Purpose alone; subject further to the specific provisions of these Terms. In order to remove any doubt, you are restricted from making any copies of the Proprietary Content (whether tangible or electronic), transferring, distributing, and/or otherwise disseminating any Proprietary Content (or any portion thereof).
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            8. Privacy and Data Protection
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            8.1. In addition to these Terms, your use of the Platform is also subject to our Privacy Notice, which informs you of our policies and procedures regarding the collection, use, and disclosure of information we receive when you visit our Platform and when communicating with us.
+            
+
+            8.2. DESPITE MAINTAINING REASONABLE MEASURES TO SECURE AND PROTECT YOUR ACCOUNT INFORMATION REGARDING USERS’ ACCESS TO THE PLATFORM, WE CANNOT ENSURE FULL PROTECTION FROM EXPOSURE DUE TO MALICIOUS ACTS, AND THEREFORE ARE NOT BE LIABLE FOR ANY DAMAGES, WHETHER DIRECT, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL, INCURRED BY USERS DUE TO EXPOSURE OF ACCOUNT CONTENTS OR INFORMATION REGARDING USERS’ ACCESS. YOU ARE HIGHLY ENCOURAGED TO MAINTAIN REQUISITE PROTECTION FOR YOUR DEVICES, SUCH AS APPLYING UPDATES TO YOUR SOFTWARE AND HARDWARE WHEN THEY BECOME AVAILABLE, AND MAINTAINING UP-TO-DATE ANTIVIRUS, ANTI-MALWARE, OR ANTI-PHISHING SOFTWARE.
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            9. Limited Warranties
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            9.1. THE PLATFORM AND ANY OF ITS CONTENT IS PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS. WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT OF ANY RIGHTS.
+            
+
+            9.2. WITHOUT LIMITING THE ABOVE, WE MAKE NO WARRANTY (I) THAT THE PLATFORM, ANALYSIS UNDER ANY OF OUR WHITEPAPER AND/OR ANY OTHER CONTENT WILL MEET YOUR REQUIREMENTS, OR WILL BE UNINTERRUPTED, CONTINUOUS, TIMELY, SECURE, ACCURATE, CORRECT, COMPLETE OR AVAILABLE, INCLUDING WITHOUT LIMITATIONS, IN CONNECTION WITH ANY SERVER RUNTIME AND/OR DOWNTIME (INCLUDING ANY INTERRUPTION OR CESSATION OF ANY DATA RECEIVED AND/OR OTHERWISE TRANSMITTED WITHIN THE SCOPE OF THE USE OF THE PLATFORM), SERVER SECURITY MEASURES, CONTENT PROVIDED BY OTHER USERS AND/OR YOURSELF (INCLUDING ANY PERSONAL, FINANCIAL AND/OR ANY OTHER INFORMATION) OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE PLATFORM, NOR (II), THAT THE PLATFORM SHALL BE FREE OF VIRUSES, TROJAN HORSES AND/OR ANY OTHER FORM OF MALWARE UTILIZED BY THIRD PARTIES, OR OTHERWISE BE FREE OF ANY ERRORS AND/OR BUGS.
+            
+
+            9.3. WE DO NOT ENDORSE OR APPROVE ANY CONTENT PROVIDED BY ANY PARTY OTHER THAN US. WE DO NOT WARRANT OR MAKE ANY REPRESENTATIONS REGARDING THE RESULTS OF YOUR USE OF THE PLATFORM AND THEIR CORRECTNESS, COMPLETENESS, AVAILABILITY, ACCURACY AND/OR RELIABILITY.
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            10. Limitation of Liability
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            10.1. TO THE FULLEST EXTENT PERMITTED BY LAW, UNDER NO CIRCUMSTANCES SHALL WE BE LIABLE FOR ANY DIRECT OR INDIRECT, INCIDENTAL, PUNITIVE, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES (INCLUDING ANY FINANCIAL LOSSES AND/OR LOSS OF PROFITS) ARISING OUT OF ANY THE USE, OR THE INABILITY (FOR ANY REASON) TO USE ANY PART OF THE PLATFORM. THIS LIMITATION WILL ALSO APPLY TO MATTERS PERTAINING TO INACCURACIES OR ERRORS OF INFORMATION AS A RESULT OF ACCESSING THE PLATFORM, ANY FAILED TRANSFER OF ANY FUNDS UNDER A WALLET TO ITS DESIGNATED LOCATION, DAMAGES CAUSED DUE TO VIRUSES AND/OR OTHER MALWARE, OR ANY OTHER ACTION OR INACTION IN CONNECTION WITH THESE TERMS (INCLUDING YOUR OR OTHER USERS’ STATEMENTS OR CONDUCT).
+            
+
+            10.2. THE CUMULATIVE LIABILITY TO YOU FOR ANY AND ALL CLAIMS RELATING TO THE PLATFORM, SHALL BE LIMITED TO THE LOWER OF (I) THE TOTAL AMOUNT PAID BY USER AS CONSIDERATION FOR THE USE OF THE PLATFORM (IF PAID, AND SPECIFICALLY EXCLUDING ANY AMOUNTS PAID BY SUCH USER IN CONNECTION WITH THE SUBSCRIPTION OF ANY TOKENS), OR (II) USD $100.
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            11. Indemnification
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            YOU SHALL INDEMNIFY 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              ONEIRO
+            </Text>
+            , INCLUDING OUR DIRECTORS AND OFFICERS, EMPLOYEES, SERVICE PROVIDERS, AND/OR ANY AFFILIATES, FOR CLAIMS, SUITS, LOSSES AND/OR
+             
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              DAMAGES CAUSED, IF
+            </Text>
+             RESULTING FROM YOUR USE OF, ACCESS TO, OR RELIANCE ON THE 
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              PLATFORM
+            </Text>
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            12. Governing Law; Class Action Waiver
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            12.1. Subject to any applicable law, all disputes between you and us shall only be resolved on an individual basis and you shall not have the right to bring any claim against us as a plaintiff or a member of a class, consolidated or representative actions (or any other legal proceedings conducted by a group or by representatives on behalf of others).
+            
+
+            12.2. These Terms are governed by the General Corporation Law of the State of Delaware. You hereby consent to the exclusive jurisdiction and venue of courts in Wilmington, New Castle County, Delaware 19801, U.S.A. in all disputes arising out of or relating to the use of the Platform. Use of the Platform is unauthorized in any jurisdiction that does not give effect to all provisions of these terms and conditions, including without limitation this paragraph. You agree that no joint venture, partnership, employment, or agency relationship exists between you and Oneiro as a result of these Terms and/or any use of the Platform (including any subscription for Tokens).
+            
+
+            12.3. Our performance of these Terms is subject to existing laws and legal process, and nothing contained in these Terms is in derogation of our right / obligation to comply with governmental, court and law enforcement requests or requirements relating to your use of the Platform or information provided to or gathered by us with respect to such use.
+            
+
+            12.4. If any part of these Terms is determined to be invalid or unenforceable pursuant to applicable law including, but not limited to, the warranty disclaimers and liability limitations set forth above, then the invalid or unenforceable provision will be deemed superseded by a valid, enforceable provision that most closely matches the intent of the original provision and the remainder of the agreement shall continue in effect.
+            
+
+            12.5. Unless otherwise specified herein, these Terms constitute the entire agreement between you and Oneiro with respect to the Platform and it supersedes all prior or contemporaneous communications and proposals, whether electronic, oral or written, between you and Oneiro with respect to the Platform.
+            
+
+            12.6. These Terms constitute the entire agreement between the User and Oneiro with respect to the Platform and it supersedes all prior or contemporaneous communications and proposals, whether electronic, oral or written, between the User and Oneiro with respect to the Platform.
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            13. Assignment
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            You may not assign any rights and/or obligations you may have under these Terms and/or Privacy Notice without our prior written consent. We may freely assign any of its rights and/or obligations herein, without limitations; provided that your rights herein shall not be adversely affected.
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            14. Termination and Survival
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            14.1. Our engagement will conclude when you delete the Application from your device, or, if applicable, cease browsing the Website and remove yourself from any mailing list you have subscribed to. We may also conclude our engagement by providing you with a notice to the email address you have provided us (if provided), or by taking any other measure which we deem suitable for concluding our engagement.
+            
+
+            14.2. IT IS HEREBY CLARIFIED THAT THE TERMS OF SECTIONS ‎7, ‎9 THROUGH ‎11 (INCLUSIVE), AND SECTION ‎12 SHALL SURVIVE ANY TERMINATION OF OUR ENGAGEMENT IN CONNECTION WITH THE PLATFORM, REGARDLESS OF REASON.
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            
+
+            15. Contacting Us
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+              }
+            }
+          >
+            
+
+            If you have cause to believe any content found in the Platform (including such content provided by other users) is in violation of these Terms and/or infringes any third-party proprietary rights and/or applicable law, kindly notify us of such content via email to info@oneiro.io stating the violating content and the nature of violation.
             
 
           </Text>
