@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const parentStyles = {
+export default StyleSheet.create({
   safeContainer: {
     flex: 1,
     backgroundColor: '#1c2227'
@@ -73,14 +73,11 @@ const parentStyles = {
     paddingBottom: 10,
     paddingTop: 10
   },
-  checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 }
-};
-
-const NavigationReducer = (state = { parentStyles: parentStyles }, action = {}) => {
-  switch (action.type) {
-    default:
-      return state;
+  checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 },
+  contentContainer: {
+    flex: 1 // pushes the footer to the end of the screen
+  },
+  footer: {
+    justifyContent: 'flex-end'
   }
-};
-
-export default NavigationReducer;
+});

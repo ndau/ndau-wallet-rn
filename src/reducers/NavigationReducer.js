@@ -9,8 +9,7 @@ const NavigationReducer = (state = { root: undefined }, action = {}) => {
         screen: action.screen,
         label: action.screen
       });
-    // return { ...state };
-    // break;
+      return { ...state };
     default:
       return state;
   }
