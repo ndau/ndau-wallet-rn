@@ -16,17 +16,19 @@ import CommonButton from '../components/CommonButton';
 import { Dropdown } from 'react-native-material-dropdown';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from '../actions/NavigationActions';
+import { setNav } from '../helpers/navigator';
 
 // import * as Actions from '../actions/ActionTypes';
 
-// function mapStateToProps(state) {
-//   return {
-//     app: state.app
-//   };
-// }
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ push }, dispatch);
-// }
+function mapStateToProps(state) {
+  return {
+    app: state.app
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ push }, dispatch);
+}
 
 class Passphrase extends Component {
   constructor(props) {
@@ -37,6 +39,16 @@ class Passphrase extends Component {
       showErrorText: false,
       userIds: []
     };
+
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    switch (event.id) {
+      case 'willAppear':
+        setNav(this.props.navigator);
+        break;
+    }
   }
 
   componentDidMount = () => {
@@ -63,6 +75,7 @@ class Passphrase extends Component {
   };
 
   showSetup = () => {
+    console.log('getting here');
     this.props.push('ndau.SetupMain');
   };
 
@@ -127,7 +140,7 @@ class Passphrase extends Component {
               <Text style={styles.text}>or</Text>
             </View>
             <View style={styles.textContainer}>
-              <Text onPress={this.props.showSetup} style={styles.linkText}>
+              <Text onPress={this.showSetup} style={styles.linkText}>
                 Create a new user
               </Text>
             </View>
@@ -192,5 +205,4 @@ const styles = StyleSheet.create({
   }
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Passphrase);
-export default Passphrase;
+export default connect(mapStateToProps, mapDispatchToProps)(Passphrase);

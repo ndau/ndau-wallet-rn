@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, SafeAreaView, Platform } from 'react-native';
 import CommonButton from '../components/CommonButton';
+import { connect } from 'react-redux';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -67,6 +68,12 @@ class SetupMain extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    parentStyles: StyleSheet.create(state.parentStyles)
+  };
+}
+
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
@@ -80,4 +87,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupMain;
+export default connect(mapStateToProps, null)(SetupMain);

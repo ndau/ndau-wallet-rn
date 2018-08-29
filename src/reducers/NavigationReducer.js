@@ -6,9 +6,10 @@ const NavigationReducer = (state = { root: undefined }, action = {}) => {
   switch (action.type) {
     case Actions.PUSH_SCREEN:
       nav.push({
-        screen: action.screen
+        screen: action.screen,
+        label: action.screen
       });
-      return { ...state };
+    // return { ...state };
     // break;
     default:
       return state;

@@ -15,7 +15,7 @@ function startApp() {
   const tabs = [
     {
       label: 'Dashboard',
-      screen: 'ndau.CounterApp',
+      screen: 'ndau.Dashboard',
       icon: iconsMap['ndau-icon'],
       title: 'Dashboard'
     },

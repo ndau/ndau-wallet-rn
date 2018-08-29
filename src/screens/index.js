@@ -18,20 +18,35 @@ import CounterApp from './CounterApp';
 import CounterComponent from '../components/CounterComponent';
 
 export function registerScreens(store, Provider) {
-  Navigation.registerComponent('ndau.Dashboard', () => Dashboard);
-  Navigation.registerComponent('ndau.Passphrase', () => Passphrase);
+  Navigation.registerComponent('ndau.Dashboard', () => Dashboard, store, Provider);
+  Navigation.registerComponent('ndau.Passphrase', () => Passphrase, store, Provider);
 
-  Navigation.registerComponent('ndau.SetupMain', () => SetupMain);
-  Navigation.registerComponent('ndau.SetupUserId', () => SetupUserId);
-  Navigation.registerComponent('ndau.SetupEncryptionPassword', () => SetupEncryptionPassword);
-  Navigation.registerComponent('ndau.SetupGetRandom', () => SetupGetRandom);
-  Navigation.registerComponent('ndau.SetupYourWallet', () => SetupYourWallet);
-  Navigation.registerComponent('ndau.SetupSeedPhrase', () => SetupSeedPhrase);
-  Navigation.registerComponent('ndau.SetupConfirmSeedPhrase', () => SetupConfirmSeedPhrase);
-  Navigation.registerComponent('ndau.SetupQRCode', () => SetupQRCode);
-  Navigation.registerComponent('ndau.SetupTermsOfService', () => SetupTermsOfService);
-  Navigation.registerComponent('ndau.SetupEAINode', () => SetupEAINode);
-  Navigation.registerComponent('ndau.Settings', () => Settings);
+  Navigation.registerComponent('ndau.SetupMain', () => SetupMain, store, Provider);
+  Navigation.registerComponent('ndau.SetupUserId', () => SetupUserId, store, Provider);
+  Navigation.registerComponent(
+    'ndau.SetupEncryptionPassword',
+    () => SetupEncryptionPassword,
+    store,
+    Provider
+  );
+  Navigation.registerComponent('ndau.SetupGetRandom', () => SetupGetRandom, store, Provider);
+  Navigation.registerComponent('ndau.SetupYourWallet', () => SetupYourWallet, store, Provider);
+  Navigation.registerComponent('ndau.SetupSeedPhrase', () => SetupSeedPhrase, store, Provider);
+  Navigation.registerComponent(
+    'ndau.SetupConfirmSeedPhrase',
+    () => SetupConfirmSeedPhrase,
+    store,
+    Provider
+  );
+  Navigation.registerComponent('ndau.SetupQRCode', () => SetupQRCode, store, Provider);
+  Navigation.registerComponent(
+    'ndau.SetupTermsOfService',
+    () => SetupTermsOfService,
+    store,
+    Provider
+  );
+  Navigation.registerComponent('ndau.SetupEAINode', () => SetupEAINode, store, Provider);
+  Navigation.registerComponent('ndau.Settings', () => Settings, store, Provider);
 
   //TODO: temp stuff
   Navigation.registerComponent('ndau.CounterApp', () => CounterApp, store, Provider);
