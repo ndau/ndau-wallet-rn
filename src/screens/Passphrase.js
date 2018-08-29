@@ -12,8 +12,21 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+// import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import { Dropdown } from 'react-native-material-dropdown';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+// import * as Actions from '../actions/ActionTypes';
+
+// function mapStateToProps(state) {
+//   return {
+//     app: state.app
+//   };
+// }
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ push }, dispatch);
+// }
 
 class Passphrase extends Component {
   constructor(props) {
@@ -47,6 +60,10 @@ class Passphrase extends Component {
       [ { text: 'OK', onPress: () => {} } ],
       { cancelable: false }
     );
+  };
+
+  showSetup = () => {
+    this.props.push('ndau.SetupMain');
   };
 
   render() {
@@ -110,7 +127,7 @@ class Passphrase extends Component {
               <Text style={styles.text}>or</Text>
             </View>
             <View style={styles.textContainer}>
-              <Text onPress={this.props.showSetup()} style={styles.linkText}>
+              <Text onPress={this.props.showSetup} style={styles.linkText}>
                 Create a new user
               </Text>
             </View>
@@ -175,4 +192,5 @@ const styles = StyleSheet.create({
   }
 });
 
+// export default connect(mapStateToProps, mapDispatchToProps)(Passphrase);
 export default Passphrase;

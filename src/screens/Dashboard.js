@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, BackHandler } 
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import AlertPanel from '../components/AlertPanel';
+import { setNav } from '../helpers/navigator';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -15,6 +16,16 @@ export default class Dashboard extends Component {
     };
 
     this.maxLoginAttempts = 10;
+
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    switch (event.id) {
+      case 'willAppear':
+        setNav(this.props.navigator);
+        break;
+    }
   }
 
   componentWillUnmount() {

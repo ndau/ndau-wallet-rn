@@ -2,9 +2,10 @@ import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { registerScreens } from './screens';
 import { iconsMap, iconsLoaded } from './app-icons';
+import { Provider } from 'react-redux';
+import store from './reducers/index';
 
-// screen related book keeping
-registerScreens();
+registerScreens(store, Provider);
 
 iconsLoaded.then(() => {
   startApp();
@@ -14,7 +15,7 @@ function startApp() {
   const tabs = [
     {
       label: 'Dashboard',
-      screen: 'ndau.Dashboard',
+      screen: 'ndau.CounterApp',
       icon: iconsMap['ndau-icon'],
       title: 'Dashboard'
     },

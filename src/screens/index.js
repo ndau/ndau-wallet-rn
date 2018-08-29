@@ -14,7 +14,10 @@ import SetupEAINode from './SetupEAINode';
 import Passphrase from './Passphrase';
 import Settings from './Settings';
 
-export function registerScreens() {
+import CounterApp from './CounterApp';
+import CounterComponent from '../components/CounterComponent';
+
+export function registerScreens(store, Provider) {
   Navigation.registerComponent('ndau.Dashboard', () => Dashboard);
   Navigation.registerComponent('ndau.Passphrase', () => Passphrase);
 
@@ -29,4 +32,8 @@ export function registerScreens() {
   Navigation.registerComponent('ndau.SetupTermsOfService', () => SetupTermsOfService);
   Navigation.registerComponent('ndau.SetupEAINode', () => SetupEAINode);
   Navigation.registerComponent('ndau.Settings', () => Settings);
+
+  //TODO: temp stuff
+  Navigation.registerComponent('ndau.CounterApp', () => CounterApp, store, Provider);
+  Navigation.registerComponent('ndau.CounterComponent', () => CounterComponent);
 }
