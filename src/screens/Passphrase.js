@@ -12,54 +12,35 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
-// import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import { Dropdown } from 'react-native-material-dropdown';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from '../actions/NavigationActions';
-import { setNav } from '../helpers/navigator';
-
-// import * as Actions from '../actions/ActionTypes';
+import { pushSetup, setPassword, setNavigator } from '../actions/NavigationActions';
+import cssStyles from '../css/styles';
 
 function mapStateToProps(state) {
-  return {
-    app: state.app
-  };
+  return {};
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ push }, dispatch);
+  return bindActionCreators({ pushSetup, setPassword, setNavigator }, dispatch);
 }
 
 class Passphrase extends Component {
   constructor(props) {
     super(props);
+
+    // this.props.setNavigator(this.props.navigator);
+
     this.state = {
       password: '',
       userId: '',
       showErrorText: false,
       userIds: []
     };
-
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
-
-  onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'willAppear':
-        setNav(this.props.navigator);
-        break;
-    }
-  }
-
-  componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
-    });
-  };
 
   login = () => {
-    this.props.setPassphrase(this.state.password);
+    this.props.setPassword(this.state.password);
     this.props.navigator.popToRoot();
   };
 
@@ -75,8 +56,7 @@ class Passphrase extends Component {
   };
 
   showSetup = () => {
-    console.log('getting here');
-    this.props.push('ndau.SetupMain');
+    this.props.pushSetup('ndau.SetupMain');
   };
 
   render() {
@@ -128,7 +108,7 @@ class Passphrase extends Component {
             </View>
             {this.state.showErrorText ? (
               <View style={styles.errorContainer}>
-                <Text style={this.props.parentStyles.errorText}>
+                <Text style={cssStyles.errorText}>
                   Please enter the passphrase you chose to decrypt this app.{' '}
                 </Text>
               </View>

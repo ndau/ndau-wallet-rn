@@ -4,6 +4,18 @@ import Base64 from 'base-64';
 import CommonButton from '../components/CommonButton.js';
 import Randal from '../helpers/randal.js';
 import Stepper from '../components/Stepper';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { pushSetup, setEntropy } from '../actions/NavigationActions';
+
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ pushSetup, setEntropy }, dispatch);
+}
 
 class SetupGetRandom extends Component {
   constructor(props) {
@@ -36,26 +48,9 @@ class SetupGetRandom extends Component {
     });
   }
 
-  onPushAnother = async () => {
-    this.props.navigator.push({
-      label: 'SetupYourWallet',
-      screen: 'ndau.SetupYourWallet',
-      passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        qrToken: this.props.qrToken,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        entropy: this.state.entropy,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
+  showNextSetup = () => {
+    this.props.setEntropy(this.state.entropy);
+    this.props.pushSetup('ndau.SetupYourWallet');
   };
 
   handleScribble(evt) {
@@ -92,12 +87,12 @@ class SetupGetRandom extends Component {
     const { scribbling } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer} scrollEnabled={!scribbling}>
             <Stepper screenNumber={3} />
 
             <View>
-              <Text style={this.props.parentStyles.wizardText}>
+              <Text style={cssStyles.wizardText}>
                 To generate the strongest possible encryption, we need a source of random input.
                 Scribble in the box below to add randomness to your key.
               </Text>
@@ -115,7 +110,7 @@ class SetupGetRandom extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <CommonButton
-              onPress={this.onPushAnother}
+              onPress={this.showNextSetup}
               title="Done"
               disabled={this.state.doneDisabled}
             />
@@ -171,4 +166,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupGetRandom;
+export default connect(mapStateToProps, mapDispatchToProps)(SetupGetRandom);

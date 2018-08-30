@@ -5,6 +5,23 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { push } from '../actions/NavigationActions';
+
+function mapStateToProps(state) {
+  return {
+    userId: state.userId,
+    qrCode: state.qrCode,
+    numberOfAccounts: state.numberOfAccounts,
+    seedPhraseArray: state.seedPhraseArray
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ push }, dispatch);
+}
 
 //"nd" for mainnet, or "tn" for testnet.
 const addressGenerationType = 'nd';
@@ -36,13 +53,6 @@ class SetupEAINode extends Component {
       selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)].value
     };
   }
-
-  componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
-    });
-  };
 
   sendAccountAddresses = (userId, addresses, token) => {
     return new Promise((resolve, reject) => {
@@ -94,7 +104,7 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    return this.sendAccountAddresses(this.props.userId, addresses, this.props.qrToken);
+    return this.sendAccountAddresses(this.props.userId, addresses, this.props.qrCode);
   };
 
   persistAddresses = (addresses) => {
@@ -106,34 +116,18 @@ class SetupEAINode extends Component {
     AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
   };
 
-  returnToDashboard = () => {
-    this.props.navigator.push({
-      label: 'Dashboard',
-      screen: 'ndau.Dashboard',
-      passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts,
-        seedPhraseArray: this.props.seedPhraseArray
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true
-      },
-      backButtonHidden: true
-    });
+  showNextSetup = () => {
+    this.props.push('ndau.Dashboard');
   };
 
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={8} />
             <View style={styles.textContainer}>
-              <Text style={this.props.parentStyles.wizardText}>
+              <Text style={cssStyles.wizardText}>
                 In order to earn your Ecosystem Alignment Incentive (EAI) you must delegate your
                 ndau to a node. Please select the default node for your accounts. You will be able
                 to change this later.
@@ -145,7 +139,7 @@ class SetupEAINode extends Component {
               baseColor="#ffffff"
               selectedItemColor="#000000"
               textColor="#ffffff"
-              itemTextStyle={this.props.parentStyles.wizardText}
+              itemTextStyle={cssStyles.wizardText}
               fontSize={20}
               labelFontSize={14}
               value={this.state.selectedNode}
@@ -188,4 +182,4 @@ const styles = StyleSheet.create({
   checkbox: { flex: 1, padding: 10 }
 });
 
-export default SetupEAINode;
+export default connect(mapStateToProps, mapDispatchToProps)(SetupEAINode);

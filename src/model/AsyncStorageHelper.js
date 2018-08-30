@@ -12,6 +12,7 @@ const getUser = (userId, encryptionPassword) => {
     console.debug(`storage key to check is ${storageKey}`);
     AsyncStorage.getItem(STORAGE_KEY_PREFIX + userId)
       .then((user) => {
+        console.debug(`The following user object was returned: ${user}`);
         if (user !== null) {
           console.debug(`getUser - encrypted user is: ${user}`);
           const userDecryptedBytes = CryptoJS.AES.decrypt(user, encryptionPassword);
@@ -20,7 +21,7 @@ const getUser = (userId, encryptionPassword) => {
 
           resolve(JSON.parse(userDecryptedString));
         } else {
-          reject(null);
+          resolve(null);
         }
       })
       .catch((error) => {

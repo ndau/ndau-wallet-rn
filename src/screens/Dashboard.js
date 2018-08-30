@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, Alert, View, Text, BackHandler } from 'react-native';
+import { ScrollView, SafeAreaView, Alert, View, Text, BackHandler } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import AlertPanel from '../components/AlertPanel';
-import { setNav } from '../helpers/navigator';
+import { connect } from 'react-redux';
+import cssStyles from '../css/styles';
+import { bindActionCreators } from 'redux';
+import { pushSetup, setNavigator } from '../actions/NavigationActions';
 
-export default class Dashboard extends Component {
+function mapStateToProps(state) {
+  return {
+    userId: state.userId,
+    password: state.password
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ pushSetup, setNavigator }, dispatch);
+}
+
+class Dashboard extends Component {
   constructor(props) {
     super(props);
+
+    this.props.setNavigator(this.props.navigator);
+
     this.state = {
       user: {},
       passPhrase: null,
@@ -16,16 +32,6 @@ export default class Dashboard extends Component {
     };
 
     this.maxLoginAttempts = 10;
-
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  onNavigatorEvent(event) {
-    switch (event.id) {
-      case 'willAppear':
-        setNav(this.props.navigator);
-        break;
-    }
   }
 
   componentWillUnmount() {
@@ -42,12 +48,8 @@ export default class Dashboard extends Component {
     this.loginOrSetup(this.props.encryptionPassword || this.state.passPhrase);
   };
 
-  setPassphrase = (userId, passPhrase) => {
-    this.setState({ userId: userId, passPhrase: passPhrase });
-    this.loginOrSetup(userId, passPhrase);
-  };
-
   loginOrSetup = (userId, passPhrase) => {
+    console.debug(`Checking if ${userId} is present...`);
     AsyncStorageHelper.getUser(userId, passPhrase)
       .then((user) => {
         console.debug(`AsyncStorageHelper user is: ${JSON.stringify(user, null, 2)}`);
@@ -82,58 +84,28 @@ export default class Dashboard extends Component {
   };
 
   getPassphrase = () => {
-    this.props.navigator.push({
-      screen: 'ndau.Passphrase',
-      title: 'Passphrase',
-      backButtonHidden: true,
-      passProps: {
-        parentStyles: styles,
-        iconsMap: this.props.iconsMap,
-        setPassphrase: this.setPassphrase,
-        showSetup: this.showSetup
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true
-      },
-      navigationOptions: {
-        gesturesEnabled: false
-      }
-    });
+    this.props.pushSetup('ndau.Passphrase');
   };
 
   showSetup = () => {
-    this.props.navigator.push({
-      screen: 'ndau.SetupMain',
-      title: 'Setup',
-      passProps: {
-        parentStyles: styles,
-        iconsMap: this.props.iconsMap
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
+    this.props.pushSetup('ndau.SetupMain');
   };
 
   render() {
     const { addresses } = this.state.user;
     console.debug(`renders addresses: ${addresses}`);
     return addresses ? (
-      <SafeAreaView style={styles.safeContainer}>
-        <View style={styles.dashboardTextContainer}>
-          <Text style={styles.dashboardTextLarge}>Wallet {this.state.user.userId}</Text>
+      <SafeAreaView style={cssStyles.safeContainer}>
+        <View style={cssStyles.dashboardTextContainer}>
+          <Text style={cssStyles.dashboardTextLarge}>Wallet {this.state.user.userId}</Text>
         </View>
         <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
             sent to this app on Genesis Day. Until then, you can continue to view your holdings on
             the online dashboard." />
-        <View style={styles.dashboardTextContainer}>
-          <Text style={styles.dashboardTextSmall}>{addresses.length} addresses</Text>
+        <View style={cssStyles.dashboardTextContainer}>
+          <Text style={cssStyles.dashboardTextSmall}>{addresses.length} addresses</Text>
         </View>
-        <ScrollView style={styles.container}>
+        <ScrollView style={cssStyles.container}>
           {addresses ? (
             addresses.map((address, index) => {
               const counter = index + 1;
@@ -144,7 +116,7 @@ export default class Dashboard extends Component {
                   title={`Address ${counter}`}
                   address={address}
                 >
-                  <Text style={styles.text}>{address}</Text>
+                  <Text style={cssStyles.text}>{address}</Text>
                 </CollapsiblePanel>
               );
             })
@@ -152,83 +124,9 @@ export default class Dashboard extends Component {
         </ScrollView>
       </SafeAreaView>
     ) : (
-      <SafeAreaView style={styles.safeContainer} />
+      <SafeAreaView style={cssStyles.safeContainer} />
     );
   }
 }
 
-var styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20,
-    backgroundColor: '#1c2227'
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 14,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  textInput: {
-    height: 45,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    marginTop: 20,
-    paddingLeft: 10,
-    color: '#000000',
-    backgroundColor: '#ffffff',
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  button: {
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#4d9678',
-    backgroundColor: '#4d9678',
-    borderRadius: 3,
-    fontFamily: 'TitilliumWeb-Light',
-    margin: '0.5%',
-    padding: '2px',
-    borderRadius: 3
-  },
-  wizardText: {
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  progress: {
-    paddingTop: 8,
-    paddingBottom: 8
-  },
-  dashboardTextContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  dashboardTextLarge: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#ffffff',
-    fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 28,
-    paddingBottom: 10
-  },
-  dashboardTextSmall: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#4d9678',
-    fontFamily: 'TitilliumWeb-Light',
-    fontSize: 22,
-    shadowOpacity: 0.2,
-    shadowColor: '#4e957a',
-    shadowRadius: 3,
-    paddingBottom: 10,
-    paddingTop: 10
-  },
-  checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 }
-});
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

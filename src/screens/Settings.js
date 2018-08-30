@@ -1,7 +1,17 @@
 import React from 'react';
-import { StyleSheet, Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import Row from '../components/Row';
+import { connect } from 'react-redux';
+import cssStyles from '../css/styles';
+import { bindActionCreators } from 'redux';
+import { pushSetup } from '../actions/NavigationActions';
 
+function mapStateToProps(state) {
+  return {};
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ pushSetup }, dispatch);
+}
 class Settings extends React.Component {
   static navigatorStyle = {
     disabledBackGesture: true
@@ -20,23 +30,7 @@ class Settings extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.navigator.push({
-              screen: 'ndau.Passphrase',
-              title: 'Passphrase',
-              backButtonHidden: true,
-              passProps: {
-                parentStyles: styles,
-                iconsMap: this.props.iconsMap,
-                setPassphrase: this.setPassphrase
-              },
-              navigatorStyle: {
-                drawUnderTabBar: true,
-                tabBarHidden: true
-              },
-              navigationOptions: {
-                gesturesEnabled: false
-              }
-            });
+            this.props.pushSetup('ndau.Passphrase');
           }
         }
       ],
@@ -46,18 +40,11 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={cssStyles.container}>
         <Row title={'Logout'} onPress={this.logout} />
       </ScrollView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  }
-});
-
-export default Settings;
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

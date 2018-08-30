@@ -3,8 +3,19 @@ import { StyleSheet, View, ScrollView, Text, Button, SafeAreaView, Alert } from 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { pushSetup, setQRCode } from '../actions/NavigationActions';
 
-class SetupConfirmSeedPhrase extends Component {
+function mapStateToProps(state) {
+  return {};
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ pushSetup, setQRCode }, dispatch);
+}
+
+class SetupQRCode extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,13 +26,6 @@ class SetupConfirmSeedPhrase extends Component {
       scanning: true,
       cameraPermission: false
     };
-  }
-
-  componentDidMount() {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
-    });
   }
 
   onSuccess(e) {
@@ -41,7 +45,6 @@ class SetupConfirmSeedPhrase extends Component {
         { cancelable: false }
       );
     } else {
-
       this.setState({
         codeCaptured: true,
         qrToken: e.data
@@ -49,34 +52,19 @@ class SetupConfirmSeedPhrase extends Component {
     }
   }
 
-  onPushAnother() {
-    this.props.navigator.push({
-      label: 'SetupEncryptionPassword',
-      screen: 'ndau.SetupEncryptionPassword',
-      passProps: {
-        qrToken: this.state.qrToken,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
-  }
+  showNextSetup = () => {
+    this.props.setQRCode(this.state.qrToken);
+    this.props.pushSetup('ndau.SetupEncryptionPassword');
+  };
 
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={1} />
             <View>
-              <Text style={this.props.parentStyles.wizardText}>
+              <Text style={cssStyles.wizardText}>
                 This app will need access to your device's camera to scan address codes, so you can
                 send and receive ndau. Start the permission process to scan the code we just sent
                 you.
@@ -102,7 +90,7 @@ class SetupConfirmSeedPhrase extends Component {
                   topContent={
                     <Text
                       style={[
-                        this.props.parentStyles.wizardText,
+                        cssStyles.wizardText,
                         { marginTop: 15, marginBottom: 15, marginRight: 20 }
                       ]}
                     >
@@ -116,7 +104,7 @@ class SetupConfirmSeedPhrase extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <CommonButton
-              onPress={() => this.onPushAnother()}
+              onPress={() => this.showNextSetup()}
               title="Next"
               disabled={!this.state.codeCaptured}
             />
@@ -186,4 +174,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupConfirmSeedPhrase;
+export default connect(mapStateToProps, mapDispatchToProps)(SetupQRCode);
