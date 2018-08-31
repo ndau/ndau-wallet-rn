@@ -7,14 +7,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushSetup } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup }, dispatch);
-}
-
 class SetupYourWallet extends Component {
   constructor(props) {
     super(props);
@@ -74,5 +66,13 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   }
 });
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupYourWallet);

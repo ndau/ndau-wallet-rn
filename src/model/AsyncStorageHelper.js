@@ -56,9 +56,11 @@ const setUser = async (user, encryptionPassword) => {
 const getAllKeys = async () => {
   try {
     const keys = await AsyncStorage.getAllKeys();
-    return keys.map((key) => {
+    const newKeys = keys.map((key) => {
       return key.replace(STORAGE_KEY_PREFIX, '');
     });
+    console.debug(`keys found in getAllKeys are ${newKeys}`);
+    return newKeys;
   } catch (error) {
     return [];
   }

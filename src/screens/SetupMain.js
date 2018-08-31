@@ -6,13 +6,6 @@ import cssStyles from '../css/styles';
 import { bindActionCreators } from 'redux';
 import { pushSetup } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {};
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup }, dispatch);
-}
-
 class SetupMain extends Component {
   constructor(props) {
     super(props);
@@ -57,5 +50,12 @@ class SetupMain extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupMain);

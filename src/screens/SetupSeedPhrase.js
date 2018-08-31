@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView, NativeModules } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  SafeAreaView,
+  NativeModules,
+  Alert
+} from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
@@ -13,17 +21,6 @@ import {
   setShuffledWords,
   setShuffledMap
 } from '../actions/NavigationActions';
-
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    { pushSetup, setSeedPhrase, setShuffledWords, setShuffledMap },
-    dispatch
-  );
-}
 
 var _ = require('lodash');
 
@@ -58,13 +55,14 @@ class SetupSeedPhrase extends Component {
   }
 
   generateSeedPhrase = async () => {
+    console.debug(`entropy in generateSeedPhrase is ${this.props.reduxProps.entropy}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
-    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.entropy);
+    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.reduxProps.entropy);
     const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', seeds);
-    if (!_(seedBytes).isEqual(this.props.entropy)) {
+    if (!_(seedBytes).isEqual(this.props.reduxProps.entropy)) {
       this.showExitApp();
     } else {
-      console.debug(`${seedBytes} and ${this.props.entropy} are equal.`);
+      console.debug(`${seedBytes} and ${this.props.reduxProps.entropy} are equal.`);
     }
     console.debug(`keyaddr's seed words are: ${seeds}`);
     const seedPhrase = seeds.split(/\s+/g);
@@ -92,7 +90,7 @@ class SetupSeedPhrase extends Component {
     this.props.setSeedPhrase(this.state.seedPhrase);
     this.props.setShuffledMap(this.shuffleMap);
     this.props.setShuffledWords(this.shuffledWords);
-    this.props.pushSetup('ndau.SetupYourWallet');
+    this.props.pushSetup('ndau.SetupConfirmSeedPhrase');
   };
 
   render() {
@@ -170,5 +168,17 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
+
+const mapStateToProps = (state, ownProps) => {
+  console.log(`mapStateToProps getting called with ${JSON.stringify(state)}`);
+  return { entropy: state.entropy };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    { pushSetup, setSeedPhrase, setShuffledWords, setShuffledMap },
+    dispatch
+  );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupSeedPhrase);

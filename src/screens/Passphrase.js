@@ -15,33 +15,62 @@ import CommonButton from '../components/CommonButton';
 import { Dropdown } from 'react-native-material-dropdown';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushSetup, setPassword, setNavigator } from '../actions/NavigationActions';
+import {
+  pushSetup,
+  push,
+  setEncryptionPassword,
+  setUserId,
+  setNavigator,
+  setUser
+} from '../actions/NavigationActions';
 import cssStyles from '../css/styles';
-
-function mapStateToProps(state) {
-  return {};
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup, setPassword, setNavigator }, dispatch);
-}
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class Passphrase extends Component {
   constructor(props) {
     super(props);
 
-    // this.props.setNavigator(this.props.navigator);
-
     this.state = {
       password: '',
-      userId: '',
       showErrorText: false,
-      userIds: []
+      userIds: [],
+      userId: '',
+      loginAttempt: 1
     };
+
+    this.maxLoginAttempts = 10;
   }
 
+  componentDidMount = async () => {
+    const userIds = await AsyncStorageHelper.getAllKeys();
+    let userIdsForDropdown = userIds.map((userId) => {
+      return { value: userId };
+    });
+    this.setState({ userIds: userIdsForDropdown });
+  };
+
   login = () => {
-    this.props.setPassword(this.state.password);
-    this.props.navigator.popToRoot();
+    AsyncStorageHelper.getUser(this.state.userId, this.state.password)
+      .then((user) => {
+        this.props.setUser(user);
+        this.props.push('ndau.Dashboard');
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert(
+          'Error',
+          `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                this.setState({ loginAttempt: this.state.loginAttempt + 1 });
+              }
+            }
+          ],
+          { cancelable: false }
+        );
+      });
   };
 
   showInformation = () => {
@@ -78,7 +107,8 @@ class Passphrase extends Component {
                 itemTextStyle={styles.text}
                 fontSize={18}
                 labelFontSize={14}
-                value={this.state.userId}
+                // value={this.state.userId}
+                onChangeText={(userId) => this.setState({ userId })}
               />
             </View>
             <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
@@ -115,15 +145,15 @@ class Passphrase extends Component {
             ) : null}
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.login} title="Login" />
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>or</Text>
-            </View>
             <View style={styles.textContainer}>
               <Text onPress={this.showSetup} style={styles.linkText}>
                 Create a new user
               </Text>
             </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>or</Text>
+            </View>
+            <CommonButton onPress={this.login} title="Login" />
           </View>
         </View>
       </SafeAreaView>
@@ -151,7 +181,7 @@ const styles = StyleSheet.create({
   textContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20
+    marginBottom: 20
   },
   text: {
     color: '#ffffff',
@@ -184,5 +214,15 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   }
 });
+
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser },
+    dispatch
+  );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Passphrase);

@@ -9,13 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushSetup, setNumberOfAccounts, setUserId } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {};
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
-}
-
 class SetupUserId extends Component {
   constructor(props) {
     super(props);
@@ -183,5 +176,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   }
 });
+
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupUserId);

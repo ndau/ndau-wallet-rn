@@ -60,12 +60,6 @@ export const setShuffledMap = (shuffledMap) => {
   };
 };
 
-export const setSeedPhraseArray = (seedPhraseArray) => {
-  return function(dispatch) {
-    dispatch({ type: Actions.SET_SEED_PHRASE_ARRAY, seedPhraseArray });
-  };
-};
-
 export const setPassword = (password) => {
   return function(dispatch) {
     dispatch({ type: Actions.SET_PASSWORD, password });
@@ -75,5 +69,11 @@ export const setPassword = (password) => {
 export const setNavigator = (navigator) => {
   return function(dispatch) {
     dispatch({ type: Actions.SET_NAVIGATOR, navigator });
+  };
+};
+
+export const setUser = (user) => {
+  return function(dispatch) {
+    dispatch({ type: Actions.SET_USER, user });
   };
 };

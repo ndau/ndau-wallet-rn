@@ -9,14 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushSetup, setEntropy } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup, setEntropy }, dispatch);
-}
-
 class SetupGetRandom extends Component {
   constructor(props) {
     super(props);
@@ -165,5 +157,13 @@ const styles = StyleSheet.create({
     height: 200
   }
 });
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup, setEntropy }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupGetRandom);

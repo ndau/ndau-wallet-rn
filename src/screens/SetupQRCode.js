@@ -8,13 +8,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushSetup, setQRCode } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {};
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup, setQRCode }, dispatch);
-}
-
 class SetupQRCode extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +22,6 @@ class SetupQRCode extends Component {
   }
 
   onSuccess(e) {
-    console.log(e.data);
     if (e.data.substr(0, 4) !== 'ndqr') {
       Alert.alert(
         'Confirmation Error',
@@ -173,5 +165,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5d8d1'
   }
 });
+
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup, setQRCode }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupQRCode);

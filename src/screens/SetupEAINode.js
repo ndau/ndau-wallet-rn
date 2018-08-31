@@ -10,19 +10,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {
-    userId: state.userId,
-    qrCode: state.qrCode,
-    numberOfAccounts: state.numberOfAccounts,
-    seedPhraseArray: state.seedPhraseArray
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ push }, dispatch);
-}
-
 //"nd" for mainnet, or "tn" for testnet.
 const addressGenerationType = 'nd';
 
@@ -77,7 +64,7 @@ class SetupEAINode extends Component {
       .then(() => {
         this.persistAddresses(addresses);
 
-        this.returnToDashboard();
+        this.props.navigator.popToRoot();
       })
       .catch((error) => {
         console.error(error);
@@ -86,7 +73,7 @@ class SetupEAINode extends Component {
 
   keyGeneration = async () => {
     console.debug('Generating all keys from phrase given...');
-    const seedPhraseString = this.props.seedPhraseArray.join().replace(/,/g, ' ');
+    const seedPhraseString = this.props.reduxProps.seedPhrase.join().replace(/,/g, ' ');
     console.debug(`seedPhraseString: ${seedPhraseString}`);
     const seedPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
       'en',
@@ -95,7 +82,7 @@ class SetupEAINode extends Component {
     console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       seedPhraseAsBytes,
-      this.props.numberOfAccounts,
+      this.props.reduxProps.numberOfAccounts,
       addressGenerationType
     );
     console.debug(`publicAddresses: ${publicAddresses}`);
@@ -104,20 +91,20 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    return this.sendAccountAddresses(this.props.userId, addresses, this.props.qrCode);
+    return this.sendAccountAddresses(
+      this.props.reduxProps.userId,
+      addresses,
+      this.props.reduxProps.qrCode
+    );
   };
 
   persistAddresses = (addresses) => {
     const user = {
-      userId: this.props.userId,
+      userId: this.props.reduxProps.userId,
       addresses: addresses,
       selectedNode: this.state.selectedNode
     };
-    AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
-  };
-
-  showNextSetup = () => {
-    this.props.push('ndau.Dashboard');
+    AsyncStorageHelper.setUser(user, this.props.reduxProps.encryptionPassword);
   };
 
   render() {
@@ -143,6 +130,7 @@ class SetupEAINode extends Component {
               fontSize={20}
               labelFontSize={14}
               value={this.state.selectedNode}
+              onChangeText={(selectedNode) => this.setState({ selectedNode })}
             />
           </ScrollView>
           <View style={styles.footer}>
@@ -181,5 +169,18 @@ const styles = StyleSheet.create({
   },
   checkbox: { flex: 1, padding: 10 }
 });
+
+const mapStateToProps = (state) => {
+  return {
+    userId: state.userId,
+    qrCode: state.qrCode,
+    numberOfAccounts: state.numberOfAccounts,
+    seedPhrase: state.seedPhrase
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ push }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupEAINode);

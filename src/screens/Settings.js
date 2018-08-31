@@ -6,12 +6,6 @@ import cssStyles from '../css/styles';
 import { bindActionCreators } from 'redux';
 import { pushSetup } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {};
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup }, dispatch);
-}
 class Settings extends React.Component {
   static navigatorStyle = {
     disabledBackGesture: true
@@ -46,5 +40,12 @@ class Settings extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

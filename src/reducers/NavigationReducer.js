@@ -7,12 +7,12 @@ const NavigationReducer = (
     qrCode: '',
     encryptionPassword: '',
     entropy: '',
-    shuffledMap: {},
-    shuffledWords: '',
+    shuffledMap: [],
+    shuffledWords: [],
     seedPhrase: '',
-    seedPhraseArray: [],
     password: '',
-    navigator: {}
+    navigator: {},
+    user: {}
   },
   action = {}
 ) => {
@@ -20,13 +20,22 @@ const NavigationReducer = (
     case Actions.PUSH_SCREEN:
       state.navigator.push({
         screen: action.screen,
-        label: action.screen
+        label: action.screen,
+        passProps: { reduxProps: state },
+        navigatorStyle: {
+          drawUnderTabBar: true,
+          tabBarHidden: true,
+          topBarElevationShadowEnabled: false,
+          disabledBackGesture: true
+        },
+        backButtonHidden: true
       });
       return { ...state };
     case Actions.PUSH_SETUP_SCREEN:
       state.navigator.push({
         screen: action.screen,
         label: action.screen,
+        passProps: { reduxProps: state },
         navigatorStyle: {
           drawUnderTabBar: true,
           tabBarHidden: true,
@@ -52,12 +61,12 @@ const NavigationReducer = (
       return { ...state, shuffledMap: action.shuffledMap };
     case Actions.SET_SEED_PHRASE:
       return { ...state, seedPhrase: action.seedPhrase };
-    case Actions.SET_SEED_PHRASE_ARRAY:
-      return { ...state, seedPhraseArray: action.seedPhraseArray };
     case Actions.SET_PASSWORD:
       return { ...state, password: action.password };
     case Actions.SET_NAVIGATOR:
       return { ...state, navigator: action.navigator };
+    case Actions.SET_USER:
+      return { ...state, user: action.user };
     default:
       return state;
   }

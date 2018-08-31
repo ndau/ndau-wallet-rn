@@ -15,19 +15,7 @@ import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pushSetup, setSeedPhraseArray } from '../actions/NavigationActions';
-
-function mapStateToProps(state) {
-  return {
-    seedPhrase: state.seedPhrase,
-    shuffledWords: state.shuffledWords,
-    shuffleMap: state.shuffleMap
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup, setSeedPhraseArray }, dispatch);
-}
+import { pushSetup } from '../actions/NavigationActions';
 
 var _ = require('lodash');
 
@@ -48,7 +36,6 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   showNextSetup = () => {
-    this.props.setSeedPhraseArray(this.state.seedPhraseArray);
     this.props.pushSetup('ndau.SetupTermsOfService');
   };
 
@@ -58,7 +45,7 @@ class SetupConfirmSeedPhrase extends Component {
 
   render() {
     // chop the words into ROW_LENGTH-tuples
-    const words = groupIntoRows(this.props.shuffledWords, ROW_LENGTH);
+    const words = groupIntoRows(this.props.reduxProps.shuffledWords, ROW_LENGTH);
 
     // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => {
@@ -78,7 +65,9 @@ class SetupConfirmSeedPhrase extends Component {
             </View>
             <TextInput
               style={styles.textArea}
-              value={this.state.selected.map((i) => this.props.shuffledWords[i]).join(' ')}
+              value={this.state.selected
+                .map((i) => this.props.reduxProps.shuffledWords[i])
+                .join(' ')}
               placeholder=""
               placeholderTextColor="#333"
               multiline={true}
@@ -135,7 +124,7 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   checkMistakes() {
-    const correctSoFar = this.props.shuffleMap.slice(0, this.state.selected.length);
+    const correctSoFar = this.props.reduxProps.shuffledMap.slice(0, this.state.selected.length);
     if (!_(this.state.selected).isEqual(correctSoFar)) {
       let errorCount = this.state.errorCount + 1;
       this.setState({
@@ -153,7 +142,7 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   checkDone() {
-    if (_(this.state.selected).isEqual(this.props.shuffleMap)) {
+    if (_(this.state.selected).isEqual(this.props.reduxProps.shuffledMap)) {
       this.setState({ match: true });
     }
   }
@@ -253,5 +242,16 @@ const styles = StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular'
   }
 });
+
+const mapStateToProps = (state) => {
+  return {
+    shuffledWords: state.shuffledWords,
+    shuffledMap: state.shuffledMap
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupConfirmSeedPhrase);

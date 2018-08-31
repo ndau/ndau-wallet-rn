@@ -9,6 +9,6 @@ export const SET_ENTROPY = 'set_entropy';
 export const SET_SEED_PHRASE = 'set_seed_phrase';
 export const SET_SHUFFLED_WORDS = 'set_shuffled_words';
 export const SET_SHUFFLED_MAP = 'set_shuffled_map';
-export const SET_SEED_PHRASE_ARRAY = 'set_seed_phrase_array';
 export const SET_PASSWORD = 'set_password';
 export const SET_NAVIGATOR = 'set_navigator';
+export const SET_USER = 'set_user';

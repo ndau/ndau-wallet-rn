@@ -9,13 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { pushSetup, setEncryptionPassword } from '../actions/NavigationActions';
 
-function mapStateToProps(state) {
-  return {};
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ pushSetup, setEncryptionPassword }, dispatch);
-}
-
 class SetupEncryptionPassword extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +41,7 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    this.props.setEncryptionPassword(this.state.encryptionPassword);
+    this.props.setEncryptionPassword(this.state.password);
     this.props.pushSetup('ndau.SetupGetRandom');
   };
 
@@ -192,5 +185,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   }
 });
+
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup, setEncryptionPassword }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupEncryptionPassword);
