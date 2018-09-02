@@ -26,6 +26,7 @@ import {
 } from '../actions/NavigationActions';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import RNExitApp from 'react-native-exit-app';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -57,25 +58,48 @@ class Passphrase extends Component {
           this.props.setUser(user);
           this.props.startTabBasedApp();
         } else {
-          Alert.alert(
-            'Error',
-            `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
-            [
-              {
-                text: 'OK',
-                onPress: () => {
-                  this.props.setUser(null);
-                  this.setState({ loginAttempt: this.state.loginAttempt + 1 });
-                }
-              }
-            ],
-            { cancelable: false }
-          );
+          this.showLoginError();
         }
       })
       .catch((error) => {
-        console.error(error);
+        this.showLoginError();
       });
+  };
+
+  showExitApp() {
+    Alert.alert(
+      '',
+      `You have hit the maximum amount of login attempts.`,
+      [
+        {
+          text: 'Exit app',
+          onPress: () => {
+            RNExitApp.exitApp();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  showLoginError = () => {
+    if (this.state.loginAttempt === this.maxLoginAttempts) {
+      this.showExitApp();
+    }
+    Alert.alert(
+      'Error',
+      `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.props.setUser(null);
+            this.setState({ loginAttempt: this.state.loginAttempt + 1 });
+          }
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   showInformation = () => {
