@@ -14,7 +14,7 @@ class SetupYourWallet extends Component {
   }
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupSeedPhrase');
+    this.props.pushSetup('ndau.SetupSeedPhrase', this.props.navigator);
   };
 
   render() {

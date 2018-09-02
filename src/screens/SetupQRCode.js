@@ -46,7 +46,7 @@ class SetupQRCode extends Component {
 
   showNextSetup = () => {
     this.props.setQRCode(this.state.qrToken);
-    this.props.pushSetup('ndau.SetupEncryptionPassword');
+    this.props.pushSetup('ndau.SetupEncryptionPassword', this.props.navigator);
   };
 
   render() {

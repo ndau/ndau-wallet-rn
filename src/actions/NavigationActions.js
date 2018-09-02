@@ -1,14 +1,20 @@
 import * as Actions from './ActionTypes';
 
-export const push = (screen) => {
+export const push = (screen, navigator) => {
   return function(dispatch) {
-    dispatch({ type: Actions.PUSH_SCREEN, screen });
+    dispatch({ type: Actions.PUSH_SCREEN, screen, navigator });
   };
 };
 
-export const pushSetup = (screen) => {
+export const pushSetup = (screen, navigator) => {
   return function(dispatch) {
-    dispatch({ type: Actions.PUSH_SETUP_SCREEN, screen });
+    dispatch({ type: Actions.PUSH_SETUP_SCREEN, screen, navigator });
+  };
+};
+
+export const startTabBasedApp = (navigator) => {
+  return function(dispatch) {
+    dispatch({ type: Actions.START_TAB_BASED_APP, navigator });
   };
 };
 
@@ -63,12 +69,6 @@ export const setShuffledMap = (shuffledMap) => {
 export const setPassword = (password) => {
   return function(dispatch) {
     dispatch({ type: Actions.SET_PASSWORD, password });
-  };
-};
-
-export const setNavigator = (navigator) => {
-  return function(dispatch) {
-    dispatch({ type: Actions.SET_NAVIGATOR, navigator });
   };
 };
 

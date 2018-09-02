@@ -21,7 +21,8 @@ import {
   setEncryptionPassword,
   setUserId,
   setNavigator,
-  setUser
+  setUser,
+  startTabBasedApp
 } from '../actions/NavigationActions';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
@@ -41,7 +42,7 @@ class Passphrase extends Component {
     this.maxLoginAttempts = 10;
   }
 
-  componentDidMount = async () => {
+  componentWillMount = async () => {
     const userIds = await AsyncStorageHelper.getAllKeys();
     let userIdsForDropdown = userIds.map((userId) => {
       return { value: userId };
@@ -52,24 +53,28 @@ class Passphrase extends Component {
   login = () => {
     AsyncStorageHelper.getUser(this.state.userId, this.state.password)
       .then((user) => {
-        this.props.setUser(user);
-        this.props.push('ndau.Dashboard');
+        if (user) {
+          this.props.setUser(user);
+          this.props.startTabBasedApp();
+        } else {
+          Alert.alert(
+            'Error',
+            `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
+            [
+              {
+                text: 'OK',
+                onPress: () => {
+                  this.props.setUser(null);
+                  this.setState({ loginAttempt: this.state.loginAttempt + 1 });
+                }
+              }
+            ],
+            { cancelable: false }
+          );
+        }
       })
       .catch((error) => {
         console.error(error);
-        Alert.alert(
-          'Error',
-          `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                this.setState({ loginAttempt: this.state.loginAttempt + 1 });
-              }
-            }
-          ],
-          { cancelable: false }
-        );
       });
   };
 
@@ -85,10 +90,11 @@ class Passphrase extends Component {
   };
 
   showSetup = () => {
-    this.props.pushSetup('ndau.SetupMain');
+    this.props.pushSetup('ndau.SetupMain', this.props.navigator);
   };
 
   render() {
+    console.log(`rendering Passphrase`);
     const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
@@ -181,7 +187,7 @@ const styles = StyleSheet.create({
   textContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 10
   },
   text: {
     color: '#ffffff',
@@ -220,7 +226,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser },
+    { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser, startTabBasedApp },
     dispatch
   );
 };

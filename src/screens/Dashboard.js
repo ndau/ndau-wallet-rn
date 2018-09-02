@@ -6,14 +6,12 @@ import AlertPanel from '../components/AlertPanel';
 import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
 import { bindActionCreators } from 'redux';
-import { pushSetup, setNavigator } from '../actions/NavigationActions';
+import { pushSetup } from '../actions/NavigationActions';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    console.log(`props are ${JSON.stringify(this.props)}`);
-
-    this.props.setNavigator(this.props.navigator);
+    console.log(`props in dashboard are ${JSON.stringify(props, null, 2)}`);
 
     this.state = {};
   }
@@ -46,9 +44,9 @@ class Dashboard extends Component {
       .then((userIds) => {
         console.debug(`userIds is ${userIds}`);
 
-        if (userIds.length > 0) {
+        if (!this.props.reduxProps && userIds.length > 0) {
           this.getPassphrase();
-        } else {
+        } else if (!this.props.reduxProps.user) {
           this.showSetup();
         }
       })
@@ -58,11 +56,11 @@ class Dashboard extends Component {
   };
 
   getPassphrase = () => {
-    this.props.pushSetup('ndau.Passphrase');
+    this.props.pushSetup('ndau.Passphrase', this.props.navigator);
   };
 
   showSetup = () => {
-    this.props.pushSetup('ndau.SetupMain');
+    this.props.pushSetup('ndau.SetupMain', this.props.navigator);
   };
 
   render() {
@@ -70,7 +68,7 @@ class Dashboard extends Component {
       console.debug(`user found is ${JSON.stringify(this.props.reduxProps.user, null, 2)}`);
       const { addresses, userId } = this.props.reduxProps.user ? this.props.reduxProps.user : [];
       console.debug(`renders addresses: ${addresses}`);
-      return (
+      return addresses ? (
         <SafeAreaView style={cssStyles.safeContainer}>
           <View style={cssStyles.dashboardTextContainer}>
             <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
@@ -99,6 +97,8 @@ class Dashboard extends Component {
             ) : null}
           </ScrollView>
         </SafeAreaView>
+      ) : (
+        <SafeAreaView style={cssStyles.safeContainer} />
       );
     } else {
       return <SafeAreaView style={cssStyles.safeContainer} />;
@@ -114,7 +114,7 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, setNavigator }, dispatch);
+  return bindActionCreators({ pushSetup }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

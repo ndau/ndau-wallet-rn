@@ -19,6 +19,8 @@ const getUser = (userId, encryptionPassword) => {
           const userDecryptedString = userDecryptedBytes.toString(CryptoJS.enc.Utf8);
           console.debug(`getUser - decrypted user is: ${userDecryptedString}`);
 
+          if (!userDecryptedString) resolve(null);
+
           resolve(JSON.parse(userDecryptedString));
         } else {
           resolve(null);

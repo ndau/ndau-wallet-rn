@@ -90,7 +90,7 @@ class SetupSeedPhrase extends Component {
     this.props.setSeedPhrase(this.state.seedPhrase);
     this.props.setShuffledMap(this.shuffleMap);
     this.props.setShuffledWords(this.shuffledWords);
-    this.props.pushSetup('ndau.SetupConfirmSeedPhrase');
+    this.props.pushSetup('ndau.SetupConfirmSeedPhrase', this.props.navigator);
   };
 
   render() {

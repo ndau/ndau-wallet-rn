@@ -12,7 +12,7 @@ class SetupMain extends Component {
   }
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupUserId');
+    this.props.pushSetup('ndau.SetupUserId', this.props.navigator);
   };
 
   render() {

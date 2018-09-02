@@ -48,7 +48,7 @@ class SetupUserId extends Component {
   showNextSetup = () => {
     this.props.setUserId(this.state.userId);
     this.props.setNumberOfAccounts(this.state.numberOfAccounts);
-    this.props.pushSetup('ndau.SetupQRCode');
+    this.props.pushSetup('ndau.SetupQRCode', this.props.navigator);
   };
 
   showExitApp() {

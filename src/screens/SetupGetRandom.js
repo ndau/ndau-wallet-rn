@@ -42,7 +42,7 @@ class SetupGetRandom extends Component {
 
   showNextSetup = () => {
     this.props.setEntropy(this.state.entropy);
-    this.props.pushSetup('ndau.SetupYourWallet');
+    this.props.pushSetup('ndau.SetupYourWallet', this.props.navigator);
   };
 
   handleScribble(evt) {

@@ -14,10 +14,15 @@ import SetupEAINode from './SetupEAINode';
 import Passphrase from './Passphrase';
 import Settings from './Settings';
 
+//TODO: This is temporary until react-native-material-dropdown fixes their code
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings([ 'Warning: isMounted(...) is deprecated', 'Module RCTImageLoader' ]);
+
 export function registerScreens(store, Provider) {
   Navigation.registerComponent('ndau.Dashboard', () => Dashboard, store, Provider);
-  Navigation.registerComponent('ndau.Passphrase', () => Passphrase, store, Provider);
+  Navigation.registerComponent('ndau.Settings', () => Settings, store, Provider);
 
+  Navigation.registerComponent('ndau.Passphrase', () => Passphrase, store, Provider);
   Navigation.registerComponent('ndau.SetupMain', () => SetupMain, store, Provider);
   Navigation.registerComponent('ndau.SetupUserId', () => SetupUserId, store, Provider);
   Navigation.registerComponent(
@@ -43,5 +48,4 @@ export function registerScreens(store, Provider) {
     Provider
   );
   Navigation.registerComponent('ndau.SetupEAINode', () => SetupEAINode, store, Provider);
-  Navigation.registerComponent('ndau.Settings', () => Settings, store, Provider);
 }

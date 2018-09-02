@@ -42,7 +42,7 @@ class SetupEncryptionPassword extends Component {
     }
 
     this.props.setEncryptionPassword(this.state.password);
-    this.props.pushSetup('ndau.SetupGetRandom');
+    this.props.pushSetup('ndau.SetupGetRandom', this.props.navigator);
   };
 
   checkedShowPasswords = () => {

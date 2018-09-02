@@ -19,7 +19,7 @@ class SetupTermsOfService extends Component {
   };
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupEAINode');
+    this.props.pushSetup('ndau.SetupEAINode', this.props.navigator);
   };
 
   render() {

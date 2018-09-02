@@ -8,7 +8,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from '../actions/NavigationActions';
+import { push, setUser, startTabBasedApp } from '../actions/NavigationActions';
 
 //"nd" for mainnet, or "tn" for testnet.
 const addressGenerationType = 'nd';
@@ -64,7 +64,7 @@ class SetupEAINode extends Component {
       .then(() => {
         this.persistAddresses(addresses);
 
-        this.props.navigator.popToRoot();
+        this.props.startTabBasedApp();
       })
       .catch((error) => {
         console.error(error);
@@ -105,6 +105,7 @@ class SetupEAINode extends Component {
       selectedNode: this.state.selectedNode
     };
     AsyncStorageHelper.setUser(user, this.props.reduxProps.encryptionPassword);
+    this.props.setUser(user);
   };
 
   render() {
@@ -180,7 +181,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ push }, dispatch);
+  return bindActionCreators({ push, setUser, startTabBasedApp }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupEAINode);

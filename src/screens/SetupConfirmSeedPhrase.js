@@ -36,11 +36,11 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupTermsOfService');
+    this.props.pushSetup('ndau.SetupTermsOfService', this.props.navigator);
   };
 
   pushBack = () => {
-    this.props.pushSetup('ndau.SetupGetRandom');
+    this.props.pushSetup('ndau.SetupGetRandom', this.props.navigator);
   };
 
   render() {
