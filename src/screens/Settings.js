@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, SafeAreaView } from 'react-native';
 import Row from '../components/Row';
 import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
@@ -44,9 +44,11 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <ScrollView style={cssStyles.container}>
-        <Row title={'Logout'} onPress={this.logout} />
-      </ScrollView>
+      <SafeAreaView style={cssStyles.safeContainer}>
+        <ScrollView style={cssStyles.container}>
+          <Row title={'Logout'} onPress={this.logout} />
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
