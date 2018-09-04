@@ -53,11 +53,8 @@ class Settings extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default connect(null, mapDispatchToProps)(Settings);

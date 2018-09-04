@@ -23,7 +23,7 @@ const NavigationReducer = (
         action.navigator.push({
           screen: action.screen,
           label: action.screen,
-          passProps: { reduxProps: state },
+          passProps: { ...state },
           navigatorStyle: {
             topBarElevationShadowEnabled: false,
             disabledBackGesture: true
@@ -34,7 +34,7 @@ const NavigationReducer = (
         action.navigator.showModal({
           screen: action.screen,
           label: action.screen,
-          passProps: { reduxProps: state },
+          passProps: { ...state },
           navigatorStyle: {
             topBarElevationShadowEnabled: false,
             disabledBackGesture: true
@@ -48,7 +48,7 @@ const NavigationReducer = (
         action.navigator.push({
           screen: action.screen,
           label: action.screen,
-          passProps: { reduxProps: state },
+          passProps: { ...state },
           navigatorStyle: {
             drawUnderTabBar: true,
             tabBarHidden: true,
@@ -61,7 +61,7 @@ const NavigationReducer = (
         action.navigator.showModal({
           screen: action.screen,
           label: action.screen,
-          passProps: { reduxProps: state },
+          passProps: { ...state },
           navigatorStyle: {
             drawUnderTabBar: true,
             tabBarHidden: true,
@@ -82,7 +82,7 @@ const NavigationReducer = (
         animationType,
         tabsStyle,
         appStyle,
-        passProps: { reduxProps: state }
+        passProps: { ...state }
       });
       return { ...state };
     case Actions.SET_USERID:
@@ -106,7 +106,7 @@ const NavigationReducer = (
     case Actions.SET_USER:
       return { ...state, user: action.user };
     default:
-      return state;
+      return { ...state };
   }
 };
 

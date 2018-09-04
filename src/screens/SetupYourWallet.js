@@ -73,12 +73,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupYourWallet);
+export default connect(null, mapDispatchToProps)(SetupYourWallet);

@@ -163,12 +163,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup, setEntropy }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupGetRandom);
+export default connect(null, mapDispatchToProps)(SetupGetRandom);

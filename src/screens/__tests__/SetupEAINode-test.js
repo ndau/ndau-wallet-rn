@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { StyleSheet, NativeModules } from 'react-native';
 import SetupEAINode from '../SetupEAINode';
+import store from '../../reducers/index';
 import sinon from 'sinon';
 import renderer from 'react-test-renderer';
 
@@ -32,12 +33,6 @@ describe('testing SetupEAINode...', () => {
   ];
   let userId = 'TAC-3PY';
   let numberOfAccounts = 5;
-  let styles = StyleSheet.create({
-    wizardText: {
-      color: '#ffffff',
-      fontSize: 20
-    }
-  });
   const bytes = 'ZWEQAwQFBgcICQoLDA0ODw==';
   const KeyaddrWordsToBytes = sinon.spy(NativeModules.KeyaddrManager, 'KeyaddrWordsToBytes');
   KeyaddrWordsToBytes.mockReturnValue(bytes);
@@ -63,7 +58,7 @@ describe('testing SetupEAINode...', () => {
     const tree = renderer
       .create(
         <SetupEAINode
-          parentStyles={styles}
+          store={store}
           seedPhraseArray={seedPhraseArray}
           userId={userId}
           numberOfAccounts={numberOfAccounts}
@@ -77,7 +72,7 @@ describe('testing SetupEAINode...', () => {
   it('finishes setup successfully', async () => {
     const wrapper = shallow(
       <SetupEAINode
-        parentStyles={styles}
+        store={store}
         seedPhraseArray={seedPhraseArray}
         userId={userId}
         numberOfAccounts={numberOfAccounts}
@@ -90,6 +85,7 @@ describe('testing SetupEAINode...', () => {
     expect(CreatePublicAddress.calledOnce).toBe(false);
 
     const onlyButton = wrapper.find('#select-and-finish');
+    console.log(`onlyButton is: ${JSON.stringify(onlyButton)}`);
     expect(onlyButton.length).toBe(1);
     await onlyButton.simulate('press');
 

@@ -78,7 +78,7 @@ class SetupEAINode extends Component {
 
   keyGeneration = async () => {
     console.debug('Generating all keys from phrase given...');
-    const seedPhraseString = this.props.reduxProps.seedPhrase.join().replace(/,/g, ' ');
+    const seedPhraseString = this.props.seedPhrase.join().replace(/,/g, ' ');
     console.debug(`seedPhraseString: ${seedPhraseString}`);
     const seedPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
       'en',
@@ -87,7 +87,7 @@ class SetupEAINode extends Component {
     console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       seedPhraseAsBytes,
-      this.props.reduxProps.numberOfAccounts,
+      this.props.numberOfAccounts,
       addressGenerationType
     );
     console.debug(`publicAddresses: ${publicAddresses}`);
@@ -96,20 +96,16 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    return this.sendAccountAddresses(
-      this.props.reduxProps.userId,
-      addresses,
-      this.props.reduxProps.qrCode
-    );
+    return this.sendAccountAddresses(this.props.userId, addresses, this.props.qrCode);
   };
 
   persistAddresses = (addresses) => {
     const user = {
-      userId: this.props.reduxProps.userId,
+      userId: this.props.userId,
       addresses: addresses,
       selectedNode: this.state.selectedNode
     };
-    AsyncStorageHelper.setUser(user, this.props.reduxProps.encryptionPassword);
+    AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
     this.props.setUser(user);
   };
 
@@ -176,17 +172,8 @@ const styles = StyleSheet.create({
   checkbox: { flex: 1, padding: 10 }
 });
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.userId,
-    qrCode: state.qrCode,
-    numberOfAccounts: state.numberOfAccounts,
-    seedPhrase: state.seedPhrase
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ push, setUser, startTabBasedApp }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupEAINode);
+export default connect(null, mapDispatchToProps)(SetupEAINode);

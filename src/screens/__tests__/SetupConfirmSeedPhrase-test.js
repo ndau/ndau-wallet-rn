@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import SetupConfirmSeedPhrase from '../SetupConfirmSeedPhrase';
+import { Provider } from 'react-redux';
+import store from '../../reducers/index';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 
@@ -29,6 +31,7 @@ describe('SetupConfirmSeedPhrase presentation', () => {
     this.tree = renderer
       .create(
         <SetupConfirmSeedPhrase
+          store={store}
           navigator={makeNavigator()}
           parentStyles={makeStyles()}
           seedPhraseArray={makeWords()}
@@ -51,6 +54,7 @@ describe('SetupConfirmSeedPhrase behavior', () => {
     // set up default wrapper for every test.
     this.wrapper = mount(
       <SetupConfirmSeedPhrase
+        store={store}
         navigator={makeNavigator()}
         parentStyles={makeStyles()}
         seedPhraseArray={makeWords()}

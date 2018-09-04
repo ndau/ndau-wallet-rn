@@ -60,14 +60,14 @@ class SetupSeedPhrase extends Component {
   }
 
   generateSeedPhrase = async () => {
-    console.debug(`entropy in generateSeedPhrase is ${this.props.reduxProps.entropy}`);
+    console.debug(`entropy in generateSeedPhrase is ${this.props.entropy}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
-    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.reduxProps.entropy);
+    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.entropy);
     const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', seeds);
-    if (!_(seedBytes).isEqual(this.props.reduxProps.entropy)) {
+    if (!_(seedBytes).isEqual(this.props.entropy)) {
       this.showExitApp();
     } else {
-      console.debug(`${seedBytes} and ${this.props.reduxProps.entropy} are equal.`);
+      console.debug(`${seedBytes} and ${this.props.entropy} are equal.`);
     }
     console.debug(`keyaddr's seed words are: ${seeds}`);
     const seedPhrase = seeds.split(/\s+/g);
@@ -174,11 +174,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(`mapStateToProps getting called with ${JSON.stringify(state)}`);
-  return { entropy: state.entropy };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     { pushSetup, setSeedPhrase, setShuffledWords, setShuffledMap },
@@ -186,4 +181,4 @@ const mapDispatchToProps = (dispatch) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupSeedPhrase);
+export default connect(null, mapDispatchToProps)(SetupSeedPhrase);

@@ -21,9 +21,9 @@ exports[`testing Row... renders correctly 1`] = `
         "flexDirection": "row",
         "height": 68,
         "justifyContent": "flex-start",
-        "paddingBottom": 20,
-        "paddingHorizontal": 16,
-        "paddingTop": 20,
+        "paddingBottom": 5,
+        "paddingHorizontal": 5,
+        "paddingTop": 15,
       }
     }
   >

@@ -56,11 +56,8 @@ class SetupMain extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupMain);
+export default connect(null, mapDispatchToProps)(SetupMain);

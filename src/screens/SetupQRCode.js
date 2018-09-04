@@ -55,6 +55,8 @@ class SetupQRCode extends Component {
   };
 
   render() {
+    console.log(`props in SetupQRCode are ${JSON.stringify(this.props, null, 2)}`);
+
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
@@ -171,11 +173,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  return {};
-};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup, setQRCode }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupQRCode);
+export default connect(null, mapDispatchToProps)(SetupQRCode);

@@ -35,7 +35,7 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.reduxProps) {
+    if (!this.props.user) {
       this.loginOrSetup();
     }
   }
@@ -51,7 +51,7 @@ class Dashboard extends Component {
 
         if (userIds.length > 0) {
           this.getPassphrase();
-        } else if (!this.props.reduxProps) {
+        } else {
           this.showSetup();
         }
       })
@@ -69,9 +69,9 @@ class Dashboard extends Component {
   };
 
   render() {
-    if (this.props.reduxProps) {
-      console.debug(`user found is ${JSON.stringify(this.props.reduxProps.user, null, 2)}`);
-      const { addresses, userId } = this.props.reduxProps.user ? this.props.reduxProps.user : [];
+    if (this.props.user) {
+      console.debug(`user found is ${JSON.stringify(this.props.user, null, 2)}`);
+      const { addresses, userId } = this.props.user;
       console.debug(`renders addresses: ${addresses}`);
       return addresses ? (
         <SafeAreaView style={cssStyles.safeContainer}>
@@ -111,15 +111,8 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.userId,
-    encryptionPassword: state.encryptionPassword,
-    user: state.user
-  };
-};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(null, mapDispatchToProps)(Dashboard);

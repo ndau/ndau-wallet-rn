@@ -182,11 +182,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  return {};
-};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupUserId);
+export default connect(null, mapDispatchToProps)(SetupUserId);

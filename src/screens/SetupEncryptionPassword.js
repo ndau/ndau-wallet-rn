@@ -191,11 +191,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  return {};
-};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup, setEncryptionPassword }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetupEncryptionPassword);
+export default connect(null, mapDispatchToProps)(SetupEncryptionPassword);

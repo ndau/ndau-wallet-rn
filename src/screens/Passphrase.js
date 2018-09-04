@@ -250,9 +250,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => {
-  return {};
-};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser, startTabBasedApp },
@@ -260,4 +257,4 @@ const mapDispatchToProps = (dispatch) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Passphrase);
+export default connect(null, mapDispatchToProps)(Passphrase);
