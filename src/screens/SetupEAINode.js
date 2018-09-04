@@ -7,59 +7,17 @@ import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 
 //"nd" for mainnet, or "tn" for testnet.
-const addressGenerationType = 'tn';
+const addressGenerationType = 'nd';
 
 class SetupEAINode extends Component {
   constructor(props) {
     super(props);
     const nodeNames = [
       {
-        value: 'Germain'
-      },
-      {
-        value: 'Clearway'
-      },
-      {
-        value: 'Belvidere'
-      },
-      {
-        value: 'Marlborough'
-      },
-      {
         value: 'Boylston'
       },
       {
-        value: 'Botolph'
-      },
-      {
-        value: 'Garrison'
-      },
-      {
-        value: 'Harcourt'
-      },
-      {
-        value: 'Fairfield'
-      },
-      {
-        value: 'Gloucester'
-      },
-      {
         value: 'Newbury'
-      },
-      {
-        value: 'Exeter'
-      },
-      {
-        value: 'Ring'
-      },
-      {
-        value: 'Hereford'
-      },
-      {
-        value: 'Massachusetts'
-      },
-      {
-        value: 'Back'
       },
       {
         value: 'Commonwealth'
@@ -68,61 +26,7 @@ class SetupEAINode extends Component {
         value: 'Dartmouth'
       },
       {
-        value: 'Clarendon'
-      },
-      {
-        value: 'Berkeley'
-      },
-      {
-        value: 'Beacon'
-      },
-      {
-        value: 'James'
-      },
-      {
-        value: 'Stuart'
-      },
-      {
-        value: 'Studio'
-      },
-      {
-        value: 'Follen'
-      },
-      {
-        value: 'Durham'
-      },
-      {
-        value: 'Huntington'
-      },
-      {
-        value: 'Blackwood'
-      },
-      {
-        value: 'Albemarle'
-      },
-      {
-        value: 'Cumberland'
-      },
-      {
-        value: 'Stanhope'
-      },
-      {
-        value: 'Providence'
-      },
-      {
         value: 'Storrow'
-      },
-      {
-        value: 'Charlesgate'
-      },
-      {
-        value: 'Esplanade'
-      },
-      {
-        value: 'Arlington'
-      },
-      {
-        value: 'Blagden'
       }
     ];
 
