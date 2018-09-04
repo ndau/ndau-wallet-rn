@@ -9,7 +9,17 @@ exports[`testing SetupSeedPhrase... renders correctly 1`] = `
     }
   }
 >
-  <View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+        "paddingBottom": 20,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+      }
+    }
+  >
     <RCTScrollView
       style={
         Object {
@@ -49,6 +59,7 @@ exports[`testing SetupSeedPhrase... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
                 "fontSize": 20,
               }
             }

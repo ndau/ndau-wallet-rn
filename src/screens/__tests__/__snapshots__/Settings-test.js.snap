@@ -6,6 +6,9 @@ exports[`testing Settings... renders correctly 1`] = `
     Object {
       "backgroundColor": "#1c2227",
       "flex": 1,
+      "paddingBottom": 20,
+      "paddingLeft": 20,
+      "paddingRight": 20,
     }
   }
 >

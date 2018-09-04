@@ -17,6 +17,11 @@ class SetupUserId extends Component {
       numberOfAccounts: 0,
       userIdPresent: false
     };
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   confirmUserIdPresent = () => {

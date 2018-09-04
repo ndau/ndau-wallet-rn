@@ -16,7 +16,6 @@ describe('testing CommonButton...', () => {
     setStyle: () => {}
   };
 
-  beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer
       .create(<CommonButton parentStyles={styles} navigator={navigator} />)

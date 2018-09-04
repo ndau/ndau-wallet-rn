@@ -39,6 +39,11 @@ class SetupEAINode extends Component {
       data: nodeNames,
       selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)].value
     };
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   sendAccountAddresses = (userId, addresses, token) => {

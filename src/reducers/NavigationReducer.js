@@ -1,5 +1,6 @@
 import * as Actions from '../actions/ActionTypes';
 import { Navigation } from 'react-native-navigation';
+import { Platform } from 'react-native';
 
 const NavigationReducer = (
   state = {
@@ -18,30 +19,58 @@ const NavigationReducer = (
 ) => {
   switch (action.type) {
     case Actions.PUSH_SCREEN:
-      action.navigator.push({
-        screen: action.screen,
-        label: action.screen,
-        passProps: { reduxProps: state },
-        navigatorStyle: {
-          topBarElevationShadowEnabled: false,
-          disabledBackGesture: true
-        },
-        backButtonHidden: true
-      });
+      if (Platform.OS === 'android') {
+        action.navigator.push({
+          screen: action.screen,
+          label: action.screen,
+          passProps: { reduxProps: state },
+          navigatorStyle: {
+            topBarElevationShadowEnabled: false,
+            disabledBackGesture: true
+          },
+          backButtonHidden: true
+        });
+      } else {
+        action.navigator.showModal({
+          screen: action.screen,
+          label: action.screen,
+          passProps: { reduxProps: state },
+          navigatorStyle: {
+            topBarElevationShadowEnabled: false,
+            disabledBackGesture: true
+          },
+          backButtonHidden: true
+        });
+      }
       return { ...state };
     case Actions.PUSH_SETUP_SCREEN:
-      action.navigator.push({
-        screen: action.screen,
-        label: action.screen,
-        passProps: { reduxProps: state },
-        navigatorStyle: {
-          drawUnderTabBar: true,
-          tabBarHidden: true,
-          topBarElevationShadowEnabled: false,
-          disabledBackGesture: true
-        },
-        backButtonHidden: true
-      });
+      if (Platform.OS === 'android') {
+        action.navigator.push({
+          screen: action.screen,
+          label: action.screen,
+          passProps: { reduxProps: state },
+          navigatorStyle: {
+            drawUnderTabBar: true,
+            tabBarHidden: true,
+            topBarElevationShadowEnabled: false,
+            disabledBackGesture: true
+          },
+          backButtonHidden: true
+        });
+      } else {
+        action.navigator.showModal({
+          screen: action.screen,
+          label: action.screen,
+          passProps: { reduxProps: state },
+          navigatorStyle: {
+            drawUnderTabBar: true,
+            tabBarHidden: true,
+            topBarElevationShadowEnabled: false,
+            disabledBackGesture: true
+          },
+          backButtonHidden: true
+        });
+      }
       return { ...state };
     case Actions.START_TAB_BASED_APP:
       const constants = require('../app-constants');

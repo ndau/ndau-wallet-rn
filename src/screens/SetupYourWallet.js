@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
@@ -11,6 +12,11 @@ class SetupYourWallet extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   showNextSetup = () => {

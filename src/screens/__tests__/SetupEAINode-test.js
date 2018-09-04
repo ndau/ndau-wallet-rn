@@ -5,7 +5,6 @@ import SetupEAINode from '../SetupEAINode';
 import sinon from 'sinon';
 import renderer from 'react-test-renderer';
 
-
 jest.mock('NativeModules', () => {
   return {
     KeyaddrManager: {
@@ -45,21 +44,20 @@ describe('testing SetupEAINode...', () => {
   const CreatePublicAddress = sinon.spy(NativeModules.KeyaddrManager, 'CreatePublicAddress');
   CreatePublicAddress.mockReturnValue([]);
   const navigator = {
-    setStyle: () => {}
+    setStyle: () => {},
+    toggleNavBar: () => {}
   };
 
-  beforeEach(() => {});
-
-  beforeAll(()=>{
+  beforeAll(() => {
     this.oldRandom = global.Math.random;
     const mockMathRandom = Object.create(global.Math);
     mockMathRandom.random = () => 0.5;
     global.Math = mockMathRandom;
-  })
+  });
 
-  afterAll(()=>{
+  afterAll(() => {
     global.Math.random = this.oldRandom;
-  })
+  });
 
   it('renders correctly', () => {
     const tree = renderer

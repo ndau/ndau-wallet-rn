@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, Button, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView, Alert } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
@@ -19,6 +19,11 @@ class SetupQRCode extends Component {
       scanning: true,
       cameraPermission: false
     };
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   onSuccess(e) {

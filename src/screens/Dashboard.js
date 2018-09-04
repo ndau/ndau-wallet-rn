@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, SafeAreaView, Alert, View, Text, BackHandler } from 'react-native';
+import { ScrollView, SafeAreaView, View, Text, BackHandler } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import AlertPanel from '../components/AlertPanel';
@@ -14,6 +14,11 @@ class Dashboard extends Component {
     console.log(`props in dashboard are ${JSON.stringify(props, null, 2)}`);
 
     this.state = {};
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   static navigatorStyle = {
@@ -44,9 +49,9 @@ class Dashboard extends Component {
       .then((userIds) => {
         console.debug(`userIds is ${userIds}`);
 
-        if (!this.props.reduxProps && userIds.length > 0) {
+        if (userIds.length > 0) {
           this.getPassphrase();
-        } else if (!this.props.reduxProps.user) {
+        } else if (!this.props.reduxProps) {
           this.showSetup();
         }
       })

@@ -33,6 +33,11 @@ class SetupConfirmSeedPhrase extends Component {
       match: false,
       selected: []
     };
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   showNextSetup = () => {

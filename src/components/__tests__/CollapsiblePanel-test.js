@@ -16,7 +16,6 @@ describe('testing CollapsiblePanel...', () => {
     setStyle: () => {}
   };
 
-  beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer
       .create(<CollapsiblePanel parentStyles={styles} navigator={navigator} />)

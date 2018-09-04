@@ -32,6 +32,11 @@ class SetupSeedPhrase extends Component {
     this.state = {
       seedPhrase: []
     };
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   componentDidMount = () => {

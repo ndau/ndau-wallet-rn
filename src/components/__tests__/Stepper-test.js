@@ -16,7 +16,6 @@ describe('testing Stepper...', () => {
     setStyle: () => {}
   };
 
-  beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer.create(<Stepper parentStyles={styles} navigator={navigator} />).toJSON();
     expect(tree).toMatchSnapshot();

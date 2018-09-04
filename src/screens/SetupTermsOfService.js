@@ -12,6 +12,11 @@ class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   checkedAgree = () => {

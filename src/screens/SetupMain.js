@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView, Platform } from 'react-native';
+import { View, ScrollView, Text, SafeAreaView, Platform } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
@@ -9,6 +9,11 @@ import { pushSetup } from '../actions/NavigationActions';
 class SetupMain extends Component {
   constructor(props) {
     super(props);
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   showNextSetup = () => {

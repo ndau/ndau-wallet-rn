@@ -19,6 +19,11 @@ class SetupEncryptionPassword extends Component {
       progress: false,
       textInputColor: '#000000'
     };
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   usePassword(event) {

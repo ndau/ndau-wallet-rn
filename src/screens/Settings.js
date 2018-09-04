@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, ScrollView, TouchableHighlight, View, Text, StyleSheet } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import Row from '../components/Row';
 import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
@@ -9,6 +9,11 @@ import { pushSetup } from '../actions/NavigationActions';
 class Settings extends React.Component {
   constructor(props) {
     super(props);
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   static navigatorStyle = {
@@ -46,25 +51,6 @@ class Settings extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  row: {
-    height: 68,
-    paddingHorizontal: 16,
-    paddingBottom: 20,
-    paddingTop: 20,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.054)'
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
-  }
-});
-
 const mapStateToProps = (state) => {
   return {};
 };
@@ -72,4 +58,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ pushSetup }, dispatch);
 };
 
-export default connect(null, mapDispatchToProps)(Settings);
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

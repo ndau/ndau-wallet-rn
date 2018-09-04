@@ -10,8 +10,6 @@ mock();
 import AsyncStorageHelper from '../AsyncStorageHelper';
 
 describe('AsyncStorageHelper tests...', () => {
-  beforeEach(() => {});
-
   it('should set one user', async () => {
     const user = {
       userId: 'ABC-123'

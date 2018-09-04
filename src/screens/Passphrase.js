@@ -41,6 +41,11 @@ class Passphrase extends Component {
     };
 
     this.maxLoginAttempts = 10;
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   componentWillMount = async () => {

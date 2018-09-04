@@ -22,6 +22,11 @@ class SetupGetRandom extends Component {
     this.randalPromise = this.initRandal().catch((e) => {
       console.error(e);
     });
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   initRandal() {

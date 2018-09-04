@@ -4,28 +4,27 @@ import SetupConfirmSeedPhrase from '../SetupConfirmSeedPhrase';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 
-
 function makeStyles() {
   return StyleSheet.create({
     wizardText: {
       color: '#ffffff',
       fontSize: 20
     }
-  })
-};
+  });
+}
 
 function makeNavigator() {
   return {
-    setStyle: () => { } // mock noop
+    setStyle: () => {},
+    toggleNavBar: () => {}
   };
 }
 
 function makeWords() {
-  return 'zero one two three four five six seven eight nine ten eleven'.split(' ')
+  return 'zero one two three four five six seven eight nine ten eleven'.split(' ');
 }
 
 describe('SetupConfirmSeedPhrase presentation', () => {
-
   beforeEach(() => {
     this.tree = renderer
       .create(
@@ -33,10 +32,10 @@ describe('SetupConfirmSeedPhrase presentation', () => {
           navigator={makeNavigator()}
           parentStyles={makeStyles()}
           seedPhraseArray={makeWords()}
-          encryptionPassword={"testing"}
+          encryptionPassword={'testing'}
           entropy={'dGVzdGluZ3dlc3Rpbmdh'}
           shuffledWords={makeWords()}
-          shuffleMap={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
+          shuffleMap={[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]}
         />
       )
       .toJSON();
@@ -48,21 +47,22 @@ describe('SetupConfirmSeedPhrase presentation', () => {
 });
 
 describe('SetupConfirmSeedPhrase behavior', () => {
-
   beforeEach(() => {
     // set up default wrapper for every test.
-    this.wrapper = mount(<SetupConfirmSeedPhrase
-      navigator={makeNavigator()}
-      parentStyles={makeStyles()}
-      seedPhraseArray={makeWords()}
-      encryptionPassword={"testing"}
-      entropy={'dGVzdGluZ3dlc3Rpbmdh'}
-      shuffledWords={makeWords()}
-      shuffleMap={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
-    />);
+    this.wrapper = mount(
+      <SetupConfirmSeedPhrase
+        navigator={makeNavigator()}
+        parentStyles={makeStyles()}
+        seedPhraseArray={makeWords()}
+        encryptionPassword={'testing'}
+        entropy={'dGVzdGluZ3dlc3Rpbmdh'}
+        shuffledWords={makeWords()}
+        shuffleMap={[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]}
+      />
+    );
     this.press = (index) => {
-      this.wrapper.find('Word').at(index).props().onPress()
-    }
+      this.wrapper.find('Word').at(index).props().onPress();
+    };
   });
 
   test('done button starts disabled', () => {
@@ -86,14 +86,14 @@ describe('SetupConfirmSeedPhrase behavior', () => {
     expect(this.wrapper.state().errorCount).toBe(1);
   });
 
-
   test('done button is enabled after correct sequence', () => {
-    makeWords().forEach((e, i) => { this.wrapper.find('Word').at(i).props().onPress(); });
+    makeWords().forEach((e, i) => {
+      this.wrapper.find('Word').at(i).props().onPress();
+    });
     this.wrapper.update();
     const doneButton = this.wrapper.find('Button').at(1);
     expect(doneButton.prop('disabled')).toBeFalsy();
   });
-
 
   test('trigger error state with incorrect word', () => {
     this.press(6); // wrong
@@ -115,7 +115,7 @@ describe('SetupConfirmSeedPhrase behavior', () => {
     this.press(6); // wrong
     this.press(1); // another wrong
     this.wrapper.update();
-    expect(this.wrapper.state().selected).toEqual([6]);
+    expect(this.wrapper.state().selected).toEqual([ 6 ]);
     expect(this.wrapper.state().errorCount).toBe(1);
   });
 
@@ -151,5 +151,4 @@ describe('SetupConfirmSeedPhrase behavior', () => {
     this.wrapper.update();
     expect(this.wrapper.state().mustRetry).toBeTruthy();
   });
-
-})
+});
