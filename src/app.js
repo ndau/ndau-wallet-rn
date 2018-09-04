@@ -17,6 +17,12 @@ function startApp() {
       screen: 'ndau.Dashboard',
       icon: iconsMap['ndau-icon'],
       title: 'Dashboard'
+    },
+    {
+      label: 'Settings',
+      screen: 'ndau.Settings',
+      icon: iconsMap['cog'],
+      title: 'Settings'
     }
   ];
 
@@ -26,14 +32,14 @@ function startApp() {
     animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
     tabsStyle: {
       tabBarBackgroundColor: '#1c2227',
-      tabBarButtonColor: '#1c2227',
+      tabBarButtonColor: '#80C9AB',
       tabBarSelectedButtonColor: '#4d9678',
       tabFontFamily: 'TitilliumWeb-Light'
     },
     appStyle: {
       tabBarBackgroundColor: '#1c2227',
-      navBarButtonColor: '#1c2227',
-      tabBarButtonColor: '#1c2227',
+      navBarButtonColor: '#80C9AB',
+      tabBarButtonColor: '#80C9AB',
       navBarTextColor: '#1c2227',
       tabBarSelectedButtonColor: '#4d9678',
       navigationBarColor: '#1c2227',

@@ -12,8 +12,8 @@ const icoMoon = createIconSetFromIcoMoon(icoMoonConfig);
 // here we use active, big, small, very-big..
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 const icons = {
-  // Use other Icon provider, see the logic at L39
-  'ndau-icon': [ 30, '#fff', icoMoon ]
+  'ndau-icon': [ 28, '#fff', icoMoon ],
+  cog: [ 30, '#fff', FontAwesome ]
 };
 
 const defaultIconProvider = FontAwesome;
