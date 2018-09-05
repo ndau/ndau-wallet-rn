@@ -172,4 +172,25 @@ describe('AsyncStorageHelper tests...', () => {
       });
     });
   });
+
+  // it('testing migration of old @NdauAsynStorage:user value', async () => {
+  //   const user1 = {
+  //     userId: 'ABC-123'
+  //   };
+  //   const password1 = 'abcd';
+
+  //   await AsyncStorageHelper.setUser(user1, password1, STORAGE_KEY_PREFIX + 'user');
+
+  //   await AsyncStorageHelper.getAllKeys().then(async (keys) => {
+  //     const arrayOfKeys = [ 'ABC-123' ];
+  //     console.log(`keys are: ${keys}`);
+  //     expect(keys).toEqual(arrayOfKeys);
+  //     await AsyncStorageHelper.doesKeyExist('ABC-123').then((present) => {
+  //       expect(present).toBe(true);
+  //     });
+  //     await AsyncStorageHelper.doesKeyExist('ABC-123212').then((present) => {
+  //       expect(present).toBe(false);
+  //     });
+  //   });
+  // });
 });
