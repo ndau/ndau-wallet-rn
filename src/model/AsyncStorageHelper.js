@@ -68,8 +68,15 @@ const getAllKeys = async () => {
   }
 };
 
+const doesKeyExist = async (key) => {
+  const keys = await getAllKeys();
+  console.log(`${keys.includes(key)} is in keys`);
+  return keys.includes(key);
+};
+
 module.exports = {
   getUser,
   setUser,
-  getAllKeys
+  getAllKeys,
+  doesKeyExist
 };

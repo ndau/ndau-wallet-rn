@@ -10,9 +10,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push, setUser, startTabBasedApp } from '../actions/NavigationActions';
 
-//"nd" for mainnet, or "tn" for testnet.
-const addressGenerationType = 'nd';
-
 class SetupEAINode extends Component {
   constructor(props) {
     super(props);
@@ -88,7 +85,7 @@ class SetupEAINode extends Component {
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       seedPhraseAsBytes,
       this.props.numberOfAccounts,
-      addressGenerationType
+      this.props.addressType
     );
     console.debug(`publicAddresses: ${publicAddresses}`);
 

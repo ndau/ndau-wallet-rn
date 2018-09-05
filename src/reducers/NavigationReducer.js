@@ -1,6 +1,9 @@
 import * as Actions from '../actions/ActionTypes';
 import { Navigation } from 'react-native-navigation';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
+
+const TESTNET_ADDRESS = 'tn';
+const MAINNET_ADDRESS = 'nd';
 
 const NavigationReducer = (
   state = {
@@ -13,7 +16,8 @@ const NavigationReducer = (
     shuffledWords: [],
     seedPhrase: '',
     password: '',
-    user: {}
+    user: {},
+    addressType: MAINNET_ADDRESS
   },
   action = {}
 ) => {
@@ -85,6 +89,23 @@ const NavigationReducer = (
         passProps: { ...state }
       });
       return { ...state };
+    case Actions.TOGGLE_TESTNET:
+      const oldAddressType = state.addressType;
+      const newAddressType =
+        state.addressType === MAINNET_ADDRESS ? TESTNET_ADDRESS : MAINNET_ADDRESS;
+      const returnObject = {
+        ...state,
+        addressType: newAddressType
+      };
+
+      Alert.alert(
+        'Information',
+        `Old address type was ${oldAddressType} which has been moved to ${newAddressType}`,
+        [ { text: 'OK', onPress: () => {} } ],
+        { cancelable: false }
+      );
+
+      return returnObject;
     case Actions.SET_USERID:
       return { ...state, userId: action.userId };
     case Actions.SET_NUMBER_OF_ACCOUNTS:

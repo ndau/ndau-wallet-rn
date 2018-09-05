@@ -7,6 +7,7 @@ import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import { pushSetup, setNumberOfAccounts, setUserId } from '../actions/NavigationActions';
 
 class SetupUserId extends Component {
@@ -79,11 +80,42 @@ class SetupUserId extends Component {
   showInfoMessage(msg) {
     Alert.alert('Information', msg, [ { text: 'OK', onPress: () => {} } ], { cancelable: false });
   }
+
   textChanged = (userId) => {
     if (userId.length === 3) {
       userId += '-';
     }
     this.setState({ userId });
+  };
+
+  checkIfAlreadyExists = async () => {
+    try {
+      const userIdAlreadyAdded = await AsyncStorageHelper.doesKeyExist(this.state.userId);
+      if (userIdAlreadyAdded) {
+        Alert.alert(
+          'Warning',
+          `You are about to create a NEW recovery phrase for an ID which already has one. Are you sure you want to do this? Your old phrase and addresses will be invalidated.`,
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {}
+            },
+            {
+              text: 'Create new',
+              onPress: () => {
+                this.onSendEmail();
+              }
+            }
+          ],
+          { cancelable: false }
+        );
+      } else {
+        this.onSendEmail();
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   };
 
   onSendEmail() {
@@ -154,7 +186,7 @@ class SetupUserId extends Component {
             <CommonButton
               style={{ marginTop: 15 }}
               onPress={() => {
-                this.onSendEmail();
+                this.checkIfAlreadyExists();
               }}
               title="Send email"
               disabled={this.state.numberOfAccounts === 0}

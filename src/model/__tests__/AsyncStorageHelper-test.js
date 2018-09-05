@@ -141,4 +141,35 @@ describe('AsyncStorageHelper tests...', () => {
       expect(keys).toEqual(arrayOfKeys);
     });
   });
+
+  it('should set 3 users, getAllKeys and check doesKeyExist', async () => {
+    const user1 = {
+      userId: 'ABC-123'
+    };
+    const password1 = 'abcd';
+    const user2 = {
+      userId: 'jimmy'
+    };
+    const password2 = 'jim';
+    const user3 = {
+      userId: 'ABC-123anything'
+    };
+    const password3 = 'anything';
+
+    await AsyncStorageHelper.setUser(user1, password1);
+    await AsyncStorageHelper.setUser(user2, password2);
+    await AsyncStorageHelper.setUser(user3, password3);
+
+    await AsyncStorageHelper.getAllKeys().then(async (keys) => {
+      const arrayOfKeys = [ 'ABC-123', 'jimmy', 'ABC-123anything' ];
+      console.log(`keys are: ${keys}`);
+      expect(keys).toEqual(arrayOfKeys);
+      await AsyncStorageHelper.doesKeyExist('ABC-123').then((present) => {
+        expect(present).toBe(true);
+      });
+      await AsyncStorageHelper.doesKeyExist('ABC-123212').then((present) => {
+        expect(present).toBe(false);
+      });
+    });
+  });
 });
