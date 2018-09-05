@@ -188,7 +188,9 @@ class Passphrase extends Component {
             <View style={styles.textContainer}>
               <Text style={styles.text}>or</Text>
             </View>
-            <CommonButton onPress={this.login} title="Login" />
+            <View style={{ marginTop: 10 }}>
+              <CommonButton onPress={this.login} title="Login" />
+            </View>
           </View>
         </View>
       </SafeAreaView>
