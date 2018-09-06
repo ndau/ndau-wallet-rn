@@ -81,13 +81,22 @@ const NavigationReducer = (
       const { tabs, animationType, tabsStyle, appStyle } = constants;
 
       // this will start our app
-      Navigation.startTabBasedApp({
-        tabs,
-        animationType,
-        tabsStyle,
-        appStyle,
-        passProps: { ...state }
-      });
+      if (Platform.OS === 'android') {
+        Navigation.startTabBasedApp({
+          tabs,
+          animationType,
+          tabsStyle,
+          appStyle,
+          passProps: { ...state }
+        });
+      } else {
+        Navigation.startTabBasedApp({
+          tabs,
+          animationType,
+          tabsStyle,
+          passProps: { ...state }
+        });
+      }
       return { ...state };
     case Actions.TOGGLE_TESTNET:
       const oldAddressType = state.addressType;

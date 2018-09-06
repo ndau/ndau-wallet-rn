@@ -8,7 +8,8 @@ import {
   Alert,
   Image,
   TouchableOpacity,
-  Text
+  Text,
+  Platform
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
@@ -27,6 +28,8 @@ import {
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
+import { Navigation } from 'react-native-navigation';
+import UserStore from '../model/UserStore';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -60,7 +63,13 @@ class Passphrase extends Component {
     AsyncStorageHelper.getUser(this.state.userId, this.state.password)
       .then((user) => {
         if (user) {
+          console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
+          //We use UserStore for iOS due to immutable props
+          //within the navigation screens. Android does not force props
+          //immutability but for some undocumented reason iOS does
           this.props.setUser(user);
+          UserStore.setUser(user);
+
           this.props.startTabBasedApp();
         } else {
           this.showLoginError();
