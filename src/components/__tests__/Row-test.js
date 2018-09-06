@@ -16,7 +16,6 @@ describe('testing Row...', () => {
     setStyle: () => {}
   };
 
-  beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer.create(<Row parentStyles={styles} navigator={navigator} />).toJSON();
     expect(tree).toMatchSnapshot();

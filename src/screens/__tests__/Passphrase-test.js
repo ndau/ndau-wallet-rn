@@ -2,7 +2,8 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Passphrase from '../Passphrase';
-
+import { Provider } from 'react-redux';
+import store from '../../reducers/index';
 import renderer from 'react-test-renderer';
 
 describe('testing Passphrase...', () => {
@@ -13,18 +14,26 @@ describe('testing Passphrase...', () => {
     }
   });
   const navigator = {
-    setStyle: () => {}
+    setStyle: () => {},
+    toggleNavBar: () => {}
   };
 
-  beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer
-      .create(<Passphrase navigator={navigator} parentStyles={styles} />)
+      .create(
+        <Provider store={store}>
+          <Passphrase navigator={navigator} parentStyles={styles} />
+        </Provider>
+      )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
   it('can click the button', () => {
-    const wrapper = mount(<Passphrase navigator={navigator} parentStyles={styles} />);
+    const wrapper = mount(
+      <Provider store={store}>
+        <Passphrase navigator={navigator} parentStyles={styles} />
+      </Provider>
+    );
     const onlyButton = wrapper.find('Button').at(0);
     onlyButton.simulate('click');
   });

@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import SetupYourWallet from '../SetupYourWallet';
-
+import { Provider } from 'react-redux';
+import store from '../../reducers/index';
 import renderer from 'react-test-renderer';
 
 describe('testing SetupYourWallet...', () => {
-  beforeEach(() => {});
   it('renders correctly', () => {
     var styles = StyleSheet.create({
       wizardText: {
@@ -14,11 +14,16 @@ describe('testing SetupYourWallet...', () => {
       }
     });
     const navigator = {
-      setStyle: () => {}
+      setStyle: () => {},
+      toggleNavBar: () => {}
     };
 
     const tree = renderer
-      .create(<SetupYourWallet navigator={navigator} parentStyles={styles} />)
+      .create(
+        <Provider store={store}>
+          <SetupYourWallet navigator={navigator} parentStyles={styles} />
+        </Provider>
+      )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

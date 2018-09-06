@@ -16,7 +16,6 @@ describe('testing ErrorPanel...', () => {
     setStyle: () => {}
   };
 
-  beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer
       .create(<ErrorPanel parentStyles={styles} navigator={navigator} />)

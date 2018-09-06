@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Text, TouchableHighlight, Platform } from 'react-native';
 
-class Row extends React.PureComponent {
+class Row extends React.Component {
   render() {
     const { title, onPress, onPressIn, platform, testID } = this.props;
     if (platform && platform !== Platform.OS) {
@@ -33,9 +33,9 @@ Row.propTypes = {
 const styles = StyleSheet.create({
   row: {
     height: 68,
-    paddingHorizontal: 16,
-    paddingBottom: 20,
-    paddingTop: 20,
+    paddingHorizontal: 5,
+    paddingBottom: 5,
+    paddingTop: 15,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',

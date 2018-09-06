@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`testing Settings... renders correctly 1`] = `
-<RCTScrollView
+<RCTSafeAreaView
   style={
     Object {
       "backgroundColor": "#1c2227",
@@ -9,49 +9,59 @@ exports[`testing Settings... renders correctly 1`] = `
     }
   }
 >
-  <View>
-    <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={null}
-    >
+  <RCTScrollView
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+        "padding": 20,
+      }
+    }
+  >
+    <View>
       <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "borderBottomColor": "rgba(255, 255, 255, 0.054)",
-            "borderBottomWidth": 1,
-            "flexDirection": "row",
-            "height": 68,
-            "justifyContent": "flex-start",
-            "paddingBottom": 20,
-            "paddingHorizontal": 16,
-            "paddingTop": 20,
-          }
-        }
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={null}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
           style={
             Object {
-              "color": "#ffffff",
-              "fontFamily": "TitilliumWeb-Regular",
-              "fontSize": 20,
+              "alignItems": "flex-start",
+              "borderBottomColor": "rgba(255, 255, 255, 0.054)",
+              "borderBottomWidth": 1,
+              "flexDirection": "row",
+              "height": 68,
+              "justifyContent": "flex-start",
+              "paddingBottom": 5,
+              "paddingHorizontal": 5,
+              "paddingTop": 15,
             }
           }
         >
-          Logout
-        </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 20,
+              }
+            }
+          >
+            Logout
+          </Text>
+        </View>
       </View>
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>
+</RCTSafeAreaView>
 `;

@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView, NativeModules } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  SafeAreaView,
+  NativeModules,
+  Alert
+} from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  pushSetup,
+  setSeedPhrase,
+  setShuffledWords,
+  setShuffledMap
+} from '../actions/NavigationActions';
 
 var _ = require('lodash');
 
@@ -15,13 +32,14 @@ class SetupSeedPhrase extends Component {
     this.state = {
       seedPhrase: []
     };
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
   componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
-    });
     this.generateSeedPhrase();
   };
 
@@ -42,6 +60,7 @@ class SetupSeedPhrase extends Component {
   }
 
   generateSeedPhrase = async () => {
+    console.debug(`entropy in generateSeedPhrase is ${this.props.entropy}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
     const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.entropy);
     const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', seeds);
@@ -72,29 +91,11 @@ class SetupSeedPhrase extends Component {
     }, []);
   };
 
-  onPushAnother = () => {
-    this.props.navigator.push({
-      label: 'SetupConfirmSeedPhrase',
-      screen: 'ndau.SetupConfirmSeedPhrase',
-      passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        userId: this.props.userId,
-        qrToken: this.props.qrToken,
-        parentStyles: this.props.parentStyles,
-        entropy: this.props.entropy,
-        seedPhraseArray: this.state.seedPhrase,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts,
-        shuffledWords: this.shuffledWords,
-        shuffleMap: this.shuffleMap
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
+  showNextSetup = () => {
+    this.props.setSeedPhrase(this.state.seedPhrase);
+    this.props.setShuffledMap(this.shuffleMap);
+    this.props.setShuffledWords(this.shuffledWords);
+    this.props.pushSetup('ndau.SetupConfirmSeedPhrase', this.props.navigator);
   };
 
   render() {
@@ -104,11 +105,11 @@ class SetupSeedPhrase extends Component {
     let count = 1;
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={5} />
             <View style={{ marginBottom: 10 }}>
-              <Text style={this.props.parentStyles.wizardText}>
+              <Text style={cssStyles.wizardText}>
                 Write this phrase down. You will want to store it in a secure location.
               </Text>
             </View>
@@ -137,7 +138,7 @@ class SetupSeedPhrase extends Component {
             })}
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.onPushAnother} title="I wrote it down" />
+            <CommonButton onPress={this.showNextSetup} title="I wrote it down" />
           </View>
         </View>
       </SafeAreaView>
@@ -173,4 +174,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupSeedPhrase;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    { pushSetup, setSeedPhrase, setShuffledWords, setShuffledMap },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(SetupSeedPhrase);

@@ -32,7 +32,7 @@ exports[`testing AlertPanel... renders correctly 1`] = `
           "color": "#4e957a",
           "fontFamily": "TitilliumWeb-Regular",
           "fontSize": 20,
-          "padding": "4%",
+          "padding": 10,
         }
       }
     />

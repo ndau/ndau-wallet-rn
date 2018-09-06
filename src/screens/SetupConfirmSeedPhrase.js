@@ -12,6 +12,10 @@ import groupIntoRows from '../helpers/groupIntoRows';
 import ErrorPanel from '../components/ErrorPanel';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { pushSetup } from '../actions/NavigationActions';
 
 var _ = require('lodash');
 
@@ -29,57 +33,20 @@ class SetupConfirmSeedPhrase extends Component {
       match: false,
       selected: []
     };
-  }
 
-  componentDidMount() {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
     });
   }
 
-  onPushAnother() {
-    this.props.navigator.push({
-      label: 'SetupTermsOfService',
-      screen: 'ndau.SetupTermsOfService',
-      passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        qrToken: this.props.qrToken,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts,
-        seedPhraseArray: this.props.seedPhraseArray
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
-  }
+  showNextSetup = () => {
+    this.props.pushSetup('ndau.SetupTermsOfService', this.props.navigator);
+  };
 
-  onPushBack() {
-    this.props.navigator.push({
-      label: 'SetupGetRandom',
-      screen: 'ndau.SetupGetRandom',
-      passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        qrToken: this.props.qrToken,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
-  }
+  pushBack = () => {
+    this.props.pushSetup('ndau.SetupGetRandom', this.props.navigator);
+  };
 
   render() {
     // chop the words into ROW_LENGTH-tuples
@@ -93,11 +60,11 @@ class SetupConfirmSeedPhrase extends Component {
 
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={6} />
             <View style={{ marginBottom: 10 }}>
-              <Text style={this.props.parentStyles.wizardText}>
+              <Text style={cssStyles.wizardText}>
                 Demonstrate that you wrote the phrase down by tapping the words below in order.{' '}
               </Text>
             </View>
@@ -146,9 +113,9 @@ class SetupConfirmSeedPhrase extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <View style={styles.navButtonWrapper}>
-              <CommonButton onPress={() => this.onPushBack()} title="Back (resets phrase)" />
+              <CommonButton onPress={() => this.pushBack()} title="Back (resets phrase)" />
               <CommonButton
-                onPress={() => this.onPushAnother()}
+                onPress={() => this.showNextSetup()}
                 title="Next"
                 disabled={!this.state.match}
               />
@@ -160,7 +127,7 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   checkMistakes() {
-    const correctSoFar = this.props.shuffleMap.slice(0, this.state.selected.length);
+    const correctSoFar = this.props.shuffledMap.slice(0, this.state.selected.length);
     if (!_(this.state.selected).isEqual(correctSoFar)) {
       let errorCount = this.state.errorCount + 1;
       this.setState({
@@ -178,7 +145,7 @@ class SetupConfirmSeedPhrase extends Component {
   }
 
   checkDone() {
-    if (_(this.state.selected).isEqual(this.props.shuffleMap)) {
+    if (_(this.state.selected).isEqual(this.props.shuffledMap)) {
       this.setState({ match: true });
     }
   }
@@ -279,4 +246,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupConfirmSeedPhrase;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(SetupConfirmSeedPhrase);

@@ -9,7 +9,15 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
     }
   }
 >
-  <View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+        "padding": 20,
+      }
+    }
+  >
     <RCTScrollView
       style={
         Object {
@@ -49,6 +57,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
             style={
               Object {
                 "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
                 "fontSize": 20,
               }
             }
@@ -167,6 +176,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                     itemTextStyle={
                       Object {
                         "color": "#ffffff",
+                        "fontFamily": "TitilliumWeb-Regular",
                         "fontSize": 20,
                       }
                     }
@@ -555,6 +565,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                               },
                               Object {
                                 "color": "#ffffff",
+                                "fontFamily": "TitilliumWeb-Regular",
                                 "fontSize": 20,
                               },
                               Object {
@@ -658,6 +669,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                               },
                               Object {
                                 "color": "#ffffff",
+                                "fontFamily": "TitilliumWeb-Regular",
                                 "fontSize": 20,
                               },
                               Object {
@@ -761,6 +773,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                               },
                               Object {
                                 "color": "#ffffff",
+                                "fontFamily": "TitilliumWeb-Regular",
                                 "fontSize": 20,
                               },
                               Object {
@@ -864,6 +877,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                               },
                               Object {
                                 "color": "#ffffff",
+                                "fontFamily": "TitilliumWeb-Regular",
                                 "fontSize": 20,
                               },
                               Object {
@@ -967,6 +981,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
                               },
                               Object {
                                 "color": "#ffffff",
+                                "fontFamily": "TitilliumWeb-Regular",
                                 "fontSize": 20,
                               },
                               Object {

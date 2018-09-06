@@ -1,30 +1,46 @@
-jest.mock('react-native-securerandom')
+jest.mock('react-native-securerandom');
 
 import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import SetupGetRandom from '../SetupGetRandom';
-
+import { Provider } from 'react-redux';
+import store from '../../reducers/index';
 import renderer from 'react-test-renderer';
 
-const makeStyles = () => StyleSheet.create({
-  wizardText: {
-    color: '#ffffff',
-    fontSize: 20
-  }
-});
+const makeStyles = () =>
+  StyleSheet.create({
+    wizardText: {
+      color: '#ffffff',
+      fontSize: 20
+    }
+  });
+const navigator = {
+  setStyle: () => {},
+  toggleNavBar: () => {}
+};
 
 describe('SetupGetRandom snapshot', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(<SetupGetRandom parentStyles={makeStyles()} />).toJSON();
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <SetupGetRandom navigator={navigator} parentStyles={makeStyles()} />
+        </Provider>
+      )
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
-})
+});
 
 describe('SetupGetRandom behavior', () => {
   beforeEach((done) => {
     // set up default wrapper for every test.
-    this.wrapper = mount(<SetupGetRandom parentStyles={makeStyles()} />);
+    this.wrapper = mount(
+      <Provider store={store}>
+        <SetupGetRandom navigator={navigator} parentStyles={makeStyles()} />
+      </Provider>
+    );
     this.wrapper.instance().randalPromise.then(done);
   });
 
@@ -47,12 +63,14 @@ describe('SetupGetRandom behavior', () => {
     const x = 500; // random position
     // scribble for an arbitrary amount of time
     for (var i = 0; i < 2048; i++) {
-      handler.apply(instance, [{
-        nativeEvent: {
-          locationX: x * flipper,
-          locationY: x * flipper
+      handler.apply(instance, [
+        {
+          nativeEvent: {
+            locationX: x * flipper,
+            locationY: x * flipper
+          }
         }
-      }]);
+      ]);
       flipper *= -1;
     }
     this.wrapper.update(); // important
@@ -61,7 +79,6 @@ describe('SetupGetRandom behavior', () => {
   });
 
   it('subsequent scribbles should not produce the same output', (done) => {
-
     const tickleScribbler = (wrapper) => {
       const instance = wrapper.instance();
       const handler = instance.handleScribble;
@@ -70,20 +87,22 @@ describe('SetupGetRandom behavior', () => {
       const x = 500; // random position
       // scribble for an arbitrary amount of time
       for (var i = 0; i < 2048; i++) {
-        handler.apply(instance, [{
-          nativeEvent: {
-            locationX: x * flipper,
-            locationY: x * flipper
+        handler.apply(instance, [
+          {
+            nativeEvent: {
+              locationX: x * flipper,
+              locationY: x * flipper
+            }
           }
-        }]);
+        ]);
         flipper *= -1;
       }
-    }
+    };
 
     anotherWrapper = mount(<SetupGetRandom parentStyles={makeStyles()} />);
     anotherWrapper.instance().randalPromise.then(() => {
-      tickleScribbler(this.wrapper)
-      tickleScribbler(anotherWrapper)
+      tickleScribbler(this.wrapper);
+      tickleScribbler(anotherWrapper);
       try {
         const hash = this.wrapper.instance().randal.getHash();
         const anotherHash = anotherWrapper.instance().randal.getHash();

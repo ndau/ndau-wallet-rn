@@ -3,50 +3,34 @@ import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { pushSetup } from '../actions/NavigationActions';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-  }
 
-  componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
     });
-  };
+  }
 
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree });
   };
 
-  onPushAnother = () => {
-    this.props.navigator.push({
-      label: 'SetupEAINode',
-      screen: 'ndau.SetupEAINode',
-      passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        qrToken: this.props.qrToken,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts,
-        seedPhraseArray: this.props.seedPhraseArray
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
+  showNextSetup = () => {
+    this.props.pushSetup('ndau.SetupEAINode', this.props.navigator);
   };
 
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView
             style={styles.contentContainer}
             showsVerticalScrollIndicator={true}
@@ -371,7 +355,7 @@ class SetupTermsOfService extends Component {
                 violation.{'\n'}
               </Text>
               <CheckBox
-                style={this.props.parentStyles.checkbox}
+                style={cssStyles.checkbox}
                 onClick={() => this.checkedAgree()}
                 isChecked={this.state.agree}
                 rightText="I agree to the terms of use"
@@ -385,7 +369,7 @@ class SetupTermsOfService extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.onPushAnother} title="Next" disabled={!this.state.agree} />
+            <CommonButton onPress={this.showNextSetup} title="Next" disabled={!this.state.agree} />
           </View>
         </View>
       </SafeAreaView>
@@ -429,4 +413,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupTermsOfService;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(SetupTermsOfService);

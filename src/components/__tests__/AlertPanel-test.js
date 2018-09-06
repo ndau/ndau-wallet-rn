@@ -16,7 +16,6 @@ describe('testing AlertPanel...', () => {
     setStyle: () => {}
   };
 
-  beforeEach(() => {});
   it('renders correctly', () => {
     const tree = renderer
       .create(<AlertPanel parentStyles={styles} navigator={navigator} />)

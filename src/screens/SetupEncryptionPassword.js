@@ -4,6 +4,10 @@ import CheckBox from 'react-native-check-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { pushSetup, setEncryptionPassword } from '../actions/NavigationActions';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -15,14 +19,12 @@ class SetupEncryptionPassword extends Component {
       progress: false,
       textInputColor: '#000000'
     };
-  }
 
-  componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
     });
-  };
+  }
 
   usePassword(event) {
     this.onPushAnother(event);
@@ -32,7 +34,7 @@ class SetupEncryptionPassword extends Component {
     return this.state.password === this.state.confirmPassword;
   };
 
-  onPushAnother = async () => {
+  showNextSetup = () => {
     if (!this.checkPasswords()) {
       Alert.alert(
         'Error',
@@ -44,24 +46,8 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    this.props.navigator.push({
-      label: 'SetupGetRandom',
-      screen: 'ndau.SetupGetRandom',
-      passProps: {
-        encryptionPassword: this.state.password,
-        qrToken: this.props.qrToken,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
+    this.props.setEncryptionPassword(this.state.password);
+    this.props.pushSetup('ndau.SetupGetRandom', this.props.navigator);
   };
 
   checkedShowPasswords = () => {
@@ -88,11 +74,11 @@ class SetupEncryptionPassword extends Component {
     const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={2} />
             <View style={styles.textContainer}>
-              <Text style={this.props.parentStyles.wizardText} onPress={this.showInformation}>
+              <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
                 password to decrypt it whenever you open this app.{'  '}
                 <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
@@ -138,7 +124,7 @@ class SetupEncryptionPassword extends Component {
             />
             <View>
               <CheckBox
-                style={this.props.parentStyles.checkbox}
+                style={cssStyles.checkbox}
                 onClick={() => this.checkedShowPasswords()}
                 isChecked={this.state.showPasswords}
                 rightText="Show passwords"
@@ -152,7 +138,7 @@ class SetupEncryptionPassword extends Component {
             </View>
             <View>
               <CheckBox
-                style={this.props.parentStyles.checkbox}
+                style={cssStyles.checkbox}
                 onClick={() => this.checkedProgress()}
                 isChecked={this.state.progress}
                 rightText="I understand that ndau cannot help me recover my password.
@@ -168,7 +154,7 @@ class SetupEncryptionPassword extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <CommonButton
-              onPress={this.onPushAnother}
+              onPress={this.showNextSetup}
               title="Next"
               disabled={!this.state.progress}
             />
@@ -205,4 +191,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupEncryptionPassword;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup, setEncryptionPassword }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(SetupEncryptionPassword);

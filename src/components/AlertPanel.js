@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
     color: '#4e957a',
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular',
-    padding: '4%'
+    padding: 10
   },
   alertContainer: {
     backgroundColor: '#c7f3e2',

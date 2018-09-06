@@ -3,35 +3,108 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  Button,
   TextInput,
   SafeAreaView,
   Alert,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Text
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
+import { Dropdown } from 'react-native-material-dropdown';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  pushSetup,
+  push,
+  setEncryptionPassword,
+  setUserId,
+  setNavigator,
+  setUser,
+  startTabBasedApp
+} from '../actions/NavigationActions';
+import cssStyles from '../css/styles';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import RNExitApp from 'react-native-exit-app';
 
 class Passphrase extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       password: '',
-      showErrorText: false
+      showErrorText: false,
+      userIds: [],
+      userId: '',
+      loginAttempt: 1
     };
+
+    this.maxLoginAttempts = 10;
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
-  componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
+  componentWillMount = async () => {
+    const userIds = await AsyncStorageHelper.getAllKeys();
+    let userIdsForDropdown = userIds.map((userId) => {
+      return { value: userId };
     });
+    this.setState({ userIds: userIdsForDropdown });
   };
 
   login = () => {
-    this.props.setPassphrase(this.state.password);
-    this.props.navigator.popToRoot();
+    AsyncStorageHelper.getUser(this.state.userId, this.state.password)
+      .then((user) => {
+        if (user) {
+          this.props.setUser(user);
+          this.props.startTabBasedApp();
+        } else {
+          this.showLoginError();
+        }
+      })
+      .catch((error) => {
+        this.showLoginError();
+      });
+  };
+
+  showExitApp() {
+    Alert.alert(
+      '',
+      `You have hit the maximum amount of login attempts.`,
+      [
+        {
+          text: 'Exit app',
+          onPress: () => {
+            RNExitApp.exitApp();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  showLoginError = () => {
+    if (this.state.loginAttempt === this.maxLoginAttempts) {
+      this.showExitApp();
+    }
+    Alert.alert(
+      'Error',
+      `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.props.setUser(null);
+            this.setState({ loginAttempt: this.state.loginAttempt + 1 });
+          }
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   showInformation = () => {
@@ -45,7 +118,12 @@ class Passphrase extends Component {
     );
   };
 
+  showSetup = () => {
+    this.props.pushSetup('ndau.SetupMain', this.props.navigator);
+  };
+
   render() {
+    console.log(`rendering Passphrase`);
     const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
@@ -53,6 +131,20 @@ class Passphrase extends Component {
           <ScrollView style={styles.contentContainer}>
             <View style={styles.imageView}>
               <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
+            </View>
+            <View style={styles.footer}>
+              <Dropdown
+                label="Please choose a User ID"
+                data={this.state.userIds}
+                baseColor="#ffffff"
+                selectedItemColor="#000000"
+                textColor="#ffffff"
+                itemTextStyle={styles.text}
+                fontSize={18}
+                labelFontSize={14}
+                // value={this.state.userId}
+                onChangeText={(userId) => this.setState({ userId })}
+              />
             </View>
             <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
               <TextInput
@@ -81,13 +173,21 @@ class Passphrase extends Component {
             </View>
             {this.state.showErrorText ? (
               <View style={styles.errorContainer}>
-                <Text style={this.props.parentStyles.errorText}>
+                <Text style={cssStyles.errorText}>
                   Please enter the passphrase you chose to decrypt this app.{' '}
                 </Text>
               </View>
             ) : null}
           </ScrollView>
           <View style={styles.footer}>
+            <View style={styles.textContainer}>
+              <Text onPress={this.showSetup} style={styles.linkText}>
+                Create a new user
+              </Text>
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>or</Text>
+            </View>
             <CommonButton onPress={this.login} title="Login" />
           </View>
         </View>
@@ -113,9 +213,14 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 0
   },
+  textContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10
+  },
   text: {
     color: '#ffffff',
-    fontSize: 22,
+    fontSize: 18,
     fontFamily: 'TitilliumWeb-Regular'
   },
   contentContainer: {
@@ -136,7 +241,20 @@ const styles = StyleSheet.create({
   infoIcon: {
     marginLeft: 12,
     marginTop: 20
+  },
+  linkText: {
+    color: '#dea85a',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 18,
+    textDecorationLine: 'underline'
   }
 });
 
-export default Passphrase;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser, startTabBasedApp },
+    dispatch
+  );
+};
+
+export default connect(null, mapDispatchToProps)(Passphrase);

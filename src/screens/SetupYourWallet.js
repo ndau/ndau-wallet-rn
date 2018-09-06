@@ -1,52 +1,37 @@
 import React, { Component } from 'react';
+
 import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { pushSetup } from '../actions/NavigationActions';
 
 class SetupYourWallet extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
   }
 
-  componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
-    });
-  };
-
-  onPushAnother = () => {
-    this.props.navigator.push({
-      label: 'SetupSeedPhrase',
-      screen: 'ndau.SetupSeedPhrase',
-      passProps: {
-        encryptionPassword: this.props.encryptionPassword,
-        qrToken: this.props.qrToken,
-        userId: this.props.userId,
-        parentStyles: this.props.parentStyles,
-        entropy: this.props.entropy,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.props.numberOfAccounts
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
+  showNextSetup = () => {
+    this.props.pushSetup('ndau.SetupSeedPhrase', this.props.navigator);
   };
 
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={4} />
 
             <View>
-              <Text style={this.props.parentStyles.wizardText}>
+              <Text style={cssStyles.wizardText}>
                 Next we will give you a seed phrase which is the key to restoring your wallet. You
                 must WRITE IT DOWN and store it in a secure location or risk losing access to your
                 funds. Do not save this phrase on your device or in the cloud. Do not do this step
@@ -55,7 +40,7 @@ class SetupYourWallet extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.onPushAnother} title="Get my seed phrase" />
+            <CommonButton onPress={this.showNextSetup} title="Get my seed phrase" />
           </View>
         </View>
       </SafeAreaView>
@@ -88,4 +73,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupYourWallet;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(SetupYourWallet);

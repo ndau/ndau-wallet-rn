@@ -9,7 +9,15 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
     }
   }
 >
-  <View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+        "padding": 20,
+      }
+    }
+  >
     <RCTScrollView
       indicatorStyle="white"
       showsVerticalScrollIndicator={true}
@@ -1054,7 +1062,13 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             onResponderTerminate={[Function]}
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
-            style={null}
+            style={
+              Object {
+                "flex": 1,
+                "paddingBottom": 10,
+                "paddingTop": 10,
+              }
+            }
           >
             <View
               style={

@@ -4,6 +4,10 @@ import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
+import cssStyles from '../css/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { pushSetup, setNumberOfAccounts, setUserId } from '../actions/NavigationActions';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -13,14 +17,12 @@ class SetupUserId extends Component {
       numberOfAccounts: 0,
       userIdPresent: false
     };
-  }
 
-  componentDidMount = () => {
-    this.props.navigator.setStyle({
-      drawUnderTabBar: true,
-      tabBarHidden: true
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
     });
-  };
+  }
 
   confirmUserIdPresent = () => {
     if (!this.state.userId) return false;
@@ -48,24 +50,11 @@ class SetupUserId extends Component {
     if (userIdPresent) this.showInfoMessage('Account verified.');
   }
 
-  nextScreen() {
-    this.props.navigator.push({
-      label: 'SetupQRCode',
-      screen: 'ndau.SetupQRCode',
-      passProps: {
-        userId: this.state.userId,
-        parentStyles: this.props.parentStyles,
-        iconsMap: this.props.iconsMap,
-        numberOfAccounts: this.state.numberOfAccounts
-      },
-      navigatorStyle: {
-        drawUnderTabBar: true,
-        tabBarHidden: true,
-        disabledBackGesture: true
-      },
-      backButtonHidden: true
-    });
-  }
+  showNextSetup = () => {
+    this.props.setUserId(this.state.userId);
+    this.props.setNumberOfAccounts(this.state.numberOfAccounts);
+    this.props.pushSetup('ndau.SetupQRCode', this.props.navigator);
+  };
 
   showExitApp() {
     Alert.alert(
@@ -102,7 +91,7 @@ class SetupUserId extends Component {
     ndauApi
       .triggerQRTEmail(this.state.userId)
       .then(() => {
-        this.nextScreen();
+        this.showNextSetup();
       })
       .catch((error) => {
         this.showErrorMessage('Email could not be sent.');
@@ -113,29 +102,29 @@ class SetupUserId extends Component {
   textChanged = (userId) => {
     let u;
     if (userId.substr(-1) === '-') {
-      u = userId
+      u = userId;
     } else {
       // c = cleaned
-      const c = userId.toUpperCase().replace(/[^A-Z0-9]/g, '').split('')
-      u = c.length > 3 ? c.map((c, i)=>i===2?`${c}-` : c).join('') : c.join('')
+      const c = userId.toUpperCase().replace(/[^A-Z0-9]/g, '').split('');
+      u = c.length > 3 ? c.map((c, i) => (i === 2 ? `${c}-` : c)).join('') : c.join('');
     }
-    this.setState({userId:u})
+    this.setState({ userId: u });
   };
 
   render() {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <View style={this.props.parentStyles.container}>
+        <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <Stepper screenNumber={1} />
             <View>
-              <Text style={this.props.parentStyles.wizardText}>
+              <Text style={cssStyles.wizardText}>
                 In order to deliver your ndau to this wallet on Genesis Day, we need the
                 six-character code you use to access the ndau dashboard.
               </Text>
             </View>
             <TextInput
-              style={this.props.parentStyles.textInput}
+              style={cssStyles.textInput}
               onChangeText={(userId) => this.textChanged(userId)}
               value={this.state.userId}
               placeholder="Enter your unique User ID"
@@ -158,7 +147,7 @@ class SetupUserId extends Component {
             <View style={styles.section} />
           </ScrollView>
           <View style={styles.footer}>
-            <Text style={this.props.parentStyles.wizardText}>
+            <Text style={cssStyles.wizardText}>
               We will send you an email to confirm you are the account holder.
             </Text>
 
@@ -193,4 +182,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupUserId;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(SetupUserId);

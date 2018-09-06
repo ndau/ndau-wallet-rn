@@ -1,16 +1,30 @@
 import React from 'react';
-import { StyleSheet, Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, SafeAreaView } from 'react-native';
 import Row from '../components/Row';
+import { connect } from 'react-redux';
+import cssStyles from '../css/styles';
+import { bindActionCreators } from 'redux';
+import { pushSetup } from '../actions/NavigationActions';
 
-class LogoutTransition extends React.Component {
+class Settings extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false
+    });
+  }
+
   static navigatorStyle = {
+    topBarElevationShadowEnabled: false,
     disabledBackGesture: true
   };
 
   logout = () => {
     Alert.alert(
       'Logout Confirmation',
-      'Are you sure you would like to logout of nadu wallet?',
+      'Are you sure you would like to logout of ndau wallet?',
       [
         {
           text: 'Cancel',
@@ -20,23 +34,7 @@ class LogoutTransition extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.navigator.push({
-              screen: 'ndau.Passphrase',
-              title: 'Passphrase',
-              backButtonHidden: true,
-              passProps: {
-                parentStyles: styles,
-                iconsMap: this.props.iconsMap,
-                setPassphrase: this.setPassphrase
-              },
-              navigatorStyle: {
-                drawUnderTabBar: true,
-                tabBarHidden: true
-              },
-              navigationOptions: {
-                gesturesEnabled: false
-              }
-            });
+            this.props.pushSetup('ndau.Passphrase', this.props.navigator);
           }
         }
       ],
@@ -46,18 +44,17 @@ class LogoutTransition extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <Row title={'Logout'} onPress={this.logout} />
-      </ScrollView>
+      <SafeAreaView style={cssStyles.safeContainer}>
+        <ScrollView style={cssStyles.container}>
+          <Row title={'Logout'} onPress={this.logout} />
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  }
-});
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ pushSetup }, dispatch);
+};
 
-export default LogoutTransition;
+export default connect(null, mapDispatchToProps)(Settings);

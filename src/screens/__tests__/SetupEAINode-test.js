@@ -2,9 +2,9 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { StyleSheet, NativeModules } from 'react-native';
 import SetupEAINode from '../SetupEAINode';
+import store from '../../reducers/index';
 import sinon from 'sinon';
 import renderer from 'react-test-renderer';
-
 
 jest.mock('NativeModules', () => {
   return {
@@ -33,39 +33,32 @@ describe('testing SetupEAINode...', () => {
   ];
   let userId = 'TAC-3PY';
   let numberOfAccounts = 5;
-  let styles = StyleSheet.create({
-    wizardText: {
-      color: '#ffffff',
-      fontSize: 20
-    }
-  });
   const bytes = 'ZWEQAwQFBgcICQoLDA0ODw==';
   const KeyaddrWordsToBytes = sinon.spy(NativeModules.KeyaddrManager, 'KeyaddrWordsToBytes');
   KeyaddrWordsToBytes.mockReturnValue(bytes);
   const CreatePublicAddress = sinon.spy(NativeModules.KeyaddrManager, 'CreatePublicAddress');
   CreatePublicAddress.mockReturnValue([]);
   const navigator = {
-    setStyle: () => {}
+    setStyle: () => {},
+    toggleNavBar: () => {}
   };
 
-  beforeEach(() => {});
-
-  beforeAll(()=>{
+  beforeAll(() => {
     this.oldRandom = global.Math.random;
     const mockMathRandom = Object.create(global.Math);
     mockMathRandom.random = () => 0.5;
     global.Math = mockMathRandom;
-  })
+  });
 
-  afterAll(()=>{
+  afterAll(() => {
     global.Math.random = this.oldRandom;
-  })
+  });
 
   it('renders correctly', () => {
     const tree = renderer
       .create(
         <SetupEAINode
-          parentStyles={styles}
+          store={store}
           seedPhraseArray={seedPhraseArray}
           userId={userId}
           numberOfAccounts={numberOfAccounts}
@@ -79,7 +72,7 @@ describe('testing SetupEAINode...', () => {
   it('finishes setup successfully', async () => {
     const wrapper = shallow(
       <SetupEAINode
-        parentStyles={styles}
+        store={store}
         seedPhraseArray={seedPhraseArray}
         userId={userId}
         numberOfAccounts={numberOfAccounts}
@@ -92,6 +85,7 @@ describe('testing SetupEAINode...', () => {
     expect(CreatePublicAddress.calledOnce).toBe(false);
 
     const onlyButton = wrapper.find('#select-and-finish');
+    console.log(`onlyButton is: ${JSON.stringify(onlyButton)}`);
     expect(onlyButton.length).toBe(1);
     await onlyButton.simulate('press');
 
