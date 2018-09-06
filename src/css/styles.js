@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 10,
+    paddingTop: 5,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,

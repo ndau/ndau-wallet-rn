@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet, NativeModules } from 'react-native';
 import SetupEAINode from '../SetupEAINode';
@@ -70,7 +70,7 @@ describe('testing SetupEAINode...', () => {
   });
 
   it('finishes setup successfully', async () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <SetupEAINode
         store={store}
         seedPhraseArray={seedPhraseArray}
@@ -79,12 +79,11 @@ describe('testing SetupEAINode...', () => {
         navigator={navigator}
       />
     );
-    wrapper.dive();
 
     expect(KeyaddrWordsToBytes.calledOnce).toBe(false);
     expect(CreatePublicAddress.calledOnce).toBe(false);
 
-    const onlyButton = wrapper.find('#select-and-finish');
+    const onlyButton = wrapper.find('CommonButton');
     console.log(`onlyButton is: ${JSON.stringify(onlyButton)}`);
     expect(onlyButton.length).toBe(1);
     await onlyButton.simulate('press');

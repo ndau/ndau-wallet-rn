@@ -14,7 +14,10 @@ exports[`testing SetupMain... renders correctly 1`] = `
       Object {
         "backgroundColor": "#1c2227",
         "flex": 1,
-        "padding": 20,
+        "paddingBottom": 20,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 5,
       }
     }
   >
@@ -26,7 +29,15 @@ exports[`testing SetupMain... renders correctly 1`] = `
       }
     >
       <View>
-        <View>
+        <View
+          accessible={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+        >
           <Text
             accessible={true}
             allowFontScaling={true}

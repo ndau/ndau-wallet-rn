@@ -77,3 +77,9 @@ export const setUser = (user) => {
     dispatch({ type: Actions.SET_USER, user });
   };
 };
+
+export const toggleTestNet = () => {
+  return function(dispatch) {
+    dispatch({ type: Actions.TOGGLE_TESTNET });
+  };
+};

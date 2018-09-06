@@ -9,9 +9,7 @@ import cssStyles from '../css/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push, setUser, startTabBasedApp } from '../actions/NavigationActions';
-
-//"nd" for mainnet, or "tn" for testnet.
-const addressGenerationType = 'nd';
+import UserStore from '../model/UserStore';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -88,7 +86,7 @@ class SetupEAINode extends Component {
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       seedPhraseAsBytes,
       this.props.numberOfAccounts,
-      addressGenerationType
+      this.props.addressType
     );
     console.debug(`publicAddresses: ${publicAddresses}`);
 
@@ -107,6 +105,7 @@ class SetupEAINode extends Component {
     };
     AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
     this.props.setUser(user);
+    UserStore.setUser(user);
   };
 
   render() {

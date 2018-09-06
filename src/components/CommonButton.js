@@ -11,6 +11,7 @@ class CommonButton extends Component {
         color="#4e957a"
         titleColor="#ffffff"
         disabledColor="#696969"
+        onPress={this.props.onPress}
         {...this.props}
       />
     );

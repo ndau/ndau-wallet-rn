@@ -33,13 +33,13 @@ const getUser = (userId, encryptionPassword) => {
   });
 };
 
-const setUser = async (user, encryptionPassword) => {
+const setUser = async (user, encryptionPassword, storageKeyOverride) => {
   try {
     if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');
     if (!user.userId) throw Error('you must pass user.userId containing a valid ID');
 
     const userString = JSON.stringify(user);
-    const storageKey = STORAGE_KEY_PREFIX + user.userId;
+    const storageKey = storageKeyOverride || STORAGE_KEY_PREFIX + user.userId;
 
     console.debug(`setUser - user to encrypt to ${storageKey}: ${userString}`);
     const userStringEncrypted = CryptoJS.AES.encrypt(userString, encryptionPassword);
@@ -68,8 +68,14 @@ const getAllKeys = async () => {
   }
 };
 
+const doesKeyExist = async (key) => {
+  const keys = await getAllKeys();
+  return keys.includes(key);
+};
+
 module.exports = {
   getUser,
   setUser,
-  getAllKeys
+  getAllKeys,
+  doesKeyExist
 };
