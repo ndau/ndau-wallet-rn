@@ -108,6 +108,7 @@ class Passphrase extends Component {
           text: 'OK',
           onPress: () => {
             this.props.setUser(null);
+            UserStore.setUser({});
             this.setState({ loginAttempt: this.state.loginAttempt + 1 });
           }
         }

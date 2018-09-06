@@ -9,6 +9,7 @@ import cssStyles from '../css/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push, setUser, startTabBasedApp } from '../actions/NavigationActions';
+import UserStore from '../model/UserStore';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -104,6 +105,7 @@ class SetupEAINode extends Component {
     };
     AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
     this.props.setUser(user);
+    UserStore.setUser(user);
   };
 
   render() {
