@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, SafeAreaView, Platform } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  SafeAreaView,
+  Platform,
+  TouchableWithoutFeedback
+} from 'react-native';
 import CommonButton from '../components/CommonButton';
 import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
 import { bindActionCreators } from 'redux';
-import { pushSetup } from '../actions/NavigationActions';
+import { pushSetup, toggleTestNet } from '../actions/NavigationActions';
 
 class SetupMain extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      toggleCount: 1,
+      maxToggle: 10
+    };
 
     this.props.navigator.toggleNavBar({
       to: 'hidden',
@@ -20,17 +32,30 @@ class SetupMain extends Component {
     this.props.pushSetup('ndau.SetupUserId', this.props.navigator);
   };
 
+  testNetToggler = () => {
+    if (this.state.maxToggle === this.state.toggleCount) {
+      this.setState({ toggleCount: 1 });
+      this.props.toggleTestNet();
+    } else {
+      this.setState({ toggleCount: this.state.toggleCount + 1 });
+    }
+    console.log(`this.state.toggleCount is ${this.state.toggleCount}`);
+  };
+
   render() {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <View>
-              <Text style={cssStyles.wizardText}>
-                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.
-                {Platform.OS === 'android' ? '\n' : ''}
-              </Text>
-            </View>
+            <TouchableWithoutFeedback onPress={this.testNetToggler}>
+              <View>
+                <Text style={cssStyles.wizardText}>
+                  Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of
+                  value.
+                  {Platform.OS === 'android' ? '\n' : ''}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
             <View>
               <Text style={cssStyles.wizardText}>
                 Currently, ndau is only available to accredited investors. You will need to have
@@ -57,7 +82,7 @@ class SetupMain extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup }, dispatch);
+  return bindActionCreators({ pushSetup, toggleTestNet }, dispatch);
 };
 
 export default connect(null, mapDispatchToProps)(SetupMain);

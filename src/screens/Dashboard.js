@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, SafeAreaView, View, Text, BackHandler } from 'react-native';
+import { ScrollView, SafeAreaView, View, Text, BackHandler, Platform } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import AlertPanel from '../components/AlertPanel';
@@ -7,11 +7,12 @@ import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
 import { bindActionCreators } from 'redux';
 import { pushSetup } from '../actions/NavigationActions';
+import UserStore from '../model/UserStore';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    console.log(`props in dashboard are ${JSON.stringify(props, null, 2)}`);
+    console.debug(`props in dashboard are ${JSON.stringify(props, null, 2)}`);
 
     this.state = {};
 
@@ -69,9 +70,14 @@ class Dashboard extends Component {
   };
 
   render() {
-    if (this.props.user) {
-      console.debug(`user found is ${JSON.stringify(this.props.user, null, 2)}`);
-      const { addresses, userId } = this.props.user;
+    let user = this.props.user;
+    if (Platform.OS === 'ios') {
+      user = UserStore.getUser();
+    }
+
+    if (user) {
+      console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
+      const { addresses, userId } = user;
       console.debug(`renders addresses: ${addresses}`);
       return addresses ? (
         <SafeAreaView style={cssStyles.safeContainer}>

@@ -12,3 +12,5 @@ export const SET_SHUFFLED_WORDS = 'set_shuffled_words';
 export const SET_SHUFFLED_MAP = 'set_shuffled_map';
 export const SET_PASSWORD = 'set_password';
 export const SET_USER = 'set_user';
+
+export const TOGGLE_TESTNET = 'toggle_testnet';
