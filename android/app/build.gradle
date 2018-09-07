@@ -123,8 +123,8 @@ android {
         applicationId "com.ndauwalletrn"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 16
-        versionName "1.6"
+        versionCode 17
+        versionName "1.7"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -184,7 +184,6 @@ dependencies {
     implementation project(':react-native-exit-app')
     implementation project(':react-native-securerandom')
     implementation project(':react-native-vector-icons')
-    implementation project(':react-native-navigation')
     implementation project(':react-native-camera')
     implementation ("com.android.support:support-v4:27.1.0") {
         force = true
