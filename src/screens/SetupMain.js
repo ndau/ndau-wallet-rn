@@ -8,10 +8,10 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
-import { bindActionCreators } from 'redux';
-import { pushSetup, toggleTestNet } from '../actions/NavigationActions';
+// import { bindActionCreators } from 'redux';
+// import { pushSetup, toggleTestNet } from '../actions/NavigationActions';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -21,15 +21,10 @@ class SetupMain extends Component {
       toggleCount: 1,
       maxToggle: 10
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupUserId', this.props.navigator);
+    // this.props.pushSetup('ndau.SetupUserId', this.props.navigator);
   };
 
   testNetToggler = () => {
@@ -81,8 +76,10 @@ class SetupMain extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, toggleTestNet }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup, toggleTestNet }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupMain);
+// export default connect(null, mapDispatchToProps)(SetupMain);
+
+export default SetupMain;

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
-import { ScrollView, SafeAreaView, View, Text, BackHandler, Platform } from 'react-native';
+import {
+  createStackNavigator,
+  createDrawerNavigator,
+  SafeAreaView,
+  StatusBar
+} from 'react-navigation';
+import { ScrollView, View, Text, BackHandler, Platform } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import AlertPanel from '../components/AlertPanel';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
-import { bindActionCreators } from 'redux';
-import { pushSetup } from '../actions/NavigationActions';
+// import { bindActionCreators } from 'redux';
+// import { pushSetup } from '../actions/NavigationActions';
 import UserStore from '../model/UserStore';
+import DrawerButton from '../components/DrawerButton';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -15,11 +23,6 @@ class Dashboard extends Component {
     console.debug(`props in dashboard are ${JSON.stringify(props, null, 2)}`);
 
     this.state = {};
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   static navigatorStyle = {
@@ -62,11 +65,13 @@ class Dashboard extends Component {
   };
 
   getPassphrase = () => {
-    this.props.pushSetup('ndau.Passphrase', this.props.navigator);
+    // this.props.pushSetup('ndau.Passphrase', this.props.navigator);
+    this.props.navigation.navigate('Passphrase');
   };
 
   showSetup = () => {
-    this.props.pushSetup('ndau.SetupMain', this.props.navigator);
+    // this.props.pushSetup('ndau.SetupMain', this.props.navigator);
+    this.props.navigation.navigate('SetupMain');
   };
 
   render() {
@@ -81,6 +86,7 @@ class Dashboard extends Component {
       console.debug(`renders addresses: ${addresses}`);
       return addresses ? (
         <SafeAreaView style={cssStyles.safeContainer}>
+          <StatusBar barStyle="light-content" />
           <View style={cssStyles.dashboardTextContainer}>
             <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
           </View>
@@ -117,8 +123,39 @@ class Dashboard extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup }, dispatch);
-};
+// const DashboardScreen = ({ navigation }) => <Dashboard navigation={navigation} />;
+// DashboardScreen.navigationOptions = ({ navigation }) => ({
+//   header: <DrawerButton navigation={navigation} />
+// });
 
-export default connect(null, mapDispatchToProps)(Dashboard);
+// const DashboardStack = createStackNavigator({
+//   Dashboard: { screen: DashboardScreen }
+// });
+
+// DashboardStack.navigationOptions = {
+//   drawerLabel: 'Dashboard',
+//   drawerIcon: ({ tintColor }) => <MaterialIcons name="drafts" size={24} />
+// };
+
+// const Drawer = createDrawerNavigator(
+//   {
+//     Dashboard: {
+//       path: '/',
+//       screen: DashboardStack
+//     }
+//   },
+//   {
+//     initialRouteName: 'Dashboard',
+//     contentOptions: {
+//       // activeTintColor: '#e91e63'
+//     }
+//   }
+// );
+
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup }, dispatch);
+// };
+
+// export default connect(null, mapDispatchToProps)(Drawer);
+
+export default Dashboard;

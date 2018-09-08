@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  darkBackgroundColor: {
+    backgroundColor: '#1c2227'
+  },
   safeContainer: {
     flex: 1,
     backgroundColor: '#1c2227'

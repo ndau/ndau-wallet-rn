@@ -14,21 +14,21 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
 import { Dropdown } from 'react-native-material-dropdown';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {
-  pushSetup,
-  push,
-  setEncryptionPassword,
-  setUserId,
-  setNavigator,
-  setUser,
-  startTabBasedApp
-} from '../actions/NavigationActions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import {
+//   pushSetup,
+//   push,
+//   setEncryptionPassword,
+//   setUserId,
+//   setNavigator,
+//   setUser,
+//   startTabBasedApp
+// } from '../actions/NavigationActions';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
-import { Navigation } from 'react-native-navigation';
+// import { Navigation } from 'react-native-navigation';
 import UserStore from '../model/UserStore';
 
 class Passphrase extends Component {
@@ -44,11 +44,6 @@ class Passphrase extends Component {
     };
 
     this.maxLoginAttempts = 10;
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   componentWillMount = async () => {
@@ -70,7 +65,8 @@ class Passphrase extends Component {
           this.props.setUser(user);
           UserStore.setUser(user);
 
-          this.props.startTabBasedApp();
+          // this.props.startTabBasedApp();
+          //TODO:  change this
         } else {
           this.showLoginError();
         }
@@ -129,7 +125,8 @@ class Passphrase extends Component {
   };
 
   showSetup = () => {
-    this.props.pushSetup('ndau.SetupMain', this.props.navigator);
+    //TODO:
+    // this.props.pushSetup('ndau.SetupMain', this.props.navigator);
   };
 
   render() {
@@ -262,11 +259,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser, startTabBasedApp },
-    dispatch
-  );
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators(
+//     { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser, startTabBasedApp },
+//     dispatch
+//   );
+// };
 
-export default connect(null, mapDispatchToProps)(Passphrase);
+// export default connect(null, mapDispatchToProps)(Passphrase);
+
+export default Passphrase;
