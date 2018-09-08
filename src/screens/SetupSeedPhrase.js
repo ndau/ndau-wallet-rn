@@ -32,11 +32,6 @@ class SetupSeedPhrase extends Component {
     this.state = {
       seedPhrase: []
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   componentDidMount = () => {
@@ -92,10 +87,11 @@ class SetupSeedPhrase extends Component {
   };
 
   showNextSetup = () => {
-    this.props.setSeedPhrase(this.state.seedPhrase);
-    this.props.setShuffledMap(this.shuffleMap);
-    this.props.setShuffledWords(this.shuffledWords);
-    this.props.pushSetup('ndau.SetupConfirmSeedPhrase', this.props.navigator);
+    //TODO:
+    // this.props.setSeedPhrase(this.state.seedPhrase);
+    // this.props.setShuffledMap(this.shuffleMap);
+    // this.props.setShuffledWords(this.shuffledWords);
+    this.props.navigation.navigate('SetupConfirmSeedPhrase');
   };
 
   render() {
@@ -174,11 +170,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    { pushSetup, setSeedPhrase, setShuffledWords, setShuffledMap },
-    dispatch
-  );
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators(
+//     { pushSetup, setSeedPhrase, setShuffledWords, setShuffledMap },
+//     dispatch
+//   );
+// };
 
-export default connect(null, mapDispatchToProps)(SetupSeedPhrase);
+// export default connect(null, mapDispatchToProps)(SetupSeedPhrase);
+
+export default SetupSeedPhrase;

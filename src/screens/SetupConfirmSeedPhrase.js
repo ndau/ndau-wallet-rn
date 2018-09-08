@@ -13,9 +13,9 @@ import ErrorPanel from '../components/ErrorPanel';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { pushSetup } from '../actions/NavigationActions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { pushSetup } from '../actions/NavigationActions';
 
 var _ = require('lodash');
 
@@ -33,19 +33,14 @@ class SetupConfirmSeedPhrase extends Component {
       match: false,
       selected: []
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupTermsOfService', this.props.navigator);
+    this.props.navigation.navigate('SetupTermsOfService');
   };
 
   pushBack = () => {
-    this.props.pushSetup('ndau.SetupGetRandom', this.props.navigator);
+    this.props.navigation.navigate('SetupGetRandom');
   };
 
   render() {
@@ -246,8 +241,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupConfirmSeedPhrase);
+// export default connect(null, mapDispatchToProps)(SetupConfirmSeedPhrase);
+
+export default SetupConfirmSeedPhrase;

@@ -4,9 +4,9 @@ import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { pushSetup } from '../actions/NavigationActions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { pushSetup } from '../actions/NavigationActions';
 
 class SetupYourWallet extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class SetupYourWallet extends Component {
   }
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupSeedPhrase', this.props.navigator);
+    this.props.navigation.navigate('SetupSeedPhrase');
   };
 
   render() {
@@ -73,8 +73,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupYourWallet);
+// export default connect(null, mapDispatchToProps)(SetupYourWallet);
+
+export default SetupYourWallet;

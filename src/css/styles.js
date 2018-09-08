@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   darkBackgroundColor: {
@@ -79,7 +79,11 @@ export default StyleSheet.create({
   },
   checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 },
   contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
+    ...Platform.select({
+      ios: {
+        marginTop: 15
+      }
+    })
   },
   footer: {
     justifyContent: 'flex-end'

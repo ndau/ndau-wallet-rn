@@ -5,9 +5,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { pushSetup, setEncryptionPassword } from '../actions/NavigationActions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { pushSetup, setEncryptionPassword } from '../actions/NavigationActions';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -19,11 +19,6 @@ class SetupEncryptionPassword extends Component {
       progress: false,
       textInputColor: '#000000'
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   usePassword(event) {
@@ -46,8 +41,9 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    this.props.setEncryptionPassword(this.state.password);
-    this.props.pushSetup('ndau.SetupGetRandom', this.props.navigator);
+    //TODO:
+    // this.props.setEncryptionPassword(this.state.password);
+    this.props.navigation.navigate('SetupGetRandom');
   };
 
   checkedShowPasswords = () => {
@@ -191,8 +187,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, setEncryptionPassword }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup, setEncryptionPassword }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupEncryptionPassword);
+// export default connect(null, mapDispatchToProps)(SetupEncryptionPassword);
+
+export default SetupEncryptionPassword;

@@ -4,9 +4,9 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { pushSetup, setQRCode } from '../actions/NavigationActions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { pushSetup, setQRCode } from '../actions/NavigationActions';
 
 class SetupQRCode extends Component {
   constructor(props) {
@@ -19,11 +19,6 @@ class SetupQRCode extends Component {
       scanning: true,
       cameraPermission: false
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   onSuccess(e) {
@@ -50,8 +45,9 @@ class SetupQRCode extends Component {
   }
 
   showNextSetup = () => {
-    this.props.setQRCode(this.state.qrToken);
-    this.props.pushSetup('ndau.SetupEncryptionPassword', this.props.navigator);
+    //TODO:
+    // this.props.setQRCode(this.state.qrToken);
+    this.props.navigation.navigate('SetupEncryptionPassword');
   };
 
   render() {
@@ -173,8 +169,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, setQRCode }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup, setQRCode }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupQRCode);
+// export default connect(null, mapDispatchToProps)(SetupQRCode);
+
+export default SetupQRCode;

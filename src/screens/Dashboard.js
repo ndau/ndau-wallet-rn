@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  createStackNavigator,
-  createDrawerNavigator,
-  SafeAreaView,
-  StatusBar
-} from 'react-navigation';
+import { SafeAreaView, StatusBar } from 'react-navigation';
 import { ScrollView, View, Text, BackHandler, Platform } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
@@ -14,8 +9,6 @@ import cssStyles from '../css/styles';
 // import { bindActionCreators } from 'redux';
 // import { pushSetup } from '../actions/NavigationActions';
 import UserStore from '../model/UserStore';
-import DrawerButton from '../components/DrawerButton';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -65,12 +58,10 @@ class Dashboard extends Component {
   };
 
   getPassphrase = () => {
-    // this.props.pushSetup('ndau.Passphrase', this.props.navigator);
     this.props.navigation.navigate('Passphrase');
   };
 
   showSetup = () => {
-    // this.props.pushSetup('ndau.SetupMain', this.props.navigator);
     this.props.navigation.navigate('SetupMain');
   };
 
@@ -122,35 +113,6 @@ class Dashboard extends Component {
     }
   }
 }
-
-// const DashboardScreen = ({ navigation }) => <Dashboard navigation={navigation} />;
-// DashboardScreen.navigationOptions = ({ navigation }) => ({
-//   header: <DrawerButton navigation={navigation} />
-// });
-
-// const DashboardStack = createStackNavigator({
-//   Dashboard: { screen: DashboardScreen }
-// });
-
-// DashboardStack.navigationOptions = {
-//   drawerLabel: 'Dashboard',
-//   drawerIcon: ({ tintColor }) => <MaterialIcons name="drafts" size={24} />
-// };
-
-// const Drawer = createDrawerNavigator(
-//   {
-//     Dashboard: {
-//       path: '/',
-//       screen: DashboardStack
-//     }
-//   },
-//   {
-//     initialRouteName: 'Dashboard',
-//     contentOptions: {
-//       // activeTintColor: '#e91e63'
-//     }
-//   }
-// );
 
 // const mapDispatchToProps = (dispatch) => {
 //   return bindActionCreators({ pushSetup }, dispatch);

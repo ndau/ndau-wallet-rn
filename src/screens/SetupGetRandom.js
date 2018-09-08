@@ -22,11 +22,6 @@ class SetupGetRandom extends Component {
     this.randalPromise = this.initRandal().catch((e) => {
       console.error(e);
     });
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   initRandal() {
@@ -46,8 +41,9 @@ class SetupGetRandom extends Component {
   }
 
   showNextSetup = () => {
-    this.props.setEntropy(this.state.entropy);
-    this.props.pushSetup('ndau.SetupYourWallet', this.props.navigator);
+    //TODO:
+    // this.props.setEntropy(this.state.entropy);
+    this.props.navigation.navigate('SetupYourWallet');
   };
 
   handleScribble(evt) {
@@ -163,8 +159,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, setEntropy }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup, setEntropy }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupGetRandom);
+// export default connect(null, mapDispatchToProps)(SetupGetRandom);
+
+export default SetupGetRandom;

@@ -18,11 +18,6 @@ class SetupUserId extends Component {
       numberOfAccounts: 0,
       userIdPresent: false
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   confirmUserIdPresent = () => {
@@ -52,9 +47,10 @@ class SetupUserId extends Component {
   }
 
   showNextSetup = () => {
-    this.props.setUserId(this.state.userId);
-    this.props.setNumberOfAccounts(this.state.numberOfAccounts);
-    this.props.pushSetup('ndau.SetupQRCode', this.props.navigator);
+    //TODO:
+    // this.props.setUserId(this.state.userId);
+    // this.props.setNumberOfAccounts(this.state.numberOfAccounts);
+    this.props.navigation.navigate('SetupQRCode');
   };
 
   showExitApp() {
@@ -214,8 +210,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupUserId);
+// export default connect(null, mapDispatchToProps)(SetupUserId);
+
+export default SetupUserId;

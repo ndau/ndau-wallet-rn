@@ -24,7 +24,7 @@ class SetupMain extends Component {
   }
 
   showNextSetup = () => {
-    // this.props.pushSetup('ndau.SetupUserId', this.props.navigator);
+    this.props.navigation.navigate('SetupUserId');
   };
 
   testNetToggler = () => {

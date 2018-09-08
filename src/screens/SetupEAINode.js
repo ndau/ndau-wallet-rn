@@ -6,9 +6,9 @@ import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { push, setUser, startTabBasedApp } from '../actions/NavigationActions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { push, setUser, startTabBasedApp } from '../actions/NavigationActions';
 import UserStore from '../model/UserStore';
 
 class SetupEAINode extends Component {
@@ -37,11 +37,6 @@ class SetupEAINode extends Component {
       data: nodeNames,
       selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)].value
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   sendAccountAddresses = (userId, addresses, token) => {
@@ -67,7 +62,7 @@ class SetupEAINode extends Component {
       .then(() => {
         this.persistAddresses(addresses);
 
-        this.props.startTabBasedApp();
+        this.props.navigation.navigate('Dashboard');
       })
       .catch((error) => {
         console.error(error);
@@ -104,7 +99,8 @@ class SetupEAINode extends Component {
       selectedNode: this.state.selectedNode
     };
     AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
-    this.props.setUser(user);
+    //TODO:
+    // this.props.setUser(user);
     UserStore.setUser(user);
   };
 
@@ -171,8 +167,10 @@ const styles = StyleSheet.create({
   checkbox: { flex: 1, padding: 10 }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ push, setUser, startTabBasedApp }, dispatch);
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ push, setUser, startTabBasedApp }, dispatch);
+// };
 
-export default connect(null, mapDispatchToProps)(SetupEAINode);
+// export default connect(null, mapDispatchToProps)(SetupEAINode);
+
+export default SetupEAINode;

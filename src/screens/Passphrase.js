@@ -65,8 +65,7 @@ class Passphrase extends Component {
           this.props.setUser(user);
           UserStore.setUser(user);
 
-          // this.props.startTabBasedApp();
-          //TODO:  change this
+          this.props.navigation.navigate('Dashboard');
         } else {
           this.showLoginError();
         }
@@ -125,8 +124,7 @@ class Passphrase extends Component {
   };
 
   showSetup = () => {
-    //TODO:
-    // this.props.pushSetup('ndau.SetupMain', this.props.navigator);
+    this.props.navigation.navigate('SetupMain');
   };
 
   render() {
