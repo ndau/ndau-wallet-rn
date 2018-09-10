@@ -14,21 +14,9 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
 import { Dropdown } from 'react-native-material-dropdown';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import {
-//   pushSetup,
-//   push,
-//   setEncryptionPassword,
-//   setUserId,
-//   setNavigator,
-//   setUser,
-//   startTabBasedApp
-// } from '../actions/NavigationActions';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
-// import { Navigation } from 'react-native-navigation';
 import UserStore from '../model/UserStore';
 
 class Passphrase extends Component {
@@ -59,18 +47,16 @@ class Passphrase extends Component {
       .then((user) => {
         if (user) {
           console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
-          //We use UserStore for iOS due to immutable props
-          //within the navigation screens. Android does not force props
-          //immutability but for some undocumented reason iOS does
-          this.props.setUser(user);
           UserStore.setUser(user);
 
-          this.props.navigation.navigate('Dashboard');
+          // this.props.navigation.state.params.onNavigateBack(user);
+          this.props.navigation.navigate('App');
         } else {
           this.showLoginError();
         }
       })
       .catch((error) => {
+        console.error(error);
         this.showLoginError();
       });
   };
@@ -102,7 +88,6 @@ class Passphrase extends Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.setUser(null);
             UserStore.setUser({});
             this.setState({ loginAttempt: this.state.loginAttempt + 1 });
           }
@@ -124,7 +109,7 @@ class Passphrase extends Component {
   };
 
   showSetup = () => {
-    this.props.navigation.navigate('SetupMain');
+    this.props.navigation.navigate('Setup');
   };
 
   render() {
@@ -256,14 +241,5 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   }
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(
-//     { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser, startTabBasedApp },
-//     dispatch
-//   );
-// };
-
-// export default connect(null, mapDispatchToProps)(Passphrase);
 
 export default Passphrase;

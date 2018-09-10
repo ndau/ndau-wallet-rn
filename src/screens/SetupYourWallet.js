@@ -4,19 +4,11 @@ import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { pushSetup } from '../actions/NavigationActions';
 
 class SetupYourWallet extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   showNextSetup = () => {
@@ -72,11 +64,5 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   }
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(SetupYourWallet);
 
 export default SetupYourWallet;

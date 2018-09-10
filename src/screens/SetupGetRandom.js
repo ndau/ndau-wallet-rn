@@ -5,9 +5,7 @@ import CommonButton from '../components/CommonButton.js';
 import Randal from '../helpers/randal.js';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { pushSetup, setEntropy } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
 
 class SetupGetRandom extends Component {
   constructor(props) {
@@ -41,8 +39,7 @@ class SetupGetRandom extends Component {
   }
 
   showNextSetup = () => {
-    //TODO:
-    // this.props.setEntropy(this.state.entropy);
+    SetupStore.setEntropy(this.state.entropy);
     this.props.navigation.navigate('SetupYourWallet');
   };
 
@@ -158,11 +155,5 @@ const styles = StyleSheet.create({
     height: 200
   }
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup, setEntropy }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(SetupGetRandom);
 
 export default SetupGetRandom;

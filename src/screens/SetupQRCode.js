@@ -4,9 +4,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { pushSetup, setQRCode } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
 
 class SetupQRCode extends Component {
   constructor(props) {
@@ -45,14 +43,12 @@ class SetupQRCode extends Component {
   }
 
   showNextSetup = () => {
-    //TODO:
-    // this.props.setQRCode(this.state.qrToken);
+    SetupStore.setQRCode(this.state.qrToken);
+
     this.props.navigation.navigate('SetupEncryptionPassword');
   };
 
   render() {
-    console.log(`props in SetupQRCode are ${JSON.stringify(this.props, null, 2)}`);
-
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
@@ -168,11 +164,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5d8d1'
   }
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup, setQRCode }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(SetupQRCode);
 
 export default SetupQRCode;

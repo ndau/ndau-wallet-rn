@@ -5,9 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { pushSetup, setEncryptionPassword } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
 
 class SetupEncryptionPassword extends Component {
   constructor(props) {
@@ -41,8 +39,7 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    //TODO:
-    // this.props.setEncryptionPassword(this.state.password);
+    SetupStore.setEncryptionPassword(this.state.password);
     this.props.navigation.navigate('SetupGetRandom');
   };
 
@@ -186,11 +183,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   }
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup, setEncryptionPassword }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(SetupEncryptionPassword);
 
 export default SetupEncryptionPassword;

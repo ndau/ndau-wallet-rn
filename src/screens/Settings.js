@@ -1,10 +1,8 @@
 import React from 'react';
 import { Alert, ScrollView, SafeAreaView } from 'react-native';
 import Row from '../components/Row';
-// import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
-// import { bindActionCreators } from 'redux';
-// import { pushSetup } from '../actions/NavigationActions';
+import UserStore from '../model/UserStore';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -24,7 +22,8 @@ class Settings extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.navigation.navigate('Passphrase');
+            UserStore.setUser({});
+            this.props.navigation.navigate('Dashboard');
           }
         }
       ],
@@ -42,11 +41,5 @@ class Settings extends React.Component {
     );
   }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(Settings);
 
 export default Settings;

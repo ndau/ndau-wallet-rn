@@ -20,6 +20,5 @@ class UserStore {
 }
 
 const instance = new UserStore();
-Object.freeze(instance);
 
 export default instance;

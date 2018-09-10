@@ -5,13 +5,12 @@ import {
   Text,
   SafeAreaView,
   Platform,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  BackHandler
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
-// import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
-// import { bindActionCreators } from 'redux';
-// import { pushSetup, toggleTestNet } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -23,6 +22,18 @@ class SetupMain extends Component {
     };
   }
 
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
   showNextSetup = () => {
     this.props.navigation.navigate('SetupUserId');
   };
@@ -30,7 +41,7 @@ class SetupMain extends Component {
   testNetToggler = () => {
     if (this.state.maxToggle === this.state.toggleCount) {
       this.setState({ toggleCount: 1 });
-      this.props.toggleTestNet();
+      SetupStore.toggleAddressType();
     } else {
       this.setState({ toggleCount: this.state.toggleCount + 1 });
     }
@@ -75,11 +86,5 @@ class SetupMain extends Component {
     );
   }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup, toggleTestNet }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(SetupMain);
 
 export default SetupMain;

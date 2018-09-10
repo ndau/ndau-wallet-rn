@@ -1,6 +1,5 @@
 import * as Actions from '../actions/ActionTypes';
-import { Navigation } from 'react-native-navigation';
-import { Platform, Alert } from 'react-native';
+import { Alert } from 'react-native';
 
 const TESTNET_ADDRESS = 'tn';
 const MAINNET_ADDRESS = 'nd';
@@ -22,82 +21,6 @@ const NavigationReducer = (
   action = {}
 ) => {
   switch (action.type) {
-    case Actions.PUSH_SCREEN:
-      if (Platform.OS === 'android') {
-        action.navigator.push({
-          screen: action.screen,
-          label: action.screen,
-          passProps: { ...state },
-          navigatorStyle: {
-            topBarElevationShadowEnabled: false,
-            disabledBackGesture: true
-          },
-          backButtonHidden: true
-        });
-      } else {
-        action.navigator.showModal({
-          screen: action.screen,
-          label: action.screen,
-          passProps: { ...state },
-          navigatorStyle: {
-            topBarElevationShadowEnabled: false,
-            disabledBackGesture: true
-          },
-          backButtonHidden: true
-        });
-      }
-      return { ...state };
-    case Actions.PUSH_SETUP_SCREEN:
-      if (Platform.OS === 'android') {
-        action.navigator.push({
-          screen: action.screen,
-          label: action.screen,
-          passProps: { ...state },
-          navigatorStyle: {
-            drawUnderTabBar: true,
-            tabBarHidden: true,
-            topBarElevationShadowEnabled: false,
-            disabledBackGesture: true
-          },
-          backButtonHidden: true
-        });
-      } else {
-        action.navigator.showModal({
-          screen: action.screen,
-          label: action.screen,
-          passProps: { ...state },
-          navigatorStyle: {
-            drawUnderTabBar: true,
-            tabBarHidden: true,
-            topBarElevationShadowEnabled: false,
-            disabledBackGesture: true
-          },
-          backButtonHidden: true
-        });
-      }
-      return { ...state };
-    case Actions.START_TAB_BASED_APP:
-      const constants = require('../app-constants');
-      const { tabs, animationType, tabsStyle, appStyle } = constants;
-
-      // this will start our app
-      if (Platform.OS === 'android') {
-        Navigation.startTabBasedApp({
-          tabs,
-          animationType,
-          tabsStyle,
-          appStyle,
-          passProps: { ...state }
-        });
-      } else {
-        Navigation.startTabBasedApp({
-          tabs,
-          animationType,
-          tabsStyle,
-          passProps: { ...state }
-        });
-      }
-      return { ...state };
     case Actions.TOGGLE_TESTNET:
       const oldAddressType = state.addressType;
       const newAddressType =

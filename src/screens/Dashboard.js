@@ -1,45 +1,21 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StatusBar } from 'react-navigation';
-import { ScrollView, View, Text, BackHandler, Platform } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
+import { ScrollView, View, Text } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import AlertPanel from '../components/AlertPanel';
-// import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
-// import { bindActionCreators } from 'redux';
-// import { pushSetup } from '../actions/NavigationActions';
 import UserStore from '../model/UserStore';
+import DrawerButton from '../components/DrawerButton';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    console.debug(`props in dashboard are ${JSON.stringify(props, null, 2)}`);
 
     this.state = {};
   }
 
-  static navigatorStyle = {
-    topBarElevationShadowEnabled: false,
-    disabledBackGesture: true
-  };
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton() {
-    return true;
-  }
-
-  componentWillMount() {
-    if (!this.props.user) {
-      this.loginOrSetup();
-    }
-  }
-
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
+  // componentWillMount() {}
 
   loginOrSetup = () => {
     AsyncStorageHelper.getAllKeys()
@@ -58,26 +34,35 @@ class Dashboard extends Component {
   };
 
   getPassphrase = () => {
-    this.props.navigation.navigate('Passphrase');
+    this.props.navigation.navigate('Passphrase', {
+      onNavigateBack: this.handleOnNavigateBack
+    });
   };
 
   showSetup = () => {
     this.props.navigation.navigate('SetupMain');
   };
 
-  render() {
-    let user = this.props.user;
-    if (Platform.OS === 'ios') {
-      user = UserStore.getUser();
-    }
+  // handleOnNavigateBack = (user) => {
+  //   this.setState({
+  //     user
+  //   });
+  // };
 
-    if (user) {
+  render() {
+    console.log(`rendering Dashboard`);
+    // if (Object.keys(UserStore.getUser()).length == 0) {
+    //   this.loginOrSetup();
+    //   return <SafeAreaView style={cssStyles.safeContainer} />;
+    // }
+    const user = UserStore.getUser();
+
+    if (Object.keys(user).length > 0) {
       console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
       const { addresses, userId } = user;
       console.debug(`renders addresses: ${addresses}`);
       return addresses ? (
         <SafeAreaView style={cssStyles.safeContainer}>
-          <StatusBar barStyle="light-content" />
           <View style={cssStyles.dashboardTextContainer}>
             <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
           </View>
@@ -114,10 +99,55 @@ class Dashboard extends Component {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup }, dispatch);
+// const DashboardScreen = ({ navigation }) => <Dashboard navigation={navigation} />;
+// DashboardScreen.navigationOptions = ({ navigation }) => ({
+//   header: <DrawerButton navigation={navigation} />
+// });
+
+// const SettingsScreen = ({ navigation }) => <Settings navigation={navigation} />;
+// SettingsScreen.navigationOptions = {
+//   header: <DrawerButton navigation={navigation} />
 // };
 
-// export default connect(null, mapDispatchToProps)(Drawer);
+// const DashboardStack = createStackNavigator({
+//   Dashboard: { screen: DashboardScreen }
+// });
+
+// DashboardStack.navigationOptions = {
+//   drawerLabel: 'Dashboard',
+//   drawerIcon: ({ tintColor }) => (
+//     <MaterialIcons name="drafts" size={24} style={{ color: tintColor }} />
+//   )
+// };
+
+// const SettingsStack = createStackNavigator({
+//   Settings: { screen: SettingsScreen }
+// });
+
+// SettingsStack.navigationOptions = {
+//   drawerLabel: 'Settings',
+//   drawerIcon: ({ tintColor }) => (
+//     <MaterialIcons name="move-to-inbox" size={24} style={{ color: tintColor }} />
+//   )
+// };
+
+// export default createDrawerNavigator(
+//   {
+//     Dashboard: {
+//       path: '/dashboard',
+//       screen: DashboardStack
+//     },
+//     Settings: {
+//       path: '/settings',
+//       screen: SettingsStack
+//     }
+//   },
+//   {
+//     initialRouteName: 'Dashboard',
+//     contentOptions: {
+//       activeTintColor: '#e91e63'
+//     }
+//   }
+// );
 
 export default Dashboard;

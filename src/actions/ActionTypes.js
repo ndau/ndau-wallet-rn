@@ -1,7 +1,3 @@
-export const PUSH_SCREEN = 'push_screen';
-export const PUSH_SETUP_SCREEN = 'push_setup_screen';
-export const START_TAB_BASED_APP = 'start_tab_based_app';
-
 export const SET_USERID = 'set_userid';
 export const SET_NUMBER_OF_ACCOUNTS = 'set_number_of_accounts';
 export const SET_QRCODE = 'set_qrcode';

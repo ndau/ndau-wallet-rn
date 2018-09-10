@@ -4,9 +4,6 @@ import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { pushSetup } from '../actions/NavigationActions';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -407,11 +404,5 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   }
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(SetupTermsOfService);
 
 export default SetupTermsOfService;

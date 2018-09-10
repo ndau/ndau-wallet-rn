@@ -5,10 +5,8 @@ import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import { pushSetup, setNumberOfAccounts, setUserId } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -47,9 +45,9 @@ class SetupUserId extends Component {
   }
 
   showNextSetup = () => {
-    //TODO:
-    // this.props.setUserId(this.state.userId);
-    // this.props.setNumberOfAccounts(this.state.numberOfAccounts);
+    SetupStore.setUserId(this.state.userId);
+    SetupStore.setNumberOfAccounts(this.state.numberOfAccounts);
+
     this.props.navigation.navigate('SetupQRCode');
   };
 
@@ -209,11 +207,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   }
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
-// };
-
-// export default connect(null, mapDispatchToProps)(SetupUserId);
 
 export default SetupUserId;
