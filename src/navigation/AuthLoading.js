@@ -31,7 +31,6 @@ class AuthLoadingScreen extends React.Component {
     return (
       <View style={cssStyles.container}>
         <ActivityIndicator />
-        {/* <StatusBar barStyle="light-content" /> */}
       </View>
     );
   }

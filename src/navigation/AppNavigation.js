@@ -19,11 +19,6 @@ PassphraseScreen.navigationOptions = {
   header: null
 };
 
-// const SettingsScreen = ({ navigation }) => <Settings navigation={navigation} />;
-// SettingsScreen.navigationOptions = {
-//   header: null
-// };
-
 const SetupMainScreen = ({ navigation }) => <SetupMain navigation={navigation} />;
 SetupMainScreen.navigationOptions = ({ navigation }) => ({
   header: null
@@ -87,73 +82,11 @@ DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
-// const SettingsStack = createStackNavigator({
-//   Settings: { screen: SettingsScreen },
-//   Passphrase: { screen: PassphraseScreen },
-//   SetupMain: { screen: SetupMainScreen },
-//   SetupUserId: { screen: SetupUserIdScreen },
-//   SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
-//   SetupConfirmSeedPhrase: { screen: SetupConfirmSeedPhraseScreen },
-//   SetupGetRandom: { screen: SetupGetRandomScreen },
-//   SetupEAINode: { screen: SetupEAINodeScreen },
-//   SetupQRCode: { screen: SetupQRCodeScreen },
-//   SetupSeedPhrase: { screen: SetupSeedPhraseScreen },
-//   SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
-//   SetupYourWallet: { screen: SetupYourWalletScreen }
-// });
-
-// SettingsStack.navigationOptions = {
-//   drawerLabel: 'Settings',
-//   drawerIcon: ({ tintColor }) => (
-//     <MaterialIcons name="move-to-inbox" size={24} style={{ color: tintColor }} />
-//   )
-// };
-
-// const DashboardStack = createStackNavigator({
-//   Dashboard: { screen: DashboardScreen },
-//   Passphrase: { screen: PassphraseScreen },
-//   SetupMain: { screen: SetupMainScreen },
-//   SetupUserId: { screen: SetupUserIdScreen },
-//   SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
-//   SetupConfirmSeedPhrase: { screen: SetupConfirmSeedPhraseScreen },
-//   SetupGetRandom: { screen: SetupGetRandomScreen },
-//   SetupEAINode: { screen: SetupEAINodeScreen },
-//   SetupQRCode: { screen: SetupQRCodeScreen },
-//   SetupSeedPhrase: { screen: SetupSeedPhraseScreen },
-//   SetupTermsOfService: { screen: SetupTermsOfServiceScreen }
-// });
-
-// const AppStack = createStackNavigator({
-//   Dashboard: DashboardNavigation
-// Passphrase: { screen: PassphraseScreen },
-// SetupMain: { screen: SetupMainScreen },
-// SetupUserId: { screen: SetupUserIdScreen },
-// SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
-// SetupConfirmSeedPhrase: { screen: SetupConfirmSeedPhraseScreen },
-// SetupGetRandom: { screen: SetupGetRandomScreen },
-// SetupEAINode: { screen: SetupEAINodeScreen },
-// SetupQRCode: { screen: SetupQRCodeScreen },
-// SetupSeedPhrase: { screen: SetupSeedPhraseScreen },
-// SetupTermsOfService: { screen: SetupTermsOfServiceScreen }
-// });
-
 const AuthStack = createStackNavigator({
-  // Dashboard: { screen: DashboardScreen },
   Passphrase: { screen: PassphraseScreen }
-  // SetupMain: { screen: SetupMainScreen },
-  // SetupUserId: { screen: SetupUserIdScreen },
-  // SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
-  // SetupConfirmSeedPhrase: { screen: SetupConfirmSeedPhraseScreen },
-  // SetupGetRandom: { screen: SetupGetRandomScreen },
-  // SetupEAINode: { screen: SetupEAINodeScreen },
-  // SetupQRCode: { screen: SetupQRCodeScreen },
-  // SetupSeedPhrase: { screen: SetupSeedPhraseScreen },
-  // SetupTermsOfService: { screen: SetupTermsOfServiceScreen }
 });
 
 const SetupStack = createStackNavigator({
-  // Dashboard: { screen: DashboardScreen },
-  // Passphrase: { screen: PassphraseScreen },
   SetupMain: { screen: SetupMainScreen },
   SetupUserId: { screen: SetupUserIdScreen },
   SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
@@ -178,31 +111,3 @@ export default createSwitchNavigator(
     headerMode: 'node'
   }
 );
-
-// DashboardStack.navigationOptions = {
-//   drawerLabel: 'Dashboard',
-//   drawerIcon: ({ tintColor }) => (
-//     <MaterialIcons name="drafts" size={24} style={{ color: tintColor }} />
-//   )
-// };
-
-// const AppNavigation = createDrawerNavigator(
-//   {
-//     Dashboard: {
-//       path: '/dashboard',
-//       screen: DashboardStack
-//     },
-//     Settings: {
-//       path: '/settings',
-//       screen: SettingsStack
-//     }
-//   },
-//   {
-//     initialRouteName: 'Dashboard',
-//     contentOptions: {
-//       activeTintColor: '#e91e63'
-//     }
-//   }
-// );
-
-// export default AppNavigation;
