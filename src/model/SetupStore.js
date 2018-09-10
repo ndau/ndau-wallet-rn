@@ -114,6 +114,7 @@ class SetupStore {
       { cancelable: false }
     );
 
+    this._addressType = newAddressType;
     console.debug(`SetupStore.addressType ${this._addressType}`);
   }
 

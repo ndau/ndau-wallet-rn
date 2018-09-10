@@ -23,7 +23,7 @@ class Settings extends React.Component {
           text: 'OK',
           onPress: () => {
             UserStore.setUser({});
-            this.props.navigation.navigate('Dashboard');
+            this.props.navigation.navigate('Auth');
           }
         }
       ],

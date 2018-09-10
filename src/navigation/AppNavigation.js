@@ -6,21 +6,22 @@ import {
   createSwitchNavigator
 } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { DrawerButton } from './components/DrawerButton';
-import Dashboard from './screens/Dashboard';
-import SetupMain from './screens/SetupMain';
-import SetupEncryptionPassword from './screens/SetupEncryptionPassword';
-import SetupConfirmSeedPhrase from './screens/SetupConfirmSeedPhrase';
-import SetupEAINode from './screens/SetupEAINode';
-import SetupGetRandom from './screens/SetupGetRandom';
-import SetupQRCode from './screens/SetupQRCode';
-import SetupSeedPhrase from './screens/SetupSeedPhrase';
-import SetupTermsOfService from './screens/SetupTermsOfService';
-import SetupUserId from './screens/SetupUserId';
-import SetupYourWallet from './screens/SetupYourWallet';
-import Passphrase from './screens/Passphrase';
-import Settings from './screens/Settings';
-import AuthLoading from './screens/AuthLoading';
+import { DrawerButton } from '../components/DrawerButton';
+import Dashboard from '../screens/Dashboard';
+import DashboardNavigation from './DashboardNavigation';
+import SetupMain from '../screens/SetupMain';
+import SetupEncryptionPassword from '../screens/SetupEncryptionPassword';
+import SetupConfirmSeedPhrase from '../screens/SetupConfirmSeedPhrase';
+import SetupEAINode from '../screens/SetupEAINode';
+import SetupGetRandom from '../screens/SetupGetRandom';
+import SetupQRCode from '../screens/SetupQRCode';
+import SetupSeedPhrase from '../screens/SetupSeedPhrase';
+import SetupTermsOfService from '../screens/SetupTermsOfService';
+import SetupUserId from '../screens/SetupUserId';
+import SetupYourWallet from '../screens/SetupYourWallet';
+import Passphrase from '../screens/Passphrase';
+// import Settings from '../screens/Settings';
+import AuthLoading from './AuthLoading';
 
 //TODO: This is temporary until react-native-material-dropdown fixes their code
 YellowBox.ignoreWarnings([ 'Warning: isMounted(...) is deprecated', 'Module RCTImageLoader' ]);
@@ -31,10 +32,10 @@ PassphraseScreen.navigationOptions = {
   header: null
 };
 
-const SettingsScreen = ({ navigation }) => <Settings navigation={navigation} />;
-SettingsScreen.navigationOptions = {
-  header: null
-};
+// const SettingsScreen = ({ navigation }) => <Settings navigation={navigation} />;
+// SettingsScreen.navigationOptions = {
+//   header: null
+// };
 
 const SetupMainScreen = ({ navigation }) => <SetupMain navigation={navigation} />;
 SetupMainScreen.navigationOptions = ({ navigation }) => ({
@@ -92,9 +93,11 @@ SetupYourWalletScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
-const DashboardScreen = ({ navigation }) => <Dashboard navigation={navigation} />;
-DashboardScreen.navigationOptions = ({ navigation }) => ({
-  header: <DrawerButton navigation={navigation} />
+const DashboardNavigationScreen = ({ navigation }) => (
+  <DashboardNavigation navigation={navigation} />
+);
+DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
+  header: null
 });
 
 // const SettingsStack = createStackNavigator({
@@ -133,19 +136,19 @@ DashboardScreen.navigationOptions = ({ navigation }) => ({
 //   SetupTermsOfService: { screen: SetupTermsOfServiceScreen }
 // });
 
-const AppStack = createStackNavigator({
-  Dashboard: { screen: DashboardScreen }
-  // Passphrase: { screen: PassphraseScreen },
-  // SetupMain: { screen: SetupMainScreen },
-  // SetupUserId: { screen: SetupUserIdScreen },
-  // SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
-  // SetupConfirmSeedPhrase: { screen: SetupConfirmSeedPhraseScreen },
-  // SetupGetRandom: { screen: SetupGetRandomScreen },
-  // SetupEAINode: { screen: SetupEAINodeScreen },
-  // SetupQRCode: { screen: SetupQRCodeScreen },
-  // SetupSeedPhrase: { screen: SetupSeedPhraseScreen },
-  // SetupTermsOfService: { screen: SetupTermsOfServiceScreen }
-});
+// const AppStack = createStackNavigator({
+//   Dashboard: DashboardNavigation
+// Passphrase: { screen: PassphraseScreen },
+// SetupMain: { screen: SetupMainScreen },
+// SetupUserId: { screen: SetupUserIdScreen },
+// SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
+// SetupConfirmSeedPhrase: { screen: SetupConfirmSeedPhraseScreen },
+// SetupGetRandom: { screen: SetupGetRandomScreen },
+// SetupEAINode: { screen: SetupEAINodeScreen },
+// SetupQRCode: { screen: SetupQRCodeScreen },
+// SetupSeedPhrase: { screen: SetupSeedPhraseScreen },
+// SetupTermsOfService: { screen: SetupTermsOfServiceScreen }
+// });
 
 const AuthStack = createStackNavigator({
   // Dashboard: { screen: DashboardScreen },
@@ -179,12 +182,13 @@ const SetupStack = createStackNavigator({
 export default createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
-    App: AppStack,
+    App: DashboardNavigation,
     Auth: AuthStack,
     Setup: SetupStack
   },
   {
-    initialRouteName: 'AuthLoading'
+    initialRouteName: 'AuthLoading',
+    headerMode: 'node'
   }
 );
 
