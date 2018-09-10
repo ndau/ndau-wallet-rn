@@ -19,9 +19,12 @@ const styles = StyleSheet.create({
   header: {
     ...Platform.select({
       ios: {
-        paddingTop: 15
+        paddingTop: 35
+      },
+      android: {
+        paddingTop: 10
       }
     }),
-    paddingLeft: 10
+    paddingLeft: 20
   }
 });

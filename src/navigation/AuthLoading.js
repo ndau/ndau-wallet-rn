@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
+import { ActivityIndicator, StatusBar, View } from 'react-native';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
@@ -31,7 +31,7 @@ class AuthLoadingScreen extends React.Component {
     return (
       <View style={cssStyles.container}>
         <ActivityIndicator />
-        <StatusBar barStyle="light-content" />
+        {/* <StatusBar barStyle="light-content" /> */}
       </View>
     );
   }

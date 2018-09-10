@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView, NativeModules } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import CommonButton from '../components/CommonButton';

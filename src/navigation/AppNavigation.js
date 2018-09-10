@@ -1,13 +1,5 @@
 import React from 'react';
-import { YellowBox } from 'react-native';
-import {
-  createStackNavigator,
-  // createDrawerNavigator,
-  createSwitchNavigator
-} from 'react-navigation';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { DrawerButton } from '../components/DrawerButton';
-import Dashboard from '../screens/Dashboard';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import DashboardNavigation from './DashboardNavigation';
 import SetupMain from '../screens/SetupMain';
 import SetupEncryptionPassword from '../screens/SetupEncryptionPassword';
@@ -20,12 +12,7 @@ import SetupTermsOfService from '../screens/SetupTermsOfService';
 import SetupUserId from '../screens/SetupUserId';
 import SetupYourWallet from '../screens/SetupYourWallet';
 import Passphrase from '../screens/Passphrase';
-// import Settings from '../screens/Settings';
 import AuthLoading from './AuthLoading';
-
-//TODO: This is temporary until react-native-material-dropdown fixes their code
-YellowBox.ignoreWarnings([ 'Warning: isMounted(...) is deprecated', 'Module RCTImageLoader' ]);
-YellowBox.ignoreWarnings([ 'Class RCTCxxModule' ]);
 
 const PassphraseScreen = ({ navigation }) => <Passphrase navigation={navigation} />;
 PassphraseScreen.navigationOptions = {

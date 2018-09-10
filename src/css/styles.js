@@ -1,12 +1,27 @@
 import { StyleSheet, Platform } from 'react-native';
+import * as styleConstants from './styleConstants';
 
 export default StyleSheet.create({
+  drawerText: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
+  drawerLabels: {
+    fontSize: 14,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
+  drawerContainer: {
+    flex: 1,
+    backgroundColor: styleConstants.DRAWER_BACKGROUND_COLOR,
+    padding: 15
+  },
   darkBackgroundColor: {
-    backgroundColor: '#1c2227'
+    backgroundColor: styleConstants.APP_BACKGROUND_COLOR
   },
   safeContainer: {
     flex: 1,
-    backgroundColor: '#1c2227'
+    backgroundColor: styleConstants.APP_BACKGROUND_COLOR
   },
   container: {
     flex: 1,
@@ -14,7 +29,7 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
-    backgroundColor: '#1c2227'
+    backgroundColor: styleConstants.APP_BACKGROUND_COLOR
   },
   text: {
     color: '#ffffff',
@@ -87,5 +102,11 @@ export default StyleSheet.create({
   },
   footer: {
     justifyContent: 'flex-end'
+  },
+  linkText: {
+    color: styleConstants.LINK_ORANGE,
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 18,
+    textDecorationLine: 'underline'
   }
 });

@@ -4,12 +4,11 @@ import {
   View,
   ScrollView,
   TextInput,
-  SafeAreaView,
   Alert,
   Image,
   TouchableOpacity,
   Text,
-  Platform
+  StatusBar
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
@@ -18,6 +17,8 @@ import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
 import UserStore from '../model/UserStore';
+import { SafeAreaView } from 'react-navigation';
+import * as cssStyleConstants from '../css/styleConstants';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -117,6 +118,7 @@ class Passphrase extends Component {
     const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View style={styles.imageView}>
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   linkText: {
-    color: '#dea85a',
+    color: cssStyleConstants.LINK_ORANGE,
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 18,
     textDecorationLine: 'underline'

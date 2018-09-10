@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';

@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  SafeAreaView,
-  TextInput,
-  TouchableHighlight
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, TouchableHighlight } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import groupIntoRows from '../helpers/groupIntoRows';
 import ErrorPanel from '../components/ErrorPanel';
 import CommonButton from '../components/CommonButton';

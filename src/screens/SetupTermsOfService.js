@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
+import { SafeAreaView } from 'react-navigation';
 
 class SetupTermsOfService extends Component {
   constructor(props) {

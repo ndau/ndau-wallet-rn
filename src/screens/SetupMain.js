@@ -3,14 +3,15 @@ import {
   View,
   ScrollView,
   Text,
-  SafeAreaView,
   Platform,
   TouchableWithoutFeedback,
-  BackHandler
+  BackHandler,
+  StatusBar
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
+import { SafeAreaView } from 'react-navigation';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class SetupMain extends Component {
   render() {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
