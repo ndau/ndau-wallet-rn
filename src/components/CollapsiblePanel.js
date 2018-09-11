@@ -55,7 +55,7 @@ class CollapsiblePanel extends Component {
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
       console.debug(`setting maxHeight for first time: ${event.nativeEvent.layout.height}`);
       this.setState({
-        maxHeight: event.nativeEvent.layout.height
+        maxHeight: event.nativeEvent.layout.height + 12
       });
     }
   };
@@ -81,12 +81,12 @@ class CollapsiblePanel extends Component {
             underlayColor="transparent"
           >
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
-              <Text style={styles.title}>{this.props.title}</Text>
-
-              <Image style={styles.buttonImage} source={icon} />
+              <Text style={styles.titleLeft}>{this.props.title}</Text>
+              <Text style={styles.titleRight}>300.00</Text>
+              {/* <Image style={styles.buttonImage} source={icon} /> */}
             </View>
           </TouchableHighlight>
-
+          <View style={styles.border} />
           <View style={styles.body} onLayout={this.setMaxHeight}>
             {this.props.children}
           </View>
@@ -103,17 +103,32 @@ var styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 5,
     borderColor: '#4d9678',
-    borderWidth: 2
+    borderWidth: 0.5
   },
   titleContainer: {
     flexDirection: 'row'
   },
-  title: {
+  titleLeft: {
     flex: 1,
-    padding: 10,
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Bold'
+    fontFamily: 'TitilliumWeb-Bold',
+    textAlign: 'left'
+  },
+  titleRight: {
+    flex: 1,
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    color: '#fff',
+    fontSize: 18,
+    fontFamily: 'TitilliumWeb-Bold',
+    textAlign: 'right'
   },
   button: {},
   buttonImage: {
@@ -125,6 +140,13 @@ var styles = StyleSheet.create({
   body: {
     padding: 10,
     paddingTop: 0
+  },
+  border: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10
   }
 });
 

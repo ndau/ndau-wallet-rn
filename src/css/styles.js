@@ -90,12 +90,24 @@ export default StyleSheet.create({
     fontSize: 28,
     paddingBottom: 10
   },
+  dashboardTextVeryLarge: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#4d9678',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 48,
+    paddingBottom: 10,
+    textShadowColor: 'rgba(77, 150, 120, .5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 6
+  },
   dashboardTextSmall: {
     justifyContent: 'center',
     alignItems: 'center',
     color: '#4d9678',
     fontFamily: 'TitilliumWeb-Light',
     fontSize: 22,
+    fontWeight: '300',
     shadowOpacity: 0.2,
     shadowColor: '#4e957a',
     shadowRadius: 3,

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { SafeAreaView } from 'react-navigation';
 import { ScrollView, View, Text, StatusBar } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import AlertPanel from '../components/AlertPanel';
 import cssStyles from '../css/styles';
 import UserStore from '../model/UserStore';
 
@@ -28,11 +26,8 @@ class Dashboard extends Component {
           <View style={cssStyles.dashboardTextContainer}>
             <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
           </View>
-          <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
-            sent to this app on Genesis Day. Until then, you can continue to view your holdings on
-            the online dashboard." />
           <View style={cssStyles.dashboardTextContainer}>
-            <Text style={cssStyles.dashboardTextSmall}>{addresses.length} addresses</Text>
+            <Text style={cssStyles.dashboardTextVeryLarge}>501,026</Text>
           </View>
           <ScrollView style={cssStyles.container}>
             {addresses ? (
@@ -46,6 +41,9 @@ class Dashboard extends Component {
                     address={address}
                   >
                     <Text style={cssStyles.text}>{address}</Text>
+                    <Text style={cssStyles.text}>Something about lock</Text>
+                    <Text style={cssStyles.text}>Some dates here</Text>
+                    <Text style={cssStyles.text}>Where sending from</Text>
                   </CollapsiblePanel>
                 );
               })
