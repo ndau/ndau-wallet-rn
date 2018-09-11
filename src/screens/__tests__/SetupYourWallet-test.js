@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import SetupYourWallet from '../SetupYourWallet';
-import { Provider } from 'react-redux';
-import store from '../../reducers/index';
 import renderer from 'react-test-renderer';
 
 describe('testing SetupYourWallet...', () => {
@@ -19,11 +17,7 @@ describe('testing SetupYourWallet...', () => {
     };
 
     const tree = renderer
-      .create(
-        <Provider store={store}>
-          <SetupYourWallet navigator={navigator} parentStyles={styles} />
-        </Provider>
-      )
+      .create(<SetupYourWallet navigator={navigator} parentStyles={styles} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

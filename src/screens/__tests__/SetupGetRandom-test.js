@@ -4,8 +4,6 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import SetupGetRandom from '../SetupGetRandom';
-import { Provider } from 'react-redux';
-import store from '../../reducers/index';
 import renderer from 'react-test-renderer';
 
 const makeStyles = () =>
@@ -23,11 +21,7 @@ const navigator = {
 describe('SetupGetRandom snapshot', () => {
   it('renders correctly', () => {
     const tree = renderer
-      .create(
-        <Provider store={store}>
-          <SetupGetRandom navigator={navigator} parentStyles={makeStyles()} />
-        </Provider>
-      )
+      .create(<SetupGetRandom navigator={navigator} parentStyles={makeStyles()} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -36,11 +30,7 @@ describe('SetupGetRandom snapshot', () => {
 describe('SetupGetRandom behavior', () => {
   beforeEach((done) => {
     // set up default wrapper for every test.
-    this.wrapper = mount(
-      <Provider store={store}>
-        <SetupGetRandom navigator={navigator} parentStyles={makeStyles()} />
-      </Provider>
-    );
+    this.wrapper = mount(<SetupGetRandom navigator={navigator} parentStyles={makeStyles()} />);
     this.wrapper.instance().randalPromise.then(done);
   });
 
