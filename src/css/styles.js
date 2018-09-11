@@ -12,9 +12,19 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular'
   },
   drawerContainer: {
+    ...Platform.select({
+      ios: {
+        marginLeft: 20,
+        paddingRight: 15,
+        paddingTop: 15,
+        paddingBottom: 15
+      },
+      android: {
+        padding: 15
+      }
+    }),
     flex: 1,
-    backgroundColor: styleConstants.DRAWER_BACKGROUND_COLOR,
-    padding: 15
+    backgroundColor: styleConstants.DRAWER_BACKGROUND_COLOR
   },
   darkBackgroundColor: {
     backgroundColor: styleConstants.APP_BACKGROUND_COLOR
