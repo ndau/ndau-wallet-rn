@@ -158,6 +158,7 @@ class Passphrase extends Component {
                 placeholder="Enter your app password"
                 placeholderTextColor="#333"
                 secureTextEntry={!this.state.showPasswords}
+                autoCapitalize="none"
               />
               <TouchableOpacity onPress={this.showInformation}>
                 <FontAwesome name="info" color="#ffffff" size={20} style={styles.infoIcon} />
