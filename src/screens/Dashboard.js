@@ -14,32 +14,6 @@ class Dashboard extends Component {
     this.state = {};
   }
 
-  loginOrSetup = () => {
-    AsyncStorageHelper.getAllKeys()
-      .then((userIds) => {
-        console.debug(`userIds is ${userIds}`);
-
-        if (userIds.length > 0) {
-          this.getPassphrase();
-        } else {
-          this.showSetup();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  getPassphrase = () => {
-    this.props.navigation.navigate('Passphrase', {
-      onNavigateBack: this.handleOnNavigateBack
-    });
-  };
-
-  showSetup = () => {
-    this.props.navigation.navigate('SetupMain');
-  };
-
   render() {
     console.log(`rendering Dashboard`);
     const user = UserStore.getUser();

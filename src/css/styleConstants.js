@@ -1,3 +1,9 @@
-export const APP_BACKGROUND_COLOR = '#1c2227';
-export const DRAWER_BACKGROUND_COLOR = '#414042';
-export const LINK_ORANGE = '#dea85a';
+const APP_BACKGROUND_COLOR = '#1c2227';
+const DRAWER_BACKGROUND_COLOR = '#414042';
+const LINK_ORANGE = '#dea85a';
+
+export default {
+  APP_BACKGROUND_COLOR,
+  DRAWER_BACKGROUND_COLOR,
+  LINK_ORANGE
+};

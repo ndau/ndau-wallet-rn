@@ -96,6 +96,7 @@ class SetupEncryptionPassword extends Component {
               placeholder="Enter a password"
               placeholderTextColor="#333"
               secureTextEntry={!this.state.showPasswords}
+              autoCapitalize="none"
             />
             <TextInput
               style={{
@@ -115,6 +116,7 @@ class SetupEncryptionPassword extends Component {
               placeholder="Confirm your password"
               placeholderTextColor="#333"
               secureTextEntry={!this.state.showPasswords}
+              autoCapitalize="none"
             />
             <View>
               <CheckBox
