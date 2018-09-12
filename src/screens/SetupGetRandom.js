@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import Base64 from 'base-64';
 import CommonButton from '../components/CommonButton.js';
 import Randal from '../helpers/randal.js';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { pushSetup, setEntropy } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
+import { SafeAreaView } from 'react-navigation';
 
 class SetupGetRandom extends Component {
   constructor(props) {
@@ -21,11 +20,6 @@ class SetupGetRandom extends Component {
 
     this.randalPromise = this.initRandal().catch((e) => {
       console.error(e);
-    });
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
     });
   }
 
@@ -46,8 +40,8 @@ class SetupGetRandom extends Component {
   }
 
   showNextSetup = () => {
-    this.props.setEntropy(this.state.entropy);
-    this.props.pushSetup('ndau.SetupYourWallet', this.props.navigator);
+    SetupStore.setEntropy(this.state.entropy);
+    this.props.navigation.navigate('SetupYourWallet');
   };
 
   handleScribble(evt) {
@@ -163,8 +157,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, setEntropy }, dispatch);
-};
-
-export default connect(null, mapDispatchToProps)(SetupGetRandom);
+export default SetupGetRandom;

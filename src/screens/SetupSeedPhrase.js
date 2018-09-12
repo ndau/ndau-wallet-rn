@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  SafeAreaView,
-  NativeModules,
-  Alert
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Text, NativeModules, Alert } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {
-  pushSetup,
-  setSeedPhrase,
-  setShuffledWords,
-  setShuffledMap
-} from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
+import { SafeAreaView } from 'react-navigation';
 
 var _ = require('lodash');
 
@@ -32,11 +18,6 @@ class SetupSeedPhrase extends Component {
     this.state = {
       seedPhrase: []
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   componentDidMount = () => {
@@ -60,14 +41,14 @@ class SetupSeedPhrase extends Component {
   }
 
   generateSeedPhrase = async () => {
-    console.debug(`entropy in generateSeedPhrase is ${this.props.entropy}`);
+    console.debug(`entropy in generateSeedPhrase is ${SetupStore.getEntropy()}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
-    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', this.props.entropy);
+    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', SetupStore.getEntropy());
     const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', seeds);
-    if (!_(seedBytes).isEqual(this.props.entropy)) {
+    if (!_(seedBytes).isEqual(SetupStore.getEntropy())) {
       this.showExitApp();
     } else {
-      console.debug(`${seedBytes} and ${this.props.entropy} are equal.`);
+      console.debug(`${seedBytes} and ${SetupStore.getEntropy()} are equal.`);
     }
     console.debug(`keyaddr's seed words are: ${seeds}`);
     const seedPhrase = seeds.split(/\s+/g);
@@ -92,10 +73,10 @@ class SetupSeedPhrase extends Component {
   };
 
   showNextSetup = () => {
-    this.props.setSeedPhrase(this.state.seedPhrase);
-    this.props.setShuffledMap(this.shuffleMap);
-    this.props.setShuffledWords(this.shuffledWords);
-    this.props.pushSetup('ndau.SetupConfirmSeedPhrase', this.props.navigator);
+    SetupStore.setSeedPhrase(this.state.seedPhrase);
+    SetupStore.setShuffledMap(this.shuffleMap);
+    SetupStore.setShuffledWords(this.shuffledWords);
+    this.props.navigation.navigate('SetupConfirmSeedPhrase');
   };
 
   render() {
@@ -174,11 +155,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    { pushSetup, setSeedPhrase, setShuffledWords, setShuffledMap },
-    dispatch
-  );
-};
-
-export default connect(null, mapDispatchToProps)(SetupSeedPhrase);
+export default SetupSeedPhrase;

@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { pushSetup } from '../actions/NavigationActions';
+import { SafeAreaView } from 'react-navigation';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   checkedAgree = () => {
@@ -24,7 +17,7 @@ class SetupTermsOfService extends Component {
   };
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupEAINode', this.props.navigator);
+    this.props.navigation.navigate('SetupEAINode');
   };
 
   render() {
@@ -413,8 +406,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup }, dispatch);
-};
-
-export default connect(null, mapDispatchToProps)(SetupTermsOfService);
+export default SetupTermsOfService;

@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`testing SetupMain... renders correctly 1`] = `
-<RCTSafeAreaView
+<View
+  onLayout={[Function]}
+  pointerEvents="box-none"
   style={
     Object {
       "backgroundColor": "#1c2227",
       "flex": 1,
+      "paddingBottom": 0,
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 20,
     }
   }
 >
@@ -24,7 +30,7 @@ exports[`testing SetupMain... renders correctly 1`] = `
     <RCTScrollView
       style={
         Object {
-          "flex": 1,
+          "marginTop": 15,
         }
       }
     >
@@ -199,5 +205,5 @@ exports[`testing SetupMain... renders correctly 1`] = `
       </View>
     </View>
   </View>
-</RCTSafeAreaView>
+</View>
 `;

@@ -4,32 +4,21 @@ import {
   View,
   ScrollView,
   TextInput,
-  SafeAreaView,
   Alert,
   Image,
   TouchableOpacity,
   Text,
-  Platform
+  StatusBar
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
 import { Dropdown } from 'react-native-material-dropdown';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {
-  pushSetup,
-  push,
-  setEncryptionPassword,
-  setUserId,
-  setNavigator,
-  setUser,
-  startTabBasedApp
-} from '../actions/NavigationActions';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
-import { Navigation } from 'react-native-navigation';
 import UserStore from '../model/UserStore';
+import { SafeAreaView } from 'react-navigation';
+import * as cssStyleConstants from '../css/styleConstants';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -44,11 +33,6 @@ class Passphrase extends Component {
     };
 
     this.maxLoginAttempts = 10;
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   componentWillMount = async () => {
@@ -64,18 +48,16 @@ class Passphrase extends Component {
       .then((user) => {
         if (user) {
           console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
-          //We use UserStore for iOS due to immutable props
-          //within the navigation screens. Android does not force props
-          //immutability but for some undocumented reason iOS does
-          this.props.setUser(user);
           UserStore.setUser(user);
 
-          this.props.startTabBasedApp();
+          // this.props.navigation.state.params.onNavigateBack(user);
+          this.props.navigation.navigate('App');
         } else {
           this.showLoginError();
         }
       })
       .catch((error) => {
+        console.error(error);
         this.showLoginError();
       });
   };
@@ -107,7 +89,6 @@ class Passphrase extends Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.setUser(null);
             UserStore.setUser({});
             this.setState({ loginAttempt: this.state.loginAttempt + 1 });
           }
@@ -129,7 +110,7 @@ class Passphrase extends Component {
   };
 
   showSetup = () => {
-    this.props.pushSetup('ndau.SetupMain', this.props.navigator);
+    this.props.navigation.navigate('Setup');
   };
 
   render() {
@@ -137,6 +118,7 @@ class Passphrase extends Component {
     const { textInputColor } = this.state;
     return (
       <SafeAreaView style={styles.safeContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
         <View style={styles.container}>
           <ScrollView style={styles.contentContainer}>
             <View style={styles.imageView}>
@@ -255,18 +237,11 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   linkText: {
-    color: '#dea85a',
+    color: cssStyleConstants.LINK_ORANGE,
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 18,
     textDecorationLine: 'underline'
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    { pushSetup, push, setEncryptionPassword, setUserId, setNavigator, setUser, startTabBasedApp },
-    dispatch
-  );
-};
-
-export default connect(null, mapDispatchToProps)(Passphrase);
+export default Passphrase;

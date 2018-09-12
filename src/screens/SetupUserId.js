@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import ndauApi from '../api/NdauAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import { pushSetup, setNumberOfAccounts, setUserId } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -18,11 +17,6 @@ class SetupUserId extends Component {
       numberOfAccounts: 0,
       userIdPresent: false
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   confirmUserIdPresent = () => {
@@ -52,9 +46,10 @@ class SetupUserId extends Component {
   }
 
   showNextSetup = () => {
-    this.props.setUserId(this.state.userId);
-    this.props.setNumberOfAccounts(this.state.numberOfAccounts);
-    this.props.pushSetup('ndau.SetupQRCode', this.props.navigator);
+    SetupStore.setUserId(this.state.userId);
+    SetupStore.setNumberOfAccounts(this.state.numberOfAccounts);
+
+    this.props.navigation.navigate('SetupQRCode');
   };
 
   showExitApp() {
@@ -214,8 +209,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, setNumberOfAccounts, setUserId }, dispatch);
-};
-
-export default connect(null, mapDispatchToProps)(SetupUserId);
+export default SetupUserId;

@@ -1,6 +1,12 @@
 // Define all your icons once,
 // load them once,
 // and use everywhere
+// Keeping this around for an example...here is how to use it:
+// iconsLoaded.then(() => {
+//   startApp();
+// });
+// then refrerence it with:
+// iconsMap['ndau-icon']
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 

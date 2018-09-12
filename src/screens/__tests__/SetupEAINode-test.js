@@ -2,7 +2,6 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet, NativeModules } from 'react-native';
 import SetupEAINode from '../SetupEAINode';
-import store from '../../reducers/index';
 import sinon from 'sinon';
 import renderer from 'react-test-renderer';
 
@@ -58,7 +57,6 @@ describe('testing SetupEAINode...', () => {
     const tree = renderer
       .create(
         <SetupEAINode
-          store={store}
           seedPhraseArray={seedPhraseArray}
           userId={userId}
           numberOfAccounts={numberOfAccounts}
@@ -72,7 +70,6 @@ describe('testing SetupEAINode...', () => {
   it('finishes setup successfully', async () => {
     const wrapper = mount(
       <SetupEAINode
-        store={store}
         seedPhraseArray={seedPhraseArray}
         userId={userId}
         numberOfAccounts={numberOfAccounts}

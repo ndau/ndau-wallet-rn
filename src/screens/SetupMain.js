@@ -3,15 +3,15 @@ import {
   View,
   ScrollView,
   Text,
-  SafeAreaView,
   Platform,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  BackHandler,
+  StatusBar
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
-import { connect } from 'react-redux';
 import cssStyles from '../css/styles';
-import { bindActionCreators } from 'redux';
-import { pushSetup, toggleTestNet } from '../actions/NavigationActions';
+import SetupStore from '../model/SetupStore';
+import { SafeAreaView } from 'react-navigation';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -21,21 +21,28 @@ class SetupMain extends Component {
       toggleCount: 1,
       maxToggle: 10
     };
+  }
 
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   showNextSetup = () => {
-    this.props.pushSetup('ndau.SetupUserId', this.props.navigator);
+    this.props.navigation.navigate('SetupUserId');
   };
 
   testNetToggler = () => {
     if (this.state.maxToggle === this.state.toggleCount) {
       this.setState({ toggleCount: 1 });
-      this.props.toggleTestNet();
+      SetupStore.toggleAddressType();
     } else {
       this.setState({ toggleCount: this.state.toggleCount + 1 });
     }
@@ -45,6 +52,7 @@ class SetupMain extends Component {
   render() {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
@@ -81,8 +89,4 @@ class SetupMain extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ pushSetup, toggleTestNet }, dispatch);
-};
-
-export default connect(null, mapDispatchToProps)(SetupMain);
+export default SetupMain;

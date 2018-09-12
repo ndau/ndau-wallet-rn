@@ -3,8 +3,7 @@ import { StyleSheet, NativeModules } from 'react-native';
 import SetupSeedPhrase from '../SetupSeedPhrase';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
-import { Provider } from 'react-redux';
-import store from '../../reducers/index';
+import SetupStore from '../../model/SetupStore';
 
 const mockKeyaddr = () => {
   NativeModules.KeyaddrManager = {
@@ -37,11 +36,7 @@ const navigator = {
   toggleNavBar: () => {}
 };
 
-const makeComponent = () => (
-  <Provider store={store}>
-    <SetupSeedPhrase navigator={navigator} parentStyles={styles} entropy={'dGVzdGluZ3dlc3Rpbmdh'} />
-  </Provider>
-);
+const makeComponent = () => <SetupSeedPhrase navigator={navigator} parentStyles={styles} />;
 
 describe('testing SetupSeedPhrase...', () => {
   it('renders correctly', () => {
@@ -51,6 +46,7 @@ describe('testing SetupSeedPhrase...', () => {
 
   it('calls KeyaddrWordsFromBytes as expected', () => {
     mockKeyaddr();
+    SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
     this.wrapper = mount(makeComponent());
     this.wrapper.update();
     expect(NativeModules.KeyaddrManager.KeyaddrWordsFromBytes.mock.calls).toEqual([

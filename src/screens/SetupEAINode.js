@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, SafeAreaView, NativeModules } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import ndauApi from '../api/NdauAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { push, setUser, startTabBasedApp } from '../actions/NavigationActions';
 import UserStore from '../model/UserStore';
+import SetupStore from '../model/SetupStore';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -37,11 +36,6 @@ class SetupEAINode extends Component {
       data: nodeNames,
       selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)].value
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false
-    });
   }
 
   sendAccountAddresses = (userId, addresses, token) => {
@@ -67,7 +61,7 @@ class SetupEAINode extends Component {
       .then(() => {
         this.persistAddresses(addresses);
 
-        this.props.startTabBasedApp();
+        this.props.navigation.navigate('Dashboard');
       })
       .catch((error) => {
         console.error(error);
@@ -76,7 +70,7 @@ class SetupEAINode extends Component {
 
   keyGeneration = async () => {
     console.debug('Generating all keys from phrase given...');
-    const seedPhraseString = this.props.seedPhrase.join().replace(/,/g, ' ');
+    const seedPhraseString = SetupStore.getSeedPhrase().join().replace(/,/g, ' ');
     console.debug(`seedPhraseString: ${seedPhraseString}`);
     const seedPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
       'en',
@@ -85,8 +79,8 @@ class SetupEAINode extends Component {
     console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       seedPhraseAsBytes,
-      this.props.numberOfAccounts,
-      this.props.addressType
+      SetupStore.getNumberOfAccounts(),
+      SetupStore.getAddressType()
     );
     console.debug(`publicAddresses: ${publicAddresses}`);
 
@@ -94,17 +88,16 @@ class SetupEAINode extends Component {
   };
 
   sendAddressesToOneiro = (addresses) => {
-    return this.sendAccountAddresses(this.props.userId, addresses, this.props.qrCode);
+    return this.sendAccountAddresses(SetupStore.getUserId(), addresses, SetupStore.getQRCode());
   };
 
   persistAddresses = (addresses) => {
     const user = {
-      userId: this.props.userId,
+      userId: SetupStore.getUserId(),
       addresses: addresses,
       selectedNode: this.state.selectedNode
     };
-    AsyncStorageHelper.setUser(user, this.props.encryptionPassword);
-    this.props.setUser(user);
+    AsyncStorageHelper.setUser(user, SetupStore.getEncryptionPassword());
     UserStore.setUser(user);
   };
 
@@ -171,8 +164,4 @@ const styles = StyleSheet.create({
   checkbox: { flex: 1, padding: 10 }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ push, setUser, startTabBasedApp }, dispatch);
-};
-
-export default connect(null, mapDispatchToProps)(SetupEAINode);
+export default SetupEAINode;
