@@ -29,6 +29,18 @@ class Dashboard extends Component {
           <View style={cssStyles.dashboardTextContainer}>
             <Text style={cssStyles.dashboardTextVeryLarge}>501,026</Text>
           </View>
+          {/* <View style={cssStyles.dashboardTextContainer}> */}
+          <View style={cssStyles.dashboardRowContainer}>
+            <Text style={cssStyles.dashboardTextSmallGreen}>8,267,316.00</Text>
+            <Text style={cssStyles.dashboardTextSmallWhiteMiddle}>USD</Text>
+            <Text style={cssStyles.dashboardTextSmallWhiteEnd}>at current price</Text>
+          </View>
+          <View style={cssStyles.dashboardRowContainer}>
+            <Text style={cssStyles.dashboardTextSmallGreen}>644,591.00</Text>
+            <Text style={cssStyles.dashboardTextSmallWhiteMiddle}>USD</Text>
+            <Text style={cssStyles.dashboardTextSmallWhiteEnd}>your cost basis</Text>
+          </View>
+          {/* </View> */}
           <ScrollView style={cssStyles.container}>
             {addresses ? (
               addresses.map((address, index) => {

@@ -14,11 +14,6 @@ class CollapsiblePanel extends Component {
   constructor(props) {
     super(props);
 
-    this.icons = {
-      up: require('../../img/Arrowhead-01-128.png'),
-      down: require('../../img/Arrowhead-Down-01-128.png')
-    };
-
     this.cardBackgrounds = [
       require('../../img/green-card.jpg'),
       require('../../img/blue-card.jpg'),
@@ -67,8 +62,6 @@ class CollapsiblePanel extends Component {
   };
 
   render() {
-    let icon = this.state.expanded ? this.icons.up : this.icons.down;
-
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
         <ImageBackground
@@ -83,7 +76,6 @@ class CollapsiblePanel extends Component {
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
               <Text style={styles.titleRight}>300.00</Text>
-              {/* <Image style={styles.buttonImage} source={icon} /> */}
             </View>
           </TouchableHighlight>
           <View style={styles.border} />
