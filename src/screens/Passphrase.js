@@ -18,7 +18,7 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
 import UserStore from '../model/UserStore';
 import { SafeAreaView } from 'react-navigation';
-import * as cssStyleConstants from '../css/styleConstants';
+import StyleConstants from '../css/styleConstants';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   linkText: {
-    color: cssStyleConstants.LINK_ORANGE,
+    color: StyleConstants.LINK_ORANGE,
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 18,
     textDecorationLine: 'underline'
