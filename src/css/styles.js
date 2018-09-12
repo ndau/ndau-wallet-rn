@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-import * as styleConstants from './styleConstants';
+import StyleConstants from './styleConstants';
 
 export default StyleSheet.create({
   drawerText: {
@@ -26,14 +26,14 @@ export default StyleSheet.create({
       }
     }),
     flex: 1,
-    backgroundColor: styleConstants.DRAWER_BACKGROUND_COLOR
+    backgroundColor: StyleConstants.DRAWER_BACKGROUND_COLOR
   },
   darkBackgroundColor: {
-    backgroundColor: styleConstants.APP_BACKGROUND_COLOR
+    backgroundColor: StyleConstants.APP_BACKGROUND_COLOR
   },
   safeContainer: {
     flex: 1,
-    backgroundColor: styleConstants.APP_BACKGROUND_COLOR
+    backgroundColor: StyleConstants.APP_BACKGROUND_COLOR
   },
   container: {
     flex: 1,
@@ -41,7 +41,7 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
-    backgroundColor: styleConstants.APP_BACKGROUND_COLOR
+    backgroundColor: StyleConstants.APP_BACKGROUND_COLOR
   },
   text: {
     color: '#ffffff',
@@ -141,7 +141,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-end'
   },
   linkText: {
-    color: styleConstants.LINK_ORANGE,
+    color: StyleConstants.LINK_ORANGE,
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 18,
     textDecorationLine: 'underline'

@@ -3,7 +3,7 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { DrawerButton } from '../components/DrawerButton';
 import Dashboard from '../screens/Dashboard';
 import DashboardDrawer from './DashboardDrawer';
-import * as cssStyleConstants from '../css/styleConstants';
+import StyleConstants from '../css/styleConstants';
 
 const DashboardScreen = ({ navigation }) => <Dashboard navigation={navigation} />;
 DashboardScreen.navigationOptions = ({ navigation }) => ({
@@ -25,7 +25,7 @@ const DashboardNavigation = createDrawerNavigator(
     initialRouteName: 'Dashboard',
     contentComponent: DashboardDrawer,
     headerMode: 'node',
-    drawerBackgroundColor: cssStyleConstants.DRAWER_BACKGROUND_COLOR
+    drawerBackgroundColor: StyleConstants.DRAWER_BACKGROUND_COLOR
   }
 );
 
