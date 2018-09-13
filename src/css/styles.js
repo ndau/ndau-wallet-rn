@@ -81,21 +81,36 @@ export default StyleSheet.create({
     paddingBottom: 8
   },
   dashboardTextContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  dashboardOuterRowContainer: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+    // marginLeft: 20,
+    // marginRight: 20
+  },
+  dashboardSmallTextContainer: {
+    marginHorizontal: 30
   },
   dashboardRowContainer: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    // flex: 1,
+    alignSelf: 'stretch',
     flexDirection: 'row'
+  },
+  dashboardRowContainerCenter: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    marginRight: 20
   },
   dashboardTextLarge: {
     justifyContent: 'center',
     alignItems: 'center',
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 28,
-    paddingBottom: 10
+    fontSize: 28
   },
   dashboardTextVeryLarge: {
     justifyContent: 'center',
@@ -115,19 +130,27 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(77, 150, 120, .5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 6,
-    paddingLeft: 20
+    flex: 1,
+    alignSelf: 'stretch',
+    marginLeft: 20
   },
   dashboardTextSmallWhiteMiddle: {
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 20,
-    paddingLeft: 3
+    flex: 1,
+    alignSelf: 'stretch'
   },
   dashboardTextSmallWhiteEnd: {
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 20,
-    paddingLeft: 25
+    marginRight: 20
+  },
+  dashboardTextVerySmallWhite: {
+    color: '#ffffff',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 12
   },
   checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 },
   contentContainer: {
@@ -145,5 +168,10 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 18,
     textDecorationLine: 'underline'
+  },
+  asterisks: {
+    color: StyleConstants.ASTERISKS_RED,
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 20
   }
 });

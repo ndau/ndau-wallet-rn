@@ -8,7 +8,8 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  StatusBar
+  StatusBar,
+  Platform
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
@@ -134,6 +135,7 @@ class Passphrase extends Component {
                 itemTextStyle={styles.text}
                 fontSize={18}
                 labelFontSize={14}
+                dropdownMargins={{ min: 20, max: 16 }}
                 // value={this.state.userId}
                 onChangeText={(userId) => this.setState({ userId })}
               />
@@ -231,7 +233,15 @@ const styles = StyleSheet.create({
     paddingBottom: 40
   },
   image: {
-    tintColor: '#4e957a'
+    tintColor: '#4e957a',
+    ...Platform.select({
+      ios: {
+        marginTop: 30
+      },
+      android: {
+        marginTop: 20
+      }
+    })
   },
   infoIcon: {
     marginLeft: 12,
