@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import ndauApi from '../api/NdauAPI';
+import ndauDashboardApi from '../api/NdauDashboardAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
@@ -22,7 +22,7 @@ class SetupUserId extends Component {
   confirmUserIdPresent = () => {
     if (!this.state.userId) return false;
     return new Promise((resolve, reject) => {
-      ndauApi
+      ndauDashboardApi
         .getNumberOfAccounts(this.state.userId)
         .then((numberOfAccounts) => {
           this.setState({
@@ -115,7 +115,7 @@ class SetupUserId extends Component {
 
   onSendEmail() {
     if (!this.state.userId) this.showErrorMessage('Please enter a User ID first.');
-    ndauApi
+    ndauDashboardApi
       .triggerQRTEmail(this.state.userId)
       .then(() => {
         this.showNextSetup();

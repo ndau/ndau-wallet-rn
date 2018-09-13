@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import ndauApi from '../api/NdauAPI';
+import ndauDashboardApi from '../api/NdauDashboardAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
@@ -40,7 +40,7 @@ class SetupEAINode extends Component {
 
   sendAccountAddresses = (userId, addresses, token) => {
     return new Promise((resolve, reject) => {
-      ndauApi
+      ndauDashboardApi
         .sendAccountAddresses(userId, addresses, token)
         .then((whatPersisted) => {
           console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);

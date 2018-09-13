@@ -85,17 +85,13 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   dashboardOuterRowContainer: {
-    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-    // marginLeft: 20,
-    // marginRight: 20
   },
   dashboardSmallTextContainer: {
     marginHorizontal: 30
   },
   dashboardRowContainer: {
-    // flex: 1,
     alignSelf: 'stretch',
     flexDirection: 'row'
   },
@@ -130,8 +126,12 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(77, 150, 120, .5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 6,
-    flex: 1,
-    alignSelf: 'stretch',
+    ...Platform.select({
+      android: {
+        flex: 1,
+        alignSelf: 'stretch'
+      }
+    }),
     marginLeft: 20
   },
   dashboardTextSmallWhiteMiddle: {

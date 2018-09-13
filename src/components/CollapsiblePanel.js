@@ -94,7 +94,6 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 5,
     borderRadius: 5,
-    borderColor: '#4d9678',
     borderWidth: 0.5
   },
   titleContainer: {
