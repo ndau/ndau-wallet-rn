@@ -28,34 +28,22 @@ class Dashboard extends Component {
             <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
           </View>
           <View style={cssStyles.dashboardTextContainer}>
-            <Text style={cssStyles.dashboardTextVeryLarge}>501,026</Text>
+            <Text style={cssStyles.dashboardTextVeryLarge}>501,026 NDU</Text>
           </View>
           <View style={cssStyles.dashboardOuterRowContainer}>
             <View style={cssStyles.dashboardRowContainer}>
-              {/* <View style={{ flex: 1, alignSelf: 'stretch' }}> */}
               <Text style={cssStyles.dashboardTextSmallGreen}>8,267,316.00</Text>
-              {/* </View> */}
-              {/* <View style={{ flex: 1, alignSelf: 'stretch' }}> */}
               <Text style={cssStyles.dashboardTextSmallWhiteMiddle}>
                 USD<Text style={styles.asterisks}>**</Text>
               </Text>
-              {/* </View> */}
-              {/* <View style={{ flex: 1, alignSelf: 'stretch' }}> */}
               <Text style={cssStyles.dashboardTextSmallWhiteEnd}>at current price</Text>
-              {/* </View> */}
             </View>
             <View style={cssStyles.dashboardRowContainer}>
-              {/* <View style={{ flex: 1, alignSelf: 'stretch' }}> */}
               <Text style={cssStyles.dashboardTextSmallGreen}>644,591.00</Text>
-              {/* </View> */}
-              {/* <View style={{ flex: 1, alignSelf: 'stretch' }}> */}
               <Text style={cssStyles.dashboardTextSmallWhiteMiddle}>
                 USD<Text style={styles.asterisks}>**</Text>
               </Text>
-              {/* </View> */}
-              {/* <View style={{ flex: 1, alignSelf: 'stretch' }}> */}
               <Text style={cssStyles.dashboardTextSmallWhiteEnd}>your cost basis</Text>
-              {/* </View> */}
             </View>
           </View>
           <ScrollView style={cssStyles.container}>
