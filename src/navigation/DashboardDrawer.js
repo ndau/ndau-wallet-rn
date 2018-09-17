@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, ScrollView, SafeAreaView, Text, View, TouchableOpacity, Image } from 'react-native';
 import cssStyles from '../css/styles';
-import UserStore from '../model/UserStore';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class DashboardDrawer extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class DashboardDrawer extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            UserStore.setUser({});
+            AsyncStorageHelper.setCurrentUser({});
             this.props.navigation.navigate('Auth');
           }
         }

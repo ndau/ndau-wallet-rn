@@ -73,7 +73,7 @@ triggerQRTEmail = (userId) => {
     });
 };
 
-module.exports = {
+export default {
   getTargetPrice,
   getNumberOfAccounts,
   sendAccountAddresses,

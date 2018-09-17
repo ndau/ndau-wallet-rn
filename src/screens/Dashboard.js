@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-navigation';
 import { ScrollView, View, Text, StatusBar } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
-import UserStore from '../model/UserStore';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import styles from '../css/styles';
 
 class Dashboard extends Component {
@@ -13,9 +13,9 @@ class Dashboard extends Component {
     this.state = {};
   }
 
-  render() {
+  render = async () => {
     console.log(`rendering Dashboard`);
-    const user = UserStore.getUser();
+    const user = await AsyncStorageHelper.getCurrentUser();
 
     if (Object.keys(user).length > 0) {
       console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
@@ -83,7 +83,7 @@ class Dashboard extends Component {
     } else {
       return <SafeAreaView style={cssStyles.safeContainer} />;
     }
-  }
+  };
 }
 
 export default Dashboard;

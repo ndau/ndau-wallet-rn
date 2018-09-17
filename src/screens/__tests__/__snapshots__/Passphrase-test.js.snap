@@ -52,6 +52,7 @@ exports[`testing Passphrase... renders correctly 1`] = `
             }
             style={
               Object {
+                "marginTop": 30,
                 "tintColor": "#4e957a",
               }
             }
@@ -142,7 +143,7 @@ exports[`testing Passphrase... renders correctly 1`] = `
                       dropdownMargins={
                         Object {
                           "max": 16,
-                          "min": 8,
+                          "min": 20,
                         }
                       }
                       dropdownOffset={
@@ -488,6 +489,7 @@ exports[`testing Passphrase... renders correctly 1`] = `
         >
           <TextInput
             allowFontScaling={true}
+            autoCapitalize="none"
             onChangeText={[Function]}
             placeholder="Enter your app password"
             placeholderTextColor="#333"

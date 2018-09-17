@@ -17,7 +17,6 @@ import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
-import UserStore from '../model/UserStore';
 import { SafeAreaView } from 'react-navigation';
 import StyleConstants from '../css/styleConstants';
 
@@ -45,13 +44,11 @@ class Passphrase extends Component {
   };
 
   login = () => {
-    AsyncStorageHelper.getUser(this.state.userId, this.state.password)
+    AsyncStorageHelper.unlockUser(this.state.userId, this.state.password)
       .then((user) => {
         if (user) {
           console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
-          UserStore.setUser(user);
 
-          // this.props.navigation.state.params.onNavigateBack(user);
           this.props.navigation.navigate('App');
         } else {
           this.showLoginError();
@@ -90,7 +87,7 @@ class Passphrase extends Component {
         {
           text: 'OK',
           onPress: () => {
-            UserStore.setUser({});
+            AsyncStorageHelper.setCurrentUser({});
             this.setState({ loginAttempt: this.state.loginAttempt + 1 });
           }
         }

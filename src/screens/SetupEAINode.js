@@ -97,8 +97,7 @@ class SetupEAINode extends Component {
       addresses: addresses,
       selectedNode: this.state.selectedNode
     };
-    AsyncStorageHelper.setUser(user, SetupStore.getEncryptionPassword());
-    UserStore.setUser(user);
+    AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
   };
 
   render() {

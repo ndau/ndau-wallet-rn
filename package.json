@@ -41,7 +41,10 @@
     "preset": "react-native",
     "setupFiles": [
       "./setupJest.js"
-    ]
+    ],
+    "globals": {
+      "__DEV__": true
+    }
   },
   "dependencies": {
     "@tradle/react-native-http": "^2.0.1",

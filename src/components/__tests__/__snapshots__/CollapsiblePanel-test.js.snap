@@ -5,9 +5,8 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
   style={
     Object {
       "backgroundColor": "transparent",
-      "borderColor": "#4d9678",
       "borderRadius": 5,
-      "borderWidth": 2,
+      "borderWidth": 0.5,
       "height": NaN,
       "marginBottom": 5,
       "overflow": "hidden",
@@ -68,27 +67,47 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
               "flex": 1,
               "fontFamily": "TitilliumWeb-Bold",
               "fontSize": 18,
-              "padding": 10,
+              "marginBottom": 5,
+              "marginLeft": 10,
+              "marginRight": 10,
+              "marginTop": 5,
+              "textAlign": "left",
             }
           }
         />
-        <Image
-          source={
-            Object {
-              "testUri": "../../../img/Arrowhead-01-128.png",
-            }
-          }
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
           style={
             Object {
-              "backgroundColor": "transparent",
-              "height": 25,
-              "margin": 8,
-              "width": 30,
+              "color": "#fff",
+              "flex": 1,
+              "fontFamily": "TitilliumWeb-Bold",
+              "fontSize": 18,
+              "marginBottom": 5,
+              "marginLeft": 10,
+              "marginRight": 10,
+              "marginTop": 5,
+              "textAlign": "right",
             }
           }
-        />
+        >
+          300.00
+        </Text>
       </View>
     </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "white",
+          "borderBottomWidth": 1,
+          "marginBottom": 10,
+          "marginLeft": 10,
+          "marginRight": 10,
+        }
+      }
+    />
     <View
       onLayout={[Function]}
       style={
