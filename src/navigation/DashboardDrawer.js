@@ -27,7 +27,6 @@ class DashboardDrawer extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            AsyncStorageHelper.setCurrentUser({});
             this.props.navigation.navigate('Auth');
           }
         }

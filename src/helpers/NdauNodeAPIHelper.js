@@ -1,6 +1,5 @@
 import NdauNodeAPI from '../api/NdauNodeAPI';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import User from '../model/User';
+import DateHelper from './DateHelper';
 
 const populateCurrentUserWithAddressData = async (user) => {
   try {
@@ -10,12 +9,19 @@ const populateCurrentUserWithAddressData = async (user) => {
     console.log(error);
   }
 
-  // let user = await AsyncStorageHelper.getCurrentUser();
-
-  AsyncStorageHelper.setCurrentUser(user);
   return user;
 };
 
+const accountLockedUntil = (account) => {
+  return DateHelper.getDateFromMilliseconds(account.Lock.UnlocksOn);
+};
+
+const accountNdauAmount = (account) => {
+  return account.Balance;
+};
+
 export default {
-  populateCurrentUserWithAddressData
+  populateCurrentUserWithAddressData,
+  accountLockedUntil,
+  accountNdauAmount
 };

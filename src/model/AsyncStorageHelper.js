@@ -19,9 +19,7 @@ const unlockUser = (userId, encryptionPassword) => {
 
           if (!userDecryptedString) resolve(null);
 
-          // setCurrentUser(userDecryptedString).then(() => {
           resolve(JSON.parse(userDecryptedString));
-          // });
         } else {
           resolve(null);
         }
@@ -47,45 +45,12 @@ const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
 
     await AsyncStorage.setItem(storageKey, userStringEncrypted.toString());
 
-    await setCurrentUser(userString);
-
     const checkPersist = await unlockUser(user.userId, encryptionPassword);
     console.debug(`Successfully set user to: ${JSON.stringify(checkPersist, null, 2)}`);
   } catch (error) {
     console.error(error);
     throw error;
   }
-};
-
-const setCurrentUser = async (user) => {
-  try {
-    console.debug(`setCurrentUser: ${JSON.stringify(user, null, 2)}`);
-
-    await AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user, null, 2));
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-const getCurrentUser = () => {
-  return new Promise((resolve, reject) => {
-    AsyncStorage.getItem(CURRENT_USER_KEY)
-      .then((user) => {
-        console.debug(`The following user object was returned: ${user}`);
-        if (user !== null) {
-          console.debug(`getCurrentUser: ${user}`);
-
-          resolve(JSON.parse(user));
-        } else {
-          resolve(null);
-        }
-      })
-      .catch((error) => {
-        console.debug(`Current user not set: ${error}`);
-        reject(error);
-      });
-  });
 };
 
 const getAllKeys = async () => {
@@ -112,7 +77,5 @@ export default {
   unlockUser,
   lockUser,
   getAllKeys,
-  doesKeyExist,
-  getCurrentUser,
-  setCurrentUser
+  doesKeyExist
 };

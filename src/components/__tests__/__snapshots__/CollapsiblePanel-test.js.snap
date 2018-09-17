@@ -93,7 +93,7 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
             }
           }
         >
-          300.00
+          200
         </Text>
       </View>
     </View>

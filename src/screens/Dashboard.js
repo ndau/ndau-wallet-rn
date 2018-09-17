@@ -3,39 +3,21 @@ import { SafeAreaView } from 'react-navigation';
 import { ScrollView, View, Text, StatusBar } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import styles from '../css/styles';
+import DateHelper from '../helpers/DateHelper';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      user: {}
-    };
-  }
-
   render() {
     console.log(`rendering Dashboard`);
-    // AsyncStorageHelper.getCurrentUser().then((user) => {
-    //   console.log(`USER IS ${JSON.stringify(user, null, 2)}`);
-    //   if (!user && Object.keys(user).length > 0) {
-
-    //   } else {
-    //     return <SafeAreaView style={cssStyles.safeContainer} />;
-    //   }
-    // });
-
-    // <SafeAreaView style={cssStyles.safeContainer} />;
 
     const { navigation } = this.props;
     const user = navigation.getParam('user', {});
 
-    // if (!this.state.user) {
     console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
-    const { addresses, userId } = user;
-    console.debug(`renders addresses: ${addresses}`);
-    return addresses ? (
+    const { addressData, userId } = user;
+    console.debug(`addressData: ${addressData}`);
+    return addressData ? (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
         <View style={cssStyles.dashboardTextContainer}>
@@ -61,18 +43,21 @@ class Dashboard extends Component {
           </View>
         </View>
         <ScrollView style={cssStyles.container}>
-          {addresses ? (
-            addresses.map((address, index) => {
+          {addressData ? (
+            addressData.map((account, index) => {
               const counter = index + 1;
               return (
                 <CollapsiblePanel
                   key={index}
                   index={index}
                   title={`Address ${counter}`}
-                  address={address}
+                  account={account}
                 >
-                  <Text style={cssStyles.text}>{address}</Text>
-                  <Text style={cssStyles.text}>Something about lock</Text>
+                  {NdauNodeAPIHelper.accountLockedUntil(account) ? (
+                    <Text style={cssStyles.text}>
+                      Account will be unlocked {NdauNodeAPIHelper.accountLockedUntil(account)}
+                    </Text>
+                  ) : null}
                   <Text style={cssStyles.text}>Some dates here</Text>
                   <Text style={cssStyles.text}>Where sending from</Text>
                 </CollapsiblePanel>
@@ -84,9 +69,9 @@ class Dashboard extends Component {
             <Text style={cssStyles.dashboardTextVerySmallWhite}>
               The estimated value of ndau in US dollars can be calculated using the Target Price at
               which new ndau have most recently been issued. The value shown here is calculated
-              using that method as of the issue price on DATE HERE. The Axiom Foundation bears no
-              responsibility or liability for the calculation of that estimated value, or for
-              decisions based on that estimated value.
+              using that method as of the issue price on {DateHelper.getTodaysDate()}. The Axiom
+              Foundation bears no responsibility or liability for the calculation of that estimated
+              value, or for decisions based on that estimated value.
             </Text>
           </View>
         </ScrollView>
@@ -94,9 +79,6 @@ class Dashboard extends Component {
     ) : (
       <SafeAreaView style={cssStyles.safeContainer} />
     );
-    // } else {
-    //   return <SafeAreaView style={cssStyles.safeContainer} />;
-    // }
   }
 }
 

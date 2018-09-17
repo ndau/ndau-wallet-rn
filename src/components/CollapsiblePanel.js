@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-
 import {
   StyleSheet,
   Text,
   View,
-  Image,
   ImageBackground,
   TouchableHighlight,
   Animated
 } from 'react-native';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class CollapsiblePanel extends Component {
   constructor(props) {
@@ -75,7 +74,9 @@ class CollapsiblePanel extends Component {
           >
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
-              <Text style={styles.titleRight}>300.00</Text>
+              <Text style={styles.titleRight}>
+                {NdauNodeAPIHelper.accountNdauAmount(this.props.account)}
+              </Text>
             </View>
           </TouchableHighlight>
           <View style={styles.border} />

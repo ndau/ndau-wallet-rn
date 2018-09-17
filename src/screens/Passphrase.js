@@ -91,7 +91,6 @@ class Passphrase extends Component {
         {
           text: 'OK',
           onPress: () => {
-            AsyncStorageHelper.setCurrentUser({});
             this.setState({ loginAttempt: this.state.loginAttempt + 1 });
           }
         }
