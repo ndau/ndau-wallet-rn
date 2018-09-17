@@ -19,6 +19,7 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
 import { SafeAreaView } from 'react-navigation';
 import StyleConstants from '../css/styleConstants';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -43,21 +44,24 @@ class Passphrase extends Component {
     this.setState({ userIds: userIdsForDropdown });
   };
 
-  login = () => {
-    AsyncStorageHelper.unlockUser(this.state.userId, this.state.password)
-      .then((user) => {
-        if (user) {
-          console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
+  login = async () => {
+    try {
+      const user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
+      // .then((user) => {
+      if (user) {
+        console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
 
-          this.props.navigation.navigate('App');
-        } else {
-          this.showLoginError();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
+        const userWithData = await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
+
+        this.props.navigation.navigate('Dashboard', { user: userWithData });
+      } else {
         this.showLoginError();
-      });
+      }
+      // })
+    } catch (error) {
+      console.error(error);
+      this.showLoginError();
+    }
   };
 
   showExitApp() {

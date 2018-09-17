@@ -7,8 +7,8 @@ import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
-import UserStore from '../model/UserStore';
 import SetupStore from '../model/SetupStore';
+import { Button } from 'react-native-material-buttons';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -59,9 +59,9 @@ class SetupEAINode extends Component {
 
     this.sendAddressesToOneiro(addresses)
       .then(() => {
-        this.persistAddresses(addresses);
+        const user = this.persistAddresses(addresses);
 
-        this.props.navigation.navigate('Dashboard');
+        this.props.navigation.navigate('Dashboard', { user });
       })
       .catch((error) => {
         console.error(error);
@@ -98,6 +98,7 @@ class SetupEAINode extends Component {
       selectedNode: this.state.selectedNode
     };
     AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
+    return user;
   };
 
   render() {
@@ -127,11 +128,8 @@ class SetupEAINode extends Component {
             />
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton
-              onPress={this.finishSetup}
-              title="Select and Finish"
-              id="select-and-finish"
-            />
+            (__DEV__ ? <Button onPress={this.finishSetup} id="select-and-finish" /> :
+            <CommonButton onPress={this.finishSetup} title="Select and Finish" />)
           </View>
         </View>
       </SafeAreaView>

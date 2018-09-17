@@ -19,9 +19,9 @@ const unlockUser = (userId, encryptionPassword) => {
 
           if (!userDecryptedString) resolve(null);
 
-          setCurrentUser(userDecryptedString);
-
+          // setCurrentUser(userDecryptedString).then(() => {
           resolve(JSON.parse(userDecryptedString));
+          // });
         } else {
           resolve(null);
         }

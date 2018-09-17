@@ -1,27 +1,6 @@
-import MockAsyncStorage from 'mock-async-storage';
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage();
-  jest.mock('AsyncStorage', () => mockImpl);
-};
-
-mock();
-import AsyncStorageHelper from '../../model/AsyncStorageHelper';
 import NdauNodeAPIHelper from '../NdauNodeAPIHelper';
 
-beforeEach(() => {
-  console.log('this goes first');
-  AsyncStorageHelper.setCurrentUser({
-    userId: '7MP-4FV',
-    addresses: [
-      'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
-      'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
-    ],
-    selectedNode: 'Storrow'
-  });
-});
-
-test('populateCurrentUserWithLockData populates the UserStore with data from the API', async () => {
+test('populateCurrentUserWithLockData populates user with data from the API', async () => {
   fetch.mockResponseOnce(
     JSON.stringify({
       addressData: [
@@ -47,11 +26,17 @@ test('populateCurrentUserWithLockData populates the UserStore with data from the
       ]
     })
   );
+  const user = {
+    userId: '7MP-4FV',
+    addresses: [
+      'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
+      'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    ],
+    selectedNode: 'Storrow'
+  };
 
-  await NdauNodeAPIHelper.populateCurrentUserWithAddressData();
+  const updatedUser = await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
 
-  const user = await AsyncStorageHelper.getCurrentUser();
-
-  expect(user).toBeDefined();
-  expect(user.addressData).toBeDefined();
+  expect(updatedUser).toBeDefined();
+  expect(updatedUser.addressData).toBeDefined();
 });

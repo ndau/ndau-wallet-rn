@@ -1,9 +1,10 @@
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
-import { StyleSheet, NativeModules } from 'react-native';
+import { NativeModules } from 'react-native';
 import SetupEAINode from '../SetupEAINode';
 import sinon from 'sinon';
 import renderer from 'react-test-renderer';
+import SetupStore from '../../model/SetupStore';
 
 jest.mock('NativeModules', () => {
   return {
@@ -37,10 +38,13 @@ describe('testing SetupEAINode...', () => {
   KeyaddrWordsToBytes.mockReturnValue(bytes);
   const CreatePublicAddress = sinon.spy(NativeModules.KeyaddrManager, 'CreatePublicAddress');
   CreatePublicAddress.mockReturnValue([]);
-  const navigator = {
-    setStyle: () => {},
-    toggleNavBar: () => {}
+  const navigation = {
+    navigate: () => {}
   };
+  SetupStore.setSeedPhrase(seedPhraseArray);
+  SetupStore.setUserId(userId);
+  SetupStore.setNumberOfAccounts(numberOfAccounts);
+  SetupStore.setQRCode(bytes);
 
   beforeAll(() => {
     this.oldRandom = global.Math.random;
@@ -60,7 +64,7 @@ describe('testing SetupEAINode...', () => {
           seedPhraseArray={seedPhraseArray}
           userId={userId}
           numberOfAccounts={numberOfAccounts}
-          navigator={navigator}
+          navigation
         />
       )
       .toJSON();
@@ -68,22 +72,24 @@ describe('testing SetupEAINode...', () => {
   });
 
   it('finishes setup successfully', async () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <SetupEAINode
         seedPhraseArray={seedPhraseArray}
         userId={userId}
         numberOfAccounts={numberOfAccounts}
-        navigator={navigator}
+        navigation
       />
     );
 
     expect(KeyaddrWordsToBytes.calledOnce).toBe(false);
     expect(CreatePublicAddress.calledOnce).toBe(false);
 
-    const onlyButton = wrapper.find('CommonButton');
+    const onlyButton = wrapper.find('#select-and-finish');
     console.log(`onlyButton is: ${JSON.stringify(onlyButton)}`);
     expect(onlyButton.length).toBe(1);
     await onlyButton.simulate('press');
+
+    console.log(`stuff: ${JSON.stringify(KeyaddrWordsToBytes.mock, null, 2)}`);
 
     expect(KeyaddrWordsToBytes.mock.results[0].value).toBe(bytes);
     expect(CreatePublicAddress.mock.results[0].value).toEqual([]);

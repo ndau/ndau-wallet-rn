@@ -1,8 +1,8 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper';
 
-const getAddressData = async (addresses) => {
-  const accountAPI = await NodeAddressHelper.getAccountAPIAddress();
-  console.log(`Sending ${JSON.stringify(addresses, null, 2)} to ${accountAPI}`);
+const getAddressData = (user) => {
+  const accountAPI = NodeAddressHelper.getAccountAPIAddress(user);
+  console.log(`Sending ${JSON.stringify(user.addresses, null, 2)} to ${accountAPI}`);
   return fetch(accountAPI, {
     method: 'POST',
     headers: {
@@ -10,7 +10,7 @@ const getAddressData = async (addresses) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      addresses: addresses
+      addresses: user.addresses
     })
   })
     .then((response) => response.json())

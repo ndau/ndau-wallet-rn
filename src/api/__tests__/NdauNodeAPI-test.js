@@ -1,24 +1,5 @@
-import MockAsyncStorage from 'mock-async-storage';
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage();
-  jest.mock('AsyncStorage', () => mockImpl);
-};
-
-mock();
 import NdauNodeAPI from '../NdauNodeAPI';
 import AsyncStorageHelper from '../../model/AsyncStorageHelper';
-
-beforeEach(() => {
-  AsyncStorageHelper.setCurrentUser({
-    userId: '7MP-4FV',
-    addresses: [
-      'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
-      'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
-    ],
-    selectedNode: 'Storrow'
-  });
-});
 
 test('getAddressData should return something back', async () => {
   fetch.mockResponseOnce(
@@ -43,10 +24,16 @@ test('getAddressData should return something back', async () => {
       ]
     })
   );
+  const user = {
+    userId: '7MP-4FV',
+    addresses: [
+      'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
+      'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    ],
+    selectedNode: 'Storrow'
+  };
 
-  const ndau = await NdauNodeAPI.getAddressData({
-    addresses: [ 'ndabbqv2rm9w6regasrdk4qvbhkktqsrp6ckj8zdpir57phy' ]
-  });
+  const ndau = await NdauNodeAPI.getAddressData(user);
 
   console.log(`getAddressData returns to ${JSON.stringify(ndau, null, 2)}`);
 
