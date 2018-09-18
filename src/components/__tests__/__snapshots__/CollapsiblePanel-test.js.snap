@@ -93,7 +93,8 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
             }
           }
         >
-          200
+          NaN
+           NDU
         </Text>
       </View>
     </View>

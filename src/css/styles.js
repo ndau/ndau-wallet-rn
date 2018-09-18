@@ -37,7 +37,6 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 5,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
@@ -89,7 +88,9 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   dashboardSmallTextContainer: {
-    marginHorizontal: 30
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5
   },
   dashboardRowContainer: {
     alignSelf: 'stretch',
@@ -99,7 +100,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginRight: 20
+    marginRight: 20,
+    marginBottom: 20
   },
   dashboardTextLarge: {
     justifyContent: 'center',
@@ -125,14 +127,14 @@ export default StyleSheet.create({
     fontSize: 20,
     textShadowColor: 'rgba(77, 150, 120, .5)',
     textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 6,
-    ...Platform.select({
-      android: {
-        flex: 1,
-        alignSelf: 'stretch'
-      }
-    }),
-    marginLeft: 20
+    textShadowRadius: 6
+    // ...Platform.select({
+    //   android: {
+    //     flex: 1,
+    //     alignSelf: 'stretch'
+    //   }
+    // }),
+    // marginLeft: 20
   },
   dashboardTextSmallWhiteMiddle: {
     color: '#ffffff',
@@ -144,8 +146,8 @@ export default StyleSheet.create({
   dashboardTextSmallWhiteEnd: {
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 20,
-    marginRight: 20
+    fontSize: 20
+    // marginRight: 20
   },
   dashboardTextVerySmallWhite: {
     color: '#ffffff',

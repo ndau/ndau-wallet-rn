@@ -23,7 +23,6 @@ exports[`testing SetupSeedPhrase... renders correctly 1`] = `
         "paddingBottom": 20,
         "paddingLeft": 20,
         "paddingRight": 20,
-        "paddingTop": 5,
       }
     }
   >

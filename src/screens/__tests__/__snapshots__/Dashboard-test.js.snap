@@ -15,223 +15,6 @@ exports[`testing Dashboard... renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "justifyContent": "center",
-      }
-    }
-  >
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Object {
-          "alignItems": "center",
-          "color": "#ffffff",
-          "fontFamily": "TitilliumWeb-Regular",
-          "fontSize": 28,
-          "justifyContent": "center",
-        }
-      }
-    >
-      Wallet 
-      7MP-4FV
-    </Text>
-  </View>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "justifyContent": "center",
-      }
-    }
-  >
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      style={
-        Object {
-          "alignItems": "center",
-          "color": "#4d9678",
-          "fontFamily": "TitilliumWeb-Regular",
-          "fontSize": 48,
-          "justifyContent": "center",
-          "paddingBottom": 10,
-          "textShadowColor": "rgba(77, 150, 120, .5)",
-          "textShadowOffset": Object {
-            "height": 1,
-            "width": 1,
-          },
-          "textShadowRadius": 6,
-        }
-      }
-    >
-      501,026 NDU
-    </Text>
-  </View>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "justifyContent": "center",
-      }
-    }
-  >
-    <View
-      style={
-        Object {
-          "alignSelf": "stretch",
-          "flexDirection": "row",
-        }
-      }
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "color": "#4d9678",
-            "fontFamily": "TitilliumWeb-Regular",
-            "fontSize": 20,
-            "marginLeft": 20,
-            "textShadowColor": "rgba(77, 150, 120, .5)",
-            "textShadowOffset": Object {
-              "height": 1,
-              "width": 1,
-            },
-            "textShadowRadius": 6,
-          }
-        }
-      >
-        8,267,316.00
-      </Text>
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "alignSelf": "stretch",
-            "color": "#ffffff",
-            "flex": 1,
-            "fontFamily": "TitilliumWeb-Regular",
-            "fontSize": 20,
-          }
-        }
-      >
-        USD
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Object {
-              "color": "#f75f4b",
-              "fontFamily": "TitilliumWeb-Regular",
-              "fontSize": 20,
-            }
-          }
-        >
-          **
-        </Text>
-      </Text>
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "color": "#ffffff",
-            "fontFamily": "TitilliumWeb-Regular",
-            "fontSize": 20,
-            "marginRight": 20,
-          }
-        }
-      >
-        at current price
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "alignSelf": "stretch",
-          "flexDirection": "row",
-        }
-      }
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "color": "#4d9678",
-            "fontFamily": "TitilliumWeb-Regular",
-            "fontSize": 20,
-            "marginLeft": 20,
-            "textShadowColor": "rgba(77, 150, 120, .5)",
-            "textShadowOffset": Object {
-              "height": 1,
-              "width": 1,
-            },
-            "textShadowRadius": 6,
-          }
-        }
-      >
-        644,591.00
-      </Text>
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "alignSelf": "stretch",
-            "color": "#ffffff",
-            "flex": 1,
-            "fontFamily": "TitilliumWeb-Regular",
-            "fontSize": 20,
-          }
-        }
-      >
-        USD
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Object {
-              "color": "#f75f4b",
-              "fontFamily": "TitilliumWeb-Regular",
-              "fontSize": 20,
-            }
-          }
-        >
-          **
-        </Text>
-      </Text>
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "color": "#ffffff",
-            "fontFamily": "TitilliumWeb-Regular",
-            "fontSize": 20,
-            "marginRight": 20,
-          }
-        }
-      >
-        your cost basis
-      </Text>
-    </View>
-  </View>
   <RCTScrollView
     style={
       Object {
@@ -240,11 +23,126 @@ exports[`testing Dashboard... renders correctly 1`] = `
         "paddingBottom": 20,
         "paddingLeft": 20,
         "paddingRight": 20,
-        "paddingTop": 5,
       }
     }
   >
     <View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "alignItems": "center",
+              "color": "#ffffff",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 28,
+              "justifyContent": "center",
+            }
+          }
+        >
+          Wallet 
+          7MP-4FV
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "alignItems": "center",
+              "color": "#4d9678",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 48,
+              "justifyContent": "center",
+              "paddingBottom": 10,
+              "textShadowColor": "rgba(77, 150, 120, .5)",
+              "textShadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "textShadowRadius": 6,
+            }
+          }
+        >
+          NaN
+           NDU
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#4d9678",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 20,
+              "textShadowColor": "rgba(77, 150, 120, .5)",
+              "textShadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "textShadowRadius": 6,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#f75f4b",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 20,
+              }
+            }
+          >
+            **
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 20,
+              }
+            }
+          >
+             at current price
+          </Text>
+        </Text>
+      </View>
       <View
         style={
           Object {
@@ -267,7 +165,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../img/green-card.jpg",
+                "testUri": "../../../img/green-locked-card.png",
               }
             }
             style={
@@ -323,9 +221,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
                     "textAlign": "left",
                   }
                 }
-              >
-                Address 1
-              </Text>
+              />
               <Text
                 accessible={true}
                 allowFontScaling={true}
@@ -344,7 +240,8 @@ exports[`testing Dashboard... renders correctly 1`] = `
                   }
                 }
               >
-                0
+                NaN
+                 NDU
               </Text>
             </View>
           </View>
@@ -380,36 +277,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
                 }
               }
             >
-              Account will be unlocked 
-              10/20/20714
-            </Text>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 14,
-                }
-              }
-            >
-              Some dates here
-            </Text>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 14,
-                }
-              }
-            >
-              Where sending from
+              This account is not locked
             </Text>
           </View>
         </View>
@@ -420,6 +288,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
             "alignItems": "flex-start",
             "flexDirection": "row",
             "justifyContent": "flex-start",
+            "marginBottom": 20,
             "marginRight": 20,
           }
         }
@@ -451,7 +320,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
           }
         >
           The estimated value of ndau in US dollars can be calculated using the Target Price at which new ndau have most recently been issued. The value shown here is calculated using that method as of the issue price on 
-          09/17/2018
+          09/18/2018
           . The Axiom Foundation bears no responsibility or liability for the calculation of that estimated value, or for decisions based on that estimated value.
         </Text>
       </View>

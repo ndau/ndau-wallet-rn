@@ -9,6 +9,16 @@ getAccountAPIAddress = (user) => {
   return getNodeAddress(user) + '/account';
 };
 
+getEaiPercentageAPIAddress = (user) => {
+  return getNodeAddress(user) + '/eaipercentage';
+};
+
+getMarketPriceAPIAddress = (user) => {
+  return getNodeAddress(user) + '/marketprice';
+};
+
 export default {
-  getAccountAPIAddress
+  getAccountAPIAddress,
+  getMarketPriceAPIAddress,
+  getEaiPercentageAPIAddress
 };

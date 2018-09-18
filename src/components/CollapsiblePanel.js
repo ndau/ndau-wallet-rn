@@ -14,9 +14,13 @@ class CollapsiblePanel extends Component {
     super(props);
 
     this.cardBackgrounds = [
-      require('../../img/green-card.jpg'),
-      require('../../img/blue-card.jpg'),
-      require('../../img/dark-blue-card.jpg')
+      require('../../img/green-card.png'),
+      require('../../img/light-blue-card.png'),
+      require('../../img/dark-blue-card.png'),
+      require('../../img/green-locked-card.png'),
+      require('../../img/light-blue-locked-card.png'),
+      require('../../img/dark-blue-locked-card.png'),
+      require('../../img/grey-notified-card.png')
     ];
 
     this.state = {
@@ -64,7 +68,11 @@ class CollapsiblePanel extends Component {
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
         <ImageBackground
-          source={this.cardBackgrounds[this.props.index % this.cardBackgrounds.length]}
+          source={
+            this.cardBackgrounds[
+              this.props.onNotice ? 6 : this.props.index % 3 + this.props.lockAdder
+            ]
+          }
           style={{ width: '100%' }}
         >
           <TouchableHighlight
@@ -75,7 +83,7 @@ class CollapsiblePanel extends Component {
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
               <Text style={styles.titleRight}>
-                {NdauNodeAPIHelper.accountNdauAmount(this.props.account)}
+                {NdauNodeAPIHelper.accountNdauAmount(this.props.account)} NDU
               </Text>
             </View>
           </TouchableHighlight>
