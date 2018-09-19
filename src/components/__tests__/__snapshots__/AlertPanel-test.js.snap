@@ -8,8 +8,8 @@ exports[`testing AlertPanel... renders correctly 1`] = `
       "borderColor": "#c7f3e2",
       "borderRadius": 3,
       "borderWidth": 1,
-      "marginLeft": 20,
-      "marginRight": 20,
+      "marginBottom": 8,
+      "marginTop": 15,
     }
   }
 >

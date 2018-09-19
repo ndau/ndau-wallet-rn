@@ -11,10 +11,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.github.wumke.RNExitApp.RNExitAppPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
-import org.reactnative.camera.RNCameraPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(), new VectorIconsPackage(),
-                    new RNSecureRandomPackage(), new RNExitAppPackage(), new RNCameraPackage(),
+            return Arrays.<ReactPackage>asList(new MainReactPackage(),
                     new VectorIconsPackage(), new KeyaddrPackage(), new RNCameraPackage(), new RNExitAppPackage(),
                     new RNSecureRandomPackage());
         }
