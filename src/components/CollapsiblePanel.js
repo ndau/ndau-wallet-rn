@@ -65,14 +65,11 @@ class CollapsiblePanel extends Component {
   };
 
   render() {
+    const lockAdder = this.props.lockAdder ? this.props.lockAdder : 0;
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
         <ImageBackground
-          source={
-            this.cardBackgrounds[
-              this.props.onNotice ? 6 : this.props.index % 3 + this.props.lockAdder
-            ]
-          }
+          source={this.cardBackgrounds[this.props.onNotice ? 6 : this.props.index % 3 + lockAdder]}
           style={{ width: '100%' }}
         >
           <TouchableHighlight
@@ -82,9 +79,11 @@ class CollapsiblePanel extends Component {
           >
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
-              <Text style={styles.titleRight}>
-                {NdauNodeAPIHelper.accountNdauAmount(this.props.account)} NDU
-              </Text>
+              {this.props.account ? (
+                <Text style={styles.titleRight}>
+                  {NdauNodeAPIHelper.accountNdauAmount(this.props.account)} NDU
+                </Text>
+              ) : null}
             </View>
           </TouchableHighlight>
           <View style={styles.border} />

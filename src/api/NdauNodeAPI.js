@@ -3,9 +3,9 @@ import addressData from './addressData';
 
 const getAddressData = (user) => {
   //TODO: this is TEMP code
-  if (__DEV__) {
-    return addressData.testAddressData;
-  }
+  // if (__DEV__) {
+  //   return addressData.testAddressData;
+  // }
 
   const accountAPI = NodeAddressHelper.getAccountAPIAddress(user);
   console.log(`Sending ${JSON.stringify(user.addresses, null, 2)} to ${accountAPI}`);
@@ -28,9 +28,9 @@ const getAddressData = (user) => {
 
 const getMarketPrice = (user) => {
   //TODO: this is TEMP code
-  if (__DEV__) {
-    return addressData.testMarketPrice;
-  }
+  // if (__DEV__) {
+  //   return addressData.testMarketPrice;
+  // }
 
   const marketPriceAPI = NodeAddressHelper.getMarketPriceAPIAddress(user);
   return fetch(marketPriceAPI).then((response) => response.json()).then((responseJson) => {

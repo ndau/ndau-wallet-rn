@@ -10,11 +10,19 @@ import { SafeAreaView } from 'react-navigation';
 class SetupQRCode extends Component {
   constructor(props) {
     super(props);
+
+    let qrToken = '';
+    let codeCaptured = false;
+    if (__DEV__) {
+      qrToken = 'ndqrc0ffeefacade';
+      codeCaptured = true;
+    }
+
     this.state = {
       textColor: '#ffffff',
       showErrorText: false,
-      qrToken: '',
-      codeCaptured: false,
+      qrToken: qrToken,
+      codeCaptured: codeCaptured,
       scanning: true,
       cameraPermission: false
     };
