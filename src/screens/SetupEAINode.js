@@ -3,12 +3,12 @@ import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native'
 import { SafeAreaView } from 'react-navigation';
 import ndauDashboardApi from '../api/NdauDashboardAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
-import { Button } from 'react-native-material-buttons';
+import { TextButton } from 'react-native-material-buttons';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -61,7 +61,13 @@ class SetupEAINode extends Component {
       .then(() => {
         const user = this.persistAddresses(addresses);
 
-        this.props.navigation.navigate('Dashboard', { user });
+        NdauNodeAPIHelper.populateCurrentUserWithAddressData(user)
+          .then((userWithData) => {
+            this.props.navigation.navigate('Dashboard', { user: userWithData });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -128,8 +134,19 @@ class SetupEAINode extends Component {
             />
           </ScrollView>
           <View style={styles.footer}>
-            (__DEV__ ? <Button onPress={this.finishSetup} id="select-and-finish" /> :
-            <CommonButton onPress={this.finishSetup} title="Select and Finish" />)
+            <TextButton
+              titleStyle={{
+                color: '#ffffff',
+                fontSize: 14,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              color="#4e957a"
+              titleColor="#ffffff"
+              disabledColor="#696969"
+              onPress={this.finishSetup}
+              title="Select and finish"
+              id="#select-and-finish"
+            />
           </View>
         </View>
       </SafeAreaView>
