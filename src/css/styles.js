@@ -13,7 +13,7 @@ export default StyleSheet.create({
     paddingTop: wp('.3%')
   },
   drawerTextImage: {
-    width: wp('10%'),
+    width: wp('10.8%'),
     height: hp('6%'),
     marginRight: wp('2%'),
     marginLeft: wp('2%')
@@ -108,7 +108,7 @@ export default StyleSheet.create({
   dashboardSmallTextContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 5
+    marginBottom: hp('.5%')
   },
   dashboardRowContainer: {
     alignSelf: 'stretch',
@@ -118,8 +118,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginRight: 20,
-    marginBottom: 20
+    marginRight: wp('1%'),
+    marginBottom: hp('2%')
   },
   dashboardTextLarge: {
     justifyContent: 'center',
@@ -134,7 +134,7 @@ export default StyleSheet.create({
     color: '#4d9678',
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 48,
-    paddingBottom: 10,
+    paddingBottom: hp('1%'),
     textShadowColor: 'rgba(77, 150, 120, .5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 6
@@ -146,13 +146,6 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(77, 150, 120, .5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 6
-    // ...Platform.select({
-    //   android: {
-    //     flex: 1,
-    //     alignSelf: 'stretch'
-    //   }
-    // }),
-    // marginLeft: 20
   },
   dashboardTextSmallWhiteMiddle: {
     color: '#ffffff',
@@ -172,11 +165,11 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 12
   },
-  checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 },
+  checkbox: { flex: 1, paddingTop: hp('1%'), paddingBottom: hp('1%') },
   contentContainer: {
     ...Platform.select({
       ios: {
-        marginTop: 15
+        marginTop: hp('1.5%')
       }
     })
   },

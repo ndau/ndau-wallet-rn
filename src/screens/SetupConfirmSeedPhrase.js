@@ -26,6 +26,7 @@ const MAX_ERRORS = 4; // 4 strikes and you're out
 const ROW_LENGTH = 3; // 3 items per row
 
 let boxWidth = '30%';
+let boxHeight = '10%';
 
 class SetupConfirmSeedPhrase extends Component {
   constructor(props) {
@@ -38,6 +39,14 @@ class SetupConfirmSeedPhrase extends Component {
       match: false,
       selected: []
     };
+
+    // chop the words into ROW_LENGTH-tuples
+    this.rowLength = ROW_LENGTH;
+    if (PixelRatio.getFontScale() > 2) {
+      this.rowLength = 1;
+      boxWidth = '100%';
+      boxHeight = '17%';
+    }
   }
 
   showNextSetup = () => {
@@ -49,14 +58,8 @@ class SetupConfirmSeedPhrase extends Component {
   };
 
   render() {
-    // chop the words into ROW_LENGTH-tuples
-    let rowLength = ROW_LENGTH;
-    if (PixelRatio.getFontScale() > 2) {
-      rowLength = 1;
-      boxWidth = '50%';
-    }
     const shuffledWords = SetupStore.getShuffledWords();
-    const words = groupIntoRows(shuffledWords, rowLength);
+    const words = groupIntoRows(shuffledWords, this.rowLength);
 
     // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => {
@@ -188,7 +191,7 @@ function Word(props) {
     <TouchableHighlight onPress={props.onPress}>
       <View
         style={{
-          height: hp('10%'),
+          height: hp(boxHeight),
           width: wp(boxWidth),
           marginBottom: wp('1%'),
           marginTop: wp('1%'),
@@ -196,7 +199,7 @@ function Word(props) {
           alignItems: 'center',
           justifyContent: 'center',
           flex: 1,
-          borderRadius: 3
+          borderRadius: 6
         }}
       >
         <Text

@@ -139,31 +139,20 @@ class Passphrase extends Component {
               <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
             </View>
             <View style={styles.footer}>
-              {/* <Dropdown
-                label="Please choose a User ID"
-                data={this.state.userIds}
-                baseColor="#ffffff"
-                selectedItemColor="#000000"
-                textColor="#ffffff"
-                itemTextStyle={styles.text}
-                fontSize={18}
-                labelFontSize={14}
-                dropdownMargins={{ min: 20, max: 16 }}
-                // value={this.state.userId}
-                onChangeText={(userId) => this.setState({ userId })}
-              /> */}
               <Dropdown
-                defaultValue="Please choose a User ID"
+                style={{ width: wp('100%') }}
+                defaultValue="User ID..."
                 defaultIndex={1}
                 options={this.state.userIds}
                 onSelect={this.dropDownSelected}
+                full={false}
               />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <TextInput
                 style={{
                   height: hp('7%'),
-                  width: wp('90%'),
+                  width: wp('100%'),
                   borderColor: 'gray',
                   borderWidth: 1,
                   borderRadius: 3,
@@ -176,11 +165,13 @@ class Passphrase extends Component {
                 }}
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
-                placeholder="Enter your app password"
+                placeholder="App Password"
                 placeholderTextColor="#333"
                 secureTextEntry={!this.state.showPasswords}
                 autoCapitalize="none"
               />
+            </View>
+            <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
                 <FontAwesome name="info" color="#ffffff" size={20} style={styles.infoIcon} />
               </TouchableOpacity>

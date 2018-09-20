@@ -20,9 +20,9 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
       Object {
         "backgroundColor": "#1c2227",
         "flex": 1,
-        "paddingBottom": 20,
-        "paddingLeft": 20,
-        "paddingRight": 20,
+        "paddingBottom": 26.5,
+        "paddingLeft": 15,
+        "paddingRight": 15,
       }
     }
   >
@@ -74,31 +74,6 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
              
           </Text>
         </View>
-        <TextInput
-          allowFontScaling={true}
-          caretHidden={true}
-          editable={false}
-          multiline={true}
-          numberOfLines={2}
-          placeholder=""
-          placeholderTextColor="#333"
-          selectTextOnFocus={false}
-          style={
-            Object {
-              "backgroundColor": "#ffffff",
-              "borderColor": "gray",
-              "borderWidth": 1,
-              "color": "#000000",
-              "fontFamily": "TitilliumWeb-Regular",
-              "fontSize": 18,
-              "height": 70,
-              "marginBottom": 10,
-              "marginTop": 10,
-              "paddingLeft": 10,
-            }
-          }
-          value=""
-        />
         <View
           style={
             Object {
@@ -124,12 +99,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -142,6 +118,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -165,12 +142,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -183,6 +161,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -206,12 +185,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -224,6 +204,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -257,12 +238,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -275,6 +257,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -298,12 +281,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -316,6 +300,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -339,12 +324,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -357,6 +343,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -390,12 +377,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -408,6 +396,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -431,12 +420,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -449,6 +439,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -472,12 +463,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -490,6 +482,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -523,12 +516,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -541,6 +535,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -564,12 +559,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -582,6 +578,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -605,12 +602,13 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
+                  "borderRadius": 6,
                   "flex": 1,
-                  "height": 40,
+                  "height": 133.5,
                   "justifyContent": "center",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "width": 100,
+                  "marginBottom": 7.5,
+                  "marginTop": 7.5,
+                  "width": 225,
                 }
               }
             >
@@ -623,6 +621,7 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
                     "color": "#ffffff",
                     "fontFamily": "TitilliumWeb-Regular",
                     "fontSize": 20,
+                    "textAlign": "center",
                   }
                 }
               >
@@ -644,49 +643,30 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
       <View
         style={
           Object {
-            "flexDirection": "row",
             "justifyContent": "space-between",
+            "marginTop": 26.5,
           }
         }
       >
         <View
+          accessibilityComponentType="button"
+          accessibilityTraits="button"
           accessible={true}
-          focusAnimation={null}
-          focusAnimationDuration={225}
-          hitSlop={
-            Object {
-              "bottom": 6,
-              "left": 4,
-              "right": 4,
-              "top": 6,
-            }
-          }
-          onLayout={[Function]}
-          onPress={[Function]}
-          onPressIn={[Function]}
-          onPressOut={[Function]}
+          isTVSelectable={true}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          pointerEvents="box-only"
-          rippleCentered={false}
-          rippleColor="#ffffff"
-          rippleDuration={400}
-          rippleFades={true}
-          rippleOpacity={0.3}
-          rippleSequential={true}
-          rippleSize={0}
           style={
             Object {
+              "alignContent": "center",
               "backgroundColor": "#4e957a",
-              "borderRadius": 2,
-              "height": 36,
-              "justifyContent": "space-around",
-              "minWidth": 64,
-              "paddingHorizontal": 8,
+              "borderRadius": 3,
+              "height": 93.5,
+              "justifyContent": "center",
+              "opacity": 1,
             }
           }
         >
@@ -694,99 +674,55 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            numberOfLines={1}
             style={
               Array [
                 Object {
-                  "backgroundColor": "transparent",
-                  "fontSize": 14,
+                  "color": "#007aff",
+                  "fontSize": 17,
                   "fontWeight": "500",
                   "textAlign": "center",
                 },
+                null,
                 Object {
-                  "color": "#ffffff",
+                  "color": "#fff",
                   "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 14,
+                  "fontSize": 16,
                 },
-                Object {
-                  "color": "#ffffff",
-                },
+                null,
               ]
             }
           >
-            BACK (RESETS PHRASE)
+            Back (resets phrase)
           </Text>
-          <View
-            style={
-              Object {
-                "backgroundColor": "#ffffff",
-                "borderRadius": 2,
-                "bottom": 0,
-                "left": 0,
-                "opacity": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-              }
-            }
-          />
-          <View
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "bottom": 0,
-                  "left": 0,
-                  "overflow": "hidden",
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "borderRadius": 2,
-                },
-              ]
-            }
-          />
         </View>
-        <View
-          accessible={true}
-          focusAnimation={null}
-          focusAnimationDuration={225}
-          hitSlop={
-            Object {
-              "bottom": 6,
-              "left": 4,
-              "right": 4,
-              "top": 6,
-            }
+      </View>
+      <View
+        style={
+          Object {
+            "justifyContent": "space-between",
+            "marginTop": 26.5,
           }
-          onLayout={[Function]}
-          onPress={[Function]}
-          onPressIn={[Function]}
-          onPressOut={[Function]}
+        }
+      >
+        <View
+          accessibilityComponentType="button"
+          accessibilityTraits="button"
+          accessible={true}
+          isTVSelectable={true}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          pointerEvents="box-only"
-          rippleCentered={false}
-          rippleColor="#ffffff"
-          rippleDuration={400}
-          rippleFades={true}
-          rippleOpacity={0.3}
-          rippleSequential={true}
-          rippleSize={0}
           style={
             Object {
+              "alignContent": "center",
               "backgroundColor": "#696969",
-              "borderRadius": 2,
-              "height": 36,
-              "justifyContent": "space-around",
-              "minWidth": 64,
-              "paddingHorizontal": 8,
+              "borderRadius": 3,
+              "height": 93.5,
+              "justifyContent": "center",
+              "opacity": 1,
             }
           }
         >
@@ -794,60 +730,28 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            numberOfLines={1}
             style={
               Array [
                 Object {
-                  "backgroundColor": "transparent",
-                  "fontSize": 14,
+                  "color": "#007aff",
+                  "fontSize": 17,
                   "fontWeight": "500",
                   "textAlign": "center",
                 },
                 Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 14,
+                  "color": "#dcdcdc",
                 },
                 Object {
-                  "color": "rgba(0, 0, 0, .26)",
+                  "color": "#fff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
                 },
+                undefined,
               ]
             }
           >
-            NEXT
+            Next
           </Text>
-          <View
-            style={
-              Object {
-                "backgroundColor": "#ffffff",
-                "borderRadius": 2,
-                "bottom": 0,
-                "left": 0,
-                "opacity": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-              }
-            }
-          />
-          <View
-            style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "bottom": 0,
-                  "left": 0,
-                  "overflow": "hidden",
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                },
-                Object {
-                  "borderRadius": 2,
-                },
-              ]
-            }
-          />
         </View>
       </View>
     </View>

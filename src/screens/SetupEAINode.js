@@ -4,37 +4,25 @@ import { SafeAreaView } from 'react-navigation';
 import ndauDashboardApi from '../api/NdauDashboardAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import Stepper from '../components/Stepper';
-import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import CommonButton from '../components/CommonButton';
+import Dropdown from '../components/Dropdown';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 class SetupEAINode extends Component {
   constructor(props) {
     super(props);
-    const nodeNames = [
-      {
-        value: 'Boylston'
-      },
-      {
-        value: 'Newbury'
-      },
-      {
-        value: 'Commonwealth'
-      },
-      {
-        value: 'Dartmouth'
-      },
-      {
-        value: 'Storrow'
-      }
-    ];
+    const nodeNames = [ 'Boylston', 'Newbury', 'Commonwealth', 'Dartmouth', 'Storrow' ];
 
     this.state = {
       node: '',
       data: nodeNames,
-      selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)].value
+      selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)]
     };
   }
 
@@ -107,11 +95,18 @@ class SetupEAINode extends Component {
     return user;
   };
 
+  dropDownSelected = (index, value) => {
+    console.log(`index: ${index} and value is ${value}`);
+    this.setState({
+      selectedNode: value
+    });
+  };
+
   render() {
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <Stepper screenNumber={8} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText}>
@@ -121,23 +116,19 @@ class SetupEAINode extends Component {
               </Text>
             </View>
             <Dropdown
-              label="Please choose an EAI node"
-              data={this.state.data}
-              baseColor="#ffffff"
-              selectedItemColor="#000000"
-              textColor="#ffffff"
-              itemTextStyle={cssStyles.wizardText}
-              fontSize={20}
-              labelFontSize={14}
+              style={styles.textInput}
+              defaultValue={this.state.selectedNode}
+              options={this.state.data}
               value={this.state.selectedNode}
-              onChangeText={(selectedNode) => this.setState({ selectedNode })}
+              onSelect={this.dropDownSelected}
+              full={true}
             />
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <CommonButton
               onPress={this.finishSetup}
               title="Select and finish"
-              id="#select-and-finish"
+              id="select-and-finish"
             />
           </View>
         </View>
@@ -147,27 +138,12 @@ class SetupEAINode extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  button: {
-    marginTop: 0
-  },
   textContainer: {
-    marginBottom: 5
+    marginBottom: hp('2%')
   },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 30,
-    paddingBottom: 30
-  },
-  checkbox: { flex: 1, padding: 10 }
+  textInput: {
+    width: wp('95%')
+  }
 });
 
 export default SetupEAINode;

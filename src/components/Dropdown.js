@@ -7,7 +7,16 @@ import {
 } from 'react-native-responsive-screen';
 import ModalDropdown from 'react-native-modal-dropdown';
 
+let full = false;
+
 class CommonButton extends Component {
+  constructor(props) {
+    super(props);
+
+    if (this.props.full) {
+      full = this.props.full;
+    }
+  }
   onPress() {
     this.props.onPress();
   }
@@ -15,10 +24,9 @@ class CommonButton extends Component {
     return (
       <ModalDropdown
         defaultValue={this.props.defaultValue}
-        // defaultIndex={0}
         options={this.props.options}
         onSelect={this.props.onSelect}
-        style={styles.containerStyle}
+        style={[ styles.containerStyle, this.props.style ]}
         textStyle={styles.text}
         dropdownStyle={styles.dropdownContainerStyle}
         dropdownTextStyle={styles.text}
@@ -30,7 +38,7 @@ class CommonButton extends Component {
 var styles = StyleSheet.create({
   text: {
     color: '#000000',
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'TitilliumWeb-Regular'
   },
   containerStyle: {
@@ -38,18 +46,14 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     height: hp('7%'),
-    width: wp('90%'),
+    width: wp('100%'),
     backgroundColor: '#ffffff',
     paddingLeft: wp('1%')
   },
   dropdownContainerStyle: {
-    // alignContent: 'center',
-    // justifyContent: 'center',
     borderRadius: 3,
-    // height: hp('7%'),
-    width: wp('88%'),
+    width: wp('94%'),
     backgroundColor: '#ffffff',
-    // marginRight: wp('30%'),
     marginTop: wp('3%')
   }
 });

@@ -16,14 +16,24 @@ var _ = require('lodash');
 
 const ROW_LENGTH = 3; // 3 items per row
 
-let boxWidth = '30%';
-
 class SetupSeedPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
       seedPhrase: []
     };
+
+    this.boxWidth = '30%';
+    this.boxHeight = '18%';
+    this.rowLength = ROW_LENGTH;
+    // if someone has cranked up the font use 1 row instead
+    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`);
+    if (PixelRatio.getFontScale() > 2) {
+      this.rowLength = 1;
+      this.boxWidth = '100%';
+      this.boxHeight = '30%';
+      console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`);
+    }
   }
 
   componentDidMount = () => {
@@ -87,20 +97,19 @@ class SetupSeedPhrase extends Component {
 
   render() {
     // chop the words into ROW_LENGTH-tuples
-    // if someone has cranked up the font use 2 rows instead
-    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`);
-    let rowLength = ROW_LENGTH;
-    if (PixelRatio.getFontScale() > 2) {
-      rowLength = 1;
-      boxWidth = '50%';
-    }
-    const words = groupIntoRows(this.state.seedPhrase, rowLength);
+    const words = groupIntoRows(this.state.seedPhrase, this.rowLength);
+    const styles = {
+      rowTextView: {
+        height: hp(this.boxHeight),
+        width: wp(this.boxWidth)
+      }
+    };
 
     let count = 1;
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <Stepper screenNumber={5} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
@@ -139,26 +148,5 @@ class SetupSeedPhrase extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 30,
-    paddingBottom: 30
-  },
-  rowTextView: {
-    height: hp('20%'),
-    width: wp(boxWidth)
-  }
-});
 
 export default SetupSeedPhrase;
