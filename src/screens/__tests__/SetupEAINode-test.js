@@ -17,7 +17,7 @@ jest.mock('NativeModules', () => {
 });
 
 describe('testing SetupEAINode...', () => {
-  let seedPhraseArray = [
+  let recoveryPhraseArray = [
     'goat',
     'amount',
     'liar',
@@ -41,7 +41,7 @@ describe('testing SetupEAINode...', () => {
   const navigation = {
     navigate: () => {}
   };
-  SetupStore.setSeedPhrase(seedPhraseArray);
+  SetupStore.setRecoveryPhrase(recoveryPhraseArray);
   SetupStore.setUserId(userId);
   SetupStore.setNumberOfAccounts(numberOfAccounts);
   SetupStore.setQRCode(bytes);
@@ -61,7 +61,7 @@ describe('testing SetupEAINode...', () => {
     const tree = renderer
       .create(
         <SetupEAINode
-          seedPhraseArray={seedPhraseArray}
+          recoveryPhraseArray={recoveryPhraseArray}
           userId={userId}
           numberOfAccounts={numberOfAccounts}
           navigation
@@ -74,7 +74,7 @@ describe('testing SetupEAINode...', () => {
   it('finishes setup successfully', async () => {
     const wrapper = shallow(
       <SetupEAINode
-        seedPhraseArray={seedPhraseArray}
+        recoveryPhraseArray={recoveryPhraseArray}
         userId={userId}
         numberOfAccounts={numberOfAccounts}
         navigation

@@ -37,10 +37,10 @@ exports[`SetupGetRandom snapshot renders correctly 1`] = `
       <View>
         <Image
           resizeMode="contain"
-          screenNumber={3}
+          screenNumber={4}
           source={
             Object {
-              "testUri": "../../../img/step-3.png",
+              "testUri": "../../../img/step-4.png",
             }
           }
           style={

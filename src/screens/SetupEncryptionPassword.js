@@ -70,7 +70,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={2} />
+            <Stepper screenNumber={4} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a

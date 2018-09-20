@@ -80,7 +80,7 @@ class SetupGetRandom extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer} scrollEnabled={!scribbling}>
-            <Stepper screenNumber={3} />
+            <Stepper screenNumber={4} />
 
             <View>
               <Text style={cssStyles.wizardText}>

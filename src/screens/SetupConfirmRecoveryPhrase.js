@@ -28,7 +28,7 @@ const ROW_LENGTH = 3; // 3 items per row
 let boxWidth = '30%';
 let boxHeight = '10%';
 
-class SetupConfirmSeedPhrase extends Component {
+class SetupConfirmRecoveryPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,7 +71,7 @@ class SetupConfirmSeedPhrase extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={6} />
+            <Stepper screenNumber={7} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Demonstrate that you wrote the phrase down by tapping the words below in order.{' '}
@@ -92,7 +92,7 @@ class SetupConfirmSeedPhrase extends Component {
               <ErrorPanel
                 errorText={
                   this.state.mustRetry ? (
-                    'Please click the Back button to generate a new seed phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
+                    'Please click the Back button to generate a new recovery phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
                   ) : (
                     'Please enter the words in the correct order. De-select the last word to continue.'
                   )
@@ -260,4 +260,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupConfirmSeedPhrase;
+export default SetupConfirmRecoveryPhrase;

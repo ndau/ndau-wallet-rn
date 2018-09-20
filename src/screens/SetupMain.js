@@ -12,6 +12,7 @@ import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
+import Stepper from '../components/Stepper';
 
 class SetupMain extends Component {
   constructor(props) {
@@ -53,8 +54,10 @@ class SetupMain extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
+
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
+            <Stepper screenNumber={1} />
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
                 <Text style={cssStyles.wizardText}>

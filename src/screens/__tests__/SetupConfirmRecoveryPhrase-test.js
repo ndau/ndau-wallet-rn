@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import SetupConfirmSeedPhrase from '../SetupConfirmSeedPhrase';
+import SetupConfirmRecoveryPhrase from '../SetupConfirmRecoveryPhrase';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import SetupStore from '../../model/SetupStore';
@@ -24,14 +24,16 @@ function makeWords() {
   return 'zero one two three four five six seven eight nine ten eleven'.split(' ');
 }
 
-describe('SetupConfirmSeedPhrase presentation', () => {
+describe('SetupConfirmRecoveryPhrase presentation', () => {
   beforeEach(() => {
-    SetupStore.setSeedPhrase(makeWords());
+    SetupStore.setRecoveryPhrase(makeWords());
     SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
     SetupStore.setShuffledMap([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
     SetupStore.setShuffledWords(makeWords());
     this.tree = renderer
-      .create(<SetupConfirmSeedPhrase navigation={makeNavigator()} parentStyles={makeStyles()} />)
+      .create(
+        <SetupConfirmRecoveryPhrase navigation={makeNavigator()} parentStyles={makeStyles()} />
+      )
       .toJSON();
   });
 
@@ -40,14 +42,14 @@ describe('SetupConfirmSeedPhrase presentation', () => {
   });
 });
 
-describe('SetupConfirmSeedPhrase behavior', () => {
+describe('SetupConfirmRecoveryPhrase behavior', () => {
   beforeEach(() => {
     // set up default wrapper for every test.
-    SetupStore.setSeedPhrase(makeWords());
+    SetupStore.setRecoveryPhrase(makeWords());
     SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
     SetupStore.setShuffledMap([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
     SetupStore.setShuffledWords(makeWords());
-    this.wrapper = mount(<SetupConfirmSeedPhrase navigation={makeNavigator()} />);
+    this.wrapper = mount(<SetupConfirmRecoveryPhrase navigation={makeNavigator()} />);
     this.press = (index) => {
       this.wrapper.find('Word').at(index).props().onPress();
     };

@@ -110,7 +110,7 @@ class Passphrase extends Component {
       'Information',
       'Please enter the password you chose to encrypt this app. ' +
         'This is not the same thing as your six-character ID or key ' +
-        'seed phrase.',
+        'recovery phrase.',
       [ { text: 'OK', onPress: () => {} } ],
       { cancelable: false }
     );
@@ -140,7 +140,6 @@ class Passphrase extends Component {
             </View>
             <View style={styles.footer}>
               <Dropdown
-                style={{ width: wp('100%') }}
                 defaultValue="User ID..."
                 defaultIndex={1}
                 options={this.state.userIds}

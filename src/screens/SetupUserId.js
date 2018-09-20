@@ -143,7 +143,7 @@ class SetupUserId extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Stepper screenNumber={1} />
+            <Stepper screenNumber={2} />
             <View>
               <Text style={cssStyles.wizardText}>
                 In order to deliver your ndau to this wallet on Genesis Day, we need the

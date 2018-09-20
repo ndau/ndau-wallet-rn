@@ -29,7 +29,7 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator={true}
             indicatorStyle="white"
           >
-            <Stepper screenNumber={7} />
+            <Stepper screenNumber={8} />
             <View>
               <Text style={styles.legalTextHeading}>{'\n'}1. Scope</Text>
               <Text style={styles.legalText}>

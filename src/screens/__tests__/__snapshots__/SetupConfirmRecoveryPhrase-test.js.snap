@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
+exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
 <View
   onLayout={[Function]}
   pointerEvents="box-none"
@@ -36,10 +36,10 @@ exports[`SetupConfirmSeedPhrase presentation renders correctly 1`] = `
       <View>
         <Image
           resizeMode="contain"
-          screenNumber={6}
+          screenNumber={7}
           source={
             Object {
-              "testUri": "../../../img/step-6.png",
+              "testUri": "../../../img/step-7.png",
             }
           }
           style={

@@ -13,7 +13,7 @@ class SetupYourWallet extends Component {
   }
 
   showNextSetup = () => {
-    this.props.navigation.navigate('SetupSeedPhrase');
+    this.props.navigation.navigate('SetupRecoveryPhrase');
   };
 
   render() {
@@ -21,19 +21,19 @@ class SetupYourWallet extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={4} />
+            <Stepper screenNumber={5} />
 
             <View>
               <Text style={cssStyles.wizardText}>
-                Next we will give you a seed phrase which is the key to restoring your wallet. You
-                must WRITE IT DOWN and store it in a secure location or risk losing access to your
-                funds. Do not save this phrase on your device or in the cloud. Do not do this step
-                in a public place.
+                Next we will give you a recovery phrase which is the key to restoring your wallet.
+                You must WRITE IT DOWN and store it in a secure location or risk losing access to
+                your funds. Do not save this phrase on your device or in the cloud. Do not do this
+                step in a public place.
               </Text>
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.showNextSetup} title="Get my seed phrase" />
+            <CommonButton onPress={this.showNextSetup} title="Get my recovery phrase" />
           </View>
         </View>
       </SafeAreaView>

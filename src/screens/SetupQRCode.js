@@ -66,7 +66,7 @@ class SetupQRCode extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Stepper screenNumber={1} />
+            <Stepper screenNumber={3} />
             <View>
               <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
                 This app will need access to your device's camera to scan address codes, so you can

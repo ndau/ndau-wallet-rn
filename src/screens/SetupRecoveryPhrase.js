@@ -16,11 +16,11 @@ var _ = require('lodash');
 
 const ROW_LENGTH = 3; // 3 items per row
 
-class SetupSeedPhrase extends Component {
+class SetupRecoveryPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      seedPhrase: []
+      recoveryPhrase: []
     };
 
     this.boxWidth = '30%';
@@ -37,7 +37,7 @@ class SetupSeedPhrase extends Component {
   }
 
   componentDidMount = () => {
-    this.generateSeedPhrase();
+    this.generateRecoveryPhrase();
   };
 
   showExitApp() {
@@ -56,8 +56,8 @@ class SetupSeedPhrase extends Component {
     );
   }
 
-  generateSeedPhrase = async () => {
-    console.debug(`entropy in generateSeedPhrase is ${SetupStore.getEntropy()}`);
+  generateRecoveryPhrase = async () => {
+    console.debug(`entropy in generateRecoveryPhrase is ${SetupStore.getEntropy()}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
     const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', SetupStore.getEntropy());
     const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', seeds);
@@ -67,14 +67,14 @@ class SetupSeedPhrase extends Component {
       console.debug(`${seedBytes} and ${SetupStore.getEntropy()} are equal.`);
     }
     console.debug(`keyaddr's seed words are: ${seeds}`);
-    const seedPhrase = seeds.split(/\s+/g);
-    this.setState({ seedPhrase: seedPhrase });
+    const recoveryPhrase = seeds.split(/\s+/g);
+    this.setState({ recoveryPhrase: recoveryPhrase });
 
     // Shuffle the deck with a Fisher-Yates shuffle algorithm;
     // walks through the array backwards once, exchanging each value
     // with a random element from the remainder of the array
-    let map = seedPhrase.map((e, i) => i);
-    let arr = seedPhrase.slice();
+    let map = recoveryPhrase.map((e, i) => i);
+    let arr = recoveryPhrase.slice();
     for (let i = arr.length - 1; i >= 0; i--) {
       let r = Math.floor(Math.random() * i);
       [ map[i], map[r] ] = [ map[r], map[i] ];
@@ -89,15 +89,15 @@ class SetupSeedPhrase extends Component {
   };
 
   showNextSetup = () => {
-    SetupStore.setSeedPhrase(this.state.seedPhrase);
+    SetupStore.setRecoveryPhrase(this.state.recoveryPhrase);
     SetupStore.setShuffledMap(this.shuffleMap);
     SetupStore.setShuffledWords(this.shuffledWords);
-    this.props.navigation.navigate('SetupConfirmSeedPhrase');
+    this.props.navigation.navigate('SetupConfirmRecoveryPhrase');
   };
 
   render() {
     // chop the words into ROW_LENGTH-tuples
-    const words = groupIntoRows(this.state.seedPhrase, this.rowLength);
+    const words = groupIntoRows(this.state.recoveryPhrase, this.rowLength);
     const styles = {
       rowTextView: {
         height: hp(this.boxHeight),
@@ -110,7 +110,7 @@ class SetupSeedPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Stepper screenNumber={5} />
+            <Stepper screenNumber={6} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Write this phrase down. You will want to store it in a secure location.
@@ -149,4 +149,4 @@ class SetupSeedPhrase extends Component {
   }
 }
 
-export default SetupSeedPhrase;
+export default SetupRecoveryPhrase;

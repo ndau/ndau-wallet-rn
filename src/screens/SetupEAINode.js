@@ -64,15 +64,15 @@ class SetupEAINode extends Component {
 
   keyGeneration = async () => {
     console.debug('Generating all keys from phrase given...');
-    const seedPhraseString = SetupStore.getSeedPhrase().join().replace(/,/g, ' ');
-    console.debug(`seedPhraseString: ${seedPhraseString}`);
-    const seedPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
+    const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
+    console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
+    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
       'en',
-      seedPhraseString
+      recoveryPhraseString
     );
-    console.debug(`seedPhraseAsBytes: ${seedPhraseAsBytes}`);
+    console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
-      seedPhraseAsBytes,
+      recoveryPhraseAsBytes,
       SetupStore.getNumberOfAccounts(),
       SetupStore.getAddressType()
     );
