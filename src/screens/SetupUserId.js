@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
+import { View, ScrollView, Text, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import ndauDashboardApi from '../api/NdauDashboardAPI';
 import CommonButton from '../components/CommonButton';
@@ -140,9 +140,9 @@ class SetupUserId extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <Stepper screenNumber={1} />
             <View>
               <Text style={cssStyles.wizardText}>
@@ -150,17 +150,19 @@ class SetupUserId extends Component {
                 six-character code you use to access the ndau dashboard.
               </Text>
             </View>
-            <TextInput
-              style={cssStyles.textInput}
-              onChangeText={(userId) => this.textChanged(userId)}
-              value={this.state.userId}
-              placeholder="Enter your unique User ID"
-              placeholderTextColor="#333"
-              autoCapitalize="characters"
-              maxLength={7}
-            />
+            <View style={cssStyles.buttonContainer}>
+              <TextInput
+                style={cssStyles.textInput}
+                onChangeText={(userId) => this.textChanged(userId)}
+                value={this.state.userId}
+                placeholder="Enter your unique User ID"
+                placeholderTextColor="#333"
+                autoCapitalize="characters"
+                maxLength={7}
+              />
+            </View>
 
-            <View style={styles.buttonContainer}>
+            <View style={cssStyles.buttonContainer}>
               <CommonButton
                 onPress={() => {
                   this.verify();
@@ -168,18 +170,15 @@ class SetupUserId extends Component {
                 title="Verify"
               />
             </View>
-            <View style={styles.buttonContainer}>
+            <View style={cssStyles.buttonContainer}>
               <CommonButton onPress={this.showExitApp} title="I don't have an ID" />
             </View>
-            <View style={styles.section} />
-          </ScrollView>
-          <View style={styles.footer}>
             <Text style={cssStyles.wizardText}>
               We will send you an email to confirm you are the account holder.
             </Text>
-
+          </ScrollView>
+          <View style={cssStyles.footer}>
             <CommonButton
-              style={{ marginTop: 15 }}
               onPress={() => {
                 this.checkIfAlreadyExists();
               }}
@@ -192,21 +191,5 @@ class SetupUserId extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  buttonContainer: {
-    marginBottom: 20
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  }
-});
 
 export default SetupUserId;

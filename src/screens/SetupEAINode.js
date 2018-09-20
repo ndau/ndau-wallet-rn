@@ -7,8 +7,8 @@ import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
-import { TextButton } from 'react-native-material-buttons';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import CommonButton from '../components/CommonButton';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -134,15 +134,7 @@ class SetupEAINode extends Component {
             />
           </ScrollView>
           <View style={styles.footer}>
-            <TextButton
-              titleStyle={{
-                color: '#ffffff',
-                fontSize: 14,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
-              color="#4e957a"
-              titleColor="#ffffff"
-              disabledColor="#696969"
+            <CommonButton
               onPress={this.finishSetup}
               title="Select and finish"
               id="#select-and-finish"

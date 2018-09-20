@@ -70,7 +70,6 @@ class SetupQRCode extends Component {
                 you.
               </Text>
               <CommonButton
-                style={{ marginTop: 15 }}
                 onPress={() => {
                   this.setState({ cameraPermision: true });
                 }}

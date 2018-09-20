@@ -5260,6 +5260,12 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-native-button@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-button/-/react-native-button-2.3.0.tgz#7d0a90095d415b0edf98a904556a7c4439646568"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-camera@^1.1.4:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-1.2.0.tgz#fa93b39726d15bdbb02fac06f4a23957b0be403a"
@@ -5366,6 +5372,12 @@ react-native-mock@^0.3.1:
     react-timer-mixin "^0.13.3"
     warning "^2.1.0"
 
+react-native-modal-dropdown@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-modal-dropdown/-/react-native-modal-dropdown-0.6.2.tgz#da6027b3546d2031fbce46242bffc95561e13599"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-permissions@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
@@ -5380,6 +5392,10 @@ react-native-qrcode-scanner@^1.0.1:
 react-native-remote-svg@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-remote-svg/-/react-native-remote-svg-1.2.0.tgz#0382d522913e01dc19025efe8e0f8b1a55692a55"
+
+react-native-responsive-screen@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-screen/-/react-native-responsive-screen-1.1.9.tgz#1a9858731e9e7cc1f1312877eb9b94ac32f4500f"
 
 react-native-safe-area-view@^0.9.0:
   version "0.9.0"

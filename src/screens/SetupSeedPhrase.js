@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, NativeModules, Alert } from 'react-native';
+import { PixelRatio, StyleSheet, View, ScrollView, Text, NativeModules, Alert } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
@@ -7,10 +7,16 @@ import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 var _ = require('lodash');
 
 const ROW_LENGTH = 3; // 3 items per row
+
+let boxWidth = '30%';
 
 class SetupSeedPhrase extends Component {
   constructor(props) {
@@ -81,7 +87,14 @@ class SetupSeedPhrase extends Component {
 
   render() {
     // chop the words into ROW_LENGTH-tuples
-    const words = groupIntoRows(this.state.seedPhrase, ROW_LENGTH);
+    // if someone has cranked up the font use 2 rows instead
+    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`);
+    let rowLength = ROW_LENGTH;
+    if (PixelRatio.getFontScale() > 2) {
+      rowLength = 1;
+      boxWidth = '50%';
+    }
+    const words = groupIntoRows(this.state.seedPhrase, rowLength);
 
     let count = 1;
     return (
@@ -96,7 +109,7 @@ class SetupSeedPhrase extends Component {
             </View>
             {words.map((row, rowIndex) => {
               return (
-                <View key={rowIndex} style={styles.rowView}>
+                <View key={rowIndex} style={cssStyles.rowView}>
                   {row.map((item, index) => {
                     return (
                       <View key={index} style={styles.rowTextView}>
@@ -142,16 +155,9 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 30
   },
-  rowView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly'
-  },
   rowTextView: {
-    height: 80,
-    width: 100,
-    marginBottom: 10,
-    marginTop: 10
+    height: hp('20%'),
+    width: wp(boxWidth)
   }
 });
 
