@@ -8,7 +8,8 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  StatusBar
+  StatusBar,
+  Platform
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
@@ -16,9 +17,9 @@ import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
-import UserStore from '../model/UserStore';
 import { SafeAreaView } from 'react-navigation';
 import StyleConstants from '../css/styleConstants';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -43,23 +44,24 @@ class Passphrase extends Component {
     this.setState({ userIds: userIdsForDropdown });
   };
 
-  login = () => {
-    AsyncStorageHelper.getUser(this.state.userId, this.state.password)
-      .then((user) => {
-        if (user) {
-          console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
-          UserStore.setUser(user);
+  login = async () => {
+    try {
+      const user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
+      // .then((user) => {
+      if (user) {
+        console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
 
-          // this.props.navigation.state.params.onNavigateBack(user);
-          this.props.navigation.navigate('App');
-        } else {
-          this.showLoginError();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
+        const userWithData = await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
+
+        this.props.navigation.navigate('Dashboard', { user: userWithData });
+      } else {
         this.showLoginError();
-      });
+      }
+      // })
+    } catch (error) {
+      console.error(error);
+      this.showLoginError();
+    }
   };
 
   showExitApp() {
@@ -89,7 +91,6 @@ class Passphrase extends Component {
         {
           text: 'OK',
           onPress: () => {
-            UserStore.setUser({});
             this.setState({ loginAttempt: this.state.loginAttempt + 1 });
           }
         }
@@ -134,6 +135,7 @@ class Passphrase extends Component {
                 itemTextStyle={styles.text}
                 fontSize={18}
                 labelFontSize={14}
+                dropdownMargins={{ min: 20, max: 16 }}
                 // value={this.state.userId}
                 onChangeText={(userId) => this.setState({ userId })}
               />
@@ -231,7 +233,15 @@ const styles = StyleSheet.create({
     paddingBottom: 40
   },
   image: {
-    tintColor: '#4e957a'
+    tintColor: '#4e957a',
+    ...Platform.select({
+      ios: {
+        marginTop: 30
+      },
+      android: {
+        marginTop: 20
+      }
+    })
   },
   infoIcon: {
     marginLeft: 12,

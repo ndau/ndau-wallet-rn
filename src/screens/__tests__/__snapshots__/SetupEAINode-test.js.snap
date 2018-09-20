@@ -23,7 +23,6 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
         "paddingBottom": 20,
         "paddingLeft": 20,
         "paddingRight": 20,
-        "paddingTop": 5,
       }
     }
   >
@@ -1063,7 +1062,7 @@ exports[`testing SetupEAINode... renders correctly 1`] = `
             "top": 6,
           }
         }
-        id="select-and-finish"
+        id="#select-and-finish"
         onLayout={[Function]}
         onPress={[Function]}
         onPressIn={[Function]}

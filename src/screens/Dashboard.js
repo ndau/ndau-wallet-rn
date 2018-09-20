@@ -2,39 +2,119 @@ import React, { Component } from 'react';
 import { SafeAreaView } from 'react-navigation';
 import { ScrollView, View, Text, StatusBar } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import AlertPanel from '../components/AlertPanel';
 import cssStyles from '../css/styles';
-import UserStore from '../model/UserStore';
+import styles from '../css/styles';
+import DateHelper from '../helpers/DateHelper';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import AlertPanel from '../components/AlertPanel';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   render() {
     console.log(`rendering Dashboard`);
-    const user = UserStore.getUser();
 
-    if (Object.keys(user).length > 0) {
-      console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
-      const { addresses, userId } = user;
-      console.debug(`renders addresses: ${addresses}`);
+    const { navigation } = this.props;
+    const user = navigation.getParam('user', {});
+
+    console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
+    const { addresses, addressData, userId } = user;
+    console.debug(`addressData: ${addressData}`);
+    if (addressData) {
+      return addressData ? (
+        <SafeAreaView style={cssStyles.safeContainer}>
+          <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
+          <ScrollView style={cssStyles.container}>
+            <View style={cssStyles.dashboardTextContainer}>
+              <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
+            </View>
+            <View style={cssStyles.dashboardTextContainer}>
+              <Text style={cssStyles.dashboardTextVeryLarge}>
+                {NdauNodeAPIHelper.accountTotalNdauAmount(addressData)} NDU
+              </Text>
+            </View>
+            <View style={cssStyles.dashboardSmallTextContainer}>
+              <Text style={cssStyles.dashboardTextSmallGreen}>
+                {NdauNodeAPIHelper.currentPrice(user)}
+                <Text style={styles.asterisks}>**</Text>
+                <Text style={cssStyles.dashboardTextSmallWhiteEnd}> at current price</Text>
+              </Text>
+            </View>
+
+            {addressData ? (
+              addressData.map((account, index) => {
+                return (
+                  <CollapsiblePanel
+                    key={index}
+                    index={index}
+                    title={NdauNodeAPIHelper.accountNickname(account)}
+                    account={account}
+                    lockAdder={NdauNodeAPIHelper.accountNotLocked(account) ? 3 : 0}
+                    onNotice={NdauNodeAPIHelper.accountNoticePeriod(account) ? true : false}
+                  >
+                    {NdauNodeAPIHelper.eaiPercentage(account) ? (
+                      <Text style={cssStyles.text}>
+                        {NdauNodeAPIHelper.eaiPercentage(account)}
+                        {'%'} annualized EAI
+                      </Text>
+                    ) : null}
+                    {NdauNodeAPIHelper.sendingEAITo(account) ? (
+                      <Text style={cssStyles.text}>
+                        Sending incentive {'('}EAI{')'} to {NdauNodeAPIHelper.sendingEAITo(account)}
+                      </Text>
+                    ) : null}
+                    {NdauNodeAPIHelper.receivingEAIFrom(account) ? (
+                      <Text style={cssStyles.text}>
+                        Receiving incentive {'('}EAI{')'} to{' '}
+                        {NdauNodeAPIHelper.receivingEAIFrom(account)}
+                      </Text>
+                    ) : null}
+                    {NdauNodeAPIHelper.accountLockedUntil(account) ? (
+                      <Text style={cssStyles.text}>
+                        Account will be unlocked {NdauNodeAPIHelper.accountLockedUntil(account)}
+                      </Text>
+                    ) : null}
+                    {NdauNodeAPIHelper.accountNoticePeriod(account) ? (
+                      <Text style={cssStyles.text}>
+                        Locked {'('}
+                        {NdauNodeAPIHelper.accountNoticePeriod(account)} day countdown{')'}
+                      </Text>
+                    ) : null}
+                    {NdauNodeAPIHelper.accountNotLocked(account) ? (
+                      <Text style={cssStyles.text}>This account is not locked</Text>
+                    ) : null}
+                  </CollapsiblePanel>
+                );
+              })
+            ) : null}
+            <View style={cssStyles.dashboardRowContainerCenter}>
+              <Text style={styles.asterisks}>**</Text>
+              <Text style={cssStyles.dashboardTextVerySmallWhite}>
+                The estimated value of ndau in US dollars can be calculated using the Target Price
+                at which new ndau have most recently been issued. The value shown here is calculated
+                using that method as of the issue price on {DateHelper.getTodaysDate()}. The Axiom
+                Foundation bears no responsibility or liability for the calculation of that
+                estimated value, or for decisions based on that estimated value.
+              </Text>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      ) : (
+        <SafeAreaView style={cssStyles.safeContainer} />
+      );
+    } else {
       return addresses ? (
         <SafeAreaView style={cssStyles.safeContainer}>
           <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
-          <View style={cssStyles.dashboardTextContainer}>
-            <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
-          </View>
-          <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
+          <ScrollView style={cssStyles.container}>
+            <View style={cssStyles.dashboardTextContainer}>
+              <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
+            </View>
+            <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
             sent to this app on Genesis Day. Until then, you can continue to view your holdings on
             the online dashboard." />
-          <View style={cssStyles.dashboardTextContainer}>
-            <Text style={cssStyles.dashboardTextSmall}>{addresses.length} addresses</Text>
-          </View>
-          <ScrollView style={cssStyles.container}>
+            <View style={cssStyles.dashboardTextContainer}>
+              <Text style={cssStyles.dashboardTextSmall}>{addresses.length} addresses</Text>
+            </View>
+
             {addresses ? (
               addresses.map((address, index) => {
                 const counter = index + 1;
@@ -55,8 +135,6 @@ class Dashboard extends Component {
       ) : (
         <SafeAreaView style={cssStyles.safeContainer} />
       );
-    } else {
-      return <SafeAreaView style={cssStyles.safeContainer} />;
     }
   }
 }

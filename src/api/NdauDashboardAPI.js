@@ -1,8 +1,8 @@
-const ndauApiHost = 'ndaudashboard.ndau.tech';
-const ndauApiProtocol = 'https';
+const ndauDashboardApiHost = 'ndaudashboard.ndau.tech';
+const ndauDashboardApiProtocol = 'https';
 
 getTargetPrice = () => {
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/targetprice`)
+  return fetch(`${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/ndau/targetprice`)
     .then((response) => response.json())
     .then((responseJson) => {
       console.info(`getTargetPrice responseJson ${JSON.stringify(responseJson, null, 2)}`);
@@ -14,8 +14,12 @@ getTargetPrice = () => {
 };
 
 getNumberOfAccounts = (userId) => {
-  console.log(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`);
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/account/${userId}/totalnumber`)
+  console.log(
+    `${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/ndau/account/${userId}/totalnumber`
+  );
+  return fetch(
+    `${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/ndau/account/${userId}/totalnumber`
+  )
     .then((response) => response.json())
     .then((responseJson) => {
       console.info(`getNumberOfAccounts responseJson ${JSON.stringify(responseJson, null, 2)}`);
@@ -24,7 +28,7 @@ getNumberOfAccounts = (userId) => {
 };
 
 getNdauNewsLinks = () => {
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/news`)
+  return fetch(`${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/ndau/news`)
     .then((response) => response.json())
     .then((responseJson) => {
       console.info(`getNdauNewsLinks responseJson ${JSON.stringify(responseJson, null, 2)}`);
@@ -34,7 +38,7 @@ getNdauNewsLinks = () => {
 
 sendAccountAddresses = (userId, addresses, token) => {
   console.log(`Sending ${userId}, ${addresses} and ${token} to Oneiro`);
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/ndau/accountAddress`, {
+  return fetch(`${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/ndau/accountAddress`, {
     method: 'POST',
     headers: {
       Authentication: `qr-token ${token}`,
@@ -53,7 +57,7 @@ sendAccountAddresses = (userId, addresses, token) => {
 };
 
 triggerQRTEmail = (userId) => {
-  return fetch(`${ndauApiProtocol}://${ndauApiHost}/api/emailauth/qr-token`, {
+  return fetch(`${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/emailauth/qr-token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -69,7 +73,7 @@ triggerQRTEmail = (userId) => {
     });
 };
 
-module.exports = {
+export default {
   getTargetPrice,
   getNumberOfAccounts,
   sendAccountAddresses,

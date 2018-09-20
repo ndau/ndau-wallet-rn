@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
-
 import {
   StyleSheet,
   Text,
   View,
-  Image,
   ImageBackground,
   TouchableHighlight,
   Animated
 } from 'react-native';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class CollapsiblePanel extends Component {
   constructor(props) {
     super(props);
 
-    this.icons = {
-      up: require('../../img/Arrowhead-01-128.png'),
-      down: require('../../img/Arrowhead-Down-01-128.png')
-    };
-
     this.cardBackgrounds = [
-      require('../../img/green-card.jpg'),
-      require('../../img/blue-card.jpg'),
-      require('../../img/dark-blue-card.jpg')
+      require('../../img/green-card.png'),
+      require('../../img/light-blue-card.png'),
+      require('../../img/dark-blue-card.png'),
+      require('../../img/green-locked-card.png'),
+      require('../../img/light-blue-locked-card.png'),
+      require('../../img/dark-blue-locked-card.png'),
+      require('../../img/grey-notified-card.png')
     ];
 
     this.state = {
@@ -55,7 +53,7 @@ class CollapsiblePanel extends Component {
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
       console.debug(`setting maxHeight for first time: ${event.nativeEvent.layout.height}`);
       this.setState({
-        maxHeight: event.nativeEvent.layout.height
+        maxHeight: event.nativeEvent.layout.height + 12
       });
     }
   };
@@ -67,12 +65,11 @@ class CollapsiblePanel extends Component {
   };
 
   render() {
-    let icon = this.state.expanded ? this.icons.up : this.icons.down;
-
+    const lockAdder = this.props.lockAdder ? this.props.lockAdder : 0;
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
         <ImageBackground
-          source={this.cardBackgrounds[this.props.index % this.cardBackgrounds.length]}
+          source={this.cardBackgrounds[this.props.onNotice ? 6 : this.props.index % 3 + lockAdder]}
           style={{ width: '100%' }}
         >
           <TouchableHighlight
@@ -81,12 +78,15 @@ class CollapsiblePanel extends Component {
             underlayColor="transparent"
           >
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
-              <Text style={styles.title}>{this.props.title}</Text>
-
-              <Image style={styles.buttonImage} source={icon} />
+              <Text style={styles.titleLeft}>{this.props.title}</Text>
+              {this.props.account ? (
+                <Text style={styles.titleRight}>
+                  {NdauNodeAPIHelper.accountNdauAmount(this.props.account)} NDU
+                </Text>
+              ) : null}
             </View>
           </TouchableHighlight>
-
+          <View style={styles.border} />
           <View style={styles.body} onLayout={this.setMaxHeight}>
             {this.props.children}
           </View>
@@ -102,18 +102,32 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 5,
     borderRadius: 5,
-    borderColor: '#4d9678',
-    borderWidth: 2
+    borderWidth: 0.5
   },
   titleContainer: {
     flexDirection: 'row'
   },
-  title: {
+  titleLeft: {
     flex: 1,
-    padding: 10,
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Bold'
+    fontFamily: 'TitilliumWeb-Bold',
+    textAlign: 'left'
+  },
+  titleRight: {
+    flex: 1,
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    color: '#fff',
+    fontSize: 18,
+    fontFamily: 'TitilliumWeb-Bold',
+    textAlign: 'right'
   },
   button: {},
   buttonImage: {
@@ -125,6 +139,13 @@ var styles = StyleSheet.create({
   body: {
     padding: 10,
     paddingTop: 0
+  },
+  border: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10
   }
 });
 

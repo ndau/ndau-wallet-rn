@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import ndauApi from '../api/NdauAPI';
+import ndauDashboardApi from '../api/NdauDashboardAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
-import UserStore from '../model/UserStore';
 import SetupStore from '../model/SetupStore';
+import { TextButton } from 'react-native-material-buttons';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class SetupEAINode extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class SetupEAINode extends Component {
 
   sendAccountAddresses = (userId, addresses, token) => {
     return new Promise((resolve, reject) => {
-      ndauApi
+      ndauDashboardApi
         .sendAccountAddresses(userId, addresses, token)
         .then((whatPersisted) => {
           console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
@@ -59,9 +59,15 @@ class SetupEAINode extends Component {
 
     this.sendAddressesToOneiro(addresses)
       .then(() => {
-        this.persistAddresses(addresses);
+        const user = this.persistAddresses(addresses);
 
-        this.props.navigation.navigate('Dashboard');
+        NdauNodeAPIHelper.populateCurrentUserWithAddressData(user)
+          .then((userWithData) => {
+            this.props.navigation.navigate('Dashboard', { user: userWithData });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -97,8 +103,8 @@ class SetupEAINode extends Component {
       addresses: addresses,
       selectedNode: this.state.selectedNode
     };
-    AsyncStorageHelper.setUser(user, SetupStore.getEncryptionPassword());
-    UserStore.setUser(user);
+    AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
+    return user;
   };
 
   render() {
@@ -128,10 +134,18 @@ class SetupEAINode extends Component {
             />
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton
+            <TextButton
+              titleStyle={{
+                color: '#ffffff',
+                fontSize: 14,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              color="#4e957a"
+              titleColor="#ffffff"
+              disabledColor="#696969"
               onPress={this.finishSetup}
-              title="Select and Finish"
-              id="select-and-finish"
+              title="Select and finish"
+              id="#select-and-finish"
             />
           </View>
         </View>

@@ -4,6 +4,9 @@ import { StyleSheet } from 'react-native';
 import { TextButton } from 'react-native-material-buttons';
 
 class CommonButton extends Component {
+  onPress() {
+    this.props.onPress();
+  }
   render() {
     return (
       <TextButton

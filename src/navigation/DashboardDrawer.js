@@ -1,9 +1,9 @@
 import React from 'react';
-import { Alert, ScrollView, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
+import { Alert, ScrollView, SafeAreaView, Text, View, TouchableOpacity, Image } from 'react-native';
 import cssStyles from '../css/styles';
-import UserStore from '../model/UserStore';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
-class Settings extends React.Component {
+class DashboardDrawer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -27,7 +27,6 @@ class Settings extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            UserStore.setUser({});
             this.props.navigation.navigate('Auth');
           }
         }
@@ -44,7 +43,13 @@ class Settings extends React.Component {
           forceInset={{ top: 'always', horizontal: 'never' }}
         >
           <TouchableOpacity onPress={() => this.dashboard()}>
-            <Text style={cssStyles.drawerText}>Dashboard</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                style={cssStyles.drawerTextImage}
+                source={require('../../img/ndau_billfold.png')}
+              />
+              <Text style={cssStyles.drawerText}>Dashboard</Text>
+            </View>
           </TouchableOpacity>
           <View
             style={{
@@ -55,7 +60,13 @@ class Settings extends React.Component {
             }}
           />
           <TouchableOpacity onPress={() => this.logout()}>
-            <Text style={cssStyles.drawerText}>Logout</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                style={cssStyles.drawerTextImage}
+                source={require('../../img/ndau_user.png')}
+              />
+              <Text style={cssStyles.drawerText}>Logout</Text>
+            </View>
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
@@ -63,4 +74,4 @@ class Settings extends React.Component {
   }
 }
 
-export default Settings;
+export default DashboardDrawer;

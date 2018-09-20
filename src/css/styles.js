@@ -5,8 +5,10 @@ export default StyleSheet.create({
   drawerText: {
     color: '#ffffff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular'
+    fontFamily: 'TitilliumWeb-Regular',
+    paddingTop: 3
   },
+  drawerTextImage: { width: 30, height: 30, marginRight: 10 },
   drawerLabels: {
     fontSize: 14,
     fontFamily: 'TitilliumWeb-Regular'
@@ -35,7 +37,6 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: 5,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
@@ -79,28 +80,79 @@ export default StyleSheet.create({
     paddingBottom: 8
   },
   dashboardTextContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  dashboardOuterRowContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  dashboardSmallTextContainer: {
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center'
+    marginBottom: 5
+  },
+  dashboardRowContainer: {
+    alignSelf: 'stretch',
+    flexDirection: 'row'
+  },
+  dashboardRowContainerCenter: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    marginRight: 20,
+    marginBottom: 20
   },
   dashboardTextLarge: {
     justifyContent: 'center',
     alignItems: 'center',
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 28,
-    paddingBottom: 10
+    fontSize: 28
   },
-  dashboardTextSmall: {
+  dashboardTextVeryLarge: {
     justifyContent: 'center',
     alignItems: 'center',
     color: '#4d9678',
-    fontFamily: 'TitilliumWeb-Light',
-    fontSize: 22,
-    shadowOpacity: 0.2,
-    shadowColor: '#4e957a',
-    shadowRadius: 3,
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 48,
     paddingBottom: 10,
-    paddingTop: 10
+    textShadowColor: 'rgba(77, 150, 120, .5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 6
+  },
+  dashboardTextSmallGreen: {
+    color: '#4d9678',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 20,
+    textShadowColor: 'rgba(77, 150, 120, .5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 6
+    // ...Platform.select({
+    //   android: {
+    //     flex: 1,
+    //     alignSelf: 'stretch'
+    //   }
+    // }),
+    // marginLeft: 20
+  },
+  dashboardTextSmallWhiteMiddle: {
+    color: '#ffffff',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 20,
+    flex: 1,
+    alignSelf: 'stretch'
+  },
+  dashboardTextSmallWhiteEnd: {
+    color: '#ffffff',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 20
+    // marginRight: 20
+  },
+  dashboardTextVerySmallWhite: {
+    color: '#ffffff',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 12
   },
   checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 },
   contentContainer: {
@@ -118,5 +170,10 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 18,
     textDecorationLine: 'underline'
+  },
+  asterisks: {
+    color: StyleConstants.ASTERISKS_RED,
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 20
   }
 });

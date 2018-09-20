@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import SetupConfirmSeedPhrase from '../SetupConfirmSeedPhrase';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import SetupStore from '../../model/SetupStore';
 
 function makeStyles() {
   return StyleSheet.create({
@@ -15,8 +16,7 @@ function makeStyles() {
 
 function makeNavigator() {
   return {
-    setStyle: () => {},
-    toggleNavBar: () => {}
+    navigate: () => {}
   };
 }
 
@@ -26,18 +26,12 @@ function makeWords() {
 
 describe('SetupConfirmSeedPhrase presentation', () => {
   beforeEach(() => {
+    SetupStore.setSeedPhrase(makeWords());
+    SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
+    SetupStore.setShuffledMap([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
+    SetupStore.setShuffledWords(makeWords());
     this.tree = renderer
-      .create(
-        <SetupConfirmSeedPhrase
-          navigator={makeNavigator()}
-          parentStyles={makeStyles()}
-          seedPhraseArray={makeWords()}
-          encryptionPassword={'testing'}
-          entropy={'dGVzdGluZ3dlc3Rpbmdh'}
-          shuffledWords={makeWords()}
-          shuffleMap={[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]}
-        />
-      )
+      .create(<SetupConfirmSeedPhrase navigation={makeNavigator()} parentStyles={makeStyles()} />)
       .toJSON();
   });
 
@@ -49,17 +43,11 @@ describe('SetupConfirmSeedPhrase presentation', () => {
 describe('SetupConfirmSeedPhrase behavior', () => {
   beforeEach(() => {
     // set up default wrapper for every test.
-    this.wrapper = mount(
-      <SetupConfirmSeedPhrase
-        navigator={makeNavigator()}
-        parentStyles={makeStyles()}
-        seedPhraseArray={makeWords()}
-        encryptionPassword={'testing'}
-        entropy={'dGVzdGluZ3dlc3Rpbmdh'}
-        shuffledWords={makeWords()}
-        shuffleMap={[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]}
-      />
-    );
+    SetupStore.setSeedPhrase(makeWords());
+    SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
+    SetupStore.setShuffledMap([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
+    SetupStore.setShuffledWords(makeWords());
+    this.wrapper = mount(<SetupConfirmSeedPhrase navigation={makeNavigator()} />);
     this.press = (index) => {
       this.wrapper.find('Word').at(index).props().onPress();
     };

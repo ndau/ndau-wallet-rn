@@ -32,8 +32,8 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c7f3e2',
     borderRadius: 3,
-    marginLeft: 20,
-    marginRight: 20
+    marginTop: 15,
+    marginBottom: 8
   }
 });
 
