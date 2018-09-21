@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, NativeModules } from 'react-native';
-import SetupSeedPhrase from '../SetupSeedPhrase';
+import SetupRecoveryPhrase from '../SetupRecoveryPhrase';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import SetupStore from '../../model/SetupStore';
@@ -36,9 +36,9 @@ const navigator = {
   toggleNavBar: () => {}
 };
 
-const makeComponent = () => <SetupSeedPhrase navigator={navigator} parentStyles={styles} />;
+const makeComponent = () => <SetupRecoveryPhrase navigator={navigator} parentStyles={styles} />;
 
-describe('testing SetupSeedPhrase...', () => {
+describe('testing SetupRecoveryPhrase...', () => {
   it('renders correctly', () => {
     const tree = renderer.create(makeComponent()).toJSON();
     expect(tree).toMatchSnapshot();

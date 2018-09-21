@@ -1,14 +1,23 @@
 import { StyleSheet, Platform } from 'react-native';
 import StyleConstants from './styleConstants';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
   drawerText: {
     color: '#ffffff',
     fontSize: 18,
     fontFamily: 'TitilliumWeb-Regular',
-    paddingTop: 3
+    paddingTop: wp('.3%')
   },
-  drawerTextImage: { width: 30, height: 30, marginRight: 10 },
+  drawerTextImage: {
+    width: wp('10.8%'),
+    height: hp('6%'),
+    marginRight: wp('2%'),
+    marginLeft: wp('2%')
+  },
   drawerLabels: {
     fontSize: 14,
     fontFamily: 'TitilliumWeb-Regular'
@@ -16,13 +25,16 @@ export default StyleSheet.create({
   drawerContainer: {
     ...Platform.select({
       ios: {
-        marginLeft: 20,
-        paddingRight: 15,
-        paddingTop: 15,
-        paddingBottom: 15
+        marginLeft: wp('2%'),
+        paddingRight: wp('1.5%'),
+        paddingTop: hp('1.5%'),
+        paddingBottom: hp('1.5%')
       },
       android: {
-        padding: 15
+        paddingTop: hp('1.5%'),
+        paddingBottom: hp('1.5%'),
+        paddingRight: wp('1.5%'),
+        paddingLeft: wp('1.5%')
       }
     }),
     flex: 1,
@@ -37,9 +49,9 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20,
+    paddingLeft: wp('2%'),
+    paddingRight: wp('2%'),
+    paddingBottom: hp('2%'),
     backgroundColor: StyleConstants.APP_BACKGROUND_COLOR
   },
   text: {
@@ -48,12 +60,12 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular'
   },
   textInput: {
-    height: 45,
+    height: hp('7%'),
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 20,
-    marginTop: 20,
-    paddingLeft: 10,
+    borderRadius: 3,
+    marginTop: hp('1%'),
+    paddingLeft: wp('1%'),
     color: '#000000',
     backgroundColor: '#ffffff',
     fontSize: 18,
@@ -66,8 +78,14 @@ export default StyleSheet.create({
     backgroundColor: '#4d9678',
     borderRadius: 3,
     fontFamily: 'TitilliumWeb-Light',
-    margin: '0.5%',
-    padding: '2px',
+    marginTop: hp('0.5%'),
+    marginBottom: hp('0.5%'),
+    marginLeft: wp('0.5%'),
+    marginRight: wp('0.5%'),
+    paddingTop: hp('.2%'),
+    paddingBottom: hp('.2%'),
+    paddingLeft: wp('.2%'),
+    paddingRight: wp('.2%'),
     borderRadius: 3
   },
   wizardText: {
@@ -90,7 +108,7 @@ export default StyleSheet.create({
   dashboardSmallTextContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 5
+    marginBottom: hp('.5%')
   },
   dashboardRowContainer: {
     alignSelf: 'stretch',
@@ -100,8 +118,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginRight: 20,
-    marginBottom: 20
+    marginRight: wp('1%'),
+    marginBottom: hp('2%')
   },
   dashboardTextLarge: {
     justifyContent: 'center',
@@ -116,7 +134,7 @@ export default StyleSheet.create({
     color: '#4d9678',
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 48,
-    paddingBottom: 10,
+    paddingBottom: hp('1%'),
     textShadowColor: 'rgba(77, 150, 120, .5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 6
@@ -128,13 +146,6 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(77, 150, 120, .5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 6
-    // ...Platform.select({
-    //   android: {
-    //     flex: 1,
-    //     alignSelf: 'stretch'
-    //   }
-    // }),
-    // marginLeft: 20
   },
   dashboardTextSmallWhiteMiddle: {
     color: '#ffffff',
@@ -154,11 +165,11 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 12
   },
-  checkbox: { flex: 1, paddingTop: 10, paddingBottom: 10 },
+  checkbox: { flex: 1, paddingTop: hp('1%'), paddingBottom: hp('1%') },
   contentContainer: {
     ...Platform.select({
       ios: {
-        marginTop: 15
+        marginTop: hp('1.5%')
       }
     })
   },
@@ -175,5 +186,14 @@ export default StyleSheet.create({
     color: StyleConstants.ASTERISKS_RED,
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 20
+  },
+  buttonContainer: {
+    marginBottom: hp('2%'),
+    marginBottom: hp('2%')
+  },
+  rowView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
   }
 });

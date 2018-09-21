@@ -13,13 +13,18 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
-import { Dropdown } from 'react-native-material-dropdown';
+// import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
 import { SafeAreaView } from 'react-navigation';
 import StyleConstants from '../css/styleConstants';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
+import Dropdown from '../components/Dropdown';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -30,7 +35,8 @@ class Passphrase extends Component {
       showErrorText: false,
       userIds: [],
       userId: '',
-      loginAttempt: 1
+      loginAttempt: 1,
+      canada: ''
     };
 
     this.maxLoginAttempts = 10;
@@ -38,10 +44,10 @@ class Passphrase extends Component {
 
   componentWillMount = async () => {
     const userIds = await AsyncStorageHelper.getAllKeys();
-    let userIdsForDropdown = userIds.map((userId) => {
-      return { value: userId };
-    });
-    this.setState({ userIds: userIdsForDropdown });
+    // let userIdsForDropdown = userIds.map((userId) => {
+    //   return { value: userId };
+    // });
+    this.setState({ userIds });
   };
 
   login = async () => {
@@ -104,7 +110,7 @@ class Passphrase extends Component {
       'Information',
       'Please enter the password you chose to encrypt this app. ' +
         'This is not the same thing as your six-character ID or key ' +
-        'seed phrase.',
+        'recovery phrase.',
       [ { text: 'OK', onPress: () => {} } ],
       { cancelable: false }
     );
@@ -114,54 +120,57 @@ class Passphrase extends Component {
     this.props.navigation.navigate('Setup');
   };
 
+  dropDownSelected = (index, value) => {
+    console.log(`index: ${index} and value is ${value}`);
+    this.setState({
+      userId: value
+    });
+  };
+
   render() {
     console.log(`rendering Passphrase`);
     const { textInputColor } = this.state;
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
-        <View style={styles.container}>
-          <ScrollView style={styles.contentContainer}>
+        <View style={cssStyles.container}>
+          <ScrollView style={cssStyles.contentContainer}>
             <View style={styles.imageView}>
               <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
             </View>
             <View style={styles.footer}>
               <Dropdown
-                label="Please choose a User ID"
-                data={this.state.userIds}
-                baseColor="#ffffff"
-                selectedItemColor="#000000"
-                textColor="#ffffff"
-                itemTextStyle={styles.text}
-                fontSize={18}
-                labelFontSize={14}
-                dropdownMargins={{ min: 20, max: 16 }}
-                // value={this.state.userId}
-                onChangeText={(userId) => this.setState({ userId })}
+                defaultValue="User ID..."
+                defaultIndex={1}
+                options={this.state.userIds}
+                onSelect={this.dropDownSelected}
+                full={false}
               />
             </View>
-            <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
+            <View style={{ flexDirection: 'row' }}>
               <TextInput
                 style={{
-                  height: 45,
-                  width: '93%',
+                  height: hp('7%'),
+                  width: wp('100%'),
                   borderColor: 'gray',
                   borderWidth: 1,
-                  marginBottom: 10,
-                  marginTop: 10,
-                  paddingLeft: 10,
-                  color: textInputColor,
+                  borderRadius: 3,
+                  marginTop: hp('1%'),
+                  paddingLeft: wp('1%'),
+                  color: '#000000',
                   backgroundColor: '#ffffff',
                   fontSize: 18,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
-                placeholder="Enter your app password"
+                placeholder="App Password"
                 placeholderTextColor="#333"
                 secureTextEntry={!this.state.showPasswords}
                 autoCapitalize="none"
               />
+            </View>
+            <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
                 <FontAwesome name="info" color="#ffffff" size={20} style={styles.infoIcon} />
               </TouchableOpacity>
@@ -224,22 +233,22 @@ const styles = StyleSheet.create({
     flex: 1 // pushes the footer to the end of the screen
   },
   footer: {
-    justifyContent: 'flex-end',
-    margin: 10
+    justifyContent: 'flex-end'
+    // margin: 10
   },
   imageView: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 40
+    paddingBottom: hp('4%')
   },
   image: {
     tintColor: '#4e957a',
     ...Platform.select({
       ios: {
-        marginTop: 30
+        marginTop: hp('3%')
       },
       android: {
-        marginTop: 20
+        marginTop: hp('2%')
       }
     })
   },

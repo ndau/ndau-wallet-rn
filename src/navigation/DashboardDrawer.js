@@ -1,7 +1,10 @@
 import React from 'react';
 import { Alert, ScrollView, SafeAreaView, Text, View, TouchableOpacity, Image } from 'react-native';
 import cssStyles from '../css/styles';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 class DashboardDrawer extends React.Component {
   constructor(props) {
@@ -55,8 +58,8 @@ class DashboardDrawer extends React.Component {
             style={{
               borderBottomColor: 'black',
               borderBottomWidth: 1,
-              marginTop: 15,
-              marginBottom: 15
+              marginTop: hp('1.5%'),
+              marginBottom: hp('1.5%')
             }}
           />
           <TouchableOpacity onPress={() => this.logout()}>

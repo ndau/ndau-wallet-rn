@@ -14,7 +14,7 @@ class SetupStore {
     this._qrCode = '';
     this._encryptionPassword = '';
     this._entropy = '';
-    this._seedPhrase = '';
+    this._recoveryPhrase = '';
     this._shuffledMap = [];
     this._shuffledWord = [];
     this._addressType = MAINNET_ADDRESS;
@@ -72,14 +72,14 @@ class SetupStore {
     return this._entropy;
   }
 
-  setSeedPhrase(seedPhrase) {
-    this._seedPhrase = seedPhrase.slice();
-    console.debug(`SetupStore.setSeedPhrase ${this._seedPhrase}`);
+  setRecoveryPhrase(recoveryPhrase) {
+    this._recoveryPhrase = recoveryPhrase.slice();
+    console.debug(`SetupStore.setRecoveryPhrase ${this._recoveryPhrase}`);
   }
 
-  getSeedPhrase() {
-    console.debug(`SetupStore.getSeedPhrase ${this._seedPhrase}`);
-    return this._seedPhrase;
+  getRecoveryPhrase() {
+    console.debug(`SetupStore.getRecoveryPhrase ${this._recoveryPhrase}`);
+    return this._recoveryPhrase;
   }
 
   setShuffledWords(shuffledWords) {

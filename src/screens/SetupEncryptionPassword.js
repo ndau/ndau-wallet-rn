@@ -70,7 +70,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={2} />
+            <Stepper screenNumber={4} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Data in this app will be encrypted to protect your ndau. You will need to enter a
@@ -79,18 +79,7 @@ class SetupEncryptionPassword extends Component {
               </Text>
             </View>
             <TextInput
-              style={{
-                height: 45,
-                borderColor: 'gray',
-                borderWidth: 1,
-                marginBottom: 10,
-                marginTop: 12,
-                paddingLeft: 10,
-                color: textInputColor,
-                backgroundColor: '#ffffff',
-                fontSize: 18,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
+              style={cssStyles.textInput}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
               placeholder="Enter a password"
@@ -99,18 +88,7 @@ class SetupEncryptionPassword extends Component {
               autoCapitalize="none"
             />
             <TextInput
-              style={{
-                height: 45,
-                borderColor: 'gray',
-                borderWidth: 1,
-                marginBottom: 10,
-                marginTop: 12,
-                paddingLeft: 10,
-                color: textInputColor,
-                backgroundColor: '#ffffff',
-                fontSize: 18,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
+              style={cssStyles.textInput}
               onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
               value={this.state.confirmPassword}
               placeholder="Confirm your password"

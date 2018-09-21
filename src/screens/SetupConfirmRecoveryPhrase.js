@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, TouchableHighlight } from 'react-native';
+import {
+  PixelRatio,
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableHighlight
+} from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import groupIntoRows from '../helpers/groupIntoRows';
 import ErrorPanel from '../components/ErrorPanel';
@@ -7,13 +15,20 @@ import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 var _ = require('lodash');
 
 const MAX_ERRORS = 4; // 4 strikes and you're out
 const ROW_LENGTH = 3; // 3 items per row
 
-class SetupConfirmSeedPhrase extends Component {
+let boxWidth = '30%';
+let boxHeight = '10%';
+
+class SetupConfirmRecoveryPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +39,14 @@ class SetupConfirmSeedPhrase extends Component {
       match: false,
       selected: []
     };
+
+    // chop the words into ROW_LENGTH-tuples
+    this.rowLength = ROW_LENGTH;
+    if (PixelRatio.getFontScale() > 2) {
+      this.rowLength = 1;
+      boxWidth = '100%';
+      boxHeight = '17%';
+    }
   }
 
   showNextSetup = () => {
@@ -35,9 +58,8 @@ class SetupConfirmSeedPhrase extends Component {
   };
 
   render() {
-    // chop the words into ROW_LENGTH-tuples
     const shuffledWords = SetupStore.getShuffledWords();
-    const words = groupIntoRows(shuffledWords, ROW_LENGTH);
+    const words = groupIntoRows(shuffledWords, this.rowLength);
 
     // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => {
@@ -49,13 +71,13 @@ class SetupConfirmSeedPhrase extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={6} />
+            <Stepper screenNumber={7} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Demonstrate that you wrote the phrase down by tapping the words below in order.{' '}
               </Text>
             </View>
-            <TextInput
+            {/* <TextInput
               style={styles.textArea}
               value={this.state.selected.map((i) => shuffledWords[i]).join(' ')}
               placeholder=""
@@ -65,12 +87,12 @@ class SetupConfirmSeedPhrase extends Component {
               editable={false}
               selectTextOnFocus={false}
               caretHidden={true}
-            />
+            /> */}
             {this.state.inError ? (
               <ErrorPanel
                 errorText={
                   this.state.mustRetry ? (
-                    'Please click the Back button to generate a new seed phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
+                    'Please click the Back button to generate a new recovery phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
                   ) : (
                     'Please enter the words in the correct order. De-select the last word to continue.'
                   )
@@ -101,6 +123,8 @@ class SetupConfirmSeedPhrase extends Component {
           <View style={styles.footer}>
             <View style={styles.navButtonWrapper}>
               <CommonButton onPress={() => this.pushBack()} title="Back (resets phrase)" />
+            </View>
+            <View style={styles.navButtonWrapper}>
               <CommonButton
                 onPress={() => this.showNextSetup()}
                 title="Next"
@@ -167,21 +191,23 @@ function Word(props) {
     <TouchableHighlight onPress={props.onPress}>
       <View
         style={{
-          height: 40,
-          width: 100,
-          marginBottom: 10,
-          marginTop: 10,
+          height: hp(boxHeight),
+          width: wp(boxWidth),
+          marginBottom: wp('1%'),
+          marginTop: wp('1%'),
           backgroundColor: bgColor,
           alignItems: 'center',
           justifyContent: 'center',
-          flex: 1
+          flex: 1,
+          borderRadius: 6
         }}
       >
         <Text
           style={{
             color: '#ffffff',
             fontSize: 20,
-            fontFamily: 'TitilliumWeb-Regular'
+            fontFamily: 'TitilliumWeb-Regular',
+            textAlign: 'center'
           }}
         >
           {props.children}
@@ -204,11 +230,12 @@ const styles = StyleSheet.create({
     display: 'flex'
   },
   navButtonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    // flexDirection: 'center',
+    justifyContent: 'space-between',
+    marginTop: hp('2%')
   },
   navButtons: {
-    width: '40%'
+    width: wp('40%')
   },
   progress: {
     paddingTop: 30,
@@ -220,12 +247,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly'
   },
   textArea: {
-    height: 70,
+    height: hp('100%'),
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
-    marginTop: 10,
-    paddingLeft: 10,
+    marginBottom: hp('1%'),
+    marginTop: hp('1%'),
+    paddingLeft: wp('1%'),
     color: '#000000',
     backgroundColor: '#ffffff',
     fontSize: 18,
@@ -233,4 +260,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SetupConfirmSeedPhrase;
+export default SetupConfirmRecoveryPhrase;

@@ -6,6 +6,10 @@ import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 class SetupQRCode extends Component {
   constructor(props) {
@@ -59,18 +63,17 @@ class SetupQRCode extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={1} />
+          <ScrollView style={cssStyles.contentContainer}>
+            <Stepper screenNumber={3} />
             <View>
-              <Text style={cssStyles.wizardText}>
+              <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
                 This app will need access to your device's camera to scan address codes, so you can
                 send and receive ndau. Start the permission process to scan the code we just sent
                 you.
               </Text>
               <CommonButton
-                style={{ marginTop: 15 }}
                 onPress={() => {
                   this.setState({ cameraPermision: true });
                 }}
@@ -82,7 +85,7 @@ class SetupQRCode extends Component {
                 <Text style={styles.successText}>Code successfully scanned.</Text>
               ) : this.state.cameraPermision && !this.state.codeCaptured ? (
                 <QRCodeScanner
-                  style={{ marginRight: 20 }}
+                  style={{ marginRight: wp('2%') }}
                   ref={(node) => {
                     this.scanner = node;
                   }}
@@ -91,7 +94,7 @@ class SetupQRCode extends Component {
                     <Text
                       style={[
                         cssStyles.wizardText,
-                        { marginTop: 15, marginBottom: 15, marginRight: 20 }
+                        { marginTop: hp('1.5%'), marginBottom: hp('1.5%'), marginRight: wp('2%') }
                       ]}
                     >
                       Point this device's camera at the QR code square in the email we sent, so that
@@ -102,7 +105,7 @@ class SetupQRCode extends Component {
               ) : null}
             </View>
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <CommonButton
               onPress={() => this.showNextSetup()}
               title="Next"
@@ -116,28 +119,6 @@ class SetupQRCode extends Component {
 }
 
 const styles = StyleSheet.create({
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777'
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000'
-  },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)'
-  },
-  buttonTouchable: {
-    padding: 16
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: 5
-  },
   successText: {
     flex: 1,
     borderColor: 'gray',
@@ -147,30 +128,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: '#ffffff',
     fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 30,
-    paddingBottom: 30
-  },
-  errorText: {
-    color: '#f75f4b',
-    fontSize: 20
-  },
-  errorContainer: {
-    backgroundColor: '#f5d8d1'
+    fontFamily: 'TitilliumWeb-Regular',
+    textAlign: 'center'
   }
 });
 
