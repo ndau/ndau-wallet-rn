@@ -73,7 +73,19 @@ class SetupUserId extends Component {
   }
 
   showInfoMessage(msg) {
-    Alert.alert('Information', msg, [ { text: 'OK', onPress: () => {} } ], { cancelable: false });
+    Alert.alert(
+      'Information',
+      msg,
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.checkIfAlreadyExists();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
   }
 
   textChanged = (userId) => {
@@ -163,14 +175,6 @@ class SetupUserId extends Component {
             </View>
 
             <View style={cssStyles.buttonContainer}>
-              <CommonButton
-                onPress={() => {
-                  this.verify();
-                }}
-                title="Verify"
-              />
-            </View>
-            <View style={cssStyles.buttonContainer}>
               <CommonButton onPress={this.showExitApp} title="I don't have an ID" />
             </View>
             <Text style={cssStyles.wizardText}>
@@ -180,10 +184,9 @@ class SetupUserId extends Component {
           <View style={cssStyles.footer}>
             <CommonButton
               onPress={() => {
-                this.checkIfAlreadyExists();
+                this.verify();
               }}
-              title="Send email"
-              disabled={this.state.numberOfAccounts === 0}
+              title="Verify"
             />
           </View>
         </View>
