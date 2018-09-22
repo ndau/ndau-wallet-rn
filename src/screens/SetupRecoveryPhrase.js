@@ -14,7 +14,7 @@ import {
 
 var _ = require('lodash');
 
-const ROW_LENGTH = 3; // 3 items per row
+const DEFAULT_ROW_LENGTH = 3; // 3 items per row
 
 class SetupRecoveryPhrase extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class SetupRecoveryPhrase extends Component {
 
     this.boxWidth = '30%';
     this.boxHeight = '18%';
-    this.rowLength = ROW_LENGTH;
+    this.rowLength = DEFAULT_ROW_LENGTH;
     // if someone has cranked up the font use 1 row instead
     console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`);
     if (PixelRatio.getFontScale() > 2) {
@@ -96,7 +96,7 @@ class SetupRecoveryPhrase extends Component {
   };
 
   render() {
-    // chop the words into ROW_LENGTH-tuples
+    // chop the words into DEFAULT_ROW_LENGTH-tuples
     const words = groupIntoRows(this.state.recoveryPhrase, this.rowLength);
     const styles = {
       rowTextView: {

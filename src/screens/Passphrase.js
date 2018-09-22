@@ -11,9 +11,7 @@ import {
   StatusBar,
   Platform
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
-// import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
@@ -35,8 +33,7 @@ class Passphrase extends Component {
       showErrorText: false,
       userIds: [],
       userId: '',
-      loginAttempt: 1,
-      canada: ''
+      loginAttempt: 1
     };
 
     this.maxLoginAttempts = 10;
@@ -172,7 +169,10 @@ class Passphrase extends Component {
             </View>
             <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
-                <FontAwesome name="info" color="#ffffff" size={20} style={styles.infoIcon} />
+                <Image
+                  style={{ width: wp('8%'), height: hp('5%'), marginTop: hp('1%') }}
+                  source={require('../../img/info_icon_gold.png')}
+                />
               </TouchableOpacity>
             </View>
             {this.state.showErrorText ? (

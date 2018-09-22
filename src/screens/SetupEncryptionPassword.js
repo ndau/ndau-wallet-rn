@@ -41,7 +41,7 @@ class SetupEncryptionPassword extends Component {
     }
 
     SetupStore.setEncryptionPassword(this.state.password);
-    this.props.navigation.navigate('SetupGetRandom');
+    this.props.navigation.navigate('SetupYourWallet');
   };
 
   checkedShowPasswords = () => {

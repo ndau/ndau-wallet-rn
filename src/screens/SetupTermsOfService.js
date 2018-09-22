@@ -1,23 +1,97 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
+import SetupStore from '../model/SetupStore';
+import ndauDashboardApi from '../api/NdauDashboardAPI';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    const nodeNames = [ 'Boylston', 'Newbury', 'Commonwealth', 'Dartmouth', 'Storrow' ];
+
+    this.state = {
+      selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)]
+    };
   }
+
+  sendAccountAddresses = (userId, addresses, token) => {
+    return new Promise((resolve, reject) => {
+      ndauDashboardApi
+        .sendAccountAddresses(userId, addresses, token)
+        .then((whatPersisted) => {
+          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
+          resolve(whatPersisted);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+    });
+  };
+
+  finishSetup = async () => {
+    console.debug('Finishing Setup...');
+    const addresses = await this.keyGeneration();
+
+    this.sendAddressesToOneiro(addresses)
+      .then(() => {
+        const user = this.persistAddresses(addresses);
+
+        NdauNodeAPIHelper.populateCurrentUserWithAddressData(user)
+          .then((userWithData) => {
+            this.props.navigation.navigate('Dashboard', { user: userWithData });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  keyGeneration = async () => {
+    console.debug('Generating all keys from phrase given...');
+    const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
+    console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
+    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
+      'en',
+      recoveryPhraseString
+    );
+    console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
+    const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
+      recoveryPhraseAsBytes,
+      SetupStore.getNumberOfAccounts(),
+      SetupStore.getAddressType()
+    );
+    console.debug(`publicAddresses: ${publicAddresses}`);
+
+    return publicAddresses;
+  };
+
+  sendAddressesToOneiro = (addresses) => {
+    return this.sendAccountAddresses(SetupStore.getUserId(), addresses, SetupStore.getQRCode());
+  };
+
+  persistAddresses = (addresses) => {
+    const user = {
+      userId: SetupStore.getUserId(),
+      addresses: addresses,
+      selectedNode: this.state.selectedNode
+    };
+    AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
+    return user;
+  };
 
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree });
-  };
-
-  showNextSetup = () => {
-    this.props.navigation.navigate('SetupEAINode');
   };
 
   render() {
@@ -362,7 +436,7 @@ class SetupTermsOfService extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.showNextSetup} title="Next" disabled={!this.state.agree} />
+            <CommonButton onPress={this.finishSetup} title="Next" disabled={!this.state.agree} />
           </View>
         </View>
       </SafeAreaView>

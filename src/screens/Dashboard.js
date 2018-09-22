@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { SafeAreaView } from 'react-navigation';
-import { ScrollView, View, Text, StatusBar } from 'react-native';
+import { ScrollView, View, Text, StatusBar, Image, PixelRatio } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
 import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import AlertPanel from '../components/AlertPanel';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 class Dashboard extends Component {
   render() {
@@ -27,9 +31,21 @@ class Dashboard extends Component {
               <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
             </View>
             <View style={cssStyles.dashboardTextContainer}>
-              <Text style={cssStyles.dashboardTextVeryLarge}>
-                {NdauNodeAPIHelper.accountTotalNdauAmount(addressData)} NDU
-              </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Image
+                  style={{
+                    width: wp('7%'),
+                    height: hp('6%'),
+                    marginTop: hp('2.5%') + PixelRatio.getFontScale() * 5,
+                    marginRight: wp('1%')
+                  }}
+                  resizeMode="contain"
+                  source={require('../../img/ndau-icon-green.png')}
+                />
+                <Text style={cssStyles.dashboardTextVeryLarge}>
+                  {NdauNodeAPIHelper.accountTotalNdauAmount(addressData)}
+                </Text>
+              </View>
             </View>
             <View style={cssStyles.dashboardSmallTextContainer}>
               <Text style={cssStyles.dashboardTextSmallGreen}>
@@ -47,7 +63,7 @@ class Dashboard extends Component {
                     index={index}
                     title={NdauNodeAPIHelper.accountNickname(account)}
                     account={account}
-                    lockAdder={NdauNodeAPIHelper.accountNotLocked(account) ? 3 : 0}
+                    lockAdder={NdauNodeAPIHelper.accountNotLocked(account) ? 0 : 3}
                     onNotice={NdauNodeAPIHelper.accountNoticePeriod(account) ? true : false}
                   >
                     {NdauNodeAPIHelper.eaiPercentage(account) ? (

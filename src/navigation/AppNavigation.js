@@ -4,8 +4,6 @@ import DashboardNavigation from './DashboardNavigation';
 import SetupMain from '../screens/SetupMain';
 import SetupEncryptionPassword from '../screens/SetupEncryptionPassword';
 import SetupConfirmRecoveryPhrase from '../screens/SetupConfirmRecoveryPhrase';
-import SetupEAINode from '../screens/SetupEAINode';
-import SetupGetRandom from '../screens/SetupGetRandom';
 import SetupQRCode from '../screens/SetupQRCode';
 import SetupRecoveryPhrase from '../screens/SetupRecoveryPhrase';
 import SetupTermsOfService from '../screens/SetupTermsOfService';
@@ -40,16 +38,6 @@ const SetupConfirmRecoveryPhraseScreen = ({ navigation }) => (
   <SetupConfirmRecoveryPhrase navigation={navigation} />
 );
 SetupConfirmRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
-  header: null
-});
-
-const SetupGetRandomScreen = ({ navigation }) => <SetupGetRandom navigation={navigation} />;
-SetupGetRandomScreen.navigationOptions = ({ navigation }) => ({
-  header: null
-});
-
-const SetupEAINodeScreen = ({ navigation }) => <SetupEAINode navigation={navigation} />;
-SetupEAINodeScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
@@ -93,8 +81,6 @@ const SetupStack = createStackNavigator({
   SetupUserId: { screen: SetupUserIdScreen },
   SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
   SetupConfirmRecoveryPhrase: { screen: SetupConfirmRecoveryPhraseScreen },
-  SetupGetRandom: { screen: SetupGetRandomScreen },
-  SetupEAINode: { screen: SetupEAINodeScreen },
   SetupQRCode: { screen: SetupQRCodeScreen },
   SetupRecoveryPhrase: { screen: SetupRecoveryPhraseScreen },
   SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
