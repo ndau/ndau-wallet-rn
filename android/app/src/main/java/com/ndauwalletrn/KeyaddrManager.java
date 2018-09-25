@@ -46,11 +46,65 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void NewKey(
+            String bytes,
+            Promise promise) {
+        try {
+            promise.resolve(Keyaddr.newKey(bytes).getKey());
+        } catch (Exception e) {
+            promise.reject("problem getting newKey", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
+    public void Child(
+            String key,
+            Integer childIndex,
+            Promise promise) {
+        try {
+            Key theKey = new Key(key);
+
+            promise.resolve(theKey.child(childIndex).getKey());
+        } catch (Exception e) {
+            promise.reject("problem getting child", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
+    public void Neuter(
+            String key,
+            Promise promise) {
+        try {
+            Key theKey = new Key(key);
+
+            promise.resolve(theKey.neuter().getKey());
+        } catch (Exception e) {
+            promise.reject("problem getting neuter", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
+    public void NdauAddress(
+            String key,
+            String chainId,
+            Promise promise) {
+        try {
+            Key theKey = new Key(key);
+
+            promise.resolve(theKey.ndauAddress(chainId).getAddress());
+        } catch (Exception e) {
+            promise.reject("problem getting ndauAddress", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
     public void CreatePublicAddress(
             String bytes,
             Integer count,
             String chainId,
             Promise promise) {
+        //no longer iterate and make this a bridge
+        //this shoudl accept a keynow instead
         try {
             WritableNativeArray array = new WritableNativeArray();
             for (int i = 1; i <= count; i++) {
