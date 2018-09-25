@@ -24,12 +24,16 @@ class SetupEncryptionPassword extends Component {
     this.onPushAnother(event);
   }
 
-  checkPasswords = () => {
+  checkPasswordsExist = () => {
     return this.state.password === this.state.confirmPassword;
   };
 
+  checkPasswordsLength = () => {
+    return this.state.password.length >= 8 && this.state.confirmPassword.length >= 8;
+  };
+
   showNextSetup = () => {
-    if (!this.checkPasswords()) {
+    if (!this.checkPasswordsExist()) {
       Alert.alert(
         'Error',
         'The passwords entered do not match.',
@@ -39,9 +43,19 @@ class SetupEncryptionPassword extends Component {
       this.setState({ textInputColor: '#ff0000' });
       return;
     }
+    if (!this.checkPasswordsLength()) {
+      Alert.alert(
+        'Error',
+        'The password must be at least 8 characters',
+        [ { text: 'OK', onPress: () => {} } ],
+        { cancelable: false }
+      );
+      this.setState({ textInputColor: '#ff0000' });
+      return;
+    }
 
     SetupStore.setEncryptionPassword(this.state.password);
-    this.props.navigation.navigate('SetupGetRandom');
+    this.props.navigation.navigate('SetupYourWallet');
   };
 
   checkedShowPasswords = () => {

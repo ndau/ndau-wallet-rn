@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { StyleSheet } from 'react-native';
-// import { TextButton } from 'react-native-material-buttons';
 import Button from 'react-native-button';
 import {
   widthPercentageToDP as wp,
@@ -15,14 +14,6 @@ class CommonButton extends Component {
   }
   render() {
     return (
-      // <TextButton
-      //   titleStyle={styles.text}
-      //   color="#4e957a"
-      //   titleColor="#ffffff"
-      //   disabledColor="#696969"
-      //   onPress={this.props.onPress}
-      //   {...this.props}
-      // />
       <Button
         style={styles.text}
         disabledContainerStyle={styles.disabledStyle}

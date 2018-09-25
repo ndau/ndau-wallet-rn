@@ -5,18 +5,16 @@ import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
+import EntropyHelper from '../helpers/EntropyHelper';
 
 class SetupYourWallet extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   showNextSetup = () => {
     this.props.navigation.navigate('SetupRecoveryPhrase');
   };
 
   render() {
+    EntropyHelper.generateEntropy();
+
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>

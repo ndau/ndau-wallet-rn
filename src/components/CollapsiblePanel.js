@@ -5,9 +5,15 @@ import {
   View,
   ImageBackground,
   TouchableHighlight,
-  Animated
+  Animated,
+  Image,
+  PixelRatio
 } from 'react-native';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 class CollapsiblePanel extends Component {
   constructor(props) {
@@ -72,18 +78,38 @@ class CollapsiblePanel extends Component {
           source={this.cardBackgrounds[this.props.onNotice ? 6 : this.props.index % 3 + lockAdder]}
           style={{ width: '100%' }}
         >
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this.toggle.bind(this)}
-            underlayColor="transparent"
-          >
+          <TouchableHighlight onPress={this.toggle.bind(this)} underlayColor="transparent">
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
               {this.props.account ? (
-                <Text style={styles.titleRight}>
-                  {NdauNodeAPIHelper.accountNdauAmount(this.props.account)} NDU
-                </Text>
-              ) : null}
+                <View style={{ flexDirection: 'row' }}>
+                  <Image
+                    style={{
+                      width: wp('3%'),
+                      height: hp('2%'),
+                      marginTop: hp('1.7%') + PixelRatio.getFontScale(),
+                      marginRight: wp('.1%')
+                    }}
+                    resizeMode="contain"
+                    source={require('../../img/ndau-icon-white.png')}
+                  />
+                  <Text style={styles.titleRight}>
+                    {NdauNodeAPIHelper.accountNdauAmount(this.props.account)}
+                  </Text>
+                </View>
+              ) : // <Text style={styles.titleRight}>
+              //   <Image
+              //     style={{
+              //       width: wp('8%'),
+              //       height: hp('6%'),
+              //       marginRight: wp('5%')
+              //     }}
+              //     resizeMode="contain"
+              //     source={require('../../img/ndau-icon-white.png')}
+              //   />{' '}
+              //   {NdauNodeAPIHelper.accountNdauAmount(this.props.account)}
+              // </Text>
+              null}
             </View>
           </TouchableHighlight>
           <View style={styles.border} />
@@ -100,7 +126,7 @@ var styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
     overflow: 'hidden',
-    marginBottom: 5,
+    marginBottom: hp('.5%'),
     borderRadius: 5,
     borderWidth: 0.5
   },
@@ -109,43 +135,36 @@ var styles = StyleSheet.create({
   },
   titleLeft: {
     flex: 1,
-    marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 5,
+    marginTop: hp('.5%'),
+    marginLeft: wp('1%'),
+    marginRight: wp('1%'),
+    marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
     fontFamily: 'TitilliumWeb-Bold',
     textAlign: 'left'
   },
   titleRight: {
-    flex: 1,
-    marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 5,
+    flexDirection: 'row',
+    marginTop: hp('.5%'),
+    marginLeft: wp('1%'),
+    marginRight: wp('1%'),
+    marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
     fontFamily: 'TitilliumWeb-Bold',
     textAlign: 'right'
   },
-  button: {},
-  buttonImage: {
-    width: 30,
-    height: 25,
-    margin: 8,
-    backgroundColor: 'transparent'
-  },
   body: {
-    padding: 10,
+    padding: hp('1%'),
     paddingTop: 0
   },
   border: {
     borderBottomColor: 'white',
     borderBottomWidth: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10
+    marginLeft: wp('1%'),
+    marginRight: wp('1%'),
+    marginBottom: hp('1%')
   }
 });
 

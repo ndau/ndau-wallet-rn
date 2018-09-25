@@ -19,11 +19,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import EntropyHelper from '../helpers/EntropyHelper';
 
 var _ = require('lodash');
 
 const MAX_ERRORS = 4; // 4 strikes and you're out
-const ROW_LENGTH = 3; // 3 items per row
+const DEFAULT_ROW_LENGTH = 3; // 3 items per row
 
 let boxWidth = '30%';
 let boxHeight = '10%';
@@ -40,8 +41,8 @@ class SetupConfirmRecoveryPhrase extends Component {
       selected: []
     };
 
-    // chop the words into ROW_LENGTH-tuples
-    this.rowLength = ROW_LENGTH;
+    // chop the words into DEFAULT_ROW_LENGTH-tuples
+    this.rowLength = DEFAULT_ROW_LENGTH;
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1;
       boxWidth = '100%';
@@ -54,7 +55,8 @@ class SetupConfirmRecoveryPhrase extends Component {
   };
 
   pushBack = () => {
-    this.props.navigation.navigate('SetupGetRandom');
+    EntropyHelper.generateEntropy();
+    this.props.navigation.navigate('SetupYourWallet');
   };
 
   render() {

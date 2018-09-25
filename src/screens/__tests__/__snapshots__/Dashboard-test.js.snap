@@ -61,30 +61,53 @@ exports[`testing Dashboard... renders correctly 1`] = `
           }
         }
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
           style={
             Object {
-              "alignItems": "center",
-              "color": "#4d9678",
-              "fontFamily": "TitilliumWeb-Regular",
-              "fontSize": 48,
-              "justifyContent": "center",
-              "paddingBottom": 13.5,
-              "textShadowColor": "rgba(77, 150, 120, .5)",
-              "textShadowOffset": Object {
-                "height": 1,
-                "width": 1,
-              },
-              "textShadowRadius": 6,
+              "flexDirection": "row",
             }
           }
         >
-          NaN
-           NDU
-        </Text>
+          <Image
+            resizeMode="contain"
+            source={
+              Object {
+                "testUri": "../../../img/ndau-icon-green.png",
+              }
+            }
+            style={
+              Object {
+                "height": 80,
+                "marginRight": 7.5,
+                "marginTop": 43.5,
+                "width": 52.5,
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#4d9678",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 48,
+                "justifyContent": "center",
+                "paddingBottom": 13.5,
+                "textShadowColor": "rgba(77, 150, 120, .5)",
+                "textShadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "textShadowRadius": 6,
+              }
+            }
+          >
+            NaN
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -150,7 +173,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
             "borderRadius": 5,
             "borderWidth": 0.5,
             "height": NaN,
-            "marginBottom": 5,
+            "marginBottom": 6.5,
             "overflow": "hidden",
           }
         }
@@ -165,7 +188,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../img/green-locked-card.png",
+                "testUri": "../../../img/green-card.png",
               }
             }
             style={
@@ -194,7 +217,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
             onResponderTerminate={[Function]}
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
-            style={Object {}}
+            style={null}
           >
             <View
               onLayout={[Function]}
@@ -214,35 +237,58 @@ exports[`testing Dashboard... renders correctly 1`] = `
                     "flex": 1,
                     "fontFamily": "TitilliumWeb-Bold",
                     "fontSize": 18,
-                    "marginBottom": 5,
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "marginTop": 5,
+                    "marginBottom": 6.5,
+                    "marginLeft": 7.5,
+                    "marginRight": 7.5,
+                    "marginTop": 6.5,
                     "textAlign": "left",
                   }
                 }
               />
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
+              <View
                 style={
                   Object {
-                    "color": "#fff",
-                    "flex": 1,
-                    "fontFamily": "TitilliumWeb-Bold",
-                    "fontSize": 18,
-                    "marginBottom": 5,
-                    "marginLeft": 10,
-                    "marginRight": 10,
-                    "marginTop": 5,
-                    "textAlign": "right",
+                    "flexDirection": "row",
                   }
                 }
               >
-                NaN
-                 NDU
-              </Text>
+                <Image
+                  resizeMode="contain"
+                  source={
+                    Object {
+                      "testUri": "../../../img/ndau-icon-white.png",
+                    }
+                  }
+                  style={
+                    Object {
+                      "height": 26.5,
+                      "marginRight": 1,
+                      "marginTop": 24.5,
+                      "width": 22.5,
+                    }
+                  }
+                />
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Object {
+                      "color": "#fff",
+                      "flexDirection": "row",
+                      "fontFamily": "TitilliumWeb-Bold",
+                      "fontSize": 18,
+                      "marginBottom": 6.5,
+                      "marginLeft": 7.5,
+                      "marginRight": 7.5,
+                      "marginTop": 6.5,
+                      "textAlign": "right",
+                    }
+                  }
+                >
+                  NaN
+                </Text>
+              </View>
             </View>
           </View>
           <View
@@ -250,9 +296,9 @@ exports[`testing Dashboard... renders correctly 1`] = `
               Object {
                 "borderBottomColor": "white",
                 "borderBottomWidth": 1,
-                "marginBottom": 10,
-                "marginLeft": 10,
-                "marginRight": 10,
+                "marginBottom": 13.5,
+                "marginLeft": 7.5,
+                "marginRight": 7.5,
               }
             }
           />
@@ -260,7 +306,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
             onLayout={[Function]}
             style={
               Object {
-                "padding": 10,
+                "padding": 13.5,
                 "paddingTop": 0,
               }
             }
@@ -320,7 +366,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
           }
         >
           The estimated value of ndau in US dollars can be calculated using the Target Price at which new ndau have most recently been issued. The value shown here is calculated using that method as of the issue price on 
-          09/20/2018
+          09/22/2018
           . The Axiom Foundation bears no responsibility or liability for the calculation of that estimated value, or for decisions based on that estimated value.
         </Text>
       </View>

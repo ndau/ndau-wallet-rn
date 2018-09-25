@@ -14,12 +14,16 @@ const populateCurrentUserWithAddressData = async (user) => {
     console.log(`marketPrice is ${marketPrice} totalNdau is ${totalNdau}`);
 
     user.addressData = addressData;
+    //why not use .toLocaleString you ask...here is why:
+    //https://github.com/facebook/react-native/issues/15717
     user.currentPrice = marketPrice
-      ? parseFloat(totalNdau * marketPrice).toLocaleString(AppConfig.LOCALE, {
-          style: 'currency',
-          currency: AppConfig.CURRENT_PRICE_CURRENCY
-        })
-      : 0.0;
+      ? '$' +
+        parseFloat(totalNdau * marketPrice)
+          .toFixed(2)
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      : '$0.00';
+    console.log(`currentPrice: ${user.currentPrice}`);
 
     const eaiPercentageMap = new Map();
     eaiPercentageData.forEach((account) => {
