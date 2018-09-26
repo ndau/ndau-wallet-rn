@@ -7,7 +7,7 @@ import SetupStore from '../../model/SetupStore';
 
 const mockKeyaddr = () => {
   NativeModules.KeyaddrManager = {
-    KeyaddrWordsFromBytes: jest.fn((lng, ent) => {
+    keyaddrWordsFromBytes: jest.fn((lng, ent) => {
       const lorem = 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum'.split(
         ' '
       );
@@ -44,12 +44,12 @@ describe('testing SetupRecoveryPhrase...', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('calls KeyaddrWordsFromBytes as expected', () => {
+  it('calls keyaddrWordsFromBytes as expected', () => {
     mockKeyaddr();
     SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
     this.wrapper = mount(makeComponent());
     this.wrapper.update();
-    expect(NativeModules.KeyaddrManager.KeyaddrWordsFromBytes.mock.calls).toEqual([
+    expect(NativeModules.KeyaddrManager.keyaddrWordsFromBytes.mock.calls).toEqual([
       [ 'en', 'dGVzdGluZ3dlc3Rpbmdh' ]
     ]);
   });

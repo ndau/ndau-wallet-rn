@@ -9,8 +9,7 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
-  Platform,
-  NativeModules
+  Platform
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
@@ -43,22 +42,7 @@ class Passphrase extends Component {
   componentWillMount = async () => {
     try {
       const userIds = await AsyncStorageHelper.getAllKeys();
-      // let userIdsForDropdown = userIds.map((userId) => {
-      //   return { value: userId };
-      // });
       this.setState({ userIds });
-
-      const privateKey = await NativeModules.KeyaddrManager.NewKey('NWIzZWExNjgzYzBkNWJiYw==');
-      console.log(`privateKey generation test: ${privateKey}`);
-      const childPrivateKey = await NativeModules.KeyaddrManager.Child(privateKey, 1);
-      console.log(`childPrivateKey generation test: ${childPrivateKey}`);
-      const childPublicKey = await NativeModules.KeyaddrManager.Neuter(childPrivateKey);
-      console.log(`childPublicKey generation test: ${childPublicKey}`);
-      const childPublicAddress = await NativeModules.KeyaddrManager.NdauAddress(
-        childPublicKey,
-        'tn'
-      );
-      console.log(`childPublicAddress generation test: ${childPublicAddress}`);
     } catch (error) {
       console.error(error);
     }

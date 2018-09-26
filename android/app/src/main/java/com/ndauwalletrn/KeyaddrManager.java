@@ -12,7 +12,6 @@ import keyaddr.Address;
 import keyaddr.Key;
 import keyaddr.Keyaddr;
 
-
 public class KeyaddrManager extends ReactContextBaseJavaModule {
     public KeyaddrManager(ReactApplicationContext reactApplicationContext) {
         super(reactApplicationContext);
@@ -24,9 +23,7 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void KeyaddrWordsFromBytes(
-            String lang, String bytes,
-            Promise promise) {
+    public void keyaddrWordsFromBytes(String lang, String bytes, Promise promise) {
         try {
             promise.resolve(Keyaddr.wordsFromBytes(lang, bytes));
         } catch (Exception e) {
@@ -35,9 +32,7 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void KeyaddrWordsToBytes(
-            String lang, String words,
-            Promise promise) {
+    public void keyaddrWordsToBytes(String lang, String words, Promise promise) {
         try {
             promise.resolve(Keyaddr.wordsToBytes(lang, words));
         } catch (Exception e) {
@@ -46,9 +41,7 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void NewKey(
-            String bytes,
-            Promise promise) {
+    public void newKey(String bytes, Promise promise) {
         try {
             promise.resolve(Keyaddr.newKey(bytes).getKey());
         } catch (Exception e) {
@@ -57,12 +50,9 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void Child(
-            String key,
-            Integer childIndex,
-            Promise promise) {
+    public void child(String key, Integer childIndex, Promise promise) {
         try {
-            Key theKey = new Key(key);
+            Key theKey = Keyaddr.fromString(key);
 
             promise.resolve(theKey.child(childIndex).getKey());
         } catch (Exception e) {
@@ -71,25 +61,20 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void Neuter(
-            String key,
-            Promise promise) {
+    public void toPublic(String key, Promise promise) {
         try {
-            Key theKey = new Key(key);
+            Key theKey = Keyaddr.fromString(key);
 
-            promise.resolve(theKey.neuter().getKey());
+            promise.resolve(theKey.toPublic().getKey());
         } catch (Exception e) {
             promise.reject("problem getting neuter", e.getLocalizedMessage());
         }
     }
 
     @ReactMethod
-    public void NdauAddress(
-            String key,
-            String chainId,
-            Promise promise) {
+    public void ndauAddress(String key, String chainId, Promise promise) {
         try {
-            Key theKey = new Key(key);
+            Key theKey = Keyaddr.fromString(key);
 
             promise.resolve(theKey.ndauAddress(chainId).getAddress());
         } catch (Exception e) {
@@ -98,13 +83,9 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void CreatePublicAddress(
-            String bytes,
-            Integer count,
-            String chainId,
-            Promise promise) {
-        //no longer iterate and make this a bridge
-        //this shoudl accept a keynow instead
+    public void CreatePublicAddress(String bytes, Integer count, String chainId, Promise promise) {
+        // no longer iterate and make this a bridge
+        // this shoudl accept a keynow instead
         try {
             WritableNativeArray array = new WritableNativeArray();
             for (int i = 1; i <= count; i++) {

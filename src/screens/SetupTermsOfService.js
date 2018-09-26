@@ -61,11 +61,12 @@ class SetupTermsOfService extends Component {
     console.debug('Generating all keys from phrase given...');
     const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
     console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
-    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.KeyaddrWordsToBytes(
+    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
       'en',
       recoveryPhraseString
     );
     console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
+
     const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
       recoveryPhraseAsBytes,
       SetupStore.getNumberOfAccounts(),
