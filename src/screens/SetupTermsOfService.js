@@ -9,6 +9,7 @@ import SetupStore from '../model/SetupStore';
 import ndauDashboardApi from '../api/NdauDashboardAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -21,28 +22,26 @@ class SetupTermsOfService extends Component {
     };
   }
 
-  sendAccountAddresses = (userId, addresses, token) => {
-    return new Promise((resolve, reject) => {
-      ndauDashboardApi
-        .sendAccountAddresses(userId, addresses, token)
-        .then((whatPersisted) => {
-          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
-          resolve(whatPersisted);
-        })
-        .catch((error) => {
-          console.error(error);
-          reject(error);
-        });
-    });
-  };
-
   finishSetup = async () => {
     console.debug('Finishing Setup...');
-    const addresses = await this.keyGeneration();
+    console.debug('Generating all keys from phrase given...');
+    const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
+    console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
+    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+      'en',
+      recoveryPhraseString
+    );
+    console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
+    const user = await KeyAddrGenManager.createFirstTimeUser(
+      SetupStore.getUserId(),
+      SetupStore.getNumberOfAccounts(),
+      recoveryPhraseAsBytes,
+      SetupStore.getAddressType()
+    );
 
-    this.sendAddressesToOneiro(addresses)
+    this.sendAddressesToOneiro(user.accounts)
       .then(() => {
-        const user = this.persistAddresses(addresses);
+        AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
 
         NdauNodeAPIHelper.populateCurrentUserWithAddressData(user)
           .then((userWithData) => {
@@ -57,38 +56,23 @@ class SetupTermsOfService extends Component {
       });
   };
 
-  keyGeneration = async () => {
-    console.debug('Generating all keys from phrase given...');
-    const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
-    console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
-    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-      'en',
-      recoveryPhraseString
-    );
-    console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
-
-    const publicAddresses = await NativeModules.KeyaddrManager.CreatePublicAddress(
-      recoveryPhraseAsBytes,
-      SetupStore.getNumberOfAccounts(),
-      SetupStore.getAddressType()
-    );
-    console.debug(`publicAddresses: ${publicAddresses}`);
-
-    return publicAddresses;
-  };
-
   sendAddressesToOneiro = (addresses) => {
     return this.sendAccountAddresses(SetupStore.getUserId(), addresses, SetupStore.getQRCode());
   };
 
-  persistAddresses = (addresses) => {
-    const user = {
-      userId: SetupStore.getUserId(),
-      addresses: addresses,
-      selectedNode: this.state.selectedNode
-    };
-    AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
-    return user;
+  sendAccountAddresses = (userId, addresses, token) => {
+    return new Promise((resolve, reject) => {
+      ndauDashboardApi
+        .sendAccountAddresses(userId, addresses, token)
+        .then((whatPersisted) => {
+          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
+          resolve(whatPersisted);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+    });
   };
 
   checkedAgree = () => {

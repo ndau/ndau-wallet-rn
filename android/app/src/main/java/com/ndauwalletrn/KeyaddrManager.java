@@ -61,6 +61,17 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void hardenedChild(String key, Integer childIndex, Promise promise) {
+        try {
+            Key theKey = Keyaddr.fromString(key);
+
+            promise.resolve(theKey.hardenedChild(childIndex).getKey());
+        } catch (Exception e) {
+            promise.reject("problem getting child", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
     public void toPublic(String key, Promise promise) {
         try {
             Key theKey = Keyaddr.fromString(key);

@@ -1,29 +1,34 @@
 class User {
   constructor() {
-    this._userId = '';
-    this._accountCreationKey = '';
-    this._accounts = [];
-    this._keys = {};
+    this.userId = '';
+    this.accountCreationKey = '';
+    this.accounts = [];
+    this.keys = {};
   }
 
   setUserId = (userId) => {
-    this._userId = userId;
+    this.userId = userId;
   };
 
   setAccountCreationKey = (accountCreationKey) => {
-    this._accountCreationKey = accountCreationKey;
+    this.accountCreationKey = accountCreationKey;
   };
 
   setAccounts = (accounts) => {
-    this._accounts = accounts;
+    this.accounts = accounts;
   };
 
   setKeys = (keys) => {
-    this._keys = keys;
+    this.keys = keys;
   };
 
   toJSON = () => {
-    JSON.stringify(JSON.parse(this), null, 2);
+    return {
+      userId: this.userId,
+      accountCreationKey: this.accountCreationKey,
+      accounts: this.accounts,
+      keys: this.keys
+    };
   };
 }
 

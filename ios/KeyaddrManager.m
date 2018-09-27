@@ -47,24 +47,24 @@ RCT_REMAP_METHOD(keyaddrWordsToBytes,lang:(NSString*)lang words:(NSString*)words
 RCT_REMAP_METHOD(newKey,seed:(NSString*)seed resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"NewKey call on %@", seed);
+  RCTLogInfo(@"newKey call on %@", seed);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrNewKey(seed, error);
 
   if (error) {
-    reject(@"no_events", @"Issue calling NewKey", *error);
+    reject(@"no_events", @"Issue calling newKey", *error);
   } else {
     resolve([keyAddrKey key]);
   }
 }
 
-RCT_REMAP_METHOD(child,key:(NSString*)key index:(NSNumber*)index resolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(child,key:(NSString*)key index:(nonnull NSNumber*)index resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"NewKey call on %@", key);
+  RCTLogInfo(@"child call on %@", key);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
-  KeyaddrKey *privateKey = [keyAddrKey child:*index error:error];
+  KeyaddrKey *privateKey = [keyAddrKey child:[index intValue] error:error];
 
   if (error) {
     reject(@"no_events", @"Issue calling child", *error);
@@ -73,10 +73,25 @@ RCT_REMAP_METHOD(child,key:(NSString*)key index:(NSNumber*)index resolver:(RCTPr
   }
 }
 
+RCT_REMAP_METHOD(hardenedChild,keyHC:(NSString*)keyHC index:(nonnull NSNumber*)index resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject )
+{
+  RCTLogInfo(@"hardenedChild call on %@", keyHC);
+  NSError *__autoreleasing *error = NULL;
+  KeyaddrKey *keyAddrKey = KeyaddrFromString(keyHC, error);
+  KeyaddrKey *privateKey = [keyAddrKey hardenedChild:[index intValue] error:error];
+  
+  if (error) {
+    reject(@"no_events", @"Issue calling hardenedChild", *error);
+  } else {
+    resolve([privateKey key]);
+  }
+}
+
 RCT_REMAP_METHOD(toPublic,key:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"NewKey call on %@", key);
+  RCTLogInfo(@"toPublic call on %@", key);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
   KeyaddrKey *publicKey = [keyAddrKey toPublic:error];
@@ -91,7 +106,7 @@ RCT_REMAP_METHOD(toPublic,key:(NSString*)key resolver:(RCTPromiseResolveBlock)re
 RCT_REMAP_METHOD(ndauAddress,key:(NSString*)key chainId:(NSString*)chainId  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"NewKey call on %@", key);
+  RCTLogInfo(@"toPublic call on %@", key);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
   KeyaddrAddress *address = [keyAddrKey ndauAddress:chainId error:error];
