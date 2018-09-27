@@ -113,7 +113,7 @@ class SetupRecoveryPhrase extends Component {
             <Stepper screenNumber={6} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
-                Write this phrase down. You will want to store it in a secure location.
+                Write this 12-word phrase down and store it in a secure location.
               </Text>
             </View>
             {words.map((row, rowIndex) => {

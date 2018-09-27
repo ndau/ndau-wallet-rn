@@ -76,7 +76,7 @@ class SetupConfirmRecoveryPhrase extends Component {
             <Stepper screenNumber={7} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
-                Demonstrate that you wrote the phrase down by tapping the words below in order.{' '}
+                Confirm that you wrote the phrase down by tapping the words below in order.{' '}
               </Text>
             </View>
             {/* <TextInput
