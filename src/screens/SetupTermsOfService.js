@@ -105,6 +105,8 @@ class SetupTermsOfService extends Component {
           >
             <Stepper screenNumber={8} />
             <View>
+              <Text style={styles.mainLegalTextHeading}>Terms of Use{'\n'}</Text>
+
               <Text style={styles.legalTextHeading}>{'\n'}1. Scope</Text>
               <Text style={styles.legalText}>
                 {'\n'}1.1. These Terms of Use (“<Text style={styles.legalTextBold}>Terms</Text>”),
@@ -477,6 +479,12 @@ const styles = StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontWeight: 'bold',
     textDecorationLine: 'underline'
+  },
+  mainLegalTextHeading: {
+    color: '#ffffff',
+    fontSize: 19,
+    fontFamily: 'TitilliumWeb-Regular',
+    fontWeight: 'bold',
   }
 });
 
