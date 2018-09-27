@@ -43,9 +43,8 @@ class SetupStore {
   }
 
   setQRCode(qrCode) {
-    console.debug(`SetupStore.setQRCode before ${qrCode}`);
     this._qrCode = qrCode;
-    console.debug(`SetupStore.setQRCode after ${this._qrCode}`);
+    console.debug(`SetupStore.setQRCode ${this._qrCode}`);
   }
 
   getQRCode() {
@@ -62,6 +61,7 @@ class SetupStore {
     console.debug(`SetupStore.getEncryptionPassword ${this._encryptionPassword}`);
     return this._encryptionPassword;
   }
+  yarn;
 
   setEntropy(entropy) {
     this._entropy = entropy;

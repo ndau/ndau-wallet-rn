@@ -18,10 +18,10 @@ class SetupQRCode extends Component {
     let qrToken = '';
     let codeCaptured = false;
 
-    if (__DEV__) {
-      qrToken = 'ndqrc0ffeefacade';
-      codeCaptured = true;
-    }
+    // if (__DEV__) {
+    //   qrToken = 'ndqrc0ffeefacade';
+    //   codeCaptured = true;
+    // }
 
     this.state = {
       textColor: '#ffffff',
