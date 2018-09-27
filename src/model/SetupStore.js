@@ -43,8 +43,9 @@ class SetupStore {
   }
 
   setQRCode(qrCode) {
+    console.debug(`SetupStore.setQRCode before ${qrCode}`);
     this._qrCode = qrCode;
-    console.debug(`SetupStore.setQRCode ${this._qrCode}`);
+    console.debug(`SetupStore.setQRCode after ${this._qrCode}`);
   }
 
   getQRCode() {

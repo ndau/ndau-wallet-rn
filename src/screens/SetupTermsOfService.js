@@ -39,7 +39,7 @@ class SetupTermsOfService extends Component {
       SetupStore.getAddressType()
     );
 
-    this.sendAddressesToOneiro(user.accounts)
+    this.sendAddressesToOneiro(user)
       .then(() => {
         AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
 
@@ -56,7 +56,11 @@ class SetupTermsOfService extends Component {
       });
   };
 
-  sendAddressesToOneiro = (addresses) => {
+  sendAddressesToOneiro = (user) => {
+    const addresses = user.accounts.map((value) => {
+      return value.address;
+    });
+    console.log(`sending the following to the accountAddresses DB: ${addresses}`);
     return this.sendAccountAddresses(SetupStore.getUserId(), addresses, SetupStore.getQRCode());
   };
 

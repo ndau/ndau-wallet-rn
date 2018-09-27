@@ -1,6 +1,6 @@
 const HARDENED_CHILD_BIP_44 = 44;
 const ACCOUNT_CREATION_KEY_CHILD = 100;
-const NDAU_CONSTANT = 200;
+const NDAU_CONSTANT = 20036; //which is 0x4e44 in hex, which are the two letters ND in ASCII
 const DERIVED_ROOT_YES = 'yes';
 const DERIVED_ROOT_NO = 'no';
 const DERIVED_ROOT_UNKNOWN = 'unknown';
