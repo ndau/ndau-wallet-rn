@@ -61,25 +61,25 @@ class SetupMain extends Component {
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
                 <Text style={cssStyles.wizardText}>
-                  Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of
-                  value.
+                  Welcome to ndau, the world’s first buoyant digital currency.
                   {Platform.OS === 'android' ? '\n' : ''}
                 </Text>
               </View>
             </TouchableWithoutFeedback>
             <View>
               <Text style={cssStyles.wizardText}>
-                Currently, ndau is only available to accredited investors. You will need to have
-                made your purchase through our site and have your six-character ID code ready in
-                order to access this app before launch.{Platform.OS === 'android' ? '\n' : ''}
+                Currently, ndau is only available to accredited investors who have already 
+                made an ndau purchase. To access this app, you will need the user ID we gave 
+                you.
+                {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
             <View>
               <Text style={cssStyles.wizardText}>
-                To get started securely, we will walk you through creating a new wallet. You will
-                create a password to access this wallet, and a 12-word recovery passphrase that can
-                be used to restore this wallet should you lose access to it (e.g. if you were to
-                lose your mobile device).{Platform.OS === 'android' ? '\n' : ''}
+                You will set a password to protect this app, and be given the unique recovery 
+                phrase which can be used to restore your wallet. Be ready to write both down. 
+                If you do not, you will lose access to your ndau.
+                {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
           </ScrollView>

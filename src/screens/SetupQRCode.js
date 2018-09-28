@@ -70,9 +70,8 @@ class SetupQRCode extends Component {
             <Stepper screenNumber={3} />
             <View>
               <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
-                This app will need access to your device's camera to scan address codes, so you can
-                send and receive ndau. Start the permission process to scan the code we just sent
-                you.
+                You will use your device’s camera to scan address codes to send and receive 
+                ndau. Start the permission process now to scan the code we just emailed you.
               </Text>
               <CommonButton
                 onPress={() => {
@@ -98,8 +97,8 @@ class SetupQRCode extends Component {
                         { marginTop: hp('1.5%'), marginBottom: hp('1.5%'), marginRight: wp('2%') }
                       ]}
                     >
-                      Point this device's camera at the QR code square in the email we sent, so that
-                      it appears below.
+                      Point this device’s camera at the QR code square in the email we sent, 
+                      so that it appears below.
                     </Text>
                   }
                 />
