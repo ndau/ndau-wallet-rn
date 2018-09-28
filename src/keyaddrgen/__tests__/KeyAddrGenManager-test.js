@@ -31,8 +31,7 @@ let seedPhraseArray = [
 const userId = 'TAC-3PY';
 const numberOfAccounts = 5;
 const chainId = 'tn';
-const errorString =
-  'Error: you MUST pass userId, numberOfAccounts, recoveryPhrase and chainId to this method';
+const errorString = 'Error: you MUST pass userId, recoveryPhrase to this method';
 const bytes = 'ZWEQAwQFBgcICQoLDA0ODw==';
 const initialPrivateKey =
   'npvt8aaaaaaaaaaaadyj632qv3ip7jhi66dxjzdtbvabf2nrrupjaqignfha5smckbu4nagfhwce3f9gfutkhmk5weuicjwyrsiax8qgq56bnhg5wrb6uwbigqk3bgw3';
@@ -57,6 +56,39 @@ ndauAddress.mockReturnValue(address);
 test('createFirstTimeUser test', async () => {
   const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
     userId,
+    bytes,
+    chainId,
+    numberOfAccounts
+  );
+
+  console.log(`firstTimeUser: ${JSON.stringify(firstTimeUser)}`);
+
+  expect(firstTimeUser).toBeDefined();
+  expect(JSON.stringify(firstTimeUser)).toBe(
+    `{"userId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","accounts":[{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}}],"keys":{"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","path":"/44'/20036'/100","derivedFromRoot":"yes"}},"addresses":["tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn"]}`
+  );
+});
+
+test('createFirstTimeUser no userId', async () => {
+  try {
+    const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
+      null,
+      bytes,
+      chainId,
+      numberOfAccounts
+    );
+  } catch (error) {
+    console.error(error);
+    expect(error.toString()).toBe(errorString);
+    return;
+  }
+
+  console.log(`firstTimeUser: ${firstTimeUser}`);
+});
+
+test('createFirstTimeUser with 0, as this will be possible post Genesis', async () => {
+  const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
+    userId,
     numberOfAccounts,
     bytes,
     chainId
@@ -66,58 +98,13 @@ test('createFirstTimeUser test', async () => {
 
   expect(firstTimeUser).toBeDefined();
   expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","accounts":[{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}}],"keys":{"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","path":"/44'/200'/100","derivedFromRoot":"yes"}}}`
+    `{"userId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","accounts":[],"keys":{"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","path":"/44'/20036'/100","derivedFromRoot":"yes"}},"addresses":[]}`
   );
-});
-
-test('createFirstTimeUser no userId', async () => {
-  try {
-    const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
-      null,
-      numberOfAccounts,
-      bytes,
-      chainId
-    );
-  } catch (error) {
-    console.error(error);
-    expect(error.toString()).toBe(errorString);
-    return;
-  }
-
-  console.log(`firstTimeUser: ${firstTimeUser}`);
-});
-
-test('createFirstTimeUser no numberOfAccounts', async () => {
-  try {
-    await KeyAddrGenManager.createFirstTimeUser(userId, undefined, bytes, chainId);
-  } catch (error) {
-    console.error(error);
-    expect(error.toString()).toBe(errorString);
-    return;
-  }
-
-  console.log(`firstTimeUser: ${firstTimeUser}`);
 });
 
 test('createFirstTimeUser no bytes', async () => {
   try {
-    await KeyAddrGenManager.createFirstTimeUser(userId, numberOfAccounts, null, chainId);
-  } catch (error) {
-    console.error(error);
-    expect(error.toString()).toBe(errorString);
-    return;
-  }
-
-  console.log(`firstTimeUser: ${firstTimeUser}`);
-});
-
-test('createFirstTimeUser no chainId', async () => {
-  try {
-    const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
-      userId,
-      numberOfAccounts,
-      bytes
-    );
+    await KeyAddrGenManager.createFirstTimeUser(userId, null, chainId);
   } catch (error) {
     console.error(error);
     expect(error.toString()).toBe(errorString);

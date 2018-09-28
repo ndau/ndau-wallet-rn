@@ -62,6 +62,23 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
               Object {
                 "color": "#ffffff",
                 "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 19,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Terms of Use
+            
+
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
                 "fontSize": 16,
                 "fontWeight": "bold",
                 "textDecorationLine": "underline",

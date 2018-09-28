@@ -34,9 +34,9 @@ class SetupTermsOfService extends Component {
     console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
     const user = await KeyAddrGenManager.createFirstTimeUser(
       SetupStore.getUserId(),
-      SetupStore.getNumberOfAccounts(),
       recoveryPhraseAsBytes,
-      SetupStore.getAddressType()
+      SetupStore.getAddressType(),
+      SetupStore.getNumberOfAccounts()
     );
 
     this.sendAddressesToOneiro(user)
@@ -57,11 +57,12 @@ class SetupTermsOfService extends Component {
   };
 
   sendAddressesToOneiro = (user) => {
-    const addresses = user.accounts.map((value) => {
-      return value.address;
-    });
-    console.log(`sending the following to the accountAddresses DB: ${addresses}`);
-    return this.sendAccountAddresses(SetupStore.getUserId(), addresses, SetupStore.getQRCode());
+    console.log(`sending the following to the accountAddresses DB: ${user.addresses}`);
+    return this.sendAccountAddresses(
+      SetupStore.getUserId(),
+      user.addresses,
+      SetupStore.getQRCode()
+    );
   };
 
   sendAccountAddresses = (userId, addresses, token) => {
@@ -473,7 +474,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 19,
     fontFamily: 'TitilliumWeb-Regular',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   }
 });
 

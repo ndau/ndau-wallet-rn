@@ -221,9 +221,9 @@ exports[`testing Passphrase... renders correctly 1`] = `
               }
               style={
                 Object {
-                  "height": 66.5,
+                  "height": 38,
                   "marginTop": 13.5,
-                  "width": 60,
+                  "width": 35,
                 }
               }
             />

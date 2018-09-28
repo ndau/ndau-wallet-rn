@@ -13,8 +13,8 @@ export default StyleSheet.create({
     paddingTop: wp('.3%')
   },
   drawerTextImage: {
-    width: wp('10.8%'),
-    height: hp('6%'),
+    width: 35,
+    height: 35,
     marginRight: wp('2%'),
     marginLeft: wp('2%')
   },

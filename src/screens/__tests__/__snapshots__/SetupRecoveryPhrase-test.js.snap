@@ -70,7 +70,7 @@ exports[`testing SetupRecoveryPhrase... renders correctly 1`] = `
               }
             }
           >
-            Write this phrase down. You will want to store it in a secure location.
+            Write this 12-word phrase down and store it in a secure location.
           </Text>
         </View>
       </View>

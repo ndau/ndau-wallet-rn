@@ -5,11 +5,14 @@ import { NativeModules } from 'react-native';
 import AppConstants from '../AppConstants';
 
 // This function will create the initial User
-const createFirstTimeUser = async (userId, numberOfAccounts, recoveryBytes, chainId) => {
-  if (!userId || !numberOfAccounts || !recoveryBytes || !chainId) {
-    throw new Error(
-      'you MUST pass userId, numberOfAccounts, recoveryPhrase and chainId to this method'
-    );
+const createFirstTimeUser = async (
+  userId,
+  recoveryBytes,
+  chainId = AppConstants.MAINNET_ADDRESS,
+  numberOfAccounts = 0
+) => {
+  if (!userId || !recoveryBytes) {
+    throw new Error('you MUST pass userId, recoveryPhrase to this method');
   }
 
   try {
@@ -19,7 +22,14 @@ const createFirstTimeUser = async (userId, numberOfAccounts, recoveryBytes, chai
     const accountCreationKey = await _createAccountCreationKey(recoveryBytes);
     user.setAccountCreationKey(accountCreationKey);
     user.setKeys(_createInitialKeys(accountCreationKey));
-    user.setAccounts(await _createAccounts(numberOfAccounts, accountCreationKey, chainId));
+    if (numberOfAccounts > 0) {
+      user.setAccounts(await _createAccounts(numberOfAccounts, accountCreationKey, chainId));
+
+      const addresses = user.accounts.map((value) => {
+        return value.address;
+      });
+      user.setAddresses(addresses);
+    }
 
     return user;
   } catch (error) {
