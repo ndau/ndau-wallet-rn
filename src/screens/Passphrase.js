@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
-  Platform
+  Platform,
+  NativeModules
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';

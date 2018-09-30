@@ -118,6 +118,20 @@ RCT_REMAP_METHOD(ndauAddress,key:(NSString*)key chainId:(NSString*)chainId  reso
   }
 }
 
+RCT_REMAP_METHOD(deriveFrom, parentKey:(NSString*)parentKey parentPath:(NSString*)parentPath childPath:(NSString*)childPath resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject )
+{
+  RCTLogInfo(@"deriveFrom call on %@", parentPath);
+  NSError *__autoreleasing *error = NULL;
+  KeyaddrKey *keyAddrKey = KeyaddrDeriveFrom(parentKey, parentPath, childPath, error);
+  
+  if (error) {
+    reject(@"no_events", @"Issue calling deriveFrom", *error);
+  } else {
+    resolve([keyAddrKey key]);
+  }
+}
+
 RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count chainId:(NSString*)chainId neuterithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {

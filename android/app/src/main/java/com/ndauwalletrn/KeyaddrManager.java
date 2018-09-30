@@ -94,6 +94,17 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void deriveFrom(String parentKey, String parentPath, String childPath, Promise promise) {
+        try {
+            Key theKey = Keyaddr.deriveFrom(parentKey, parentPath, childPath);
+
+            promise.resolve(theKey.getKey());
+        } catch (Exception e) {
+            promise.reject("problem getting deriveFrom", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
     public void CreatePublicAddress(String bytes, Integer count, String chainId, Promise promise) {
         // no longer iterate and make this a bridge
         // this shoudl accept a keynow instead

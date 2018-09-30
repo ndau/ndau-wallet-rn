@@ -23,7 +23,7 @@ const createFirstTimeUser = async (
     user.setAccountCreationKey(accountCreationKey);
     user.setKeys(_createInitialKeys(accountCreationKey));
     if (numberOfAccounts > 0) {
-      user.setAccounts(await _createAccounts(numberOfAccounts, accountCreationKey, chainId));
+      user.setAccounts(await _createAccounts(numberOfAccounts, accountCreationKey, chainId, user));
 
       const addresses = user.accounts.map((value) => {
         return value.address;
@@ -39,17 +39,10 @@ const createFirstTimeUser = async (
 
 const _createAccountCreationKey = async (recoveryBytes) => {
   const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes);
-  const bip44HardenedChild = await NativeModules.KeyaddrManager.hardenedChild(
+  const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
     rootPrivateKey,
-    AppConstants.HARDENED_CHILD_BIP_44
-  );
-  const ndauConstantHardenedChild = await NativeModules.KeyaddrManager.hardenedChild(
-    bip44HardenedChild,
-    AppConstants.NDAU_CONSTANT
-  );
-  const accountCreationKey = await NativeModules.KeyaddrManager.child(
-    ndauConstantHardenedChild,
-    AppConstants.ACCOUNT_CREATION_KEY_CHILD
+    '/',
+    _generateRootPath()
   );
   return accountCreationKey;
 };
@@ -79,12 +72,30 @@ const _createInitialKeys = (accountCreationKey) => {
   return returnValue;
 };
 
-const _createAccounts = async (numberOfAccounts, accountCreationKey, chainId) => {
+const _createKey = (key, path) => {
+  let newKey = new Key();
+  newKey.setKey(key);
+  newKey.setDerivedFromRoot(AppConstants.DERIVED_ROOT_YES);
+  newKey.setPath(path);
+  return newKey.toJSON();
+};
+
+const _createAccounts = async (numberOfAccounts, accountCreationKey, chainId, user) => {
   const accounts = [];
   for (let i = 1; i <= numberOfAccounts; i++) {
     const account = new Account();
+    const childPath = _generateRootPath() + '/' + i;
+
     const privateKeyForAddress = await NativeModules.KeyaddrManager.child(accountCreationKey, i);
-    const address = await NativeModules.KeyaddrManager.ndauAddress(privateKeyForAddress, chainId);
+    const newKey = _createKey(privateKeyForAddress, childPath);
+    user.keys[privateKeyForAddress] = newKey;
+
+    const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress);
+    const newPublicKey = _createKey(publicKey, childPath);
+    console.log(`newPublicKey: ${newPublicKey}`);
+    user.keys[publicKey] = newPublicKey;
+
+    const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
     account.setAddress(address);
     accounts.push(account);
   }

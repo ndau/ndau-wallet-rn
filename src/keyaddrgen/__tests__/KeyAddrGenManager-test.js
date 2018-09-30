@@ -9,7 +9,8 @@ jest.mock('NativeModules', () => {
       newKey: jest.fn(),
       child: jest.fn(),
       hardenedChild: jest.fn(),
-      ndauAddress: jest.fn()
+      ndauAddress: jest.fn(),
+      deriveFrom: jest.fn()
     }
   };
 });
@@ -52,6 +53,8 @@ const child = sinon.spy(NativeModules.KeyaddrManager, 'child');
 child.mockReturnValue(childPrivate100);
 const ndauAddress = sinon.spy(NativeModules.KeyaddrManager, 'ndauAddress');
 ndauAddress.mockReturnValue(address);
+const deriveFrom = sinon.spy(NativeModules.KeyaddrManager, 'deriveFrom');
+deriveFrom.mockReturnValue(childPrivate100);
 
 test('createFirstTimeUser test', async () => {
   const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
