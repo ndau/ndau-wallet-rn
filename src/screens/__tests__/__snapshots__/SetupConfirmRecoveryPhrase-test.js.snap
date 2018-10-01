@@ -70,7 +70,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
               }
             }
           >
-            Confirm that you wrote the phrase down by tapping the words below in order.
+            To confirm that you recorded the phrase, tap the words below in order.
              
           </Text>
         </View>
