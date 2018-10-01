@@ -88,11 +88,11 @@ const _createAccounts = async (numberOfAccounts, accountCreationKey, chainId, us
 
     const privateKeyForAddress = await NativeModules.KeyaddrManager.child(accountCreationKey, i);
     const newKey = _createKey(privateKeyForAddress, childPath);
+
     user.keys[privateKeyForAddress] = newKey;
 
     const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress);
     const newPublicKey = _createKey(publicKey, childPath);
-    console.log(`newPublicKey: ${newPublicKey}`);
     user.keys[publicKey] = newPublicKey;
 
     const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);

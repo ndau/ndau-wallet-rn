@@ -2,8 +2,16 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Dashboard from '../Dashboard';
 import renderer from 'react-test-renderer';
+import { getTodaysDate } from '../../helpers/DateHelper';
+
+jest.mock('../../helpers/DateHelper', () => ({
+  getTodaysDate: jest.fn()
+}));
 
 describe('testing Dashboard...', () => {
+  getTodaysDate.mockImplementation(() => {
+    return '09/27/2018';
+  });
   let styles = StyleSheet.create({
     wizardText: {
       color: '#ffffff',

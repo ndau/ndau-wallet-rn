@@ -10,7 +10,8 @@ jest.mock('NativeModules', () => {
       child: jest.fn(),
       hardenedChild: jest.fn(),
       ndauAddress: jest.fn(),
-      deriveFrom: jest.fn()
+      deriveFrom: jest.fn(),
+      toPublic: jest.fn()
     }
   };
 });
@@ -38,8 +39,8 @@ const initialPrivateKey =
   'npvt8aaaaaaaaaaaadyj632qv3ip7jhi66dxjzdtbvabf2nrrupjaqignfha5smckbu4nagfhwce3f9gfutkhmk5weuicjwyrsiax8qgq56bnhg5wrb6uwbigqk3bgw3';
 const bip44hardenedPrivateKey =
   'npvt8ard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkah8hjr9cnqmrxn4a9rcrzu9yerbyhhykt6nq586kyw8t2g3kkbk5a6m4par';
-const hardenedKeyNdauConstant =
-  'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm';
+const publicKey =
+  'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443';
 const childPrivate100 =
   'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm';
 const address = 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn';
@@ -55,6 +56,8 @@ const ndauAddress = sinon.spy(NativeModules.KeyaddrManager, 'ndauAddress');
 ndauAddress.mockReturnValue(address);
 const deriveFrom = sinon.spy(NativeModules.KeyaddrManager, 'deriveFrom');
 deriveFrom.mockReturnValue(childPrivate100);
+const toPublic = sinon.spy(NativeModules.KeyaddrManager, 'toPublic');
+toPublic.mockReturnValue(publicKey);
 
 test('createFirstTimeUser test', async () => {
   const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
@@ -68,7 +71,7 @@ test('createFirstTimeUser test', async () => {
 
   expect(firstTimeUser).toBeDefined();
   expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","accounts":[{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}}],"keys":{"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","path":"/44'/20036'/100","derivedFromRoot":"yes"}},"addresses":["tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn"]}`
+    `{"userId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","accounts":[{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}}],"keys":{"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","path":"/44'/20036'/100/5","derivedFromRoot":"yes"},"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443","path":"/44'/20036'/100/5","derivedFromRoot":"yes"}},"addresses":["tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn"]}`
   );
 });
 
