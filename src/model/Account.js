@@ -4,14 +4,6 @@ class Account {
     this.accountData = {};
   }
 
-  setAddress = (address) => {
-    this.address = address;
-  };
-
-  setAccountData = (accountData) => {
-    this.accountData = accountData;
-  };
-
   toJSON = () => {
     return {
       address: this.address,

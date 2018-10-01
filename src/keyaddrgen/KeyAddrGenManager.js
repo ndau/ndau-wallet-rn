@@ -17,18 +17,18 @@ const createFirstTimeUser = async (
 
   try {
     const user = new User();
-    user.setUserId(userId);
+    user.userId = userId;
 
     const accountCreationKey = await _createAccountCreationKey(recoveryBytes);
-    user.setAccountCreationKey(accountCreationKey);
-    user.setKeys(_createInitialKeys(accountCreationKey));
+    user.accountCreationKey = accountCreationKey;
+    user.keys = _createInitialKeys(accountCreationKey);
     if (numberOfAccounts > 0) {
-      user.setAccounts(await _createAccounts(numberOfAccounts, accountCreationKey, chainId, user));
+      user.accounts = await _createAccounts(numberOfAccounts, accountCreationKey, chainId, user);
 
       const addresses = user.accounts.map((value) => {
         return value.address;
       });
-      user.setAddresses(addresses);
+      user.addresses = addresses;
     }
 
     return user;
@@ -62,21 +62,17 @@ const _generateRootPath = () => {
 };
 
 const _createInitialKeys = (accountCreationKey) => {
-  const key = new Key();
-  key.setKey(accountCreationKey);
-  key.setDerivedFromRoot(AppConstants.DERIVED_ROOT_YES);
-  key.setPath(_generateRootPath());
   let returnValue = {};
-  returnValue[accountCreationKey] = key.toJSON();
+  returnValue[accountCreationKey] = _createKey(accountCreationKey, _generateRootPath());
 
   return returnValue;
 };
 
 const _createKey = (key, path) => {
-  let newKey = new Key();
-  newKey.setKey(key);
-  newKey.setDerivedFromRoot(AppConstants.DERIVED_ROOT_YES);
-  newKey.setPath(path);
+  const newKey = new Key();
+  newKey.key = key;
+  newKey.derivedFromRoot = AppConstants.DERIVED_ROOT_YES;
+  newKey.path = path;
   return newKey.toJSON();
 };
 
@@ -96,7 +92,7 @@ const _createAccounts = async (numberOfAccounts, accountCreationKey, chainId, us
     user.keys[publicKey] = newPublicKey;
 
     const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
-    account.setAddress(address);
+    account.address = address;
     accounts.push(account);
   }
   return accounts;

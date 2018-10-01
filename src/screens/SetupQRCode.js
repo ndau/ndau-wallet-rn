@@ -70,8 +70,7 @@ class SetupQRCode extends Component {
             <Stepper screenNumber={3} />
             <View>
               <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
-                You will use your device’s camera to scan address codes to send and receive ndau.
-                Start the permission process now to scan the code we just emailed you.
+                To send and receive ndau, you will need to use your device's camera.
               </Text>
               <CommonButton
                 onPress={() => {

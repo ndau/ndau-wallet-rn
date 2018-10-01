@@ -11,26 +11,6 @@ class User {
     this.addresses = [];
   }
 
-  setUserId = (userId) => {
-    this.userId = userId;
-  };
-
-  setAccountCreationKey = (accountCreationKey) => {
-    this.accountCreationKey = accountCreationKey;
-  };
-
-  setAccounts = (accounts) => {
-    this.accounts = accounts;
-  };
-
-  setKeys = (keys) => {
-    this.keys = keys;
-  };
-
-  setAddresses = (addresses) => {
-    this.addresses = addresses;
-  };
-
   toJSON = () => {
     return {
       userId: this.userId,

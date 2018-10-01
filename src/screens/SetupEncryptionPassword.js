@@ -87,8 +87,8 @@ class SetupEncryptionPassword extends Component {
             <Stepper screenNumber={4} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                Set a password. This password applies to this app only. We will not have access 
-                to it. We cannot help you reset this password, so you should write it down.{'  '}
+                Set a password. This password applies to this app only. Ndau will not have access to
+                it. We cannot help you reset this password, so you should write it down.{'  '}
                 <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
               </Text>
             </View>
@@ -129,7 +129,7 @@ class SetupEncryptionPassword extends Component {
                 style={cssStyles.checkbox}
                 onClick={() => this.checkedProgress()}
                 isChecked={this.state.progress}
-                rightText="I understand that ndau cannot help me reset my password, and I will 
+                rightText="I understand that ndau cannot help me reset my password, and I will
                 have to recover my wallet from my recovery phrase if I lose my password."
                 rightTextStyle={{
                   color: '#ffffff',

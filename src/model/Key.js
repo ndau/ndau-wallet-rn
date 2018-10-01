@@ -5,18 +5,6 @@ class Key {
     this.derivedFromRoot = '';
   }
 
-  setKey = (key) => {
-    this.key = key;
-  };
-
-  setPath = (path) => {
-    this.path = path;
-  };
-
-  setDerivedFromRoot = (derivedFromRoot) => {
-    this.derivedFromRoot = derivedFromRoot;
-  };
-
   toJSON = () => {
     return {
       key: this.key,

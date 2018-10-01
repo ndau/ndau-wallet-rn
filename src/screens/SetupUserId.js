@@ -158,9 +158,9 @@ class SetupUserId extends Component {
             <Stepper screenNumber={2} />
             <View>
               <Text style={cssStyles.wizardText}>
-                To deliver your ndau to your wallet, we need the six-character user ID you 
-                use to access the ndau dashboard. We will send you an email to confirm you 
-                are the account holder
+                To deliver your ndau to your wallet, we need the six-character user ID you use to
+                access the ndau dashboard. We will send you an email to confirm you are the account
+                holder.
               </Text>
             </View>
             <View style={cssStyles.buttonContainer}>

@@ -59,7 +59,6 @@ class SetupStore {
     console.debug(`SetupStore.getEncryptionPassword ${this._encryptionPassword}`);
     return this._encryptionPassword;
   }
-  yarn;
 
   setEntropy(entropy) {
     this._entropy = entropy;
