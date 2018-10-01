@@ -1,7 +1,5 @@
 import { Alert } from 'react-native';
-
-const TESTNET_ADDRESS = 'tn';
-const MAINNET_ADDRESS = 'nd';
+import AppConstants from '../AppConstants';
 
 class SetupStore {
   constructor() {
@@ -17,7 +15,7 @@ class SetupStore {
     this._recoveryPhrase = '';
     this._shuffledMap = [];
     this._shuffledWord = [];
-    this._addressType = MAINNET_ADDRESS;
+    this._addressType = AppConstants.MAINNET_ADDRESS;
 
     return SetupStore.instance;
   }
@@ -105,7 +103,9 @@ class SetupStore {
   toggleAddressType() {
     const oldAddressType = this._addressType;
     const newAddressType =
-      this._addressType === MAINNET_ADDRESS ? TESTNET_ADDRESS : MAINNET_ADDRESS;
+      this._addressType === AppConstants.MAINNET_ADDRESS
+        ? AppConstants.TESTNET_ADDRESS
+        : AppConstants.MAINNET_ADDRESS;
 
     Alert.alert(
       'Information',

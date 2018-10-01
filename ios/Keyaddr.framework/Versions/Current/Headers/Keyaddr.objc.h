@@ -60,18 +60,16 @@ It is an error if the given key is already a hardened key.
  */
 - (KeyaddrKey*)hardenedChild:(int32_t)n error:(NSError**)error;
 /**
+ * IsPrivate tests if a given key is a private key; will return non-nil
+error if the key is invalid.
+ */
+- (BOOL)isPrivate:(BOOL*)ret0_ error:(NSError**)error;
+/**
  * NdauAddress returns the ndau address associated with the given key.
 Key can be either public or private; if it is private it will be
 converted to a public key first.
  */
 - (KeyaddrAddress*)ndauAddress:(NSString*)chainid error:(NSError**)error;
-/**
- * Neuter returns an extended public key from any other extended key.
-If the key is an extended private key, it generates the matching public key.
-If the key is already a public key, it just returns itself.
-It is an error if the key is hardened.
- */
-- (KeyaddrKey*)neuter:(NSError**)error;
 /**
  * Sign uses the given key to sign a message; the message must be the
 standard base64 encoding of the bytes of the message.
@@ -79,6 +77,13 @@ It returns a signature object.
 The key must be a private key.
  */
 - (KeyaddrSignature*)sign:(NSString*)msgstr error:(NSError**)error;
+/**
+ * ToPublic returns an extended public key from any other extended key.
+If the key is an extended private key, it generates the matching public key.
+If the key is already a public key, it just returns itself.
+It is an error if the key is hardened.
+ */
+- (KeyaddrKey*)toPublic:(NSError**)error;
 @end
 
 /**
@@ -95,6 +100,20 @@ The key must be a private key.
 @end
 
 /**
+ * DeriveFrom accepts a parent key and its known path, plus a desired child path
+and derives the child key from the parent according to the path info.
+Note that the parent's known path is simply believed -- we have no mechanism to
+check that it's true.
+ */
+FOUNDATION_EXPORT KeyaddrKey* KeyaddrDeriveFrom(NSString* parentKey, NSString* parentPath, NSString* childPath, NSError** error);
+
+/**
+ * FromString acts like a constructor so that the wallet can build a Key object
+from a string representation of it.
+ */
+FOUNDATION_EXPORT KeyaddrKey* KeyaddrFromString(NSString* s, NSError** error);
+
+/**
  * NewKey takes a seed (an array of bytes encoded as a base64 string) and creates a private master
 key from it. The key is returned as a string representation of the key;
 it is converted to and from the internal representation by its member functions.
@@ -106,6 +125,13 @@ FOUNDATION_EXPORT KeyaddrKey* KeyaddrNewKey(NSString* seedstr, NSError** error);
 words that act as a mnemonic. A 16-byte input array will generate a list of 12 words.
  */
 FOUNDATION_EXPORT NSString* KeyaddrWordsFromBytes(NSString* lang, NSString* data, NSError** error);
+
+/**
+ * WordsFromPrefix accepts a language and a prefix string and returns a sorted, space-separated list
+of words that match the given prefix. max can be used to limit the size of the returned list
+(if max is 0 then all matches are returned, which could be up to 2K if the prefix is empty).
+ */
+FOUNDATION_EXPORT NSString* KeyaddrWordsFromPrefix(NSString* lang, NSString* prefix, long max);
 
 /**
  * WordsToBytes takes a space-separated list of words and generates the set of bytes

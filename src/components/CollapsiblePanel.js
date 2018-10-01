@@ -97,19 +97,7 @@ class CollapsiblePanel extends Component {
                     {NdauNodeAPIHelper.accountNdauAmount(this.props.account)}
                   </Text>
                 </View>
-              ) : // <Text style={styles.titleRight}>
-              //   <Image
-              //     style={{
-              //       width: wp('8%'),
-              //       height: hp('6%'),
-              //       marginRight: wp('5%')
-              //     }}
-              //     resizeMode="contain"
-              //     source={require('../../img/ndau-icon-white.png')}
-              //   />{' '}
-              //   {NdauNodeAPIHelper.accountNdauAmount(this.props.account)}
-              // </Text>
-              null}
+              ) : null}
             </View>
           </TouchableHighlight>
           <View style={styles.border} />

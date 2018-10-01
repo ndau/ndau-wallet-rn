@@ -59,8 +59,8 @@ class SetupRecoveryPhrase extends Component {
   generateRecoveryPhrase = async () => {
     console.debug(`entropy in generateRecoveryPhrase is ${SetupStore.getEntropy()}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
-    const seeds = await KeyaddrManager.KeyaddrWordsFromBytes('en', SetupStore.getEntropy());
-    const seedBytes = await KeyaddrManager.KeyaddrWordsToBytes('en', seeds);
+    const seeds = await KeyaddrManager.keyaddrWordsFromBytes('en', SetupStore.getEntropy());
+    const seedBytes = await KeyaddrManager.keyaddrWordsToBytes('en', seeds);
     if (!_(seedBytes).isEqual(SetupStore.getEntropy())) {
       this.showExitApp();
     } else {

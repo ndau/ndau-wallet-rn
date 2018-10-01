@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
-  Platform
+  Platform,
+  NativeModules
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
@@ -40,11 +41,12 @@ class Passphrase extends Component {
   }
 
   componentWillMount = async () => {
-    const userIds = await AsyncStorageHelper.getAllKeys();
-    // let userIdsForDropdown = userIds.map((userId) => {
-    //   return { value: userId };
-    // });
-    this.setState({ userIds });
+    try {
+      const userIds = await AsyncStorageHelper.getAllKeys();
+      this.setState({ userIds });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   login = async () => {
@@ -170,7 +172,7 @@ class Passphrase extends Component {
             <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
                 <Image
-                  style={{ width: wp('8%'), height: hp('5%'), marginTop: hp('1%') }}
+                  style={{ width: 35, height: 38, marginTop: hp('1%') }}
                   source={require('../../img/info_icon_gold.png')}
                 />
               </TouchableOpacity>

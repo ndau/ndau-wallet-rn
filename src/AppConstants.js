@@ -1,0 +1,19 @@
+const HARDENED_CHILD_BIP_44 = 44;
+const ACCOUNT_CREATION_KEY_CHILD = 100;
+const NDAU_CONSTANT = 20036; //which is 0x4e44 in hex, which are the two letters ND in ASCII
+const DERIVED_ROOT_YES = 'yes';
+const DERIVED_ROOT_NO = 'no';
+const DERIVED_ROOT_UNKNOWN = 'unknown';
+const TESTNET_ADDRESS = 'tn';
+const MAINNET_ADDRESS = 'nd';
+
+export default {
+  HARDENED_CHILD_BIP_44,
+  ACCOUNT_CREATION_KEY_CHILD,
+  NDAU_CONSTANT,
+  DERIVED_ROOT_NO,
+  DERIVED_ROOT_UNKNOWN,
+  DERIVED_ROOT_YES,
+  TESTNET_ADDRESS,
+  MAINNET_ADDRESS
+};

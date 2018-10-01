@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   header: {
     ...Platform.select({
       ios: {
-        paddingTop: hp('4%')
+        paddingTop: hp('6%')
       },
       android: {
         paddingTop: hp('1%')
