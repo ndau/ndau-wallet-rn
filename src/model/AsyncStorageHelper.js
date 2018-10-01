@@ -4,6 +4,9 @@ import CryptoJS from 'crypto-js';
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:';
 const CURRENT_USER_KEY = '@CurrentUserKey';
 
+//PLEASE CHECK WITH KP BEFORE CHANGING THESE FUNCTIONS
+//To remain backwards compatible we must not change the way
+//we unlock or lock a user.
 const unlockUser = (userId, encryptionPassword) => {
   return new Promise((resolve, reject) => {
     const storageKey = STORAGE_KEY_PREFIX + userId;
@@ -31,6 +34,9 @@ const unlockUser = (userId, encryptionPassword) => {
   });
 };
 
+//PLEASE CHECK WITH KP BEFORE CHANGING THESE FUNCTIONS
+//To remain backwards compatible we must not change the way
+//we unlock or lock a user.
 const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
   try {
     if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');

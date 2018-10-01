@@ -80,6 +80,8 @@ class SetupTermsOfService extends Component {
     });
   };
 
+  sendingErrorOccured = () => {};
+
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree });
   };
