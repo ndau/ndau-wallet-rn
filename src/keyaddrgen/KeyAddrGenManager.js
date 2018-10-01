@@ -23,7 +23,7 @@ const createFirstTimeUser = async (
     user.accountCreationKey = accountCreationKey;
     user.keys = _createInitialKeys(accountCreationKey);
     if (numberOfAccounts > 0) {
-      user.accounts = await _createAccounts(numberOfAccounts, accountCreationKey, chainId, user);
+      user.accounts = await _createAccounts(numberOfAccounts, accountCreationKey, user, chainId);
 
       const addresses = user.accounts.map((value) => {
         return value.address;
@@ -35,6 +35,21 @@ const createFirstTimeUser = async (
   } catch (error) {
     console.error(error);
   }
+};
+
+//create a new account and send back the address created
+//this method must get a valid user which has been unlocked from
+//AsyncStorageHelper. Ideally this should be coming from the a
+//navigation property passed around
+const createNewAccount = async (user) => {
+  if (!user.accountCreationKey) {
+    throw new Error(`The user passed in has no accountCreationKey`);
+  }
+
+  const account = await _createAccount(user.accountCreationKey, user.accounts.length - 1, user);
+  user.accounts.push(account);
+
+  return account;
 };
 
 const _createAccountCreationKey = async (recoveryBytes) => {
@@ -76,28 +91,50 @@ const _createKey = (key, path) => {
   return newKey.toJSON();
 };
 
-const _createAccounts = async (numberOfAccounts, accountCreationKey, chainId, user) => {
+const _createAccount = async (
+  accountCreationKey,
+  childIndex,
+  user,
+  chainId = AppConstants.MAINNET_ADDRESS
+) => {
+  if (childIndex < 0) {
+    throw new Error('You cannot create an index less than zero');
+  }
+  const account = new Account();
+  const childPath = _generateRootPath() + '/' + childIndex;
+
+  const privateKeyForAddress = await NativeModules.KeyaddrManager.child(
+    accountCreationKey,
+    childIndex
+  );
+  const newKey = _createKey(privateKeyForAddress, childPath);
+
+  user.keys[privateKeyForAddress] = newKey;
+
+  const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress);
+  const newPublicKey = _createKey(publicKey, childPath);
+  user.keys[publicKey] = newPublicKey;
+
+  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
+  account.address = address;
+  return account;
+};
+
+const _createAccounts = async (
+  numberOfAccounts,
+  accountCreationKey,
+  user,
+  chainId = AppConstants.MAINNET_ADDRESS
+) => {
   const accounts = [];
   for (let i = 1; i <= numberOfAccounts; i++) {
-    const account = new Account();
-    const childPath = _generateRootPath() + '/' + i;
-
-    const privateKeyForAddress = await NativeModules.KeyaddrManager.child(accountCreationKey, i);
-    const newKey = _createKey(privateKeyForAddress, childPath);
-
-    user.keys[privateKeyForAddress] = newKey;
-
-    const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress);
-    const newPublicKey = _createKey(publicKey, childPath);
-    user.keys[publicKey] = newPublicKey;
-
-    const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
-    account.address = address;
+    const account = await _createAccount(accountCreationKey, i, user, chainId);
     accounts.push(account);
   }
   return accounts;
 };
 
 export default {
-  createFirstTimeUser
+  createFirstTimeUser,
+  createNewAccount
 };

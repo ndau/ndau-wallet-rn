@@ -1,6 +1,7 @@
 import { NativeModules } from 'react-native';
 import sinon from 'sinon';
 import KeyAddrGenManager from '../KeyAddrGenManager';
+import User from '../../model/User';
 
 jest.mock('NativeModules', () => {
   return {
@@ -34,6 +35,7 @@ const userId = 'TAC-3PY';
 const numberOfAccounts = 5;
 const chainId = 'tn';
 const errorString = 'Error: you MUST pass userId, recoveryPhrase to this method';
+const errorNewAccountUser = 'Error: The user passed in has no accountCreationKey';
 const bytes = 'ZWEQAwQFBgcICQoLDA0ODw==';
 const initialPrivateKey =
   'npvt8aaaaaaaaaaaadyj632qv3ip7jhi66dxjzdtbvabf2nrrupjaqignfha5smckbu4nagfhwce3f9gfutkhmk5weuicjwyrsiax8qgq56bnhg5wrb6uwbigqk3bgw3';
@@ -114,6 +116,38 @@ test('createFirstTimeUser no bytes', async () => {
   } catch (error) {
     console.error(error);
     expect(error.toString()).toBe(errorString);
+    return;
+  }
+
+  console.log(`firstTimeUser: ${firstTimeUser}`);
+});
+
+test('createNewAccount test', async () => {
+  const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
+    userId,
+    bytes,
+    chainId,
+    numberOfAccounts
+  );
+
+  console.log(`firstTimeUser: ${JSON.stringify(firstTimeUser)}`);
+
+  expect(firstTimeUser).toBeDefined();
+  expect(firstTimeUser.accounts.length).toBe(5);
+
+  const newAccount = await KeyAddrGenManager.createNewAccount(firstTimeUser);
+  expect(firstTimeUser.accounts.length).toBe(6);
+  expect(newAccount.address).toBe('tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn');
+});
+
+test('createNewAccount has bogus user', async () => {
+  try {
+    const user = new User();
+    user.userId = 'blahblah';
+    await KeyAddrGenManager.createNewAccount(user);
+  } catch (error) {
+    console.error(error);
+    expect(error.toString()).toBe(errorNewAccountUser);
     return;
   }
 
