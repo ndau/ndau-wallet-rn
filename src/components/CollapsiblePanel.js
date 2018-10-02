@@ -115,7 +115,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
     overflow: 'hidden',
     marginBottom: hp('.5%'),
-    borderRadius: 5,
+    borderRadius: 6,
     borderWidth: 0.5
   },
   titleContainer: {

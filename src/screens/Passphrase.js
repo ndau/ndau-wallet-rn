@@ -119,6 +119,10 @@ class Passphrase extends Component {
     this.props.navigation.navigate('Setup');
   };
 
+  showRecovery = () => {
+    this.props.navigation.navigate('SetupGetRecoveryPhrase');
+  };
+
   dropDownSelected = (index, value) => {
     console.log(`index: ${index} and value is ${value}`);
     this.setState({
@@ -150,10 +154,10 @@ class Passphrase extends Component {
               <TextInput
                 style={{
                   height: hp('7%'),
-                  width: wp('100%'),
+                  width: wp('96%'),
                   borderColor: 'gray',
                   borderWidth: 1,
-                  borderRadius: 3,
+                  borderRadius: 6,
                   marginTop: hp('1%'),
                   paddingLeft: wp('1%'),
                   color: '#000000',
@@ -190,9 +194,9 @@ class Passphrase extends Component {
               <Text onPress={this.showSetup} style={styles.linkText}>
                 Create a new user
               </Text>
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>or</Text>
+              <Text onPress={this.showRecovery} style={styles.linkText}>
+                Recover account
+              </Text>
             </View>
             <View style={{ marginTop: 10 }}>
               <CommonButton onPress={this.login} title="Login" />
@@ -205,38 +209,16 @@ class Passphrase extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
-    backgroundColor: '#1c2227'
-  },
   button: {
     marginTop: 0
   },
   textContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: wp('1%')
   },
   footer: {
     justifyContent: 'flex-end'
-    // margin: 10
   },
   imageView: {
     justifyContent: 'center',

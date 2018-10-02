@@ -13,7 +13,7 @@ export default StyleSheet.create({
     paddingTop: wp('.3%')
   },
   drawerTextImage: {
-    width: 35,
+    width: 40,
     height: 35,
     marginRight: wp('2%'),
     marginLeft: wp('2%')
@@ -63,7 +63,7 @@ export default StyleSheet.create({
     height: hp('7%'),
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 6,
     marginTop: hp('1%'),
     paddingLeft: wp('1%'),
     color: '#000000',
@@ -76,7 +76,7 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderColor: '#4d9678',
     backgroundColor: '#4d9678',
-    borderRadius: 3,
+    borderRadius: 6,
     fontFamily: 'TitilliumWeb-Light',
     marginTop: hp('0.5%'),
     marginBottom: hp('0.5%'),
@@ -86,7 +86,7 @@ export default StyleSheet.create({
     paddingBottom: hp('.2%'),
     paddingLeft: wp('.2%'),
     paddingRight: wp('.2%'),
-    borderRadius: 3
+    borderRadius: 6
   },
   wizardText: {
     color: '#ffffff',
