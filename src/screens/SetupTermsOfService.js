@@ -10,6 +10,7 @@ import ndauDashboardApi from '../api/NdauDashboardAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
+import AppConstants from '../AppConstants';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class SetupTermsOfService extends Component {
     const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
     console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
     const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-      'en',
+      AppConstants.APP_LANGUAGE,
       recoveryPhraseString
     );
     console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);

@@ -9,7 +9,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 let full = false;
 
-class CommonButton extends Component {
+class Dropdown extends Component {
   constructor(props) {
     super(props);
 
@@ -58,4 +58,4 @@ var styles = StyleSheet.create({
   }
 });
 
-export default CommonButton;
+export default Dropdown;

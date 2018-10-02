@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { PixelRatio, StyleSheet, View, ScrollView, Text, NativeModules, Alert } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
-import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import RecoveryDropdown from '../components/RecoveryDropdown';
 
 var _ = require('lodash');
 
@@ -88,12 +87,15 @@ class SetupRecoveryPhrase extends Component {
                             color: '#ffffff',
                             fontSize: 20,
                             fontFamily: 'TitilliumWeb-Regular',
-                            textAlign: 'center'
+                            textAlign: 'center',
+                            paddingBottom: 0,
+                            marginBottom: 0,
+                            height: hp('5%')
                           }}
                         >
-                          {count++}.{'\n'}
-                          {item}
+                          {count++}.
                         </Text>
+                        <RecoveryDropdown />
                       </View>
                     );
                   })}
