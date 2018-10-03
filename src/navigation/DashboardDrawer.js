@@ -49,7 +49,7 @@ class DashboardDrawer extends React.Component {
             <View style={{ flexDirection: 'row' }}>
               <Image
                 style={cssStyles.drawerTextImage}
-                source={require('../../img/billfold-revised.png')}
+                source={require('../../img/billfold-revised-50px.png')}
               />
               <Text style={cssStyles.drawerText}>Dashboard</Text>
             </View>
