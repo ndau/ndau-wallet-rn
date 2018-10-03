@@ -22,11 +22,11 @@ yarn-error.log*
 .DS_Store
 
 /ios/build/**
-android/app/build/**
+/android/app/build/**
 
-android/.idea/**
-android/.gradle/**
-android/local.properties
+/android/.idea/**
+/android/.gradle/**
+/android/local.properties
 
 ## Xcode User settings
 xcuserdata/
