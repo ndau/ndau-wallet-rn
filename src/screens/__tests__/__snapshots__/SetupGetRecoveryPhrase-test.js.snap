@@ -70,7 +70,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
               Array [
                 Object {
                   "height": 667,
-                  "width": 150,
+                  "width": 750,
                 },
               ]
             }
@@ -117,15 +117,16 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
                       },
-                      Object {
-                        "height": 667,
-                        "width": 150,
-                      },
+                      Object {},
                     ]
                   }
                 >
@@ -176,6 +177,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -192,7 +194,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -200,6 +202,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -224,7 +227,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -251,14 +254,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -310,6 +313,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -326,7 +330,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -334,6 +338,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -358,7 +363,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -385,14 +390,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -444,6 +449,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -460,7 +466,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -468,6 +474,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -492,7 +499,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -519,14 +526,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -578,6 +585,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -594,7 +602,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -602,6 +610,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -626,7 +635,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -653,14 +662,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -712,6 +721,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -728,7 +738,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -736,6 +746,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -760,7 +771,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -787,14 +798,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -846,6 +857,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -862,7 +874,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -870,6 +882,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -894,7 +907,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -921,14 +934,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -980,6 +993,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -996,7 +1010,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -1004,6 +1018,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -1028,7 +1043,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -1055,14 +1070,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -1114,6 +1129,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -1130,7 +1146,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -1138,6 +1154,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -1162,7 +1179,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -1189,14 +1206,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -1248,6 +1265,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -1264,7 +1282,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -1272,6 +1290,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -1296,7 +1315,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -1323,14 +1342,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -1382,6 +1401,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -1398,7 +1418,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -1406,6 +1426,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -1430,7 +1451,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -1457,14 +1478,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -1516,6 +1537,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -1532,7 +1554,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -1540,6 +1562,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -1564,7 +1587,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -1591,14 +1614,14 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                   style={
                     Array [
                       Object {
+                        "height": 667,
+                        "width": 750,
+                      },
+                      Object {
                         "backgroundColor": "#1c2227",
                         "flexDirection": "row",
                         "justifyContent": "center",
                         "marginTop": 40,
-                      },
-                      Object {
-                        "height": 667,
-                        "width": 150,
                       },
                     ]
                   }
@@ -1650,6 +1673,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           },
@@ -1666,7 +1690,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           }
                         }
                         data={Array []}
-                        defaultValue={null}
+                        defaultValue=""
                         inputContainerStyle={
                           Object {
                             "alignContent": "center",
@@ -1674,6 +1698,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "height": 80,
                             "justifyContent": "center",
+                            "overflow": "hidden",
                             "paddingLeft": 15,
                             "width": 450,
                           }
@@ -1698,7 +1723,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                             "borderRadius": 6,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
-                            "fontSize": 18,
+                            "fontSize": 20,
                             "zIndex": 1,
                           }
                         }
@@ -1808,12 +1833,16 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
               </View>
             </View>
             <View
-              pointerEvents="none"
+              pointerEvents="box-none"
               style={
                 Array [
                   Object {
+                    "alignItems": "center",
                     "backgroundColor": "transparent",
-                    "bottom": 20,
+                    "bottom": 10,
+                    "flexDirection": "row",
+                    "height": 30,
+                    "justifyContent": "center",
                     "left": 0,
                     "position": "absolute",
                     "right": 0,
@@ -1823,51 +1852,279 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
               }
             >
               <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
-                  Object {
-                    "alignItems": "center",
-                    "backgroundColor": "transparent",
-                    "justifyContent": "center",
-                  }
+                  Array [
+                    Object {
+                      "backgroundColor": "white",
+                      "borderRadius": 20,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
                 }
-              >
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "alignItems": "center",
-                        "borderRadius": 10,
-                        "height": 20,
-                        "justifyContent": "center",
-                        "width": 80,
-                      },
-                      Object {
-                        "backgroundColor": "rgba(0, 0, 0, 0.25)",
-                      },
-                    ]
-                  }
-                >
-                  <Text
-                    accessible={true}
-                    allowFontScaling={true}
-                    ellipsizeMode="tail"
-                    style={
-                      Array [
-                        Object {
-                          "textAlign": "center",
-                        },
-                        Object {
-                          "color": "#ffffff",
-                          "fontFamily": "TitilliumWeb-Regular",
-                          "fontSize": 12,
-                        },
-                      ]
-                    }
-                  >
-                    1 / 12
-                  </Text>
-                </View>
-              </View>
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                accessible={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderColor": "white",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "height": 10,
+                      "margin": 10,
+                      "width": 10,
+                    },
+                    undefined,
+                  ]
+                }
+              />
             </View>
           </View>
         </View>
