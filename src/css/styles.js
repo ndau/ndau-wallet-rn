@@ -221,13 +221,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: StyleConstants.APP_BACKGROUND_COLOR,
     marginTop: hp('3%'),
-    // marginLeft: wp('1%'),
-    // alignContent: 'center',
-    justifyContent: 'center',
-    ...Platform.select({
-      android: {
-        marginLeft: wp('14%')
-      }
-    })
+    justifyContent: 'center'
+  },
+  navButtonWrapper: {
+    justifyContent: 'space-between',
+    marginTop: hp('2%')
   }
 });

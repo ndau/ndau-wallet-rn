@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, Linking } from 'react-native';
-import RNExitApp from 'react-native-exit-app';
+import { View, ScrollView, Text, Linking, PixelRatio, Platform } from 'react-native';
+import groupIntoRows from '../helpers/groupIntoRows';
+import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
 import {
@@ -10,23 +11,44 @@ import {
 import RecoveryDropdown from '../components/RecoveryDropdown';
 import Carousel from 'react-native-looped-carousel';
 import { Dialog } from 'react-native-simple-dialogs';
+import ErrorPanel from '../components/ErrorPanel';
 
-var _ = require('lodash');
+const DEFAULT_ROW_LENGTH = 3; // 3 items per row
+const _ = require('lodash');
 
 class SetupGetRecoveryPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: { width: wp('20%'), height: hp('50%') },
-      dialogVisible: false
+      size: { width: wp('100%'), height: hp('50%') },
+      dialogVisible: false,
+      recoverPhraseFull: false,
+      textColor: '#ffffff',
+      confirmationError: false,
+      acquisitionError: false
     };
 
     this.recoveryPhrase = [ '', '', '', '', '', '', '', '', '', '', '', '' ];
+
+    this.boxWidth = '30%';
+    this.boxHeight = '13%';
+    this.rowLength = DEFAULT_ROW_LENGTH;
+    // if someone has cranked up the font use 1 row instead
+    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`);
+    if (PixelRatio.getFontScale() > 2) {
+      this.rowLength = 1;
+      this.boxWidth = '100%';
+      this.boxHeight = '30%';
+      console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`);
+    }
   }
 
   addToRecoveryPhrase = (value, index) => {
     this.recoveryPhrase[index] = value;
-    console.log(`recoverPhrase is now: ${this.recoveryPhrase}`);
+
+    if (this.recoveryPhrase.indexOf('') === -1) {
+      this.setState({ recoverPhraseFull: true });
+    }
   };
 
   noRecoveryPhrase = () => {
@@ -43,16 +65,61 @@ class SetupGetRecoveryPhrase extends Component {
   };
 
   _generatePages = () =>
-    this.recoveryPhrase.map((phrase, i) => (
-      <View style={[ cssStyles.recoveryPageView, this.state.size ]} key={i}>
-        <Text style={[ cssStyles.wizardText, { marginTop: hp('1%'), marginRight: wp('2%') } ]}>
-          {i + 1}.
-        </Text>
-        <RecoveryDropdown addToRecoveryPhrase={this.addToRecoveryPhrase} index={i} />
-      </View>
-    ));
+    this.recoveryPhrase.map((phrase, i) => {
+      const style = [ this.state.size, cssStyles.recoveryPageView ];
+      if (i === 0) {
+        style.push({
+          ...Platform.select({
+            android: {
+              marginLeft: wp('14%')
+            }
+          })
+        });
+      }
+      return (
+        <View style={style} key={i}>
+          <Text style={[ cssStyles.wizardText, { marginTop: hp('1%'), marginRight: wp('2%') } ]}>
+            {i + 1}.
+          </Text>
+          <RecoveryDropdown
+            addToRecoveryPhrase={this.addToRecoveryPhrase}
+            index={i}
+            setAcquisitionError={this.setAcquisitionError}
+            recoveryPhrase={this.recoveryPhrase}
+          />
+        </View>
+      );
+    });
 
-  render() {
+  //TODO: implement
+  _confirmRecoverPhrase = () => {
+    return false;
+  };
+
+  setAcquisitionError = (value) => {
+    this.setState({ acquisitionError: value });
+  };
+
+  confirm = () => {
+    if (this._confirmRecoverPhrase()) {
+      this.props.navigation.navigate('Dashboard');
+    } else {
+      this.setState({
+        textColor: '#ff0000',
+        confirmationError: true
+      });
+    }
+  };
+
+  pushBack = () => {
+    this.setState({
+      recoverPhraseFull: false,
+      confirmationError: false,
+      textColor: '#ffffff'
+    });
+  };
+
+  _renderAcquisition = () => {
     const pages = this._generatePages();
 
     return (
@@ -72,8 +139,9 @@ class SetupGetRecoveryPhrase extends Component {
                 leftArrowStyle={cssStyles.carouselArrows}
                 rightArrowText={'＞'}
                 rightArrowStyle={cssStyles.carouselArrows}
-                pageInfo
-                pageInfoTextStyle={cssStyles.smallWhiteText}
+                // pageInfo
+                // pageInfoTextStyle={cssStyles.smallWhiteText}
+                bullets
                 arrows
                 isLooped={false}
                 autoplay={false}
@@ -82,6 +150,9 @@ class SetupGetRecoveryPhrase extends Component {
                 {pages}
               </Carousel>
             </View>
+            {this.state.acquisitionError ? (
+              <ErrorPanel errorText={'Please select a valid word.'} />
+            ) : null}
           </ScrollView>
           <View style={cssStyles.footer}>
             <Text
@@ -113,6 +184,70 @@ class SetupGetRecoveryPhrase extends Component {
         </Dialog>
       </SafeAreaView>
     );
+  };
+
+  _renderConfirmation = () => {
+    const words = groupIntoRows(this.recoveryPhrase, this.rowLength);
+    const styles = {
+      rowTextView: {
+        height: hp(this.boxHeight),
+        width: wp(this.boxWidth)
+      },
+      textStyle: {
+        color: this.state.textColor,
+        fontSize: 20,
+        fontFamily: 'TitilliumWeb-Regular',
+        textAlign: 'center'
+      }
+    };
+    let count = 1;
+
+    return (
+      <SafeAreaView style={cssStyles.safeContainer}>
+        <View style={cssStyles.container}>
+          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
+            <View style={{ marginBottom: 10 }}>
+              <Text style={cssStyles.wizardText}>Is this the correct recovery phrase? </Text>
+            </View>
+            {words.map((row, rowIndex) => {
+              return (
+                <View key={rowIndex} style={cssStyles.rowView}>
+                  {row.map((item, index) => {
+                    return (
+                      <View key={index} style={styles.rowTextView}>
+                        <Text style={styles.textStyle}>
+                          {count++}.{'\n'}
+                          {item}
+                        </Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              );
+            })}
+            {this.state.confirmationError ? (
+              <ErrorPanel
+                errorText={'Is this the correct recovery phrase? Please correct any errors.'}
+              />
+            ) : null}
+          </ScrollView>
+          <View style={cssStyles.footer}>
+            <View style={cssStyles.navButtonWrapper}>
+              <CommonButton onPress={() => this.pushBack()} title="Back" />
+            </View>
+            <View style={cssStyles.navButtonWrapper}>
+              <CommonButton onPress={() => this.confirm()} title="Confirm" />
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  };
+
+  render() {
+    console.log(`recoverPhrase is now: ${this.recoveryPhrase}`);
+
+    return !this.state.recoverPhraseFull ? this._renderAcquisition() : this._renderConfirmation();
   }
 }
 

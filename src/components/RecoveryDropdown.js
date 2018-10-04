@@ -15,7 +15,8 @@ class RecoveryDropdown extends Component {
 
     this.state = {
       query: null,
-      list: []
+      list: [],
+      textColor: '#ffffff'
     };
 
     this.retrievedData = false;
@@ -37,6 +38,16 @@ class RecoveryDropdown extends Component {
       console.log(`words are ${words}`);
       this.retrievedData = true;
       wordsArray = words.split(' ');
+
+      if (wordsArray.length <= 1) {
+        console.log(`Word not found!`);
+        this.setState({ textColor: '#ff0000' });
+        this.props.setAcquisitionError(true);
+      } else {
+        this.setState({ textColor: '#ffffff' });
+        this.props.setAcquisitionError(false);
+      }
+
       this.setState({
         list: wordsArray.length > 1 ? wordsArray : []
       });
@@ -51,16 +62,24 @@ class RecoveryDropdown extends Component {
 
   render() {
     const { query } = this.state;
+    const mainStyle = {
+      backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
+      color: this.state.textColor,
+      fontSize: 20,
+      fontFamily: 'TitilliumWeb-Regular',
+      borderRadius: 6,
+      zIndex: 1
+    };
 
     return (
       <Autocomplete
-        style={styles.mainStyle}
+        style={mainStyle}
         autoCapitalize="none"
         autoCorrect={false}
         containerStyle={styles.autocompleteContainer}
         inputContainerStyle={styles.containerStyle}
         data={this.getData(query)}
-        defaultValue={query}
+        defaultValue={query || this.props.recoveryPhrase[this.props.index]}
         onChangeText={(text) => {
           this.retrievedData = false;
           this.setState({ query: text, list: text === '' ? [] : this.state.list });
@@ -81,14 +100,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  mainStyle: {
-    backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
-    color: '#ffffff',
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular',
-    borderRadius: 6,
-    zIndex: 1
-  },
   autocompleteContainer: {
     ...Platform.select({
       ios: {
@@ -102,7 +113,7 @@ var styles = StyleSheet.create({
   },
   inputContainerStyle: {
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular',
     backgroundColor: styleConstants.APP_BACKGROUND_COLOR
   },
@@ -110,12 +121,16 @@ var styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 6,
-    height: hp('6%'),
     width: wp('60%'),
     backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
+    overflow: 'hidden',
     ...Platform.select({
       ios: {
-        paddingLeft: wp('2%')
+        paddingLeft: wp('2%'),
+        height: hp('6%')
+      },
+      android: {
+        height: hp('7%')
       }
     })
   },
@@ -124,7 +139,7 @@ var styles = StyleSheet.create({
   },
   itemText: {
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'TitilliumWeb-Light',
     backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
     paddingLeft: wp('2%'),
