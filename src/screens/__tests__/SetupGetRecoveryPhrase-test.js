@@ -23,9 +23,4 @@ describe('testing SetupGetRecoveryPhrase...', () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
-  it('can click the button', () => {
-    const wrapper = mount(<SetupGetRecoveryPhrase navigator={navigator} parentStyles={styles} />);
-    const onlyButton = wrapper.find('Button').at(0);
-    onlyButton.simulate('click');
-  });
 });

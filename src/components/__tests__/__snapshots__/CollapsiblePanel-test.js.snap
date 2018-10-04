@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing CollapsiblePanel... renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "borderRadius": 6,
+      "borderWidth": 0.5,
+      "height": NaN,
+      "marginBottom": 6.5,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <Image
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": undefined,
+            "width": "100%",
+          },
+          undefined,
+        ]
+      }
+    />
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={null}
+    >
+      <View
+        onLayout={[Function]}
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#fff",
+              "flex": 1,
+              "fontFamily": "TitilliumWeb-Bold",
+              "fontSize": 18,
+              "marginBottom": 6.5,
+              "marginLeft": 7.5,
+              "marginRight": 7.5,
+              "marginTop": 6.5,
+              "textAlign": "left",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={
+              Object {
+                "testUri": "../../../img/ndau-icon-white.png",
+              }
+            }
+            style={
+              Object {
+                "height": 26.5,
+                "marginRight": 1,
+                "marginTop": 24.5,
+                "width": 22.5,
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#fff",
+                "flexDirection": "row",
+                "fontFamily": "TitilliumWeb-Bold",
+                "fontSize": 18,
+                "marginBottom": 6.5,
+                "marginLeft": 7.5,
+                "marginRight": 7.5,
+                "marginTop": 6.5,
+                "textAlign": "right",
+              }
+            }
+          >
+            NaN
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "white",
+          "borderBottomWidth": 1,
+          "marginBottom": 13.5,
+          "marginLeft": 7.5,
+          "marginRight": 7.5,
+        }
+      }
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Object {
+          "padding": 13.5,
+          "paddingTop": 0,
+        }
+      }
+    />
+  </View>
+</View>
+`;

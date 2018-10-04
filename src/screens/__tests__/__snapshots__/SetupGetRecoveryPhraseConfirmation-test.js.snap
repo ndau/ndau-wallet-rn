@@ -1,0 +1,563 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing SetupGetRecoveryPhraseConfirmation... renders correctly 1`] = `
+<View
+  onLayout={[Function]}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "backgroundColor": "#1c2227",
+      "flex": 1,
+      "paddingBottom": 0,
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 20,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#1c2227",
+        "flex": 1,
+        "paddingBottom": 26.5,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+      }
+    }
+  >
+    <RCTScrollView
+      keyboardShouldPersistTaps="always"
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <View>
+        <Image
+          resizeMode="contain"
+          screenNumber={6}
+          source={
+            Object {
+              "testUri": "../../../img/step-6.png",
+            }
+          }
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "height": 60,
+              "marginBottom": 5,
+              "width": "100%",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "marginBottom": 10,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 20,
+              }
+            }
+          >
+            Write this 12-word phrase down and store it in a secure location.
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-evenly",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              1
+              .
+              
+
+              zero
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              2
+              .
+              
+
+              one
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              3
+              .
+              
+
+              two
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-evenly",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              4
+              .
+              
+
+              three
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              5
+              .
+              
+
+              four
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              6
+              .
+              
+
+              five
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-evenly",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              7
+              .
+              
+
+              six
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              8
+              .
+              
+
+              seven
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              9
+              .
+              
+
+              eight
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "space-evenly",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              10
+              .
+              
+
+              nine
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              11
+              .
+              
+
+              ten
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "height": 240,
+                "width": 225,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 20,
+                  "textAlign": "center",
+                }
+              }
+            >
+              12
+              .
+              
+
+              eleven
+            </Text>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+    <View
+      style={
+        Object {
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <View>
+        <View
+          accessibilityComponentType="button"
+          accessibilityTraits="button"
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignContent": "center",
+              "backgroundColor": "#4e957a",
+              "borderRadius": 3,
+              "height": 93.5,
+              "justifyContent": "center",
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "#007aff",
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "textAlign": "center",
+                },
+                null,
+                Object {
+                  "color": "#fff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                },
+                null,
+              ]
+            }
+          >
+            Back
+          </Text>
+        </View>
+      </View>
+      <View>
+        <View
+          accessibilityComponentType="button"
+          accessibilityTraits="button"
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignContent": "center",
+              "backgroundColor": "#4e957a",
+              "borderRadius": 3,
+              "height": 93.5,
+              "justifyContent": "center",
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "#007aff",
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "textAlign": "center",
+                },
+                null,
+                Object {
+                  "color": "#fff",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 16,
+                },
+                null,
+              ]
+            }
+          >
+            Confirm
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

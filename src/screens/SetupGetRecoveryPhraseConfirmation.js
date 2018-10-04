@@ -3,21 +3,18 @@ import { PixelRatio, StyleSheet, View, ScrollView, Text, NativeModules, Alert } 
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
-import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
-import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import AppConstants from '../AppConstants';
 
 var _ = require('lodash');
 
 const DEFAULT_ROW_LENGTH = 3; // 3 items per row
 
-class SetupRecoveryPhrase extends Component {
+class SetupGetRecoveryPhraseConfirmation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,71 +34,24 @@ class SetupRecoveryPhrase extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.generateRecoveryPhrase();
+  pushBack = () => {
+    this.props.navigation.navigate('SetupGetRecoveryPhraseConfirmation');
   };
 
-  showExitApp() {
-    Alert.alert(
-      '',
-      `Problem occurred validating the phrase, please contact Oneiro.`,
-      [
-        {
-          text: 'Exit app',
-          onPress: () => {
-            RNExitApp.exitApp();
-          }
-        }
-      ],
-      { cancelable: false }
-    );
-  }
-
-  generateRecoveryPhrase = async () => {
-    console.debug(`entropy in generateRecoveryPhrase is ${SetupStore.getEntropy()}`);
-    const KeyaddrManager = NativeModules.KeyaddrManager;
-    const seeds = await KeyaddrManager.keyaddrWordsFromBytes(
-      AppConstants.APP_LANGUAGE,
-      SetupStore.getEntropy()
-    );
-    const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(AppConstants.APP_LANGUAGE, seeds);
-    if (!_(seedBytes).isEqual(SetupStore.getEntropy())) {
-      this.showExitApp();
-    } else {
-      console.debug(`${seedBytes} and ${SetupStore.getEntropy()} are equal.`);
-    }
-    console.debug(`keyaddr's seed words are: ${seeds}`);
-    const recoveryPhrase = seeds.split(/\s+/g);
-    this.setState({ recoveryPhrase: recoveryPhrase });
-
-    // Shuffle the deck with a Fisher-Yates shuffle algorithm;
-    // walks through the array backwards once, exchanging each value
-    // with a random element from the remainder of the array
-    let map = recoveryPhrase.map((e, i) => i);
-    let arr = recoveryPhrase.slice();
-    for (let i = arr.length - 1; i >= 0; i--) {
-      let r = Math.floor(Math.random() * i);
-      [ map[i], map[r] ] = [ map[r], map[i] ];
-      [ arr[i], arr[r] ] = [ arr[r], arr[i] ];
-    }
-    this.shuffledWords = arr;
-    // turn array inside out
-    this.shuffleMap = map.reduce((a, c, i) => {
-      a[c] = i;
-      return a;
-    }, []);
+  //TODO: implement
+  _confirmRecoverPhrase = () => {
+    return true;
   };
 
-  showNextSetup = () => {
-    SetupStore.setRecoveryPhrase(this.state.recoveryPhrase);
-    SetupStore.setShuffledMap(this.shuffleMap);
-    SetupStore.setShuffledWords(this.shuffledWords);
-    this.props.navigation.navigate('SetupConfirmRecoveryPhrase');
+  confirm = () => {
+    if (this._confirmRecoverPhrase()) {
+      this.props.navigation.navigate('Dashboard');
+    }
   };
 
   render() {
     // chop the words into DEFAULT_ROW_LENGTH-tuples
-    const words = groupIntoRows(this.state.recoveryPhrase, this.rowLength);
+    const words = groupIntoRows(this.props.recoveryPhrase, this.rowLength);
     const styles = {
       rowTextView: {
         height: hp(this.boxHeight),
@@ -145,7 +95,12 @@ class SetupRecoveryPhrase extends Component {
             })}
           </ScrollView>
           <View style={cssStyles.footer}>
-            <CommonButton onPress={this.showNextSetup} title="I wrote it down" />
+            <View style={styles.navButtonWrapper}>
+              <CommonButton onPress={() => this.pushBack()} title="Back" />
+            </View>
+            <View style={styles.navButtonWrapper}>
+              <CommonButton onPress={() => this.confirm()} title="Confirm" />
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -153,4 +108,4 @@ class SetupRecoveryPhrase extends Component {
   }
 }
 
-export default SetupRecoveryPhrase;
+export default SetupGetRecoveryPhraseConfirmation;

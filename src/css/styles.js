@@ -59,6 +59,11 @@ export default StyleSheet.create({
     fontSize: 14,
     fontFamily: 'TitilliumWeb-Regular'
   },
+  smallWhiteText: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
   textInput: {
     height: hp('7%'),
     borderColor: 'gray',
@@ -158,7 +163,6 @@ export default StyleSheet.create({
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 20
-    // marginRight: 20
   },
   dashboardTextVerySmallWhite: {
     color: '#ffffff',
@@ -182,6 +186,17 @@ export default StyleSheet.create({
     fontSize: 18,
     textDecorationLine: 'underline'
   },
+  blueLinkText: {
+    color: 'blue',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 18,
+    textDecorationLine: 'underline'
+  },
+  blackDialogText: {
+    color: 'black',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 18
+  },
   asterisks: {
     color: StyleConstants.ASTERISKS_RED,
     fontFamily: 'TitilliumWeb-Regular',
@@ -195,5 +210,24 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  carouselArrows: {
+    color: '#ffffff',
+    fontFamily: 'TitilliumWeb-Bold',
+    fontSize: 24,
+    paddingBottom: hp('37%')
+  },
+  recoveryPageView: {
+    flexDirection: 'row',
+    backgroundColor: StyleConstants.APP_BACKGROUND_COLOR,
+    marginTop: hp('3%'),
+    // marginLeft: wp('1%'),
+    // alignContent: 'center',
+    justifyContent: 'center',
+    ...Platform.select({
+      android: {
+        marginLeft: wp('14%')
+      }
+    })
   }
 });

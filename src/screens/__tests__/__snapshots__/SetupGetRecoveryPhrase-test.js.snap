@@ -57,389 +57,1872 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
           </Text>
         </View>
         <View
+          onLayout={[Function]}
           style={
             Object {
               "flex": 1,
-              "flexDirection": "row",
-              "justifyContent": "space-evenly",
             }
           }
         >
           <View
+            onLayout={[Function]}
             style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
+              Array [
+                Object {
+                  "height": 667,
+                  "width": 150,
+                },
+              ]
             }
           >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
+            <RCTScrollView
+              alwaysBounceHorizontal={false}
+              alwaysBounceVertical={false}
+              automaticallyAdjustContentInsets={false}
+              bounces={false}
+              contentContainerStyle={
+                Array [
+                  Object {
+                    "position": "absolute",
+                  },
+                  undefined,
+                  Object {
+                    "height": 0,
+                    "width": 0,
+                  },
+                ]
+              }
+              contentInset={
+                Object {
+                  "top": 0,
+                }
+              }
+              horizontal={true}
+              onMomentumScrollEnd={[Function]}
+              onScroll={[Function]}
+              onScrollBeginDrag={[Function]}
+              pagingEnabled={true}
+              scrollEnabled={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    1
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    2
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    3
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    4
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    5
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    6
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    7
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    8
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    9
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    10
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    11
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  accessible={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c2227",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginTop": 40,
+                      },
+                      Object {
+                        "height": 667,
+                        "width": 150,
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 20,
+                        },
+                        Object {
+                          "marginRight": 15,
+                          "marginTop": 13.5,
+                        },
+                      ]
+                    }
+                  >
+                    12
+                    .
+                  </Text>
+                  <View
+                    style={
+                      Array [
+                        Object {
+                          "zIndex": 1,
+                        },
+                        Object {
+                          "backgroundColor": "#1c2227",
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "borderColor": "#b9b9b9",
+                            "borderRadius": 1,
+                            "borderWidth": 1,
+                          },
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          },
+                        ]
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        containerStyle={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                          }
+                        }
+                        data={Array []}
+                        defaultValue={null}
+                        inputContainerStyle={
+                          Object {
+                            "alignContent": "center",
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "height": 80,
+                            "justifyContent": "center",
+                            "paddingLeft": 15,
+                            "width": 450,
+                          }
+                        }
+                        keyboardShouldPersistTaps="always"
+                        listContainerStyle={
+                          Object {
+                            "width": 450,
+                          }
+                        }
+                        onChangeText={[Function]}
+                        onEndEditing={[Function]}
+                        onStartShouldSetResponderCapture={[Function]}
+                        placeholderTextColor="#ffffff"
+                        renderItem={[Function]}
+                        renderSeparator={null}
+                        renderTextInput={[Function]}
+                        rowHasChanged={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#1c2227",
+                            "borderRadius": 6,
+                            "color": "#ffffff",
+                            "fontFamily": "TitilliumWeb-Regular",
+                            "fontSize": 18,
+                            "zIndex": 1,
+                          }
+                        }
+                      />
+                    </View>
+                    <View
+                      onStartShouldSetResponderCapture={[Function]}
+                      style={
+                        Object {
+                          "width": 450,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </RCTScrollView>
+            <View
+              pointerEvents="box-none"
               style={
                 Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
+                  "backgroundColor": "transparent",
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
                 }
               }
             >
-              1
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
+              <View
+                pointerEvents="box-none"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                    },
+                    undefined,
+                  ]
                 }
+              >
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#ffffff",
+                        "fontFamily": "TitilliumWeb-Bold",
+                        "fontSize": 24,
+                        "paddingBottom": 493.5,
+                      }
+                    }
+                  >
+                    ＜
+                  </Text>
+                </View>
+                <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Object {
+                        "color": "#ffffff",
+                        "fontFamily": "TitilliumWeb-Bold",
+                        "fontSize": 24,
+                        "paddingBottom": 493.5,
+                      }
+                    }
+                  >
+                    ＞
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              pointerEvents="none"
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "bottom": 20,
+                    "left": 0,
+                    "position": "absolute",
+                    "right": 0,
+                  },
+                  undefined,
+                ]
               }
             >
-              2
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "transparent",
+                    "justifyContent": "center",
+                  }
                 }
-              }
-            >
-              3
-              .
-              
-
-              
-            </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-              "justifyContent": "space-evenly",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              4
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              5
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              6
-              .
-              
-
-              
-            </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-              "justifyContent": "space-evenly",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              7
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              8
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              9
-              .
-              
-
-              
-            </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-              "justifyContent": "space-evenly",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              10
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              11
-              .
-              
-
-              
-            </Text>
-          </View>
-          <View
-            style={
-              Object {
-                "height": 240,
-                "width": 225,
-              }
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "color": "#ffffff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 20,
-                  "textAlign": "center",
-                }
-              }
-            >
-              12
-              .
-              
-
-              
-            </Text>
+              >
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "borderRadius": 10,
+                        "height": 20,
+                        "justifyContent": "center",
+                        "width": 80,
+                      },
+                      Object {
+                        "backgroundColor": "rgba(0, 0, 0, 0.25)",
+                      },
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "textAlign": "center",
+                        },
+                        Object {
+                          "color": "#ffffff",
+                          "fontFamily": "TitilliumWeb-Regular",
+                          "fontSize": 12,
+                        },
+                      ]
+                    }
+                  >
+                    1 / 12
+                  </Text>
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </View>
     </RCTScrollView>
-    <View>
-      <View
-        accessibilityComponentType="button"
-        accessibilityTraits="button"
+    <View
+      style={
+        Object {
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
         accessible={true}
-        isTVSelectable={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        onPress={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#dea85a",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 18,
+              "textDecorationLine": "underline",
+            },
+            Object {
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        I don't have my recovery phrase
+      </Text>
+    </View>
+  </View>
+  <Modal
+    hardwareAccelerated={false}
+    onRequestClose={[Function]}
+    transparent={true}
+    visible={false}
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#000000AA",
+            "flex": 1,
+            "padding": 24,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        accessible={true}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
         onResponderRelease={[Function]}
@@ -448,41 +1931,94 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignContent": "center",
-            "backgroundColor": "#4e957a",
-            "borderRadius": 3,
-            "height": 93.5,
-            "justifyContent": "center",
-            "opacity": 1,
+            "flex": 1,
+            "width": "100%",
           }
         }
+      />
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#e8e8e8",
+              "borderRadius": 5,
+              "elevation": 4,
+              "shadowOffset": Object {
+                "height": 4,
+                "width": 2,
+              },
+              "shadowOpacity": 0.24,
+              "width": "100%",
+            },
+            undefined,
+          ]
+        }
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
           style={
             Array [
               Object {
-                "color": "#007aff",
-                "fontSize": 17,
-                "fontWeight": "500",
-                "textAlign": "center",
+                "padding": 24,
+                "paddingTop": 20,
+                "width": "100%",
               },
-              null,
-              Object {
-                "color": "#fff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-              },
-              null,
+              undefined,
             ]
           }
         >
-          Verify
-        </Text>
+          <View>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "black",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 18,
+                }
+              }
+            >
+              Your recovery phrase is necessary to prove ownership of your ndau. Your wallet cannot be restored without it. If you have lost your recovery phrase please contact
+               
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "color": "blue",
+                    "fontFamily": "TitilliumWeb-Regular",
+                    "fontSize": 18,
+                    "textDecorationLine": "underline",
+                  },
+                ]
+              }
+            >
+              john.pasqualetto@oneiro.io
+            </Text>
+          </View>
+        </View>
       </View>
+      <View
+        accessible={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "flex": 1,
+            "width": "100%",
+          }
+        }
+      />
     </View>
-  </View>
+  </Modal>
 </View>
 `;

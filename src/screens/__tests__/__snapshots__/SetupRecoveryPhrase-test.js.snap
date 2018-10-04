@@ -27,6 +27,7 @@ exports[`testing SetupRecoveryPhrase... renders correctly 1`] = `
     }
   >
     <RCTScrollView
+      keyboardShouldPersistTaps="always"
       style={
         Object {
           "marginTop": 20,
@@ -75,7 +76,13 @@ exports[`testing SetupRecoveryPhrase... renders correctly 1`] = `
         </View>
       </View>
     </RCTScrollView>
-    <View>
+    <View
+      style={
+        Object {
+          "justifyContent": "flex-end",
+        }
+      }
+    >
       <View
         accessibilityComponentType="button"
         accessibilityTraits="button"

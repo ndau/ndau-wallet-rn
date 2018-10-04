@@ -191,10 +191,10 @@ class Passphrase extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <View style={styles.textContainer}>
-              <Text onPress={this.showSetup} style={styles.linkText}>
+              <Text onPress={this.showSetup} style={cssStyles.linkText}>
                 Create a new user
               </Text>
-              <Text onPress={this.showRecovery} style={styles.linkText}>
+              <Text onPress={this.showRecovery} style={cssStyles.linkText}>
                 Recover account
               </Text>
             </View>
@@ -239,12 +239,6 @@ const styles = StyleSheet.create({
   infoIcon: {
     marginLeft: 12,
     marginTop: 20
-  },
-  linkText: {
-    color: StyleConstants.LINK_ORANGE,
-    fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 18,
-    textDecorationLine: 'underline'
   }
 });
 

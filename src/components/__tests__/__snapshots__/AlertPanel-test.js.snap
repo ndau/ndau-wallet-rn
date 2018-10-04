@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing AlertPanel... renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#c7f3e2",
+      "borderColor": "#c7f3e2",
+      "borderRadius": 6,
+      "borderWidth": 1,
+      "marginBottom": 8,
+      "marginTop": 15,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#c7f3e2",
+        "borderColor": "#4e957a",
+        "borderRadius": 6,
+        "borderWidth": 2,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#4e957a",
+          "fontFamily": "TitilliumWeb-Regular",
+          "fontSize": 20,
+          "padding": 10,
+        }
+      }
+    />
+  </View>
+</View>
+`;
