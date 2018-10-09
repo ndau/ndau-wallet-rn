@@ -1,20 +1,20 @@
 const PROTOCOL = 'https';
 const DOMAIN = '.ndau.io';
 
-getNodeAddress = (user) => {
-  return PROTOCOL + '://' + user.selectedNode.toLowerCase() + DOMAIN;
+getNodeAddress = (selectedNode) => {
+  return PROTOCOL + '://' + selectedNode.toLowerCase() + DOMAIN;
 };
 
-getAccountAPIAddress = (user) => {
-  return getNodeAddress(user) + '/account';
+getAccountAPIAddress = (selectedNode) => {
+  return getNodeAddress(selectedNode) + '/account';
 };
 
-getEaiPercentageAPIAddress = (user) => {
-  return getNodeAddress(user) + '/eaipercentage';
+getEaiPercentageAPIAddress = (selectedNode) => {
+  return getNodeAddress(selectedNode) + '/eaipercentage';
 };
 
-getMarketPriceAPIAddress = (user) => {
-  return getNodeAddress(user) + '/marketprice';
+getMarketPriceAPIAddress = (selectedNode) => {
+  return getNodeAddress(selectedNode) + '/marketprice';
 };
 
 export default {

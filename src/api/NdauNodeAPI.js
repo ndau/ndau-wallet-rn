@@ -1,14 +1,14 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper';
 import addressData from './addressData';
 
-const getAddressData = (user) => {
+const getAddressData = (selectedNode, addresses) => {
   //TODO: this is TEMP code
   if (__DEV__) {
     return addressData.testAddressData;
   }
 
-  const accountAPI = NodeAddressHelper.getAccountAPIAddress(user);
-  console.log(`Sending ${JSON.stringify(user.addresses, null, 2)} to ${accountAPI}`);
+  const accountAPI = NodeAddressHelper.getAccountAPIAddress(selectedNode);
+  console.log(`Sending ${JSON.stringify(addresses, null, 2)} to ${accountAPI}`);
   return fetch(accountAPI, {
     method: 'POST',
     headers: {
@@ -16,7 +16,7 @@ const getAddressData = (user) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      addresses: user.addresses
+      addresses: addresses
     })
   })
     .then((response) => response.json())
@@ -26,13 +26,13 @@ const getAddressData = (user) => {
     });
 };
 
-const getMarketPrice = (user) => {
+const getMarketPrice = (selectedNode) => {
   //TODO: this is TEMP code
   if (__DEV__) {
     return addressData.testMarketPrice;
   }
 
-  const marketPriceAPI = NodeAddressHelper.getMarketPriceAPIAddress(user);
+  const marketPriceAPI = NodeAddressHelper.getMarketPriceAPIAddress(selectedNode);
   return fetch(marketPriceAPI).then((response) => response.json()).then((responseJson) => {
     console.info(`getMarketPrice responseJson ${JSON.stringify(responseJson, null, 2)}`);
     return responseJson;

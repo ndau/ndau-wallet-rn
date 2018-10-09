@@ -12,6 +12,7 @@ import RecoveryDropdown from '../components/RecoveryDropdown';
 import Carousel from 'react-native-looped-carousel';
 import { Dialog } from 'react-native-simple-dialogs';
 import ErrorPanel from '../components/ErrorPanel';
+import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper';
 
 const DEFAULT_ROW_LENGTH = 3; // 3 items per row
 const _ = require('lodash');
@@ -91,18 +92,22 @@ class SetupGetRecoveryPhrase extends Component {
       );
     });
 
-  //TODO: implement
-  _confirmRecoverPhrase = () => {
-    return false;
+  _checkRecoveryPhrase = async () => {
+    //WE MUST be able to assume a userId has been passed as a prop
+    return await RecoveryPhaseHelper.checkRecoveryPhrase(
+      this.recoveryPhrase.join().replace(/,/g, ' '),
+      this.props.userId
+    );
   };
 
   setAcquisitionError = (value) => {
     this.setState({ acquisitionError: value });
   };
 
-  confirm = () => {
-    if (this._confirmRecoverPhrase()) {
-      this.props.navigation.navigate('Dashboard');
+  confirm = async () => {
+    const user = await this._checkRecoveryPhrase();
+    if (user) {
+      this.props.navigation.navigate('Dashboard', { user: user });
     } else {
       this.setState({
         textColor: '#ff0000',
