@@ -18,6 +18,12 @@ export default StyleSheet.create({
     marginRight: wp('2%'),
     marginLeft: wp('2%')
   },
+  drawerTextImageDashboard: {
+    width: 40,
+    height: 35,
+    marginRight: wp('2%'),
+    marginLeft: wp('2%')
+  },
   drawerLabels: {
     fontSize: 14,
     fontFamily: 'TitilliumWeb-Regular'

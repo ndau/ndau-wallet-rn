@@ -48,7 +48,7 @@ class DashboardDrawer extends React.Component {
           <TouchableOpacity onPress={() => this.dashboard()}>
             <View style={{ flexDirection: 'row' }}>
               <Image
-                style={cssStyles.drawerTextImage}
+                style={cssStyles.drawerTextImageDashboard}
                 source={require('../../img/billfold-revised.png')}
               />
               <Text style={cssStyles.drawerText}>Dashboard</Text>

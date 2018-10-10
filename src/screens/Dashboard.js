@@ -39,12 +39,13 @@ class Dashboard extends Component {
               <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
             </View>
             <View style={cssStyles.dashboardTextContainer}>
-              <View style={{ flexDirection: 'row' }}>
+              <View
+                style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+              >
                 <Image
                   style={{
                     width: wp('7%'),
                     height: hp('6%'),
-                    marginTop: hp('2.5%') + PixelRatio.getFontScale() * 5,
                     marginRight: wp('1%')
                   }}
                   resizeMode="contain"

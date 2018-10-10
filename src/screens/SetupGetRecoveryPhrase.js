@@ -144,9 +144,9 @@ class SetupGetRecoveryPhrase extends Component {
                 leftArrowStyle={cssStyles.carouselArrows}
                 rightArrowText={'＞'}
                 rightArrowStyle={cssStyles.carouselArrows}
-                // pageInfo
-                // pageInfoTextStyle={cssStyles.smallWhiteText}
-                bullets
+                pageInfo
+                pageInfoTextStyle={cssStyles.smallWhiteText}
+                // bullets
                 arrows
                 isLooped={false}
                 autoplay={false}

@@ -84,12 +84,13 @@ class CollapsiblePanel extends Component {
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
               {this.props.account ? (
-                <View style={{ flexDirection: 'row' }}>
+                <View
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                >
                   <Image
                     style={{
                       width: wp('3%'),
                       height: hp('2%'),
-                      marginTop: hp('1.7%') + PixelRatio.getFontScale(),
                       marginRight: wp('.1%')
                     }}
                     resizeMode="contain"

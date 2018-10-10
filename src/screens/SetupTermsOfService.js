@@ -11,15 +11,14 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 import AppConstants from '../AppConstants';
+import AppConfig from '../AppConfig';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
 
-    const nodeNames = [ 'Boylston', 'Newbury', 'Commonwealth', 'Dartmouth', 'Storrow' ];
-
     this.state = {
-      selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)]
+      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * nodeNames.length)]
     };
   }
 

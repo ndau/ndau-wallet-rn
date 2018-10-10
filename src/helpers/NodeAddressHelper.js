@@ -1,12 +1,12 @@
 const PROTOCOL = 'https';
-const DOMAIN = '.ndau.io';
+const DOMAIN = '.api.ndau.tech';
 
 getNodeAddress = (selectedNode) => {
   return PROTOCOL + '://' + selectedNode.toLowerCase() + DOMAIN;
 };
 
 getAccountAPIAddress = (selectedNode) => {
-  return getNodeAddress(selectedNode) + '/account';
+  return getNodeAddress('testgroup-0') + '/accounts';
 };
 
 getEaiPercentageAPIAddress = (selectedNode) => {

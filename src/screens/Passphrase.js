@@ -61,7 +61,7 @@ class Passphrase extends Component {
         //the ndau wallet <= 1.6. After 1.7 all was well. So this code exists to
         //address the sins of those versions. This should NOT be removed!!
         if (!DataFormatHelper.hasAccountCreationKey(user)) {
-          this.showRecovery(user);
+          return this.showRecovery(user);
         }
 
         const userWithData = await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
