@@ -325,50 +325,75 @@ exports[`testing Dashboard... renders correctly 1`] = `
             >
               This account is not locked
             </Text>
-          </View>
-          <View
-            style={
-              Array [
-                Object {
-                  "justifyContent": "flex-end",
-                },
-                Object {
-                  "alignItems": "flex-end",
-                  "justifyContent": "flex-end",
-                },
-              ]
-            }
-          >
             <View
-              accessible={true}
-              isTVSelectable={true}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
-                Object {
-                  "opacity": 1,
-                }
+                Array [
+                  Object {
+                    "alignItems": "flex-end",
+                    "justifyContent": "flex-end",
+                  },
+                ]
               }
             >
-              <Image
-                source={
-                  Object {
-                    "testUri": "../../../img/lock_countdown_animation.gif",
-                  }
-                }
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "height": 32,
-                    "marginBottom": 6.5,
-                    "marginRight": 11.5,
-                    "width": 20,
+                    "opacity": 1,
                   }
                 }
               />
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              />
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Image
+                  source={
+                    Object {
+                      "testUri": "../../../img/unlocked.png",
+                    }
+                  }
+                  style={
+                    Object {
+                      "height": 35,
+                      "width": 30,
+                    }
+                  }
+                />
+              </View>
             </View>
           </View>
         </View>

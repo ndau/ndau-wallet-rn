@@ -7,8 +7,7 @@ import {
   TouchableHighlight,
   Animated,
   Image,
-  PixelRatio,
-  TouchableOpacity
+  PixelRatio
 } from 'react-native';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import {
@@ -58,10 +57,11 @@ class CollapsiblePanel extends Component {
   }
 
   setMaxHeight = (event) => {
+    let adjustment = hp('1.2%');
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
       console.debug(`setting maxHeight for first time: ${event.nativeEvent.layout.height}`);
       this.setState({
-        maxHeight: event.nativeEvent.layout.height + hp('5.5%')
+        maxHeight: event.nativeEvent.layout.height + adjustment
       });
     }
   };
@@ -105,16 +105,6 @@ class CollapsiblePanel extends Component {
           <View style={styles.border} />
           <View style={styles.body} onLayout={this.setMaxHeight}>
             {this.props.children}
-          </View>
-          <View
-            style={[ cssStyles.footer, { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}
-          >
-            <TouchableOpacity onPress={this.showInformation}>
-              <Image
-                style={{ width: 20, height: 32, marginBottom: hp('.5%'), marginRight: wp('1.5%') }}
-                source={require('../../img/lock_countdown_animation.gif')}
-              />
-            </TouchableOpacity>
           </View>
         </ImageBackground>
       </Animated.View>
