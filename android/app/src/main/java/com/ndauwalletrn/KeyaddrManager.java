@@ -41,6 +41,15 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void keyaddrWordsFromPrefix(String lang, String prefix, Integer max, Promise promise) {
+        try {
+            promise.resolve(Keyaddr.wordsFromPrefix(lang, prefix, max));
+        } catch (Exception e) {
+            promise.reject("problem getting words from prefix", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
     public void newKey(String bytes, Promise promise) {
         try {
             promise.resolve(Keyaddr.newKey(bytes).getKey());

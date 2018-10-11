@@ -4,6 +4,7 @@ import SetupRecoveryPhrase from '../SetupRecoveryPhrase';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import SetupStore from '../../model/SetupStore';
+import AppConstants from '../../AppConstants';
 
 const mockKeyaddr = () => {
   NativeModules.KeyaddrManager = {
@@ -50,7 +51,7 @@ describe('testing SetupRecoveryPhrase...', () => {
     this.wrapper = mount(makeComponent());
     this.wrapper.update();
     expect(NativeModules.KeyaddrManager.keyaddrWordsFromBytes.mock.calls).toEqual([
-      [ 'en', 'dGVzdGluZ3dlc3Rpbmdh' ]
+      [ AppConstants.APP_LANGUAGE, 'dGVzdGluZ3dlc3Rpbmdh' ]
     ]);
   });
 });

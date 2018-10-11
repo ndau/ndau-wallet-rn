@@ -5,7 +5,7 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
   style={
     Object {
       "backgroundColor": "transparent",
-      "borderRadius": 5,
+      "borderRadius": 6,
       "borderWidth": 0.5,
       "height": NaN,
       "marginBottom": 6.5,

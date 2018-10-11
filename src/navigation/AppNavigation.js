@@ -6,6 +6,7 @@ import SetupEncryptionPassword from '../screens/SetupEncryptionPassword';
 import SetupConfirmRecoveryPhrase from '../screens/SetupConfirmRecoveryPhrase';
 import SetupQRCode from '../screens/SetupQRCode';
 import SetupRecoveryPhrase from '../screens/SetupRecoveryPhrase';
+import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase';
 import SetupTermsOfService from '../screens/SetupTermsOfService';
 import SetupUserId from '../screens/SetupUserId';
 import SetupYourWallet from '../screens/SetupYourWallet';
@@ -53,6 +54,13 @@ SetupRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
+const SetupGetRecoveryPhraseScreen = ({ navigation }) => (
+  <SetupGetRecoveryPhrase navigation={navigation} />
+);
+SetupGetRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
 const SetupTermsOfServiceScreen = ({ navigation }) => (
   <SetupTermsOfService navigation={navigation} />
 );
@@ -83,6 +91,7 @@ const SetupStack = createStackNavigator({
   SetupConfirmRecoveryPhrase: { screen: SetupConfirmRecoveryPhraseScreen },
   SetupQRCode: { screen: SetupQRCodeScreen },
   SetupRecoveryPhrase: { screen: SetupRecoveryPhraseScreen },
+  SetupGetRecoveryPhrase: { screen: SetupGetRecoveryPhraseScreen },
   SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
   SetupYourWallet: { screen: SetupYourWalletScreen }
 });

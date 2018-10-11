@@ -6,6 +6,7 @@ const DERIVED_ROOT_NO = 'no';
 const DERIVED_ROOT_UNKNOWN = 'unknown';
 const TESTNET_ADDRESS = 'tn';
 const MAINNET_ADDRESS = 'nd';
+const APP_LANGUAGE = 'en';
 
 export default {
   HARDENED_CHILD_BIP_44,
@@ -15,5 +16,6 @@ export default {
   DERIVED_ROOT_UNKNOWN,
   DERIVED_ROOT_YES,
   TESTNET_ADDRESS,
-  MAINNET_ADDRESS
+  MAINNET_ADDRESS,
+  APP_LANGUAGE
 };

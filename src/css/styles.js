@@ -13,7 +13,13 @@ export default StyleSheet.create({
     paddingTop: wp('.3%')
   },
   drawerTextImage: {
-    width: 35,
+    width: 36,
+    height: 35,
+    marginRight: wp('2%'),
+    marginLeft: wp('2%')
+  },
+  drawerTextImageDashboard: {
+    width: 40,
     height: 35,
     marginRight: wp('2%'),
     marginLeft: wp('2%')
@@ -59,11 +65,16 @@ export default StyleSheet.create({
     fontSize: 14,
     fontFamily: 'TitilliumWeb-Regular'
   },
+  smallWhiteText: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontFamily: 'TitilliumWeb-Regular'
+  },
   textInput: {
     height: hp('7%'),
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 6,
     marginTop: hp('1%'),
     paddingLeft: wp('1%'),
     color: '#000000',
@@ -76,7 +87,7 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderColor: '#4d9678',
     backgroundColor: '#4d9678',
-    borderRadius: 3,
+    borderRadius: 6,
     fontFamily: 'TitilliumWeb-Light',
     marginTop: hp('0.5%'),
     marginBottom: hp('0.5%'),
@@ -86,7 +97,7 @@ export default StyleSheet.create({
     paddingBottom: hp('.2%'),
     paddingLeft: wp('.2%'),
     paddingRight: wp('.2%'),
-    borderRadius: 3
+    borderRadius: 6
   },
   wizardText: {
     color: '#ffffff',
@@ -158,7 +169,6 @@ export default StyleSheet.create({
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 20
-    // marginRight: 20
   },
   dashboardTextVerySmallWhite: {
     color: '#ffffff',
@@ -182,6 +192,17 @@ export default StyleSheet.create({
     fontSize: 18,
     textDecorationLine: 'underline'
   },
+  blueLinkText: {
+    color: 'blue',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 18,
+    textDecorationLine: 'underline'
+  },
+  blackDialogText: {
+    color: 'black',
+    fontFamily: 'TitilliumWeb-Regular',
+    fontSize: 18
+  },
   asterisks: {
     color: StyleConstants.ASTERISKS_RED,
     fontFamily: 'TitilliumWeb-Regular',
@@ -195,5 +216,21 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  carouselArrows: {
+    color: '#ffffff',
+    fontFamily: 'TitilliumWeb-Bold',
+    fontSize: 24,
+    paddingBottom: hp('37%')
+  },
+  recoveryPageView: {
+    flexDirection: 'row',
+    backgroundColor: StyleConstants.APP_BACKGROUND_COLOR,
+    marginTop: hp('3%'),
+    justifyContent: 'center'
+  },
+  navButtonWrapper: {
+    justifyContent: 'space-between',
+    marginTop: hp('2%')
   }
 });

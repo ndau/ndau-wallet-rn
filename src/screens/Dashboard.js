@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { SafeAreaView } from 'react-navigation';
-import { ScrollView, View, Text, StatusBar, Image, PixelRatio } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
+  Image,
+  PixelRatio,
+  TouchableOpacity
+} from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
 import styles from '../css/styles';
@@ -31,12 +39,13 @@ class Dashboard extends Component {
               <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
             </View>
             <View style={cssStyles.dashboardTextContainer}>
-              <View style={{ flexDirection: 'row' }}>
+              <View
+                style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+              >
                 <Image
                   style={{
                     width: wp('7%'),
                     height: hp('6%'),
-                    marginTop: hp('2.5%') + PixelRatio.getFontScale() * 5,
                     marginRight: wp('1%')
                   }}
                   resizeMode="contain"
@@ -57,6 +66,13 @@ class Dashboard extends Component {
 
             {addressData ? (
               addressData.map((account, index) => {
+                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account);
+                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account);
+                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account);
+                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account);
+                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(account);
+                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account);
+
                 return (
                   <CollapsiblePanel
                     key={index}
@@ -66,37 +82,71 @@ class Dashboard extends Component {
                     lockAdder={NdauNodeAPIHelper.accountNotLocked(account) ? 0 : 3}
                     onNotice={NdauNodeAPIHelper.accountNoticePeriod(account) ? true : false}
                   >
-                    {NdauNodeAPIHelper.eaiPercentage(account) ? (
+                    {eaiPercentage ? (
                       <Text style={cssStyles.text}>
-                        {NdauNodeAPIHelper.eaiPercentage(account)}
+                        {eaiPercentage}
                         {'%'} annualized EAI
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.sendingEAITo(account) ? (
+                    {sendingEAITo ? (
                       <Text style={cssStyles.text}>
-                        Sending incentive {'('}EAI{')'} to {NdauNodeAPIHelper.sendingEAITo(account)}
+                        Sending incentive {'('}EAI{')'} to {sendingEAITo}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.receivingEAIFrom(account) ? (
+                    {receivingEAIFrom ? (
                       <Text style={cssStyles.text}>
-                        Receiving incentive {'('}EAI{')'} to{' '}
-                        {NdauNodeAPIHelper.receivingEAIFrom(account)}
+                        Receiving incentive {'('}EAI{')'} to {receivingEAIFrom}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.accountLockedUntil(account) ? (
+                    {accountLockedUntil ? (
                       <Text style={cssStyles.text}>
-                        Account will be unlocked {NdauNodeAPIHelper.accountLockedUntil(account)}
+                        Account will be unlocked {accountLockedUntil}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.accountNoticePeriod(account) ? (
+                    {accountNoticePeriod ? (
                       <Text style={cssStyles.text}>
                         Locked {'('}
-                        {NdauNodeAPIHelper.accountNoticePeriod(account)} day countdown{')'}
+                        {accountNoticePeriod} day countdown{')'}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.accountNotLocked(account) ? (
+                    {accountNotLocked ? (
                       <Text style={cssStyles.text}>This account is not locked</Text>
                     ) : null}
+                    <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
+                      <TouchableOpacity>
+                        {accountNoticePeriod ? (
+                          <Image
+                            style={{
+                              width: 23,
+                              height: 35
+                            }}
+                            source={require('../../img/lock_countdown_animation_white.gif')}
+                          />
+                        ) : null}
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        {accountLockedUntil ? (
+                          <Image
+                            style={{
+                              width: 23,
+                              height: 35
+                            }}
+                            source={require('../../img/locked.png')}
+                          />
+                        ) : null}
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        {accountNotLocked ? (
+                          <Image
+                            style={{
+                              width: 30,
+                              height: 35
+                            }}
+                            source={require('../../img/unlocked.png')}
+                          />
+                        ) : null}
+                      </TouchableOpacity>
+                    </View>
                   </CollapsiblePanel>
                 );
               })
