@@ -17,7 +17,6 @@ import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
 import { SafeAreaView } from 'react-navigation';
-import StyleConstants from '../css/styleConstants';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import {
   widthPercentageToDP as wp,
@@ -71,7 +70,7 @@ class Passphrase extends Component {
         this.showLoginError();
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       this.showLoginError();
     }
   };
