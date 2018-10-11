@@ -1,8 +1,12 @@
+import AppConfig from '../AppConfig';
+
 const PROTOCOL = 'https';
 const DOMAIN = '.api.ndau.tech';
+const SELECTED_NODE = AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)];
 
 getNodeAddress = (selectedNode) => {
-  return PROTOCOL + '://' + selectedNode.toLowerCase() + DOMAIN;
+  const node = selectedNode || SELECTED_NODE;
+  return PROTOCOL + '://' + node.toLowerCase() + DOMAIN;
 };
 
 getAccountAPIAddress = (selectedNode) => {

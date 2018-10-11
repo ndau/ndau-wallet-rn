@@ -3,9 +3,9 @@ import addressData from './addressData';
 
 const getAddressData = (selectedNode, addresses) => {
   //TODO: this is TEMP code
-  if (__DEV__) {
-    return addressData.testAddressData;
-  }
+  // if (__DEV__) {
+  //   return addressData.testAddressData;
+  // }
 
   const accountAPI = NodeAddressHelper.getAccountAPIAddress(selectedNode);
   console.log(`Sending ${JSON.stringify(addresses, null, 2)} to ${accountAPI}`);

@@ -18,7 +18,7 @@ class SetupTermsOfService extends Component {
     super(props);
 
     this.state = {
-      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * nodeNames.length)]
+      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)]
     };
   }
 
