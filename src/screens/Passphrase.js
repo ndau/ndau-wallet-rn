@@ -71,7 +71,7 @@ class Passphrase extends Component {
         this.showLoginError();
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       this.showLoginError();
     }
   };
