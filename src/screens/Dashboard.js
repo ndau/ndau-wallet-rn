@@ -15,7 +15,7 @@ import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import { getNodeAddress } from '../helpers/NodeAddressHelper';
+import { createNewAccount  } from '../keyaddrgen/KeyAddrGenManager';
 import AlertPanel from '../components/AlertPanel';
 import CommonButton from '../components/CommonButton';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -46,20 +46,15 @@ class Dashboard extends Component {
   }
 
   addNewAddress = () => {
-    const nodeAddress = getNodeAddress(this.user);
+    const newAccount = createNewAccount(this.user);
+    const newAddress = newAccount.address;
 
-    fetch(nodeAddress)
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        this.setState((prevState) => {
-          const addresses = prevState.addresses;          
-          addresses.push(res.address);
+    this.setState((prevState) => {
+      const addresses = prevState.addresses;          
+      addresses.push(newAddress);
 
-          return { addresses };
-        })
-      })
-      .catch();
+      return { addresses };
+    })
   }
 
   render() {
