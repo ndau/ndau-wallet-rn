@@ -19,8 +19,35 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import UnlockModalDialog from '../components/UnlockModalDialog';
+import LockModalDialog from '../components/LockModalDialog';
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lockModalVisible: false,
+      unlockModalVisible: false
+    };
+  }
+
+  setLockModalVisible = (visible) => {
+    this.setState({ lockModalVisible: visible });
+  };
+
+  setUnlockModalVisible = (visible) => {
+    this.setState({ unlockModalVisible: visible });
+  };
+
+  unlock = () => {
+    this.setState({ unlockModalVisible: true });
+  };
+
+  lock = () => {
+    this.setState({ lockModalVisible: true });
+  };
+
   render() {
     console.log(`rendering Dashboard`);
 
@@ -33,6 +60,14 @@ class Dashboard extends Component {
     if (addressData) {
       return addressData ? (
         <SafeAreaView style={cssStyles.safeContainer}>
+          <UnlockModalDialog
+            visible={this.state.unlockModalVisible}
+            setModalVisible={this.setUnlockModalVisible}
+          />
+          <LockModalDialog
+            visible={this.state.lockModalVisible}
+            setModalVisible={this.setLockModalVisible}
+          />
           <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
           <ScrollView style={cssStyles.container}>
             <View style={cssStyles.dashboardTextContainer}>
@@ -113,18 +148,16 @@ class Dashboard extends Component {
                       <Text style={cssStyles.text}>This account is not locked</Text>
                     ) : null}
                     <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
-                      <TouchableOpacity>
-                        {accountNoticePeriod ? (
-                          <Image
-                            style={{
-                              width: 23,
-                              height: 35
-                            }}
-                            source={require('../../img/lock_countdown_animation_white.gif')}
-                          />
-                        ) : null}
-                      </TouchableOpacity>
-                      <TouchableOpacity>
+                      {accountNoticePeriod ? (
+                        <Image
+                          style={{
+                            width: 23,
+                            height: 35
+                          }}
+                          source={require('../../img/lock_countdown_animation_white.gif')}
+                        />
+                      ) : null}
+                      <TouchableOpacity onPress={this.unlock}>
                         {accountLockedUntil ? (
                           <Image
                             style={{
@@ -135,7 +168,7 @@ class Dashboard extends Component {
                           />
                         ) : null}
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={this.lock}>
                         {accountNotLocked ? (
                           <Image
                             style={{
