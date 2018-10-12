@@ -1,27 +1,76 @@
 import React, { Component } from 'react';
 import { SafeAreaView } from 'react-navigation';
-import { ScrollView, View, Text, StatusBar, Image, PixelRatio } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
+  Image,
+  PixelRatio,
+  TouchableOpacity,
+  Modal,
+  StyleSheet,
+} from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
-import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import { getNodeAddress } from '../helpers/NodeAddressHelper';
 import AlertPanel from '../components/AlertPanel';
+import CommonButton from '../components/CommonButton';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.user = props.navigation.getParam('user', {});
+
+    this.state = {
+      addresses: this.user.addresses,
+      showModal: false
+    }
+  }
+
+  showModal = () => {
+    this.setState({ modalVisible: true });
+  }
+
+  hideModal = () => {
+    this.setState({ modalVisible: false });
+  }
+
+  addNewAddress = () => {
+    const nodeAddress = getNodeAddress(this.user);
+
+    fetch(nodeAddress)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        this.setState((prevState) => {
+          const addresses = prevState.addresses;          
+          addresses.push(res.address);
+
+          return { addresses };
+        })
+      })
+      .catch();
+  }
+
   render() {
     console.log(`rendering Dashboard`);
+    console.debug(`user found is ${JSON.stringify(this.user, null, 2)}`);
 
-    const { navigation } = this.props;
-    const user = navigation.getParam('user', {});
+    const { addressData, userId } = this.user;
+    const { addresses } = this.state;
 
-    console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
-    const { addresses, addressData, userId } = user;
     console.debug(`addressData: ${addressData}`);
+
     if (addressData) {
       return addressData ? (
         <SafeAreaView style={cssStyles.safeContainer}>
@@ -49,7 +98,7 @@ class Dashboard extends Component {
             </View>
             <View style={cssStyles.dashboardSmallTextContainer}>
               <Text style={cssStyles.dashboardTextSmallGreen}>
-                {NdauNodeAPIHelper.currentPrice(user)}
+                {NdauNodeAPIHelper.currentPrice(this.user)}
                 <Text style={styles.asterisks}>**</Text>
                 <Text style={cssStyles.dashboardTextSmallWhiteEnd}> at current price</Text>
               </Text>
@@ -127,8 +176,42 @@ class Dashboard extends Component {
             <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
             sent to this app on Genesis Day. Until then, you can continue to view your holdings on
             the online dashboard." />
+
             <View style={cssStyles.dashboardTextContainer}>
               <Text style={cssStyles.dashboardTextSmall}>{addresses.length} addresses</Text>
+              
+              <TouchableOpacity onPress={this.showModal}>
+                <FontAwesome name="plus-circle" color="#000" size={20}  />
+              </TouchableOpacity>
+
+              <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.showModal}
+              >
+                <View style={{marginTop: 22}}>
+                  <View>
+                    <TouchableHighlight onPress={this.hideModal}>
+                      <FontAwesome name="close" color="#000" size={20} />
+                    </TouchableHighlight>
+                  </View>
+
+                  <View>
+                    <Text style={{fontWeight: 'bold'}}>
+                      How many accounts would you like to add to your wallet?
+                    </Text>
+  
+                      {/* TODO: add number picker */}
+                     
+                    <View style={cssStyles.footer}>
+                      <CommonButton
+                        onPress={this.addNewAddress}
+                        title="Add new"
+                      />
+                    </View>
+                  </View>
+                </View>
+              </Modal>
             </View>
 
             {addresses ? (
@@ -154,5 +237,10 @@ class Dashboard extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  minusButton: {},
+  plusButton: {},
+});
 
 export default Dashboard;
