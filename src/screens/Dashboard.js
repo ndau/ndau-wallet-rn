@@ -8,7 +8,6 @@ import {
   Image,
   PixelRatio,
   TouchableOpacity,
-  Modal,
   StyleSheet,
 } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
@@ -18,6 +17,7 @@ import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import { createNewAccount  } from '../keyaddrgen/KeyAddrGenManager';
 import AlertPanel from '../components/AlertPanel';
 import CommonButton from '../components/CommonButton';
+import ModalDialog from '../components/ModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   widthPercentageToDP as wp,
@@ -179,24 +179,17 @@ class Dashboard extends Component {
                 <FontAwesome name="plus-circle" color="#000" size={20}  />
               </TouchableOpacity>
 
-              <Modal
-                animationType="slide"
-                transparent={false}
+              {/* 
+              <ModalDialog
                 visible={this.state.showModal}
               >
                 <View style={{marginTop: 22}}>
-                  <View>
-                    <TouchableHighlight onPress={this.hideModal}>
-                      <FontAwesome name="close" color="#000" size={20} />
-                    </TouchableHighlight>
-                  </View>
-
                   <View>
                     <Text style={{fontWeight: 'bold'}}>
                       How many accounts would you like to add to your wallet?
                     </Text>
   
-                      {/* TODO: add number picker */}
+                      // TODO: add number picker
                      
                     <View style={cssStyles.footer}>
                       <CommonButton
@@ -206,7 +199,8 @@ class Dashboard extends Component {
                     </View>
                   </View>
                 </View>
-              </Modal>
+              </ModalDialog> 
+              */}
             </View>
 
             {addresses ? (
