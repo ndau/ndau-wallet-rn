@@ -78,7 +78,9 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
         <View
           style={
             Object {
+              "alignItems": "center",
               "flexDirection": "row",
+              "justifyContent": "center",
             }
           }
         >
@@ -93,7 +95,6 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
               Object {
                 "height": 26.5,
                 "marginRight": 1,
-                "marginTop": 24.5,
                 "width": 22.5,
               }
             }
