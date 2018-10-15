@@ -250,9 +250,4 @@ class Dashboard extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  minusButton: {},
-  plusButton: {}
-});
-
 export default Dashboard;
