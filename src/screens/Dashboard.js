@@ -57,11 +57,11 @@ class Dashboard extends Component {
 
   render() {
     console.log(`rendering Dashboard`);
-    console.debug(`user found is ${JSON.stringify(this.user, null, 2)}`);
+    const { navigation } = this.props;
+    const user = navigation.getParam('user', {});
 
-    const { addressData, userId } = this.user;
-    const { addresses } = this.state;
-
+    console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
+    const { addresses, addressData, userId } = user;
     console.debug(`addressData: ${addressData}`);
 
     if (addressData) {
