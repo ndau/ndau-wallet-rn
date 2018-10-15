@@ -39,7 +39,10 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 6,
     width: wp('90%'),
-    height: hp('70%')
+    height: hp('70%'),
+    paddingLeft: wp('2%'),
+    paddingRight: wp('2%'),
+    paddingBottom: hp('2%')
   },
   closeButton: {
     marginTop: hp('.5%'),

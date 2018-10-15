@@ -41,11 +41,17 @@ class Dashboard extends Component {
   };
 
   unlock = () => {
-    this.setState({ unlockModalVisible: true });
+    //TODO: This is for issue #28 and #29 for MVP
+    //This is being commented out for now as we want the
+    //icons, but don't want the actual implementation yet
+    // this.setState({ unlockModalVisible: true });
   };
 
   lock = () => {
-    this.setState({ lockModalVisible: true });
+    //TODO: This is for issue #28 and #29 for MVP
+    //This is being commented out for now as we want the
+    //icons, but don't want the actual implementation yet
+    // this.setState({ lockModalVisible: true });
   };
 
   render() {
