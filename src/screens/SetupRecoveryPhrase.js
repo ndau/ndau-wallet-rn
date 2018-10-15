@@ -11,6 +11,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import AppConstants from '../AppConstants';
 
 var _ = require('lodash');
 
@@ -59,8 +60,11 @@ class SetupRecoveryPhrase extends Component {
   generateRecoveryPhrase = async () => {
     console.debug(`entropy in generateRecoveryPhrase is ${SetupStore.getEntropy()}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
-    const seeds = await KeyaddrManager.keyaddrWordsFromBytes('en', SetupStore.getEntropy());
-    const seedBytes = await KeyaddrManager.keyaddrWordsToBytes('en', seeds);
+    const seeds = await KeyaddrManager.keyaddrWordsFromBytes(
+      AppConstants.APP_LANGUAGE,
+      SetupStore.getEntropy()
+    );
+    const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(AppConstants.APP_LANGUAGE, seeds);
     if (!_(seedBytes).isEqual(SetupStore.getEntropy())) {
       this.showExitApp();
     } else {
@@ -109,7 +113,7 @@ class SetupRecoveryPhrase extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
             <Stepper screenNumber={6} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
@@ -140,7 +144,7 @@ class SetupRecoveryPhrase extends Component {
               );
             })}
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <CommonButton onPress={this.showNextSetup} title="I wrote it down" />
           </View>
         </View>

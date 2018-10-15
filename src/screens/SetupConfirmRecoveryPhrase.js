@@ -123,10 +123,10 @@ class SetupConfirmRecoveryPhrase extends Component {
             })}
           </ScrollView>
           <View style={styles.footer}>
-            <View style={styles.navButtonWrapper}>
+            <View style={cssStyles.navButtonWrapper}>
               <CommonButton onPress={() => this.pushBack()} title="Back (resets phrase)" />
             </View>
-            <View style={styles.navButtonWrapper}>
+            <View style={cssStyles.navButtonWrapper}>
               <CommonButton
                 onPress={() => this.showNextSetup()}
                 title="Next"
@@ -230,11 +230,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'flex-end',
     display: 'flex'
-  },
-  navButtonWrapper: {
-    // flexDirection: 'center',
-    justifyContent: 'space-between',
-    marginTop: hp('2%')
   },
   navButtons: {
     width: wp('40%')

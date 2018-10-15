@@ -1,20 +1,24 @@
+import AppConfig from '../AppConfig';
+
 const PROTOCOL = 'https';
-const DOMAIN = '.ndau.io';
+const DOMAIN = '.api.ndau.tech';
+const SELECTED_NODE = AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)];
 
-getNodeAddress = (user) => {
-  return PROTOCOL + '://' + user.selectedNode.toLowerCase() + DOMAIN;
+getNodeAddress = (selectedNode) => {
+  const node = selectedNode || SELECTED_NODE;
+  return PROTOCOL + '://' + node.toLowerCase() + DOMAIN;
 };
 
-getAccountAPIAddress = (user) => {
-  return getNodeAddress(user) + '/account';
+getAccountAPIAddress = (selectedNode) => {
+  return getNodeAddress(selectedNode) + '/accounts';
 };
 
-getEaiPercentageAPIAddress = (user) => {
-  return getNodeAddress(user) + '/eaipercentage';
+getEaiPercentageAPIAddress = (selectedNode) => {
+  return getNodeAddress(selectedNode) + '/eaipercentage';
 };
 
-getMarketPriceAPIAddress = (user) => {
-  return getNodeAddress(user) + '/marketprice';
+getMarketPriceAPIAddress = (selectedNode) => {
+  return getNodeAddress(selectedNode) + '/marketprice';
 };
 
 export default {

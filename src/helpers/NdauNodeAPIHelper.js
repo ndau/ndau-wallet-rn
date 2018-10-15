@@ -5,9 +5,9 @@ import OrderNodeAPI from '../api/OrderNodeAPI';
 
 const populateCurrentUserWithAddressData = async (user) => {
   try {
-    const addressDataFromAPI = await NdauNodeAPI.getAddressData(user);
-    const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice(user);
-    const eaiPercentageData = await OrderNodeAPI.getEAIPercentage(user);
+    const addressDataFromAPI = await NdauNodeAPI.getAddressData(user.selectedNode, user.addresses);
+    const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice(user.selectedNode);
+    const eaiPercentageData = await OrderNodeAPI.getEAIPercentage(user.selectedNode);
     const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : [];
     const marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : {};
     const totalNdau = accountTotalNdauAmount(addressData, false);

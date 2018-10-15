@@ -10,15 +10,15 @@ import ndauDashboardApi from '../api/NdauDashboardAPI';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
+import AppConstants from '../AppConstants';
+import AppConfig from '../AppConfig';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
 
-    const nodeNames = [ 'Boylston', 'Newbury', 'Commonwealth', 'Dartmouth', 'Storrow' ];
-
     this.state = {
-      selectedNode: nodeNames[Math.floor(Math.random() * nodeNames.length)]
+      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)]
     };
   }
 
@@ -28,7 +28,7 @@ class SetupTermsOfService extends Component {
     const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
     console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
     const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-      'en',
+      AppConstants.APP_LANGUAGE,
       recoveryPhraseString
     );
     console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
@@ -79,6 +79,8 @@ class SetupTermsOfService extends Component {
         });
     });
   };
+
+  sendingErrorOccured = () => {};
 
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree });

@@ -15,6 +15,253 @@ exports[`testing Dashboard... renders correctly 1`] = `
     }
   }
 >
+  <Modal
+    animationType="slide"
+    hardwareAccelerated={false}
+    setModalVisible={[Function]}
+    transparent={true}
+    visible={false}
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "white",
+            "borderRadius": 6,
+            "height": 934,
+            "paddingBottom": 26.5,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "width": 675,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={null}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "#A9A9A9",
+                  "fontSize": 20,
+                },
+                Object {
+                  "marginLeft": 7.5,
+                  "marginTop": 6.5,
+                },
+                Object {
+                  "fontFamily": "FontAwesome",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#000000",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 20,
+              "marginBottom": 13.5,
+              "marginLeft": 7.5,
+              "marginRight": 7.5,
+              "marginTop": 13.5,
+            }
+          }
+        >
+          Unlocking the account means you will be able to spend from it, but it will no longer accrue on incentive (EAI). Are you sure you want to unlock?
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#000000",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 20,
+              "marginBottom": 13.5,
+              "marginLeft": 7.5,
+              "marginRight": 7.5,
+              "marginTop": 13.5,
+            }
+          }
+        >
+          Funds from this account till be available to you in 90 days. Until 90 days are up you will not be able to add new ndau to this account.
+        </Text>
+        <View
+          style={
+            Object {
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <View
+            accessibilityComponentType="button"
+            accessibilityTraits="button"
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignContent": "center",
+                "backgroundColor": "#4e957a",
+                "borderRadius": 3,
+                "height": 93.5,
+                "justifyContent": "center",
+                "opacity": 1,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "color": "#007aff",
+                    "fontSize": 17,
+                    "fontWeight": "500",
+                    "textAlign": "center",
+                  },
+                  null,
+                  Object {
+                    "color": "#fff",
+                    "fontFamily": "TitilliumWeb-Regular",
+                    "fontSize": 16,
+                  },
+                  null,
+                ]
+              }
+            >
+              Start unlock countdown
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </Modal>
+  <Modal
+    animationType="slide"
+    hardwareAccelerated={false}
+    setModalVisible={[Function]}
+    transparent={true}
+    visible={false}
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "white",
+            "borderRadius": 6,
+            "height": 934,
+            "paddingBottom": 26.5,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "width": 675,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={null}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "color": "#A9A9A9",
+                  "fontSize": 20,
+                },
+                Object {
+                  "marginLeft": 7.5,
+                  "marginTop": 6.5,
+                },
+                Object {
+                  "fontFamily": "FontAwesome",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#000000",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 20,
+              "marginBottom": 13.5,
+              "marginLeft": 7.5,
+              "marginRight": 7.5,
+              "marginTop": 13.5,
+            }
+          }
+        >
+          This is lock dialog
+        </Text>
+      </View>
+    </View>
+  </Modal>
   <RCTScrollView
     style={
       Object {
@@ -64,7 +311,9 @@ exports[`testing Dashboard... renders correctly 1`] = `
         <View
           style={
             Object {
+              "alignItems": "center",
               "flexDirection": "row",
+              "justifyContent": "center",
             }
           }
         >
@@ -79,7 +328,6 @@ exports[`testing Dashboard... renders correctly 1`] = `
               Object {
                 "height": 80,
                 "marginRight": 7.5,
-                "marginTop": 43.5,
                 "width": 52.5,
               }
             }
@@ -170,7 +418,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
         style={
           Object {
             "backgroundColor": "transparent",
-            "borderRadius": 5,
+            "borderRadius": 6,
             "borderWidth": 0.5,
             "height": NaN,
             "marginBottom": 6.5,
@@ -248,7 +496,9 @@ exports[`testing Dashboard... renders correctly 1`] = `
               <View
                 style={
                   Object {
+                    "alignItems": "center",
                     "flexDirection": "row",
+                    "justifyContent": "center",
                   }
                 }
               >
@@ -263,7 +513,6 @@ exports[`testing Dashboard... renders correctly 1`] = `
                     Object {
                       "height": 26.5,
                       "marginRight": 1,
-                      "marginTop": 24.5,
                       "width": 22.5,
                     }
                   }
@@ -325,6 +574,61 @@ exports[`testing Dashboard... renders correctly 1`] = `
             >
               This account is not locked
             </Text>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "flex-end",
+                    "justifyContent": "flex-end",
+                  },
+                ]
+              }
+            >
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              />
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Image
+                  source={
+                    Object {
+                      "testUri": "../../../img/unlocked.png",
+                    }
+                  }
+                  style={
+                    Object {
+                      "height": 35,
+                      "width": 30,
+                    }
+                  }
+                />
+              </View>
+            </View>
           </View>
         </View>
       </View>

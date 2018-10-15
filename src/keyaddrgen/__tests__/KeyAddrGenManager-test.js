@@ -2,6 +2,7 @@ import { NativeModules } from 'react-native';
 import sinon from 'sinon';
 import KeyAddrGenManager from '../KeyAddrGenManager';
 import User from '../../model/User';
+import AppConfig from '../../AppConfig';
 
 jest.mock('NativeModules', () => {
   return {
@@ -36,6 +37,8 @@ const numberOfAccounts = 5;
 const chainId = 'tn';
 const errorString = 'Error: you MUST pass userId, recoveryPhrase to this method';
 const errorNewAccountUser = 'Error: The user passed in has no accountCreationKey';
+const errorGetRootAddresses = 'Error: you MUST pass recoveryBytes';
+const errorGetBIP44Addresses = 'Error: you MUST pass recoveryBytes';
 const bytes = 'ZWEQAwQFBgcICQoLDA0ODw==';
 const initialPrivateKey =
   'npvt8aaaaaaaaaaaadyj632qv3ip7jhi66dxjzdtbvabf2nrrupjaqignfha5smckbu4nagfhwce3f9gfutkhmk5weuicjwyrsiax8qgq56bnhg5wrb6uwbigqk3bgw3';
@@ -148,6 +151,40 @@ test('createNewAccount has bogus user', async () => {
   } catch (error) {
     console.error(error);
     expect(error.toString()).toBe(errorNewAccountUser);
+    return;
+  }
+
+  console.log(`firstTimeUser: ${firstTimeUser}`);
+});
+
+test('test getRootAddresses to make sure we get back one address in the array', async () => {
+  const addresses = await KeyAddrGenManager.getRootAddresses(bytes);
+  expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY);
+});
+
+test('getRootAddresses has an error', async () => {
+  try {
+    await KeyAddrGenManager.getRootAddresses(null);
+  } catch (error) {
+    console.error(error);
+    expect(error.toString()).toBe(errorGetRootAddresses);
+    return;
+  }
+
+  console.log(`firstTimeUser: ${firstTimeUser}`);
+});
+
+test('test getBIP44Addresses to make sure we get back one address in the array', async () => {
+  const addresses = await KeyAddrGenManager.getBIP44Addresses(bytes);
+  expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY);
+});
+
+test('getBIP44Addresses has an error', async () => {
+  try {
+    await KeyAddrGenManager.getBIP44Addresses(null);
+  } catch (error) {
+    console.error(error);
+    expect(error.toString()).toBe(errorGetBIP44Addresses);
     return;
   }
 

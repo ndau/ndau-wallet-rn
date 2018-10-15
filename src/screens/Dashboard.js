@@ -7,55 +7,53 @@ import {
   StatusBar,
   Image,
   PixelRatio,
-  TouchableOpacity,
-  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import { createNewAccount  } from '../keyaddrgen/KeyAddrGenManager';
+import { createNewAccount } from '../keyaddrgen/KeyAddrGenManager';
 import AlertPanel from '../components/AlertPanel';
-import CommonButton from '../components/CommonButton';
-import ModalDialog from '../components/ModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
+  heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-
+import UnlockModalDialog from '../components/UnlockModalDialog';
+import LockModalDialog from '../components/LockModalDialog';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.user = props.navigation.getParam('user', {});
-
     this.state = {
-      addresses: this.user.addresses,
-      showModal: false
-    }
+      lockModalVisible: false,
+      unlockModalVisible: false
+    };
   }
 
-  showModal = () => {
-    this.setState({ modalVisible: true });
-  }
+  setLockModalVisible = (visible) => {
+    this.setState({ lockModalVisible: visible });
+  };
 
-  hideModal = () => {
-    this.setState({ modalVisible: false });
-  }
+  setUnlockModalVisible = (visible) => {
+    this.setState({ unlockModalVisible: visible });
+  };
 
-  addNewAddress = () => {
-    const newAccount = createNewAccount(this.user);
-    const newAddress = newAccount.address;
+  unlock = () => {
+    //TODO: This is for issue #28 and #29 for MVP
+    //This is being commented out for now as we want the
+    //icons, but don't want the actual implementation yet
+    // this.setState({ unlockModalVisible: true });
+  };
 
-    this.setState((prevState) => {
-      const addresses = prevState.addresses;          
-      addresses.push(newAddress);
-
-      return { addresses };
-    })
-  }
+  lock = () => {
+    //TODO: This is for issue #28 and #29 for MVP
+    //This is being commented out for now as we want the
+    //icons, but don't want the actual implementation yet
+    // this.setState({ lockModalVisible: true });
+  };
 
   render() {
     console.log(`rendering Dashboard`);
@@ -69,18 +67,27 @@ class Dashboard extends Component {
     if (addressData) {
       return addressData ? (
         <SafeAreaView style={cssStyles.safeContainer}>
+          <UnlockModalDialog
+            visible={this.state.unlockModalVisible}
+            setModalVisible={this.setUnlockModalVisible}
+          />
+          <LockModalDialog
+            visible={this.state.lockModalVisible}
+            setModalVisible={this.setLockModalVisible}
+          />
           <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
           <ScrollView style={cssStyles.container}>
             <View style={cssStyles.dashboardTextContainer}>
               <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
             </View>
             <View style={cssStyles.dashboardTextContainer}>
-              <View style={{ flexDirection: 'row' }}>
+              <View
+                style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+              >
                 <Image
                   style={{
                     width: wp('7%'),
                     height: hp('6%'),
-                    marginTop: hp('2.5%') + PixelRatio.getFontScale() * 5,
                     marginRight: wp('1%')
                   }}
                   resizeMode="contain"
@@ -101,6 +108,13 @@ class Dashboard extends Component {
 
             {addressData ? (
               addressData.map((account, index) => {
+                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account);
+                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account);
+                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account);
+                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account);
+                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(account);
+                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account);
+
                 return (
                   <CollapsiblePanel
                     key={index}
@@ -110,37 +124,69 @@ class Dashboard extends Component {
                     lockAdder={NdauNodeAPIHelper.accountNotLocked(account) ? 0 : 3}
                     onNotice={NdauNodeAPIHelper.accountNoticePeriod(account) ? true : false}
                   >
-                    {NdauNodeAPIHelper.eaiPercentage(account) ? (
+                    {eaiPercentage ? (
                       <Text style={cssStyles.text}>
-                        {NdauNodeAPIHelper.eaiPercentage(account)}
+                        {eaiPercentage}
                         {'%'} annualized EAI
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.sendingEAITo(account) ? (
+                    {sendingEAITo ? (
                       <Text style={cssStyles.text}>
-                        Sending incentive {'('}EAI{')'} to {NdauNodeAPIHelper.sendingEAITo(account)}
+                        Sending incentive {'('}EAI{')'} to {sendingEAITo}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.receivingEAIFrom(account) ? (
+                    {receivingEAIFrom ? (
                       <Text style={cssStyles.text}>
-                        Receiving incentive {'('}EAI{')'} to{' '}
-                        {NdauNodeAPIHelper.receivingEAIFrom(account)}
+                        Receiving incentive {'('}EAI{')'} to {receivingEAIFrom}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.accountLockedUntil(account) ? (
+                    {accountLockedUntil ? (
                       <Text style={cssStyles.text}>
-                        Account will be unlocked {NdauNodeAPIHelper.accountLockedUntil(account)}
+                        Account will be unlocked {accountLockedUntil}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.accountNoticePeriod(account) ? (
+                    {accountNoticePeriod ? (
                       <Text style={cssStyles.text}>
                         Locked {'('}
-                        {NdauNodeAPIHelper.accountNoticePeriod(account)} day countdown{')'}
+                        {accountNoticePeriod} day countdown{')'}
                       </Text>
                     ) : null}
-                    {NdauNodeAPIHelper.accountNotLocked(account) ? (
+                    {accountNotLocked ? (
                       <Text style={cssStyles.text}>This account is not locked</Text>
                     ) : null}
+                    <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
+                      {accountNoticePeriod ? (
+                        <Image
+                          style={{
+                            width: 23,
+                            height: 35
+                          }}
+                          source={require('../../img/lock_countdown_animation_white.gif')}
+                        />
+                      ) : null}
+                      <TouchableOpacity onPress={this.unlock}>
+                        {accountLockedUntil ? (
+                          <Image
+                            style={{
+                              width: 23,
+                              height: 35
+                            }}
+                            source={require('../../img/locked.png')}
+                          />
+                        ) : null}
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={this.lock}>
+                        {accountNotLocked ? (
+                          <Image
+                            style={{
+                              width: 30,
+                              height: 35
+                            }}
+                            source={require('../../img/unlocked.png')}
+                          />
+                        ) : null}
+                      </TouchableOpacity>
+                    </View>
                   </CollapsiblePanel>
                 );
               })
@@ -174,33 +220,10 @@ class Dashboard extends Component {
 
             <View style={cssStyles.dashboardTextContainer}>
               <Text style={cssStyles.dashboardTextSmall}>{addresses.length} addresses</Text>
-              
-              <TouchableOpacity onPress={this.showModal}>
-                <FontAwesome name="plus-circle" color="#000" size={20}  />
-              </TouchableOpacity>
 
-              {/* 
-              <ModalDialog
-                visible={this.state.showModal}
-              >
-                <View style={{marginTop: 22}}>
-                  <View>
-                    <Text style={{fontWeight: 'bold'}}>
-                      How many accounts would you like to add to your wallet?
-                    </Text>
-  
-                      // TODO: add number picker
-                     
-                    <View style={cssStyles.footer}>
-                      <CommonButton
-                        onPress={this.addNewAddress}
-                        title="Add new"
-                      />
-                    </View>
-                  </View>
-                </View>
-              </ModalDialog> 
-              */}
+              <TouchableOpacity onPress={this.showModal}>
+                <FontAwesome name="plus-circle" color="#000" size={20} />
+              </TouchableOpacity>
             </View>
 
             {addresses ? (
@@ -229,7 +252,7 @@ class Dashboard extends Component {
 
 const styles = StyleSheet.create({
   minusButton: {},
-  plusButton: {},
+  plusButton: {}
 });
 
 export default Dashboard;

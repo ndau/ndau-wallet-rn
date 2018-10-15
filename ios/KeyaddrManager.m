@@ -44,6 +44,20 @@ RCT_REMAP_METHOD(keyaddrWordsToBytes,lang:(NSString*)lang words:(NSString*)words
   }
 }
 
+RCT_REMAP_METHOD(keyaddrWordsFromPrefix,lang:(NSString*)lang prefix:(NSString*)prefix max:(nonnull NSNumber*)max keyaddrWordsFromBytesWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject )
+{
+  RCTLogInfo(@"keyaddrWordsFromPrefix call with %@ prefix %@ max %@", lang, prefix, max);
+  NSError *__autoreleasing *error = NULL;
+  
+  NSString *words = KeyaddrWordsFromPrefix(lang, prefix, [max longValue]);
+  if (error) {
+    reject(@"no_events", @"Issue calling keyaddrWordsFromPrefix", *error);
+  } else {
+    resolve(words);
+  }
+}
+
 RCT_REMAP_METHOD(newKey,seed:(NSString*)seed resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {

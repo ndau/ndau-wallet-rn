@@ -14,6 +14,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import cssStyles from '../css/styles';
 
 class CollapsiblePanel extends Component {
   constructor(props) {
@@ -56,10 +57,11 @@ class CollapsiblePanel extends Component {
   }
 
   setMaxHeight = (event) => {
+    let adjustment = hp('1.2%');
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
       console.debug(`setting maxHeight for first time: ${event.nativeEvent.layout.height}`);
       this.setState({
-        maxHeight: event.nativeEvent.layout.height + 12
+        maxHeight: event.nativeEvent.layout.height + adjustment
       });
     }
   };
@@ -82,12 +84,13 @@ class CollapsiblePanel extends Component {
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
               {this.props.account ? (
-                <View style={{ flexDirection: 'row' }}>
+                <View
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                >
                   <Image
                     style={{
                       width: wp('3%'),
                       height: hp('2%'),
-                      marginTop: hp('1.7%') + PixelRatio.getFontScale(),
                       marginRight: wp('.1%')
                     }}
                     resizeMode="contain"
@@ -115,7 +118,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
     overflow: 'hidden',
     marginBottom: hp('.5%'),
-    borderRadius: 5,
+    borderRadius: 6,
     borderWidth: 0.5
   },
   titleContainer: {

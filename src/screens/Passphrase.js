@@ -17,13 +17,13 @@ import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
 import { SafeAreaView } from 'react-navigation';
-import StyleConstants from '../css/styleConstants';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import Dropdown from '../components/Dropdown';
+import DataFormatHelper from '../helpers/DataFormatHelper';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -52,9 +52,16 @@ class Passphrase extends Component {
   login = async () => {
     try {
       const user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
-      // .then((user) => {
       if (user) {
         console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
+
+        //If we do NOT have the accountCreationKey we have a major issue where we
+        //CANNOT generate any keys/addresses. This situation exists with vesions of
+        //the ndau wallet <= 1.6. After 1.7 all was well. So this code exists to
+        //address the sins of those versions. This should NOT be removed!!
+        if (!DataFormatHelper.hasAccountCreationKey(user)) {
+          return this.showRecovery(user);
+        }
 
         const userWithData = await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
 
@@ -62,9 +69,8 @@ class Passphrase extends Component {
       } else {
         this.showLoginError();
       }
-      // })
     } catch (error) {
-      console.error(error);
+      console.log(error);
       this.showLoginError();
     }
   };
@@ -119,6 +125,12 @@ class Passphrase extends Component {
     this.props.navigation.navigate('Setup');
   };
 
+  showRecovery = (user) => {
+    this.props.navigation.navigate('SetupGetRecoveryPhrase', {
+      userId: user.userId
+    });
+  };
+
   dropDownSelected = (index, value) => {
     console.log(`index: ${index} and value is ${value}`);
     this.setState({
@@ -150,10 +162,10 @@ class Passphrase extends Component {
               <TextInput
                 style={{
                   height: hp('7%'),
-                  width: wp('100%'),
+                  width: wp('96%'),
                   borderColor: 'gray',
                   borderWidth: 1,
-                  borderRadius: 3,
+                  borderRadius: 6,
                   marginTop: hp('1%'),
                   paddingLeft: wp('1%'),
                   color: '#000000',
@@ -187,12 +199,12 @@ class Passphrase extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <View style={styles.textContainer}>
-              <Text onPress={this.showSetup} style={styles.linkText}>
+              <Text onPress={this.showSetup} style={cssStyles.linkText}>
                 Create a new user
               </Text>
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>or</Text>
+              <Text onPress={this.showRecovery} style={cssStyles.linkText}>
+                Recover account
+              </Text>
             </View>
             <View style={{ marginTop: 10 }}>
               <CommonButton onPress={this.login} title="Login" />
@@ -205,38 +217,16 @@ class Passphrase extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
-    backgroundColor: '#1c2227'
-  },
   button: {
     marginTop: 0
   },
   textContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: wp('1%')
   },
   footer: {
     justifyContent: 'flex-end'
-    // margin: 10
   },
   imageView: {
     justifyContent: 'center',
@@ -257,12 +247,6 @@ const styles = StyleSheet.create({
   infoIcon: {
     marginLeft: 12,
     marginTop: 20
-  },
-  linkText: {
-    color: StyleConstants.LINK_ORANGE,
-    fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 18,
-    textDecorationLine: 'underline'
   }
 });
 

@@ -10,19 +10,19 @@ const user = {
 };
 
 test('getAccountAPIAddress sends back the correct address', async () => {
-  expect(await NodeAddressHelper.getAccountAPIAddress(user)).toBe(
-    'https://storrow.ndau.io/account'
+  expect(await NodeAddressHelper.getAccountAPIAddress('Storrow', user.addresses)).toBe(
+    'https://storrow.api.ndau.tech/accounts'
   );
 });
 
 test('getMarketPriceAPIAddress sends back the correct address', async () => {
-  expect(await NodeAddressHelper.getMarketPriceAPIAddress(user)).toBe(
-    'https://storrow.ndau.io/marketprice'
+  expect(await NodeAddressHelper.getMarketPriceAPIAddress('Storrow')).toBe(
+    'https://storrow.api.ndau.tech/marketprice'
   );
 });
 
 test('getEaiPercentageAPIAddress sends back the correct address', async () => {
-  expect(await NodeAddressHelper.getEaiPercentageAPIAddress(user)).toBe(
-    'https://storrow.ndau.io/eaipercentage'
+  expect(await NodeAddressHelper.getEaiPercentageAPIAddress('Storrow')).toBe(
+    'https://storrow.api.ndau.tech/eaipercentage'
   );
 });

@@ -6,7 +6,7 @@ exports[`testing AlertPanel... renders correctly 1`] = `
     Object {
       "backgroundColor": "#c7f3e2",
       "borderColor": "#c7f3e2",
-      "borderRadius": 3,
+      "borderRadius": 6,
       "borderWidth": 1,
       "marginBottom": 8,
       "marginTop": 15,
@@ -18,7 +18,7 @@ exports[`testing AlertPanel... renders correctly 1`] = `
       Object {
         "backgroundColor": "#c7f3e2",
         "borderColor": "#4e957a",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "borderWidth": 2,
       }
     }
