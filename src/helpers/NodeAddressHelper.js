@@ -10,7 +10,7 @@ getNodeAddress = (selectedNode) => {
 };
 
 getAccountAPIAddress = (selectedNode) => {
-  return getNodeAddress('testgroup-0') + '/accounts';
+  return getNodeAddress(selectedNode) + '/accounts';
 };
 
 getEaiPercentageAPIAddress = (selectedNode) => {
