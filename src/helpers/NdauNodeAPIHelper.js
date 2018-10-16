@@ -6,24 +6,11 @@ import OrderNodeAPI from '../api/OrderNodeAPI';
 const populateCurrentUserWithAddressData = async (user) => {
   try {
     const addressDataFromAPI = await NdauNodeAPI.getAddressData(user.selectedNode, user.addresses);
-    const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice(user.selectedNode);
     const eaiPercentageData = await OrderNodeAPI.getEAIPercentage(user.selectedNode);
+    const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice(user.selectedNode);
     const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : [];
-    const marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : {};
-    const totalNdau = accountTotalNdauAmount(addressData, false);
-    console.log(`marketPrice is ${marketPrice} totalNdau is ${totalNdau}`);
 
-    user.addressData = addressData;
-    //why not use .toLocaleString you ask...here is why:
-    //https://github.com/facebook/react-native/issues/15717
-    user.currentPrice = marketPrice
-      ? '$' +
-        parseFloat(totalNdau * marketPrice)
-          .toFixed(2)
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      : '$0.00';
-    console.log(`currentPrice: ${user.currentPrice}`);
+    user.marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : 0;
 
     const eaiPercentageMap = new Map();
     eaiPercentageData.forEach((account) => {
@@ -32,8 +19,16 @@ const populateCurrentUserWithAddressData = async (user) => {
 
     const addressNicknameMap = new Map();
 
+    //This is mainly done if there is not data, to name the accounts
+    user.accounts.forEach((account, index) => {
+      if (!account.addressData) {
+        account.addressData = {};
+      }
+      account.addressData.nickname = `Account ${index + 1}`;
+    });
+
     //create a map to create the nickname fields appropriately
-    user.addressData.forEach((account, index) => {
+    addressData.forEach((account, index) => {
       account.nickname = `Account ${index + 1}`;
       account.eaiPercentage = eaiPercentageMap.get(account.address);
       addressNicknameMap.set(account.address, account.nickname);
@@ -41,7 +36,7 @@ const populateCurrentUserWithAddressData = async (user) => {
 
     //now iterate using the map to populate the rewardsTargetNickname
     //and incomingRewardsFromNickname
-    user.addressData.forEach((account) => {
+    addressData.forEach((account) => {
       if (account.rewardsTarget) {
         account.rewardsTargetNickname = addressNicknameMap.get(account.rewardsTarget);
       }
@@ -50,30 +45,41 @@ const populateCurrentUserWithAddressData = async (user) => {
         account.incomingRewardsFromNickname = addressNicknameMap.get(account.incomingRewardsFrom);
       }
     });
+
+    //NOW get addressData in it's rightful place
+    user.accounts.forEach((account) => {
+      addressData.forEach((dataToPutIntoUser) => {
+        if (account.address === dataToPutIntoUser.address) {
+          account.addressData = dataToPutIntoUser;
+        }
+      });
+    });
   } catch (error) {
     console.log(error);
   }
-
-  return user;
 };
 
 const eaiPercentage = (account) => {
-  return account.eaiPercentage ? account.eaiPercentage : null;
+  return account && account.eaiPercentage ? account.eaiPercentage : null;
 };
 
 const receivingEAIFrom = (account) => {
-  return account.incomingRewardsFromNickname ? account.incomingRewardsFromNickname : null;
+  return account && account.incomingRewardsFromNickname
+    ? account.incomingRewardsFromNickname
+    : null;
 };
 
 const sendingEAITo = (account) => {
-  return account.rewardsTargetNickname ? account.rewardsTargetNickname : null;
+  return account && account.rewardsTargetNickname ? account.rewardsTargetNickname : null;
 };
 
 const accountNickname = (account) => {
-  return account.nickname;
+  return account ? account.nickname : '';
 };
 
 const accountLockedUntil = (account) => {
+  if (!account) return null;
+
   const unlocksOn = account.lock ? account.lock.unlocksOn : null;
   if (unlocksOn) {
     return DateHelper.getDateFromMilliseconds(account.lock.unlocksOn);
@@ -83,6 +89,8 @@ const accountLockedUntil = (account) => {
 };
 
 const accountNoticePeriod = (account) => {
+  if (!account) return null;
+
   const noticePeriod = account.lock ? account.lock.noticePeriod : null;
   if (noticePeriod) {
     return DateHelper.getDaysFromMicroseconds(noticePeriod);
@@ -92,23 +100,41 @@ const accountNoticePeriod = (account) => {
 };
 
 const accountNotLocked = (account) => {
-  return !account.lock;
+  return account && account.lock !== undefined ? !account.lock : false;
 };
 
 const accountNdauAmount = (account) => {
-  return parseFloat(account.balance);
+  return account && account.balance ? parseFloat(account.balance) : 0.0;
 };
 
-const accountTotalNdauAmount = (addressData, localizedText = true) => {
+const accountTotalNdauAmount = (accounts, localizedText = true) => {
   let total = 0.0;
-  addressData.forEach((account) => {
-    total += parseFloat(account.balance);
+
+  if (!accounts) return total;
+
+  accounts.forEach((account) => {
+    if (account.addressData && account.addressData.balance) {
+      total += parseFloat(account.addressData.balance);
+    }
   });
   return localizedText ? total.toLocaleString(AppConfig.LOCALE) : total;
 };
 
-const currentPrice = (user) => {
-  return user.currentPrice;
+const currentPrice = (marketPrice, totalNdau) => {
+  console.log(`marketPrice is ${marketPrice} totalNdau is ${totalNdau}`);
+
+  //why not use .toLocaleString you ask...here is why:
+  //https://github.com/facebook/react-native/issues/15717
+  const currentPrice = marketPrice
+    ? '$' +
+      parseFloat(totalNdau * marketPrice)
+        .toFixed(2)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    : '$0.00';
+  console.log(`currentPrice: ${currentPrice}`);
+
+  return currentPrice;
 };
 
 export default {
