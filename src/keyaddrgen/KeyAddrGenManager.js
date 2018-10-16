@@ -155,7 +155,7 @@ const addAccounts = async (
  * AsyncStorageHelper. Ideally this should be coming from the a
  * navigation property passed around.
  *
- * @param  {string} user
+ * @param  {object} user
  */
 const createNewAccount = async (user) => {
   if (!user.accountCreationKey) {

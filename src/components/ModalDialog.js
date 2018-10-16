@@ -6,6 +6,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import styleConstants from '../css/styleConstants';
 
 class ModalDialog extends Component {
   render() {
@@ -18,7 +19,12 @@ class ModalDialog extends Component {
                 this.props.setModalVisible(false);
               }}
             >
-              <FontAwesome style={styles.closeButton} name="close" color="#A9A9A9" size={20} />
+              <FontAwesome
+                style={styles.closeButton}
+                name="close"
+                color={styleConstants.ICON_GRAY}
+                size={20}
+              />
             </TouchableHighlight>
             {this.props.children}
           </View>

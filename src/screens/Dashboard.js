@@ -11,17 +11,20 @@ import {
 } from 'react-native';
 import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
+import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import { createNewAccount } from '../keyaddrgen/KeyAddrGenManager';
 import AlertPanel from '../components/AlertPanel';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import UnlockModalDialog from '../components/UnlockModalDialog';
 import LockModalDialog from '../components/LockModalDialog';
+import NewAccountModalDialog from '../components/NewAccountModalDialog';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import styleConstants from '../css/styleConstants';
+import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -29,7 +32,9 @@ class Dashboard extends Component {
 
     this.state = {
       lockModalVisible: false,
-      unlockModalVisible: false
+      unlockModalVisible: false,
+      newAccountModalVisible: false,
+      number: 1
     };
   }
 
@@ -39,6 +44,20 @@ class Dashboard extends Component {
 
   setUnlockModalVisible = (visible) => {
     this.setState({ unlockModalVisible: visible });
+  };
+
+  setNewAccountModalVisible = (visible) => {
+    this.setState({ newAccountModalVisible: visible });
+  };
+
+  subtractNumber = () => {
+    if (this.state.number > 1) {
+      this.setState({ number: (this.state.number -= 1) });
+    }
+  };
+
+  addNumber = () => {
+    this.setState({ number: (this.state.number += 1) });
   };
 
   unlock = () => {
@@ -55,15 +74,23 @@ class Dashboard extends Component {
     // this.setState({ lockModalVisible: true });
   };
 
+  launchAddNewAccountDialog = () => {
+    this.setNewAccountModalVisible(true);
+  };
+
+  addNewAccount = () => {
+    const user = this.props.navigation.getParam('user', {});
+    KeyAddrGenManager.createNewAccount(user);
+  };
+
   render() {
     console.log(`rendering Dashboard`);
-    const { navigation } = this.props;
-    const user = navigation.getParam('user', {});
+
+    const user = this.props.navigation.getParam('user', {});
 
     console.debug(`user found is ${JSON.stringify(user, null, 2)}`);
     const { addresses, addressData, userId } = user;
     console.debug(`addressData: ${addressData}`);
-
     if (addressData) {
       return addressData ? (
         <SafeAreaView style={cssStyles.safeContainer}>
@@ -74,6 +101,14 @@ class Dashboard extends Component {
           <LockModalDialog
             visible={this.state.lockModalVisible}
             setModalVisible={this.setLockModalVisible}
+          />
+          <NewAccountModalDialog
+            visible={this.state.newAccountModalVisible}
+            setModalVisible={this.setNewAccountModalVisible}
+            number={this.state.number}
+            subtractNumber={this.subtractNumber}
+            addNumber={this.addNumber}
+            addNewAccount={this.addNewAccount}
           />
           <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
           <ScrollView style={cssStyles.container}>
@@ -100,10 +135,25 @@ class Dashboard extends Component {
             </View>
             <View style={cssStyles.dashboardSmallTextContainer}>
               <Text style={cssStyles.dashboardTextSmallGreen}>
-                {NdauNodeAPIHelper.currentPrice(this.user)}
+                {NdauNodeAPIHelper.currentPrice(user)}
                 <Text style={styles.asterisks}>**</Text>
                 <Text style={cssStyles.dashboardTextSmallWhiteEnd}> at current price</Text>
               </Text>
+              <View style={cssStyles.dashboardSmallTextContainer}>
+                <View
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <Text style={cssStyles.dashboardTextSmallGreen}>
+                    {addressData.length} addresses
+                  </Text>
+                  <TouchableOpacity
+                    style={{ marginLeft: wp('1.5%') }}
+                    onPress={this.launchAddNewAccountDialog}
+                  >
+                    <FontAwesome name="plus-circle" color={styleConstants.ICON_GRAY} size={20} />
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
 
             {addressData ? (
@@ -217,13 +267,8 @@ class Dashboard extends Component {
             <AlertPanel alertText="Welcome to the ndau wallet! We are currently verifying your wallet setup. ndau will be
             sent to this app on Genesis Day. Until then, you can continue to view your holdings on
             the online dashboard." />
-
             <View style={cssStyles.dashboardTextContainer}>
               <Text style={cssStyles.dashboardTextSmall}>{addresses.length} addresses</Text>
-
-              <TouchableOpacity onPress={this.showModal}>
-                <FontAwesome name="plus-circle" color="#000" size={20} />
-              </TouchableOpacity>
             </View>
 
             {addresses ? (
