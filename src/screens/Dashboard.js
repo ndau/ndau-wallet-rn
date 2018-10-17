@@ -14,7 +14,6 @@ import cssStyles from '../css/styles';
 import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import AlertPanel from '../components/AlertPanel';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
