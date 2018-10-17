@@ -48,3 +48,37 @@ test('hasAccountCreationKey should send back true for > 1.6 versions', async () 
   };
   expect(DataFormatHelper.hasAccountCreationKey(user)).toBe(true);
 });
+
+test('createAccountsFromAddresses creates accounts', async () => {
+  const user = {
+    userId: '7MP-4FV',
+    addresses: [
+      'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
+      'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    ],
+    selectedNode: 'Storrow'
+  };
+
+  DataFormatHelper.createAccountsFromAddresses(user);
+  expect(user.accounts.length).toBe(2);
+  expect(user.accounts[0].address).toBe('tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz');
+  expect(user.accounts[1].address).toBe('tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv');
+});
+
+test('createAccountsFromAddresses does not create accounts if present', async () => {
+  const user = {
+    userId: '7MP-4FV',
+    accounts: [
+      { address: 'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz' },
+      { address: 'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv' }
+    ],
+    addresses: [
+      'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
+      'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    ],
+    selectedNode: 'Storrow'
+  };
+
+  DataFormatHelper.createAccountsFromAddresses(user);
+  expect(user.accounts.length).toBe(2);
+});

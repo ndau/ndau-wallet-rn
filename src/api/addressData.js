@@ -4,7 +4,7 @@ const testAddressData = {
       balance: 42.23,
       transferKeys: null,
       rewardsTarget: null,
-      incomingRewardsFrom: 'tnar02wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv',
+      incomingRewardsFrom: 'ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2',
       delegationNode: null,
       lock: null,
       stake: null,
@@ -15,12 +15,12 @@ const testAddressData = {
       settlements: null,
       settlementSettings: { period: 0, changesAt: null, next: null },
       validationScript: null,
-      address: 'tnai01puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+      address: 'ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura'
     },
     {
       balance: 200.2,
       transferKeys: null,
-      rewardsTarget: 'tnai01puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
+      rewardsTarget: 'ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura',
       incomingRewardsFrom: null,
       delegationNode: null,
       lock: {
@@ -35,13 +35,13 @@ const testAddressData = {
       settlements: null,
       settlementSettings: { period: 0, changesAt: null, next: null },
       validationScript: null,
-      address: 'tnar02wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+      address: 'ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2'
     },
     {
       balance: 400.54,
       transferKeys: null,
       rewardsTarget: null,
-      incomingRewardsFrom: 'tnar04wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv',
+      incomingRewardsFrom: 'ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d',
       delegationNode: null,
       lock: {
         noticePeriod: null,
@@ -55,12 +55,12 @@ const testAddressData = {
       settlements: null,
       settlementSettings: { period: 0, changesAt: null, next: null },
       validationScript: null,
-      address: 'tnai03puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+      address: 'ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt'
     },
     {
       balance: 76.03,
       transferKeys: null,
-      rewardsTarget: 'tnai03puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
+      rewardsTarget: 'ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt',
       incomingRewardsFrom: null,
       delegationNode: null,
       lock: {
@@ -75,7 +75,7 @@ const testAddressData = {
       settlements: null,
       settlementSettings: { period: 0, changesAt: null, next: null },
       validationScript: null,
-      address: 'tnar04wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+      address: 'ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d'
     },
     {
       balance: 400.87,
@@ -92,7 +92,7 @@ const testAddressData = {
       settlements: null,
       settlementSettings: { period: 0, changesAt: null, next: null },
       validationScript: null,
-      address: 'tnai05puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+      address: 'ndaqd4vth8e23y7bh5u2t65hcn63yh3y6m6ctjetge3f4w3y'
     },
     {
       balance: 124.23,
@@ -112,7 +112,7 @@ const testAddressData = {
       settlements: null,
       settlementSettings: { period: 0, changesAt: null, next: null },
       validationScript: null,
-      address: 'tnar06wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+      address: 'ndae8539xtuvay5g59mkbg7hz3mucs54ji2iw8srj3zmz6s5'
     }
   ]
 };
@@ -121,7 +121,7 @@ const eaiPercentageRequest = [
   {
     lock: null,
     weightedAverageAge: 0,
-    address: 'tnai01puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+    address: 'ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura'
   },
   {
     lock: {
@@ -129,7 +129,7 @@ const eaiPercentageRequest = [
       unlocksOn: null
     },
     weightedAverageAge: 0,
-    address: 'tnar02wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    address: 'ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2'
   },
   {
     lock: {
@@ -137,7 +137,7 @@ const eaiPercentageRequest = [
       unlocksOn: 1585886400000
     },
     weightedAverageAge: 0,
-    address: 'tnai03puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+    address: 'ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt'
   },
   {
     lock: {
@@ -145,12 +145,12 @@ const eaiPercentageRequest = [
       unlocksOn: 1585886400000
     },
     weightedAverageAge: 0,
-    address: 'tnar04wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    address: 'ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d'
   },
   {
     lock: null,
     weightedAverageAge: 0,
-    address: 'tnai05puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+    address: 'ndaqd4vth8e23y7bh5u2t65hcn63yh3y6m6ctjetge3f4w3y'
   },
   {
     lock: {
@@ -158,34 +158,34 @@ const eaiPercentageRequest = [
       unlocksOn: null
     },
     weightedAverageAge: 0,
-    address: 'tnar06wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    address: 'ndae8539xtuvay5g59mkbg7hz3mucs54ji2iw8srj3zmz6s5'
   }
 ];
 
 const eaiPercentageResponse = [
   {
     eaiPercentage: null,
-    address: 'tnai01puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+    address: 'ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura'
   },
   {
     eaiPercentage: 14,
-    address: 'tnar02wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    address: 'ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2'
   },
   {
     eaiPercentage: 20,
-    address: 'tnai03puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+    address: 'ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt'
   },
   {
     eaiPercentage: 30,
-    address: 'tnar04wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    address: 'ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d'
   },
   {
     eaiPercentage: null,
-    address: 'tnai05puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz'
+    address: 'ndaqd4vth8e23y7bh5u2t65hcn63yh3y6m6ctjetge3f4w3y'
   },
   {
     eaiPercentage: 14,
-    address: 'tnar06wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    address: 'ndae8539xtuvay5g59mkbg7hz3mucs54ji2iw8srj3zmz6s5'
   }
 ];
 
@@ -196,12 +196,12 @@ const testMarketPrice = {
 const testUser = {
   userId: '7MP-4FV',
   addresses: [
-    'tnai01puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
-    'tnar02wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv',
-    'tnai03puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
-    'tnar04wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv',
-    'tnai05puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
-    'tnar06wz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
+    'ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura',
+    'ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2',
+    'ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt',
+    'ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d',
+    'ndaqd4vth8e23y7bh5u2t65hcn63yh3y6m6ctjetge3f4w3y',
+    'ndae8539xtuvay5g59mkbg7hz3mucs54ji2iw8srj3zmz6s5'
   ],
   selectedNode: 'Storrow'
 };
