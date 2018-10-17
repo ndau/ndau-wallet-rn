@@ -12,6 +12,7 @@ import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
+import DataFormatHelper from '../helpers/DataFormatHelper';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -43,9 +44,11 @@ class SetupTermsOfService extends Component {
       .then(() => {
         AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
 
+        DataFormatHelper.createAccountsFromAddresses(user);
+
         NdauNodeAPIHelper.populateCurrentUserWithAddressData(user)
-          .then((userWithData) => {
-            this.props.navigation.navigate('Dashboard', { user: userWithData });
+          .then(() => {
+            this.props.navigation.navigate('Dashboard', { user });
           })
           .catch((error) => {
             console.error(error);

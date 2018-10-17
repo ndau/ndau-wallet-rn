@@ -5,13 +5,13 @@
 class Account {
   constructor() {
     this.address = '';
-    this.accountData = {};
+    this.addressData = {};
   }
 
   toJSON = () => {
     return {
       address: this.address,
-      accountData: this.accountData
+      addressData: this.addressData
     };
   };
 }
