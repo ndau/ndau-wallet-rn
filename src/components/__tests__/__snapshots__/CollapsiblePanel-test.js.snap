@@ -75,51 +75,6 @@ exports[`testing CollapsiblePanel... renders correctly 1`] = `
             }
           }
         />
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Image
-            resizeMode="contain"
-            source={
-              Object {
-                "testUri": "../../../img/ndau-icon-white.png",
-              }
-            }
-            style={
-              Object {
-                "height": 26.5,
-                "marginRight": 1,
-                "width": 22.5,
-              }
-            }
-          />
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#fff",
-                "flexDirection": "row",
-                "fontFamily": "TitilliumWeb-Bold",
-                "fontSize": 18,
-                "marginBottom": 6.5,
-                "marginLeft": 7.5,
-                "marginRight": 7.5,
-                "marginTop": 6.5,
-                "textAlign": "right",
-              }
-            }
-          >
-            NaN
-          </Text>
-        </View>
       </View>
     </View>
     <View

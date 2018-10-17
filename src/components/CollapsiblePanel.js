@@ -83,7 +83,7 @@ class CollapsiblePanel extends Component {
           <TouchableHighlight onPress={this.toggle.bind(this)} underlayColor="transparent">
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
-              {this.props.account ? (
+              {this.props.titleRight !== undefined ? (
                 <View
                   style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
                 >
@@ -96,9 +96,7 @@ class CollapsiblePanel extends Component {
                     resizeMode="contain"
                     source={require('../../img/ndau-icon-white.png')}
                   />
-                  <Text style={styles.titleRight}>
-                    {NdauNodeAPIHelper.accountNdauAmount(this.props.account)}
-                  </Text>
+                  <Text style={styles.titleRight}>{this.props.titleRight}</Text>
                 </View>
               ) : null}
             </View>

@@ -76,7 +76,7 @@ test('createFirstTimeUser test', async () => {
 
   expect(firstTimeUser).toBeDefined();
   expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","accounts":[{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","accountData":{}}],"keys":{"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","path":"/44'/20036'/100/5","derivedFromRoot":"yes"},"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443","path":"/44'/20036'/100/5","derivedFromRoot":"yes"}},"addresses":["tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn"]}`
+    `{"userId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","accounts":[{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{}},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{}}],"keys":{"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxm","path":"/44'/20036'/100/5","derivedFromRoot":"yes"},"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443","path":"/44'/20036'/100/5","derivedFromRoot":"yes"}},"addresses":["tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn"]}`
   );
 });
 
@@ -138,9 +138,11 @@ test('createNewAccount test', async () => {
   expect(firstTimeUser).toBeDefined();
   expect(firstTimeUser.accounts.length).toBe(5);
 
-  const newAccount = await KeyAddrGenManager.createNewAccount(firstTimeUser);
+  await KeyAddrGenManager.createNewAccount(firstTimeUser);
   expect(firstTimeUser.accounts.length).toBe(6);
-  expect(newAccount.address).toBe('tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn');
+  expect(firstTimeUser.accounts[5].address).toBe(
+    'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn'
+  );
 });
 
 test('createNewAccount has bogus user', async () => {

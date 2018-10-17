@@ -4,6 +4,7 @@ import Account from '../model/Account';
 import { NativeModules } from 'react-native';
 import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 /**
  * This function will return an array of addresses that can be
@@ -150,26 +151,32 @@ const addAccounts = async (
 };
 
 /**
- * create a new account and send back the address created
+ * create a new account(s) and send back the address created
  * this method must get a valid user which has been unlocked from
  * AsyncStorageHelper. Ideally this should be coming from the a
  * navigation property passed around.
  *
- * @param  {string} user
+ * @param  {object} user
+ * @param  {number} numberOfAccounts=1
  */
-const createNewAccount = async (user) => {
+const createNewAccount = async (user, numberOfAccounts = 1) => {
   if (!user.accountCreationKey) {
     throw new Error(`The user passed in has no accountCreationKey`);
   }
 
-  const account = await _createAccount(
-    user.accountCreationKey,
-    user.accounts.length === 0 ? 1 : user.accounts.length - 1,
-    user
-  );
-  user.accounts.push(account);
+  for (let i = 0; i < numberOfAccounts; i++) {
+    const account = await _createAccount(
+      user.accountCreationKey,
+      user.accounts.length === 0 ? 1 : user.accounts.length - 1,
+      user
+    );
+    user.accounts.push(account);
+  }
 
-  return account;
+  const userWithData = await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
+  console.debug(`user is NOW after new account ${JSON.stringify(userWithData, null, 2)}`);
+
+  return user;
 };
 
 const _createAccountCreationKey = async (recoveryBytes) => {
