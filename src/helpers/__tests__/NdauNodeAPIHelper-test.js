@@ -1,5 +1,5 @@
 import NdauNodeAPIHelper from '../NdauNodeAPIHelper';
-import addressData from '../../api/addressData';
+import addressData from '../../api/data';
 import DataFormatHelper from '../../helpers/DataFormatHelper';
 
 test('populateCurrentUserWithLockData populates user with data from the API', async () => {

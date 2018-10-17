@@ -15,11 +15,11 @@ class UnlockModalDialog extends Component {
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
           <TouchableOpacity onPress={this.props.subtractNumber}>
-            <FontAwesome name="minus-circle" color={styleConstants.ICON_GRAY} size={20} />
+            <FontAwesome name="minus-circle" color={styleConstants.ICON_GRAY} size={32} />
           </TouchableOpacity>
-          <Text style={{ marginLeft: wp('10%'), marginRight: wp('10%') }}>{this.props.number}</Text>
+          <Text style={styles.text}>{this.props.number}</Text>
           <TouchableOpacity onPress={this.props.addNumber}>
-            <FontAwesome name="plus-circle" color={styleConstants.ICON_GRAY} size={20} />
+            <FontAwesome name="plus-circle" color={styleConstants.ICON_GRAY} size={32} />
           </TouchableOpacity>
         </View>
       </View>
@@ -32,6 +32,13 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center'
+  },
+  text: {
+    marginLeft: wp('10%'),
+    marginRight: wp('10%'),
+    color: '#ffffff',
+    fontSize: 32,
+    fontFamily: 'TitilliumWeb-Regular'
   }
 });
 

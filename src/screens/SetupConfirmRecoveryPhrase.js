@@ -201,7 +201,7 @@ function Word(props) {
           alignItems: 'center',
           justifyContent: 'center',
           flex: 1,
-          borderRadius: 6
+          borderRadius: 3
         }}
       >
         <Text

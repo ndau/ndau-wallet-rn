@@ -12,8 +12,8 @@ class ModalDialog extends Component {
   render() {
     return (
       <Modal animationType="slide" transparent={true} {...this.props}>
-        <View style={styles.outerView}>
-          <View style={styles.innerView}>
+        <View style={[ styles.outerView, this.props.outerViewStyle ]}>
+          <View style={[ styles.innerView, this.props.innerViewStyle ]}>
             <TouchableHighlight
               onPress={() => {
                 this.props.setModalVisible(false);
@@ -42,8 +42,8 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   innerView: {
-    backgroundColor: 'white',
-    borderRadius: 6,
+    backgroundColor: '#333333',
+    borderRadius: 3,
     width: wp('90%'),
     height: hp('70%'),
     paddingLeft: wp('2%'),

@@ -1,5 +1,5 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper';
-import addressData from './addressData';
+import addressData from './data';
 
 const getAddressData = (selectedNode, addresses) => {
   //TODO: this is TEMP code
@@ -39,7 +39,21 @@ const getMarketPrice = (selectedNode) => {
   });
 };
 
+const getNodeStatus = (selectedNode) => {
+  //TODO: this is TEMP code
+  if (__DEV__) {
+    return addressData.nodeStatus;
+  }
+
+  const nodeStatusAddress = NodeAddressHelper.getNodeStatusAPIAddress(selectedNode);
+  return fetch(nodeStatusAddress).then((response) => response.json()).then((responseJson) => {
+    console.info(`nodeStatusAddress responseJson ${JSON.stringify(responseJson, null, 2)}`);
+    return responseJson;
+  });
+};
+
 export default {
   getAddressData,
-  getMarketPrice
+  getMarketPrice,
+  getNodeStatus
 };

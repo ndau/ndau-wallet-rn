@@ -170,7 +170,7 @@ class Passphrase extends Component {
                   width: wp('96%'),
                   borderColor: 'gray',
                   borderWidth: 1,
-                  borderRadius: 6,
+                  borderRadius: 3,
                   marginTop: hp('1%'),
                   paddingLeft: wp('1%'),
                   color: '#000000',

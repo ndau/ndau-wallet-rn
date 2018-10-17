@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -18,7 +19,17 @@ class AuthLoadingScreen extends React.Component {
         if (userIds.length > 0) {
           this.props.navigation.navigate('Auth');
         } else {
-          this.props.navigation.navigate('Setup');
+          NdauNodeAPIHelper.isMainNetAlive()
+            .then((isAlive) => {
+              if (isAlive) {
+                this.props.navigation.navigate('SetupWelcome');
+              } else {
+                this.props.navigation.navigate('Setup');
+              }
+            })
+            .catch((error) => {
+              this.props.navigation.navigate('Setup');
+            });
         }
       })
       .catch((error) => {

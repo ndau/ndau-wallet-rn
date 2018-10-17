@@ -113,6 +113,23 @@ const testAddressData = {
       settlementSettings: { period: 0, changesAt: null, next: null },
       validationScript: null,
       address: 'ndae8539xtuvay5g59mkbg7hz3mucs54ji2iw8srj3zmz6s5'
+    },
+    {
+      balance: 515.0,
+      transferKeys: null,
+      rewardsTarget: null,
+      incomingRewardsFrom: null,
+      delegationNode: null,
+      lock: null,
+      stake: null,
+      lastEAIUpdate: 589991567000000,
+      lastWAAUpdate: 589991567000000,
+      weightedAverageAge: 0,
+      sequence: 0,
+      settlements: null,
+      settlementSettings: { period: 0, changesAt: null, next: null },
+      validationScript: null,
+      address: 'ndabq3f66u269y6esrz3anwyds4qrtbv5ukpw8m7x695fkqn'
     }
   ]
 };
@@ -206,9 +223,34 @@ const testUser = {
   selectedNode: 'Storrow'
 };
 
+const nodeStatus = {
+  node_info: {
+    id: '',
+    listen_addr: '',
+    network: 'ndau mainnet',
+    version: '',
+    channels: '',
+    moniker: '',
+    other: null
+  },
+  sync_info: {
+    latest_block_hash: '',
+    latest_app_hash: '',
+    latest_block_height: 0,
+    latest_block_time: '0001-01-01T00:00:00Z',
+    catching_up: false
+  },
+  validator_info: {
+    address: '',
+    pub_key: null,
+    voting_power: 0
+  }
+};
+
 export default {
   testAddressData,
   testMarketPrice,
   testUser,
-  eaiPercentageResponse
+  eaiPercentageResponse,
+  nodeStatus
 };

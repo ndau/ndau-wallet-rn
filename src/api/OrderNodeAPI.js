@@ -1,5 +1,5 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper';
-import addressData from './addressData';
+import addressData from './data';
 
 const getEAIPercentage = (selectedNode, addresses) => {
   //TODO: this is TEMP code

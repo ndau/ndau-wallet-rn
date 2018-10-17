@@ -67,7 +67,7 @@ class RecoveryDropdown extends Component {
       color: this.state.textColor,
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      borderRadius: 6,
+      borderRadius: 3,
       zIndex: 1
     };
 
@@ -107,7 +107,7 @@ var styles = StyleSheet.create({
       },
       android: {
         flex: 1,
-        borderRadius: 6
+        borderRadius: 3
       }
     })
   },
@@ -120,7 +120,7 @@ var styles = StyleSheet.create({
   containerStyle: {
     alignContent: 'center',
     justifyContent: 'center',
-    borderRadius: 6,
+    borderRadius: 3,
     width: wp('60%'),
     backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
     overflow: 'hidden',
