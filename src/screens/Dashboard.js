@@ -95,6 +95,7 @@ class Dashboard extends Component {
     this.setState({ refreshing: true });
 
     const user = this.state.user;
+
     await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
     console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`);
 
