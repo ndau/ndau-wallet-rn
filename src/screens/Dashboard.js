@@ -9,7 +9,6 @@ import {
   RefreshControl,
   TouchableOpacity
 } from 'react-native';
-import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
 import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
@@ -26,14 +25,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 
+const LOCK_MODAL_ID = "lock";
+const UNLOCK_MODAL_ID = "unlock";
+const NEW_ACCOUNT_MODAL_ID = "newAccount";
+const TRANSACTION_MODAL_ID = "transaction";
+
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      lockModalVisible: false,
-      unlockModalVisible: false,
-      newAccountModalVisible: false,
+      modalId: null,
       number: 1,
       user: {},
       refreshing: false
@@ -45,17 +48,9 @@ class Dashboard extends Component {
     this.setState({ user });
   }
 
-  setLockModalVisible = (visible) => {
-    this.setState({ lockModalVisible: visible });
-  };
-
-  setUnlockModalVisible = (visible) => {
-    this.setState({ unlockModalVisible: visible });
-  };
-
-  setNewAccountModalVisible = (visible) => {
-    this.setState({ newAccountModalVisible: visible });
-  };
+  showModal = (modalId) => {
+    this.setState({ modalId });
+  }
 
   subtractNumber = () => {
     if (this.state.number > 1) {
@@ -82,7 +77,7 @@ class Dashboard extends Component {
   };
 
   launchAddNewAccountDialog = () => {
-    this.setNewAccountModalVisible(true);
+    this.showModal(NEW_ACCOUNT_MODAL_ID);
   };
 
   addNewAccount = async () => {
@@ -104,7 +99,6 @@ class Dashboard extends Component {
 
   render = () => {
     console.log(`rendering Dashboard`);
-
     console.debug(`user: ${JSON.stringify(this.state.user, null, 2)}`);
 
     const { accounts, userId, marketPrice } = this.state.user;
@@ -115,26 +109,28 @@ class Dashboard extends Component {
     return accounts ? (
       <SafeAreaView style={cssStyles.safeContainer}>
         <UnlockModalDialog
-          visible={this.state.unlockModalVisible}
-          setModalVisible={this.setUnlockModalVisible}
+          visible={this.state.modalId === UNLOCK_MODAL_ID}
+          setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}
         />
         <LockModalDialog
-          visible={this.state.lockModalVisible}
-          setModalVisible={this.setLockModalVisible}
+          visible={this.state.modalId === LOCK_MODAL_ID}
+          setModalVisible={() => this.showModal(LOCK_MODAL_ID)}
         />
         <NewAccountModalDialog
-          visible={this.state.newAccountModalVisible}
-          setModalVisible={this.setNewAccountModalVisible}
           number={this.state.number}
           subtractNumber={this.subtractNumber}
           addNumber={this.addNumber}
           addNewAccount={this.addNewAccount}
+          visible={this.state.modalId === NEW_ACCOUNT_MODAL_ID}
+          setModalVisible={() => this.showModal(NEW_ACCOUNT_MODAL_ID)}
         />
         <TransactionModalDialog
-          visible={this.state.TransactionModalVisible}
-          setModalVisible={this.setLockModalVisible}
+          visible={this.state.modalId === TRANSACTION_MODAL_ID}
+          setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
         />
+
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
+
         <ScrollView
           style={cssStyles.container}
           refreshControl={
