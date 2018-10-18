@@ -200,6 +200,9 @@ class Dashboard extends Component {
                   accountLockedUntil={accountLockedUntil}
                   accountNoticePeriod={accountNoticePeriod}
                   accountNotLocked={accountNotLocked}
+                  lock={this.lock}
+                  unlock={this.unlock}
+                  startTransaction={()=> this.showModal(TRANSACTION_MODAL_ID)}
                 />
               );
             })

@@ -22,12 +22,7 @@ const SendView = (props) => {
       <View style={cssStyles.footer}>
         <CommonButton
           title={`send ${props.amount}`}
-          onPress={shareAddress}
-          iconProps={{
-            name: "share-square",
-            color: "#000",
-            size: 20,
-          }}
+          onPress={send}
         />
       </View>
     </View>
@@ -56,6 +51,15 @@ const ReceiveView = (props) => {
 
       <View style={cssStyles.footer}>
         <CommonButton onPress={shareAddress} title="Share address" />
+        <CommonButton
+          title="Share address" 
+          onPress={shareAddress}
+          iconProps={{
+            name: "share-square",
+            color: "#000",
+            size: 20,
+          }}
+        />
       </View>
     </View>
   );

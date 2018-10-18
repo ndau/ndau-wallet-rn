@@ -58,6 +58,7 @@ class AccountCard extends Component {
         {accountBalance === 0 ? (
           <Text style={cssStyles.text}>{account.address}</Text>
         ) : null}
+  
         {
           totalNdau !== 0 && (
             <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
@@ -70,7 +71,7 @@ class AccountCard extends Component {
                   source={require('../../img/lock_countdown_animation_white.gif')}
                 />
               ) : null}
-              <TouchableOpacity onPress={this.unlock}>
+              <TouchableOpacity onPress={this.props.unlock}>
                 {accountLockedUntil ? (
                   <Image
                     style={{
@@ -81,7 +82,7 @@ class AccountCard extends Component {
                   />
                 ) : null}
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.lock}>
+              <TouchableOpacity onPress={this.props.lock}>
                 {accountNotLocked ? (
                   <Image
                     style={{
@@ -95,6 +96,19 @@ class AccountCard extends Component {
             </View>
           )
         }
+
+        <View>
+          <TouchableOpacity onPress={this.props.startTransaction}>
+            <Image
+                style={{
+                  width: 30,
+                  height: 35
+                }}
+                // TODO: use correct image file.
+                source={require('../..img/n_icon_ko.png')}
+              />
+          </TouchableOpacity>
+        </View> 
       </CollapsiblePanel>
     );
   }  
