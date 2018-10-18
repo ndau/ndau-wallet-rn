@@ -7,12 +7,12 @@ class TabView extends Component {
     
     this.mapNamesToTabs = {};
 
-    props.children.forEach(child => {
+    React.Children.forEach(child => {
       const name = child && child.props && child.props.name;
       if (name) {
         this.mapNamesToTabs[name] = child;
       }
-    })
+    });
   }
 
   render() {

@@ -14,7 +14,6 @@ import cssStyles from '../css/styles';
 import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import AlertPanel from '../components/AlertPanel';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -175,7 +174,7 @@ class Dashboard extends Component {
             </View>
           </View>
 
-          {accounts ? (
+          {accounts && (
             accounts.map((account, index) => {
               const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
               const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
@@ -189,86 +188,21 @@ class Dashboard extends Component {
               const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
 
               return (
-                <CollapsiblePanel
+                <AccountCard
                   key={index}
                   index={index}
-                  title={nickname}
-                  titleRight={accountBalance}
-                  lockAdder={accountNotLocked ? 0 : 3}
-                  onNotice={accountNoticePeriod ? true : false}
-                >
-                  {eaiPercentage ? (
-                    <Text style={cssStyles.text}>
-                      {eaiPercentage}
-                      {'%'} annualized EAI
-                    </Text>
-                  ) : null}
-                  {sendingEAITo ? (
-                    <Text style={cssStyles.text}>
-                      Sending incentive {'('}EAI{')'} to {sendingEAITo}
-                    </Text>
-                  ) : null}
-                  {receivingEAIFrom ? (
-                    <Text style={cssStyles.text}>
-                      Receiving incentive {'('}EAI{')'} to {receivingEAIFrom}
-                    </Text>
-                  ) : null}
-                  {accountLockedUntil ? (
-                    <Text style={cssStyles.text}>
-                      Account will be unlocked {accountLockedUntil}
-                    </Text>
-                  ) : null}
-                  {accountNoticePeriod ? (
-                    <Text style={cssStyles.text}>
-                      Locked {'('}
-                      {accountNoticePeriod} day countdown{')'}
-                    </Text>
-                  ) : null}
-                  {accountNotLocked ? (
-                    <Text style={cssStyles.text}>This account is not locked</Text>
-                  ) : null}
-                  {accountBalance === 0 ? (
-                    <Text style={cssStyles.text}>{account.address}</Text>
-                  ) : null}
-                  {totalNdau !== 0 ? (
-                    <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
-                      {accountNoticePeriod ? (
-                        <Image
-                          style={{
-                            width: 23,
-                            height: 35
-                          }}
-                          source={require('../../img/lock_countdown_animation_white.gif')}
-                        />
-                      ) : null}
-                      <TouchableOpacity onPress={this.unlock}>
-                        {accountLockedUntil ? (
-                          <Image
-                            style={{
-                              width: 23,
-                              height: 35
-                            }}
-                            source={require('../../img/locked.png')}
-                          />
-                        ) : null}
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={this.lock}>
-                        {accountNotLocked ? (
-                          <Image
-                            style={{
-                              width: 30,
-                              height: 35
-                            }}
-                            source={require('../../img/unlocked.png')}
-                          />
-                        ) : null}
-                      </TouchableOpacity>
-                    </View>
-                  ) : null}
-                </CollapsiblePanel>
+                  nickname={nickname}
+                  eaiPercentage={eaiPercentage}
+                  sendingEAITo={sendingEAITo}
+                  receivingEAIFrom={receivingEAIFrom}
+                  accountBalance={accountBalance}
+                  accountLockedUntil={accountLockedUntil}
+                  accountNoticePeriod={accountNoticePeriod}
+                  accountNotLocked={accountNotLocked}
+                />
               );
             })
-          ) : null}
+          )}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>
