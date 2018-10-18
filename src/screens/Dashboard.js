@@ -21,6 +21,7 @@ import {
 import UnlockModalDialog from '../components/UnlockModalDialog';
 import LockModalDialog from '../components/LockModalDialog';
 import NewAccountModalDialog from '../components/NewAccountModalDialog';
+import TransactionModalDialog from '../components/TransactionModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
@@ -129,6 +130,10 @@ class Dashboard extends Component {
           addNumber={this.addNumber}
           addNewAccount={this.addNewAccount}
         />
+        <TransactionModalDialog
+          visible={this.state.TransactionModalVisible}
+          setModalVisible={this.setLockModalVisible}
+        />
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
         <ScrollView
           style={cssStyles.container}
@@ -202,7 +207,7 @@ class Dashboard extends Component {
                 />
               );
             })
-          )}
+          ) }
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>
