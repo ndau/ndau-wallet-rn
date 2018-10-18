@@ -58,41 +58,43 @@ class AccountCard extends Component {
         {accountBalance === 0 ? (
           <Text style={cssStyles.text}>{account.address}</Text>
         ) : null}
-        {totalNdau !== 0 ? (
-          <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
-            {accountNoticePeriod ? (
-              <Image
-                style={{
-                  width: 23,
-                  height: 35
-                }}
-                source={require('../../img/lock_countdown_animation_white.gif')}
-              />
-            ) : null}
-            <TouchableOpacity onPress={this.unlock}>
-              {accountLockedUntil ? (
+        {
+          totalNdau !== 0 && (
+            <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
+              {accountNoticePeriod ? (
                 <Image
                   style={{
                     width: 23,
                     height: 35
                   }}
-                  source={require('../../img/locked.png')}
+                  source={require('../../img/lock_countdown_animation_white.gif')}
                 />
               ) : null}
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.lock}>
-              {accountNotLocked ? (
-                <Image
-                  style={{
-                    width: 30,
-                    height: 35
-                  }}
-                  source={require('../../img/unlocked.png')}
-                />
-              ) : null}
-            </TouchableOpacity>
-          </View>
-        ) : null}
+              <TouchableOpacity onPress={this.unlock}>
+                {accountLockedUntil ? (
+                  <Image
+                    style={{
+                      width: 23,
+                      height: 35
+                    }}
+                    source={require('../../img/locked.png')}
+                  />
+                ) : null}
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this.lock}>
+                {accountNotLocked ? (
+                  <Image
+                    style={{
+                      width: 30,
+                      height: 35
+                    }}
+                    source={require('../../img/unlocked.png')}
+                  />
+                ) : null}
+              </TouchableOpacity>
+            </View>
+          )
+        }
       </CollapsiblePanel>
     );
   }  

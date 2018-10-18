@@ -6,6 +6,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import cssStyles from '../css/styles';
 
 class CommonButton extends Component {
@@ -20,7 +21,11 @@ class CommonButton extends Component {
         containerStyle={styles.containerStyle}
         onPress={this.props.onPress}
         {...this.props}
-      >
+      > 
+        {
+          this.props.iconProps &&
+          <FontAwesome name="minus-circle" {...this.props.iconProps} />
+        }
         {this.props.title}
       </Button>
     );

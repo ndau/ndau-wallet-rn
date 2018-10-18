@@ -4,6 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import QRCode from 'react-native-qrcode';
 import ModalDialog from './ModalDialog';
 import TabView from '../components/TabView';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -19,7 +20,15 @@ const SendView = (props) => {
     <View>
       {/* TODO: add Send form */}
       <View style={cssStyles.footer}>
-        <CommonButton onPress={shareAddress} title={`send ${props.amount}`} />
+        <CommonButton
+          title={`send ${props.amount}`}
+          onPress={shareAddress}
+          iconProps={{
+            name: "share-square",
+            color: "#000",
+            size: 20,
+          }}
+        />
       </View>
     </View>
   );
@@ -32,12 +41,19 @@ const ReceiveView = (props) => {
 
   return (
     <View>
-      <View style={cssStyles.footer}>
-        
+      <View>
+        <QRCode
+          value={props.addresst}
+          size={300}
+          bgColor='black'
+          fgColor='white'
+        />
       </View>
+
       <Text style={styles.text}>
         {props.address}
       </Text>
+
       <View style={cssStyles.footer}>
         <CommonButton onPress={shareAddress} title="Share address" />
       </View>
