@@ -23,8 +23,8 @@ class CommonButton extends Component {
         {...this.props}
       > 
         {
-          this.props.iconProps &&
-          <FontAwesome name="minus-circle" {...this.props.iconProps} />
+          this.props.iconProps && this.props.iconProps.name && // "name" is required
+          <FontAwesome {...this.props.iconProps} />
         }
         {this.props.title}
       </Button>
