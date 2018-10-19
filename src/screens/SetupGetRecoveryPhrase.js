@@ -13,6 +13,8 @@ import Carousel from 'react-native-looped-carousel';
 import { Dialog } from 'react-native-simple-dialogs';
 import ErrorPanel from '../components/ErrorPanel';
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import UserData from '../model/UserData';
 
 const DEFAULT_ROW_LENGTH = 3; // 3 items per row
 const _ = require('lodash');
@@ -91,12 +93,11 @@ class SetupGetRecoveryPhrase extends Component {
         </View>
       );
     });
-
+  s;
   _checkRecoveryPhrase = async () => {
-    //WE MUST be able to assume a userId has been passed as a prop
     return await RecoveryPhaseHelper.checkRecoveryPhrase(
       this.recoveryPhrase.join().replace(/,/g, ' '),
-      this.props.userId
+      this.props.navigation.getParam('user', null)
     );
   };
 
@@ -105,10 +106,31 @@ class SetupGetRecoveryPhrase extends Component {
   };
 
   confirm = async () => {
-    const user = await this._checkRecoveryPhrase();
-    if (user) {
-      this.props.navigation.navigate('SetupWalletName', { user });
-    } else {
+    try {
+      const user = await this._checkRecoveryPhrase();
+      if (user) {
+        const encryptionPassword = this.props.navigation.getParam('encryptionPassword', null);
+        //IF we have a password we are fixing up an account from a 1.6 user here
+        //so we fixed it up...now save it...and go back to Dashboard
+        if (encryptionPassword) {
+          await AsyncStorageHelper.lockUser(user, encryptionPassword);
+
+          await UserData.loadData(user);
+
+          this.props.navigation.navigate('Dashboard', {
+            user,
+            encryptionPassword
+          });
+        } else {
+          this.props.navigation.navigate('SetupWalletName', { user });
+        }
+      } else {
+        this.setState({
+          textColor: '#ff0000',
+          confirmationError: true
+        });
+      }
+    } catch (error) {
       this.setState({
         textColor: '#ff0000',
         confirmationError: true

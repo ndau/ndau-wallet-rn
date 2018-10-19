@@ -53,7 +53,7 @@ class SetupTermsOfService extends Component {
         await this.sendAddressesToOneiro(user);
       }
 
-      AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
+      await AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
 
       await UserData.loadData(user);
 

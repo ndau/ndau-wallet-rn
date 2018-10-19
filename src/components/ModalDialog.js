@@ -11,7 +11,7 @@ import styleConstants from '../css/styleConstants';
 class ModalDialog extends Component {
   render() {
     return (
-      <Modal animationType="slide" transparent={true} {...this.props}>
+      <Modal animationType="slide" transparent={true} onRequestClose={() => {}} {...this.props}>
         <View style={[ styles.outerView, this.props.outerViewStyle ]}>
           <View style={[ styles.innerView, this.props.innerViewStyle ]}>
             <TouchableHighlight

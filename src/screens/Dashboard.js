@@ -88,7 +88,10 @@ class Dashboard extends Component {
   addNewAccount = async () => {
     const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number);
 
-    AsyncStorageHelper.lockUser(user, this.props.navigation.getParam('encryptionPassword', null));
+    await AsyncStorageHelper.lockUser(
+      user,
+      this.props.navigation.getParam('encryptionPassword', null)
+    );
 
     this.setState({ user });
   };

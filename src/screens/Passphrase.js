@@ -9,8 +9,7 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
-  Platform,
-  NativeModules
+  Platform
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
@@ -136,7 +135,8 @@ class Passphrase extends Component {
 
   showRecovery = (user) => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-      userId: user.userId
+      user: user,
+      encryptionPassword: this.state.password
     });
   };
 
