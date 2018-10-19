@@ -64,7 +64,7 @@ class Passphrase extends Component {
           return this.showRecovery(user);
         }
 
-        UserData.loadData(user);
+        await UserData.loadData(user);
 
         this.props.navigation.navigate('Dashboard', { user });
       } else {

@@ -37,10 +37,6 @@ const checkRecoveryPhrase = async (recoveryPhraseString, userId) => {
     console.log(`user with root: ${JSON.stringify(user, null, 2)}`);
   }
 
-  if (user.accounts) {
-    UserData.loadData(user);
-  }
-
   return user.accounts ? user : null;
 };
 

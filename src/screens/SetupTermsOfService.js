@@ -13,6 +13,7 @@ import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
 import DataFormatHelper from '../helpers/DataFormatHelper';
+import UserData from '../model/UserData';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -25,38 +26,41 @@ class SetupTermsOfService extends Component {
 
   finishSetup = async () => {
     console.debug('Finishing Setup...');
-    console.debug('Generating all keys from phrase given...');
-    const recoveryPhraseString = SetupStore.recoveryPhrase.join().replace(/,/g, ' ');
-    console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
-    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-      AppConstants.APP_LANGUAGE,
-      recoveryPhraseString
-    );
-    console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
-    const user = await KeyAddrGenManager.createFirstTimeUser(
-      recoveryPhraseAsBytes,
-      SetupStore.userId,
-      SetupStore.addressType,
-      SetupStore.numberOfAccounts
-    );
 
-    this.sendAddressesToOneiro(user)
-      .then(() => {
-        AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
+    let user = this.props.navigation.getParam('user', null);
+    //if there is not user passed along, then we generate
+    if (!user) {
+      console.debug('Generating all keys from phrase given...');
+      const recoveryPhraseString = SetupStore.recoveryPhrase.join().replace(/,/g, ' ');
+      console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
+      const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+        AppConstants.APP_LANGUAGE,
+        recoveryPhraseString
+      );
+      console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
 
-        DataFormatHelper.createAccountsFromAddresses(user);
+      user = await KeyAddrGenManager.createFirstTimeUser(
+        recoveryPhraseAsBytes,
+        SetupStore.userId,
+        SetupStore.addressType,
+        SetupStore.numberOfAccounts
+      );
+    }
 
-        NdauNodeAPIHelper.populateCurrentUserWithAddressData(user)
-          .then(() => {
-            this.props.navigation.navigate('Dashboard', { user });
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+      if (!isMainNetAlive) {
+        await this.sendAddressesToOneiro(user);
+      }
+
+      AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
+
+      await UserData.loadData(user);
+
+      this.props.navigation.navigate('Dashboard', { user });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   sendAddressesToOneiro = (user) => {

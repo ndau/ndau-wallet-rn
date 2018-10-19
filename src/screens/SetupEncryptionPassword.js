@@ -60,7 +60,8 @@ class SetupEncryptionPassword extends Component {
     if (comingFrom === 'SetupQRCode') {
       this.props.navigation.navigate('SetupYourWallet');
     } else {
-      this.props.navigation.navigate('SetupTermsOfService');
+      const user = this.props.navigation.getParam('user', null);
+      this.props.navigation.navigate('SetupTermsOfService', { user });
     }
   };
 

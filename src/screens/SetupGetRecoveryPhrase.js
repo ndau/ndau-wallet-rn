@@ -107,7 +107,7 @@ class SetupGetRecoveryPhrase extends Component {
   confirm = async () => {
     const user = await this._checkRecoveryPhrase();
     if (user) {
-      this.props.navigation.navigate('Dashboard', { user: user });
+      this.props.navigation.navigate('SetupWalletName', { user });
     } else {
       this.setState({
         textColor: '#ff0000',
@@ -130,7 +130,7 @@ class SetupGetRecoveryPhrase extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To verify your account please verify your twelve-word recovery phrase below. Start

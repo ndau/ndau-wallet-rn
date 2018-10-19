@@ -50,7 +50,7 @@ class RecoveryDropdown extends Component {
       }
 
       this.setState({
-        list: wordsArray.length > 0 ? wordsArray : []
+        list: wordsArray.length >= 0 ? wordsArray : []
       });
     }
   };

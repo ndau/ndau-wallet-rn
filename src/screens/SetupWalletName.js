@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
@@ -13,7 +12,19 @@ class SetupEncryptionPassword extends Component {
   }
 
   showNextSetup = () => {
-    this.props.navigation.navigate('SetupEncryptedPassword', { comingFrom: 'SetupWalletName' });
+    const user = this.props.navigation.getParam('user', null);
+    if (user) {
+      if (!user.userId) {
+        user.userId = SetupStore.walletName;
+      }
+      if (!user.wallets) {
+        user.wallets = [ { walletName: SetupStore.walletName } ];
+      }
+    }
+    this.props.navigation.navigate('SetupEncryptionPassword', {
+      comingFrom: 'SetupWalletName',
+      user
+    });
   };
 
   render() {
@@ -24,9 +35,7 @@ class SetupEncryptionPassword extends Component {
             <Stepper screenNumber={4} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                Set a password. This password applies to this app only. Ndau will not have access to
-                it. We cannot help you reset this password, so you should write it down.{'  '}
-                <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
+                Give this wallet a name.
               </Text>
             </View>
             <TextInput
