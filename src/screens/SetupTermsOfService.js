@@ -41,7 +41,7 @@ class SetupTermsOfService extends Component {
 
       user = await KeyAddrGenManager.createFirstTimeUser(
         recoveryPhraseAsBytes,
-        SetupStore.userId,
+        SetupStore.walletName ? SetupStore.walletName : SetupStore.userId,
         SetupStore.addressType,
         SetupStore.numberOfAccounts
       );
@@ -57,7 +57,10 @@ class SetupTermsOfService extends Component {
 
       await UserData.loadData(user);
 
-      this.props.navigation.navigate('Dashboard', { user });
+      this.props.navigation.navigate('Dashboard', {
+        user,
+        encryptionPassword: SetupStore.encryptionPassword
+      });
     } catch (error) {
       console.error(error);
     }

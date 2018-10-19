@@ -66,7 +66,10 @@ class Passphrase extends Component {
 
         await UserData.loadData(user);
 
-        this.props.navigation.navigate('Dashboard', { user });
+        this.props.navigation.navigate('Dashboard', {
+          user,
+          encryptionPassword: this.state.password
+        });
       } else {
         this.showLoginError();
       }
@@ -122,8 +125,13 @@ class Passphrase extends Component {
     );
   };
 
-  showSetup = () => {
-    this.props.navigation.navigate('Setup');
+  showSetup = async () => {
+    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+    if (isMainNetAlive) {
+      this.props.navigation.navigate('SetupWelcome');
+    } else {
+      this.props.navigation.navigate('Setup');
+    }
   };
 
   showRecovery = (user) => {

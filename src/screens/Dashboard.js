@@ -24,6 +24,7 @@ import NewAccountModalDialog from '../components/NewAccountModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -86,6 +87,8 @@ class Dashboard extends Component {
 
   addNewAccount = async () => {
     const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number);
+
+    AsyncStorageHelper.lockUser(user, this.props.navigation.getParam('encryptionPassword', null));
 
     this.setState({ user });
   };

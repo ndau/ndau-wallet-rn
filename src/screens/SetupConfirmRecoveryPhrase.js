@@ -20,6 +20,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import EntropyHelper from '../helpers/EntropyHelper';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 var _ = require('lodash');
 
@@ -50,8 +51,13 @@ class SetupConfirmRecoveryPhrase extends Component {
     }
   }
 
-  showNextSetup = () => {
-    this.props.navigation.navigate('SetupTermsOfService');
+  showNextSetup = async () => {
+    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+    if (isMainNetAlive) {
+      this.props.navigation.navigate('SetupWalletName');
+    } else {
+      this.props.navigation.navigate('SetupTermsOfService');
+    }
   };
 
   pushBack = () => {

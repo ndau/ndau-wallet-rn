@@ -136,7 +136,6 @@ class SetupStore {
     console.debug(`SetupStore.userId ${this._userId}`);
     console.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`);
     console.debug(`SetupStore.qrCode ${this._qrCode}`);
-    console.debug(`SetupStore.encryptionPassword ${this._encryptionPassword}`);
     console.debug(`SetupStore.entropy ${this._entropy}`);
     console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
     console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
