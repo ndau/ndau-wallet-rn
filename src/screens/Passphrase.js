@@ -24,6 +24,7 @@ import {
 } from 'react-native-responsive-screen';
 import Dropdown from '../components/Dropdown';
 import DataFormatHelper from '../helpers/DataFormatHelper';
+import UserData from '../model/UserData';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -60,15 +61,10 @@ class Passphrase extends Component {
         //the ndau wallet <= 1.6. After 1.7 all was well. So this code exists to
         //address the sins of those versions. This should NOT be removed!!
         if (!DataFormatHelper.hasAccountCreationKey(user)) {
-          // return this.showRecovery(user);
+          return this.showRecovery(user);
         }
 
-        //Old data had addresses and nothing else. We are building the accounts from this
-        //then we see if there is a match with what is on the blockchain and populate
-        //the account with addressData if so
-        DataFormatHelper.createAccountsFromAddresses(user);
-
-        await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
+        UserData.loadData(user);
 
         this.props.navigation.navigate('Dashboard', { user });
       } else {

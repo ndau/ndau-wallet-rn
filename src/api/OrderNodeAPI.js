@@ -1,10 +1,10 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper';
-import addressData from './data';
+import data from './data';
 
-const getEAIPercentage = (selectedNode, addresses) => {
+const getEAIPercentage = (selectedNode, addressData) => {
   //TODO: this is TEMP code
   if (__DEV__) {
-    return addressData.eaiPercentageResponse;
+    return data.eaiPercentageResponse;
   }
 
   const eaiPercentageAddress = NodeAddressHelper.getEaiPercentageAPIAddress(selectedNode);

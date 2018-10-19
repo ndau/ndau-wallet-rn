@@ -20,7 +20,7 @@ import AppConstants from '../AppConstants';
  */
 const checkRecoveryPhrase = async (recoveryPhraseString, userId) => {
   const recoveryPhraseStringAsBytes = await _getRecoveryStringAsBytes(recoveryPhraseString);
-  let user = await KeyAddrGenManager.createFirstTimeUser(userId, recoveryPhraseStringAsBytes);
+  let user = await KeyAddrGenManager.createFirstTimeUser(recoveryPhraseStringAsBytes);
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseStringAsBytes);
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`);
@@ -35,6 +35,10 @@ const checkRecoveryPhrase = async (recoveryPhraseString, userId) => {
     //Here again we are attempting to genereate at the very root of the tree
     user = await KeyAddrGenManager.addAccounts(user, rootAccounts.addressData.length, '');
     console.log(`user with root: ${JSON.stringify(user, null, 2)}`);
+  }
+
+  if (user.accounts) {
+    UserData.loadData(user);
   }
 
   return user.accounts ? user : null;

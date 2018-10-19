@@ -54,8 +54,14 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    SetupStore.setEncryptionPassword(this.state.password);
-    this.props.navigation.navigate('SetupYourWallet');
+    SetupStore.encryptionPassword = this.state.password;
+
+    const comingFrom = this.props.navigation.getParam('comingFrom', '');
+    if (comingFrom === 'SetupQRCode') {
+      this.props.navigation.navigate('SetupYourWallet');
+    } else {
+      this.props.navigation.navigate('SetupTermsOfService');
+    }
   };
 
   checkedShowPasswords = () => {

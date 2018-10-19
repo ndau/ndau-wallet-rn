@@ -26,7 +26,7 @@ class SetupTermsOfService extends Component {
   finishSetup = async () => {
     console.debug('Finishing Setup...');
     console.debug('Generating all keys from phrase given...');
-    const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
+    const recoveryPhraseString = SetupStore.recoveryPhrase.join().replace(/,/g, ' ');
     console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
     const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
       AppConstants.APP_LANGUAGE,
@@ -34,15 +34,15 @@ class SetupTermsOfService extends Component {
     );
     console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
     const user = await KeyAddrGenManager.createFirstTimeUser(
-      SetupStore.getUserId(),
       recoveryPhraseAsBytes,
-      SetupStore.getAddressType(),
-      SetupStore.getNumberOfAccounts()
+      SetupStore.userId,
+      SetupStore.addressType,
+      SetupStore.numberOfAccounts
     );
 
     this.sendAddressesToOneiro(user)
       .then(() => {
-        AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
+        AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
 
         DataFormatHelper.createAccountsFromAddresses(user);
 
@@ -61,11 +61,7 @@ class SetupTermsOfService extends Component {
 
   sendAddressesToOneiro = (user) => {
     console.log(`sending the following to the accountAddresses DB: ${user.addresses}`);
-    return this.sendAccountAddresses(
-      SetupStore.getUserId(),
-      user.addresses,
-      SetupStore.getQRCode()
-    );
+    return this.sendAccountAddresses(SetupStore.userId, user.addresses, SetupStore.qrCode);
   };
 
   sendAccountAddresses = (userId, addresses, token) => {

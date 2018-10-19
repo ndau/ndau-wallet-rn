@@ -1,10 +1,10 @@
 import NdauNodeAPIHelper from '../NdauNodeAPIHelper';
-import addressData from '../../api/data';
+import data from '../../api/data';
 import DataFormatHelper from '../../helpers/DataFormatHelper';
 
 test('populateCurrentUserWithLockData populates user with data from the API', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
-  const user = addressData.testUser;
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
+  const user = data.testUser;
 
   DataFormatHelper.createAccountsFromAddresses(user);
   await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
@@ -23,8 +23,8 @@ test('populateCurrentUserWithLockData populates user with data from the API', as
 });
 
 test('make sure we can get the amount of ndau per account', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
-  const user = addressData.testUser;
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
+  const user = data.testUser;
 
   DataFormatHelper.createAccountsFromAddresses(user);
   await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
@@ -35,8 +35,8 @@ test('make sure we can get the amount of ndau per account', async () => {
 });
 
 test('make sure we can get the locked until date of ndau per account', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
-  const user = addressData.testUser;
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
+  const user = data.testUser;
 
   DataFormatHelper.createAccountsFromAddresses(user);
   await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
@@ -47,8 +47,8 @@ test('make sure we can get the locked until date of ndau per account', async () 
 });
 
 test('make sure we can get the total amount of ndau for accounts', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
-  const user = addressData.testUser;
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
+  const user = data.testUser;
 
   DataFormatHelper.createAccountsFromAddresses(user);
   await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
@@ -58,8 +58,8 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 });
 
 test('make sure we can get the current price of the users ndau', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
-  const user = addressData.testUser;
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
+  const user = data.testUser;
 
   DataFormatHelper.createAccountsFromAddresses(user);
   NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
@@ -70,8 +70,8 @@ test('make sure we can get the current price of the users ndau', async () => {
 });
 
 test('make sure sending EAI has the nickname set correctly', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
-  const user = addressData.testUser;
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
+  const user = data.testUser;
 
   DataFormatHelper.createAccountsFromAddresses(user);
   await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
@@ -82,8 +82,8 @@ test('make sure sending EAI has the nickname set correctly', async () => {
 });
 
 test('make sure receiving EAI has the nickname set correctly', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
-  const user = addressData.testUser;
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
+  const user = data.testUser;
 
   DataFormatHelper.createAccountsFromAddresses(user);
   await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);

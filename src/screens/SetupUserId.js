@@ -46,8 +46,8 @@ class SetupUserId extends Component {
   }
 
   showNextSetup = () => {
-    SetupStore.setUserId(this.state.userId);
-    SetupStore.setNumberOfAccounts(this.state.numberOfAccounts);
+    SetupStore.userId = this.state.userId;
+    SetupStore.numberOfAccounts = this.state.numberOfAccounts;
 
     this.props.navigation.navigate('SetupQRCode');
   };

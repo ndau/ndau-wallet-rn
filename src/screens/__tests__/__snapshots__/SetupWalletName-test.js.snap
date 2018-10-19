@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`testing SetupYourWallet... renders correctly 1`] = `
+exports[`testing SetupWalletName... renders correctly 1`] = `
 <View
   onLayout={[Function]}
   pointerEvents="box-none"
@@ -36,10 +36,10 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
       <View>
         <Image
           resizeMode="contain"
-          screenNumber={5}
+          screenNumber={4}
           source={
             Object {
-              "testUri": "../../../img/step-5.png",
+              "testUri": "../../../img/step-4.png",
             }
           }
           style={
@@ -52,13 +52,11 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
           }
         />
         <View
-          accessible={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "marginBottom": 8,
+            }
+          }
         >
           <Text
             accessible={true}
@@ -72,9 +70,54 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
               }
             }
           >
-            Next we will give you a recovery phrase. This is critical to restoring your wallet. You risk losing access to your funds if you do not WRITE IT DOWN and store it in a secure location. Do not save this phrase on your device or in the cloud. Do not do this step in a public place where someone looking over your shoulder could see this phrase.
+            Set a password. This password applies to this app only. Ndau will not have access to it. We cannot help you reset this password, so you should write it down.
+              
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "color": "#ffffff",
+                    "fontSize": 20,
+                  },
+                  Object {
+                    "marginBottom": 3,
+                  },
+                  Object {
+                    "fontFamily": "FontAwesome",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                ]
+              }
+            >
+              
+            </Text>
           </Text>
         </View>
+        <TextInput
+          allowFontScaling={true}
+          autoCapitalize="none"
+          onChangeText={[Function]}
+          placeholder="Wallet name"
+          placeholderTextColor="#333"
+          style={
+            Object {
+              "backgroundColor": "#ffffff",
+              "borderColor": "gray",
+              "borderRadius": 3,
+              "borderWidth": 1,
+              "color": "#000000",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 18,
+              "height": 93.5,
+              "marginTop": 13.5,
+              "paddingLeft": 7.5,
+            }
+          }
+        />
       </View>
     </RCTScrollView>
     <View
@@ -128,7 +171,7 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
             ]
           }
         >
-          Get my recovery phrase
+          Next
         </Text>
       </View>
     </View>

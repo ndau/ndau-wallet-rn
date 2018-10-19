@@ -14,7 +14,7 @@ import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
 import Stepper from '../components/Stepper';
 
-class SetupMain extends Component {
+class SetupNewOrRecovery extends Component {
   constructor(props) {
     super(props);
 
@@ -36,18 +36,12 @@ class SetupMain extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
-  showNextSetup = () => {
-    this.props.navigation.navigate('SetupUserId');
+  showNewWallet = () => {
+    this.props.navigation.navigate('SetupYourWallet');
   };
 
-  testNetToggler = () => {
-    if (this.state.maxToggle === this.state.toggleCount) {
-      this.setState({ toggleCount: 1 });
-      SetupStore.toggleAddressType();
-    } else {
-      this.setState({ toggleCount: this.state.toggleCount + 1 });
-    }
-    console.log(`this.state.toggleCount is ${this.state.toggleCount}`);
+  showUseExistingRecovery = () => {
+    this.props.navigation.navigate('SetupGetRecoveryPhrase');
   };
 
   render() {
@@ -58,32 +52,31 @@ class SetupMain extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <Stepper screenNumber={1} />
-            <TouchableWithoutFeedback onPress={this.testNetToggler}>
-              <View>
-                <Text style={cssStyles.wizardText}>
-                  Welcome to ndau, the world’s first buoyant digital currency.
-                  {Platform.OS === 'android' ? '\n' : ''}
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
             <View>
               <Text style={cssStyles.wizardText}>
-                Currently, ndau is only available to accredited investors who have already made an
-                ndau purchase. To access this app, you will need the user ID we gave you.
+                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{' '}
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
             <View>
               <Text style={cssStyles.wizardText}>
-                You will set a password to protect this app, and be given the unique recovery phrase
-                which can be used to restore your wallet. Be ready to write both down. If you do
-                not, you will lose access to your ndau.
+                To get started securely, you will create a new wallet, protect it with a password,
+                and create a recovery phrase which you will need in order to restore your wallet if
+                you lose access to it.
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
           </ScrollView>
           <View style={cssStyles.footer}>
-            <CommonButton onPress={this.showNextSetup} title="Create new wallet" />
+            <View style={cssStyles.navButtonWrapper}>
+              <CommonButton
+                onPress={() => this.showUseExistingRecovery()}
+                title="Recover a wallet (less common)"
+              />
+            </View>
+            <View style={cssStyles.navButtonWrapper}>
+              <CommonButton onPress={() => this.showNewWallet()} title="New wallet" />
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -91,4 +84,4 @@ class SetupMain extends Component {
   }
 }
 
-export default SetupMain;
+export default SetupNewOrRecovery;

@@ -37,17 +37,7 @@ class SetupWelcome extends Component {
   }
 
   showNextSetup = () => {
-    this.props.navigation.navigate('SetupUserId');
-  };
-
-  testNetToggler = () => {
-    if (this.state.maxToggle === this.state.toggleCount) {
-      this.setState({ toggleCount: 1 });
-      SetupStore.toggleAddressType();
-    } else {
-      this.setState({ toggleCount: this.state.toggleCount + 1 });
-    }
-    console.log(`this.state.toggleCount is ${this.state.toggleCount}`);
+    this.props.navigation.navigate('SetupNewOrRecovery');
   };
 
   render() {
@@ -58,14 +48,12 @@ class SetupWelcome extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <Stepper screenNumber={1} />
-            <TouchableWithoutFeedback onPress={this.testNetToggler}>
-              <View>
-                <Text style={cssStyles.wizardText}>
-                  Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of
-                  value. {Platform.OS === 'android' ? '\n' : ''}
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
+            <View>
+              <Text style={cssStyles.wizardText}>
+                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{' '}
+                {Platform.OS === 'android' ? '\n' : ''}
+              </Text>
+            </View>
             <View>
               <Text style={cssStyles.wizardText}>
                 To get started securely, you will create a new wallet, protect it with a password,

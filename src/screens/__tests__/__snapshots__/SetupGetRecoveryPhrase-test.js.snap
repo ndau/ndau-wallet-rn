@@ -174,7 +174,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -199,7 +199,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -224,7 +224,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -310,7 +310,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -335,7 +335,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -360,7 +360,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -446,7 +446,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -471,7 +471,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -496,7 +496,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -582,7 +582,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -607,7 +607,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -632,7 +632,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -718,7 +718,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -743,7 +743,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -768,7 +768,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -854,7 +854,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -879,7 +879,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -904,7 +904,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -990,7 +990,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1015,7 +1015,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1040,7 +1040,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -1126,7 +1126,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1151,7 +1151,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1176,7 +1176,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -1262,7 +1262,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1287,7 +1287,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1312,7 +1312,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -1398,7 +1398,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1423,7 +1423,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1448,7 +1448,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -1534,7 +1534,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1559,7 +1559,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1584,7 +1584,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,
@@ -1670,7 +1670,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1695,7 +1695,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                           Object {
                             "alignContent": "center",
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "height": 80,
                             "justifyContent": "center",
                             "overflow": "hidden",
@@ -1720,7 +1720,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                         style={
                           Object {
                             "backgroundColor": "#1c2227",
-                            "borderRadius": 6,
+                            "borderRadius": 3,
                             "color": "#ffffff",
                             "fontFamily": "TitilliumWeb-Regular",
                             "fontSize": 20,

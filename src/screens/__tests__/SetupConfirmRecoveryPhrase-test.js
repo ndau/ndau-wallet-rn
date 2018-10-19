@@ -26,10 +26,10 @@ function makeWords() {
 
 describe('SetupConfirmRecoveryPhrase presentation', () => {
   beforeEach(() => {
-    SetupStore.setRecoveryPhrase(makeWords());
-    SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
-    SetupStore.setShuffledMap([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
-    SetupStore.setShuffledWords(makeWords());
+    SetupStore.recoveryPhrase = makeWords();
+    SetupStore.entropy = 'dGVzdGluZ3dlc3Rpbmdh';
+    SetupStore.shuffledMap = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ];
+    SetupStore.shuffledWords = makeWords();
     this.tree = renderer
       .create(
         <SetupConfirmRecoveryPhrase navigation={makeNavigator()} parentStyles={makeStyles()} />
@@ -45,10 +45,10 @@ describe('SetupConfirmRecoveryPhrase presentation', () => {
 describe('SetupConfirmRecoveryPhrase behavior', () => {
   beforeEach(() => {
     // set up default wrapper for every test.
-    SetupStore.setRecoveryPhrase(makeWords());
-    SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
-    SetupStore.setShuffledMap([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]);
-    SetupStore.setShuffledWords(makeWords());
+    SetupStore.recoveryPhrase = makeWords();
+    SetupStore.entropy = 'dGVzdGluZ3dlc3Rpbmdh';
+    SetupStore.shuffledMap = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ];
+    SetupStore.shuffledWords = makeWords();
     this.wrapper = mount(<SetupConfirmRecoveryPhrase navigation={makeNavigator()} />);
     this.press = (index) => {
       this.wrapper.find('Word').at(index).props().onPress();

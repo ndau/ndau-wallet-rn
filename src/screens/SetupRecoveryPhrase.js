@@ -58,17 +58,17 @@ class SetupRecoveryPhrase extends Component {
   }
 
   generateRecoveryPhrase = async () => {
-    console.debug(`entropy in generateRecoveryPhrase is ${SetupStore.getEntropy()}`);
+    console.debug(`entropy in generateRecoveryPhrase is ${SetupStore.entropy}`);
     const KeyaddrManager = NativeModules.KeyaddrManager;
     const seeds = await KeyaddrManager.keyaddrWordsFromBytes(
       AppConstants.APP_LANGUAGE,
-      SetupStore.getEntropy()
+      SetupStore.entropy
     );
     const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(AppConstants.APP_LANGUAGE, seeds);
-    if (!_(seedBytes).isEqual(SetupStore.getEntropy())) {
+    if (!_(seedBytes).isEqual(SetupStore.entropy)) {
       this.showExitApp();
     } else {
-      console.debug(`${seedBytes} and ${SetupStore.getEntropy()} are equal.`);
+      console.debug(`${seedBytes} and ${SetupStore.entropy} are equal.`);
     }
     console.debug(`keyaddr's seed words are: ${seeds}`);
     const recoveryPhrase = seeds.split(/\s+/g);
@@ -93,9 +93,9 @@ class SetupRecoveryPhrase extends Component {
   };
 
   showNextSetup = () => {
-    SetupStore.setRecoveryPhrase(this.state.recoveryPhrase);
-    SetupStore.setShuffledMap(this.shuffleMap);
-    SetupStore.setShuffledWords(this.shuffledWords);
+    SetupStore.recoveryPhrase = this.state.recoveryPhrase;
+    SetupStore.shuffledMap = this.shuffleMap;
+    SetupStore.shuffledWords = this.shuffledWords;
     this.props.navigation.navigate('SetupConfirmRecoveryPhrase');
   };
 

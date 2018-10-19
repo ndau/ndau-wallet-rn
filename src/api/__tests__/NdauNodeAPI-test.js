@@ -1,10 +1,10 @@
 import NdauNodeAPI from '../NdauNodeAPI';
-import addressData from '../addressData';
+import data from '../data';
 
-const user = addressData.testUser;
+const user = data.testUser;
 
 test('getAddressData should return something back', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
 
   const ndau = await NdauNodeAPI.getAddressData(user);
 
@@ -14,7 +14,7 @@ test('getAddressData should return something back', async () => {
 });
 
 test('getMarketPrice should return something back', async () => {
-  fetch.mockResponseOnce(JSON.stringify(addressData.testAddressData));
+  fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
 
   const marketPrice = await NdauNodeAPI.getMarketPrice(user);
 

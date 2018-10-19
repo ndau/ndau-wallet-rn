@@ -38,8 +38,9 @@ class RecoveryDropdown extends Component {
       console.log(`words are ${words}`);
       this.retrievedData = true;
       wordsArray = words.split(' ');
+      console.log(`wordsArray is ${wordsArray}`);
 
-      if (wordsArray.length <= 1) {
+      if (wordsArray.length <= 0) {
         console.log(`Word not found!`);
         this.setState({ textColor: '#ff0000' });
         this.props.setAcquisitionError(true);
@@ -49,7 +50,7 @@ class RecoveryDropdown extends Component {
       }
 
       this.setState({
-        list: wordsArray.length > 1 ? wordsArray : []
+        list: wordsArray.length > 0 ? wordsArray : []
       });
     }
   };
