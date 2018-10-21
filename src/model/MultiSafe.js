@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import CryptoJS from 'crypto-js';
+import EntropyHelper from '../helpers/EntropyHelper';
 import SetupStore from './SetupStore';
 
 
@@ -180,11 +181,13 @@ class MultiSafe {
             let metadata = await this._retrieveObject(metaKey);
             // we found one with this name, let's try to get it with the combo
             let dataSecret = await this._getDataSecret(combo);
+            console.log("DataSecret: '", dataSecret, "'");
             let data = await this._retrieveEncryptedObject(multsafeKey, dataSecret);
             return data;
         }
         // ok, it didn't exist, so we need a new one
         // build a random encryption secret
+        EntropyHelper.generateEntropy();
         let dataSecret = SetupStore.getEntropy();
         let combination0 = this._encrypt(dataSecret, combo);
         let meta = {
@@ -196,25 +199,32 @@ class MultiSafe {
         return data;
     }
 
-    // Verify(combination string): int
-    verify = (combination) => {
+    // Verify(combo string): bool
+    verify = async (combo) => {
+        let secret = await this._getDataSecret(combo);
+        return secret !== null;
     }
 
-
-    // Store(data: object, combo: string): bool
-    store = (combination) => {
+    // Store(data: object, combo: string): Promise(void)
+    store = async (data, combo) => {
+        let multsafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
+        return this._storeEncryptedObject(multsafeKey, data, combo);
     }
 
-    // AddCombo(newcombo: string, oldcombo: string): bool
-    addCombination = (newcombo, oldcombo) => {
+    // AddCombo(newcombo: string, oldcombo: string): Promise(bool)
+    addCombination = async (newcombo, oldcombo) => {
+        let metaKey = MULTISAFE_META_PREFIX + this.storageKey;
+        let metadata = await this._retrieveObject(metaKey);
+        let secret = await this._getDataSecret(oldcombo);
+        let combo = this._encrypt(secret, newcombo);
+        metadata.combinations.push(combo)
+        return this._storeObject(metaKey, metadata);
     }
 
-    // RemoveCombo(index: int): bool
-    removeCombination = (index) => {
-    }
-
-    // Retrieve(combo: string): object
-    retrieve = (combo) => {
+    // Retrieve(combo: string): Promise(object)
+    retrieve = async (combo) => {
+        let multsafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
+        return this._retrieveEncryptedObject(multsafeKey, combo);
     }
 
 }
