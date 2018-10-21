@@ -8,10 +8,20 @@ const mock = () => {
 mock();
 
 import MultiSafe from '../MultiSafe';
+import { HTML5_FMT } from 'moment';
 
 describe('MultiSafe _encrypt/_decrypt tests...', () => {
     it('should encrypt/decrypt a simple string', () => {
         word = "my secret"
+        password = "don't tell"
+
+        ms = new MultiSafe()
+        encrypted = ms._encrypt(word, password)
+        decrypted = ms._decrypt(encrypted, password)
+        expect(decrypted).toEqual(word)
+    });
+    it('should encrypt/decrypt a json-like string', () => {
+        word = "{}"
         password = "don't tell"
 
         ms = new MultiSafe()
@@ -50,187 +60,46 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
         expect(decrypted).toEqual(null)
     });
 });
-    // it('should set one user', async () => {
-    //     const user = {
-    //         userId: 'ABC-123'
-    //     };
-    //     const password = 'abcd';
 
-    //     await AsyncStorageHelper.lockUser(user, password);
+describe('MultiSafe storage tests...', () => {
 
-    //     await AsyncStorageHelper.unlockUser(user.userId, password).then((storedUser) => {
-    //         console.log(
-    //             `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user)}`
-    //         );
-    //         expect(storedUser).toEqual(user);
-    //     });
-    // });
+    it('should store and retrieve a string', async () => {
+        let s = "we do housecalls!";
+        let ms = new MultiSafe();
+        let k = "thekey";
+        // ms = await new MultiSafe().create("mystoragekey", "1234")
+        let x = ms._storeString(k, s);
+        let y = ms._retrieveString(k);
+        expect(y).toEqual(x);
+    });
 
-    // it('should set 3 users and get one', async () => {
-    //     const user1 = {
-    //         userId: 'ABC-123'
-    //     };
-    //     const password1 = 'abcd';
-    //     const user2 = {
-    //         userId: 'jimmy'
-    //     };
-    //     const password2 = 'jim';
-    //     const user3 = {
-    //         userId: 'ABC-123anything'
-    //     };
-    //     const password3 = 'anything';
+    it('should store and retrieve an object', async () => {
+        let o = {
+            s: "I'm Ben Franklin",
+            ndau: 1234
+        }
+        let ms = new MultiSafe();
+        let k = "themetalkey";
+        // ms = await new MultiSafe().create("mystoragekey", "1234")
+        let x = ms._storeObject(k, o);
+        let y = ms._retrieveObject(k);
+        expect(y).toEqual(x);
+    });
 
-    //     await AsyncStorageHelper.lockUser(user1, password1);
-    //     await AsyncStorageHelper.lockUser(user2, password2);
-    //     await AsyncStorageHelper.lockUser(user3, password3);
+    it('should store and retrieve an encrypted object', async () => {
+        let o = {
+            s: "I'm Ben Franklin",
+            ndau: 1234
+        }
+        let k = "themetalkey";
+        let pw = "1234";
+        let sk = "mystoragekey";
+        let ms = new MultiSafe();
+        await ms.create(sk, pw);
+        expect(ms.storageKey).toEqual(sk);
+        ms._storeEncryptedObject(k, o, pw)
+        let y = await ms._retrieveEncryptedObject(k, pw);
+        expect(o).toEqual(y);
+    });
 
-    //     await AsyncStorageHelper.unlockUser(user2.userId, password2).then((storedUser) => {
-    //         console.log(
-    //             `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
-    //         );
-    //         expect(storedUser).toEqual(user2);
-    //     });
-    // });
-
-    // it('should set 3 users and get all', async () => {
-    //     const user1 = {
-    //         userId: 'ABC-123'
-    //     };
-    //     const password1 = 'abcd';
-    //     const user2 = {
-    //         userId: 'jimmy'
-    //     };
-    //     const password2 = 'jim';
-    //     const user3 = {
-    //         userId: 'ABC-123anything'
-    //     };
-    //     const password3 = 'anything';
-
-    //     await AsyncStorageHelper.lockUser(user1, password1);
-    //     await AsyncStorageHelper.lockUser(user2, password2);
-    //     await AsyncStorageHelper.lockUser(user3, password3);
-
-    //     await AsyncStorageHelper.unlockUser(user1.userId, password1).then((storedUser) => {
-    //         console.log(
-    //             `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user1)}`
-    //         );
-    //         expect(storedUser).toEqual(user1);
-    //     });
-    //     await AsyncStorageHelper.unlockUser(user2.userId, password2).then((storedUser) => {
-    //         console.log(
-    //             `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
-    //         );
-    //         expect(storedUser).toEqual(user2);
-    //     });
-    //     await AsyncStorageHelper.unlockUser(user3.userId, password3).then((storedUser) => {
-    //         console.log(
-    //             `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user3)}`
-    //         );
-    //         expect(storedUser).toEqual(user3);
-    //     });
-    // });
-
-    // it('should set 3 users and get one that does not exist', async () => {
-    //     const user1 = {
-    //         userId: 'ABC-123'
-    //     };
-    //     const password1 = 'abcd';
-    //     const user2 = {
-    //         userId: 'jimmy'
-    //     };
-    //     const password2 = 'jim';
-    //     const user3 = {
-    //         userId: 'ABC-123anything'
-    //     };
-    //     const password3 = 'anything';
-
-    //     await AsyncStorageHelper.lockUser(user1, password1);
-    //     await AsyncStorageHelper.lockUser(user2, password2);
-    //     await AsyncStorageHelper.lockUser(user3, password3);
-
-    //     await AsyncStorageHelper.unlockUser('doesNotExist', password1)
-    //         .then((storedUser) => {
-    //             fail();
-    //         })
-    //         .catch((error) => {
-    //             expect(error).toBeDefined();
-    //         });
-    // });
-
-    // it('should set 3 users and getAllKeys', async () => {
-    //     const user1 = {
-    //         userId: 'ABC-123'
-    //     };
-    //     const password1 = 'abcd';
-    //     const user2 = {
-    //         userId: 'jimmy'
-    //     };
-    //     const password2 = 'jim';
-    //     const user3 = {
-    //         userId: 'ABC-123anything'
-    //     };
-    //     const password3 = 'anything';
-
-    //     await AsyncStorageHelper.lockUser(user1, password1);
-    //     await AsyncStorageHelper.lockUser(user2, password2);
-    //     await AsyncStorageHelper.lockUser(user3, password3);
-
-    //     await AsyncStorageHelper.getAllKeys().then((keys) => {
-    //         const arrayOfKeys = ['ABC-123', 'jimmy', 'ABC-123anything'];
-    //         console.log(`keys are: ${keys}`);
-    //         expect(keys).toEqual(arrayOfKeys);
-    //     });
-    // });
-
-    // it('should set 3 users, getAllKeys and check doesKeyExist', async () => {
-    //     const user1 = {
-    //         userId: 'ABC-123'
-    //     };
-    //     const password1 = 'abcd';
-    //     const user2 = {
-    //         userId: 'jimmy'
-    //     };
-    //     const password2 = 'jim';
-    //     const user3 = {
-    //         userId: 'ABC-123anything'
-    //     };
-    //     const password3 = 'anything';
-
-    //     await AsyncStorageHelper.lockUser(user1, password1);
-    //     await AsyncStorageHelper.lockUser(user2, password2);
-    //     await AsyncStorageHelper.lockUser(user3, password3);
-
-    //     await AsyncStorageHelper.getAllKeys().then(async (keys) => {
-    //         const arrayOfKeys = ['ABC-123', 'jimmy', 'ABC-123anything'];
-    //         console.log(`keys are: ${keys}`);
-    //         expect(keys).toEqual(arrayOfKeys);
-    //         await AsyncStorageHelper.doesKeyExist('ABC-123').then((present) => {
-    //             expect(present).toBe(true);
-    //         });
-    //         await AsyncStorageHelper.doesKeyExist('ABC-123212').then((present) => {
-    //             expect(present).toBe(false);
-    //         });
-    //     });
-    // });
-
-    // it('testing migration of old @NdauAsynStorage:user value', async () => {
-    //   const user1 = {
-    //     userId: 'ABC-123'
-    //   };
-    //   const password1 = 'abcd';
-
-    //   await AsyncStorageHelper.lockUser(user1, password1, STORAGE_KEY_PREFIX + 'user');
-
-    //   await AsyncStorageHelper.getAllKeys().then(async (keys) => {
-    //     const arrayOfKeys = [ 'ABC-123' ];
-    //     console.log(`keys are: ${keys}`);
-    //     expect(keys).toEqual(arrayOfKeys);
-    //     await AsyncStorageHelper.doesKeyExist('ABC-123').then((present) => {
-    //       expect(present).toBe(true);
-    //     });
-    //     await AsyncStorageHelper.doesKeyExist('ABC-123212').then((present) => {
-    //       expect(present).toBe(false);
-    //     });
-    //   });
-    // });
-
+});

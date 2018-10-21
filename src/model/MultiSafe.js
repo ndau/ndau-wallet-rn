@@ -1,13 +1,16 @@
 import { AsyncStorage } from 'react-native';
-import { NativeModules } from 'react-native';
 import CryptoJS from 'crypto-js';
 import SetupStore from './SetupStore';
-import STORAGE_KEY_PREFIX from './AsyncStorageHelper';
+
 
 // we put these things on either end of the combination to make sure we know that we
 // have decrypted it properly
 const PREFIX = 'Prefix@';
 const SUFFIX = '@Suffix';
+
+const MULTISAFE_DATA_PREFIX = 'MultiSafe_Data_';
+const MULTISAFE_META_PREFIX = 'MultiSafe_Meta_';
+
 
 class MultiSafe {
     // a MultiSafe is created with the constructor but may not be used until it
@@ -15,21 +18,35 @@ class MultiSafe {
     // AsyncStorage.
     constructor() {
         this.storageKey = '';
-        this.encryptionKey = '';
-        this.combinations = [];
     }
 
     // _encrypt symmetrically encrypts plaintext with pw
     _encrypt = (plain, pw) => {
-        value = PREFIX + plain + SUFFIX
-        encrypted = CryptoJS.AES.encrypt(value, pw);
-        return encrypted
+        let value = PREFIX + plain + SUFFIX;
+        let encrypted = CryptoJS.AES.encrypt(value, pw);
+        let r = encrypted.toString();
+        return r;
     }
+
+    //  var words = CryptoJS.enc.Base64.parse('SGVsbG8sIFdvcmxkIQ==');
+    //  var base64 = CryptoJS.enc.Base64.stringify(words);
+    //  var words = CryptoJS.enc.Latin1.parse('Hello, World!');
+    //  var latin1 = CryptoJS.enc.Latin1.stringify(words);
+    //  var words = CryptoJS.enc.Hex.parse('48656c6c6f2c20576f726c6421');
+    //  var hex = CryptoJS.enc.Hex.stringify(words);
+    //  var words = CryptoJS.enc.Utf8.parse('𤭢');
+    //  var utf8 = CryptoJS.enc.Utf8.stringify(words);
+    //  var words = CryptoJS.enc.Utf16.parse('Hello, World!');
+    //  var utf16 = CryptoJS.enc.Utf16.stringify(words);
+    //  var words = CryptoJS.enc.Utf16LE.parse('Hello, World!');
+    //  var utf16 = CryptoJS.enc.Utf16LE.stringify(words);
+
 
     // _decrypt symmetrically decrypts plaintext from a coded value;
     // it returns either a decrypted string or null if the pw was wrong.
     _decrypt = (coded, pw) => {
-        decrypted = CryptoJS.AES.decrypt(coded, pw)
+        // let coded = CryptoJS.enc.Base64.parse(hexcoded);
+        let decrypted = CryptoJS.AES.decrypt(coded, pw);
         // if the password was wrong, it may not even convert to a string; test for that
         try {
             decrypted = decrypted.toString(CryptoJS.enc.Utf8);
@@ -39,13 +56,104 @@ class MultiSafe {
 
         // but even if it converted to a string, we still might not have decoded it properly
         // so verify that
-        if ((decrypted.slice(0, PREFIX.length) != PREFIX) || (decrypted.slice(-SUFFIX.length) != SUFFIX)) {
+        if ((decrypted.slice(0, PREFIX.length) !== PREFIX) || (decrypted.slice(-SUFFIX.length) !== SUFFIX)) {
             return null
         }
         // we're good, strip off the ends
         value = decrypted.slice(PREFIX.length, -SUFFIX.length)
         return value
     }
+
+    _getMultisafeKeys = async () => {
+        try {
+            const keys = await AsyncStorage.getAllKeys();
+            const newKeys = keys
+                .filter((key) => key.slice(0, len(MULTISAFE_DATA_PREFIX)) == MULTISAFE_DATA_PREFIX)
+            // .map((key) => {
+            //     return key.replace(MULTISAFE_PREFIX, '');
+            // })
+            return newKeys;
+        } catch (error) {
+            return [];
+        }
+    };
+
+    _keyExists = async (key) => {
+        const keys = await this._getMultisafeKeys();
+        return keys.includes(key);
+    };
+
+    // _storeString stores a string in AsyncStorage
+    _storeString = async (key, value) => {
+        await AsyncStorage.setItem(key, value);
+    }
+
+    // _storeObject stores an object in AsyncStorage by
+    // converting it to a JSON string.
+    _storeObject = async (key, obj) => {
+        let value = JSON.stringify(obj);
+        return this._storeString(key, value);
+    }
+
+    // _storeEncryptedObject stores an object in AsyncStorage by
+    // first converting it to a JSON string, then encrypting that
+    // string with the public encryptionKey.
+    _storeEncryptedObject = async (key, obj, pw) => {
+        let privkey = await this._getDataSecret(pw);
+        let value = JSON.stringify(obj);
+        let encvalue = this._encrypt(value, privkey);
+        return this._storeString(key, encvalue);
+    }
+
+    // _retrieveString retrieves a string from AsyncStorage
+    _retrieveString = async (key) => {
+        try {
+            let item = await AsyncStorage.getItem(key);
+            return item
+        } catch (err) {
+            console.debug(key + " was not a valid key in AsyncStorage");
+            throw (err);
+        }
+    }
+
+    // _retrieveObject retrieves a json-encoded object from AsyncStorage
+    _retrieveObject = async (key) => {
+        let data = await this._retrieveString(key)
+        return JSON.parse(data);
+    }
+
+    // _retrieveEncryptedObject retrieves a JSON-encoded encrypted object from AsyncStorage by
+    // trying to use the provided pw to unlock it.
+    _retrieveEncryptedObject = async (key, pw) => {
+        let privkey = await this._getDataSecret(pw);
+        let data = await this._retrieveString(key);
+        let decrypted = this._decrypt(data, privkey);
+        if (decrypted === null) {
+            throw Error('unable to decode ' + key)
+        }
+
+        return JSON.parse(decrypted);
+    }
+
+
+    // _getDataSecret returns a promise for the private key to unlock the encoded data,
+    // given a password. It tries the password against all of the combinations
+    // until it finds a match or fails.
+    _getDataSecret = async (pw) => {
+        let metaKey = MULTISAFE_META_PREFIX + this.storageKey
+        let meta = await this._retrieveObject(metaKey)
+        if (!meta) {
+            throw Error('no object was stored under ' + MULTISAFE_META_PREFIX);
+        }
+        for (let combo of meta.combinations) {
+            decrypted = this._decrypt(combo, pw);
+            if (decrypted !== null) {
+                return decrypted
+            }
+        }
+        throw Error('no matching combo found');
+    }
+
 
     // create(storagekey, combo) is the way to initialize a MultiSafe. It takes as
     // arguments:
@@ -65,18 +173,27 @@ class MultiSafe {
     // After this method is called, there will be one entry in this array, which is the
     // decryption key symetrically encrypted with combo.
     create = async (storageKey, combo) => {
-        // build a random keypair (this is just for use of the storage system; it's not
-        // part of the HD key framework, so it's generated from a new random value with
-        // no need for derivation paths)
-        seed = SetupStore.getEntropy()
-        const privateKey = await NativeModules.KeyaddrManager.newKey(seed);
-        const userDecryptedBytes =
-
-            combination0 = CryptoJS.AES.encrypt(privateKey, combo);
-
-        this.storageKey = STORAGE_KEY_PREFIX + storageKey;
-        this.encryptionKey = privateKey.Public()
-        this.combinations = [this.combination0];
+        this.storageKey = storageKey;
+        let multsafeKey = MULTISAFE_DATA_PREFIX + storageKey;
+        let metaKey = MULTISAFE_META_PREFIX + storageKey;
+        if (await this._keyExists(metaKey)) {
+            let metadata = await this._retrieveObject(metaKey);
+            // we found one with this name, let's try to get it with the combo
+            let dataSecret = await this._getDataSecret(combo);
+            let data = await this._retrieveEncryptedObject(multsafeKey, dataSecret);
+            return data;
+        }
+        // ok, it didn't exist, so we need a new one
+        // build a random encryption secret
+        let dataSecret = SetupStore.getEntropy();
+        let combination0 = this._encrypt(dataSecret, combo);
+        let meta = {
+            combinations: [combination0]
+        }
+        await this._storeObject(metaKey, meta);
+        data = {};
+        await this._storeEncryptedObject(multsafeKey, data, combo);
+        return data;
     }
 
     // Verify(combination string): int
