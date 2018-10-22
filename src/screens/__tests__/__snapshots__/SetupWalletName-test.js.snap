@@ -70,31 +70,7 @@ exports[`testing SetupWalletName... renders correctly 1`] = `
               }
             }
           >
-            Set a password. This password applies to this app only. Ndau will not have access to it. We cannot help you reset this password, so you should write it down.
-              
-            <Text
-              accessible={true}
-              allowFontScaling={false}
-              ellipsizeMode="tail"
-              style={
-                Array [
-                  Object {
-                    "color": "#ffffff",
-                    "fontSize": 20,
-                  },
-                  Object {
-                    "marginBottom": 3,
-                  },
-                  Object {
-                    "fontFamily": "FontAwesome",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                ]
-              }
-            >
-              
-            </Text>
+            Give this wallet a name.
           </Text>
         </View>
         <TextInput

@@ -27,6 +27,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
     }
   >
     <RCTScrollView
+      keyboardShouldPersistTaps="always"
       style={
         Object {
           "marginTop": 20,
@@ -2023,7 +2024,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
                 ]
               }
             >
-              john.pasqualetto@oneiro.io
+              Oneiro concierge support.
             </Text>
           </View>
         </View>

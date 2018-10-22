@@ -59,7 +59,7 @@ class SetupGetRecoveryPhrase extends Component {
   };
 
   sendEmail = () => {
-    Linking.openURL('mailto:john.pasqualetto@oneiro.io?subject=Lost Recovery Phrase');
+    Linking.openURL('mailto:support@oneiro.freshdesk.com?subject=Lost Recovery Phrase');
   };
 
   _onLayoutDidChange = (e) => {
@@ -205,7 +205,7 @@ class SetupGetRecoveryPhrase extends Component {
               be restored without it. If you have lost your recovery phrase please contact{' '}
             </Text>
             <Text onPress={this.sendEmail} style={[ cssStyles.blueLinkText ]}>
-              john.pasqualetto@oneiro.io
+              Oneiro concierge support.
             </Text>
           </View>
         </Dialog>
