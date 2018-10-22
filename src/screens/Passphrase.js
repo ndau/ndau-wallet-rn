@@ -9,8 +9,7 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
-  Platform,
-  NativeModules
+  Platform
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
@@ -24,6 +23,7 @@ import {
 } from 'react-native-responsive-screen';
 import Dropdown from '../components/Dropdown';
 import DataFormatHelper from '../helpers/DataFormatHelper';
+import UserData from '../model/UserData';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -60,17 +60,15 @@ class Passphrase extends Component {
         //the ndau wallet <= 1.6. After 1.7 all was well. So this code exists to
         //address the sins of those versions. This should NOT be removed!!
         if (!DataFormatHelper.hasAccountCreationKey(user)) {
-          // return this.showRecovery(user);
+          return this.showRecovery(user);
         }
 
-        //Old data had addresses and nothing else. We are building the accounts from this
-        //then we see if there is a match with what is on the blockchain and populate
-        //the account with addressData if so
-        DataFormatHelper.createAccountsFromAddresses(user);
+        await UserData.loadData(user);
 
-        await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
-
-        this.props.navigation.navigate('Dashboard', { user });
+        this.props.navigation.navigate('Dashboard', {
+          user,
+          encryptionPassword: this.state.password
+        });
       } else {
         this.showLoginError();
       }
@@ -126,13 +124,19 @@ class Passphrase extends Component {
     );
   };
 
-  showSetup = () => {
-    this.props.navigation.navigate('Setup');
+  showSetup = async () => {
+    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+    if (isMainNetAlive) {
+      this.props.navigation.navigate('SetupWelcome');
+    } else {
+      this.props.navigation.navigate('Setup');
+    }
   };
 
   showRecovery = (user) => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-      userId: user.userId
+      user: user,
+      encryptionPassword: this.state.password
     });
   };
 
@@ -170,7 +174,7 @@ class Passphrase extends Component {
                   width: wp('96%'),
                   borderColor: 'gray',
                   borderWidth: 1,
-                  borderRadius: 6,
+                  borderRadius: 3,
                   marginTop: hp('1%'),
                   paddingLeft: wp('1%'),
                   color: '#000000',

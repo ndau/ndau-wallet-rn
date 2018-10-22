@@ -19,7 +19,7 @@ class LockModalDialog extends Component {
 
 var styles = StyleSheet.create({
   text: {
-    color: '#000000',
+    color: '#ffffff',
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular',
     marginTop: hp('1%'),

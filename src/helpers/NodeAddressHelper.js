@@ -2,7 +2,9 @@ import AppConfig from '../AppConfig';
 
 const PROTOCOL = 'https';
 const DOMAIN = '.api.ndau.tech';
-const SELECTED_NODE = AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)];
+// const SELECTED_NODE = AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)];
+//TODO: THIS SHOULD NOT BE HARDCODED BUT IS FOR NOW
+const SELECTED_NODE = 'testgroup-0';
 
 getNodeAddress = (selectedNode) => {
   const node = selectedNode || SELECTED_NODE;
@@ -21,8 +23,13 @@ getMarketPriceAPIAddress = (selectedNode) => {
   return getNodeAddress(selectedNode) + '/marketprice';
 };
 
+getNodeStatusAPIAddress = (selectedNode) => {
+  return getNodeAddress(selectedNode) + '/node/status';
+};
+
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
-  getEaiPercentageAPIAddress
+  getEaiPercentageAPIAddress,
+  getNodeStatusAPIAddress
 };

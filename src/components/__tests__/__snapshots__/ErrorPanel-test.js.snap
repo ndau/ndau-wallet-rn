@@ -6,7 +6,7 @@ exports[`testing ErrorPanel... renders correctly 1`] = `
     Object {
       "backgroundColor": "#f5d8d1",
       "borderColor": "#f5d8d1",
-      "borderRadius": 6,
+      "borderRadius": 3,
       "borderWidth": 1,
     }
   }
@@ -16,7 +16,7 @@ exports[`testing ErrorPanel... renders correctly 1`] = `
       Object {
         "backgroundColor": "#f5d8d1",
         "borderColor": "#f75f4b",
-        "borderRadius": 6,
+        "borderRadius": 3,
         "borderWidth": 2,
       }
     }

@@ -25,13 +25,13 @@ var styles = StyleSheet.create({
     backgroundColor: '#c7f3e2',
     borderWidth: 2,
     borderColor: '#4e957a',
-    borderRadius: 6
+    borderRadius: 3
   },
   alertOuterContainer: {
     backgroundColor: '#c7f3e2',
     borderWidth: 1,
     borderColor: '#c7f3e2',
-    borderRadius: 6,
+    borderRadius: 3,
     marginTop: 15,
     marginBottom: 8
   }

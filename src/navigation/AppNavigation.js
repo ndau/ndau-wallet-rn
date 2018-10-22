@@ -2,6 +2,9 @@ import React from 'react';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import DashboardNavigation from './DashboardNavigation';
 import SetupMain from '../screens/SetupMain';
+import SetupWelcome from '../screens/SetupWelcome';
+import SetupWalletName from '../screens/SetupWalletName';
+import SetupNewOrRecovery from '../screens/SetupNewOrRecovery';
 import SetupEncryptionPassword from '../screens/SetupEncryptionPassword';
 import SetupConfirmRecoveryPhrase from '../screens/SetupConfirmRecoveryPhrase';
 import SetupQRCode from '../screens/SetupQRCode';
@@ -20,6 +23,21 @@ PassphraseScreen.navigationOptions = {
 
 const SetupMainScreen = ({ navigation }) => <SetupMain navigation={navigation} />;
 SetupMainScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
+const SetupWelcomeScreen = ({ navigation }) => <SetupWelcome navigation={navigation} />;
+SetupWelcomeScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
+const SetupWalletNameScreen = ({ navigation }) => <SetupWalletName navigation={navigation} />;
+SetupWalletNameScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
+const SetupNewOrRecoveryScreen = ({ navigation }) => <SetupNewOrRecovery navigation={navigation} />;
+SetupNewOrRecoveryScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
@@ -86,6 +104,9 @@ const AuthStack = createStackNavigator({
 
 const SetupStack = createStackNavigator({
   SetupMain: { screen: SetupMainScreen },
+  SetupWelcome: { screen: SetupWelcomeScreen },
+  SetupWalletName: { screen: SetupWalletNameScreen },
+  SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },
   SetupUserId: { screen: SetupUserIdScreen },
   SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
   SetupConfirmRecoveryPhrase: { screen: SetupConfirmRecoveryPhraseScreen },

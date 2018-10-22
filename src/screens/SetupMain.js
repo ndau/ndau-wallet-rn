@@ -68,17 +68,16 @@ class SetupMain extends Component {
             </TouchableWithoutFeedback>
             <View>
               <Text style={cssStyles.wizardText}>
-                Currently, ndau is only available to accredited investors who have already 
-                made an ndau purchase. To access this app, you will need the user ID we gave 
-                you.
+                Currently, ndau is only available to accredited investors who have already made an
+                ndau purchase. To access this app, you will need the user ID we gave you.
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
             <View>
               <Text style={cssStyles.wizardText}>
-                You will set a password to protect this app, and be given the unique recovery 
-                phrase which can be used to restore your wallet. Be ready to write both down. 
-                If you do not, you will lose access to your ndau.
+                You will set a password to protect this app, and be given the unique recovery phrase
+                which can be used to restore your wallet. Be ready to write both down. If you do
+                not, you will lose access to your ndau.
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
