@@ -13,6 +13,8 @@ import Carousel from 'react-native-looped-carousel';
 import { Dialog } from 'react-native-simple-dialogs';
 import ErrorPanel from '../components/ErrorPanel';
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import UserData from '../model/UserData';
 
 const DEFAULT_ROW_LENGTH = 3; // 3 items per row
 const _ = require('lodash');
@@ -57,7 +59,7 @@ class SetupGetRecoveryPhrase extends Component {
   };
 
   sendEmail = () => {
-    Linking.openURL('mailto:john.pasqualetto@oneiro.io?subject=Lost Recovery Phrase');
+    Linking.openURL('mailto:support@oneiro.freshdesk.com?subject=Lost Recovery Phrase');
   };
 
   _onLayoutDidChange = (e) => {
@@ -91,12 +93,11 @@ class SetupGetRecoveryPhrase extends Component {
         </View>
       );
     });
-
+  s;
   _checkRecoveryPhrase = async () => {
-    //WE MUST be able to assume a userId has been passed as a prop
     return await RecoveryPhaseHelper.checkRecoveryPhrase(
       this.recoveryPhrase.join().replace(/,/g, ' '),
-      this.props.userId
+      this.props.navigation.getParam('user', null)
     );
   };
 
@@ -105,10 +106,31 @@ class SetupGetRecoveryPhrase extends Component {
   };
 
   confirm = async () => {
-    const user = await this._checkRecoveryPhrase();
-    if (user) {
-      this.props.navigation.navigate('Dashboard', { user: user });
-    } else {
+    try {
+      const user = await this._checkRecoveryPhrase();
+      if (user) {
+        const encryptionPassword = this.props.navigation.getParam('encryptionPassword', null);
+        //IF we have a password we are fixing up an account from a 1.6 user here
+        //so we fixed it up...now save it...and go back to Dashboard
+        if (encryptionPassword) {
+          await AsyncStorageHelper.lockUser(user, encryptionPassword);
+
+          await UserData.loadData(user);
+
+          this.props.navigation.navigate('Dashboard', {
+            user,
+            encryptionPassword
+          });
+        } else {
+          this.props.navigation.navigate('SetupWalletName', { user });
+        }
+      } else {
+        this.setState({
+          textColor: '#ff0000',
+          confirmationError: true
+        });
+      }
+    } catch (error) {
       this.setState({
         textColor: '#ff0000',
         confirmationError: true
@@ -130,7 +152,7 @@ class SetupGetRecoveryPhrase extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To verify your account please verify your twelve-word recovery phrase below. Start
@@ -183,7 +205,7 @@ class SetupGetRecoveryPhrase extends Component {
               be restored without it. If you have lost your recovery phrase please contact{' '}
             </Text>
             <Text onPress={this.sendEmail} style={[ cssStyles.blueLinkText ]}>
-              john.pasqualetto@oneiro.io
+              Oneiro concierge support.
             </Text>
           </View>
         </Dialog>

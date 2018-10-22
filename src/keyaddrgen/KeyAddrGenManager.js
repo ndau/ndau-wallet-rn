@@ -85,20 +85,20 @@ const getBIP44Addresses = async (recoveryBytes) => {
 /**
  * This function will create the initial User
  *
- * @param  {string} userId
  * @param  {string} recoveryBytes
+ * @param  {string} userId
  * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
  * @param  {number} numberOfAccounts=0
  * @returns {User} an initial user object
  */
 const createFirstTimeUser = async (
-  userId,
   recoveryBytes,
+  userId,
   chainId = AppConstants.MAINNET_ADDRESS,
   numberOfAccounts = 0
 ) => {
-  if (!userId || !recoveryBytes) {
-    throw new Error('you MUST pass userId, recoveryPhrase to this method');
+  if (!recoveryBytes) {
+    throw new Error('you MUST pass recoveryPhrase to this method');
   }
 
   try {

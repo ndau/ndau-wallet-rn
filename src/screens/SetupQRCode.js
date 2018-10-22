@@ -57,9 +57,9 @@ class SetupQRCode extends Component {
   }
 
   showNextSetup = () => {
-    SetupStore.setQRCode(this.state.qrToken);
+    SetupStore.qrCode = this.state.qrToken;
 
-    this.props.navigation.navigate('SetupEncryptionPassword');
+    this.props.navigation.navigate('SetupEncryptionPassword', { comingFrom: 'SetupQRCode' });
   };
 
   render() {

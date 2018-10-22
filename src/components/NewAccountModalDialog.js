@@ -17,8 +17,11 @@ class NewAccountModalDialog extends Component {
   };
 
   render() {
+    const innerViewStyle = {
+      height: hp('40%')
+    };
     return (
-      <ModalDialog {...this.props}>
+      <ModalDialog innerViewStyle={innerViewStyle} {...this.props}>
         <Text style={styles.text}>How many new accounts would you like to add to your wallet?</Text>
         <NumberPicker {...this.props} />
         <View style={cssStyles.footer}>
@@ -31,7 +34,7 @@ class NewAccountModalDialog extends Component {
 
 var styles = StyleSheet.create({
   text: {
-    color: '#000000',
+    color: '#ffffff',
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular',
     marginTop: hp('1%'),

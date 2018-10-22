@@ -99,7 +99,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -142,7 +142,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -185,7 +185,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -238,7 +238,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -281,7 +281,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -324,7 +324,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -377,7 +377,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -420,7 +420,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -463,7 +463,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -516,7 +516,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -559,7 +559,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",
@@ -602,7 +602,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "borderRadius": 6,
+                  "borderRadius": 3,
                   "flex": 1,
                   "height": 133.5,
                   "justifyContent": "center",

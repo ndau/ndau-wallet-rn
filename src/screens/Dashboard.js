@@ -14,7 +14,6 @@ import cssStyles from '../css/styles';
 import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import AlertPanel from '../components/AlertPanel';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -25,6 +24,7 @@ import NewAccountModalDialog from '../components/NewAccountModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -87,6 +87,11 @@ class Dashboard extends Component {
 
   addNewAccount = async () => {
     const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number);
+
+    await AsyncStorageHelper.lockUser(
+      user,
+      this.props.navigation.getParam('encryptionPassword', null)
+    );
 
     this.setState({ user });
   };

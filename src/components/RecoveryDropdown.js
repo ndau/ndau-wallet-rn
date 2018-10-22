@@ -38,8 +38,9 @@ class RecoveryDropdown extends Component {
       console.log(`words are ${words}`);
       this.retrievedData = true;
       wordsArray = words.split(' ');
+      console.log(`wordsArray is ${wordsArray}`);
 
-      if (wordsArray.length <= 1) {
+      if (wordsArray.length <= 0) {
         console.log(`Word not found!`);
         this.setState({ textColor: '#ff0000' });
         this.props.setAcquisitionError(true);
@@ -49,7 +50,7 @@ class RecoveryDropdown extends Component {
       }
 
       this.setState({
-        list: wordsArray.length > 1 ? wordsArray : []
+        list: wordsArray.length >= 0 ? wordsArray : []
       });
     }
   };
@@ -67,7 +68,7 @@ class RecoveryDropdown extends Component {
       color: this.state.textColor,
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      borderRadius: 6,
+      borderRadius: 3,
       zIndex: 1
     };
 
@@ -107,7 +108,7 @@ var styles = StyleSheet.create({
       },
       android: {
         flex: 1,
-        borderRadius: 6
+        borderRadius: 3
       }
     })
   },
@@ -120,7 +121,7 @@ var styles = StyleSheet.create({
   containerStyle: {
     alignContent: 'center',
     justifyContent: 'center',
-    borderRadius: 6,
+    borderRadius: 3,
     width: wp('60%'),
     backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
     overflow: 'hidden',

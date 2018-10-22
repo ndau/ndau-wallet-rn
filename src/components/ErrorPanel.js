@@ -25,13 +25,13 @@ var styles = StyleSheet.create({
     backgroundColor: '#f5d8d1',
     borderWidth: 2,
     borderColor: '#f75f4b',
-    borderRadius: 6
+    borderRadius: 3
   },
   errorOuterContainer: {
     backgroundColor: '#f5d8d1',
     borderWidth: 1,
     borderColor: '#f5d8d1',
-    borderRadius: 6
+    borderRadius: 3
   }
 });
 

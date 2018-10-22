@@ -13,6 +13,7 @@ import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
 import DataFormatHelper from '../helpers/DataFormatHelper';
+import UserData from '../model/UserData';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -25,47 +26,49 @@ class SetupTermsOfService extends Component {
 
   finishSetup = async () => {
     console.debug('Finishing Setup...');
-    console.debug('Generating all keys from phrase given...');
-    const recoveryPhraseString = SetupStore.getRecoveryPhrase().join().replace(/,/g, ' ');
-    console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
-    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-      AppConstants.APP_LANGUAGE,
-      recoveryPhraseString
-    );
-    console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
-    const user = await KeyAddrGenManager.createFirstTimeUser(
-      SetupStore.getUserId(),
-      recoveryPhraseAsBytes,
-      SetupStore.getAddressType(),
-      SetupStore.getNumberOfAccounts()
-    );
 
-    this.sendAddressesToOneiro(user)
-      .then(() => {
-        AsyncStorageHelper.lockUser(user, SetupStore.getEncryptionPassword());
+    let user = this.props.navigation.getParam('user', null);
+    //if there is not user passed along, then we generate
+    if (!user) {
+      console.debug('Generating all keys from phrase given...');
+      const recoveryPhraseString = SetupStore.recoveryPhrase.join().replace(/,/g, ' ');
+      console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
+      const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+        AppConstants.APP_LANGUAGE,
+        recoveryPhraseString
+      );
+      console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
 
-        DataFormatHelper.createAccountsFromAddresses(user);
+      user = await KeyAddrGenManager.createFirstTimeUser(
+        recoveryPhraseAsBytes,
+        SetupStore.walletName ? SetupStore.walletName : SetupStore.userId,
+        SetupStore.addressType,
+        SetupStore.numberOfAccounts
+      );
+    }
 
-        NdauNodeAPIHelper.populateCurrentUserWithAddressData(user)
-          .then(() => {
-            this.props.navigation.navigate('Dashboard', { user });
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      })
-      .catch((error) => {
-        console.error(error);
+    try {
+      const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+      if (!isMainNetAlive) {
+        await this.sendAddressesToOneiro(user);
+      }
+
+      await AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
+
+      await UserData.loadData(user);
+
+      this.props.navigation.navigate('Dashboard', {
+        user,
+        encryptionPassword: SetupStore.encryptionPassword
       });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   sendAddressesToOneiro = (user) => {
     console.log(`sending the following to the accountAddresses DB: ${user.addresses}`);
-    return this.sendAccountAddresses(
-      SetupStore.getUserId(),
-      user.addresses,
-      SetupStore.getQRCode()
-    );
+    return this.sendAccountAddresses(SetupStore.userId, user.addresses, SetupStore.qrCode);
   };
 
   sendAccountAddresses = (userId, addresses, token) => {
