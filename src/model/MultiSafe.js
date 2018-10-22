@@ -122,7 +122,6 @@ class MultiSafe {
         return JSON.parse(decrypted);
     }
 
-
     // _getDataSecret returns a promise for the private key to unlock the encoded data,
     // given a password. It tries the password against all of the combinations
     // until it finds a match or fails.
@@ -140,7 +139,6 @@ class MultiSafe {
         }
         throw Error('no matching combo found');
     }
-
 
     // create(storagekey, combo) is the way to initialize a MultiSafe. It takes as
     // arguments:
@@ -184,7 +182,7 @@ class MultiSafe {
         return data;
     }
 
-    // Verify(combo string): bool
+    // Verify(combo string): Promise(bool)
     // combo is any one of the combinations that can unlock the MultiSafe.
     // This function simply validates that the provided combination is valid.
     verify = async (combo) => {
