@@ -36,13 +36,16 @@
     "ios": "react-native run-ios --simulator='iPhone 8'",
     "android-prod": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release && zipalign -v -p 4 app-release.apk app-release-signed.apk && apksigner sign --ks ../../../../ndau-wallet-release-key.jks --out app-release.apk app-release-signed.apk",
     "test": "jest",
+    "testnew": "jest -o",
     "xcode-open": "open ios/ndauwalletrn.xcodeproj",
     "android-install": "cd android && ./gradlew installDebug",
     "clear-cache": "watchman watch-del-all; rm -rf /tmp/metro-bundler-cache-*; rm -rf /tmp/haste-map-react-native-packager-*"
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [ "./setupJest.js" ],
+    "setupFiles": [
+      "./setupJest.js"
+    ],
     "globals": {
       "__DEV__": true
     }
@@ -85,7 +88,9 @@
     "util": "^0.10.4"
   },
   "rnpm": {
-    "assets": [ "assets/fonts" ]
+    "assets": [
+      "assets/fonts"
+    ]
   },
   "react-native": {
     "zlib": "browserify-zlib",
