@@ -185,18 +185,29 @@ class MultiSafe {
     }
 
     // Verify(combo string): bool
+    // combo is any one of the combinations that can unlock the MultiSafe.
+    // This function simply validates that the provided combination is valid.
     verify = async (combo) => {
         let secret = await this._getDataSecret(combo);
         return secret !== null;
     }
 
     // Store(data: object, combo: string): Promise(void)
+    // data is the object that should be stored in the safe.
+    // It will REPLACE any previously stored data.
+    // combo is one of the valid combinations
+    // Store uses the EncryptionKey to encrypt the data object passed in.
+    // It stores the resulting encrypted blob in AsyncStorage under the storageKey.
+    // It returns a void Promise or fails.
     store = async (data, combo) => {
         let multsafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
         return this._storeEncryptedObject(multsafeKey, data, combo);
     }
 
-    // AddCombo(newcombo: string, oldcombo: string): Promise(bool)
+    // AddCombination(newcombo: string, oldcombo: string): Promise(void)
+    // Assuming that oldcombo is valid, this re-encrypts the private key decoded with oldcombo
+    // with the newcombo and adds that to the stored list of combinations.
+    // Returns a void Promise if it succeeds.
     addCombination = async (newcombo, oldcombo) => {
         let metaKey = MULTISAFE_META_PREFIX + this.storageKey;
         let metadata = await this._retrieveObject(metaKey);
@@ -207,6 +218,8 @@ class MultiSafe {
     }
 
     // Retrieve(combo: string): Promise(object)
+    // Given a valid combination, this returns a Promise containing the decrypted
+    // object that was last stored.
     retrieve = async (combo) => {
         let multsafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
         return this._retrieveEncryptedObject(multsafeKey, combo);
