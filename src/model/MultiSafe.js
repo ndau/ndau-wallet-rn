@@ -29,20 +29,6 @@ class MultiSafe {
         return r;
     }
 
-    //  var words = CryptoJS.enc.Base64.parse('SGVsbG8sIFdvcmxkIQ==');
-    //  var base64 = CryptoJS.enc.Base64.stringify(words);
-    //  var words = CryptoJS.enc.Latin1.parse('Hello, World!');
-    //  var latin1 = CryptoJS.enc.Latin1.stringify(words);
-    //  var words = CryptoJS.enc.Hex.parse('48656c6c6f2c20576f726c6421');
-    //  var hex = CryptoJS.enc.Hex.stringify(words);
-    //  var words = CryptoJS.enc.Utf8.parse('𤭢');
-    //  var utf8 = CryptoJS.enc.Utf8.stringify(words);
-    //  var words = CryptoJS.enc.Utf16.parse('Hello, World!');
-    //  var utf16 = CryptoJS.enc.Utf16.stringify(words);
-    //  var words = CryptoJS.enc.Utf16LE.parse('Hello, World!');
-    //  var utf16 = CryptoJS.enc.Utf16LE.stringify(words);
-
-
     // _decrypt symmetrically decrypts plaintext from a coded value;
     // it returns either a decrypted string or null if the pw was wrong.
     _decrypt = (coded, pw) => {
@@ -181,7 +167,6 @@ class MultiSafe {
             let metadata = await this._retrieveObject(metaKey);
             // we found one with this name, let's try to get it with the combo
             let dataSecret = await this._getDataSecret(combo);
-            console.log("DataSecret: '", dataSecret, "'");
             let data = await this._retrieveEncryptedObject(multsafeKey, dataSecret);
             return data;
         }
