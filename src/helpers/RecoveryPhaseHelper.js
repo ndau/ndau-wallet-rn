@@ -14,30 +14,36 @@ import AppConstants from '../AppConstants';
  * we can then build a user from that information. The user build is passed back.
  *
  * @param  {string} recoveryPhraseString as a string of words, a sentence
- * @param  {string} userId user ID to be used in user creation's userId field
+ * @param  {string} user there is a possibility the user has already been created
  * @return {User} we either pass back null if nothing is found or a populated
  * user if we find information.
  */
-const checkRecoveryPhrase = async (recoveryPhraseString, userId) => {
+const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   const recoveryPhraseStringAsBytes = await _getRecoveryStringAsBytes(recoveryPhraseString);
-  let user = await KeyAddrGenManager.createFirstTimeUser(userId, recoveryPhraseStringAsBytes);
+  let newUser = await KeyAddrGenManager.createFirstTimeUser(recoveryPhraseStringAsBytes);
+
+  if (user) {
+    //Populate data from older user
+    newUser.userId = user.userId;
+    newUser.addresses = user.addresses;
+  }
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseStringAsBytes);
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`);
   if (bip44Accounts && bip44Accounts.addressData.length > 0) {
-    user = await KeyAddrGenManager.addAccounts(user, bip44Accounts.addressData.length);
-    console.log(`user with BIP44: ${JSON.stringify(user, null, 2)}`);
+    newUser = await KeyAddrGenManager.addAccounts(newUser, bip44Accounts.addressData.length);
+    console.log(`newUser with BIP44: ${JSON.stringify(newUser, null, 2)}`);
   }
 
   const rootAccounts = await _checkRootAddresses(recoveryPhraseStringAsBytes);
   console.log(`root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`);
   if (rootAccounts && rootAccounts.addressData.length > 0) {
     //Here again we are attempting to genereate at the very root of the tree
-    user = await KeyAddrGenManager.addAccounts(user, rootAccounts.addressData.length, '');
-    console.log(`user with root: ${JSON.stringify(user, null, 2)}`);
+    newUser = await KeyAddrGenManager.addAccounts(newUser, rootAccounts.addressData.length, '');
+    console.log(`newUser with root: ${JSON.stringify(newUser, null, 2)}`);
   }
 
-  return user.accounts ? user : null;
+  return newUser.accounts ? newUser : null;
 };
 
 const _getRecoveryStringAsBytes = async (recoveryPhraseString) => {

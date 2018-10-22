@@ -44,14 +44,14 @@ var styles = StyleSheet.create({
   containerStyle: {
     alignContent: 'center',
     justifyContent: 'center',
-    borderRadius: 6,
+    borderRadius: 3,
     height: hp('7%'),
     width: wp('96%'),
     backgroundColor: '#ffffff',
     paddingLeft: wp('1%')
   },
   dropdownContainerStyle: {
-    borderRadius: 6,
+    borderRadius: 3,
     width: wp('94%'),
     backgroundColor: '#ffffff',
     marginTop: wp('3%')

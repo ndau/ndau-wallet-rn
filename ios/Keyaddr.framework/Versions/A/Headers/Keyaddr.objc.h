@@ -69,7 +69,7 @@ error if the key is invalid.
 Key can be either public or private; if it is private it will be
 converted to a public key first.
  */
-- (KeyaddrAddress*)ndauAddress:(NSString*)chainid error:(NSError**)error;
+- (KeyaddrAddress*)ndauAddress:(NSString*)p0 error:(NSError**)error;
 /**
  * Sign uses the given key to sign a message; the message must be the
 standard base64 encoding of the bytes of the message.
@@ -106,6 +106,14 @@ Note that the parent's known path is simply believed -- we have no mechanism to
 check that it's true.
  */
 FOUNDATION_EXPORT KeyaddrKey* KeyaddrDeriveFrom(NSString* parentKey, NSString* parentPath, NSString* childPath, NSError** error);
+
+/**
+ * FromOldString is FromString, but it operates on the old key serialization format.
+
+The returned object will be serialized in the new format, so future calls
+to FromString will succeed.
+ */
+FOUNDATION_EXPORT KeyaddrKey* KeyaddrFromOldString(NSString* s, NSError** error);
 
 /**
  * FromString acts like a constructor so that the wallet can build a Key object

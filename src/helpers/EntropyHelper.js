@@ -7,10 +7,13 @@ const generateEntropy = () => {
   this.randal
     .init()
     .then(() => {
-      SetupStore.setEntropy(Base64.encode(this.randal.getHash().substr(0, 16)));
+      const entropy = Base64.encode(this.randal.getHash().substr(0, 16));
+      SetupStore.entropy = entropy;
+      return entropy;
     })
     .catch((error) => {
       console.error(error);
+      return null;
     });
 };
 

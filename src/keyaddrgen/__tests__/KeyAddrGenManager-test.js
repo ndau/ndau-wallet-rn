@@ -35,7 +35,7 @@ let seedPhraseArray = [
 const userId = 'TAC-3PY';
 const numberOfAccounts = 5;
 const chainId = 'tn';
-const errorString = 'Error: you MUST pass userId, recoveryPhrase to this method';
+const errorString = 'Error: you MUST pass recoveryPhrase to this method';
 const errorNewAccountUser = 'Error: The user passed in has no accountCreationKey';
 const errorGetRootAddresses = 'Error: you MUST pass recoveryBytes';
 const errorGetBIP44Addresses = 'Error: you MUST pass recoveryBytes';
@@ -66,8 +66,8 @@ toPublic.mockReturnValue(publicKey);
 
 test('createFirstTimeUser test', async () => {
   const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
-    userId,
     bytes,
+    userId,
     chainId,
     numberOfAccounts
   );
@@ -80,27 +80,10 @@ test('createFirstTimeUser test', async () => {
   );
 });
 
-test('createFirstTimeUser no userId', async () => {
-  try {
-    const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
-      null,
-      bytes,
-      chainId,
-      numberOfAccounts
-    );
-  } catch (error) {
-    console.error(error);
-    expect(error.toString()).toBe(errorString);
-    return;
-  }
-
-  console.log(`firstTimeUser: ${firstTimeUser}`);
-});
-
 test('createFirstTimeUser with 0, as this will be possible post Genesis', async () => {
   const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
-    userId,
     numberOfAccounts,
+    userId,
     bytes,
     chainId
   );
@@ -115,7 +98,7 @@ test('createFirstTimeUser with 0, as this will be possible post Genesis', async 
 
 test('createFirstTimeUser no bytes', async () => {
   try {
-    await KeyAddrGenManager.createFirstTimeUser(userId, null, chainId);
+    await KeyAddrGenManager.createFirstTimeUser(null, userId, chainId);
   } catch (error) {
     console.error(error);
     expect(error.toString()).toBe(errorString);
@@ -127,8 +110,8 @@ test('createFirstTimeUser no bytes', async () => {
 
 test('createNewAccount test', async () => {
   const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
-    userId,
     bytes,
+    userId,
     chainId,
     numberOfAccounts
   );

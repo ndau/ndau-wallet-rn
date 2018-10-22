@@ -47,7 +47,7 @@ describe('testing SetupRecoveryPhrase...', () => {
 
   it('calls keyaddrWordsFromBytes as expected', () => {
     mockKeyaddr();
-    SetupStore.setEntropy('dGVzdGluZ3dlc3Rpbmdh');
+    SetupStore.entropy = 'dGVzdGluZ3dlc3Rpbmdh';
     this.wrapper = mount(makeComponent());
     this.wrapper.update();
     expect(NativeModules.KeyaddrManager.keyaddrWordsFromBytes.mock.calls).toEqual([

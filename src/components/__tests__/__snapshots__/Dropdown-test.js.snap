@@ -9,7 +9,7 @@ exports[`testing Dropdown... renders correctly 1`] = `
   dropdownStyle={
     Object {
       "backgroundColor": "#ffffff",
-      "borderRadius": 6,
+      "borderRadius": 3,
       "marginTop": 22.5,
       "width": 705,
     }
@@ -30,7 +30,7 @@ exports[`testing Dropdown... renders correctly 1`] = `
       Object {
         "alignContent": "center",
         "backgroundColor": "#ffffff",
-        "borderRadius": 6,
+        "borderRadius": 3,
         "height": 93.5,
         "justifyContent": "center",
         "paddingLeft": 7.5,

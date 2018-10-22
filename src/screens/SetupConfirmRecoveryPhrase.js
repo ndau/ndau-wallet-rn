@@ -20,6 +20,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import EntropyHelper from '../helpers/EntropyHelper';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 
 var _ = require('lodash');
 
@@ -50,8 +51,13 @@ class SetupConfirmRecoveryPhrase extends Component {
     }
   }
 
-  showNextSetup = () => {
-    this.props.navigation.navigate('SetupTermsOfService');
+  showNextSetup = async () => {
+    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+    if (isMainNetAlive) {
+      this.props.navigation.navigate('SetupWalletName');
+    } else {
+      this.props.navigation.navigate('SetupTermsOfService');
+    }
   };
 
   pushBack = () => {
@@ -60,7 +66,7 @@ class SetupConfirmRecoveryPhrase extends Component {
   };
 
   render() {
-    const shuffledWords = SetupStore.getShuffledWords();
+    const shuffledWords = SetupStore.shuffledWords;
     const words = groupIntoRows(shuffledWords, this.rowLength);
 
     // lookup table for word highlights
@@ -79,17 +85,6 @@ class SetupConfirmRecoveryPhrase extends Component {
                 To confirm that you recorded the phrase, tap the words below in order.{' '}
               </Text>
             </View>
-            {/* <TextInput
-              style={styles.textArea}
-              value={this.state.selected.map((i) => shuffledWords[i]).join(' ')}
-              placeholder=""
-              placeholderTextColor="#333"
-              multiline={true}
-              numberOfLines={2}
-              editable={false}
-              selectTextOnFocus={false}
-              caretHidden={true}
-            /> */}
             {this.state.inError ? (
               <ErrorPanel
                 errorText={
@@ -140,7 +135,7 @@ class SetupConfirmRecoveryPhrase extends Component {
   }
 
   checkMistakes() {
-    const correctSoFar = SetupStore.getShuffledMap().slice(0, this.state.selected.length);
+    const correctSoFar = SetupStore.shuffledMap.slice(0, this.state.selected.length);
     if (!_(this.state.selected).isEqual(correctSoFar)) {
       let errorCount = this.state.errorCount + 1;
       this.setState({
@@ -158,7 +153,7 @@ class SetupConfirmRecoveryPhrase extends Component {
   }
 
   checkDone() {
-    if (_(this.state.selected).isEqual(SetupStore.getShuffledMap())) {
+    if (_(this.state.selected).isEqual(SetupStore.shuffledMap)) {
       this.setState({ match: true });
     }
   }
@@ -201,7 +196,7 @@ function Word(props) {
           alignItems: 'center',
           justifyContent: 'center',
           flex: 1,
-          borderRadius: 6
+          borderRadius: 3
         }}
       >
         <Text

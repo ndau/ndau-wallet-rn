@@ -24,6 +24,7 @@ import TransactionModalDialog from '../components/TransactionModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
 
 const LOCK_MODAL_ID = "lock";
 const UNLOCK_MODAL_ID = "unlock";
@@ -82,6 +83,11 @@ class Dashboard extends Component {
 
   addNewAccount = async () => {
     const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number);
+
+    await AsyncStorageHelper.lockUser(
+      user,
+      this.props.navigation.getParam('encryptionPassword', null)
+    );
 
     this.setState({ user });
   };
