@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View, Share } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 import CommonButton from '../components/CommonButton';
 
 class Send extends Component {
@@ -20,8 +24,8 @@ class Send extends Component {
   render() {
     return (
       <View>
-        <Text>send</Text>
         {/* TODO: add Send form */}
+
         <View>
           <CommonButton
             title={`send ${this.state.amount}`}
@@ -35,13 +39,18 @@ class Send extends Component {
 
 class Receive extends Component {
   shareAddress = () => {
-    // TODO: access device share feature
+    Share.share({
+      message: this.props.address,
+      title: 'Share your public address',
+      url: '/',
+    }, {
+      dialogTitle: 'Share your public address',
+    })
   }
 
   render() {
     return (
       <View>
-        <Text>receive</Text>
         <View>
           <QRCode
             value={this.props.address}
@@ -92,14 +101,14 @@ class TransactionTabs extends Component {
 
 var styles = StyleSheet.create({
   text: {
-    color: '#000000',
+    color: '#ffffff',
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular',
     marginTop: hp('1%'),
     marginBottom: hp('1%'),
     marginLeft: wp('1%'),
     marginRight: wp('1%')
-  }
+  },
 });
 
 export default TransactionTabs;
