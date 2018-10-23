@@ -8,6 +8,7 @@ class AccountCard extends Component {
     const {
       index,
       nickname,
+      address,
       eaiPercentage,
       sendingEAITo,
       receivingEAIFrom,
@@ -15,6 +16,10 @@ class AccountCard extends Component {
       accountLockedUntil,
       accountNoticePeriod,
       accountNotLocked,
+      totalNdau,
+      lock,
+      unlock,
+      startTransaction
     } = this.props;
 
     return (
@@ -56,7 +61,7 @@ class AccountCard extends Component {
           <Text style={cssStyles.text}>This account is not locked</Text>
         ) : null}
         {accountBalance === 0 ? (
-          <Text style={cssStyles.text}>{account.address}</Text>
+          <Text style={cssStyles.text}>{address}</Text>
         ) : null}
   
         {
@@ -71,7 +76,7 @@ class AccountCard extends Component {
                   source={require('../../img/lock_countdown_animation_white.gif')}
                 />
               ) : null}
-              <TouchableOpacity onPress={this.props.unlock}>
+              <TouchableOpacity onPress={unlock}>
                 {accountLockedUntil ? (
                   <Image
                     style={{
@@ -82,7 +87,7 @@ class AccountCard extends Component {
                   />
                 ) : null}
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.props.lock}>
+              <TouchableOpacity onPress={lock}>
                 {accountNotLocked ? (
                   <Image
                     style={{
@@ -98,15 +103,15 @@ class AccountCard extends Component {
         }
 
         <View>
-          <TouchableOpacity onPress={this.props.startTransaction}>
+          <TouchableOpacity onPress={() => startTransaction(address)}>
             <Image
-                style={{
-                  width: 30,
-                  height: 35
-                }}
-                // TODO: use correct image file.
-                source={require('../..img/n_icon_ko.png')}
-              />
+              // TODO: use correct image file.
+              source={require('../../img/unlocked.png')}
+              style={{
+                width: 30,
+                height: 35
+              }}
+            />
           </TouchableOpacity>
         </View> 
       </CollapsiblePanel>

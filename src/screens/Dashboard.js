@@ -17,6 +17,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import AccountCard from '../components/AccountCard';
 import UnlockModalDialog from '../components/UnlockModalDialog';
 import LockModalDialog from '../components/LockModalDialog';
 import NewAccountModalDialog from '../components/NewAccountModalDialog';
@@ -39,6 +40,7 @@ class Dashboard extends Component {
     this.state = {
       modalId: null,
       number: 1,
+      activeAddress: null,
       user: {},
       refreshing: false
     };
@@ -51,6 +53,10 @@ class Dashboard extends Component {
 
   showModal = (modalId) => {
     this.setState({ modalId });
+  }
+
+  closeModal = () => {
+    this.setState({ modalId: null });
   }
 
   subtractNumber = () => {
@@ -112,15 +118,19 @@ class Dashboard extends Component {
     const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false);
     const currentPrice = NdauNodeAPIHelper.currentPrice(marketPrice, totalNdauNumber);
 
+    console.log('active address is: ', this.state.activeAddress);
+
     return accounts ? (
       <SafeAreaView style={cssStyles.safeContainer}>
         <UnlockModalDialog
           visible={this.state.modalId === UNLOCK_MODAL_ID}
           setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}
+          closeModal={this.closeModal}
         />
         <LockModalDialog
           visible={this.state.modalId === LOCK_MODAL_ID}
           setModalVisible={() => this.showModal(LOCK_MODAL_ID)}
+          closeModal={this.closeModal}
         />
         <NewAccountModalDialog
           number={this.state.number}
@@ -129,10 +139,13 @@ class Dashboard extends Component {
           addNewAccount={this.addNewAccount}
           visible={this.state.modalId === NEW_ACCOUNT_MODAL_ID}
           setModalVisible={() => this.showModal(NEW_ACCOUNT_MODAL_ID)}
+          closeModal={this.closeModal}
         />
         <TransactionModalDialog
           visible={this.state.modalId === TRANSACTION_MODAL_ID}
           setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
+          closeModal={this.closeModal}
+          address={this.state.activeAddress}
         />
 
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
@@ -181,38 +194,49 @@ class Dashboard extends Component {
             </View>
           </View>
 
-          {accounts && (
-            accounts.map((account, index) => {
-              const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
-              const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
-              const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);
-              const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData);
-              const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
-                account.addressData
-              );
-              const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData);
-              const nickname = NdauNodeAPIHelper.accountNickname(account.addressData);
-              const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
+          {
+            accounts && (
+              accounts.map((account, index) => {
+                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
+                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
+                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);
+                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData);
+                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
+                  account.addressData
+                );
+                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData);
+                const nickname = NdauNodeAPIHelper.accountNickname(account.addressData);
+                const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
 
-              return (
-                <AccountCard
-                  key={index}
-                  index={index}
-                  nickname={nickname}
-                  eaiPercentage={eaiPercentage}
-                  sendingEAITo={sendingEAITo}
-                  receivingEAIFrom={receivingEAIFrom}
-                  accountBalance={accountBalance}
-                  accountLockedUntil={accountLockedUntil}
-                  accountNoticePeriod={accountNoticePeriod}
-                  accountNotLocked={accountNotLocked}
-                  lock={this.lock}
-                  unlock={this.unlock}
-                  startTransaction={()=> this.showModal(TRANSACTION_MODAL_ID)}
-                />
-              );
-            })
-          ) }
+                return (
+                  <AccountCard
+                    key={index}
+                    index={index}
+                    nickname={nickname}
+                    address={account.address}
+                    eaiPercentage={eaiPercentage}
+                    sendingEAITo={sendingEAITo}
+                    receivingEAIFrom={receivingEAIFrom}
+                    accountBalance={accountBalance}
+                    accountLockedUntil={accountLockedUntil}
+                    accountNoticePeriod={accountNoticePeriod}
+                    accountNotLocked={accountNotLocked}
+                    totalNdau={totalNdau}
+                    lock={this.lock}
+                    unlock={this.unlock}
+                    startTransaction={(address) => { 
+                      // this.showModal(TRANSACTION_MODAL_ID);
+                      console.log('state before transaction started', this.state)
+                      this.setState({
+                        activeAddress: address,
+                        modalId: TRANSACTION_MODAL_ID,
+                      }, () => console.log('state after transaction started', this.state))
+                    }}
+                  />
+                );
+              })
+            )
+          }
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>
