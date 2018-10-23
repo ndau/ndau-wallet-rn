@@ -91,6 +91,10 @@ class TransactionTabs extends Component {
     const Navigator = createMaterialTopTabNavigator({
       Send: SendWithProps,
       Receive: ReceiveWithProps,
+    }, {
+      tabBarOptions,
+      navigationOptions,
+      animationEnabled: false,
     });
 
     return (
@@ -99,7 +103,25 @@ class TransactionTabs extends Component {
   }
 }
 
-var styles = StyleSheet.create({
+
+const tabBarOptions = {
+  labelStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  indicatorStyle: {
+    backgroundColor: '#ffffff',
+  },
+  style: {
+    backgroundColor: 'transparent',
+  },
+}
+
+const navigationOptions = {
+  swipeEnabled: false
+}
+
+const styles = StyleSheet.create({
   text: {
     color: '#ffffff',
     fontSize: 20,
