@@ -5,6 +5,7 @@ import { NativeModules } from 'react-native';
 import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import sha256 from 'crypto-js/sha256';
 
 /**
  * This function will return an array of addresses that can be
@@ -102,10 +103,37 @@ const createFirstTimeUser = async (
   }
 
   try {
+    const accountCreationKey = await _createAccountCreationKey(recoveryBytes);
+    const user = await createUser(accountCreationKey, userId, chainId, numberOfAccounts);
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * This function will create a user from the account creation
+ * key passed in.
+ *
+ * @param  {string} accountCreationKey
+ * @param  {string} userId
+ * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
+ * @param  {number} numberOfAccounts=0
+ * @returns {User} an initial user object
+ */
+const createUser = async (
+  accountCreationKey,
+  userId,
+  chainId = AppConstants.MAINNET_ADDRESS,
+  numberOfAccounts = 0
+) => {
+  if (!accountCreationKey) {
+    throw new Error('you MUST pass accountCreationKey to this method');
+  }
+
+  try {
     const user = new User();
     user.userId = userId;
-
-    const accountCreationKey = await _createAccountCreationKey(recoveryBytes);
     user.accountCreationKey = accountCreationKey;
     user.keys = _createInitialKeys(accountCreationKey);
     if (numberOfAccounts > 0) {
@@ -205,7 +233,11 @@ const _generateRootPath = () => {
 
 const _createInitialKeys = (accountCreationKey) => {
   let returnValue = {};
-  returnValue[accountCreationKey] = _createKey(accountCreationKey, _generateRootPath());
+
+  returnValue[_createKeyHash(accountCreationKey)] = _createKey(
+    accountCreationKey,
+    _generateRootPath()
+  );
 
   return returnValue;
 };
@@ -229,6 +261,8 @@ const _createAccount = async (
     throw new Error('You cannot create an index less than zero');
   }
   const account = new Account();
+  account.ownershipKey = _createKeyHash(accountCreationKey);
+  account.transferKeys = [];
   const childPath = rootDerivedPath + '/' + childIndex;
 
   const privateKeyForAddress = await NativeModules.KeyaddrManager.child(
@@ -236,16 +270,23 @@ const _createAccount = async (
     childIndex
   );
   const newKey = _createKey(privateKeyForAddress, childPath);
-
-  user.keys[privateKeyForAddress] = newKey;
+  const privateKeyHash = _createKeyHash(privateKeyForAddress);
+  user.keys[privateKeyHash] = newKey;
+  account.transferKeys.push(privateKeyHash);
 
   const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress);
   const newPublicKey = _createKey(publicKey, childPath);
-  user.keys[publicKey] = newPublicKey;
+  const publicKeyHash = _createKeyHash(publicKey);
+  user.keys[publicKeyHash] = newPublicKey;
+  account.transferKeys.push(publicKeyHash);
 
   const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
   account.address = address;
   return account;
+};
+
+const _createKeyHash = (key) => {
+  return sha256(key).toString().substring(0, 8);
 };
 
 const _createAccounts = async (
@@ -265,6 +306,7 @@ const _createAccounts = async (
 
 export default {
   createFirstTimeUser,
+  createUser,
   createNewAccount,
   getRootAddresses,
   getBIP44Addresses,

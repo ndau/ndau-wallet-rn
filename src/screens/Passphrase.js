@@ -24,6 +24,8 @@ import {
 import Dropdown from '../components/Dropdown';
 import DataFormatHelper from '../helpers/DataFormatHelper';
 import UserData from '../model/UserData';
+import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
+import AppConstants from '../AppConstants';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -51,7 +53,7 @@ class Passphrase extends Component {
 
   login = async () => {
     try {
-      const user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
+      let user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
       if (user) {
         console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
 
@@ -61,6 +63,16 @@ class Passphrase extends Component {
         //address the sins of those versions. This should NOT be removed!!
         if (!DataFormatHelper.hasAccountCreationKey(user)) {
           return this.showRecovery(user);
+        } else if (!DataFormatHelper.isAccountsObject(user)) {
+          //if accounts is not an object we have a bit of repair to do on the object
+          //this was mainly for data created in 1.7. We need to fix it up a bit to support
+          //a better data format going forward.
+          user = KeyAddrGenManager.createUser(
+            user.accountCreationKey,
+            user.userId,
+            AppConstants.MAINNET_ADDRESS,
+            user.accounts.length
+          );
         }
 
         await UserData.loadData(user);

@@ -4,6 +4,10 @@ const hasAccountCreationKey = (user) => {
   return user.accountCreationKey ? true : false;
 };
 
+const hasAccountsObject = (user) => {
+  return Object.prototype.toString.call(user.accounts) === '[object Object]' ? true : false;
+};
+
 const createAccountsFromAddresses = (user) => {
   if (user.addresses && !user.accounts) {
     user.accounts = [];
@@ -17,5 +21,6 @@ const createAccountsFromAddresses = (user) => {
 
 export default {
   hasAccountCreationKey,
-  createAccountsFromAddresses
+  createAccountsFromAddresses,
+  hasAccountsObject
 };

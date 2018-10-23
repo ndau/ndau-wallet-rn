@@ -49,6 +49,32 @@ test('hasAccountCreationKey should send back true for > 1.6 versions', async () 
   expect(DataFormatHelper.hasAccountCreationKey(user)).toBe(true);
 });
 
+test('hasAccountsObject should send back false if accounts is an array', async () => {
+  const user = {
+    accounts: [
+      { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} }
+    ]
+  };
+  expect(DataFormatHelper.hasAccountsObject(user)).toBe(false);
+});
+
+test('hasAccountsObject should send back true if accounts is an object', async () => {
+  const user = {
+    accounts: {
+      hashkey01: { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      hashkey02: { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      hashkey03: { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      hashkey04: { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} },
+      hashkey05: { address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn', accountData: {} }
+    }
+  };
+  expect(DataFormatHelper.hasAccountsObject(user)).toBe(true);
+});
+
 test('createAccountsFromAddresses creates accounts', async () => {
   const user = {
     userId: '7MP-4FV',
