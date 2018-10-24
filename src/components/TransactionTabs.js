@@ -50,7 +50,7 @@ class Receive extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <View>
           <QRCode
             value={this.props.address}
@@ -88,14 +88,17 @@ class TransactionTabs extends Component {
     const SendWithProps = () => <Send {...this.props} />;
     const ReceiveWithProps = () => <Receive {...this.props} />;
 
-    const Navigator = createMaterialTopTabNavigator({
-      Send: SendWithProps,
-      Receive: ReceiveWithProps,
-    }, {
-      tabBarOptions,
-      navigationOptions,
-      animationEnabled: false,
-    });
+    const Navigator = createMaterialTopTabNavigator(
+      {
+        Send: SendWithProps,
+        Receive: ReceiveWithProps,
+      }, 
+      {
+        animationEnabled: false,
+        tabBarOptions,
+        navigationOptions,
+      }
+    );
 
     return (
       <Navigator />
@@ -109,6 +112,9 @@ const tabBarOptions = {
     fontSize: 15,
     fontWeight: 'bold'
   },
+  tabStyle: {
+    marginBottom: hp('1%'),
+  },
   indicatorStyle: {
     backgroundColor: '#ffffff',
   },
@@ -118,10 +124,16 @@ const tabBarOptions = {
 }
 
 const navigationOptions = {
-  swipeEnabled: false
+  swipeEnabled: false,
 }
 
 const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   text: {
     color: '#ffffff',
     fontSize: 20,

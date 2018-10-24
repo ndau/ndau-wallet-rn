@@ -230,7 +230,7 @@ class Dashboard extends Component {
                       this.setState({
                         activeAddress: address,
                         modalId: TRANSACTION_MODAL_ID,
-                      }, () => console.log('state after transaction started', this.state))
+                      })
                     }}
                   />
                 );

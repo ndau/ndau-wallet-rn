@@ -100,20 +100,20 @@ class AccountCard extends Component {
               </TouchableOpacity>
             </View>
           )
-        }
+        } 
 
-        <View>
+        <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
           <TouchableOpacity onPress={() => startTransaction(address)}>
             <Image
               // TODO: use correct image file.
-              source={require('../../img/unlocked.png')}
+              source={require('../../img/n_icon_ko.png')}
               style={{
                 width: 30,
                 height: 35
               }}
             />
           </TouchableOpacity>
-        </View> 
+        </View>
       </CollapsiblePanel>
     );
   }  
