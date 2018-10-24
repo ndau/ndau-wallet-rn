@@ -1,7 +1,14 @@
 import Account from '../model/Account';
 
+/**
+ * Assumption here is that either there is no user.accountCreationKey
+ * or we are at version 1.8 and the data format has changed to user.wallets.
+ * In the former case we can assume we have an account creation key in the wallets
+ *
+ * @param {User} user
+ */
 const hasAccountCreationKey = (user) => {
-  return user.accountCreationKey ? true : false;
+  return user.accountCreationKey || user.wallets ? true : false;
 };
 
 const hasAccountsObject = (user) => {

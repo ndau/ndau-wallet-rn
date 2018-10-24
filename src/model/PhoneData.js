@@ -2,19 +2,17 @@
 //always add to or deprecate items. We CANNOT remove anything
 //from this class. If you feel it shuold be removed please check
 //with KP before doing so.
-class User {
+class PhoneData {
   constructor() {
-    this.userId = '';
-    //map of wallet objects
-    this.wallets = {};
+    //a map of users containing the userId as a key
+    this.users = {};
   }
 
   toJSON = () => {
     return {
-      userId: this.userId,
-      wallets: this.wallets
+      users: this.users
     };
   };
 }
 
-export default User;
+export default PhoneData;

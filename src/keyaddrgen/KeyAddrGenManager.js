@@ -103,8 +103,11 @@ const createFirstTimeUser = async (
   }
 
   try {
-    const accountCreationKey = await _createAccountCreationKey(recoveryBytes);
-    const user = await createUser(accountCreationKey, userId, chainId, numberOfAccounts);
+    const user = new User();
+    user.userId = userId;
+
+    const wallet = await createWallet(recoveryBytes, null, userId, chainId, numberOfAccounts);
+    user.wallets[userId] = wallet;
     return user;
   } catch (error) {
     console.error(error);
@@ -112,35 +115,62 @@ const createFirstTimeUser = async (
 };
 
 /**
+ * Update the user with wallet format. This could be used
+ * going forward to update user formats in the future.
+ *
+ * @param  {User} user
+ */
+const updateUser = async (user) => {
+  if (!user.wallets) {
+    user.wallets = {};
+    const wallet = await createWallet(
+      null,
+      user.accountCreationKey,
+      user.userId,
+      null,
+      user.accounts.length
+    );
+    user.wallets[userId] = wallet;
+  }
+};
+
+/**
  * This function will create a user from the account creation
  * key passed in.
  *
+ * @param  {string} recoveryBytes
  * @param  {string} accountCreationKey
- * @param  {string} userId
+ * @param  {string} walletId
  * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
  * @param  {number} numberOfAccounts=0
  * @returns {User} an initial user object
  */
-const createUser = async (
+const createWallet = async (
+  recoveryBytes,
   accountCreationKey,
-  userId,
+  walletId,
   chainId = AppConstants.MAINNET_ADDRESS,
   numberOfAccounts = 0
 ) => {
-  if (!accountCreationKey) {
-    throw new Error('you MUST pass accountCreationKey to this method');
+  if (!accountCreationKey && !recoveryBytes) {
+    throw new Error('you MUST pass either recoveryBytes or accountCreationKey to this method');
+  }
+
+  if (recoveryBytes) {
+    accountCreationKey = await _createAccountCreationKey(recoveryBytes);
   }
 
   try {
-    const user = new User();
-    user.userId = userId;
-    user.accountCreationKey = accountCreationKey;
-    user.keys = _createInitialKeys(accountCreationKey);
+    const wallet = new Wallet();
+    wallet.walletId = walletId;
+
+    wallet.accountCreationKey = accountCreationKey;
+    wallet.keys = _createInitialKeys(accountCreationKey);
     if (numberOfAccounts > 0) {
-      user = addAccounts(user, numberOfAccounts, _generateRootPath(), chainId);
+      wallet = addAccounts(user, numberOfAccounts, _generateRootPath(), chainId);
     }
 
-    return user;
+    return wallet;
   } catch (error) {
     console.error(error);
   }
@@ -306,7 +336,8 @@ const _createAccounts = async (
 
 export default {
   createFirstTimeUser,
-  createUser,
+  createWallet,
+  updateUser,
   createNewAccount,
   getRootAddresses,
   getBIP44Addresses,

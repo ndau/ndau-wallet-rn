@@ -20,11 +20,13 @@ import AppConstants from '../AppConstants';
  */
 const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   const recoveryPhraseStringAsBytes = await _getRecoveryStringAsBytes(recoveryPhraseString);
-  let newUser = await KeyAddrGenManager.createFirstTimeUser(recoveryPhraseStringAsBytes);
+  let newUser = await KeyAddrGenManager.createFirstTimeUser(
+    recoveryPhraseStringAsBytes,
+    user.userId
+  );
 
   if (user) {
     //Populate data from older user
-    newUser.userId = user.userId;
     newUser.addresses = user.addresses;
   }
 
