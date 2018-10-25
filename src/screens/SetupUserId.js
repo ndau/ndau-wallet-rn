@@ -8,6 +8,7 @@ import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import SetupStore from '../model/SetupStore';
+import ErrorDialog from '../components/ErrorDialog';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class SetupUserId extends Component {
           resolve(numberOfAccounts > 0);
         })
         .catch((error) => {
-          console.error(error);
+          ErrorDialog.showError(error);
           reject(false);
         });
     });
@@ -120,7 +121,7 @@ class SetupUserId extends Component {
         this.onSendEmail();
       }
     } catch (error) {
-      console.error(error);
+      ErrorDialog.showError(error);
       throw error;
     }
   };
@@ -134,7 +135,7 @@ class SetupUserId extends Component {
       })
       .catch((error) => {
         this.showErrorMessage('Email could not be sent.');
-        console.error(error);
+        ErrorDialog.showError(error);
       });
   }
 

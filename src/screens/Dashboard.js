@@ -25,6 +25,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import UserData from '../model/UserData';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -101,20 +102,21 @@ class Dashboard extends Component {
 
     const user = this.state.user;
 
-    await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
+    UserData.loadData(user);
+
     console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`);
 
     this.setState({ refreshing: false, user });
   };
 
   render = () => {
-    console.log(`rendering Dashboard`);
-
     console.debug(`user: ${JSON.stringify(this.state.user, null, 2)}`);
 
-    const { accounts, userId, marketPrice } = this.state.user;
+    //TODO: this is ONLY temporary as we need to enumerate the wallets
+    const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId];
     const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts);
     const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false);
+    //TODO: move marketPrice to the top level as it does not correspond to a user
     const currentPrice = NdauNodeAPIHelper.currentPrice(marketPrice, totalNdauNumber);
 
     return accounts ? (
@@ -143,7 +145,7 @@ class Dashboard extends Component {
           }
         >
           <View style={cssStyles.dashboardTextContainer}>
-            <Text style={cssStyles.dashboardTextLarge}>Wallet {userId}</Text>
+            <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
           </View>
           <View style={cssStyles.dashboardTextContainer}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -181,7 +183,8 @@ class Dashboard extends Component {
           </View>
 
           {accounts ? (
-            accounts.map((account, index) => {
+            Object.keys(accounts).map((accountKey, index) => {
+              const account = accounts[accountKey];
               const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
               const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
               const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);

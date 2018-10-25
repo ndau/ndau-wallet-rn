@@ -2,22 +2,22 @@
 //always add to or deprecate items. We CANNOT remove anything
 //from this class. If you feel it shuold be removed please check
 //with KP before doing so.
-class Key {
+class Wallet {
   constructor() {
-    this.publicKey = '';
-    this.privateKey = '';
-    this.path = '';
-    this.derivedFromRoot = '';
+    this.walletId = '';
+    this.accountCreationKey = '';
+    this.accounts = {};
+    this.keys = {};
   }
 
   toJSON = () => {
     return {
-      publicKey: this.publicKey,
-      privateKey: this.privateKey,
-      path: this.path,
-      derivedFromRoot: this.derivedFromRoot
+      walletId: this.walletId,
+      accountCreationKey: this.accountCreationKey,
+      accounts: this.accounts,
+      keys: this.keys
     };
   };
 }
 
-export default Key;
+export default Wallet;

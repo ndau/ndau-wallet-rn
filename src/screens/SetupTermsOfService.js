@@ -12,15 +12,16 @@ import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
-import DataFormatHelper from '../helpers/DataFormatHelper';
 import UserData from '../model/UserData';
+import ErrorDialog from '../components/ErrorDialog';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)]
+      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)],
+      agree: __DEV__ ? true : false
     };
   }
 
@@ -62,7 +63,7 @@ class SetupTermsOfService extends Component {
         encryptionPassword: SetupStore.encryptionPassword
       });
     } catch (error) {
-      console.error(error);
+      ErrorDialog.showError(error);
     }
   };
 
@@ -80,7 +81,7 @@ class SetupTermsOfService extends Component {
           resolve(whatPersisted);
         })
         .catch((error) => {
-          console.error(error);
+          ErrorDialog.showError(error);
           reject(error);
         });
     });

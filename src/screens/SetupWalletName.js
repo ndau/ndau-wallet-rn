@@ -9,6 +9,10 @@ import { SafeAreaView } from 'react-navigation';
 class SetupEncryptionPassword extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      nameEntered: false
+    };
   }
 
   showNextSetup = () => {
@@ -41,6 +45,7 @@ class SetupEncryptionPassword extends Component {
             <TextInput
               style={cssStyles.textInput}
               onChangeText={(value) => {
+                this.setState({ nameEntered: true });
                 SetupStore.walletName = value;
               }}
               // value={(value) => {
@@ -52,7 +57,11 @@ class SetupEncryptionPassword extends Component {
             />
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.showNextSetup} title="Next" />
+            <CommonButton
+              onPress={this.showNextSetup}
+              title="Next"
+              disabled={!this.state.nameEntered}
+            />
           </View>
         </View>
       </SafeAreaView>
