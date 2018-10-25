@@ -134,7 +134,6 @@ class Passphrase extends Component {
   };
 
   dropDownSelected = (index, value) => {
-    console.log(`index: ${index} and value is ${value}`);
     this.setState({
       userId: value
     });

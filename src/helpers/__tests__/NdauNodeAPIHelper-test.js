@@ -5,11 +5,7 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
   fetch.mockResponseOnce(JSON.stringify(data.testAddressData));
   const wallet = data.testUser.wallets['7MP-4FV'];
 
-  console.log(`WALLET IS ${JSON.stringify(wallet, null, 2)}`);
-
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet);
-
-  console.log(`WALLET IS ${JSON.stringify(wallet, null, 2)}`);
 
   expect(wallet).toBeDefined();
   expect(wallet.accounts).toBeDefined();

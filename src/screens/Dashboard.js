@@ -110,8 +110,6 @@ class Dashboard extends Component {
   };
 
   render = () => {
-    console.log(`rendering Dashboard`);
-
     console.debug(`user: ${JSON.stringify(this.state.user, null, 2)}`);
 
     //TODO: this is ONLY temporary as we need to enumerate the wallets

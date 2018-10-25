@@ -146,11 +146,7 @@ const createWallet = async (
 
   if (recoveryBytes) {
     accountCreationKey = await _createAccountCreationKey(recoveryBytes);
-    console.log(`SETTING ACCOUNTCREATIONKEY is ${accountCreationKey}`);
   }
-
-  console.log(`ACCOUNTCREATIONKEY is ${accountCreationKey}`);
-  console.log(`recoveryBytes is ${recoveryBytes}`);
 
   try {
     let wallet = new Wallet();
@@ -236,14 +232,12 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
   }
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet);
-  console.debug(`wallet is NOW after new account ${JSON.stringify(wallet, null, 2)}`);
 
   return user;
 };
 
 const _createAccountCreationKey = async (recoveryBytes) => {
   const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes);
-  console.log(`GENERATING ${rootPrivateKey}`);
   const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
     rootPrivateKey,
     '/',
@@ -311,8 +305,6 @@ const _createAccount = async (
   const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
   account.address = address;
 
-  console.log(`new account is: ${JSON.stringify(account, null, 2)}`);
-
   wallet.accounts[address] = account;
 };
 
@@ -330,7 +322,7 @@ const _createAccounts = async (
   for (let i = 1; i <= numberOfAccounts; i++) {
     await _createAccount(accountCreationKey, i, wallet, rootDerivedPath, chainId);
   }
-  console.log(`accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`);
+  console.log(`Accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`);
 };
 
 export default {
