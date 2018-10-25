@@ -34,7 +34,7 @@ describe('testing Dashboard...', () => {
                   nickname: 'Account 1'
                 },
                 ownershipKey: 'd25e4f17',
-                transferKeys: [ '285cff41', '7eeff2f0' ]
+                validationKeys: [ '285cff41', '7eeff2f0' ]
               },
               {
                 address: 'ndar3agwr9s6uxpmsiq58xngtmgmb3jxse8tx9xvbfcjhggb',
@@ -42,7 +42,7 @@ describe('testing Dashboard...', () => {
                   nickname: 'Account 2'
                 },
                 ownershipKey: 'd25e4f17',
-                transferKeys: [ '29992070', 'c1287590' ]
+                validationKeys: [ '29992070', 'c1287590' ]
               }
             ],
             keys: {

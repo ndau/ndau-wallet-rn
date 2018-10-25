@@ -23,8 +23,9 @@ const populateWalletWithAddressData = async (wallet) => {
 
     const addressNicknameMap = new Map();
 
-    //This is mainly done if there is not data, to name the accounts
-    wallet.accounts.forEach((account, index) => {
+    //This is mainly done if there is not data, to name the wallet.accounts
+    Object.keys(wallet.accounts).forEach((accountKey, index) => {
+      const account = wallet.accounts[accountKey];
       if (!account.addressData) {
         account.addressData = {};
       }
@@ -51,7 +52,8 @@ const populateWalletWithAddressData = async (wallet) => {
     });
 
     //NOW get addressData in it's rightful place
-    wallet.accounts.forEach((account) => {
+    Object.keys(wallet.accounts).forEach((accountKey) => {
+      const account = wallet.accounts[accountKey];
       addressData.forEach((dataToPutIntoUser) => {
         if (account.address === dataToPutIntoUser.address) {
           account.addressData = dataToPutIntoUser;
@@ -116,9 +118,9 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
 
   if (!accounts) return total;
 
-  accounts.forEach((account) => {
-    if (account.addressData && account.addressData.balance) {
-      total += parseFloat(account.addressData.balance);
+  Object.keys(accounts).forEach((accountKey) => {
+    if (accounts[accountKey].addressData && accounts[accountKey].addressData.balance) {
+      total += parseFloat(accounts[accountKey].addressData.balance);
     }
   });
   return localizedText ? total.toLocaleString(AppConfig.LOCALE) : total;

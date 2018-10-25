@@ -7,7 +7,7 @@ class Account {
     this.address = '';
     this.addressData = {};
     this.ownershipKey = '';
-    this.transferKeys = [];
+    this.validationKeys = [];
   }
 
   toJSON = () => {
@@ -15,7 +15,7 @@ class Account {
       address: this.address,
       addressData: this.addressData,
       ownershipKey: this.ownershipKey,
-      transferKeys: this.transferKeys
+      validationKeys: this.validationKeys
     };
   };
 }

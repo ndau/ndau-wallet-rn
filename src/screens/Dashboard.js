@@ -118,6 +118,7 @@ class Dashboard extends Component {
     const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId];
     const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts);
     const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false);
+    //TODO: move marketPrice to the top level as it does not correspond to a user
     const currentPrice = NdauNodeAPIHelper.currentPrice(marketPrice, totalNdauNumber);
 
     return accounts ? (
@@ -184,7 +185,8 @@ class Dashboard extends Component {
           </View>
 
           {accounts ? (
-            accounts.map((account, index) => {
+            Object.keys(accounts).map((accountKey, index) => {
+              const account = accounts[accountKey];
               const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
               const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
               const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);

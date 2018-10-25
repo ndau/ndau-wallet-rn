@@ -2,7 +2,7 @@ const testAddressData = {
   addressData: [
     {
       balance: 42.23,
-      transferKeys: null,
+      validationKeys: null,
       rewardsTarget: null,
       incomingRewardsFrom: 'ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2',
       delegationNode: null,
@@ -19,7 +19,7 @@ const testAddressData = {
     },
     {
       balance: 200.2,
-      transferKeys: null,
+      validationKeys: null,
       rewardsTarget: 'ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura',
       incomingRewardsFrom: null,
       delegationNode: null,
@@ -39,7 +39,7 @@ const testAddressData = {
     },
     {
       balance: 400.54,
-      transferKeys: null,
+      validationKeys: null,
       rewardsTarget: null,
       incomingRewardsFrom: 'ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d',
       delegationNode: null,
@@ -59,7 +59,7 @@ const testAddressData = {
     },
     {
       balance: 76.03,
-      transferKeys: null,
+      validationKeys: null,
       rewardsTarget: 'ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt',
       incomingRewardsFrom: null,
       delegationNode: null,
@@ -79,7 +79,7 @@ const testAddressData = {
     },
     {
       balance: 400.87,
-      transferKeys: null,
+      validationKeys: null,
       rewardsTarget: null,
       incomingRewardsFrom: null,
       delegationNode: null,
@@ -96,7 +96,7 @@ const testAddressData = {
     },
     {
       balance: 124.23,
-      transferKeys: null,
+      validationKeys: null,
       rewardsTarget: null,
       incomingRewardsFrom: null,
       delegationNode: null,
@@ -116,7 +116,7 @@ const testAddressData = {
     },
     {
       balance: 515.0,
-      transferKeys: null,
+      validationKeys: null,
       rewardsTarget: null,
       incomingRewardsFrom: null,
       delegationNode: null,
@@ -215,147 +215,130 @@ const testUser = {
   wallets: {
     '7MP-4FV': {
       walletId: '7MP-4FV',
-      accountCreationKey:
-        'npvta8jaftcjec4q2p9dj7kcc5vw6xvnw36z438unqqfm3uhjaim2un9xpkvikppsa8bueaaaaaantceu3mfgqgz43swucmnkvsqpt7ndf88xftin3fhyefe3uzp3fqdbirtp6qqi5hg',
-      accounts: [
-        {
+      accountCreationKey: 'e58b438d',
+      accounts: {
+        ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura: {
           address: 'ndabherxgf9a6curi3wyf69932pm3ngqpshvqgmdfjvh8ura',
           addressData: {
             nickname: 'Account 1'
           },
-          ownershipKey: 'd25e4f17',
-          transferKeys: [ '285cff41', '7eeff2f0' ]
+          ownershipKey: 'b32d1dfb',
+          validationKeys: []
         },
-        {
+        ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2: {
           address: 'ndadyjb9q8q2kjchcmbcpn7bj6gigkdqbqu542dmhz7antp2',
           addressData: {
             nickname: 'Account 2'
           },
-          ownershipKey: 'd25e4f17',
-          transferKeys: [ '29992070', 'c1287590' ]
+          ownershipKey: 'e54b7ece',
+          validationKeys: []
         },
-        {
+        ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt: {
           address: 'ndaefksscncavwk94demkpwd686hc9xnzdivussx7kapsajt',
           addressData: {
             nickname: 'Account 3'
           },
-          ownershipKey: 'd25e4f17',
-          transferKeys: [ '285cff41', '7eeff2f0' ]
+          ownershipKey: '3fcd79f1',
+          validationKeys: []
         },
-        {
+        ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d: {
           address: 'ndacvk992umgjgunwq8acbfwty7pwsn4t6wjww95j5e2v69d',
           addressData: {
             nickname: 'Account 4'
           },
-          ownershipKey: 'd25e4f17',
-          transferKeys: [ 'f7754634', '12a2af8e' ]
+          ownershipKey: '2d4a67b0',
+          validationKeys: []
         },
-        {
+        ndaqd4vth8e23y7bh5u2t65hcn63yh3y6m6ctjetge3f4w3y: {
           address: 'ndaqd4vth8e23y7bh5u2t65hcn63yh3y6m6ctjetge3f4w3y',
           addressData: {
             nickname: 'Account 5'
           },
-          ownershipKey: 'd25e4f17',
-          transferKeys: [ '2772bc1b', '5e7ee872' ]
+          ownershipKey: '3a7d2974',
+          validationKeys: []
         },
-        {
+        ndae8539xtuvay5g59mkbg7hz3mucs54ji2iw8srj3zmz6s5: {
           address: 'ndae8539xtuvay5g59mkbg7hz3mucs54ji2iw8srj3zmz6s5',
           addressData: {
             nickname: 'Account 6'
           },
-          ownershipKey: 'd25e4f17',
-          transferKeys: [ 'a20f97e8', '6f516e76' ]
+          ownershipKey: '84f010f1',
+          validationKeys: []
         },
-        {
+        ndabq3f66u269y6esrz3anwyds4qrtbv5ukpw8m7x695fkqn: {
           address: 'ndabq3f66u269y6esrz3anwyds4qrtbv5ukpw8m7x695fkqn',
           addressData: {
             nickname: 'Account 7'
           },
-          ownershipKey: 'd25e4f17',
-          transferKeys: [ '5c60d714', 'c3ee5cfa' ]
+          ownershipKey: '7bc381ff',
+          validationKeys: []
         }
-      ],
+      },
       keys: {
-        '29992070': {
-          key:
-            'npvta8jaftcjedsf8h89ynw9pmvx7c2mkenw6q3khy693tii6v8jpsgazhkakcyqsbbbimqaaaaaacvdyb4kq6d3gmmfpx4tedux59gjdfkgree898zjp2tengq4ed555ggn7atsabyc',
-          path: "/44'/20036'/100/0",
-          derivedFromRoot: 'yes'
-        },
-        d25e4f17: {
-          key:
-            'npvta8jaftcjec4q2p9dj7kcc5vw6xvnw36z438unqqfm3uhjaim2un9xpkvikppsa8bueaaaaaantceu3mfgqgz43swucmnkvsqpt7ndf88xftin3fhyefe3uzp3fqdbirtp6qqi5hg',
+        e58b438d: {
+          publicKey: '',
+          privateKey:
+            'npvta8jaftcjed7stf8bkz3nnipyqahdau5vexjr52ez4wvcuusgimc7fjac52pbwa4fdissaaaanv2qizmsubdetvqmqys8fwvj4pw2b9vg9jire7cd3xm9cg74sc75yu44tbkhh23s',
           path: "/44'/20036'/100",
           derivedFromRoot: 'yes'
         },
-        '285cff41': {
-          key:
-            'npvta8jaftcjeaie5h9pp5iyhh3ahubb2ejv52wsc3ypyn2g2hxstp7afjahv87q4bbbimqaaaaaahmq4exepcvjn5rfvefsbshvi8ts2ceupgp6scx79u7utaisacq4t978tbtne4ge',
-          path: "/44'/20036'/100/1",
-          derivedFromRoot: 'yes'
-        },
-        '7eeff2f0': {
-          key:
-            'npuba4jaftckeebpkju3p5pahuyyw5tyyud8kt7sdfd64i9fk7a4z7baj22q2f38giaeefbp2aaaaaa7p5iuwtwkpfvp6ynsyaga8pd4gdaiujw3zuakzz8mykebcaaj5khavhfzvwuz',
-          path: "/44'/20036'/100/1",
-          derivedFromRoot: 'yes'
-        },
-        c1287590: {
-          key:
-            'npuba4jaftckeebxrndte6qsi7rz5ki5zjnybizh82ijcc73s3u2anq8mnjaz2qig9ieefbp2aaaaaaknq2hjj5sre3pnxyzkesqkzr63enxi36sv5947fzcets35isrrrp3irpbuuru',
+        b32d1dfb: {
+          publicKey:
+            'npuba4jaftckeeb8m2xih7dbwsqndrt2hzz6k6xxvn3k48kss87uwuta2rbaj2dz7tie4nw4waaaaaahwni9kfku8detab44b4mqenf3qx4skffjxzfmgev5pipapeiaeqqbqsvdzkit',
+          privateKey:
+            'npvta8jaftcjed2vzrknnzf8fj83q6bsfqnf72q7pr4b4evxzgfgn24tznve5gcfkbgvfgxaaaaaab7dch4tkwzs3eiaqysqu5tdbqmxqwctjkpp3k3te85kdidjcabdu6fkrqkq356k',
           path: "/44'/20036'/100/0",
           derivedFromRoot: 'yes'
         },
-        f7754634: {
-          key:
-            'npvta8jaftcjecibwh224yejn7eqww8dwkmsgihp6xxibdhb45k8n4gctv9mbpawkbbbimqaaaaaakxhnfz99m3v9qwzxc7282dwp34jx7nvy6zbb3rj9ihyj5wqkjj3m9qpb4a9mpx4',
+        e54b7ece: {
+          publicKey:
+            'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb36x',
+          privateKey:
+            'npvta8jaftcjeai6tm5yy3j4ruh6tc9c2qgyt8jhijns3j9ib8i5jdhfvcpkj52tgbgvfgxaaaaaahdk3iu9en5kad97jugns5siid68bzkg23chd4q5mphrf24kxtq2mwu775a2cky7',
+          path: "/44'/20036'/100/1",
+          derivedFromRoot: 'yes'
+        },
+        '3fcd79f1': {
+          publicKey:
+            'npuba4jaftckeebsfgvpt2agx6pf7i5k233d4bcetgpx9vfp9wcp7pwkbtzufqu4ktse4nw4waaaaabf92p46hd6zi322kjg7f46vfdi4xs5agy3nn24b386mwprk9hjzgx8yckunvtz',
+          privateKey:
+            'npvta8jaftcjec3htae7jzmrbbrtxyw5e8nmg3yuahca77rqm2y2cyzw4nuevcbeabgvfgxaaaaaajr8dqzb29f4gqgcujzjqze3i4gxng2bxymdggsqrzc7dm4z34p3x7igz6vthnjt',
           path: "/44'/20036'/100/2",
           derivedFromRoot: 'yes'
         },
-        '12a2af8e': {
-          key:
-            'npuba4jaftckeebpippyb58npy5b3sxbnkdbr3afupdrgbkbgyrkrs8iijaehkfncbseefbp2aaaaabkw7sy997rgr74u8wmzd5aqtzhjgzxuq5u6ehf7h7a83hqt3jfhfr8hyc6qstg',
-          path: "/44'/20036'/100/2",
-          derivedFromRoot: 'yes'
-        },
-        '2772bc1b': {
-          key:
-            'npvta8jaftcjeay4ru5h4ceqsxiadz9eswrtcbbp4wj57jne6fw84v7b4mhgrmq9kbbbimqaaaaaari9vt5fjptqtns4jyewn5w4rva2yue3htfkqk82zr48gbi57hvhxa8999iqusnv',
+        '2d4a67b0': {
+          publicKey:
+            'npuba4jaftckeeb5w22tqagu2cx336uh43w22y3na8ztf24367div8u84zd29xpbf22e4nw4waaaaabuqsax6t9yj9nb9phjjjjurtg3yk8wbie5q6hcj72dq7xxdffd2jr2cdgxti9h',
+          privateKey:
+            'npvta8jaftcjea6ks77rbjv8zgtwyjqnbyckgmp49crrwks2mspepfhjcwwa5a3csbgvfgxaaaaaanvwafrer7ur5ar5j4kkknv6jypuzxakbg5zb2urqa5zppi3ji8cmm6c4ivbhmnc',
           path: "/44'/20036'/100/3",
           derivedFromRoot: 'yes'
         },
-        '5e7ee872': {
-          key:
-            'npuba4jaftckeebmikjfjx5ucjzkqi7gee8ch8gj4avip6i4ug8bngvqfpbzuwb84k2eefbp2aaaaab7d8qhnxfyf4fudjg2utvqvj8ndc4ive8exj3m5c79m22fdrw8n8yfmnmx6k4z',
-          path: "/44'/20036'/100/3",
-          derivedFromRoot: 'yes'
-        },
-        a20f97e8: {
-          key:
-            'npvta8jaftcjeb8j4i5359tmq9m8de2wfui5ts5afjgpqbkn9ficeh379ete4a5iqbbbimqaaaaaavdvvc3u2qvy7ujstdddnba2aypycwmjwt8wrwhcf7jekxcik8948d9jrffgehd9',
+        '3a7d2974': {
+          publicKey:
+            'npuba4jaftckeebjixrgdscppt7n4x672zshxgz28x8zqxetrmeh4gknysgg6umwfg2e4nw4waaaaacgpdrebq9f68njadaf379r42vyrsdigieaw77554qz8b4xbnner6x7zg259mdz',
+          privateKey:
+            'npvta8jaftcjedv4znk8s5egwmmcc2tcyhi8uiqjqaip5zvxurj7skjrixt7gyr6ubgvfgxaaaaaatvi53amz3rhvcia2bqrr58ye7v6a4bubafhrq88vx9sqximdbd9fh8mnhrker2m',
           path: "/44'/20036'/100/4",
           derivedFromRoot: 'yes'
         },
-        '6f516e76': {
-          key:
-            'npuba4jaftckeebvgq2k5ryyhtp9grdkssgdhvbsdcc5fpzpvtwf5mgc4dz69kxnatieefbp2aaaaacnqqnmgmb4q5yjgcennpsedac3y2ktpguh4t8s6izxetkwjbm59m3i25dpmhud',
-          path: "/44'/20036'/100/4",
-          derivedFromRoot: 'yes'
-        },
-        '5c60d714': {
-          key:
-            'npvta8jaftcjed9a6kv6t29z7xq5mqcask9jh9dfsbqwxxtkkjxna8b9d87jhn8sabbbimqaaaaaaz4na9w67sn7xekd6mp8a68t8ir7ebwy4kmswd4efth6bpt26eyk4ctiygf3k2zg',
+        '84f010f1': {
+          publicKey:
+            'npuba4jaftckeebj42zrwgkib944y62gm3qxw9pru2gi46fg7d7iebssysx8ppfdujie4nw4waaaaac4jvnbjc8sisi234mrsfr5ztdsv87gcduwz8ustszgy33urys2s3e4c83eiqyk',
+          privateKey:
+            'npvta8jaftcjeburqvbt33rse4gjrcep2sgwb5uex9gqbc6v59wyz8se8n3ix668sbgvfgxaaaaaayun5akizwcecggqu56bm876i6e9zjss6xf9wwenf3xyqnv7wgegjqyk56z3ii33',
           path: "/44'/20036'/100/5",
           derivedFromRoot: 'yes'
         },
-        c3ee5cfa: {
-          key:
-            'npuba4jaftckeebyqyn8av45n656a2arebynzwts9bedkxzzpxwhi9acqpfyczubnbseefbp2aaaaac9jsd8vvybvywtirtpz2dv4h3b9wsgu5jjqcsrisye9sfyhdsu3mmnm4ib9bxx',
-          path: "/44'/20036'/100/5",
+        '7bc381ff': {
+          publicKey:
+            'npuba4jaftckeeb487azwikysx3dg3gmzp2ai64jfkb95mncqt3ny7eg93ziv2wkbf2e4nw4waaaaadd8rtspfv6wyifrp8ibpf8tu5j57p6rkggg8rsc9zfripujnbmyaiq4htq9jz8',
+          privateKey:
+            'npvta8jaftcjeb2vezpkjfv9g82qpqwu5r7g57cb6ws2udp74xpcgb752kgq88ncibgvfgxaaaaaa29v6ndjn9ffubm5ruamjrwny4q9mrd4tttzv6az73m4dnumak7sdxgkkuyxzbm6',
+          path: "/44'/20036'/100/6",
           derivedFromRoot: 'yes'
         }
       },
-      addresses: [],
       marketPrice: 16.34
     }
   }

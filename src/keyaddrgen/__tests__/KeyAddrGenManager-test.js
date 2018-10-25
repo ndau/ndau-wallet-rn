@@ -51,7 +51,7 @@ const publicKey =
   'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44';
 const childPrivate100 =
   'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx';
-const address = 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn';
+const address = 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac';
 const keyaddrWordsToBytes = sinon.spy(NativeModules.KeyaddrManager, 'keyaddrWordsToBytes');
 keyaddrWordsToBytes.mockReturnValue(bytes);
 const newKey = sinon.spy(NativeModules.KeyaddrManager, 'newKey');
@@ -104,7 +104,27 @@ child
   .mockReturnValueOnce(childPrivate100 + 'h');
 
 const ndauAddress = sinon.spy(NativeModules.KeyaddrManager, 'ndauAddress');
-ndauAddress.mockReturnValue(address);
+ndauAddress
+  .mockReturnValueOnce(address + 1)
+  .mockReturnValueOnce(address + 2)
+  .mockReturnValueOnce(address + 3)
+  .mockReturnValueOnce(address + 4)
+  .mockReturnValueOnce(address + 5)
+  .mockReturnValueOnce(address + 6)
+  .mockReturnValueOnce(address + 7)
+  .mockReturnValueOnce(address + 8)
+  .mockReturnValueOnce(address + 9)
+  .mockReturnValueOnce(address + 0)
+  .mockReturnValueOnce(address + 'a')
+  .mockReturnValueOnce(address + 'b')
+  .mockReturnValueOnce(address + 'c')
+  .mockReturnValueOnce(address + 'd')
+  .mockReturnValueOnce(address + 'e')
+  .mockReturnValueOnce(address + 'f')
+  .mockReturnValueOnce(address + 'g')
+  .mockReturnValueOnce(address + 'h')
+  .mockReturnValueOnce(address + 'i')
+  .mockReturnValueOnce(address + 'h');
 
 const deriveFrom = sinon.spy(NativeModules.KeyaddrManager, 'deriveFrom');
 deriveFrom
@@ -164,7 +184,7 @@ test('createFirstTimeUser test', async () => {
 
   expect(firstTimeUser).toBeDefined();
   expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","wallets":{"TAC-3PY":{"walletId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx1","accounts":[{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{},"ownershipKey":"95b8071e","transferKeys":["95b8071e","ba276f55"]},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{},"ownershipKey":"95b8071e","transferKeys":["20f4d175","afb4eac1"]},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{},"ownershipKey":"95b8071e","transferKeys":["edef8a85","bfdc7ce5"]},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{},"ownershipKey":"95b8071e","transferKeys":["90808ebd","56182fea"]},{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn","addressData":{},"ownershipKey":"95b8071e","transferKeys":["d8cc78c1","455265b4"]}],"keys":{"95b8071e":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx1","path":"/44'/20036'/100","derivedFromRoot":"yes"},"ba276f55":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj441","path":"/44'/20036'/100/1","derivedFromRoot":"yes"},"20f4d175":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2","path":"/44'/20036'/100/2","derivedFromRoot":"yes"},"afb4eac1":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj442","path":"/44'/20036'/100/2","derivedFromRoot":"yes"},"edef8a85":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx3","path":"/44'/20036'/100/3","derivedFromRoot":"yes"},"bfdc7ce5":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443","path":"/44'/20036'/100/3","derivedFromRoot":"yes"},"90808ebd":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx4","path":"/44'/20036'/100/4","derivedFromRoot":"yes"},"56182fea":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444","path":"/44'/20036'/100/4","derivedFromRoot":"yes"},"d8cc78c1":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx5","path":"/44'/20036'/100/5","derivedFromRoot":"yes"},"455265b4":{"key":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445","path":"/44'/20036'/100/5","derivedFromRoot":"yes"}}}}}`
+    `{"userId":"TAC-3PY","wallets":{"TAC-3PY":{"walletId":"TAC-3PY","accountCreationKey":"95b8071e","accounts":{"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac1":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac1","addressData":{},"ownershipKey":"95b8071e","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac2":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac2","addressData":{},"ownershipKey":"20f4d175","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac3":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac3","addressData":{},"ownershipKey":"edef8a85","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac4":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac4","addressData":{},"ownershipKey":"90808ebd","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5","addressData":{},"ownershipKey":"d8cc78c1","validationKeys":[]}},"keys":{"95b8071e":{"publicKey":"","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx1","path":"/44'/20036'/100","derivedFromRoot":"yes"},"20f4d175":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj442","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2","path":"/44'/20036'/100/2","derivedFromRoot":"yes"},"edef8a85":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx3","path":"/44'/20036'/100/3","derivedFromRoot":"yes"},"90808ebd":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx4","path":"/44'/20036'/100/4","derivedFromRoot":"yes"},"d8cc78c1":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx5","path":"/44'/20036'/100/5","derivedFromRoot":"yes"}}}}}`
   );
 });
 
@@ -180,7 +200,7 @@ test('createFirstTimeUser with 0, as this will be possible post Genesis', async 
 
   expect(firstTimeUser).toBeDefined();
   expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","wallets":{"TAC-3PY":{"walletId":"TAC-3PY","accountCreationKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2","accounts":[],"keys":{"20f4d175":{"key":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2","path":"/44'/20036'/100","derivedFromRoot":"yes"}}}}}`
+    `{"userId":"TAC-3PY","wallets":{"TAC-3PY":{"walletId":"TAC-3PY","accountCreationKey":"20f4d175","accounts":{},"keys":{"20f4d175":{"publicKey":"","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2","path":"/44'/20036'/100","derivedFromRoot":"yes"}}}}}`
   );
 });
 
@@ -207,13 +227,15 @@ test('createNewAccount test', async () => {
   console.log(`firstTimeUser: ${JSON.stringify(firstTimeUser)}`);
 
   expect(firstTimeUser).toBeDefined();
-  expect(firstTimeUser.wallets[firstTimeUser.userId].accounts.length).toBe(5);
+  expect(Object.keys(firstTimeUser.wallets[firstTimeUser.userId].accounts).length).toBe(5);
 
   await KeyAddrGenManager.createNewAccount(firstTimeUser);
-  expect(firstTimeUser.wallets[firstTimeUser.userId].accounts.length).toBe(6);
-  expect(firstTimeUser.wallets[firstTimeUser.userId].accounts[0].address).toBe(
-    'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacn'
-  );
+  expect(Object.keys(firstTimeUser.wallets[firstTimeUser.userId].accounts).length).toBe(6);
+  expect(
+    firstTimeUser.wallets[firstTimeUser.userId].accounts[
+      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6'
+    ].address
+  ).toBe('tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6');
 });
 
 test('createNewAccount has bogus user', async () => {

@@ -6,7 +6,7 @@ class Wallet {
   constructor() {
     this.walletId = '';
     this.accountCreationKey = '';
-    this.accounts = [];
+    this.accounts = {};
     this.keys = {};
   }
 

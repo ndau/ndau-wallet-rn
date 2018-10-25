@@ -4,14 +4,16 @@
 //with KP before doing so.
 class Key {
   constructor() {
-    this.key = '';
+    this.publicKey = '';
+    this.privateKey = '';
     this.path = '';
     this.derivedFromRoot = '';
   }
 
   toJSON = () => {
     return {
-      key: this.key,
+      publicKey: this.publicKey,
+      privateKey: this.privateKey,
       path: this.path,
       derivedFromRoot: this.derivedFromRoot
     };
