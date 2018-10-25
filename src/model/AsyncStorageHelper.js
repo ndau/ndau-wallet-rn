@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import CryptoJS from 'crypto-js';
+import ErrorDialog from '../components/ErrorDialog';
 
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:';
 const CURRENT_USER_KEY = '@CurrentUserKey';
@@ -54,7 +55,7 @@ const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
     const checkPersist = await unlockUser(user.userId, encryptionPassword);
     console.debug(`Successfully set user to: ${JSON.stringify(checkPersist, null, 2)}`);
   } catch (error) {
-    console.error(error);
+    ErrorDialog.showError(`Problem locking user: ${error}`);
     throw error;
   }
 };

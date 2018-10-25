@@ -1106,7 +1106,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../react-native-check-box/img/ic_check_box_outline_blank.png",
+                    "testUri": "../../react-native-check-box/img/ic_check_box.png",
                   }
                 }
                 style={
@@ -1162,7 +1162,7 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
         style={
           Object {
             "alignContent": "center",
-            "backgroundColor": "#696969",
+            "backgroundColor": "#4e957a",
             "borderRadius": 3,
             "height": 93.5,
             "justifyContent": "center",
@@ -1182,15 +1182,13 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
                 "fontWeight": "500",
                 "textAlign": "center",
               },
-              Object {
-                "color": "#dcdcdc",
-              },
+              null,
               Object {
                 "color": "#fff",
                 "fontFamily": "TitilliumWeb-Regular",
                 "fontSize": 16,
               },
-              undefined,
+              null,
             ]
           }
         >

@@ -6,6 +6,8 @@ import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import sha256 from 'crypto-js/sha256';
+import ErrorDialog from '../components/ErrorDialog';
+import Wallet from '../model/Wallet';
 
 /**
  * This function will return an array of addresses that can be
@@ -40,7 +42,7 @@ const getRootAddresses = async (recoveryBytes) => {
       addresses.push(address);
     }
   } catch (error) {
-    console.error(`problem encountered creating root addresses: ${error}`);
+    ErrorDialog.showError(`problem encountered creating root addresses: ${error}`);
     throw error;
   }
 
@@ -76,7 +78,7 @@ const getBIP44Addresses = async (recoveryBytes) => {
       addresses.push(address);
     }
   } catch (error) {
-    console.error(`problem encountered creating BIP44 addresses: ${error}`);
+    ErrorDialog.showError(`problem encountered creating BIP44 addresses: ${error}`);
     throw error;
   }
 
@@ -108,29 +110,11 @@ const createFirstTimeUser = async (
 
     const wallet = await createWallet(recoveryBytes, null, userId, chainId, numberOfAccounts);
     user.wallets[userId] = wallet;
+
+    console.log(`User created is: ${JSON.stringify(user, null, 2)}`);
     return user;
   } catch (error) {
-    console.error(error);
-  }
-};
-
-/**
- * Update the user with wallet format. This could be used
- * going forward to update user formats in the future.
- *
- * @param  {User} user
- */
-const updateUser = async (user) => {
-  if (!user.wallets) {
-    user.wallets = {};
-    const wallet = await createWallet(
-      null,
-      user.accountCreationKey,
-      user.userId,
-      null,
-      user.accounts.length
-    );
-    user.wallets[userId] = wallet;
+    ErrorDialog.showError(error);
   }
 };
 
@@ -156,83 +140,99 @@ const createWallet = async (
     throw new Error('you MUST pass either recoveryBytes or accountCreationKey to this method');
   }
 
+  if (!walletId) {
+    throw new Error('you MUST pass walletId');
+  }
+
   if (recoveryBytes) {
     accountCreationKey = await _createAccountCreationKey(recoveryBytes);
   }
 
   try {
-    const wallet = new Wallet();
+    let wallet = new Wallet();
     wallet.walletId = walletId;
 
     wallet.accountCreationKey = accountCreationKey;
-    wallet.keys = _createInitialKeys(accountCreationKey);
+
     if (numberOfAccounts > 0) {
-      wallet = addAccounts(user, numberOfAccounts, _generateRootPath(), chainId);
+      await addAccounts(wallet, numberOfAccounts, _generateRootPath(), chainId);
     }
+    _createInitialKeys(wallet, accountCreationKey);
+
+    console.log(`Wallet created is: ${JSON.stringify(wallet, null, 2)}`);
 
     return wallet;
   } catch (error) {
-    console.error(error);
+    ErrorDialog.showError(error);
   }
 };
 
+const addAccountsToUser = async (
+  recoveryPhraseStringAsBytes,
+  user,
+  numberOfAccounts,
+  rootDerivedPath
+) => {
+  const wallet = await createWallet(
+    recoveryPhraseStringAsBytes,
+    null,
+    user.userId,
+    AppConstants.MAINNET_ADDRESS,
+    numberOfAccounts
+  );
+  user.wallets[user.userId] = wallet;
+
+  await addAccounts(wallet, numberOfAccounts, rootDerivedPath, AppConstants.MAINNET_ADDRESS);
+};
+
 /**
- * Add accounts to the user passed in.
+ * Add accounts to the wallet passed in.
  *
- * @param  {User} user to have accounts added
+ * @param  {Wallet} wallet to have accounts added
  * @param  {number} numberOfAccounts to be added
  * @param  {string} rootDerivedPath=_generatedRootPth()
  * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
- * @return {User} an altered user object
  */
 const addAccounts = async (
-  user,
+  wallet,
   numberOfAccounts,
   rootDerivedPath,
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
-  const accounts = await _createAccounts(
+  await _createAccounts(
     numberOfAccounts,
-    user.accountCreationKey,
-    user,
+    wallet.accountCreationKey,
+    wallet,
     rootDerivedPath,
     chainId
   );
-  Array.prototype.push.apply(user.accounts, accounts);
-
-  const addresses = accounts.map((value) => {
-    return value.address;
-  });
-  Array.prototype.push.apply(user.addresses, addresses);
-
-  return user;
 };
 
 /**
  * create a new account(s) and send back the address created
- * this method must get a valid user which has been unlocked from
+ * this method must get a valid wallet which has been unlocked from
  * AsyncStorageHelper. Ideally this should be coming from the a
  * navigation property passed around.
  *
- * @param  {object} user
+ * @param  {User} user
  * @param  {number} numberOfAccounts=1
  */
 const createNewAccount = async (user, numberOfAccounts = 1) => {
-  if (!user.accountCreationKey) {
-    throw new Error(`The user passed in has no accountCreationKey`);
+  const wallet = user.wallets[user.userId];
+  if (!wallet.accountCreationKey) {
+    throw new Error(`The user's wallet passed in has no accountCreationKey`);
   }
 
   for (let i = 0; i < numberOfAccounts; i++) {
-    const account = await _createAccount(
-      user.accountCreationKey,
-      user.accounts.length === 0 ? 1 : user.accounts.length - 1,
-      user
+    await _createAccount(
+      wallet.accountCreationKey,
+      wallet.accounts.length === 0 ? 1 : wallet.accounts.length - 1,
+      wallet
     );
-    user.accounts.push(account);
   }
 
-  const userWithData = await NdauNodeAPIHelper.populateCurrentUserWithAddressData(user);
-  console.debug(`user is NOW after new account ${JSON.stringify(userWithData, null, 2)}`);
+  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet);
+  console.debug(`wallet is NOW after new account ${JSON.stringify(wallet, null, 2)}`);
 
   return user;
 };
@@ -261,15 +261,11 @@ const _generateRootPath = () => {
   return returnValue;
 };
 
-const _createInitialKeys = (accountCreationKey) => {
-  let returnValue = {};
-
-  returnValue[_createKeyHash(accountCreationKey)] = _createKey(
+const _createInitialKeys = (wallet, accountCreationKey) => {
+  wallet.keys[_createKeyHash(accountCreationKey)] = _createKey(
     accountCreationKey,
     _generateRootPath()
   );
-
-  return returnValue;
 };
 
 const _createKey = (key, path) => {
@@ -283,7 +279,7 @@ const _createKey = (key, path) => {
 const _createAccount = async (
   accountCreationKey,
   childIndex,
-  user,
+  wallet,
   rootDerivedPath = _generateRootPath(),
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
@@ -301,18 +297,19 @@ const _createAccount = async (
   );
   const newKey = _createKey(privateKeyForAddress, childPath);
   const privateKeyHash = _createKeyHash(privateKeyForAddress);
-  user.keys[privateKeyHash] = newKey;
+  wallet.keys[privateKeyHash] = newKey;
   account.transferKeys.push(privateKeyHash);
 
   const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress);
   const newPublicKey = _createKey(publicKey, childPath);
   const publicKeyHash = _createKeyHash(publicKey);
-  user.keys[publicKeyHash] = newPublicKey;
+  wallet.keys[publicKeyHash] = newPublicKey;
   account.transferKeys.push(publicKeyHash);
 
   const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
   account.address = address;
-  return account;
+
+  wallet.accounts.push(account);
 };
 
 const _createKeyHash = (key) => {
@@ -322,23 +319,21 @@ const _createKeyHash = (key) => {
 const _createAccounts = async (
   numberOfAccounts,
   accountCreationKey,
-  user,
+  wallet,
   rootDerivedPath = _generateRootPath(),
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
-  const accounts = [];
   for (let i = 1; i <= numberOfAccounts; i++) {
-    const account = await _createAccount(accountCreationKey, i, user, rootDerivedPath, chainId);
-    accounts.push(account);
+    await _createAccount(accountCreationKey, i, wallet, rootDerivedPath, chainId);
   }
-  return accounts;
+  console.log(`accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`);
 };
 
 export default {
   createFirstTimeUser,
   createWallet,
-  updateUser,
   createNewAccount,
+  addAccountsToUser,
   getRootAddresses,
   getBIP44Addresses,
   addAccounts

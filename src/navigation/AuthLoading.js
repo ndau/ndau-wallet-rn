@@ -4,6 +4,7 @@ import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import MultiSafe from '../model/MultiSafe';
+import ErrorDialog from '../components/ErrorDialog';
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -24,7 +25,12 @@ class AuthLoadingScreen extends React.Component {
       } else if (multiSafes) {
         this.props.navigation.navigate('Auth');
       } else {
-        const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+        let isMainNetAlive = false;
+        try {
+          isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+        } catch (error) {
+          console.warn(`Unable to talk to MainNet: ${error}`);
+        }
         if (isMainNetAlive) {
           this.props.navigation.navigate('SetupWelcome');
         } else {
@@ -32,17 +38,7 @@ class AuthLoadingScreen extends React.Component {
         }
       }
     } catch (error) {
-      Alert.alert(
-        'Error',
-        `Problem occurred trying to launch ndau wallet: ${error}`,
-        [
-          {
-            text: 'OK',
-            onPress: () => {}
-          }
-        ],
-        { cancelable: false }
-      );
+      ErrorDialog.showError(`Problem encountered: ${error}`);
     }
   };
 

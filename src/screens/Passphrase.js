@@ -22,10 +22,8 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import Dropdown from '../components/Dropdown';
-import DataFormatHelper from '../helpers/DataFormatHelper';
 import UserData from '../model/UserData';
-import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
-import AppConstants from '../AppConstants';
+import ErrorDialog from '../components/ErrorDialog';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -47,28 +45,16 @@ class Passphrase extends Component {
       const userIds = await AsyncStorageHelper.getAllKeys();
       this.setState({ userIds });
     } catch (error) {
-      console.error(error);
+      ErrorDialog.showError(error);
     }
   };
 
   login = async () => {
     try {
+      //TODO: This component will change as we no longer will deal with users.
       let user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
       if (user) {
         console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
-
-        //If we do NOT have the accountCreationKey we have a major issue where we
-        //CANNOT generate any keys/addresses. This situation exists with vesions of
-        //the ndau wallet <= 1.6. After 1.7 all was well. So this code exists to
-        //address the sins of those versions. This should NOT be removed!!
-        if (!DataFormatHelper.hasAccountCreationKey(user)) {
-          return this.showRecovery(user);
-        } else if (!DataFormatHelper.hasAccountsObject(user)) {
-          //if accounts is not an object we have a bit of repair to do on the object
-          //this was mainly for data created in 1.7. We need to fix it up a bit to support
-          //a better data format going forward.
-          await KeyAddrGenManager.updateUser(user);
-        }
 
         await UserData.loadData(user);
 
