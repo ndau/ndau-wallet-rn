@@ -22,8 +22,8 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import Dropdown from '../components/Dropdown';
-import DataFormatHelper from '../helpers/DataFormatHelper';
 import UserData from '../model/UserData';
+import ErrorDialog from '../components/ErrorDialog';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -45,23 +45,16 @@ class Passphrase extends Component {
       const userIds = await AsyncStorageHelper.getAllKeys();
       this.setState({ userIds });
     } catch (error) {
-      console.error(error);
+      ErrorDialog.showError(error);
     }
   };
 
   login = async () => {
     try {
-      const user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
+      //TODO: This component will change as we no longer will deal with users.
+      let user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
       if (user) {
         console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
-
-        //If we do NOT have the accountCreationKey we have a major issue where we
-        //CANNOT generate any keys/addresses. This situation exists with vesions of
-        //the ndau wallet <= 1.6. After 1.7 all was well. So this code exists to
-        //address the sins of those versions. This should NOT be removed!!
-        if (!DataFormatHelper.hasAccountCreationKey(user)) {
-          return this.showRecovery(user);
-        }
 
         await UserData.loadData(user);
 
@@ -141,7 +134,6 @@ class Passphrase extends Component {
   };
 
   dropDownSelected = (index, value) => {
-    console.log(`index: ${index} and value is ${value}`);
     this.setState({
       userId: value
     });

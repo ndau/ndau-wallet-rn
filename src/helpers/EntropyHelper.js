@@ -1,6 +1,7 @@
 import Randal from '../helpers/randal.js';
 import SetupStore from '../model/SetupStore';
 import Base64 from 'base-64';
+import ErrorDialog from '../components/ErrorDialog';
 
 const generateEntropy = () => {
   this.randal = new Randal();
@@ -12,7 +13,7 @@ const generateEntropy = () => {
       return entropy;
     })
     .catch((error) => {
-      console.error(error);
+      ErrorDialog.showError(`Problem generating entropy: ${error}`);
       return null;
     });
 };

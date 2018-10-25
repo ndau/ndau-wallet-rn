@@ -117,7 +117,7 @@ exports[`testing SetupWalletName... renders correctly 1`] = `
         style={
           Object {
             "alignContent": "center",
-            "backgroundColor": "#4e957a",
+            "backgroundColor": "#696969",
             "borderRadius": 3,
             "height": 93.5,
             "justifyContent": "center",
@@ -137,13 +137,15 @@ exports[`testing SetupWalletName... renders correctly 1`] = `
                 "fontWeight": "500",
                 "textAlign": "center",
               },
-              null,
+              Object {
+                "color": "#dcdcdc",
+              },
               Object {
                 "color": "#fff",
                 "fontFamily": "TitilliumWeb-Regular",
                 "fontSize": 16,
               },
-              null,
+              undefined,
             ]
           }
         >
