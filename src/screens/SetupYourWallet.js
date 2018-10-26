@@ -8,7 +8,8 @@ import { SafeAreaView } from 'react-navigation';
 import EntropyHelper from '../helpers/EntropyHelper';
 
 class SetupYourWallet extends Component {
-  showNextSetup = () => {
+  showNextSetup = async () => {
+    await EntropyHelper.generateEntropy();
     this.props.navigation.navigate('SetupRecoveryPhrase');
   };
 
@@ -23,8 +24,6 @@ class SetupYourWallet extends Component {
   };
 
   render() {
-    EntropyHelper.generateEntropy();
-
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>

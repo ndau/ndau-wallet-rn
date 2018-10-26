@@ -60,8 +60,8 @@ class SetupConfirmRecoveryPhrase extends Component {
     }
   };
 
-  pushBack = () => {
-    EntropyHelper.generateEntropy();
+  pushBack = async () => {
+    await EntropyHelper.generateEntropy();
     this.props.navigation.navigate('SetupYourWallet');
   };
 

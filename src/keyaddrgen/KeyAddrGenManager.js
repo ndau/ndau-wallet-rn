@@ -168,13 +168,13 @@ const createWallet = async (
 };
 
 const addAccountsToUser = async (
-  recoveryPhraseStringAsBytes,
+  recoveryPhraseBytes,
   user,
   numberOfAccounts,
   rootDerivedPath
 ) => {
   const wallet = await createWallet(
-    recoveryPhraseStringAsBytes,
+    recoveryPhraseBytes,
     null,
     user.userId,
     AppConstants.MAINNET_ADDRESS,
