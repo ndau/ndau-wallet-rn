@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-navigation';
 import groupIntoRows from '../helpers/groupIntoRows';
 import ErrorPanel from '../components/ErrorPanel';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import {

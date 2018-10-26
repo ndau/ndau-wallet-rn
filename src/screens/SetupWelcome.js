@@ -12,7 +12,7 @@ import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 
 class SetupWelcome extends Component {
   constructor(props) {

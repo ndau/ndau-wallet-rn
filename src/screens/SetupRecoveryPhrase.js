@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PixelRatio, StyleSheet, View, ScrollView, Text, NativeModules, Alert } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';

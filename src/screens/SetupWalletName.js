@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';

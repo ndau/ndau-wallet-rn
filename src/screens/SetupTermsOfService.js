@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
 import SetupStore from '../model/SetupStore';

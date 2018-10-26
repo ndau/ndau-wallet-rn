@@ -3,7 +3,7 @@ import { View, ScrollView, Text, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import ndauDashboardApi from '../api/NdauDashboardAPI';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';

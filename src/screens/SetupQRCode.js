@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';

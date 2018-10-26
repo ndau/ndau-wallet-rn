@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, ScrollView, Text, TouchableWithoutFeedback } from 'react-native';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
 import EntropyHelper from '../helpers/EntropyHelper';
