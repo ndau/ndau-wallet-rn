@@ -27,12 +27,11 @@ class ProgressBar extends Component {
     const stepsStyle = {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
+      // alignItems: 'center',
+      justifyContent: 'space-around',
       height: HEIGHT,
       minHeight: 35,
       backgroundColor: 'transparent',
-      zIndex: 2
     }
     
     const { numberOfSteps, currentStep } = this.props;
@@ -45,12 +44,11 @@ class ProgressBar extends Component {
       width: diameter,
       height: diameter,
       borderRadius: diameter/2,
-      backgroundColor: '#393939',
       opacity: 0.7,
     }
 
     for(let index=1; index <= numberOfSteps; index++) {
-      const backgroundColor = index <= currentStep ? '#000' : '#393939';
+      const backgroundColor = index <= currentStep ? '#000' : '#3b3b3b';
       Steps.push(
         <View
           style={circleStyle}

@@ -20,6 +20,7 @@ class SetupProgressBar extends Component {
           progress={progress}
           currentStep={screenNumber}
           numberOfSteps={NUMBER_OF_SCREENS}
+          showSteps
         />
       </View>
     );
