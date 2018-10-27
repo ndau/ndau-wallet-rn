@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/SetupProgressBar';
+import SetupProgressBar from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
@@ -67,7 +67,7 @@ class SetupQRCode extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Stepper screenNumber={3} />
+            <SetupProgressBar screenNumber={3} />
             <View>
               <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
                 To send and receive ndau, you will need to use your device's camera.

@@ -6,11 +6,24 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 const NUMBER_OF_SCREENS = 8;
 
 class SetupProgressBar extends Component {
+  constructor(props) {
+    super(props);
+
+    const { navigation } = props;
+    this.walletSetUpType = navigation && navigation.getParam('walletSetUpType', null);
+  }
+
   getProgress = (screenNumber=0) => {
     return (100 / NUMBER_OF_SCREENS) * screenNumber;
   }
 
   render() {
+    if(!this.walletSetUpType || !screenNumber) {
+      return (
+        <View style={{marginBottom: hp('7%')}}></View>
+      );
+    }
+
     const { screenNumber } = this.props;
     const progress = this.getProgress(screenNumber);
 

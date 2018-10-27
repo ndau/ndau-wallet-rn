@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/SetupProgressBar';
+import SetupProgressBar from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
 import SetupStore from '../model/SetupStore';
@@ -26,8 +26,10 @@ class SetupTermsOfService extends Component {
 
   finishSetup = async () => {
     console.debug('Finishing Setup...');
-
-    let user = this.props.navigation.getParam('user', null);
+ 
+    const { navigation } = this.props;
+    navigation.setParam({ walletSetupType: null });
+    let user = navigation.getParam('user', null);
     //if there is not user passed along, then we generate
     if (!user) {
       console.debug('Generating all keys from phrase given...');
@@ -101,7 +103,7 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator={true}
             indicatorStyle="white"
           >
-            <Stepper screenNumber={8} />
+            <SetupProgressBar screenNumber={8} />
             <View>
               <Text style={styles.mainLegalTextHeading}>Terms of Use{'\n'}</Text>
 

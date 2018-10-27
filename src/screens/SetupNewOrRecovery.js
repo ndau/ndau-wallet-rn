@@ -12,7 +12,7 @@ import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
-import Stepper from '../components/SetupProgressBar';
+import SetupProgressBar from '../components/SetupProgressBar';
 
 class SetupNewOrRecovery extends Component {
   constructor(props) {
@@ -37,11 +37,15 @@ class SetupNewOrRecovery extends Component {
   }
 
   showNewWallet = () => {
-    this.props.navigation.navigate('SetupYourWallet');
+    this.props.navigation.navigate('SetupYourWallet', {
+      walletSetupType: 'new' 
+    });
   };
 
   showUseExistingRecovery = () => {
-    this.props.navigation.navigate('SetupGetRecoveryPhrase');
+    this.props.navigation.navigate('SetupGetRecoveryPhrase', {
+      walletSetupType: 'recovery'
+    });
   };
 
   render() {
@@ -51,7 +55,7 @@ class SetupNewOrRecovery extends Component {
 
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Stepper screenNumber={1} />
+            <SetupProgressBar screenNumber={0} />
             <View>
               <Text style={cssStyles.wizardText}>
                 Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{' '}

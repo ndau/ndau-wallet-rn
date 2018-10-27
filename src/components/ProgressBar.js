@@ -27,7 +27,7 @@ class ProgressBar extends Component {
     const stepsStyle = {
       display: 'flex',
       flexDirection: 'row',
-      // alignItems: 'center',
+      alignItems: 'center',
       justifyContent: 'space-around',
       height: HEIGHT,
       minHeight: 35,

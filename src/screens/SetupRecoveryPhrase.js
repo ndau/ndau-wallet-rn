@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PixelRatio, StyleSheet, View, ScrollView, Text, NativeModules, Alert } from 'react-native';
 import groupIntoRows from '../helpers/groupIntoRows';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/SetupProgressBar';
+import SetupProgressBar from '../components/SetupProgressBar';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
@@ -114,7 +114,7 @@ class SetupRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
-            <Stepper screenNumber={6} />
+            <SetupProgressBar screenNumber={6} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Write this 12-word phrase down and store it in a secure location.
