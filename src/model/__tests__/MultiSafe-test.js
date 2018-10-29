@@ -11,96 +11,6 @@ import MultiSafe from '../MultiSafe';
 import { HTML5_FMT } from 'moment';
 
 describe('MultiSafe _encrypt/_decrypt tests...', () => {
-  it('should encrypt/decrypt a simple string', () => {
-    word = 'my secret';
-    password = "don't tell";
-
-    ms = new MultiSafe();
-    encrypted = ms._encrypt(word, password);
-    decrypted = ms._decrypt(encrypted, password);
-    expect(decrypted).toEqual(word);
-  });
-  it('should encrypt/decrypt a json-like string', () => {
-    word = '{}';
-    password = "don't tell";
-
-    ms = new MultiSafe();
-    encrypted = ms._encrypt(word, password);
-    decrypted = ms._decrypt(encrypted, password);
-    expect(decrypted).toEqual(word);
-  });
-  it('should encrypt/decrypt an empty string', () => {
-    word = '';
-    password = "don't tell";
-
-    ms = new MultiSafe();
-    encrypted = ms._encrypt(word, password);
-    decrypted = ms._decrypt(encrypted, password);
-    expect(decrypted).toEqual(word);
-  });
-  it('should encrypt/decrypt a JSON blob', () => {
-    obj = {
-      x: 'hello',
-      y: 123
-    };
-    password = "don't tell";
-
-    ms = new MultiSafe();
-    encrypted = ms._encrypt(JSON.stringify(obj), password);
-    decrypted = JSON.parse(ms._decrypt(encrypted, password));
-    expect(decrypted).toEqual(obj);
-  });
-  it('should fail to decrypt with bad password', () => {
-    word = 'my secret';
-    password = "don't tell";
-
-    ms = new MultiSafe();
-    encrypted = ms._encrypt(word, password);
-    decrypted = ms._decrypt(encrypted, 'i told');
-    expect(decrypted).toEqual(null);
-  });
-});
-
-describe('MultiSafe storage tests...', () => {
-  it('should store and retrieve a string', async () => {
-    let s = 'we do housecalls!';
-    let ms = new MultiSafe();
-    let k = 'thekey';
-    // ms = await new MultiSafe().create("mystoragekey", "1234")
-    let x = ms._storeString(k, s);
-    let y = ms._retrieveString(k);
-    expect(y).toEqual(x);
-  });
-
-  it('should store and retrieve an object', async () => {
-    let o = {
-      s: "I'm Ben Franklin",
-      ndau: 1234
-    };
-    let ms = new MultiSafe();
-    let k = 'themetalkey';
-    // ms = await new MultiSafe().create("mystoragekey", "1234")
-    let x = ms._storeObject(k, o);
-    let y = ms._retrieveObject(k);
-    expect(y).toEqual(x);
-  });
-
-  it('should store and retrieve an encrypted object', async () => {
-    let o = {
-      s: "I'm Satoshi Nakamoto",
-      ndau: 1234437970
-    };
-    let k = 'themetalkey';
-    let pw = '1234';
-    let sk = 'mystoragekey';
-    let ms = new MultiSafe();
-    await ms.create(sk, pw);
-    expect(ms.storageKey).toEqual(sk);
-    ms._storeEncryptedObject(k, o, pw);
-    let y = await ms._retrieveEncryptedObject(k, pw);
-    expect(o).toEqual(y);
-  });
-
   it('should store and retrieve an object using the official API', async () => {
     let o = {
       s: "I'm Satoshi Nakamoto",
@@ -108,29 +18,12 @@ describe('MultiSafe storage tests...', () => {
     };
     let k = 'themetalkey';
     let pw = '1234';
-    let sk = 'mystoragekey';
+    let sk = 'storagekey1';
     let ms = new MultiSafe();
     await ms.create(sk, pw);
     await ms.store(o, pw);
     let y = await ms.retrieve(pw);
     expect(o).toEqual(y);
-  });
-
-  it('should be able to see that we have keys', async () => {
-    let o = {
-      s: "I'm Satoshi Nakamoto",
-      ndau: 1234437970
-    };
-    let k = 'themetalkey';
-    let pw = '1234';
-    let sk = 'mystoragekey';
-    let ms = new MultiSafe();
-    await ms.create(sk, pw);
-    await ms.store(o, pw);
-    let y = await ms.retrieve(pw);
-    expect(o).toEqual(y);
-    const keys = await ms._getMultisafeKeys();
-    expect(keys.length).toBe(1);
   });
 
   it('should overwrite an object', async () => {
@@ -140,7 +33,7 @@ describe('MultiSafe storage tests...', () => {
     };
     let k = 'themetalkey';
     let pw = '1234';
-    let sk = 'mystoragekey';
+    let sk = 'storagekey2';
     let ms = new MultiSafe();
     await ms.create(sk, pw);
     await ms.store(o, pw);
@@ -156,7 +49,7 @@ describe('MultiSafe storage tests...', () => {
       ndau: 1234437970
     };
     let k = 'themetalkey';
-    let sk = 'mystoragekey';
+    let sk = 'storagekey3';
     let pw = 'r00t';
     let morepws = [ 'passw0rd', 'correct-horse-battery-staple', 'random garbage', 'kittycat' ];
     let ms = new MultiSafe();
@@ -180,7 +73,7 @@ describe('MultiSafe storage tests...', () => {
     let k = 'themetalkey';
     let pw1 = '1234';
     let pw2 = 'correct-horse-battery-staple';
-    let sk = 'mystoragekey';
+    let sk = 'storagekey4';
     let ms = new MultiSafe();
     await ms.create(sk, pw1);
     await ms.store(o, pw1);
@@ -207,7 +100,7 @@ describe('MultiSafe storage tests...', () => {
     };
     let k = 'themetalkey';
     let pw = '1234';
-    let sk = 'mystoragekey';
+    let sk = 'storagekey5';
     let ms = new MultiSafe();
     await ms.create(sk, pw);
     await ms.store(o, pw);
@@ -221,18 +114,66 @@ describe('MultiSafe storage tests...', () => {
     }
   });
 
+  it('should be able to get the storage with a newly created MultiSafe', async () => {
+    console.log('starting last test');
+    let o = {
+      s: 'I am Groot',
+      ndau: 1234437970
+    };
+    let pw = '1234';
+    let sk = 'storagekey6';
+    let ms = new MultiSafe();
+    console.log('creating 1');
+    await ms.create(sk, pw);
+    console.log('Storing 1');
+    await ms.store(o, pw);
+    console.log('retrieving 1');
+    let y = await ms.retrieve(pw);
+    expect(y).toEqual(o);
+    expect(await ms.verify(pw)).toBeTruthy();
+
+    let ms1 = new MultiSafe();
+    console.log('creating 2');
+    await ms1.create(sk, pw);
+    expect(ms1.storageKey).toEqual(ms.storageKey);
+    console.log('verifying 2');
+    expect(await ms1.verify(pw)).toBeTruthy();
+    console.log('retrieving 2');
+    let z = await ms1.retrieve(pw);
+    expect(z).toEqual(o);
+  });
+
   it('should see if a MultiSafe is present', async () => {
     let o = {
       s: 'I am Groot',
       ndau: 1234437970
     };
     let pw = '1234';
-    let sk = 'mystoragekey';
+    let sk = 'mystoragekeygroot1';
     let ms = new MultiSafe();
     await ms.create(sk, pw);
     await ms.store(o, pw);
     let y = await ms.retrieve(pw);
     expect(o).toEqual(y);
     expect(await MultiSafe.isAMultiSafePresent()).toBe(true);
+  });
+
+  it('should be able to get the storage key', async () => {
+    let o = {
+      s: 'I am Groot',
+      ndau: 1234437970
+    };
+    let pw = '1234';
+    let sk = 'mystoragekeygroot2';
+    let ms = new MultiSafe();
+    await ms.create(sk, pw);
+    await ms.store(o, pw);
+    let y = await ms.retrieve(pw);
+    expect(o).toEqual(y);
+
+    let ms1 = new MultiSafe();
+    let storageKeys = await ms1.getStorageKeys();
+    console.log(`storageKeys are ${storageKeys}`);
+    expect(storageKeys[7]).toEqual(sk);
   });
 });

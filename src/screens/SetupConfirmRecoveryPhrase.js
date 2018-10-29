@@ -52,12 +52,7 @@ class SetupConfirmRecoveryPhrase extends Component {
   }
 
   showNextSetup = async () => {
-    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
-    if (isMainNetAlive) {
-      this.props.navigation.navigate('SetupWalletName');
-    } else {
-      this.props.navigation.navigate('SetupTermsOfService');
-    }
+    this.props.navigation.navigate('SetupWalletName');
   };
 
   pushBack = async () => {

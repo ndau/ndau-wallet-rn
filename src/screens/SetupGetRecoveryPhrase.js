@@ -13,7 +13,7 @@ import Carousel from 'react-native-looped-carousel';
 import { Dialog } from 'react-native-simple-dialogs';
 import ErrorPanel from '../components/ErrorPanel';
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
 import UserData from '../model/UserData';
 
 const DEFAULT_ROW_LENGTH = 3; // 3 items per row
@@ -113,9 +113,9 @@ class SetupGetRecoveryPhrase extends Component {
         //IF we have a password we are fixing up an account from a 1.6 user here
         //so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
-          await AsyncStorageHelper.lockUser(user, encryptionPassword);
-
           await UserData.loadData(user);
+
+          await MultiSafeHelper.saveUser(user, encryptionPassword);
 
           this.props.navigation.navigate('Dashboard', {
             user,

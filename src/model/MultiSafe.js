@@ -8,8 +8,9 @@ import SetupStore from './SetupStore';
 const PREFIX = 'Prefix@';
 const SUFFIX = '@Suffix';
 
-const MULTISAFE_DATA_PREFIX = 'MultiSafe_Data_';
-const MULTISAFE_META_PREFIX = 'MultiSafe_Meta_';
+const MULTISAFE_PREFIX = 'MultiSafe_';
+const MULTISAFE_DATA_PREFIX = MULTISAFE_PREFIX + 'Data_';
+const MULTISAFE_META_PREFIX = MULTISAFE_PREFIX + 'Meta_';
 
 class MultiSafe {
   // a MultiSafe is created with the constructor but may not be used until it
@@ -56,10 +57,11 @@ class MultiSafe {
     try {
       const keys = await AsyncStorage.getAllKeys();
       const newKeys = keys.filter(
-        (key) => key.slice(0, MULTISAFE_DATA_PREFIX.length) == MULTISAFE_DATA_PREFIX
+        (key) => key.slice(0, MULTISAFE_PREFIX.length) == MULTISAFE_PREFIX
       );
       return newKeys;
     } catch (error) {
+      console.debug('GetAllKeys failed', error);
       return [];
     }
   };
@@ -158,14 +160,11 @@ class MultiSafe {
   // decryption key symetrically encrypted with combo.
   create = async (storageKey, combo) => {
     this.storageKey = storageKey;
-    let multsafeKey = MULTISAFE_DATA_PREFIX + storageKey;
+    let multisafeKey = MULTISAFE_DATA_PREFIX + storageKey;
     let metaKey = MULTISAFE_META_PREFIX + storageKey;
     if (await this._keyExists(metaKey)) {
-      let metadata = await this._retrieveObject(metaKey);
-      // we found one with this name, let's try to get it with the combo
-      let dataSecret = await this._getDataSecret(combo);
-      let data = await this._retrieveEncryptedObject(multsafeKey, dataSecret);
-      return data;
+      await this.verify(combo);
+      return this;
     }
     // ok, it didn't exist, so we need a new one
     // build a random encryption secret
@@ -176,8 +175,8 @@ class MultiSafe {
     };
     await this._storeObject(metaKey, meta);
     data = {};
-    await this._storeEncryptedObject(multsafeKey, data, combo);
-    return data;
+    await this._storeEncryptedObject(multisafeKey, data, combo);
+    return this;
   };
 
   // Verify(combo string): Promise(bool)
@@ -196,8 +195,8 @@ class MultiSafe {
   // It stores the resulting encrypted blob in AsyncStorage under the storageKey.
   // It returns a void Promise or fails.
   store = async (data, combo) => {
-    let multsafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
-    return this._storeEncryptedObject(multsafeKey, data, combo);
+    let multisafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
+    return this._storeEncryptedObject(multisafeKey, data, combo);
   };
 
   // AddCombination(newcombo: string, oldcombo: string): Promise(void)
@@ -217,8 +216,26 @@ class MultiSafe {
   // Given a valid combination, this returns a Promise containing the decrypted
   // object that was last stored.
   retrieve = async (combo) => {
-    let multsafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
-    return this._retrieveEncryptedObject(multsafeKey, combo);
+    let multisafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
+    return this._retrieveEncryptedObject(multisafeKey, combo);
+  };
+
+  /**
+   * Send an array of all storage keys present within AsyncStorage
+   * @returns sends back an array of new
+   */
+  getStorageKeys = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const newKeys = keys.filter((key) => key.indexOf(MULTISAFE_DATA_PREFIX) !== -1).map((key) => {
+        if (key.indexOf(MULTISAFE_DATA_PREFIX) !== -1) {
+          return key.substring(MULTISAFE_DATA_PREFIX.length, key.length);
+        }
+      });
+      return newKeys;
+    } catch (error) {
+      return [];
+    }
   };
 
   /**

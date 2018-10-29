@@ -2,7 +2,6 @@ import React from 'react';
 import { ActivityIndicator, Alert, View } from 'react-native';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import MultiSafe from '../model/MultiSafe';
 import ErrorDialog from '../components/ErrorDialog';
 
@@ -25,17 +24,7 @@ class AuthLoadingScreen extends React.Component {
       } else if (multiSafes) {
         this.props.navigation.navigate('Auth');
       } else {
-        let isMainNetAlive = false;
-        try {
-          isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
-        } catch (error) {
-          console.warn(`Unable to talk to MainNet: ${error}`);
-        }
-        if (isMainNetAlive) {
-          this.props.navigation.navigate('SetupWelcome');
-        } else {
-          this.props.navigation.navigate('Setup');
-        }
+        this.props.navigation.navigate('SetupWelcome');
       }
     } catch (error) {
       ErrorDialog.showError(`Problem encountered: ${error}`);
