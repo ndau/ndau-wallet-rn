@@ -57,9 +57,13 @@ class SetupQRCode extends Component {
   }
 
   showNextSetup = () => {
+    const { navigation } = this.props;
     SetupStore.qrCode = this.state.qrToken;
-
-    this.props.navigation.navigate('SetupEncryptionPassword', { comingFrom: 'SetupQRCode' });
+  
+    this.props.navigation.navigate('SetupEncryptionPassword', {
+      comingFrom: 'SetupQRCode' ,
+      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+    });
   };
 
   render() {
@@ -67,7 +71,7 @@ class SetupQRCode extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar screenNumber={3} />
+            <SetupProgressBar />
             <View>
               <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
                 To send and receive ndau, you will need to use your device's camera.

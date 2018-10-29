@@ -12,7 +12,9 @@ class SetupEncryptionPassword extends Component {
   }
 
   showNextSetup = () => {
-    const user = this.props.navigation.getParam('user', null);
+    const { navigation } = this.props;
+
+    const user = navigation.getParam('user', null);
     if (user) {
       if (!user.userId) {
         user.userId = SetupStore.walletName;
@@ -21,9 +23,12 @@ class SetupEncryptionPassword extends Component {
         user.wallets = [ { walletName: SetupStore.walletName } ];
       }
     }
-    this.props.navigation.navigate('SetupEncryptionPassword', {
+
+
+    navigation.navigate('SetupEncryptionPassword', {
       comingFrom: 'SetupWalletName',
-      user
+      user,
+      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
     });
   };
 
@@ -32,7 +37,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <SetupProgressBar screenNumber={4} />
+            <SetupProgressBar />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Give this wallet a name.

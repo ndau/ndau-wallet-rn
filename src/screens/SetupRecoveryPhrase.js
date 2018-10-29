@@ -96,7 +96,11 @@ class SetupRecoveryPhrase extends Component {
     SetupStore.recoveryPhrase = this.state.recoveryPhrase;
     SetupStore.shuffledMap = this.shuffleMap;
     SetupStore.shuffledWords = this.shuffledWords;
-    this.props.navigation.navigate('SetupConfirmRecoveryPhrase');
+
+    const { navigation } = this.props;
+    navigation.navigate('SetupConfirmRecoveryPhrase', {
+      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+    });
   };
 
   render() {
@@ -114,7 +118,7 @@ class SetupRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
-            <SetupProgressBar screenNumber={6} />
+            <SetupProgressBar />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Write this 12-word phrase down and store it in a secure location.

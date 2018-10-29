@@ -28,7 +28,6 @@ class SetupTermsOfService extends Component {
     console.debug('Finishing Setup...');
  
     const { navigation } = this.props;
-    navigation.setParam({ walletSetupType: null });
     let user = navigation.getParam('user', null);
     //if there is not user passed along, then we generate
     if (!user) {
@@ -59,9 +58,10 @@ class SetupTermsOfService extends Component {
 
       await UserData.loadData(user);
 
-      this.props.navigation.navigate('Dashboard', {
+      navigation.navigate('Dashboard', {
         user,
-        encryptionPassword: SetupStore.encryptionPassword
+        encryptionPassword: SetupStore.encryptionPassword,
+        walletSetupType: null,
       });
     } catch (error) {
       console.error(error);

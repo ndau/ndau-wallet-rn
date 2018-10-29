@@ -54,14 +54,21 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    SetupStore.encryptionPassword = this.state.password;
 
-    const comingFrom = this.props.navigation.getParam('comingFrom', '');
+
+    SetupStore.encryptionPassword = this.state.password;
+    const { navigation } = this.props;
+    const comingFrom = navigation.getParam('comingFrom', '');
     if (comingFrom === 'SetupQRCode') {
-      this.props.navigation.navigate('SetupYourWallet');
+      navigation.navigate('SetupYourWallet', {
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      });
     } else {
-      const user = this.props.navigation.getParam('user', null);
-      this.props.navigation.navigate('SetupTermsOfService', { user });
+      const user = navigation.getParam('user', null);
+      navigation.navigate('SetupTermsOfService', { 
+        user,
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      });
     }
   };
 
