@@ -20,18 +20,24 @@ import AppConstants from '../AppConstants';
  */
 const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   const recoveryPhraseStringAsBytes = await _getRecoveryStringAsBytes(recoveryPhraseString);
-  let newUser = await KeyAddrGenManager.createFirstTimeUser(recoveryPhraseStringAsBytes);
+  let newUser = await KeyAddrGenManager.createFirstTimeUser(
+    recoveryPhraseStringAsBytes,
+    user.userId
+  );
 
   if (user) {
     //Populate data from older user
     newUser.userId = user.userId;
-    newUser.addresses = user.addresses;
   }
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseStringAsBytes);
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`);
   if (bip44Accounts && bip44Accounts.addressData.length > 0) {
-    newUser = await KeyAddrGenManager.addAccounts(newUser, bip44Accounts.addressData.length);
+    await KeyAddrGenManager.addAccountsToUser(
+      recoveryPhraseStringAsBytes,
+      newUser,
+      bip44Accounts.addressData.length
+    );
     console.log(`newUser with BIP44: ${JSON.stringify(newUser, null, 2)}`);
   }
 
@@ -39,11 +45,16 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   console.log(`root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`);
   if (rootAccounts && rootAccounts.addressData.length > 0) {
     //Here again we are attempting to genereate at the very root of the tree
-    newUser = await KeyAddrGenManager.addAccounts(newUser, rootAccounts.addressData.length, '');
+    await KeyAddrGenManager.addAccountsToUser(
+      recoveryPhraseStringAsBytes,
+      newUser,
+      rootAccounts.addressData.length,
+      ''
+    );
     console.log(`newUser with root: ${JSON.stringify(newUser, null, 2)}`);
   }
 
-  return newUser.accounts ? newUser : null;
+  return newUser.wallets[newUser.userId].accounts ? newUser : null;
 };
 
 const _getRecoveryStringAsBytes = async (recoveryPhraseString) => {

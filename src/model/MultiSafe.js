@@ -56,7 +56,7 @@ class MultiSafe {
     try {
       const keys = await AsyncStorage.getAllKeys();
       const newKeys = keys.filter(
-        (key) => key.slice(0, len(MULTISAFE_DATA_PREFIX)) == MULTISAFE_DATA_PREFIX
+        (key) => key.slice(0, MULTISAFE_DATA_PREFIX.length) == MULTISAFE_DATA_PREFIX
       );
       return newKeys;
     } catch (error) {
@@ -219,6 +219,23 @@ class MultiSafe {
   retrieve = async (combo) => {
     let multsafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
     return this._retrieveEncryptedObject(multsafeKey, combo);
+  };
+
+  /**
+   * Is a MultiSafe present within the AsyncStorage keys.
+   * @returns {boolean} true if present, false if not
+   */
+  static isAMultiSafePresent = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      for (let key of keys) {
+        if (key.substring(0, MULTISAFE_META_PREFIX.length) === MULTISAFE_META_PREFIX) {
+          return true;
+        }
+      }
+    } catch (error) {}
+
+    return false;
   };
 }
 

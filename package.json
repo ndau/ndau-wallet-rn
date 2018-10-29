@@ -33,9 +33,10 @@
     "android": "react-native run-android",
     "android-test-prod": "react-native run-android --variant=release",
     "ios-clean": "kill $(lsof -t -i:8081); react-native run-ios --simulator='iPhone 8'",
-    "ios": "react-native run-ios --simulator='iPhone 8 Plus'",
+    "ios": "react-native run-ios --simulator='iPhone SE'",
     "android-prod": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release && zipalign -v -p 4 app-release.apk app-release-signed.apk && apksigner sign --ks ../../../../ndau-wallet-release-key.jks --out app-release.apk app-release-signed.apk",
     "test": "jest",
+    "test-ci": "jest --ci --runInBand",
     "testnew": "jest -o",
     "xcode-open": "open ios/ndauwalletrn.xcodeproj",
     "android-install": "cd android && ./gradlew installDebug",
@@ -43,9 +44,7 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [
-      "./setupJest.js"
-    ],
+    "setupFiles": [ "./setupJest.js" ],
     "globals": {
       "__DEV__": true
     }
@@ -89,9 +88,7 @@
     "util": "^0.10.4"
   },
   "rnpm": {
-    "assets": [
-      "assets/fonts"
-    ]
+    "assets": [ "assets/fonts" ]
   },
   "react-native": {
     "zlib": "browserify-zlib",

@@ -6,12 +6,16 @@ class Account {
   constructor() {
     this.address = '';
     this.addressData = {};
+    this.ownershipKey = '';
+    this.validationKeys = [];
   }
 
   toJSON = () => {
     return {
       address: this.address,
-      addressData: this.addressData
+      addressData: this.addressData,
+      ownershipKey: this.ownershipKey,
+      validationKeys: this.validationKeys
     };
   };
 }

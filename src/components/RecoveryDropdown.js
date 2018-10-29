@@ -35,13 +35,11 @@ class RecoveryDropdown extends Component {
         query,
         5
       );
-      console.log(`words are ${words}`);
       this.retrievedData = true;
       wordsArray = words.split(' ');
       console.log(`wordsArray is ${wordsArray}`);
 
       if (wordsArray.length <= 0) {
-        console.log(`Word not found!`);
         this.setState({ textColor: '#ff0000' });
         this.props.setAcquisitionError(true);
       } else {
