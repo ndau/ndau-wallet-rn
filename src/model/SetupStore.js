@@ -109,7 +109,7 @@ class SetupStore {
     Alert.alert(
       'Information',
       `Old address type was ${oldAddressType} which has been moved to ${newAddressType}`,
-      [ { text: 'OK', onPress: () => {} } ],
+      [{ text: 'OK', onPress: () => { } }],
       { cancelable: false }
     );
 
@@ -133,15 +133,15 @@ class SetupStore {
   }
 
   _printData = () => {
-    console.debug(`SetupStore.userId ${this._userId}`);
-    console.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`);
-    console.debug(`SetupStore.qrCode ${this._qrCode}`);
-    console.debug(`SetupStore.entropy ${this._entropy}`);
-    console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
-    console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
-    console.debug(`SetupStore.shuffledMap ${this._shuffledMap}`);
-    console.debug(`SetupStore.walletName ${this._walletName}`);
-    console.debug(`SetupStore.addressType ${this._addressType}`);
+    // console.debug(`SetupStore.userId ${this._userId}`);
+    // console.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`);
+    // console.debug(`SetupStore.qrCode ${this._qrCode}`);
+    // console.debug(`SetupStore.entropy ${this._entropy}`);
+    // console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
+    // console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
+    // console.debug(`SetupStore.shuffledMap ${this._shuffledMap}`);
+    // console.debug(`SetupStore.walletName ${this._walletName}`);
+    // console.debug(`SetupStore.addressType ${this._addressType}`);
   };
 }
 
