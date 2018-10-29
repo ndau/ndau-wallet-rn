@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Share } from 'react-native';
-import QRCode from 'react-native-qrcode-svg';
+import QRCode from 'react-native-qrcode';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import {
   widthPercentageToDP as wp,
@@ -26,7 +26,7 @@ class Send extends Component {
       <View>
         {/* TODO: add Send form */}
 
-        <View>
+        <View styles={{flex: 1}}>
           <CommonButton
             title={`send ${this.state.amount}`}
             onPress={this.send}
@@ -51,15 +51,12 @@ class Receive extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
+        <View style={{alignSelf: 'center'}}>
           <QRCode
             value={this.props.address}
             size={250}
             color='black'
             backgroundColor='white'
-            // logo={require('../../img/n_icon_ko.png')}
-            // logoSize={60}
-            // logoBackgroundColor='black'
           />
         </View>
   
@@ -67,7 +64,7 @@ class Receive extends Component {
           {this.props.address}
         </Text>
   
-        <View>
+        <View styles={{flex: 1}}>
           <CommonButton
             title="Share address" 
             onPress={this.shareAddress}
@@ -130,13 +127,14 @@ const navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    // alignItems: 'center',
+    justifyContent: 'space-around',
   },
   text: {
     color: '#ffffff',
-    fontSize: 20,
+    fontSize: 17,
     fontFamily: 'TitilliumWeb-Regular',
     marginTop: hp('1%'),
     marginBottom: hp('1%'),

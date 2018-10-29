@@ -3,7 +3,6 @@ package com.ndauwalletrn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.horcrux.svg.SvgPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
@@ -27,7 +26,6 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(new MainReactPackage(),
-            new SvgPackage(),
                     new VectorIconsPackage(), new KeyaddrPackage(), new RNCameraPackage(), new RNExitAppPackage(),
                     new RNSecureRandomPackage());
         }

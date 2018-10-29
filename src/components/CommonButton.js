@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Button from 'react-native-button';
 import {
   widthPercentageToDP as wp,
@@ -22,11 +22,16 @@ class CommonButton extends Component {
         onPress={this.props.onPress}
         {...this.props}
       > 
-        {
-          this.props.iconProps && this.props.iconProps.name && // "name" is required
-          <FontAwesome {...this.props.iconProps} />
-        }
-        {this.props.title}
+        <Text style={styles.text}>
+          {
+            this.props.iconProps && this.props.iconProps.name && // "name" is required
+            <FontAwesome {...this.props.iconProps} style={{
+              color: "#fff",
+              paddingRight: 50,
+            }} />
+          }
+          {this.props.title} 
+        </Text>
       </Button>
     );
   }
@@ -37,7 +42,8 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontFamily: 'TitilliumWeb-Regular',
-    color: '#fff'
+    fontWeight: 'bold',
+    alignSelf: 'center',
   },
   disabledStyle: {
     backgroundColor: '#696969'

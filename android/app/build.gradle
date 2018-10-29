@@ -181,7 +181,6 @@ android {
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 dependencies {
-    compile project(':react-native-svg')
     implementation project(':react-native-exit-app')
     implementation project(':react-native-securerandom')
     implementation project(':react-native-vector-icons')

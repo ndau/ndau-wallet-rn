@@ -110,7 +110,7 @@ class Dashboard extends Component {
   };
 
   render = () => {
-    console.log(`rendering Dashboard`);
+    console.log('rendering Dashboard');
     console.debug(`user: ${JSON.stringify(this.state.user, null, 2)}`);
 
     const { accounts, userId, marketPrice } = this.state.user;
@@ -224,8 +224,7 @@ class Dashboard extends Component {
                     totalNdau={totalNdau}
                     lock={this.lock}
                     unlock={this.unlock}
-                    startTransaction={(address) => { 
-                      // this.showModal(TRANSACTION_MODAL_ID);
+                    startTransaction={(address) => {
                       console.log('state before transaction started', this.state)
                       this.setState({
                         activeAddress: address,

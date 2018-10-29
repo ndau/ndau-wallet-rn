@@ -105,8 +105,7 @@ class AccountCard extends Component {
         <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
           <TouchableOpacity onPress={() => startTransaction(address)}>
             <Image
-              // TODO: use correct image file.
-              source={require('../../img/n_icon_ko.png')}
+              source={require('../../img/send_receive_both.png')}
               style={{
                 width: 30,
                 height: 35
