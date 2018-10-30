@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { StyleSheet, Modal, View, TouchableHighlight, Text } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -15,9 +14,7 @@ class ModalDialog extends Component {
         <View style={[ styles.outerView, this.props.outerViewStyle ]}>
           <View style={[ styles.innerView, this.props.innerViewStyle ]}>
             <TouchableHighlight
-              onPress={() => {
-                this.props.setModalVisible(false);
-              }}
+              onPress={this.props.closeModal}
             >
               <FontAwesome
                 style={styles.closeButton}
