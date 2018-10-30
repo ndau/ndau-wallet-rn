@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Button from 'react-native-button';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import cssStyles from '../css/styles';
 
 class CommonButton extends Component {
@@ -20,8 +21,17 @@ class CommonButton extends Component {
         containerStyle={styles.containerStyle}
         onPress={this.props.onPress}
         {...this.props}
-      >
-        {this.props.title}
+      > 
+        <Text style={styles.text}>
+          {
+            this.props.iconProps && this.props.iconProps.name && // "name" is required
+            <FontAwesome {...this.props.iconProps} style={{
+              color: "#fff",
+              paddingRight: 50,
+            }} />
+          }
+          {this.props.title} 
+        </Text>
       </Button>
     );
   }
@@ -32,7 +42,8 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontFamily: 'TitilliumWeb-Regular',
-    color: '#fff'
+    fontWeight: 'bold',
+    alignSelf: 'center',
   },
   disabledStyle: {
     backgroundColor: '#696969'
