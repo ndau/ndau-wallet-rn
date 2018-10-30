@@ -156,7 +156,7 @@ class Passphrase extends Component {
             <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
                 <Image
-                  style={{ width: 35, height: 38, marginTop: hp('1%') }}
+                  style={{ width: 35, height: 38, marginTop: hp('4%') }}
                   source={require('../../img/info_icon_gold.png')}
                 />
               </TouchableOpacity>

@@ -122,7 +122,7 @@ exports[`testing Passphrase... renders correctly 1`] = `
               style={
                 Object {
                   "height": 38,
-                  "marginTop": 13.5,
+                  "marginTop": 53.5,
                   "width": 35,
                 }
               }
@@ -214,21 +214,13 @@ exports[`testing Passphrase... renders correctly 1`] = `
             allowFontScaling={true}
             ellipsizeMode="tail"
             style={
-              Array [
-                Object {
-                  "color": "#007aff",
-                  "fontSize": 17,
-                  "fontWeight": "500",
-                  "textAlign": "center",
-                },
-                null,
-                Object {
-                  "color": "#fff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 16,
-                },
-                null,
-              ]
+              Object {
+                "alignSelf": "center",
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+              }
             }
           >
             Login

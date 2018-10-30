@@ -675,21 +675,13 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
             allowFontScaling={true}
             ellipsizeMode="tail"
             style={
-              Array [
-                Object {
-                  "color": "#007aff",
-                  "fontSize": 17,
-                  "fontWeight": "500",
-                  "textAlign": "center",
-                },
-                null,
-                Object {
-                  "color": "#fff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 16,
-                },
-                null,
-              ]
+              Object {
+                "alignSelf": "center",
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+              }
             }
           >
             Back (resets phrase)
@@ -731,23 +723,13 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
             allowFontScaling={true}
             ellipsizeMode="tail"
             style={
-              Array [
-                Object {
-                  "color": "#007aff",
-                  "fontSize": 17,
-                  "fontWeight": "500",
-                  "textAlign": "center",
-                },
-                Object {
-                  "color": "#dcdcdc",
-                },
-                Object {
-                  "color": "#fff",
-                  "fontFamily": "TitilliumWeb-Regular",
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
+              Object {
+                "alignSelf": "center",
+                "color": "#ffffff",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+              }
             }
           >
             Next
