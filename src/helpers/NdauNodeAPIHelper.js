@@ -3,14 +3,18 @@ import DateHelper from './DateHelper';
 import AppConfig from '../AppConfig';
 import OrderNodeAPI from '../api/OrderNodeAPI';
 
-const populateCurrentUserWithAddressData = async (user) => {
+const populateWalletWithAddressData = async (wallet) => {
   try {
-    const addressDataFromAPI = await NdauNodeAPI.getAddressData(user.selectedNode, user.addresses);
-    const eaiPercentageData = await OrderNodeAPI.getEAIPercentage(user.selectedNode);
-    const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice(user.selectedNode);
+    const addressDataFromAPI = await NdauNodeAPI.getAddressData(
+      wallet.selectedNode,
+      wallet.addresses
+    );
+    const eaiPercentageData = await OrderNodeAPI.getEAIPercentage(wallet.selectedNode);
+    const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice(wallet.selectedNode);
     const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : [];
 
-    user.marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : 0;
+    //TODO: NEED TO ADDRESS THIS~!!!!!
+    wallet.marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : 0;
 
     const eaiPercentageMap = new Map();
     eaiPercentageData.forEach((account) => {
@@ -19,8 +23,9 @@ const populateCurrentUserWithAddressData = async (user) => {
 
     const addressNicknameMap = new Map();
 
-    //This is mainly done if there is not data, to name the accounts
-    user.accounts.forEach((account, index) => {
+    //This is mainly done if there is not data, to name the wallet.accounts
+    Object.keys(wallet.accounts).forEach((accountKey, index) => {
+      const account = wallet.accounts[accountKey];
       if (!account.addressData) {
         account.addressData = {};
       }
@@ -47,7 +52,8 @@ const populateCurrentUserWithAddressData = async (user) => {
     });
 
     //NOW get addressData in it's rightful place
-    user.accounts.forEach((account) => {
+    Object.keys(wallet.accounts).forEach((accountKey) => {
+      const account = wallet.accounts[accountKey];
       addressData.forEach((dataToPutIntoUser) => {
         if (account.address === dataToPutIntoUser.address) {
           account.addressData = dataToPutIntoUser;
@@ -112,9 +118,9 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
 
   if (!accounts) return total;
 
-  accounts.forEach((account) => {
-    if (account.addressData && account.addressData.balance) {
-      total += parseFloat(account.addressData.balance);
+  Object.keys(accounts).forEach((accountKey) => {
+    if (accounts[accountKey].addressData && accounts[accountKey].addressData.balance) {
+      total += parseFloat(accounts[accountKey].addressData.balance);
     }
   });
   return localizedText ? total.toLocaleString(AppConfig.LOCALE) : total;
@@ -147,7 +153,7 @@ const isMainNetAlive = async () => {
 };
 
 export default {
-  populateCurrentUserWithAddressData,
+  populateWalletWithAddressData,
   accountLockedUntil,
   accountNdauAmount,
   accountTotalNdauAmount,
