@@ -2,7 +2,6 @@ import User from '../model/User';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
 import AppConstants from '../AppConstants';
 import UserData from '../model/UserData';
-import PhoneData from '../model/PhoneData';
 import { NativeModules } from 'react-native';
 import MultiSafe from '../model/MultiSafe';
 
@@ -49,17 +48,14 @@ const setupNewUser = async (
 const _internalSaveUser = async (user, encryptionPassword, walletName, recoveryPhraseString) => {
   const multiSafe = new MultiSafe();
 
-  let phoneData = new PhoneData();
-  phoneData.users[walletName] = user;
-
-  console.log(`persisting the following into MultiSafe: ${JSON.stringify(phoneData, null, 2)}`);
+  console.log(`persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`);
 
   await UserData.loadData(user);
 
   //create a multisafe
   await multiSafe.create(walletName, encryptionPassword);
   //store the phone data
-  await multiSafe.store(phoneData, encryptionPassword);
+  await multiSafe.store(user, encryptionPassword);
   //add recovery phrase as combination so we can unlock with this
   if (recoveryPhraseString)
     await multiSafe.addCombination(recoveryPhraseString, encryptionPassword);
@@ -81,13 +77,9 @@ const getDefaultUser = async (encryptionPassword) => {
   //call create to initialize the storageKey
   await multiSafe.create(storageKeys[0], encryptionPassword);
   //actually get the data
-  const phoneData = await multiSafe.retrieve(encryptionPassword);
-  //For now we send back the first property in the phoneData object
-  //as the default user, this may change in the future
-  //First we get the value of users...
-  const firstUser = Object.values(phoneData)[0];
-  //then we send back the actual value of the first property
-  return Object.values(firstUser)[0];
+  const user = await multiSafe.retrieve(encryptionPassword);
+
+  return user;
 };
 
 /**
