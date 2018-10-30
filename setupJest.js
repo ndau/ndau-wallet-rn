@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const { JSDOM } = require('jsdom');
 const jsdom = new JSDOM();
 const { window } = jsdom;

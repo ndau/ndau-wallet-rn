@@ -8,17 +8,22 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  StatusBar
+  StatusBar,
+  Platform
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
-import { Dropdown } from 'react-native-material-dropdown';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import RNExitApp from 'react-native-exit-app';
-import UserStore from '../model/UserStore';
 import { SafeAreaView } from 'react-navigation';
-import StyleConstants from '../css/styleConstants';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
+import Dropdown from '../components/Dropdown';
+import UserData from '../model/UserData';
+import ErrorDialog from '../components/ErrorDialog';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -36,30 +41,34 @@ class Passphrase extends Component {
   }
 
   componentWillMount = async () => {
-    const userIds = await AsyncStorageHelper.getAllKeys();
-    let userIdsForDropdown = userIds.map((userId) => {
-      return { value: userId };
-    });
-    this.setState({ userIds: userIdsForDropdown });
+    try {
+      const userIds = await AsyncStorageHelper.getAllKeys();
+      this.setState({ userIds });
+    } catch (error) {
+      ErrorDialog.showError(error);
+    }
   };
 
-  login = () => {
-    AsyncStorageHelper.getUser(this.state.userId, this.state.password)
-      .then((user) => {
-        if (user) {
-          console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
-          UserStore.setUser(user);
+  login = async () => {
+    try {
+      //TODO: This component will change as we no longer will deal with users.
+      let user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
+      if (user) {
+        console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
 
-          // this.props.navigation.state.params.onNavigateBack(user);
-          this.props.navigation.navigate('App');
-        } else {
-          this.showLoginError();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
+        await UserData.loadData(user);
+
+        this.props.navigation.navigate('Dashboard', {
+          user,
+          encryptionPassword: this.state.password
+        });
+      } else {
         this.showLoginError();
-      });
+      }
+    } catch (error) {
+      console.log(error);
+      this.showLoginError();
+    }
   };
 
   showExitApp() {
@@ -89,7 +98,6 @@ class Passphrase extends Component {
         {
           text: 'OK',
           onPress: () => {
-            UserStore.setUser({});
             this.setState({ loginAttempt: this.state.loginAttempt + 1 });
           }
         }
@@ -103,65 +111,83 @@ class Passphrase extends Component {
       'Information',
       'Please enter the password you chose to encrypt this app. ' +
         'This is not the same thing as your six-character ID or key ' +
-        'seed phrase.',
+        'recovery phrase.',
       [ { text: 'OK', onPress: () => {} } ],
       { cancelable: false }
     );
   };
 
-  showSetup = () => {
-    this.props.navigation.navigate('Setup');
+  showSetup = async () => {
+    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+    if (isMainNetAlive) {
+      this.props.navigation.navigate('SetupWelcome');
+    } else {
+      this.props.navigation.navigate('Setup');
+    }
+  };
+
+  showRecovery = (user) => {
+    this.props.navigation.navigate('SetupGetRecoveryPhrase', {
+      user: user,
+      encryptionPassword: this.state.password
+    });
+  };
+
+  dropDownSelected = (index, value) => {
+    this.setState({
+      userId: value
+    });
   };
 
   render() {
     console.log(`rendering Passphrase`);
     const { textInputColor } = this.state;
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
-        <View style={styles.container}>
-          <ScrollView style={styles.contentContainer}>
+        <View style={cssStyles.container}>
+          <ScrollView style={cssStyles.contentContainer}>
             <View style={styles.imageView}>
               <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
             </View>
             <View style={styles.footer}>
               <Dropdown
-                label="Please choose a User ID"
-                data={this.state.userIds}
-                baseColor="#ffffff"
-                selectedItemColor="#000000"
-                textColor="#ffffff"
-                itemTextStyle={styles.text}
-                fontSize={18}
-                labelFontSize={14}
-                // value={this.state.userId}
-                onChangeText={(userId) => this.setState({ userId })}
+                defaultValue="User ID..."
+                defaultIndex={1}
+                options={this.state.userIds}
+                onSelect={this.dropDownSelected}
+                full={false}
               />
             </View>
-            <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
+            <View style={{ flexDirection: 'row' }}>
               <TextInput
                 style={{
-                  height: 45,
-                  width: '93%',
+                  height: hp('7%'),
+                  width: wp('96%'),
                   borderColor: 'gray',
                   borderWidth: 1,
-                  marginBottom: 10,
-                  marginTop: 10,
-                  paddingLeft: 10,
-                  color: textInputColor,
+                  borderRadius: 3,
+                  marginTop: hp('1%'),
+                  paddingLeft: wp('1%'),
+                  color: '#000000',
                   backgroundColor: '#ffffff',
                   fontSize: 18,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
                 onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
-                placeholder="Enter your app password"
+                placeholder="App Password"
                 placeholderTextColor="#333"
                 secureTextEntry={!this.state.showPasswords}
                 autoCapitalize="none"
               />
+            </View>
+            <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
-                <FontAwesome name="info" color="#ffffff" size={20} style={styles.infoIcon} />
+                <Image
+                  style={{ width: 35, height: 38, marginTop: hp('1%') }}
+                  source={require('../../img/info_icon_gold.png')}
+                />
               </TouchableOpacity>
             </View>
             {this.state.showErrorText ? (
@@ -174,12 +200,12 @@ class Passphrase extends Component {
           </ScrollView>
           <View style={styles.footer}>
             <View style={styles.textContainer}>
-              <Text onPress={this.showSetup} style={styles.linkText}>
+              <Text onPress={this.showSetup} style={cssStyles.linkText}>
                 Create a new user
               </Text>
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>or</Text>
+              <Text onPress={this.showRecovery} style={cssStyles.linkText}>
+                Recover account
+              </Text>
             </View>
             <View style={{ marginTop: 10 }}>
               <CommonButton onPress={this.login} title="Login" />
@@ -192,56 +218,36 @@ class Passphrase extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  container: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-
-    backgroundColor: '#1c2227'
-  },
   button: {
     marginTop: 0
   },
   textContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: wp('1%')
   },
   footer: {
-    justifyContent: 'flex-end',
-    margin: 10
+    justifyContent: 'flex-end'
   },
   imageView: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 40
+    paddingBottom: hp('4%')
   },
   image: {
-    tintColor: '#4e957a'
+    tintColor: '#4e957a',
+    ...Platform.select({
+      ios: {
+        marginTop: hp('3%')
+      },
+      android: {
+        marginTop: hp('2%')
+      }
+    })
   },
   infoIcon: {
     marginLeft: 12,
     marginTop: 20
-  },
-  linkText: {
-    color: StyleConstants.LINK_ORANGE,
-    fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 18,
-    textDecorationLine: 'underline'
   }
 });
 

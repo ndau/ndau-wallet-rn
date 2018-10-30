@@ -16,9 +16,9 @@ describe('AsyncStorageHelper tests...', () => {
     };
     const password = 'abcd';
 
-    await AsyncStorageHelper.setUser(user, password);
+    await AsyncStorageHelper.lockUser(user, password);
 
-    await AsyncStorageHelper.getUser(user.userId, password).then((storedUser) => {
+    await AsyncStorageHelper.unlockUser(user.userId, password).then((storedUser) => {
       console.log(
         `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user)}`
       );
@@ -40,11 +40,11 @@ describe('AsyncStorageHelper tests...', () => {
     };
     const password3 = 'anything';
 
-    await AsyncStorageHelper.setUser(user1, password1);
-    await AsyncStorageHelper.setUser(user2, password2);
-    await AsyncStorageHelper.setUser(user3, password3);
+    await AsyncStorageHelper.lockUser(user1, password1);
+    await AsyncStorageHelper.lockUser(user2, password2);
+    await AsyncStorageHelper.lockUser(user3, password3);
 
-    await AsyncStorageHelper.getUser(user2.userId, password2).then((storedUser) => {
+    await AsyncStorageHelper.unlockUser(user2.userId, password2).then((storedUser) => {
       console.log(
         `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
       );
@@ -66,23 +66,23 @@ describe('AsyncStorageHelper tests...', () => {
     };
     const password3 = 'anything';
 
-    await AsyncStorageHelper.setUser(user1, password1);
-    await AsyncStorageHelper.setUser(user2, password2);
-    await AsyncStorageHelper.setUser(user3, password3);
+    await AsyncStorageHelper.lockUser(user1, password1);
+    await AsyncStorageHelper.lockUser(user2, password2);
+    await AsyncStorageHelper.lockUser(user3, password3);
 
-    await AsyncStorageHelper.getUser(user1.userId, password1).then((storedUser) => {
+    await AsyncStorageHelper.unlockUser(user1.userId, password1).then((storedUser) => {
       console.log(
         `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user1)}`
       );
       expect(storedUser).toEqual(user1);
     });
-    await AsyncStorageHelper.getUser(user2.userId, password2).then((storedUser) => {
+    await AsyncStorageHelper.unlockUser(user2.userId, password2).then((storedUser) => {
       console.log(
         `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
       );
       expect(storedUser).toEqual(user2);
     });
-    await AsyncStorageHelper.getUser(user3.userId, password3).then((storedUser) => {
+    await AsyncStorageHelper.unlockUser(user3.userId, password3).then((storedUser) => {
       console.log(
         `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user3)}`
       );
@@ -104,11 +104,11 @@ describe('AsyncStorageHelper tests...', () => {
     };
     const password3 = 'anything';
 
-    await AsyncStorageHelper.setUser(user1, password1);
-    await AsyncStorageHelper.setUser(user2, password2);
-    await AsyncStorageHelper.setUser(user3, password3);
+    await AsyncStorageHelper.lockUser(user1, password1);
+    await AsyncStorageHelper.lockUser(user2, password2);
+    await AsyncStorageHelper.lockUser(user3, password3);
 
-    await AsyncStorageHelper.getUser('doesNotExist', password1)
+    await AsyncStorageHelper.unlockUser('doesNotExist', password1)
       .then((storedUser) => {
         fail();
       })
@@ -131,9 +131,9 @@ describe('AsyncStorageHelper tests...', () => {
     };
     const password3 = 'anything';
 
-    await AsyncStorageHelper.setUser(user1, password1);
-    await AsyncStorageHelper.setUser(user2, password2);
-    await AsyncStorageHelper.setUser(user3, password3);
+    await AsyncStorageHelper.lockUser(user1, password1);
+    await AsyncStorageHelper.lockUser(user2, password2);
+    await AsyncStorageHelper.lockUser(user3, password3);
 
     await AsyncStorageHelper.getAllKeys().then((keys) => {
       const arrayOfKeys = [ 'ABC-123', 'jimmy', 'ABC-123anything' ];
@@ -156,9 +156,9 @@ describe('AsyncStorageHelper tests...', () => {
     };
     const password3 = 'anything';
 
-    await AsyncStorageHelper.setUser(user1, password1);
-    await AsyncStorageHelper.setUser(user2, password2);
-    await AsyncStorageHelper.setUser(user3, password3);
+    await AsyncStorageHelper.lockUser(user1, password1);
+    await AsyncStorageHelper.lockUser(user2, password2);
+    await AsyncStorageHelper.lockUser(user3, password3);
 
     await AsyncStorageHelper.getAllKeys().then(async (keys) => {
       const arrayOfKeys = [ 'ABC-123', 'jimmy', 'ABC-123anything' ];
@@ -172,25 +172,4 @@ describe('AsyncStorageHelper tests...', () => {
       });
     });
   });
-
-  // it('testing migration of old @NdauAsynStorage:user value', async () => {
-  //   const user1 = {
-  //     userId: 'ABC-123'
-  //   };
-  //   const password1 = 'abcd';
-
-  //   await AsyncStorageHelper.setUser(user1, password1, STORAGE_KEY_PREFIX + 'user');
-
-  //   await AsyncStorageHelper.getAllKeys().then(async (keys) => {
-  //     const arrayOfKeys = [ 'ABC-123' ];
-  //     console.log(`keys are: ${keys}`);
-  //     expect(keys).toEqual(arrayOfKeys);
-  //     await AsyncStorageHelper.doesKeyExist('ABC-123').then((present) => {
-  //       expect(present).toBe(true);
-  //     });
-  //     await AsyncStorageHelper.doesKeyExist('ABC-123212').then((present) => {
-  //       expect(present).toBe(false);
-  //     });
-  //   });
-  // });
 });

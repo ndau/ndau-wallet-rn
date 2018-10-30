@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
+import { View, ScrollView, Text, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import ndauApi from '../api/NdauAPI';
+import ndauDashboardApi from '../api/NdauDashboardAPI';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
 import SetupStore from '../model/SetupStore';
+import ErrorDialog from '../components/ErrorDialog';
 
 class SetupUserId extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class SetupUserId extends Component {
   confirmUserIdPresent = () => {
     if (!this.state.userId) return false;
     return new Promise((resolve, reject) => {
-      ndauApi
+      ndauDashboardApi
         .getNumberOfAccounts(this.state.userId)
         .then((numberOfAccounts) => {
           this.setState({
@@ -31,7 +32,7 @@ class SetupUserId extends Component {
           resolve(numberOfAccounts > 0);
         })
         .catch((error) => {
-          console.error(error);
+          ErrorDialog.showError(error);
           reject(false);
         });
     });
@@ -46,8 +47,8 @@ class SetupUserId extends Component {
   }
 
   showNextSetup = () => {
-    SetupStore.setUserId(this.state.userId);
-    SetupStore.setNumberOfAccounts(this.state.numberOfAccounts);
+    SetupStore.userId = this.state.userId;
+    SetupStore.numberOfAccounts = this.state.numberOfAccounts;
 
     this.props.navigation.navigate('SetupQRCode');
   };
@@ -73,7 +74,19 @@ class SetupUserId extends Component {
   }
 
   showInfoMessage(msg) {
-    Alert.alert('Information', msg, [ { text: 'OK', onPress: () => {} } ], { cancelable: false });
+    Alert.alert(
+      'Information',
+      msg,
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            this.checkIfAlreadyExists();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
   }
 
   textChanged = (userId) => {
@@ -108,21 +121,21 @@ class SetupUserId extends Component {
         this.onSendEmail();
       }
     } catch (error) {
-      console.error(error);
+      ErrorDialog.showError(error);
       throw error;
     }
   };
 
   onSendEmail() {
     if (!this.state.userId) this.showErrorMessage('Please enter a User ID first.');
-    ndauApi
+    ndauDashboardApi
       .triggerQRTEmail(this.state.userId)
       .then(() => {
         this.showNextSetup();
       })
       .catch((error) => {
         this.showErrorMessage('Email could not be sent.');
-        console.error(error);
+        ErrorDialog.showError(error);
       });
   }
 
@@ -140,51 +153,42 @@ class SetupUserId extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={1} />
+          <ScrollView style={cssStyles.contentContainer}>
+            <Stepper screenNumber={2} />
             <View>
               <Text style={cssStyles.wizardText}>
-                In order to deliver your ndau to this wallet on Genesis Day, we need the
-                six-character code you use to access the ndau dashboard.
+                To deliver your ndau to your wallet, we need the six-character user ID you use to
+                access the ndau dashboard. We will send you an email to confirm you are the account
+                holder.
               </Text>
             </View>
-            <TextInput
-              style={cssStyles.textInput}
-              onChangeText={(userId) => this.textChanged(userId)}
-              value={this.state.userId}
-              placeholder="Enter your unique User ID"
-              placeholderTextColor="#333"
-              autoCapitalize="characters"
-              maxLength={7}
-            />
-
-            <View style={styles.buttonContainer}>
-              <CommonButton
-                onPress={() => {
-                  this.verify();
-                }}
-                title="Verify"
+            <View style={cssStyles.buttonContainer}>
+              <TextInput
+                style={cssStyles.textInput}
+                onChangeText={(userId) => this.textChanged(userId)}
+                value={this.state.userId}
+                placeholder="Enter your unique User ID"
+                placeholderTextColor="#333"
+                autoCapitalize="characters"
+                maxLength={7}
               />
             </View>
-            <View style={styles.buttonContainer}>
+
+            <View style={cssStyles.buttonContainer}>
               <CommonButton onPress={this.showExitApp} title="I don't have an ID" />
             </View>
-            <View style={styles.section} />
-          </ScrollView>
-          <View style={styles.footer}>
             <Text style={cssStyles.wizardText}>
               We will send you an email to confirm you are the account holder.
             </Text>
-
+          </ScrollView>
+          <View style={cssStyles.footer}>
             <CommonButton
-              style={{ marginTop: 15 }}
               onPress={() => {
-                this.checkIfAlreadyExists();
+                this.verify();
               }}
-              title="Send email"
-              disabled={this.state.numberOfAccounts === 0}
+              title="Verify"
             />
           </View>
         </View>
@@ -192,21 +196,5 @@ class SetupUserId extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  buttonContainer: {
-    marginBottom: 20
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  }
-});
 
 export default SetupUserId;

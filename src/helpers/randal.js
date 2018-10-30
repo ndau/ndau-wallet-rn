@@ -1,5 +1,6 @@
 import sha256 from 'crypto-js/sha256';
 import { generateSecureRandom } from 'react-native-securerandom';
+import ErrorDialog from '../components/ErrorDialog';
 
 // Randal handles capturing randomness by taking scribbled points as input.
 // Basic algorithm is this:
@@ -29,7 +30,7 @@ export default class Randal {
           resolve(true);
         })
         .catch((e) => {
-          console.error(`Randal.init: could not get random number: ${e}`);
+          ErrorDialog.showError(`Randal.init: could not get random number: ${e}`);
           reject(false);
         });
     });

@@ -1,7 +1,5 @@
 import { Alert } from 'react-native';
-
-const TESTNET_ADDRESS = 'tn';
-const MAINNET_ADDRESS = 'nd';
+import AppConstants from '../AppConstants';
 
 class SetupStore {
   constructor() {
@@ -14,98 +12,99 @@ class SetupStore {
     this._qrCode = '';
     this._encryptionPassword = '';
     this._entropy = '';
-    this._seedPhrase = '';
+    this._recoveryPhrase = '';
     this._shuffledMap = [];
     this._shuffledWord = [];
-    this._addressType = MAINNET_ADDRESS;
-
-    return SetupStore.instance;
+    this._addressType = AppConstants.MAINNET_ADDRESS;
+    this._walletName = '';
   }
 
-  setUserId(userId) {
+  set userId(userId) {
     this._userId = userId;
-    console.debug(`SetupStore.setUserId ${this._userId}`);
+    this._printData();
   }
 
-  getUserId() {
-    console.debug(`SetupStore.getUserId ${this._userId}`);
+  get userId() {
+    console.debug(`SetupStore.userId ${this._userId}`);
     return this._userId;
   }
 
-  setNumberOfAccounts(numberOfAccounts) {
+  set numberOfAccounts(numberOfAccounts) {
     this._numberOfAccounts = numberOfAccounts;
-    console.debug(`SetupStore.setNumberOfAccounts ${this._numberOfAccounts}`);
+    this._printData();
   }
 
-  getNumberOfAccounts() {
-    console.debug(`SetupStore.getNumberOfAccounts ${this._numberOfAccounts}`);
+  get numberOfAccounts() {
+    console.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`);
     return this._numberOfAccounts;
   }
 
-  setQRCode(qrCode) {
+  set qrCode(qrCode) {
     this._qrCode = qrCode;
-    console.debug(`SetupStore.setQRCode ${this._qrCode}`);
+    this._printData();
   }
 
-  getQRCode() {
-    console.debug(`SetupStore.getQRCode ${this._qrCode}`);
+  get qrCode() {
+    console.debug(`SetupStore.qrCode ${this._qrCode}`);
     return this._qrCode;
   }
 
-  setEncryptionPassword(encryptionPassword) {
+  set encryptionPassword(encryptionPassword) {
     this._encryptionPassword = encryptionPassword;
-    console.debug(`SetupStore.setEncryptionPassword ${this._encryptionPassword}`);
+    this._printData();
   }
 
-  getEncryptionPassword() {
-    console.debug(`SetupStore.getEncryptionPassword ${this._encryptionPassword}`);
+  get encryptionPassword() {
+    console.debug(`SetupStore.encryptionPassword ${this._encryptionPassword}`);
     return this._encryptionPassword;
   }
 
-  setEntropy(entropy) {
+  set entropy(entropy) {
     this._entropy = entropy;
-    console.debug(`SetupStore.setEntropy ${this._entropy}`);
+    this._printData();
   }
 
-  getEntropy() {
-    console.debug(`SetupStore.getEntropy ${this._entropy}`);
+  get entropy() {
+    console.debug(`SetupStore.entropy ${this._entropy}`);
     return this._entropy;
   }
 
-  setSeedPhrase(seedPhrase) {
-    this._seedPhrase = seedPhrase.slice();
-    console.debug(`SetupStore.setSeedPhrase ${this._seedPhrase}`);
+  set recoveryPhrase(recoveryPhrase) {
+    this._recoveryPhrase = recoveryPhrase.slice();
+    this._printData();
   }
 
-  getSeedPhrase() {
-    console.debug(`SetupStore.getSeedPhrase ${this._seedPhrase}`);
-    return this._seedPhrase;
+  get recoveryPhrase() {
+    console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
+    return this._recoveryPhrase;
   }
 
-  setShuffledWords(shuffledWords) {
+  set shuffledWords(shuffledWords) {
     this._shuffledWords = shuffledWords.slice();
-    console.debug(`SetupStore.setShuffledWords ${this._shuffledWords}`);
+    this._printData();
   }
 
-  getShuffledWords() {
-    console.debug(`SetupStore.getShuffledWords ${this._shuffledWords}`);
+  get shuffledWords() {
+    console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
     return this._shuffledWords;
   }
 
-  setShuffledMap(shuffledMap) {
+  set shuffledMap(shuffledMap) {
     this._shuffledMap = shuffledMap.slice();
-    console.debug(`SetupStore.setShuffledMap ${this._shuffledMap}`);
+    this._printData();
   }
 
-  getShuffledMap() {
-    console.debug(`SetupStore.getShuffledMap ${this._shuffledMap}`);
+  get shuffledMap() {
+    console.debug(`SetupStore.shuffledMap ${this._shuffledMap}`);
     return this._shuffledMap;
   }
 
   toggleAddressType() {
     const oldAddressType = this._addressType;
     const newAddressType =
-      this._addressType === MAINNET_ADDRESS ? TESTNET_ADDRESS : MAINNET_ADDRESS;
+      this._addressType === AppConstants.MAINNET_ADDRESS
+        ? AppConstants.TESTNET_ADDRESS
+        : AppConstants.MAINNET_ADDRESS;
 
     Alert.alert(
       'Information',
@@ -115,13 +114,35 @@ class SetupStore {
     );
 
     this._addressType = newAddressType;
-    console.debug(`SetupStore.addressType ${this._addressType}`);
+    this._printData();
   }
 
-  getAddressType() {
-    console.debug(`SetupStore.getAddressType ${this._addressType}`);
+  get addressType() {
+    console.debug(`SetupStore.addressType ${this._addressType}`);
     return this._addressType;
   }
+
+  set walletName(walletName) {
+    this._walletName = walletName;
+    this._printData();
+  }
+
+  get walletName() {
+    console.debug(`SetupStore.walletName ${this._walletName}`);
+    return this._walletName;
+  }
+
+  _printData = () => {
+    console.debug(`SetupStore.userId ${this._userId}`);
+    console.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`);
+    console.debug(`SetupStore.qrCode ${this._qrCode}`);
+    console.debug(`SetupStore.entropy ${this._entropy}`);
+    console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
+    console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
+    console.debug(`SetupStore.shuffledMap ${this._shuffledMap}`);
+    console.debug(`SetupStore.walletName ${this._walletName}`);
+    console.debug(`SetupStore.addressType ${this._addressType}`);
+  };
 }
 
 const instance = new SetupStore();

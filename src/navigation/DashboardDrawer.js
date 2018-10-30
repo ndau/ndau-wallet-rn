@@ -1,9 +1,12 @@
 import React from 'react';
-import { Alert, ScrollView, SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
+import { Alert, ScrollView, SafeAreaView, Text, View, TouchableOpacity, Image } from 'react-native';
 import cssStyles from '../css/styles';
-import UserStore from '../model/UserStore';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
-class Settings extends React.Component {
+class DashboardDrawer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -27,7 +30,6 @@ class Settings extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            UserStore.setUser({});
             this.props.navigation.navigate('Auth');
           }
         }
@@ -44,18 +46,30 @@ class Settings extends React.Component {
           forceInset={{ top: 'always', horizontal: 'never' }}
         >
           <TouchableOpacity onPress={() => this.dashboard()}>
-            <Text style={cssStyles.drawerText}>Dashboard</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                style={cssStyles.drawerTextImageDashboard}
+                source={require('../../img/billfold-revised.png')}
+              />
+              <Text style={cssStyles.drawerText}>Dashboard</Text>
+            </View>
           </TouchableOpacity>
           <View
             style={{
               borderBottomColor: 'black',
               borderBottomWidth: 1,
-              marginTop: 15,
-              marginBottom: 15
+              marginTop: hp('1.5%'),
+              marginBottom: hp('1.5%')
             }}
           />
           <TouchableOpacity onPress={() => this.logout()}>
-            <Text style={cssStyles.drawerText}>Logout</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                style={cssStyles.drawerTextImage}
+                source={require('../../img/ndau_user.png')}
+              />
+              <Text style={cssStyles.drawerText}>Logout</Text>
+            </View>
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
@@ -63,4 +77,4 @@ class Settings extends React.Component {
   }
 }
 
-export default Settings;
+export default DashboardDrawer;

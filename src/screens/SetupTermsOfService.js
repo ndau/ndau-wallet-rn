@@ -1,23 +1,96 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
 import Stepper from '../components/Stepper';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
+import SetupStore from '../model/SetupStore';
+import ndauDashboardApi from '../api/NdauDashboardAPI';
+import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
+import AppConstants from '../AppConstants';
+import AppConfig from '../AppConfig';
+import UserData from '../model/UserData';
+import ErrorDialog from '../components/ErrorDialog';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = {
+      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)],
+      agree: __DEV__ ? true : false
+    };
   }
+
+  finishSetup = async () => {
+    console.debug('Finishing Setup...');
+
+    let user = this.props.navigation.getParam('user', null);
+    //if there is not user passed along, then we generate
+    if (!user) {
+      console.debug('Generating all keys from phrase given...');
+      const recoveryPhraseString = SetupStore.recoveryPhrase.join().replace(/,/g, ' ');
+      console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
+      const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+        AppConstants.APP_LANGUAGE,
+        recoveryPhraseString
+      );
+      console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
+
+      user = await KeyAddrGenManager.createFirstTimeUser(
+        recoveryPhraseAsBytes,
+        SetupStore.walletName ? SetupStore.walletName : SetupStore.userId,
+        SetupStore.addressType,
+        SetupStore.numberOfAccounts
+      );
+    }
+
+    try {
+      const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+      if (!isMainNetAlive) {
+        await this.sendAddressesToOneiro(user);
+      }
+
+      await AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
+
+      await UserData.loadData(user);
+
+      this.props.navigation.navigate('Dashboard', {
+        user,
+        encryptionPassword: SetupStore.encryptionPassword
+      });
+    } catch (error) {
+      ErrorDialog.showError(error);
+    }
+  };
+
+  sendAddressesToOneiro = (user) => {
+    console.log(`sending the following to the accountAddresses DB: ${user.addresses}`);
+    return this.sendAccountAddresses(SetupStore.userId, user.addresses, SetupStore.qrCode);
+  };
+
+  sendAccountAddresses = (userId, addresses, token) => {
+    return new Promise((resolve, reject) => {
+      ndauDashboardApi
+        .sendAccountAddresses(userId, addresses, token)
+        .then((whatPersisted) => {
+          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
+          resolve(whatPersisted);
+        })
+        .catch((error) => {
+          ErrorDialog.showError(error);
+          reject(error);
+        });
+    });
+  };
+
+  sendingErrorOccured = () => {};
 
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree });
-  };
-
-  showNextSetup = () => {
-    this.props.navigation.navigate('SetupEAINode');
   };
 
   render() {
@@ -29,8 +102,10 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator={true}
             indicatorStyle="white"
           >
-            <Stepper screenNumber={7} />
+            <Stepper screenNumber={8} />
             <View>
+              <Text style={styles.mainLegalTextHeading}>Terms of Use{'\n'}</Text>
+
               <Text style={styles.legalTextHeading}>{'\n'}1. Scope</Text>
               <Text style={styles.legalText}>
                 {'\n'}1.1. These Terms of Use (“<Text style={styles.legalTextBold}>Terms</Text>”),
@@ -362,7 +437,7 @@ class SetupTermsOfService extends Component {
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.showNextSetup} title="Next" disabled={!this.state.agree} />
+            <CommonButton onPress={this.finishSetup} title="Next" disabled={!this.state.agree} />
           </View>
         </View>
       </SafeAreaView>
@@ -403,6 +478,12 @@ const styles = StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontWeight: 'bold',
     textDecorationLine: 'underline'
+  },
+  mainLegalTextHeading: {
+    color: '#ffffff',
+    fontSize: 19,
+    fontFamily: 'TitilliumWeb-Regular',
+    fontWeight: 'bold'
   }
 });
 

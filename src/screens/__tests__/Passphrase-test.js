@@ -2,6 +2,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Passphrase from '../Passphrase';
+
 import renderer from 'react-test-renderer';
 
 describe('testing Passphrase...', () => {
@@ -18,7 +19,7 @@ describe('testing Passphrase...', () => {
 
   it('renders correctly', () => {
     const tree = renderer
-      .create(<Passphrase navigator={navigator} parentStyles={styles} />)
+      .create(<Passphrase parentStyles={styles} navigator={navigator} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

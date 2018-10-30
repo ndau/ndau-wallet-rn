@@ -24,12 +24,16 @@ class SetupEncryptionPassword extends Component {
     this.onPushAnother(event);
   }
 
-  checkPasswords = () => {
+  checkPasswordsExist = () => {
     return this.state.password === this.state.confirmPassword;
   };
 
+  checkPasswordsLength = () => {
+    return this.state.password.length >= 8 && this.state.confirmPassword.length >= 8;
+  };
+
   showNextSetup = () => {
-    if (!this.checkPasswords()) {
+    if (!this.checkPasswordsExist()) {
       Alert.alert(
         'Error',
         'The passwords entered do not match.',
@@ -39,9 +43,26 @@ class SetupEncryptionPassword extends Component {
       this.setState({ textInputColor: '#ff0000' });
       return;
     }
+    if (!this.checkPasswordsLength()) {
+      Alert.alert(
+        'Error',
+        'The password must be at least 8 characters',
+        [ { text: 'OK', onPress: () => {} } ],
+        { cancelable: false }
+      );
+      this.setState({ textInputColor: '#ff0000' });
+      return;
+    }
 
-    SetupStore.setEncryptionPassword(this.state.password);
-    this.props.navigation.navigate('SetupGetRandom');
+    SetupStore.encryptionPassword = this.state.password;
+
+    const comingFrom = this.props.navigation.getParam('comingFrom', '');
+    if (comingFrom === 'SetupQRCode') {
+      this.props.navigation.navigate('SetupYourWallet');
+    } else {
+      const user = this.props.navigation.getParam('user', null);
+      this.props.navigation.navigate('SetupTermsOfService', { user });
+    }
   };
 
   checkedShowPasswords = () => {
@@ -70,27 +91,16 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={2} />
+            <Stepper screenNumber={4} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                Data in this app will be encrypted to protect your ndau. You will need to enter a
-                password to decrypt it whenever you open this app.{'  '}
+                Set a password. This password applies to this app only. Ndau will not have access to
+                it. We cannot help you reset this password, so you should write it down.{'  '}
                 <FontAwesome name="info" color="#ffffff" size={20} style={{ marginBottom: 3 }} />
               </Text>
             </View>
             <TextInput
-              style={{
-                height: 45,
-                borderColor: 'gray',
-                borderWidth: 1,
-                marginBottom: 10,
-                marginTop: 12,
-                paddingLeft: 10,
-                color: textInputColor,
-                backgroundColor: '#ffffff',
-                fontSize: 18,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
+              style={cssStyles.textInput}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
               placeholder="Enter a password"
@@ -99,18 +109,7 @@ class SetupEncryptionPassword extends Component {
               autoCapitalize="none"
             />
             <TextInput
-              style={{
-                height: 45,
-                borderColor: 'gray',
-                borderWidth: 1,
-                marginBottom: 10,
-                marginTop: 12,
-                paddingLeft: 10,
-                color: textInputColor,
-                backgroundColor: '#ffffff',
-                fontSize: 18,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
+              style={cssStyles.textInput}
               onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
               value={this.state.confirmPassword}
               placeholder="Confirm your password"
@@ -137,8 +136,8 @@ class SetupEncryptionPassword extends Component {
                 style={cssStyles.checkbox}
                 onClick={() => this.checkedProgress()}
                 isChecked={this.state.progress}
-                rightText="I understand that ndau cannot help me recover my password.
-              To increase security, ndau does not store or have access to my password"
+                rightText="I understand that ndau cannot help me reset my password, and I will
+                have to recover my wallet from my recovery phrase if I lose my password."
                 rightTextStyle={{
                   color: '#ffffff',
                   fontSize: 20,

@@ -2,12 +2,14 @@ import React from 'react';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import DashboardNavigation from './DashboardNavigation';
 import SetupMain from '../screens/SetupMain';
+import SetupWelcome from '../screens/SetupWelcome';
+import SetupWalletName from '../screens/SetupWalletName';
+import SetupNewOrRecovery from '../screens/SetupNewOrRecovery';
 import SetupEncryptionPassword from '../screens/SetupEncryptionPassword';
-import SetupConfirmSeedPhrase from '../screens/SetupConfirmSeedPhrase';
-import SetupEAINode from '../screens/SetupEAINode';
-import SetupGetRandom from '../screens/SetupGetRandom';
+import SetupConfirmRecoveryPhrase from '../screens/SetupConfirmRecoveryPhrase';
 import SetupQRCode from '../screens/SetupQRCode';
-import SetupSeedPhrase from '../screens/SetupSeedPhrase';
+import SetupRecoveryPhrase from '../screens/SetupRecoveryPhrase';
+import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase';
 import SetupTermsOfService from '../screens/SetupTermsOfService';
 import SetupUserId from '../screens/SetupUserId';
 import SetupYourWallet from '../screens/SetupYourWallet';
@@ -24,6 +26,21 @@ SetupMainScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
+const SetupWelcomeScreen = ({ navigation }) => <SetupWelcome navigation={navigation} />;
+SetupWelcomeScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
+const SetupWalletNameScreen = ({ navigation }) => <SetupWalletName navigation={navigation} />;
+SetupWalletNameScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
+const SetupNewOrRecoveryScreen = ({ navigation }) => <SetupNewOrRecovery navigation={navigation} />;
+SetupNewOrRecoveryScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
 const SetupUserIdScreen = ({ navigation }) => <SetupUserId navigation={navigation} />;
 SetupUserIdScreen.navigationOptions = ({ navigation }) => ({
   header: null
@@ -36,20 +53,10 @@ SetupEncryptionPasswordScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
-const SetupConfirmSeedPhraseScreen = ({ navigation }) => (
-  <SetupConfirmSeedPhrase navigation={navigation} />
+const SetupConfirmRecoveryPhraseScreen = ({ navigation }) => (
+  <SetupConfirmRecoveryPhrase navigation={navigation} />
 );
-SetupConfirmSeedPhraseScreen.navigationOptions = ({ navigation }) => ({
-  header: null
-});
-
-const SetupGetRandomScreen = ({ navigation }) => <SetupGetRandom navigation={navigation} />;
-SetupGetRandomScreen.navigationOptions = ({ navigation }) => ({
-  header: null
-});
-
-const SetupEAINodeScreen = ({ navigation }) => <SetupEAINode navigation={navigation} />;
-SetupEAINodeScreen.navigationOptions = ({ navigation }) => ({
+SetupConfirmRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
@@ -58,8 +65,17 @@ SetupQRCodeScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
-const SetupSeedPhraseScreen = ({ navigation }) => <SetupSeedPhrase navigation={navigation} />;
-SetupSeedPhraseScreen.navigationOptions = ({ navigation }) => ({
+const SetupRecoveryPhraseScreen = ({ navigation }) => (
+  <SetupRecoveryPhrase navigation={navigation} />
+);
+SetupRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+});
+
+const SetupGetRecoveryPhraseScreen = ({ navigation }) => (
+  <SetupGetRecoveryPhrase navigation={navigation} />
+);
+SetupGetRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
   header: null
 });
 
@@ -88,13 +104,15 @@ const AuthStack = createStackNavigator({
 
 const SetupStack = createStackNavigator({
   SetupMain: { screen: SetupMainScreen },
+  SetupWelcome: { screen: SetupWelcomeScreen },
+  SetupWalletName: { screen: SetupWalletNameScreen },
+  SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },
   SetupUserId: { screen: SetupUserIdScreen },
   SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
-  SetupConfirmSeedPhrase: { screen: SetupConfirmSeedPhraseScreen },
-  SetupGetRandom: { screen: SetupGetRandomScreen },
-  SetupEAINode: { screen: SetupEAINodeScreen },
+  SetupConfirmRecoveryPhrase: { screen: SetupConfirmRecoveryPhraseScreen },
   SetupQRCode: { screen: SetupQRCodeScreen },
-  SetupSeedPhrase: { screen: SetupSeedPhraseScreen },
+  SetupRecoveryPhrase: { screen: SetupRecoveryPhraseScreen },
+  SetupGetRecoveryPhrase: { screen: SetupGetRecoveryPhraseScreen },
   SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
   SetupYourWallet: { screen: SetupYourWalletScreen }
 });
