@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-navigation';
 import groupIntoRows from '../helpers/groupIntoRows';
 import ErrorPanel from '../components/ErrorPanel';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import SetupProgressBar from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import {
@@ -39,7 +39,8 @@ class SetupConfirmRecoveryPhrase extends Component {
       mustRetry: false,
       errorCount: 0,
       match: false,
-      selected: []
+      selected: [],
+      
     };
 
     // chop the words into DEFAULT_ROW_LENGTH-tuples
@@ -52,11 +53,17 @@ class SetupConfirmRecoveryPhrase extends Component {
   }
 
   showNextSetup = async () => {
+    const { navigation } = this.props;
     const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
+
     if (isMainNetAlive) {
-      this.props.navigation.navigate('SetupWalletName');
+      navigation.navigate('SetupWalletName', {
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      });
     } else {
-      this.props.navigation.navigate('SetupTermsOfService');
+      navigation.navigate('SetupTermsOfService', {
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      });
     }
   };
 
@@ -79,7 +86,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={7} />
+            <SetupProgressBar />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To confirm that you recorded the phrase, tap the words below in order.{' '}

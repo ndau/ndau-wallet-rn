@@ -3,7 +3,7 @@ import { View, ScrollView, Text, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import ndauDashboardApi from '../api/NdauDashboardAPI';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import SetupProgressBar from '../components/SetupProgressBar';
 import RNExitApp from 'react-native-exit-app';
 import cssStyles from '../css/styles';
 import AsyncStorageHelper from '../model/AsyncStorageHelper';
@@ -49,8 +49,11 @@ class SetupUserId extends Component {
   showNextSetup = () => {
     SetupStore.userId = this.state.userId;
     SetupStore.numberOfAccounts = this.state.numberOfAccounts;
-
-    this.props.navigation.navigate('SetupQRCode');
+    
+    const { navigation } = this.props;
+    navigation.navigate('SetupQRCode', {
+      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+    });
   };
 
   showExitApp() {
@@ -156,7 +159,7 @@ class SetupUserId extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Stepper screenNumber={2} />
+            <SetupProgressBar />
             <View>
               <Text style={cssStyles.wizardText}>
                 To deliver your ndau to your wallet, we need the six-character user ID you use to

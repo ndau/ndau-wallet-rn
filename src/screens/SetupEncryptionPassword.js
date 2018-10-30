@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-nati
 import CheckBox from 'react-native-check-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import SetupProgressBar from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
@@ -54,14 +54,21 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-    SetupStore.encryptionPassword = this.state.password;
 
-    const comingFrom = this.props.navigation.getParam('comingFrom', '');
+
+    SetupStore.encryptionPassword = this.state.password;
+    const { navigation } = this.props;
+    const comingFrom = navigation.getParam('comingFrom', '');
     if (comingFrom === 'SetupQRCode') {
-      this.props.navigation.navigate('SetupYourWallet');
+      navigation.navigate('SetupYourWallet', {
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      });
     } else {
-      const user = this.props.navigation.getParam('user', null);
-      this.props.navigation.navigate('SetupTermsOfService', { user });
+      const user = navigation.getParam('user', null);
+      navigation.navigate('SetupTermsOfService', { 
+        user,
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      });
     }
   };
 
@@ -91,7 +98,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={4} />
+            <SetupProgressBar screenNumber={4} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Set a password. This password applies to this app only. Ndau will not have access to
