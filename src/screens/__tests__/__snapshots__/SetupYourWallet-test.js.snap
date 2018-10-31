@@ -34,23 +34,6 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
       }
     >
       <View>
-        <Image
-          resizeMode="contain"
-          screenNumber={5}
-          source={
-            Object {
-              "testUri": "../../../img/step-5.png",
-            }
-          }
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "height": 60,
-              "marginBottom": 5,
-              "width": "100%",
-            }
-          }
-        />
         <View
           accessible={true}
           onResponderGrant={[Function]}

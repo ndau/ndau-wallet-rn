@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, ScrollView, Text, TouchableWithoutFeedback } from 'react-native';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import SetupProgressBar from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
 import EntropyHelper from '../helpers/EntropyHelper';
@@ -10,7 +10,10 @@ import EntropyHelper from '../helpers/EntropyHelper';
 class SetupYourWallet extends Component {
   showNextSetup = async () => {
     await EntropyHelper.generateEntropy();
-    this.props.navigation.navigate('SetupRecoveryPhrase');
+    this.props.navigation.navigate('SetupRecoveryPhrase', {
+      walletSetupType:
+        this.props.navigation.state.params && this.props.navigation.state.params.walletSetupType
+    });
   };
 
   testNetToggler = () => {
@@ -28,7 +31,7 @@ class SetupYourWallet extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={5} />
+            {/* <SetupProgressBar {...this.props} screenNumber={5} /> */}
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
                 <Text style={cssStyles.wizardText}>

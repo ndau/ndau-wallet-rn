@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import SetupProgressBar from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
@@ -16,7 +16,9 @@ class SetupEncryptionPassword extends Component {
   }
 
   showNextSetup = () => {
-    const user = this.props.navigation.getParam('user', null);
+    const { navigation } = this.props;
+
+    const user = navigation.getParam('user', null);
     if (user) {
       if (!user.userId) {
         user.userId = SetupStore.walletName;
@@ -25,9 +27,11 @@ class SetupEncryptionPassword extends Component {
         user.wallets = [ { walletName: SetupStore.walletName } ];
       }
     }
-    this.props.navigation.navigate('SetupEncryptionPassword', {
+
+    navigation.navigate('SetupEncryptionPassword', {
       comingFrom: 'SetupWalletName',
-      user
+      user,
+      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
     });
   };
 
@@ -36,7 +40,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <Stepper screenNumber={4} />
+            {/* <SetupProgressBar {...this.props} /> */}
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Give this wallet a name.

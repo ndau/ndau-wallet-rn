@@ -36,23 +36,6 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
       }
     >
       <View>
-        <Image
-          resizeMode="contain"
-          screenNumber={8}
-          source={
-            Object {
-              "testUri": "../../../img/step-8.png",
-            }
-          }
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "height": 60,
-              "marginBottom": 5,
-              "width": "100%",
-            }
-          }
-        />
         <View>
           <Text
             accessible={true}

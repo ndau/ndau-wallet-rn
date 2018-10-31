@@ -12,7 +12,7 @@ import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
 import SetupStore from '../model/SetupStore';
 import { SafeAreaView } from 'react-navigation';
-import Stepper from '../components/Stepper';
+import SetupProgressBar from '../components/SetupProgressBar';
 
 class SetupWelcome extends Component {
   constructor(props) {
@@ -44,10 +44,9 @@ class SetupWelcome extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
-
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Stepper screenNumber={1} />
+            {/* <SetupProgressBar {...this.props} /> */}
             <View>
               <Text style={cssStyles.wizardText}>
                 Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{' '}

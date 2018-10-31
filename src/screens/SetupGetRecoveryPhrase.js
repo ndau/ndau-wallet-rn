@@ -12,6 +12,7 @@ import RecoveryDropdown from '../components/RecoveryDropdown';
 import Carousel from 'react-native-looped-carousel';
 import { Dialog } from 'react-native-simple-dialogs';
 import ErrorPanel from '../components/ErrorPanel';
+import SetupProgressBar from '../components/SetupProgressBar';
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper';
 import MultiSafeHelper from '../helpers/MultiSafeHelper';
 import UserData from '../model/UserData';
@@ -28,7 +29,8 @@ class SetupGetRecoveryPhrase extends Component {
       recoverPhraseFull: false,
       textColor: '#ffffff',
       confirmationError: false,
-      acquisitionError: false
+      acquisitionError: false,
+      stepNumber: 0
     };
 
     this.recoveryPhrase = [ '', '', '', '', '', '', '', '', '', '', '', '' ];
@@ -67,8 +69,8 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({ size: { width: layout.width, height: layout.height } });
   };
 
-  _generatePages = () =>
-    this.recoveryPhrase.map((phrase, i) => {
+  _generatePages = () => {
+    return this.recoveryPhrase.map((phrase, i) => {
       const style = [ this.state.size, cssStyles.recoveryPageView ];
       if (i === 0) {
         style.push({
@@ -93,7 +95,8 @@ class SetupGetRecoveryPhrase extends Component {
         </View>
       );
     });
-  s;
+  };
+
   _checkRecoveryPhrase = async () => {
     return await RecoveryPhaseHelper.checkRecoveryPhrase(
       this.recoveryPhrase.join().replace(/,/g, ' '),
@@ -109,7 +112,8 @@ class SetupGetRecoveryPhrase extends Component {
     try {
       const user = await this._checkRecoveryPhrase();
       if (user) {
-        const encryptionPassword = this.props.navigation.getParam('encryptionPassword', null);
+        const { navigation } = this.props;
+        const encryptionPassword = navigation.getParam('encryptionPassword', null);
         //IF we have a password we are fixing up an account from a 1.6 user here
         //so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
@@ -119,10 +123,14 @@ class SetupGetRecoveryPhrase extends Component {
 
           this.props.navigation.navigate('Dashboard', {
             user,
-            encryptionPassword
+            encryptionPassword,
+            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
           });
         } else {
-          this.props.navigation.navigate('SetupWalletName', { user });
+          navigation.navigate('SetupWalletName', {
+            user,
+            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
+          });
         }
       } else {
         this.setState({
@@ -146,6 +154,10 @@ class SetupGetRecoveryPhrase extends Component {
     });
   };
 
+  adjustStepNumber = (pageIndex) => {
+    this.setState({ stepNumber: pageIndex });
+  };
+
   _renderAcquisition = () => {
     const pages = this._generatePages();
 
@@ -153,6 +165,7 @@ class SetupGetRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
+            {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To verify your account please verify your twelve-word recovery phrase below. Start
@@ -172,7 +185,7 @@ class SetupGetRecoveryPhrase extends Component {
                 arrows
                 isLooped={false}
                 autoplay={false}
-                onAnimateNextPage={(p) => console.log(p)}
+                onAnimateNextPage={this.adjustStepNumber}
               >
                 {pages}
               </Carousel>
@@ -233,6 +246,7 @@ class SetupGetRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
+            {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>Is this the correct recovery phrase? </Text>
             </View>

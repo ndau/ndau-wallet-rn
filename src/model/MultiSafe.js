@@ -1,7 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import CryptoJS from 'crypto-js';
 import EntropyHelper from '../helpers/EntropyHelper';
-import SetupStore from './SetupStore';
 
 // we put these things on either end of the combination to make sure we know that we
 // have decrypted it properly

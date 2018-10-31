@@ -1,6 +1,6 @@
 import React from 'react';
-import AppNavigation from './navigation/AppNavigation';
 import { YellowBox } from 'react-native';
+import AppNavigation from './navigation/AppNavigation';
 
 YellowBox.ignoreWarnings([ 'Warning: isMounted(...) is deprecated', 'Module RCTImageLoader' ]);
 YellowBox.ignoreWarnings([ 'Class RCTCxxModule' ]);

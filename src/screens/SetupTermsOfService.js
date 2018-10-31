@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
+import SetupProgressBar from '../components/SetupProgressBar';
 import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
 import SetupStore from '../model/SetupStore';
@@ -37,7 +37,8 @@ class SetupTermsOfService extends Component {
 
     this.props.navigation.navigate('Dashboard', {
       user,
-      encryptionPassword: SetupStore.encryptionPassword
+      encryptionPassword: SetupStore.encryptionPassword,
+      walletSetupType: null
     });
   };
 
@@ -78,7 +79,7 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator={true}
             indicatorStyle="white"
           >
-            <Stepper screenNumber={8} />
+            {/* <SetupProgressBar {...this.props} screenNumber={8} /> */}
             <View>
               <Text style={styles.mainLegalTextHeading}>Terms of Use{'\n'}</Text>
 

@@ -34,23 +34,6 @@ exports[`testing SetupNewOrRecovery... renders correctly 1`] = `
       }
     >
       <View>
-        <Image
-          resizeMode="contain"
-          screenNumber={1}
-          source={
-            Object {
-              "testUri": "../../../img/step-1.png",
-            }
-          }
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "height": 60,
-              "marginBottom": 5,
-              "width": "100%",
-            }
-          }
-        />
         <View>
           <Text
             accessible={true}
