@@ -28,11 +28,10 @@ class SetupEncryptionPassword extends Component {
       }
     }
 
-
     navigation.navigate('SetupEncryptionPassword', {
       comingFrom: 'SetupWalletName',
       user,
-      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
     });
   };
 
@@ -41,7 +40,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <SetupProgressBar />
+            {/* <SetupProgressBar {...this.props} /> */}
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Give this wallet a name.

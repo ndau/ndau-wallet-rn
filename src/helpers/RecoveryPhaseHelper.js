@@ -19,34 +19,31 @@ import AppConstants from '../AppConstants';
  * user if we find information.
  */
 const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
-  const recoveryPhraseStringAsBytes = await _getRecoveryStringAsBytes(recoveryPhraseString);
-  let newUser = await KeyAddrGenManager.createFirstTimeUser(
-    recoveryPhraseStringAsBytes,
-    user.userId
-  );
+  const recoveryPhraseBytes = await _getRecoveryStringAsBytes(recoveryPhraseString);
+  let newUser = await KeyAddrGenManager.createFirstTimeUser(recoveryPhraseBytes, user.userId);
 
   if (user) {
     //Populate data from older user
     newUser.userId = user.userId;
   }
 
-  const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseStringAsBytes);
+  const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes);
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`);
   if (bip44Accounts && bip44Accounts.addressData.length > 0) {
     await KeyAddrGenManager.addAccountsToUser(
-      recoveryPhraseStringAsBytes,
+      recoveryPhraseBytes,
       newUser,
       bip44Accounts.addressData.length
     );
     console.log(`newUser with BIP44: ${JSON.stringify(newUser, null, 2)}`);
   }
 
-  const rootAccounts = await _checkRootAddresses(recoveryPhraseStringAsBytes);
+  const rootAccounts = await _checkRootAddresses(recoveryPhraseBytes);
   console.log(`root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`);
   if (rootAccounts && rootAccounts.addressData.length > 0) {
     //Here again we are attempting to genereate at the very root of the tree
     await KeyAddrGenManager.addAccountsToUser(
-      recoveryPhraseStringAsBytes,
+      recoveryPhraseBytes,
       newUser,
       rootAccounts.addressData.length,
       ''
@@ -64,8 +61,8 @@ const _getRecoveryStringAsBytes = async (recoveryPhraseString) => {
   );
 };
 
-const _checkRootAddresses = async (recoveryPhraseStringAsBytes) => {
-  const addresses = await KeyAddrGenManager.getRootAddresses(recoveryPhraseStringAsBytes);
+const _checkRootAddresses = async (recoveryPhraseBytes) => {
+  const addresses = await KeyAddrGenManager.getRootAddresses(recoveryPhraseBytes);
   console.log(`_checkRootAddresses found: ${addresses}`);
   //check the blockchain to see if any of these exist
   const accountData = await NdauNodeAPI.getAddressData(
@@ -75,8 +72,8 @@ const _checkRootAddresses = async (recoveryPhraseStringAsBytes) => {
   return accountData;
 };
 
-const _checkBIP44Addresses = async (recoveryPhraseStringAsBytes) => {
-  const addresses = await KeyAddrGenManager.getBIP44Addresses(recoveryPhraseStringAsBytes);
+const _checkBIP44Addresses = async (recoveryPhraseBytes) => {
+  const addresses = await KeyAddrGenManager.getBIP44Addresses(recoveryPhraseBytes);
   console.log(`_checkBIP44Addresses found: ${addresses}`);
   //check the blockchain to see if any of these exist
   const accountData = await NdauNodeAPI.getAddressData(

@@ -47,9 +47,7 @@ class AccountCard extends Component {
           </Text>
         ) : null}
         {accountLockedUntil ? (
-          <Text style={cssStyles.text}>
-            Account will be unlocked {accountLockedUntil}
-          </Text>
+          <Text style={cssStyles.text}>Account will be unlocked {accountLockedUntil}</Text>
         ) : null}
         {accountNoticePeriod ? (
           <Text style={cssStyles.text}>
@@ -57,65 +55,56 @@ class AccountCard extends Component {
             {accountNoticePeriod} day countdown{')'}
           </Text>
         ) : null}
-        {accountNotLocked ? (
-          <Text style={cssStyles.text}>This account is not locked</Text>
-        ) : null}
-        {accountBalance === 0 ? (
-          <Text style={cssStyles.text}>{address}</Text>
-        ) : null}
-  
-        {
-          totalNdau !== 0 && (
-            <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
-              {accountNoticePeriod ? (
+        {accountNotLocked ? <Text style={cssStyles.text}>This account is not locked</Text> : null}
+        {accountBalance === 0 ? <Text style={cssStyles.text}>{address}</Text> : null}
+
+        {totalNdau !== 0 && (
+          <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
+            {accountNoticePeriod ? (
+              <Image
+                style={{
+                  width: 23,
+                  height: 35
+                }}
+                source={require('img/lock_countdown_animation_white.gif')}
+              />
+            ) : null}
+            <TouchableOpacity onPress={unlock}>
+              {accountLockedUntil ? (
                 <Image
                   style={{
                     width: 23,
                     height: 35
                   }}
-                  source={require('../../img/lock_countdown_animation_white.gif')}
+                  source={require('img/locked.png')}
                 />
               ) : null}
-              <TouchableOpacity onPress={unlock}>
-                {accountLockedUntil ? (
-                  <Image
-                    style={{
-                      width: 23,
-                      height: 35
-                    }}
-                    source={require('../../img/locked.png')}
-                  />
-                ) : null}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={lock}>
-                {accountNotLocked ? (
-                  <Image
-                    style={{
-                      width: 30,
-                      height: 35
-                    }}
-                    source={require('../../img/unlocked.png')}
-                  />
-                ) : null}
-              </TouchableOpacity>
-            </View>
-          )
-        } 
-
-        <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
-          <TouchableOpacity onPress={() => startTransaction(address)}>
-            <Image
-              source={require('../../img/send_receive_both.png')}
-              style={{
-                width: 30,
-                height: 35
-              }}
-            />
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={lock}>
+              {accountNotLocked ? (
+                <Image
+                  style={{
+                    width: 30,
+                    height: 35
+                  }}
+                  source={require('img/unlocked.png')}
+                />
+              ) : null}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => startTransaction(address)}>
+              <Image
+                source={require('img/send_receive_both.png')}
+                style={{
+                  width: 35,
+                  height: 35
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
       </CollapsiblePanel>
     );
-  }  
+  }
 }
 
 export default AccountCard;

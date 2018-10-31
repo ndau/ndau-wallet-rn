@@ -98,7 +98,7 @@ class SetupRecoveryPhrase extends Component {
 
     const { navigation } = this.props;
     navigation.navigate('SetupConfirmRecoveryPhrase', {
-      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
     });
   };
 
@@ -117,7 +117,7 @@ class SetupRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
-            <SetupProgressBar />
+            {/* <SetupProgressBar {...this.props} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Write this 12-word phrase down and store it in a secure location.

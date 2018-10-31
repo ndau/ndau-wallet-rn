@@ -13,17 +13,14 @@ import {
 } from 'react-native';
 import CommonButton from '../components/CommonButton';
 import cssStyles from '../css/styles';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
 import RNExitApp from 'react-native-exit-app';
 import { SafeAreaView } from 'react-navigation';
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import Dropdown from '../components/Dropdown';
 import UserData from '../model/UserData';
-import ErrorDialog from '../components/ErrorDialog';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -32,27 +29,15 @@ class Passphrase extends Component {
     this.state = {
       password: '',
       showErrorText: false,
-      userIds: [],
-      userId: '',
       loginAttempt: 1
     };
 
     this.maxLoginAttempts = 10;
   }
 
-  componentWillMount = async () => {
-    try {
-      const userIds = await AsyncStorageHelper.getAllKeys();
-      this.setState({ userIds });
-    } catch (error) {
-      ErrorDialog.showError(error);
-    }
-  };
-
   login = async () => {
     try {
-      //TODO: This component will change as we no longer will deal with users.
-      let user = await AsyncStorageHelper.unlockUser(this.state.userId, this.state.password);
+      let user = await MultiSafeHelper.getDefaultUser(this.state.password);
       if (user) {
         console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
 
@@ -118,12 +103,7 @@ class Passphrase extends Component {
   };
 
   showSetup = async () => {
-    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
-    if (isMainNetAlive) {
-      this.props.navigation.navigate('SetupWelcome');
-    } else {
-      this.props.navigation.navigate('Setup');
-    }
+    this.props.navigation.navigate('SetupWelcome');
   };
 
   showRecovery = (user) => {
@@ -148,16 +128,7 @@ class Passphrase extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <View style={styles.imageView}>
-              <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
-            </View>
-            <View style={styles.footer}>
-              <Dropdown
-                defaultValue="User ID..."
-                defaultIndex={1}
-                options={this.state.userIds}
-                onSelect={this.dropDownSelected}
-                full={false}
-              />
+              <Image style={styles.image} source={require('img/n_icon_ko.png')} />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <TextInput
@@ -185,8 +156,8 @@ class Passphrase extends Component {
             <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
                 <Image
-                  style={{ width: 35, height: 38, marginTop: hp('1%') }}
-                  source={require('../../img/info_icon_gold.png')}
+                  style={{ width: 35, height: 38, marginTop: hp('4%') }}
+                  source={require('img/info_icon_gold.png')}
                 />
               </TouchableOpacity>
             </View>

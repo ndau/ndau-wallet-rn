@@ -25,14 +25,13 @@ import TransactionModalDialog from '../components/TransactionModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
 import UserData from '../model/UserData';
 
-const LOCK_MODAL_ID = "lock";
-const UNLOCK_MODAL_ID = "unlock";
-const NEW_ACCOUNT_MODAL_ID = "newAccount";
-const TRANSACTION_MODAL_ID = "transaction";
-
+const LOCK_MODAL_ID = 'lock';
+const UNLOCK_MODAL_ID = 'unlock';
+const NEW_ACCOUNT_MODAL_ID = 'newAccount';
+const TRANSACTION_MODAL_ID = 'transaction';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -54,11 +53,11 @@ class Dashboard extends Component {
 
   showModal = (modalId) => {
     this.setState({ modalId });
-  }
+  };
 
   closeModal = () => {
     this.setState({ modalId: null });
-  }
+  };
 
   subtractNumber = () => {
     if (this.state.number > 1) {
@@ -91,7 +90,7 @@ class Dashboard extends Component {
   addNewAccount = async () => {
     const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number);
 
-    await AsyncStorageHelper.lockUser(
+    await MultiSafeHelper.saveUser(
       user,
       this.props.navigation.getParam('encryptionPassword', null)
     );
@@ -104,7 +103,7 @@ class Dashboard extends Component {
 
     const user = this.state.user;
 
-    UserData.loadData(user);
+    await UserData.loadData(user);
 
     console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`);
 
@@ -112,7 +111,7 @@ class Dashboard extends Component {
   };
 
   render = () => {
-    console.debug(`user: ${JSON.stringify(this.state.user, null, 2)}`);
+    console.debug(`user out of state: ${JSON.stringify(this.state.user, null, 2)}`);
 
     //TODO: this is ONLY temporary as we need to enumerate the wallets
     const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId];
@@ -171,7 +170,7 @@ class Dashboard extends Component {
                   marginRight: wp('1%')
                 }}
                 resizeMode="contain"
-                source={require('../../img/ndau-icon-green.png')}
+                source={require('img/ndau-icon-green.png')}
               />
               <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
             </View>
@@ -197,48 +196,46 @@ class Dashboard extends Component {
             </View>
           </View>
 
-          {
-            accounts && (
-              accounts.map((account, index) => {
-                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
-                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
-                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);
-                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData);
-                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
-                  account.addressData
-                );
-                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData);
-                const nickname = NdauNodeAPIHelper.accountNickname(account.addressData);
-                const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
+          {accounts &&
+            Object.keys(accounts).map((accountKey, index) => {
+              const account = accounts[accountKey];
+              const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
+              const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
+              const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);
+              const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData);
+              const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
+                account.addressData
+              );
+              const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData);
+              const nickname = NdauNodeAPIHelper.accountNickname(account.addressData);
+              const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
 
-                return (
-                  <AccountCard
-                    key={index}
-                    index={index}
-                    nickname={nickname}
-                    address={account.address}
-                    eaiPercentage={eaiPercentage}
-                    sendingEAITo={sendingEAITo}
-                    receivingEAIFrom={receivingEAIFrom}
-                    accountBalance={accountBalance}
-                    accountLockedUntil={accountLockedUntil}
-                    accountNoticePeriod={accountNoticePeriod}
-                    accountNotLocked={accountNotLocked}
-                    totalNdau={totalNdau}
-                    lock={this.lock}
-                    unlock={this.unlock}
-                    startTransaction={(address) => {
-                      console.log('state before transaction started', this.state)
-                      this.setState({
-                        activeAddress: address,
-                        modalId: TRANSACTION_MODAL_ID,
-                      })
-                    }}
-                  />
-                );
-              })
-            )
-          }
+              return (
+                <AccountCard
+                  key={index}
+                  index={index}
+                  nickname={nickname}
+                  address={account.address}
+                  eaiPercentage={eaiPercentage}
+                  sendingEAITo={sendingEAITo}
+                  receivingEAIFrom={receivingEAIFrom}
+                  accountBalance={accountBalance}
+                  accountLockedUntil={accountLockedUntil}
+                  accountNoticePeriod={accountNoticePeriod}
+                  accountNotLocked={accountNotLocked}
+                  totalNdau={totalNdau}
+                  lock={this.lock}
+                  unlock={this.unlock}
+                  startTransaction={(address) => {
+                    console.log('state before transaction started', this.state);
+                    this.setState({
+                      activeAddress: address,
+                      modalId: TRANSACTION_MODAL_ID
+                    });
+                  }}
+                />
+              );
+            })}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>

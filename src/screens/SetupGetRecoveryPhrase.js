@@ -14,7 +14,7 @@ import { Dialog } from 'react-native-simple-dialogs';
 import ErrorPanel from '../components/ErrorPanel';
 import SetupProgressBar from '../components/SetupProgressBar';
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
 import UserData from '../model/UserData';
 
 const DEFAULT_ROW_LENGTH = 3; // 3 items per row
@@ -30,7 +30,7 @@ class SetupGetRecoveryPhrase extends Component {
       textColor: '#ffffff',
       confirmationError: false,
       acquisitionError: false,
-      stepNumber: 0,
+      stepNumber: 0
     };
 
     this.recoveryPhrase = [ '', '', '', '', '', '', '', '', '', '', '', '' ];
@@ -95,7 +95,7 @@ class SetupGetRecoveryPhrase extends Component {
         </View>
       );
     });
-  }
+  };
 
   _checkRecoveryPhrase = async () => {
     return await RecoveryPhaseHelper.checkRecoveryPhrase(
@@ -117,20 +117,19 @@ class SetupGetRecoveryPhrase extends Component {
         //IF we have a password we are fixing up an account from a 1.6 user here
         //so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
-          await AsyncStorageHelper.lockUser(user, encryptionPassword);
-
           await UserData.loadData(user);
 
-          navigation.navigate('Dashboard', {
+          await MultiSafeHelper.saveUser(user, encryptionPassword);
+
+          this.props.navigation.navigate('Dashboard', {
             user,
             encryptionPassword,
-            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
-
+            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
           });
         } else {
-          navigation.navigate('SetupWalletName', { 
+          navigation.navigate('SetupWalletName', {
             user,
-            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
           });
         }
       } else {
@@ -157,7 +156,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   adjustStepNumber = (pageIndex) => {
     this.setState({ stepNumber: pageIndex });
-  }
+  };
 
   _renderAcquisition = () => {
     const pages = this._generatePages();
@@ -166,7 +165,7 @@ class SetupGetRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
-            <SetupProgressBar stepNumber={this.state.stepNumber} />
+            {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To verify your account please verify your twelve-word recovery phrase below. Start
@@ -187,7 +186,6 @@ class SetupGetRecoveryPhrase extends Component {
                 isLooped={false}
                 autoplay={false}
                 onAnimateNextPage={this.adjustStepNumber}
-
               >
                 {pages}
               </Carousel>
@@ -248,7 +246,7 @@ class SetupGetRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
-            <SetupProgressBar stepNumber={this.state.stepNumber} />
+            {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>Is this the correct recovery phrase? </Text>
             </View>

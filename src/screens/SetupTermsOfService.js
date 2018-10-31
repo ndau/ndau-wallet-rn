@@ -7,13 +7,9 @@ import cssStyles from '../css/styles';
 import { SafeAreaView } from 'react-navigation';
 import SetupStore from '../model/SetupStore';
 import ndauDashboardApi from '../api/NdauDashboardAPI';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
-import AppConstants from '../AppConstants';
 import AppConfig from '../AppConfig';
-import UserData from '../model/UserData';
 import ErrorDialog from '../components/ErrorDialog';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
 
 class SetupTermsOfService extends Component {
   constructor(props) {
@@ -27,46 +23,23 @@ class SetupTermsOfService extends Component {
 
   finishSetup = async () => {
     console.debug('Finishing Setup...');
- 
-    const { navigation } = this.props;
-    let user = navigation.getParam('user', null);
-    //if there is not user passed along, then we generate
-    if (!user) {
-      console.debug('Generating all keys from phrase given...');
-      const recoveryPhraseString = SetupStore.recoveryPhrase.join().replace(/,/g, ' ');
-      console.debug(`recoveryPhraseString: ${recoveryPhraseString}`);
-      const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-        AppConstants.APP_LANGUAGE,
-        recoveryPhraseString
-      );
-      console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`);
 
-      user = await KeyAddrGenManager.createFirstTimeUser(
-        recoveryPhraseAsBytes,
-        SetupStore.walletName ? SetupStore.walletName : SetupStore.userId,
-        SetupStore.addressType,
-        SetupStore.numberOfAccounts
-      );
-    }
+    let user = this.props.navigation.getParam('user', null);
 
-    try {
-      const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
-      if (!isMainNetAlive) {
-        await this.sendAddressesToOneiro(user);
-      }
+    user = await MultiSafeHelper.setupNewUser(
+      user,
+      SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
+      SetupStore.walletName ? SetupStore.walletName : SetupStore.userId,
+      SetupStore.numberOfAccounts,
+      SetupStore.encryptionPassword,
+      SetupStore.addressType
+    );
 
-      await AsyncStorageHelper.lockUser(user, SetupStore.encryptionPassword);
-
-      await UserData.loadData(user);
-
-      navigation.navigate('Dashboard', {
-        user,
-        encryptionPassword: SetupStore.encryptionPassword,
-        walletSetupType: null,
-      });
-    } catch (error) {
-      ErrorDialog.showError(error);
-    }
+    this.props.navigation.navigate('Dashboard', {
+      user,
+      encryptionPassword: SetupStore.encryptionPassword,
+      walletSetupType: null
+    });
   };
 
   sendAddressesToOneiro = (user) => {
@@ -96,6 +69,8 @@ class SetupTermsOfService extends Component {
   };
 
   render() {
+    SetupStore.printData();
+
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
@@ -104,7 +79,7 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator={true}
             indicatorStyle="white"
           >
-            <SetupProgressBar screenNumber={8} />
+            {/* <SetupProgressBar {...this.props} screenNumber={8} /> */}
             <View>
               <Text style={styles.mainLegalTextHeading}>Terms of Use{'\n'}</Text>
 

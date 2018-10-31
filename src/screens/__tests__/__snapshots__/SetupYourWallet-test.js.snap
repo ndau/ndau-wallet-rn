@@ -34,23 +34,6 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
       }
     >
       <View>
-        <Image
-          resizeMode="contain"
-          screenNumber={5}
-          source={
-            Object {
-              "testUri": "../../../img/step-5.png",
-            }
-          }
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "height": 60,
-              "marginBottom": 5,
-              "width": "100%",
-            }
-          }
-        />
         <View
           accessible={true}
           onResponderGrant={[Function]}
@@ -111,21 +94,13 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
           allowFontScaling={true}
           ellipsizeMode="tail"
           style={
-            Array [
-              Object {
-                "color": "#007aff",
-                "fontSize": 17,
-                "fontWeight": "500",
-                "textAlign": "center",
-              },
-              null,
-              Object {
-                "color": "#fff",
-                "fontFamily": "TitilliumWeb-Regular",
-                "fontSize": 16,
-              },
-              null,
-            ]
+            Object {
+              "alignSelf": "center",
+              "color": "#ffffff",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            }
           }
         >
           Get my recovery phrase

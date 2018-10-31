@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing ModalDialog... renders correctly 1`] = `
+<Modal
+  animationType="slide"
+  hardwareAccelerated={false}
+  navigator={
+    Object {
+      "setStyle": [Function],
+    }
+  }
+  onRequestClose={[Function]}
+  parentStyles={
+    Object {
+      "wizardText": Object {
+        "color": "#ffffff",
+        "fontSize": 20,
+      },
+    }
+  }
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#333333",
+            "borderRadius": 3,
+            "height": 934,
+            "paddingBottom": 26.5,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "width": 675,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={null}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#A9A9A9",
+                "fontSize": 20,
+              },
+              Object {
+                "marginLeft": 7.5,
+                "marginTop": 6.5,
+              },
+              Object {
+                "fontFamily": "FontAwesome",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

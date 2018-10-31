@@ -54,20 +54,18 @@ class SetupEncryptionPassword extends Component {
       return;
     }
 
-
-
     SetupStore.encryptionPassword = this.state.password;
     const { navigation } = this.props;
     const comingFrom = navigation.getParam('comingFrom', '');
     if (comingFrom === 'SetupQRCode') {
       navigation.navigate('SetupYourWallet', {
-        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
       });
     } else {
       const user = navigation.getParam('user', null);
-      navigation.navigate('SetupTermsOfService', { 
+      navigation.navigate('SetupTermsOfService', {
         user,
-        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
       });
     }
   };
@@ -98,7 +96,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <SetupProgressBar screenNumber={4} />
+            {/* <SetupProgressBar {...this.props} screenNumber={4} /> */}
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Set a password. This password applies to this app only. Ndau will not have access to

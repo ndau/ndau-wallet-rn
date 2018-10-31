@@ -1,14 +1,13 @@
 import { AsyncStorage } from 'react-native';
 import CryptoJS from 'crypto-js';
 import EntropyHelper from '../helpers/EntropyHelper';
-import SetupStore from './SetupStore';
 
 // we put these things on either end of the combination to make sure we know that we
 // have decrypted it properly
 const PREFIX = 'Prefix@';
 const SUFFIX = '@Suffix';
 
-const MULTISAFE_PREFIX = 'MultiSafe_'
+const MULTISAFE_PREFIX = 'MultiSafe_';
 const MULTISAFE_DATA_PREFIX = MULTISAFE_PREFIX + 'Data_';
 const MULTISAFE_META_PREFIX = MULTISAFE_PREFIX + 'Meta_';
 
@@ -57,15 +56,11 @@ class MultiSafe {
     try {
       const keys = await AsyncStorage.getAllKeys();
       const newKeys = keys.filter(
-<<<<<<< HEAD
         (key) => key.slice(0, MULTISAFE_PREFIX.length) == MULTISAFE_PREFIX
-=======
-        (key) => key.slice(0, MULTISAFE_DATA_PREFIX.length) == MULTISAFE_DATA_PREFIX
->>>>>>> master
       );
       return newKeys;
     } catch (error) {
-      console.debug("GetAllKeys failed", error);
+      console.debug('GetAllKeys failed', error);
       return [];
     }
   };
@@ -167,7 +162,7 @@ class MultiSafe {
     let multisafeKey = MULTISAFE_DATA_PREFIX + storageKey;
     let metaKey = MULTISAFE_META_PREFIX + storageKey;
     if (await this._keyExists(metaKey)) {
-      await this.verify(combo)
+      await this.verify(combo);
       return this;
     }
     // ok, it didn't exist, so we need a new one
@@ -175,7 +170,7 @@ class MultiSafe {
     let dataSecret = await EntropyHelper.generateEntropy();
     let combination0 = this._encrypt(dataSecret, combo);
     let meta = {
-      combinations: [combination0]
+      combinations: [ combination0 ]
     };
     await this._storeObject(metaKey, meta);
     data = {};
@@ -222,6 +217,24 @@ class MultiSafe {
   retrieve = async (combo) => {
     let multisafeKey = MULTISAFE_DATA_PREFIX + this.storageKey;
     return this._retrieveEncryptedObject(multisafeKey, combo);
+  };
+
+  /**
+   * Send an array of all storage keys present within AsyncStorage
+   * @returns sends back an array of new
+   */
+  getStorageKeys = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const newKeys = keys.filter((key) => key.indexOf(MULTISAFE_DATA_PREFIX) !== -1).map((key) => {
+        if (key.indexOf(MULTISAFE_DATA_PREFIX) !== -1) {
+          return key.substring(MULTISAFE_DATA_PREFIX.length, key.length);
+        }
+      });
+      return newKeys;
+    } catch (error) {
+      return [];
+    }
   };
 
   /**

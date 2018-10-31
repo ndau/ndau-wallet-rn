@@ -8,10 +8,11 @@ import { SafeAreaView } from 'react-navigation';
 import EntropyHelper from '../helpers/EntropyHelper';
 
 class SetupYourWallet extends Component {
-  showNextSetup = () => {
-    const { navigation } = this.props;
-    navigation.navigate('SetupRecoveryPhrase', {
-      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+  showNextSetup = async () => {
+    await EntropyHelper.generateEntropy();
+    this.props.navigation.navigate('SetupRecoveryPhrase', {
+      walletSetupType:
+        this.props.navigation.state.params && this.props.navigation.state.params.walletSetupType
     });
   };
 
@@ -26,13 +27,11 @@ class SetupYourWallet extends Component {
   };
 
   render() {
-    EntropyHelper.generateEntropy();
-
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <SetupProgressBar screenNumber={5} />
+            {/* <SetupProgressBar {...this.props} screenNumber={5} /> */}
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
                 <Text style={cssStyles.wizardText}>

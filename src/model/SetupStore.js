@@ -21,7 +21,6 @@ class SetupStore {
 
   set userId(userId) {
     this._userId = userId;
-    this._printData();
   }
 
   get userId() {
@@ -31,7 +30,6 @@ class SetupStore {
 
   set numberOfAccounts(numberOfAccounts) {
     this._numberOfAccounts = numberOfAccounts;
-    this._printData();
   }
 
   get numberOfAccounts() {
@@ -41,7 +39,6 @@ class SetupStore {
 
   set qrCode(qrCode) {
     this._qrCode = qrCode;
-    this._printData();
   }
 
   get qrCode() {
@@ -51,7 +48,6 @@ class SetupStore {
 
   set encryptionPassword(encryptionPassword) {
     this._encryptionPassword = encryptionPassword;
-    this._printData();
   }
 
   get encryptionPassword() {
@@ -61,7 +57,6 @@ class SetupStore {
 
   set entropy(entropy) {
     this._entropy = entropy;
-    this._printData();
   }
 
   get entropy() {
@@ -71,7 +66,6 @@ class SetupStore {
 
   set recoveryPhrase(recoveryPhrase) {
     this._recoveryPhrase = recoveryPhrase.slice();
-    this._printData();
   }
 
   get recoveryPhrase() {
@@ -81,7 +75,6 @@ class SetupStore {
 
   set shuffledWords(shuffledWords) {
     this._shuffledWords = shuffledWords.slice();
-    this._printData();
   }
 
   get shuffledWords() {
@@ -91,7 +84,6 @@ class SetupStore {
 
   set shuffledMap(shuffledMap) {
     this._shuffledMap = shuffledMap.slice();
-    this._printData();
   }
 
   get shuffledMap() {
@@ -109,12 +101,11 @@ class SetupStore {
     Alert.alert(
       'Information',
       `Old address type was ${oldAddressType} which has been moved to ${newAddressType}`,
-      [{ text: 'OK', onPress: () => { } }],
+      [ { text: 'OK', onPress: () => {} } ],
       { cancelable: false }
     );
 
     this._addressType = newAddressType;
-    this._printData();
   }
 
   get addressType() {
@@ -124,7 +115,6 @@ class SetupStore {
 
   set walletName(walletName) {
     this._walletName = walletName;
-    this._printData();
   }
 
   get walletName() {
@@ -132,16 +122,16 @@ class SetupStore {
     return this._walletName;
   }
 
-  _printData = () => {
-    // console.debug(`SetupStore.userId ${this._userId}`);
-    // console.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`);
-    // console.debug(`SetupStore.qrCode ${this._qrCode}`);
-    // console.debug(`SetupStore.entropy ${this._entropy}`);
-    // console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
-    // console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
-    // console.debug(`SetupStore.shuffledMap ${this._shuffledMap}`);
-    // console.debug(`SetupStore.walletName ${this._walletName}`);
-    // console.debug(`SetupStore.addressType ${this._addressType}`);
+  printData = () => {
+    console.debug(`SetupStore.userId ${this._userId}`);
+    console.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`);
+    console.debug(`SetupStore.qrCode ${this._qrCode}`);
+    console.debug(`SetupStore.entropy ${this._entropy}`);
+    console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
+    console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
+    console.debug(`SetupStore.shuffledMap ${this._shuffledMap}`);
+    console.debug(`SetupStore.walletName ${this._walletName}`);
+    console.debug(`SetupStore.addressType ${this._addressType}`);
   };
 }
 

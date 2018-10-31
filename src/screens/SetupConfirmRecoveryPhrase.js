@@ -39,8 +39,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       mustRetry: false,
       errorCount: 0,
       match: false,
-      selected: [],
-      
+      selected: []
     };
 
     // chop the words into DEFAULT_ROW_LENGTH-tuples
@@ -53,22 +52,11 @@ class SetupConfirmRecoveryPhrase extends Component {
   }
 
   showNextSetup = async () => {
-    const { navigation } = this.props;
-    const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
-
-    if (isMainNetAlive) {
-      navigation.navigate('SetupWalletName', {
-        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
-      });
-    } else {
-      navigation.navigate('SetupTermsOfService', {
-        walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
-      });
-    }
+    this.props.navigation.navigate('SetupWalletName');
   };
 
-  pushBack = () => {
-    EntropyHelper.generateEntropy();
+  pushBack = async () => {
+    await EntropyHelper.generateEntropy();
     this.props.navigation.navigate('SetupYourWallet');
   };
 
@@ -86,7 +74,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <SetupProgressBar />
+            {/* <SetupProgressBar {...this.props} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To confirm that you recorded the phrase, tap the words below in order.{' '}

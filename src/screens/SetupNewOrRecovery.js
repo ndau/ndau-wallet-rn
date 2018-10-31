@@ -38,7 +38,7 @@ class SetupNewOrRecovery extends Component {
 
   showNewWallet = () => {
     this.props.navigation.navigate('SetupYourWallet', {
-      walletSetupType: 'new' 
+      walletSetupType: 'new'
     });
   };
 
@@ -52,10 +52,9 @@ class SetupNewOrRecovery extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
-
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar screenNumber={0} />
+            {/* <SetupProgressBar {...this.props} /> */}
             <View>
               <Text style={cssStyles.wizardText}>
                 Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{' '}
