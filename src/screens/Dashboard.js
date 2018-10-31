@@ -170,7 +170,7 @@ class Dashboard extends Component {
                   marginRight: wp('1%')
                 }}
                 resizeMode="contain"
-                source={require('../../img/ndau-icon-green.png')}
+                source={require('img/ndau-icon-green.png')}
               />
               <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
             </View>

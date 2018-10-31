@@ -128,7 +128,7 @@ class Passphrase extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <View style={styles.imageView}>
-              <Image style={styles.image} source={require('../../img/n_icon_ko.png')} />
+              <Image style={styles.image} source={require('img/n_icon_ko.png')} />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <TextInput
@@ -157,7 +157,7 @@ class Passphrase extends Component {
               <TouchableOpacity onPress={this.showInformation}>
                 <Image
                   style={{ width: 35, height: 38, marginTop: hp('4%') }}
-                  source={require('../../img/info_icon_gold.png')}
+                  source={require('img/info_icon_gold.png')}
                 />
               </TouchableOpacity>
             </View>

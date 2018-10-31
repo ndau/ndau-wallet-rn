@@ -21,13 +21,13 @@ class CollapsiblePanel extends Component {
     super(props);
 
     this.cardBackgrounds = [
-      require('../../img/green-card.png'),
-      require('../../img/light-blue-card.png'),
-      require('../../img/dark-blue-card.png'),
-      require('../../img/green-locked-card.png'),
-      require('../../img/light-blue-locked-card.png'),
-      require('../../img/dark-blue-locked-card.png'),
-      require('../../img/grey-notified-card.png')
+      require('img/green-card.png'),
+      require('img/light-blue-card.png'),
+      require('img/dark-blue-card.png'),
+      require('img/green-locked-card.png'),
+      require('img/light-blue-locked-card.png'),
+      require('img/dark-blue-locked-card.png'),
+      require('img/grey-notified-card.png')
     ];
 
     this.state = {
@@ -94,7 +94,7 @@ class CollapsiblePanel extends Component {
                       marginRight: wp('.1%')
                     }}
                     resizeMode="contain"
-                    source={require('../../img/ndau-icon-white.png')}
+                    source={require('img/ndau-icon-white.png')}
                   />
                   <Text style={styles.titleRight}>{this.props.titleRight}</Text>
                 </View>

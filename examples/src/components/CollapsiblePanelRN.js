@@ -6,11 +6,6 @@ class CollapsiblePanel extends Component {
   constructor(props) {
     super(props);
 
-    this.icons = {
-      up: require('../../../img/Arrowhead-01-128.png'),
-      down: require('../../../img/Arrowhead-Down-01-128.png')
-    };
-
     this.state = {
       title: props.title,
       expanded: true,
@@ -52,12 +47,6 @@ class CollapsiblePanel extends Component {
   };
 
   render() {
-    let icon = this.icons['down'];
-
-    if (this.state.expanded) {
-      icon = this.icons['up'];
-    }
-
     return (
       <Animated.View style={[ styles.container, { height: this.state.animation } ]}>
         <View style={styles.titleContainer} onLayout={this.setMinHeight}>

@@ -66,7 +66,7 @@ class AccountCard extends Component {
                   width: 23,
                   height: 35
                 }}
-                source={require('../../img/lock_countdown_animation_white.gif')}
+                source={require('img/lock_countdown_animation_white.gif')}
               />
             ) : null}
             <TouchableOpacity onPress={unlock}>
@@ -76,7 +76,7 @@ class AccountCard extends Component {
                     width: 23,
                     height: 35
                   }}
-                  source={require('../../img/locked.png')}
+                  source={require('img/locked.png')}
                 />
               ) : null}
             </TouchableOpacity>
@@ -87,13 +87,13 @@ class AccountCard extends Component {
                     width: 30,
                     height: 35
                   }}
-                  source={require('../../img/unlocked.png')}
+                  source={require('img/unlocked.png')}
                 />
               ) : null}
             </TouchableOpacity>
             <TouchableOpacity onPress={() => startTransaction(address)}>
               <Image
-                source={require('../../img/send_receive_both.png')}
+                source={require('img/send_receive_both.png')}
                 style={{
                   width: 35,
                   height: 35
