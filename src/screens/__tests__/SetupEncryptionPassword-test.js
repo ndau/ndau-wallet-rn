@@ -11,25 +11,29 @@ describe('testing SetupEncryptionPassword...', () => {
       fontSize: 20
     }
   });
-  const navigator = {
-    setStyle: () => {},
-    toggleNavBar: () => {}
+  const navigation = {
+    navigate: jest.fn(),
+    routeName: ''
   };
 
   it('renders correctly', () => {
     const tree = renderer
-      .create(<SetupEncryptionPassword navigator={navigator} parentStyles={styles} />)
+      .create(<SetupEncryptionPassword navigation={navigation} parentStyles={styles} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('render parentStyles', () => {
-    const wrapper = mount(<SetupEncryptionPassword navigator={navigator} parentStyles={styles} />);
+    const wrapper = mount(
+      <SetupEncryptionPassword navigation={navigation} parentStyles={styles} />
+    );
     expect(wrapper.props('parentStyles')).toBeDefined();
   });
 
   it('throws an error if click without password', () => {
-    const wrapper = mount(<SetupEncryptionPassword navigator={navigator} parentStyles={styles} />);
+    const wrapper = mount(
+      <SetupEncryptionPassword navigation={navigation} parentStyles={styles} />
+    );
     const onlyButton = wrapper.find('Button').at(0);
     onlyButton.simulate('click');
     const alert = wrapper.find('Alert').at(0);
@@ -37,7 +41,9 @@ describe('testing SetupEncryptionPassword...', () => {
   });
 
   it('throws an error if click without confirm password', () => {
-    const wrapper = mount(<SetupEncryptionPassword navigator={navigator} parentStyles={styles} />);
+    const wrapper = mount(
+      <SetupEncryptionPassword navigation={navigation} parentStyles={styles} />
+    );
     const onlyButton = wrapper.find('Button').at(0);
 
     wrapper.find('TextInput').at(0).instance().value = 'foo';
@@ -48,7 +54,9 @@ describe('testing SetupEncryptionPassword...', () => {
   });
 
   it('you can proceed after both have been populated', () => {
-    const wrapper = mount(<SetupEncryptionPassword navigator={navigator} parentStyles={styles} />);
+    const wrapper = mount(
+      <SetupEncryptionPassword navigation={navigation} parentStyles={styles} />
+    );
     const onlyButton = wrapper.find('Button').at(0);
 
     wrapper.find('TextInput').at(0).instance().value = 'foo';

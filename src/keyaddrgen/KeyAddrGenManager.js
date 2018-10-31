@@ -167,14 +167,9 @@ const createWallet = async (
   }
 };
 
-const addAccountsToUser = async (
-  recoveryPhraseStringAsBytes,
-  user,
-  numberOfAccounts,
-  rootDerivedPath
-) => {
+const addAccountsToUser = async (recoveryPhraseBytes, user, numberOfAccounts, rootDerivedPath) => {
   const wallet = await createWallet(
-    recoveryPhraseStringAsBytes,
+    recoveryPhraseBytes,
     null,
     user.userId,
     AppConstants.MAINNET_ADDRESS,
@@ -212,8 +207,8 @@ const addAccounts = async (
 
 /**
  * create a new account(s) and send back the address created
- * this method must get a valid wallet which has been unlocked from
- * AsyncStorageHelper. Ideally this should be coming from the a
+ * this method must get a valid wallet which has been retrieved from
+ * MultiSafeHelper. Ideally this should be coming from the a
  * navigation property passed around.
  *
  * @param  {User} user

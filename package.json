@@ -18,13 +18,13 @@
     "jest-react-native": "^18.0.0",
     "jest-serializer-enzyme": "^1.0.0",
     "jsdom": "^11.11.0",
+    "mock-async-storage": "^2.0.3",
     "react": "^16.3.1",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.4.1",
     "react-native-mock": "^0.3.1",
     "react-native-mock-render": "0.0.27",
     "react-test-renderer": "^16.3.1",
-    "mock-async-storage": "^2.0.3",
     "sinon": "^6.1.3"
   },
   "scripts": {
@@ -47,7 +47,10 @@
     "setupFiles": [ "./setupJest.js" ],
     "globals": {
       "__DEV__": true
-    }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-looped-carousel|react-native-simple-dialogs)/)"
+    ]
   },
   "dependencies": {
     "@tradle/react-native-http": "^2.0.1",
@@ -74,6 +77,7 @@
     "react-native-looped-carousel": "^0.1.13",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-modal-dropdown": "^0.6.2",
+    "react-native-qrcode": "^0.2.7",
     "react-native-qrcode-scanner": "^1.0.1",
     "react-native-remote-svg": "^1.2.0",
     "react-native-responsive-screen": "^1.1.9",

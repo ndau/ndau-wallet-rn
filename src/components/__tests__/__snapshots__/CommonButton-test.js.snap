@@ -22,5 +22,20 @@ exports[`testing CommonButton... renders correctly 1`] = `
       "opacity": 1,
     }
   }
-/>
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "alignSelf": "center",
+        "color": "#ffffff",
+        "fontFamily": "TitilliumWeb-Regular",
+        "fontSize": 16,
+        "fontWeight": "bold",
+      }
+    }
+  />
+</View>
 `;

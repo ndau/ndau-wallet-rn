@@ -9,7 +9,6 @@ import {
   RefreshControl,
   TouchableOpacity
 } from 'react-native';
-import CollapsiblePanel from '../components/CollapsiblePanel';
 import cssStyles from '../css/styles';
 import styles from '../css/styles';
 import DateHelper from '../helpers/DateHelper';
@@ -18,24 +17,30 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import AccountCard from '../components/AccountCard';
 import UnlockModalDialog from '../components/UnlockModalDialog';
 import LockModalDialog from '../components/LockModalDialog';
 import NewAccountModalDialog from '../components/NewAccountModalDialog';
+import TransactionModalDialog from '../components/TransactionModalDialog';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styleConstants from '../css/styleConstants';
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
-import AsyncStorageHelper from '../model/AsyncStorageHelper';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
 import UserData from '../model/UserData';
+
+const LOCK_MODAL_ID = 'lock';
+const UNLOCK_MODAL_ID = 'unlock';
+const NEW_ACCOUNT_MODAL_ID = 'newAccount';
+const TRANSACTION_MODAL_ID = 'transaction';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      lockModalVisible: false,
-      unlockModalVisible: false,
-      newAccountModalVisible: false,
+      modalId: null,
       number: 1,
+      activeAddress: null,
       user: {},
       refreshing: false
     };
@@ -46,16 +51,12 @@ class Dashboard extends Component {
     this.setState({ user });
   }
 
-  setLockModalVisible = (visible) => {
-    this.setState({ lockModalVisible: visible });
+  showModal = (modalId) => {
+    this.setState({ modalId });
   };
 
-  setUnlockModalVisible = (visible) => {
-    this.setState({ unlockModalVisible: visible });
-  };
-
-  setNewAccountModalVisible = (visible) => {
-    this.setState({ newAccountModalVisible: visible });
+  closeModal = () => {
+    this.setState({ modalId: null });
   };
 
   subtractNumber = () => {
@@ -83,13 +84,13 @@ class Dashboard extends Component {
   };
 
   launchAddNewAccountDialog = () => {
-    this.setNewAccountModalVisible(true);
+    this.showModal(NEW_ACCOUNT_MODAL_ID);
   };
 
   addNewAccount = async () => {
     const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number);
 
-    await AsyncStorageHelper.lockUser(
+    await MultiSafeHelper.saveUser(
       user,
       this.props.navigation.getParam('encryptionPassword', null)
     );
@@ -102,7 +103,7 @@ class Dashboard extends Component {
 
     const user = this.state.user;
 
-    UserData.loadData(user);
+    await UserData.loadData(user);
 
     console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`);
 
@@ -110,7 +111,7 @@ class Dashboard extends Component {
   };
 
   render = () => {
-    console.debug(`user: ${JSON.stringify(this.state.user, null, 2)}`);
+    console.debug(`user out of state: ${JSON.stringify(this.state.user, null, 2)}`);
 
     //TODO: this is ONLY temporary as we need to enumerate the wallets
     const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId];
@@ -119,25 +120,38 @@ class Dashboard extends Component {
     //TODO: move marketPrice to the top level as it does not correspond to a user
     const currentPrice = NdauNodeAPIHelper.currentPrice(marketPrice, totalNdauNumber);
 
+    console.log('active address is: ', this.state.activeAddress);
+
     return accounts ? (
       <SafeAreaView style={cssStyles.safeContainer}>
         <UnlockModalDialog
-          visible={this.state.unlockModalVisible}
-          setModalVisible={this.setUnlockModalVisible}
+          visible={this.state.modalId === UNLOCK_MODAL_ID}
+          setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}
+          closeModal={this.closeModal}
         />
         <LockModalDialog
-          visible={this.state.lockModalVisible}
-          setModalVisible={this.setLockModalVisible}
+          visible={this.state.modalId === LOCK_MODAL_ID}
+          setModalVisible={() => this.showModal(LOCK_MODAL_ID)}
+          closeModal={this.closeModal}
         />
         <NewAccountModalDialog
-          visible={this.state.newAccountModalVisible}
-          setModalVisible={this.setNewAccountModalVisible}
           number={this.state.number}
           subtractNumber={this.subtractNumber}
           addNumber={this.addNumber}
           addNewAccount={this.addNewAccount}
+          visible={this.state.modalId === NEW_ACCOUNT_MODAL_ID}
+          setModalVisible={() => this.showModal(NEW_ACCOUNT_MODAL_ID)}
+          closeModal={this.closeModal}
         />
+        <TransactionModalDialog
+          visible={this.state.modalId === TRANSACTION_MODAL_ID}
+          setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
+          closeModal={this.closeModal}
+          address={this.state.activeAddress}
+        />
+
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
+
         <ScrollView
           style={cssStyles.container}
           refreshControl={
@@ -156,7 +170,7 @@ class Dashboard extends Component {
                   marginRight: wp('1%')
                 }}
                 resizeMode="contain"
-                source={require('../../img/ndau-icon-green.png')}
+                source={require('img/ndau-icon-green.png')}
               />
               <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
             </View>
@@ -182,7 +196,7 @@ class Dashboard extends Component {
             </View>
           </View>
 
-          {accounts ? (
+          {accounts &&
             Object.keys(accounts).map((accountKey, index) => {
               const account = accounts[accountKey];
               const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
@@ -197,86 +211,31 @@ class Dashboard extends Component {
               const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
 
               return (
-                <CollapsiblePanel
+                <AccountCard
                   key={index}
                   index={index}
-                  title={nickname}
-                  titleRight={accountBalance}
-                  lockAdder={accountNotLocked ? 0 : 3}
-                  onNotice={accountNoticePeriod ? true : false}
-                >
-                  {eaiPercentage ? (
-                    <Text style={cssStyles.text}>
-                      {eaiPercentage}
-                      {'%'} annualized EAI
-                    </Text>
-                  ) : null}
-                  {sendingEAITo ? (
-                    <Text style={cssStyles.text}>
-                      Sending incentive {'('}EAI{')'} to {sendingEAITo}
-                    </Text>
-                  ) : null}
-                  {receivingEAIFrom ? (
-                    <Text style={cssStyles.text}>
-                      Receiving incentive {'('}EAI{')'} to {receivingEAIFrom}
-                    </Text>
-                  ) : null}
-                  {accountLockedUntil ? (
-                    <Text style={cssStyles.text}>
-                      Account will be unlocked {accountLockedUntil}
-                    </Text>
-                  ) : null}
-                  {accountNoticePeriod ? (
-                    <Text style={cssStyles.text}>
-                      Locked {'('}
-                      {accountNoticePeriod} day countdown{')'}
-                    </Text>
-                  ) : null}
-                  {accountNotLocked ? (
-                    <Text style={cssStyles.text}>This account is not locked</Text>
-                  ) : null}
-                  {accountBalance === 0 ? (
-                    <Text style={cssStyles.text}>{account.address}</Text>
-                  ) : null}
-                  {totalNdau !== 0 ? (
-                    <View style={[ { justifyContent: 'flex-end', alignItems: 'flex-end' } ]}>
-                      {accountNoticePeriod ? (
-                        <Image
-                          style={{
-                            width: 23,
-                            height: 35
-                          }}
-                          source={require('../../img/lock_countdown_animation_white.gif')}
-                        />
-                      ) : null}
-                      <TouchableOpacity onPress={this.unlock}>
-                        {accountLockedUntil ? (
-                          <Image
-                            style={{
-                              width: 23,
-                              height: 35
-                            }}
-                            source={require('../../img/locked.png')}
-                          />
-                        ) : null}
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={this.lock}>
-                        {accountNotLocked ? (
-                          <Image
-                            style={{
-                              width: 30,
-                              height: 35
-                            }}
-                            source={require('../../img/unlocked.png')}
-                          />
-                        ) : null}
-                      </TouchableOpacity>
-                    </View>
-                  ) : null}
-                </CollapsiblePanel>
+                  nickname={nickname}
+                  address={account.address}
+                  eaiPercentage={eaiPercentage}
+                  sendingEAITo={sendingEAITo}
+                  receivingEAIFrom={receivingEAIFrom}
+                  accountBalance={accountBalance}
+                  accountLockedUntil={accountLockedUntil}
+                  accountNoticePeriod={accountNoticePeriod}
+                  accountNotLocked={accountNotLocked}
+                  totalNdau={totalNdau}
+                  lock={this.lock}
+                  unlock={this.unlock}
+                  startTransaction={(address) => {
+                    console.log('state before transaction started', this.state);
+                    this.setState({
+                      activeAddress: address,
+                      modalId: TRANSACTION_MODAL_ID
+                    });
+                  }}
+                />
               );
-            })
-          ) : null}
+            })}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>

@@ -5,9 +5,14 @@ import ErrorDialog from '../components/ErrorDialog';
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:';
 const CURRENT_USER_KEY = '@CurrentUserKey';
 
-//PLEASE CHECK WITH KP BEFORE CHANGING THESE FUNCTIONS
-//To remain backwards compatible we must not change the way
-//we unlock or lock a user.
+/**
+ * This function is deprecated. It is only kept around for the 1.8 release. After that
+ * we can look at phasing this out.
+ *
+ * @param {string} userId
+ * @param {string} encryptionPassword
+ * @deprecated as of 1.8
+ */
 const unlockUser = (userId, encryptionPassword) => {
   return new Promise((resolve, reject) => {
     const storageKey = STORAGE_KEY_PREFIX + userId;
@@ -35,9 +40,15 @@ const unlockUser = (userId, encryptionPassword) => {
   });
 };
 
-//PLEASE CHECK WITH KP BEFORE CHANGING THESE FUNCTIONS
-//To remain backwards compatible we must not change the way
-//we unlock or lock a user.
+/**
+ * This function is deprecated. It is only kept around for the 1.8 release. After that
+ * we can look at phasing this out.
+ *
+ * @param {string} user
+ * @param {string} encryptionPassword
+ * @param {boolean} storageKeyOverride
+ * @deprecated as of 1.8
+ */
 const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
   try {
     if (!encryptionPassword) throw Error('you must pass an encryptionPassword to use this method');
@@ -60,6 +71,11 @@ const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
   }
 };
 
+/**
+ * This function is deprecated. It is only kept around for the 1.8 release. After that
+ * we can look at phasing this out.
+ * @deprecated as of 1.8
+ */
 const getAllKeys = async () => {
   try {
     const keys = await AsyncStorage.getAllKeys();

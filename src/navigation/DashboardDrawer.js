@@ -49,7 +49,7 @@ class DashboardDrawer extends React.Component {
             <View style={{ flexDirection: 'row' }}>
               <Image
                 style={cssStyles.drawerTextImageDashboard}
-                source={require('../../img/billfold-revised.png')}
+                source={require('img/billfold-revised.png')}
               />
               <Text style={cssStyles.drawerText}>Dashboard</Text>
             </View>
@@ -64,10 +64,7 @@ class DashboardDrawer extends React.Component {
           />
           <TouchableOpacity onPress={() => this.logout()}>
             <View style={{ flexDirection: 'row' }}>
-              <Image
-                style={cssStyles.drawerTextImage}
-                source={require('../../img/ndau_user.png')}
-              />
+              <Image style={cssStyles.drawerTextImage} source={require('img/ndau_user.png')} />
               <Text style={cssStyles.drawerText}>Logout</Text>
             </View>
           </TouchableOpacity>
