@@ -71,7 +71,7 @@ class SetupQRCode extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar />
+            <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
                 To send and receive ndau, you will need to use your device's camera.

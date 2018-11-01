@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { withNavigation } from 'react-navigation';
+// import { withNavigation } from 'react-navigation';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import ProgressBar from './ProgressBar';
 
+
+export const NEW_WALLET_SETUP_TYPE = 'new';
+export const RECOVERY_WALLET_SETUP_TYPE = 'recovery';
+
 const NEW_WALLET_SCREENS = {
-  'SetupYourWallet': 1,
-  'SetupRecoveryPhrase': 2,
-  'SetupConfirmRecoveryPhrase': 3,
-  'SetupWalletName': 4,
-  'SetupEncryptionPassword': 5,
-  'SetupTermsOfService': 6,
+  SetupYourWallet: 1,
+  SetupRecoveryPhrase: 2,
+  SetupConfirmRecoveryPhrase: 3,
+  SetupWalletName: 4,
+  SetupEncryptionPassword: 5,
+  SetupTermsOfService: 6,
 
   //meta
   numberOfSteps: 6,
 };
 
 const RECOVERY_SCREENS = {
-  'SetupGetRecoveryPhrase': 1,
-  'SetupWalletName': 14,
-  'SetupEncryptionPassword': 15,
-  'SetupTermsOfService': 16,
+  SetupGetRecoveryPhrase: 1,
+  SetupWalletName: 14,
+  SetupEncryptionPassword: 15,
+  SetupTermsOfService: 16,
 
   //meta
   numberOfSteps: 16,
@@ -31,32 +35,25 @@ class SetupProgressBar extends Component {
     super(props);
     
     const { navigation } = props;
-    const { routeName, params={} } = navigation && navigation.state;
+    const { routeName, params={} } = navigation && navigation.state || {};
     const { walletSetupType } = params;
     this.routeName = routeName;
     this.walletSetupType = walletSetupType;
 
     this.screens = {};
-    if(this.walletSetupType === 'new') {
+    if(this.walletSetupType === NEW_WALLET_SETUP_TYPE) {
       this.screens = NEW_WALLET_SCREENS;
     }
-    if(this.walletSetupType === 'recovery') {
+    else if(this.walletSetupType === RECOVERY_WALLET_SETUP_TYPE) {
       this.screens = RECOVERY_SCREENS;
     }
-
-
 
     this.screenNumber = this.screens[this.routeName];
     this.numberOfSteps = this.screens.numberOfSteps;
   }
 
-  componentWillUnmount() {
-
-  }
-
   render() {
     if(!this.walletSetupType || !this.screenNumber) {
-      // debugger;
       return (
         // placeholder for consistent spacing in UI
         <View style={{marginBottom: hp('7%')}}></View> 
@@ -84,4 +81,4 @@ class SetupProgressBar extends Component {
   }
 }
 
-export default withNavigation(SetupProgressBar);
+export default SetupProgressBar;

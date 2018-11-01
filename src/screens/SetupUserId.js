@@ -158,7 +158,7 @@ class SetupUserId extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar />
+            <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={cssStyles.wizardText}>
                 To deliver your ndau to your wallet, we need the six-character user ID you use to

@@ -98,7 +98,7 @@ class SetupEncryptionPassword extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            <SetupProgressBar screenNumber={4} />
+            <SetupProgressBar navigation={this.props.navigation} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Set a password. This password applies to this app only. Ndau will not have access to

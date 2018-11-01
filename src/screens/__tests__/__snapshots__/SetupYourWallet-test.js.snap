@@ -34,20 +34,10 @@ exports[`testing SetupYourWallet... renders correctly 1`] = `
       }
     >
       <View>
-        <Image
-          resizeMode="contain"
-          screenNumber={5}
-          source={
-            Object {
-              "testUri": "../../../img/step-5.png",
-            }
-          }
+        <View
           style={
             Object {
-              "backgroundColor": "transparent",
-              "height": 60,
-              "marginBottom": 5,
-              "width": "100%",
+              "marginBottom": 93.5,
             }
           }
         />

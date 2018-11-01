@@ -166,7 +166,10 @@ class SetupGetRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
-            <SetupProgressBar stepNumber={this.state.stepNumber} />
+            <SetupProgressBar
+              stepNumber={this.state.stepNumber}
+              navigation={this.props.navigation}
+            />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To verify your account please verify your twelve-word recovery phrase below. Start
