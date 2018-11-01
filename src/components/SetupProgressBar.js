@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-// import { withNavigation } from 'react-navigation';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import ProgressBar from './ProgressBar';
-
 
 export const NEW_WALLET_SETUP_TYPE = 'new';
 export const RECOVERY_WALLET_SETUP_TYPE = 'recovery';
@@ -74,7 +72,7 @@ class SetupProgressBar extends Component {
           progress={progress}
           currentStep={step}
           numberOfSteps={this.numberOfSteps}
-          showSteps
+          showSteps={this.numberOfSteps < 11}
         />
       </View>
     );

@@ -48,7 +48,7 @@ class ProgressBar extends Component {
     }
 
     for(let index=1; index <= numberOfSteps; index++) {
-      const backgroundColor = index <= currentStep ? '#000' : '#3b3b3b';
+      const backgroundColor = index <= currentStep ? '#000' : styleConstants.PROGRESS_GRAY;
       Steps.push(
         <View
           style={circleStyle}
@@ -61,9 +61,12 @@ class ProgressBar extends Component {
 
     return (
       <View style={styles.container} height={HEIGHT}>
-        <View style={stepsStyle}>
-          {Steps}  
-        </View>
+        {
+          this.props.showSteps && 
+          <View style={stepsStyle}>
+            {Steps}  
+          </View>
+        }
         <View style={progressStyle}>
         </View>
       </View>

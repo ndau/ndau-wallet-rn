@@ -24,6 +24,7 @@ import {
 import Dropdown from '../components/Dropdown';
 import DataFormatHelper from '../helpers/DataFormatHelper';
 import UserData from '../model/UserData';
+import { NEW_WALLET_SETUP_TYPE, RECOVERY_WALLET_SETUP_TYPE } from '../components/SetupProgressBar';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -127,16 +128,21 @@ class Passphrase extends Component {
   showSetup = async () => {
     const isMainNetAlive = await NdauNodeAPIHelper.isMainNetAlive();
     if (isMainNetAlive) {
-      this.props.navigation.navigate('SetupWelcome');
+      this.props.navigation.navigate('SetupWelcome', {
+        walletSetupType: NEW_WALLET_SETUP_TYPE
+      });
     } else {
-      this.props.navigation.navigate('Setup');
+      this.props.navigation.navigate('Setup', {
+        walletSetupType: NEW_WALLET_SETUP_TYPE
+      });
     }
   };
 
   showRecovery = (user) => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
-      encryptionPassword: this.state.password
+      encryptionPassword: this.state.password,
+      walletSetupType: RECOVERY_WALLET_SETUP_TYPE,
     });
   };
 
