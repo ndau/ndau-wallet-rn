@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
@@ -10,53 +10,54 @@ import {
   Text,
   StatusBar,
   Platform
-} from 'react-native';
-import CommonButton from '../components/CommonButton';
-import cssStyles from '../css/styles';
-import MultiSafeHelper from '../helpers/MultiSafeHelper';
-import RNExitApp from 'react-native-exit-app';
-import { SafeAreaView } from 'react-navigation';
+} from 'react-native'
+import CommonButton from '../components/CommonButton'
+import cssStyles from '../css/styles'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import RNExitApp from 'react-native-exit-app'
+import { SafeAreaView } from 'react-navigation'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import UserData from '../model/UserData';
+} from 'react-native-responsive-screen'
+import UserData from '../model/UserData'
+import SetupGetRecoveryPhrase from './SetupGetRecoveryPhrase'
 
 class Passphrase extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       password: '',
       showErrorText: false,
       loginAttempt: 1
-    };
+    }
 
-    this.maxLoginAttempts = 10;
+    this.maxLoginAttempts = 10
   }
 
   login = async () => {
     try {
-      let user = await MultiSafeHelper.getDefaultUser(this.state.password);
+      let user = await MultiSafeHelper.getDefaultUser(this.state.password)
       if (user) {
-        console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`);
+        console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`)
 
-        await UserData.loadData(user);
+        await UserData.loadData(user)
 
         this.props.navigation.navigate('Dashboard', {
           user,
           encryptionPassword: this.state.password
-        });
+        })
       } else {
-        this.showLoginError();
+        this.showLoginError()
       }
     } catch (error) {
-      console.log(error);
-      this.showLoginError();
+      console.log(error)
+      this.showLoginError()
     }
-  };
+  }
 
-  showExitApp() {
+  showExitApp () {
     Alert.alert(
       '',
       `You have hit the maximum amount of login attempts.`,
@@ -64,17 +65,17 @@ class Passphrase extends Component {
         {
           text: 'Exit app',
           onPress: () => {
-            RNExitApp.exitApp();
+            RNExitApp.exitApp()
           }
         }
       ],
       { cancelable: false }
-    );
+    )
   }
 
   showLoginError = () => {
     if (this.state.loginAttempt === this.maxLoginAttempts) {
-      this.showExitApp();
+      this.showExitApp()
     }
     Alert.alert(
       'Error',
@@ -83,13 +84,13 @@ class Passphrase extends Component {
         {
           text: 'OK',
           onPress: () => {
-            this.setState({ loginAttempt: this.state.loginAttempt + 1 });
+            this.setState({ loginAttempt: this.state.loginAttempt + 1 })
           }
         }
       ],
       { cancelable: false }
-    );
-  };
+    )
+  }
 
   showInformation = () => {
     Alert.alert(
@@ -97,34 +98,35 @@ class Passphrase extends Component {
       'Please enter the password you chose to encrypt this app. ' +
         'This is not the same thing as your six-character ID or key ' +
         'recovery phrase.',
-      [ { text: 'OK', onPress: () => {} } ],
+      [{ text: 'OK', onPress: () => {} }],
       { cancelable: false }
-    );
-  };
+    )
+  }
 
   showSetup = async () => {
-    this.props.navigation.navigate('SetupWelcome');
-  };
+    this.props.navigation.navigate('SetupWelcome')
+  }
 
-  showRecovery = (user) => {
+  showRecovery = user => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
-      encryptionPassword: this.state.password
-    });
-  };
+      encryptionPassword: this.state.password,
+      mode: SetupGetRecoveryPhrase.PASSWORD_RESET_MODE
+    })
+  }
 
   dropDownSelected = (index, value) => {
     this.setState({
       userId: value
-    });
-  };
+    })
+  }
 
-  render() {
-    console.log(`rendering Passphrase`);
-    const { textInputColor } = this.state;
+  render () {
+    console.log(`rendering Passphrase`)
+    const { textInputColor } = this.state
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
-        <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
+        <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <View style={styles.imageView}>
@@ -145,46 +147,48 @@ class Passphrase extends Component {
                   fontSize: 18,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
-                onChangeText={(password) => this.setState({ password })}
+                onChangeText={password => this.setState({ password })}
                 value={this.state.password}
-                placeholder="App Password"
-                placeholderTextColor="#333"
+                placeholder='App Password'
+                placeholderTextColor='#333'
                 secureTextEntry={!this.state.showPasswords}
-                autoCapitalize="none"
+                autoCapitalize='none'
               />
+            </View>
+            <View style={styles.centerTextView}>
+              <Text onPress={this.showRecovery} style={cssStyles.linkText}>
+                Forgot your password?
+              </Text>
             </View>
             <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
                 <Image
-                  style={{ width: 35, height: 38, marginTop: hp('4%') }}
+                  style={{ width: 35, height: 38 }}
                   source={require('img/info_icon_gold.png')}
                 />
               </TouchableOpacity>
             </View>
-            {this.state.showErrorText ? (
-              <View style={styles.errorContainer}>
+            {this.state.showErrorText
+              ? <View style={styles.errorContainer}>
                 <Text style={cssStyles.errorText}>
-                  Please enter the passphrase you chose to decrypt this app.{' '}
+                    Please enter the passphrase you chose to decrypt this app.{' '}
                 </Text>
               </View>
-            ) : null}
+              : null}
           </ScrollView>
           <View style={styles.footer}>
-            <View style={styles.textContainer}>
+            <View style={styles.centerTextView}>
               <Text onPress={this.showSetup} style={cssStyles.linkText}>
-                Create a new user
-              </Text>
-              <Text onPress={this.showRecovery} style={cssStyles.linkText}>
-                Recover account
+                Add wallet
               </Text>
             </View>
-            <View style={{ marginTop: 10 }}>
-              <CommonButton onPress={this.login} title="Login" />
+            <View>
+              <CommonButton onPress={this.login} title='Login' />
             </View>
           </View>
         </View>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -205,6 +209,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: hp('4%')
   },
+  centerTextView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: hp('4%'),
+    paddingTop: hp('3%')
+  },
   image: {
     tintColor: '#4e957a',
     ...Platform.select({
@@ -220,6 +230,6 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginTop: 20
   }
-});
+})
 
-export default Passphrase;
+export default Passphrase

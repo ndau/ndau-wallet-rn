@@ -1,28 +1,44 @@
-import React, { Component } from 'react';
-import { View, ScrollView, Text, Linking, PixelRatio, Platform } from 'react-native';
-import groupIntoRows from '../helpers/groupIntoRows';
-import CommonButton from '../components/CommonButton';
-import cssStyles from '../css/styles';
-import { SafeAreaView } from 'react-navigation';
+import React, { Component } from 'react'
+import { View, ScrollView, Text, Linking, PixelRatio, Platform } from 'react-native'
+import groupIntoRows from '../helpers/groupIntoRows'
+import CommonButton from '../components/CommonButton'
+import cssStyles from '../css/styles'
+import { SafeAreaView } from 'react-navigation'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import RecoveryDropdown from '../components/RecoveryDropdown';
-import Carousel from 'react-native-looped-carousel';
-import { Dialog } from 'react-native-simple-dialogs';
-import ErrorPanel from '../components/ErrorPanel';
-import SetupProgressBar from '../components/SetupProgressBar';
-import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper';
-import MultiSafeHelper from '../helpers/MultiSafeHelper';
-import UserData from '../model/UserData';
+} from 'react-native-responsive-screen'
+import RecoveryDropdown from '../components/RecoveryDropdown'
+import Carousel from 'react-native-looped-carousel'
+import { Dialog } from 'react-native-simple-dialogs'
+import ErrorPanel from '../components/ErrorPanel'
+import SetupProgressBar from '../components/SetupProgressBar'
+import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import UserData from '../model/UserData'
 
-const DEFAULT_ROW_LENGTH = 3; // 3 items per row
-const _ = require('lodash');
+const DEFAULT_ROW_LENGTH = 3 // 3 items per row
+const _ = require('lodash')
 
 class SetupGetRecoveryPhrase extends Component {
-  constructor(props) {
-    super(props);
+  static NORMAL_MODE = 'normal'
+  static PASSWORD_RESET_MODE = 'password-reset'
+  static GENESIS_MODE = 'genesis'
+
+  constructor (props) {
+    super(props)
+    this.NORMAL_MODE_TEXT =
+      `To verify your account please verify your twelve-word recovery` +
+      `phrase below. Start typing in the box below, then pick the correct suggestion.`
+    this.PASSWORD_RESET_MODE_TEXT =
+      'To reset your password, please verify your ' +
+      'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
+      'correct suggestion'
+    this.GENESIS_MODE_TEXT =
+      `We're almost ready to get you on the ndau blockchain, ` +
+      'but we need one last thing from you. \n\nPlease verify your twelve word ' +
+      'recovery phrase. Start typing in the box below, then pick the correct suggestion'
+
     this.state = {
       size: { width: wp('100%'), height: hp('50%') },
       dialogVisible: false,
@@ -30,48 +46,65 @@ class SetupGetRecoveryPhrase extends Component {
       textColor: '#ffffff',
       confirmationError: false,
       acquisitionError: false,
-      stepNumber: 0
-    };
+      stepNumber: 0,
+      introductionText: this.NORMAL_MODE_TEXT
+    }
 
-    this.recoveryPhrase = [ '', '', '', '', '', '', '', '', '', '', '', '' ];
+    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
 
-    this.boxWidth = '30%';
-    this.boxHeight = '13%';
-    this.rowLength = DEFAULT_ROW_LENGTH;
+    this.boxWidth = '30%'
+    this.boxHeight = '13%'
+    this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`);
+    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
     if (PixelRatio.getFontScale() > 2) {
-      this.rowLength = 1;
-      this.boxWidth = '100%';
-      this.boxHeight = '30%';
-      console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`);
+      this.rowLength = 1
+      this.boxWidth = '100%'
+      this.boxHeight = '30%'
+      console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`)
     }
   }
 
+  componentWillMount () {
+    const mode = this.props.navigation.getParam('mode', SetupGetRecoveryPhrase.NORMAL_MODE)
+    switch (mode) {
+      case SetupGetRecoveryPhrase.GENESIS_MODE:
+        introductionText = this.GENESIS_MODE_TEXT
+        break
+      case SetupGetRecoveryPhrase.PASSWORD_RESET_MODE:
+        introductionText = this.PASSWORD_RESET_MODE_TEXT
+        break
+      default:
+        introductionText = this.NORMAL_MODE_TEXT
+    }
+
+    this.setState({ introductionText })
+  }
+
   addToRecoveryPhrase = (value, index) => {
-    this.recoveryPhrase[index] = value;
+    this.recoveryPhrase[index] = value
 
     if (this.recoveryPhrase.indexOf('') === -1) {
-      this.setState({ recoverPhraseFull: true });
+      this.setState({ recoverPhraseFull: true })
     }
-  };
+  }
 
   noRecoveryPhrase = () => {
-    this.setState({ dialogVisible: true });
-  };
+    this.setState({ dialogVisible: true })
+  }
 
   sendEmail = () => {
-    Linking.openURL('mailto:support@oneiro.freshdesk.com?subject=Lost Recovery Phrase');
-  };
+    Linking.openURL('mailto:support@oneiro.freshdesk.com?subject=Lost Recovery Phrase')
+  }
 
-  _onLayoutDidChange = (e) => {
-    const layout = e.nativeEvent.layout;
-    this.setState({ size: { width: layout.width, height: layout.height } });
-  };
+  _onLayoutDidChange = e => {
+    const layout = e.nativeEvent.layout
+    this.setState({ size: { width: layout.width, height: layout.height } })
+  }
 
   _generatePages = () => {
     return this.recoveryPhrase.map((phrase, i) => {
-      const style = [ this.state.size, cssStyles.recoveryPageView ];
+      const style = [this.state.size, cssStyles.recoveryPageView]
       if (i === 0) {
         style.push({
           ...Platform.select({
@@ -79,11 +112,11 @@ class SetupGetRecoveryPhrase extends Component {
               marginLeft: wp('14%')
             }
           })
-        });
+        })
       }
       return (
         <View style={style} key={i}>
-          <Text style={[ cssStyles.wizardText, { marginTop: hp('1%'), marginRight: wp('2%') } ]}>
+          <Text style={[cssStyles.wizardText, { marginTop: hp('1%'), marginRight: wp('2%') }]}>
             {i + 1}.
           </Text>
           <RecoveryDropdown
@@ -93,83 +126,82 @@ class SetupGetRecoveryPhrase extends Component {
             recoveryPhrase={this.recoveryPhrase}
           />
         </View>
-      );
-    });
-  };
+      )
+    })
+  }
 
   _checkRecoveryPhrase = async () => {
     return await RecoveryPhaseHelper.checkRecoveryPhrase(
       this.recoveryPhrase.join().replace(/,/g, ' '),
       this.props.navigation.getParam('user', null)
-    );
-  };
+    )
+  }
 
-  setAcquisitionError = (value) => {
-    this.setState({ acquisitionError: value });
-  };
+  setAcquisitionError = value => {
+    this.setState({ acquisitionError: value })
+  }
 
   confirm = async () => {
     try {
-      const user = await this._checkRecoveryPhrase();
+      const user = await this._checkRecoveryPhrase()
       if (user) {
-        const { navigation } = this.props;
-        const encryptionPassword = navigation.getParam('encryptionPassword', null);
-        //IF we have a password we are fixing up an account from a 1.6 user here
-        //so we fixed it up...now save it...and go back to Dashboard
+        const { navigation } = this.props
+        const encryptionPassword = navigation.getParam('encryptionPassword', null)
+        // IF we have a password we are fixing up an account from a 1.6 user here
+        // so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
-          await UserData.loadData(user);
+          await UserData.loadData(user)
 
-          await MultiSafeHelper.saveUser(user, encryptionPassword);
+          await MultiSafeHelper.saveUser(user, encryptionPassword)
 
           this.props.navigation.navigate('Dashboard', {
             user,
             encryptionPassword,
             walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
-          });
+          })
         } else {
           navigation.navigate('SetupWalletName', {
             user,
             walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
-          });
+          })
         }
       } else {
         this.setState({
           textColor: '#ff0000',
           confirmationError: true
-        });
+        })
       }
     } catch (error) {
       this.setState({
         textColor: '#ff0000',
         confirmationError: true
-      });
+      })
     }
-  };
+  }
 
   pushBack = () => {
     this.setState({
       recoverPhraseFull: false,
       confirmationError: false,
       textColor: '#ffffff'
-    });
-  };
+    })
+  }
 
-  adjustStepNumber = (pageIndex) => {
-    this.setState({ stepNumber: pageIndex });
-  };
+  adjustStepNumber = pageIndex => {
+    this.setState({ stepNumber: pageIndex })
+  }
 
   _renderAcquisition = () => {
-    const pages = this._generatePages();
+    const pages = this._generatePages()
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
+          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps='always'>
             {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
-                To verify your account please verify your twelve-word recovery phrase below. Start
-                typing, then pick the correct suggestion.
+                {this.state.introductionText}
               </Text>
             </View>
             <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
@@ -190,14 +222,14 @@ class SetupGetRecoveryPhrase extends Component {
                 {pages}
               </Carousel>
             </View>
-            {this.state.acquisitionError ? (
-              <ErrorPanel errorText={'Please select a valid word.'} />
-            ) : null}
+            {this.state.acquisitionError
+              ? <ErrorPanel errorText={'Please select a valid word.'} />
+              : null}
           </ScrollView>
           <View style={cssStyles.footer}>
             <Text
               onPress={this.noRecoveryPhrase}
-              style={[ cssStyles.linkText, { textAlign: 'center' } ]}
+              style={[cssStyles.linkText, { textAlign: 'center' }]}
             >
               I don't have my recovery phrase
             </Text>
@@ -217,17 +249,17 @@ class SetupGetRecoveryPhrase extends Component {
               Your recovery phrase is necessary to prove ownership of your ndau. Your wallet cannot
               be restored without it. If you have lost your recovery phrase please contact{' '}
             </Text>
-            <Text onPress={this.sendEmail} style={[ cssStyles.blueLinkText ]}>
+            <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
               Oneiro concierge support.
             </Text>
           </View>
         </Dialog>
       </SafeAreaView>
-    );
-  };
+    )
+  }
 
   _renderConfirmation = () => {
-    const words = groupIntoRows(this.recoveryPhrase, this.rowLength);
+    const words = groupIntoRows(this.recoveryPhrase, this.rowLength)
     const styles = {
       rowTextView: {
         height: hp(this.boxHeight),
@@ -239,13 +271,13 @@ class SetupGetRecoveryPhrase extends Component {
         fontFamily: 'TitilliumWeb-Regular',
         textAlign: 'center'
       }
-    };
-    let count = 1;
+    }
+    let count = 1
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
+          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps='always'>
             {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>Is this the correct recovery phrase? </Text>
@@ -261,35 +293,35 @@ class SetupGetRecoveryPhrase extends Component {
                           {item}
                         </Text>
                       </View>
-                    );
+                    )
                   })}
                 </View>
-              );
+              )
             })}
-            {this.state.confirmationError ? (
-              <ErrorPanel
+            {this.state.confirmationError
+              ? <ErrorPanel
                 errorText={'Is this the correct recovery phrase? Please correct any errors.'}
-              />
-            ) : null}
+                />
+              : null}
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.pushBack()} title="Back" />
+              <CommonButton onPress={() => this.pushBack()} title='Back' />
             </View>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.confirm()} title="Confirm" />
+              <CommonButton onPress={() => this.confirm()} title='Confirm' />
             </View>
           </View>
         </View>
       </SafeAreaView>
-    );
-  };
+    )
+  }
 
-  render() {
-    console.log(`recoverPhrase is now: ${this.recoveryPhrase}`);
+  render () {
+    console.log(`recoverPhrase is now: ${this.recoveryPhrase}`)
 
-    return !this.state.recoverPhraseFull ? this._renderAcquisition() : this._renderConfirmation();
+    return !this.state.recoverPhraseFull ? this._renderAcquisition() : this._renderConfirmation()
   }
 }
 
-export default SetupGetRecoveryPhrase;
+export default SetupGetRecoveryPhrase
