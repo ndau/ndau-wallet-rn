@@ -1,13 +1,13 @@
-import User from '../model/User';
-import Key from '../model/Key';
-import Account from '../model/Account';
-import { NativeModules } from 'react-native';
-import AppConstants from '../AppConstants';
-import AppConfig from '../AppConfig';
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
-import sha256 from 'crypto-js/sha256';
-import ErrorDialog from '../components/ErrorDialog';
-import Wallet from '../model/Wallet';
+import User from '../model/User'
+import Key from '../model/Key'
+import Account from '../model/Account'
+import { NativeModules } from 'react-native'
+import AppConstants from '../AppConstants'
+import AppConfig from '../AppConfig'
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
+import sha256 from 'crypto-js/sha256'
+import ErrorDialog from '../components/ErrorDialog'
+import Wallet from '../model/Wallet'
 
 /**
  * This function will return an array of addresses that can be
@@ -19,35 +19,40 @@ import Wallet from '../model/Wallet';
  * @returns {(string|Array)} of addresses
  * @param {string} recoveryBytes string of bytes
  */
-const getRootAddresses = async (recoveryBytes) => {
+const getRootAddresses = async recoveryBytes => {
   if (!recoveryBytes) {
-    throw new Error('you MUST pass recoveryBytes');
+    throw new Error('you MUST pass recoveryBytes')
   }
-  const addresses = [];
+  const addresses = []
 
   try {
-    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes);
+    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes)
 
     for (let i = 1; i <= AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY; i++) {
       const privateRootKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
         '/',
         `/${i}`
-      );
+      )
+
+      console.debug(`root privateRootKey: ${privateRootKey}`)
 
       const address = await NativeModules.KeyaddrManager.ndauAddress(
         privateRootKey,
         AppConstants.MAINNET_ADDRESS
-      );
-      addresses.push(address);
+      )
+
+      console.debug(`root address: ${address}`)
+
+      addresses.push(address)
     }
   } catch (error) {
-    ErrorDialog.showError(`problem encountered creating root addresses: ${error}`);
-    throw error;
+    ErrorDialog.showError(`problem encountered creating root addresses: ${error}`)
+    throw error
   }
 
-  return addresses;
-};
+  return addresses
+}
 
 /**
  * This function will return the addresses from the BIP44 compliant
@@ -56,37 +61,42 @@ const getRootAddresses = async (recoveryBytes) => {
  *
  * @param {string} recoveryBytes string of bytes
  */
-const getBIP44Addresses = async (recoveryBytes) => {
+const getBIP44Addresses = async recoveryBytes => {
   if (!recoveryBytes) {
-    throw new Error('you MUST pass recoveryBytes');
+    throw new Error('you MUST pass recoveryBytes')
   }
-  const addresses = [];
+  const addresses = []
 
   try {
-    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes);
+    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes)
     for (let i = 1; i <= AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY; i++) {
       const privateRootKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
         '/',
         _generateRootPath() + `/${i}`
-      );
+      )
+
+      console.debug(`BIP44 privateRootKey: ${privateRootKey}`)
 
       const address = await NativeModules.KeyaddrManager.ndauAddress(
         privateRootKey,
         AppConstants.MAINNET_ADDRESS
-      );
-      addresses.push(address);
+      )
+
+      console.debug(`BIP44 address: ${address}`)
+      addresses.push(address)
     }
   } catch (error) {
-    ErrorDialog.showError(`problem encountered creating BIP44 addresses: ${error}`);
-    throw error;
+    ErrorDialog.showError(`problem encountered creating BIP44 addresses: ${error}`)
+    throw error
   }
 
-  return addresses;
-};
+  return addresses
+}
 
 /**
- * This function will create the initial User
+ * This function will create the initial User. If no userId is passed
+ * in then you do not get any wallets created.
  *
  * @param  {string} recoveryBytes
  * @param  {string} userId
@@ -101,22 +111,25 @@ const createFirstTimeUser = async (
   numberOfAccounts = 0
 ) => {
   if (!recoveryBytes) {
-    throw new Error('you MUST pass recoveryPhrase to this method');
+    throw new Error('you MUST pass recoveryPhrase to this method')
   }
 
   try {
-    const user = new User();
-    user.userId = userId;
+    const user = new User()
 
-    const wallet = await createWallet(recoveryBytes, null, userId, chainId, numberOfAccounts);
-    user.wallets[userId] = wallet;
+    if (userId) {
+      user.userId = userId
 
-    console.log(`User created is: ${JSON.stringify(user, null, 2)}`);
-    return user;
+      const wallet = await createWallet(recoveryBytes, null, userId, chainId, numberOfAccounts)
+      user.wallets[userId] = wallet
+    }
+
+    console.log(`User created is: ${JSON.stringify(user, null, 2)}`)
+    return user
   } catch (error) {
-    ErrorDialog.showError(error);
+    ErrorDialog.showError(error)
   }
-};
+}
 
 /**
  * This function will create a user from the account creation
@@ -137,35 +150,35 @@ const createWallet = async (
   numberOfAccounts = 0
 ) => {
   if (!accountCreationKey && !recoveryBytes) {
-    throw new Error('you MUST pass either recoveryBytes or accountCreationKey to this method');
+    throw new Error('you MUST pass either recoveryBytes or accountCreationKey to this method')
   }
 
   if (!walletId) {
-    throw new Error('you MUST pass walletId');
+    throw new Error('you MUST pass walletId')
   }
 
   if (recoveryBytes) {
-    accountCreationKey = await _createAccountCreationKey(recoveryBytes);
+    accountCreationKey = await _createAccountCreationKey(recoveryBytes)
   }
 
   try {
-    let wallet = new Wallet();
-    wallet.walletId = walletId;
+    let wallet = new Wallet()
+    wallet.walletId = walletId
 
-    wallet.accountCreationKey = _createKeyHash(accountCreationKey);
+    wallet.accountCreationKey = _createKeyHash(accountCreationKey)
 
     if (numberOfAccounts > 0) {
-      await addAccounts(wallet, accountCreationKey, numberOfAccounts, _generateRootPath(), chainId);
+      await addAccounts(wallet, accountCreationKey, numberOfAccounts, _generateRootPath(), chainId)
     }
-    _createInitialKeys(wallet, accountCreationKey);
+    _createInitialKeys(wallet, accountCreationKey)
 
-    console.log(`Wallet created is: ${JSON.stringify(wallet, null, 2)}`);
+    console.log(`Wallet created is: ${JSON.stringify(wallet, null, 2)}`)
 
-    return wallet;
+    return wallet
   } catch (error) {
-    ErrorDialog.showError(error);
+    ErrorDialog.showError(error)
   }
-};
+}
 
 const addAccountsToUser = async (recoveryPhraseBytes, user, numberOfAccounts, rootDerivedPath) => {
   const wallet = await createWallet(
@@ -174,8 +187,8 @@ const addAccountsToUser = async (recoveryPhraseBytes, user, numberOfAccounts, ro
     user.userId,
     AppConstants.MAINNET_ADDRESS,
     numberOfAccounts
-  );
-  user.wallets[user.userId] = wallet;
+  )
+  user.wallets[user.userId] = wallet
 
   await addAccounts(
     wallet,
@@ -183,8 +196,8 @@ const addAccountsToUser = async (recoveryPhraseBytes, user, numberOfAccounts, ro
     numberOfAccounts,
     rootDerivedPath,
     AppConstants.MAINNET_ADDRESS
-  );
-};
+  )
+}
 
 /**
  * Add accounts to the wallet passed in.
@@ -202,8 +215,8 @@ const addAccounts = async (
   rootDerivedPath,
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
-  await _createAccounts(numberOfAccounts, accountCreationKey, wallet, rootDerivedPath, chainId);
-};
+  await _createAccounts(numberOfAccounts, accountCreationKey, wallet, rootDerivedPath, chainId)
+}
 
 /**
  * create a new account(s) and send back the address created
@@ -215,31 +228,31 @@ const addAccounts = async (
  * @param  {number} numberOfAccounts=1
  */
 const createNewAccount = async (user, numberOfAccounts = 1) => {
-  const wallet = user.wallets[user.userId];
+  const wallet = user.wallets[user.userId]
   if (!wallet.accountCreationKey) {
-    throw new Error(`The user's wallet passed in has no accountCreationKey`);
+    throw new Error(`The user's wallet passed in has no accountCreationKey`)
   }
 
-  const accountCreationKey = wallet.keys[wallet.accountCreationKey].privateKey;
+  const accountCreationKey = wallet.keys[wallet.accountCreationKey].privateKey
 
   for (let i = 0; i < numberOfAccounts; i++) {
-    await _createAccount(accountCreationKey, i, wallet);
+    await _createAccount(accountCreationKey, i, wallet)
   }
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet);
+  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
 
-  return user;
-};
+  return user
+}
 
-const _createAccountCreationKey = async (recoveryBytes) => {
-  const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes);
+const _createAccountCreationKey = async recoveryBytes => {
+  const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(recoveryBytes)
   const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
     rootPrivateKey,
     '/',
     _generateRootPath()
-  );
-  return accountCreationKey;
-};
+  )
+  return accountCreationKey
+}
 
 const _generateRootPath = () => {
   const returnValue =
@@ -250,27 +263,27 @@ const _generateRootPath = () => {
     AppConstants.NDAU_CONSTANT +
     "'" +
     '/' +
-    AppConstants.ACCOUNT_CREATION_KEY_CHILD;
+    AppConstants.ACCOUNT_CREATION_KEY_CHILD
 
-  return returnValue;
-};
+  return returnValue
+}
 
 const _createInitialKeys = (wallet, accountCreationKey) => {
   wallet.keys[_createKeyHash(accountCreationKey)] = _createKey(
     accountCreationKey,
     null,
     _generateRootPath()
-  );
-};
+  )
+}
 
 const _createKey = (privateKey, publicKey, path) => {
-  const newKey = new Key();
-  if (privateKey) newKey.privateKey = privateKey;
-  if (publicKey) newKey.publicKey = publicKey;
-  newKey.derivedFromRoot = AppConstants.DERIVED_ROOT_YES;
-  newKey.path = path;
-  return newKey.toJSON();
-};
+  const newKey = new Key()
+  if (privateKey) newKey.privateKey = privateKey
+  if (publicKey) newKey.publicKey = publicKey
+  newKey.derivedFromRoot = AppConstants.DERIVED_ROOT_YES
+  newKey.path = path
+  return newKey.toJSON()
+}
 
 const _createAccount = async (
   accountCreationKey,
@@ -280,32 +293,32 @@ const _createAccount = async (
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
   if (childIndex < 0) {
-    throw new Error('You cannot create an index less than zero');
+    throw new Error('You cannot create an index less than zero')
   }
-  const account = new Account();
+  const account = new Account()
 
-  const childPath = rootDerivedPath + '/' + childIndex;
+  const childPath = rootDerivedPath + '/' + childIndex
   const privateKeyForAddress = await NativeModules.KeyaddrManager.child(
     accountCreationKey,
     childIndex
-  );
-  account.ownershipKey = _createKeyHash(privateKeyForAddress);
+  )
+  account.ownershipKey = _createKeyHash(privateKeyForAddress)
 
-  const privateKeyHash = _createKeyHash(privateKeyForAddress);
-  const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress);
+  const privateKeyHash = _createKeyHash(privateKeyForAddress)
+  const publicKey = await NativeModules.KeyaddrManager.toPublic(privateKeyForAddress)
 
-  const newKey = _createKey(privateKeyForAddress, publicKey, childPath);
-  wallet.keys[privateKeyHash] = newKey;
+  const newKey = _createKey(privateKeyForAddress, publicKey, childPath)
+  wallet.keys[privateKeyHash] = newKey
 
-  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId);
-  account.address = address;
+  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey, chainId)
+  account.address = address
 
-  wallet.accounts[address] = account;
-};
+  wallet.accounts[address] = account
+}
 
-const _createKeyHash = (key) => {
-  return sha256(key).toString().substring(0, 8);
-};
+const _createKeyHash = key => {
+  return sha256(key).toString().substring(0, 8)
+}
 
 const _createAccounts = async (
   numberOfAccounts,
@@ -315,10 +328,10 @@ const _createAccounts = async (
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
   for (let i = 1; i <= numberOfAccounts; i++) {
-    await _createAccount(accountCreationKey, i, wallet, rootDerivedPath, chainId);
+    await _createAccount(accountCreationKey, i, wallet, rootDerivedPath, chainId)
   }
-  console.log(`Accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`);
-};
+  console.log(`Accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`)
+}
 
 export default {
   createFirstTimeUser,
@@ -328,4 +341,4 @@ export default {
   getRootAddresses,
   getBIP44Addresses,
   addAccounts
-};
+}

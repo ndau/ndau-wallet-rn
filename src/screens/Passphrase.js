@@ -21,7 +21,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import UserData from '../model/UserData'
-import SetupGetRecoveryPhrase from './SetupGetRecoveryPhrase'
+import AppConstants from '../AppConstants'
 
 class Passphrase extends Component {
   constructor (props) {
@@ -111,7 +111,7 @@ class Passphrase extends Component {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
       encryptionPassword: this.state.password,
-      mode: SetupGetRecoveryPhrase.PASSWORD_RESET_MODE
+      mode: AppConstants.PASSWORD_RESET_MODE
     })
   }
 

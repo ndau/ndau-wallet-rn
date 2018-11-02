@@ -14,6 +14,7 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import SetupProgressBar from '../components/SetupProgressBar'
 import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase'
+import AppConstants from '../AppConstants'
 
 class SetupNewOrRecovery extends Component {
   constructor (props) {
@@ -46,7 +47,7 @@ class SetupNewOrRecovery extends Component {
   showUseExistingRecovery = () => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       walletSetupType: 'recovery',
-      mode: SetupGetRecoveryPhrase.NORMAL_MODE
+      mode: AppConstants.NORMAL_MODE
     })
   }
 

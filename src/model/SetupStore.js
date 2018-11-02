@@ -16,7 +16,7 @@ class SetupStore {
     this._shuffledMap = [];
     this._shuffledWord = [];
     this._addressType = AppConstants.MAINNET_ADDRESS;
-    this._walletName = '';
+    this._walletId = '';
   }
 
   set userId(userId) {
@@ -113,13 +113,13 @@ class SetupStore {
     return this._addressType;
   }
 
-  set walletName(walletName) {
-    this._walletName = walletName;
+  set walletId(walletId) {
+    this._walletId = walletId;
   }
 
-  get walletName() {
-    console.debug(`SetupStore.walletName ${this._walletName}`);
-    return this._walletName;
+  get walletId() {
+    console.debug(`SetupStore.walletId ${this._walletId}`);
+    return this._walletId;
   }
 
   printData = () => {
@@ -130,7 +130,7 @@ class SetupStore {
     console.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`);
     console.debug(`SetupStore.shuffledWords ${this._shuffledWords}`);
     console.debug(`SetupStore.shuffledMap ${this._shuffledMap}`);
-    console.debug(`SetupStore.walletName ${this._walletName}`);
+    console.debug(`SetupStore.walletId ${this._walletId}`);
     console.debug(`SetupStore.addressType ${this._addressType}`);
   };
 }

@@ -16,15 +16,13 @@ import SetupProgressBar from '../components/SetupProgressBar'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
+import AppConstants from '../AppConstants'
+import SetupStore from '../model/SetupStore'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
 
 class SetupGetRecoveryPhrase extends Component {
-  static NORMAL_MODE = 'normal'
-  static PASSWORD_RESET_MODE = 'password-reset'
-  static GENESIS_MODE = 'genesis'
-
   constructor (props) {
     super(props)
     this.NORMAL_MODE_TEXT =
@@ -42,15 +40,33 @@ class SetupGetRecoveryPhrase extends Component {
     this.state = {
       size: { width: wp('100%'), height: hp('50%') },
       dialogVisible: false,
-      recoverPhraseFull: false,
+      // recoverPhraseFull: false,
+      recoverPhraseFull: true,
       textColor: '#ffffff',
       confirmationError: false,
       acquisitionError: false,
       stepNumber: 0,
-      introductionText: this.NORMAL_MODE_TEXT
+      introductionText: this.NORMAL_MODE_TEXT,
+      mode: AppConstants.NORMAL_MODE
     }
 
-    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    // TODO: you can uncomment the below if you need to do some testing
+    // on a known phrase that works in testnet/devnet
+    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    this.recoveryPhrase = [
+      'deal',
+      'perfect',
+      'success',
+      'good',
+      'noodle',
+      'reason',
+      'sunset',
+      'method',
+      'grid',
+      'credit',
+      'evoke',
+      'segment'
+    ]
 
     this.boxWidth = '30%'
     this.boxHeight = '13%'
@@ -66,19 +82,19 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   componentWillMount () {
-    const mode = this.props.navigation.getParam('mode', SetupGetRecoveryPhrase.NORMAL_MODE)
+    const mode = this.props.navigation.getParam('mode', AppConstants.NORMAL_MODE)
     switch (mode) {
-      case SetupGetRecoveryPhrase.GENESIS_MODE:
+      case AppConstants.GENESIS_MODE:
         introductionText = this.GENESIS_MODE_TEXT
         break
-      case SetupGetRecoveryPhrase.PASSWORD_RESET_MODE:
+      case AppConstants.PASSWORD_RESET_MODE:
         introductionText = this.PASSWORD_RESET_MODE_TEXT
         break
       default:
         introductionText = this.NORMAL_MODE_TEXT
     }
 
-    this.setState({ introductionText })
+    this.setState({ mode, introductionText })
   }
 
   addToRecoveryPhrase = (value, index) => {
@@ -160,10 +176,20 @@ class SetupGetRecoveryPhrase extends Component {
             walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
           })
         } else {
-          navigation.navigate('SetupWalletName', {
-            user,
-            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
-          })
+          if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
+            navigation.navigate('SetupEncryptionPassword', {
+              user,
+              walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+              mode: AppConstants.PASSWORD_RESET_MODE,
+              recoveryPhraseString: this.recoveryPhrase.join().replace(/,/g, ' ')
+            })
+          } else {
+            SetupStore.recoveryPhrase = this.recoveryPhrase
+            navigation.navigate('SetupWalletName', {
+              user,
+              walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
+            })
+          }
         }
       } else {
         this.setState({
@@ -172,6 +198,7 @@ class SetupGetRecoveryPhrase extends Component {
         })
       }
     } catch (error) {
+      console.error(error)
       this.setState({
         textColor: '#ff0000',
         confirmationError: true

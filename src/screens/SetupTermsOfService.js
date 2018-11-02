@@ -1,83 +1,82 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native';
-import CheckBox from 'react-native-check-box';
-import CommonButton from '../components/CommonButton';
-import SetupProgressBar from '../components/SetupProgressBar';
-import cssStyles from '../css/styles';
-import { SafeAreaView } from 'react-navigation';
-import SetupStore from '../model/SetupStore';
-import ndauDashboardApi from '../api/NdauDashboardAPI';
-import AppConfig from '../AppConfig';
-import ErrorDialog from '../components/ErrorDialog';
-import MultiSafeHelper from '../helpers/MultiSafeHelper';
+import React, { Component } from 'react'
+import { StyleSheet, View, ScrollView, Text, NativeModules } from 'react-native'
+import CheckBox from 'react-native-check-box'
+import CommonButton from '../components/CommonButton'
+import SetupProgressBar from '../components/SetupProgressBar'
+import cssStyles from '../css/styles'
+import { SafeAreaView } from 'react-navigation'
+import SetupStore from '../model/SetupStore'
+import ndauDashboardApi from '../api/NdauDashboardAPI'
+import AppConfig from '../AppConfig'
+import ErrorDialog from '../components/ErrorDialog'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
 
 class SetupTermsOfService extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
-      selectedNode: AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)],
-      agree: __DEV__ ? true : false
-    };
+      agree: !!__DEV__
+    }
   }
 
   finishSetup = async () => {
-    console.debug('Finishing Setup...');
+    console.debug('Finishing Setup...')
 
-    let user = this.props.navigation.getParam('user', null);
+    let user = this.props.navigation.getParam('user', null)
 
     user = await MultiSafeHelper.setupNewUser(
       user,
       SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
-      SetupStore.walletName ? SetupStore.walletName : SetupStore.userId,
+      SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
       SetupStore.numberOfAccounts,
       SetupStore.encryptionPassword,
       SetupStore.addressType
-    );
+    )
 
     this.props.navigation.navigate('Dashboard', {
       user,
       encryptionPassword: SetupStore.encryptionPassword,
       walletSetupType: null
-    });
-  };
+    })
+  }
 
-  sendAddressesToOneiro = (user) => {
-    console.log(`sending the following to the accountAddresses DB: ${user.addresses}`);
-    return this.sendAccountAddresses(SetupStore.userId, user.addresses, SetupStore.qrCode);
-  };
+  sendAddressesToOneiro = user => {
+    console.log(`sending the following to the accountAddresses DB: ${user.addresses}`)
+    return this.sendAccountAddresses(SetupStore.userId, user.addresses, SetupStore.qrCode)
+  }
 
   sendAccountAddresses = (userId, addresses, token) => {
     return new Promise((resolve, reject) => {
       ndauDashboardApi
         .sendAccountAddresses(userId, addresses, token)
-        .then((whatPersisted) => {
-          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`);
-          resolve(whatPersisted);
+        .then(whatPersisted => {
+          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`)
+          resolve(whatPersisted)
         })
-        .catch((error) => {
-          ErrorDialog.showError(error);
-          reject(error);
-        });
-    });
-  };
+        .catch(error => {
+          ErrorDialog.showError(error)
+          reject(error)
+        })
+    })
+  }
 
-  sendingErrorOccured = () => {};
+  sendingErrorOccured = () => {}
 
   checkedAgree = () => {
-    this.setState({ agree: !this.state.agree });
-  };
+    this.setState({ agree: !this.state.agree })
+  }
 
-  render() {
-    SetupStore.printData();
+  render () {
+    SetupStore.printData()
 
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView
             style={styles.contentContainer}
-            showsVerticalScrollIndicator={true}
-            indicatorStyle="white"
+            showsVerticalScrollIndicator
+            indicatorStyle='white'
           >
             {/* <SetupProgressBar {...this.props} screenNumber={8} /> */}
             <View>
@@ -86,12 +85,18 @@ class SetupTermsOfService extends Component {
               <Text style={styles.legalTextHeading}>{'\n'}1. Scope</Text>
               <Text style={styles.legalText}>
                 {'\n'}1.1. These Terms of Use (“<Text style={styles.legalTextBold}>Terms</Text>”),
-                together with our Privacy Notice, are a legally binding agreement between you (“<Text style={styles.legalTextBold}>User</Text>”,
-                “you”, or any variations thereof) and Oneiro NA Inc. (collectively: “<Text style={styles.legalTextBold}>Oneiro</Text>”,
+                together with our Privacy Notice, are a legally binding agreement between you (“
+                <Text style={styles.legalTextBold}>User</Text>
+                ”,
+                “you”, or any variations thereof) and Oneiro NA Inc. (collectively: “
+                <Text style={styles.legalTextBold}>Oneiro</Text>
+                ”,
                 “us”, “we”, or any variations thereof).
                 {'\n'}1.2. THESE TERMS GOVERN YOUR BROWSING AND ANY OTHER USE OF THE NDAU.IO
                 WEBSITE, (THE “<Text style={styles.legalTextBold}>WEBSITE</Text>”) AND OUR NDAU
-                MOBILE APPLICATION, AS APPLICABLE (THE “<Text style={styles.legalTextBold}>APPLICATION</Text>”,
+                MOBILE APPLICATION, AS APPLICABLE (THE “
+                <Text style={styles.legalTextBold}>APPLICATION</Text>
+                ”,
                 AND COLLECTIVELY: THE “<Text style={styles.legalTextBold}>PLATFORM</Text>”).
                 {'\n'}1.3. THESE TERMS MAY ALSO PERTAIN TO MATTERS REGARDING POTENTIAL SUBSCRIPTION
                 FOR THE NDAU TOKENS (“<Text style={styles.legalTextBold}>TOKENS</Text>”), AS FURTHER
@@ -165,7 +170,10 @@ class SetupTermsOfService extends Component {
               </Text>
               <Text style={styles.legalTextHeading}>{'\n'}4. Third party Vendors</Text>
               <Text style={styles.legalText}>
-                {'\n'}4.1. We may use third-party vendors (each: a “<Text style={styles.legalTextBold}>Third-Party Vendor</Text>”),
+                {'\n'}
+                4.1. We may use third-party vendors (each: a “
+                <Text style={styles.legalTextBold}>Third-Party Vendor</Text>
+                ”),
                 in order to assist us in the operation of the Platform.
                 {'\n'}4.2.{' '}
                 <Text style={styles.legalTextBold}>
@@ -239,7 +247,9 @@ class SetupTermsOfService extends Component {
                 {'\n\t'}(k) Carry out any action which violates any community guidelines, Terms
                 and/or Privacy Notice, as prescribed herein and/or as otherwise published by us.
                 {'\n'}6.5. <Text style={styles.legalTextBold}>External Links</Text>. The Platform
-                may contain external links to third-party websites (“<Text style={styles.legalTextBold}>External Content</Text>”).
+                may contain external links to third-party websites (“
+                <Text style={styles.legalTextBold}>External Content</Text>
+                ”).
                 External Content might be based upon information collected by us from our users, in
                 accordance with our Privacy Notice. Regardless, we have no control over the content
                 of External Content, the order of its presentation or its accuracy, and we are not a
@@ -261,7 +271,9 @@ class SetupTermsOfService extends Component {
                 our requirements and other materials licensed to us, Oneiro is the sole owner, and
                 retains all rights, titles, and interest in and to the Platform, including any and
                 all copyrightable materials or any other content included in the Platform, whether
-                or not registrable rights under any applicable law (“<Text style={styles.legalTextBold}>Proprietary Content</Text>”).
+                or not registrable rights under any applicable law (“
+                <Text style={styles.legalTextBold}>Proprietary Content</Text>
+                ”).
                 In the event that the Proprietary Content is licensed to us, then such content might
                 be subject to additional restrictions by its owners.
                 {'\n'}7.2. <Text style={styles.legalTextBold}>Right to Use</Text>. You may only use
@@ -403,22 +415,22 @@ class SetupTermsOfService extends Component {
                 style={cssStyles.checkbox}
                 onClick={() => this.checkedAgree()}
                 isChecked={this.state.agree}
-                rightText="I agree to the terms of use"
+                rightText='I agree to the terms of use'
                 rightTextStyle={{
                   color: '#ffffff',
                   fontSize: 20,
                   fontFamily: 'TitilliumWeb-Regular'
                 }}
-                checkBoxColor="#ffffff"
+                checkBoxColor='#ffffff'
               />
             </View>
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.finishSetup} title="Next" disabled={!this.state.agree} />
+            <CommonButton onPress={this.finishSetup} title='Next' disabled={!this.state.agree} />
           </View>
         </View>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -462,6 +474,6 @@ const styles = StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontWeight: 'bold'
   }
-});
+})
 
-export default SetupTermsOfService;
+export default SetupTermsOfService

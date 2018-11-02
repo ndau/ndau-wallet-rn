@@ -1,12 +1,19 @@
-const HARDENED_CHILD_BIP_44 = 44;
-const ACCOUNT_CREATION_KEY_CHILD = 100;
-const NDAU_CONSTANT = 20036; //which is 0x4e44 in hex, which are the two letters ND in ASCII
-const DERIVED_ROOT_YES = 'yes';
-const DERIVED_ROOT_NO = 'no';
-const DERIVED_ROOT_UNKNOWN = 'unknown';
-const TESTNET_ADDRESS = 'tn';
-const MAINNET_ADDRESS = 'nd';
-const APP_LANGUAGE = 'en';
+const HARDENED_CHILD_BIP_44 = 44
+const ACCOUNT_CREATION_KEY_CHILD = 100
+const NDAU_CONSTANT = 20036 // which is 0x4e44 in hex, which are the two letters ND in ASCII
+const DERIVED_ROOT_YES = 'yes'
+const DERIVED_ROOT_NO = 'no'
+const DERIVED_ROOT_UNKNOWN = 'unknown'
+const TESTNET_ADDRESS = 'tn'
+const MAINNET_ADDRESS = 'nd'
+const APP_LANGUAGE = 'en'
+
+const NORMAL_MODE = 'normal'
+const PASSWORD_RESET_MODE = 'password-reset'
+const GENESIS_MODE = 'genesis'
+const NEW_PASSWORD_MODE = 'new-password'
+
+const TEMP_USER = 'temp-user'
 
 export default {
   HARDENED_CHILD_BIP_44,
@@ -17,5 +24,10 @@ export default {
   DERIVED_ROOT_YES,
   TESTNET_ADDRESS,
   MAINNET_ADDRESS,
-  APP_LANGUAGE
-};
+  APP_LANGUAGE,
+  NORMAL_MODE,
+  PASSWORD_RESET_MODE,
+  GENESIS_MODE,
+  NEW_PASSWORD_MODE,
+  TEMP_USER
+}

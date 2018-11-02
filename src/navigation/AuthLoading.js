@@ -4,7 +4,7 @@ import cssStyles from '../css/styles'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafe from '../model/MultiSafe'
 import ErrorDialog from '../components/ErrorDialog'
-import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase'
+import AppConstants from '../AppConstants'
 
 class AuthLoadingScreen extends React.Component {
   constructor (props) {
@@ -22,7 +22,7 @@ class AuthLoadingScreen extends React.Component {
         // this is only done for users < 1.8, after 1.8 this should not happen
         // again as you will have a MultiSafe
         this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-          mode: SetupGetRecoveryPhrase.GENESIS_MODE
+          mode: AppConstants.GENESIS_MODE
         })
       } else if (multiSafes) {
         this.props.navigation.navigate('Auth')
