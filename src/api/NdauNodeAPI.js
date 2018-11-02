@@ -2,6 +2,11 @@ import NodeAddressHelper from '../helpers/NodeAddressHelper'
 import data from './data'
 
 const getAddressData = addresses => {
+  // TODO: this is TEMP code
+  if (__DEV__) {
+    return data.testAddressData
+  }
+
   const accountAPI = NodeAddressHelper.getAccountAPIAddress()
   console.log(`Sending ${JSON.stringify(addresses, null, 2)} to ${accountAPI}`)
   return fetch(accountAPI, {

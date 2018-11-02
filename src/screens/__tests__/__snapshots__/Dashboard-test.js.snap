@@ -1332,7 +1332,9 @@ exports[`testing Dashboard... renders correctly 1`] = `
                 Array [
                   Object {
                     "alignItems": "flex-end",
+                    "flexDirection": "row",
                     "justifyContent": "flex-end",
+                    "marginLeft": 7.5,
                   },
                 ]
               }
@@ -1391,6 +1393,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
                   style={
                     Object {
                       "height": 35,
+                      "marginLeft": 11.5,
                       "width": 35,
                     }
                   }
@@ -1567,7 +1570,9 @@ exports[`testing Dashboard... renders correctly 1`] = `
                 Array [
                   Object {
                     "alignItems": "flex-end",
+                    "flexDirection": "row",
                     "justifyContent": "flex-end",
+                    "marginLeft": 7.5,
                   },
                 ]
               }
@@ -1626,6 +1631,7 @@ exports[`testing Dashboard... renders correctly 1`] = `
                   style={
                     Object {
                       "height": 35,
+                      "marginLeft": 11.5,
                       "width": 35,
                     }
                   }
