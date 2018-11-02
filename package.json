@@ -44,7 +44,9 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [ "./setupJest.js" ],
+    "setupFiles": [
+      "./setupJest.js"
+    ],
     "globals": {
       "__DEV__": true
     }
@@ -88,7 +90,9 @@
     "util": "^0.10.4"
   },
   "rnpm": {
-    "assets": [ "assets/fonts" ]
+    "assets": [
+      "assets/fonts"
+    ]
   },
   "react-native": {
     "zlib": "browserify-zlib",
