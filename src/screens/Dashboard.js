@@ -198,46 +198,44 @@ class Dashboard extends Component {
           </View>
 
           {
-            accounts && (
-              accounts.map((account, index) => {
-                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
-                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
-                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);
-                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData);
-                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
-                  account.addressData
-                );
-                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData);
-                const nickname = NdauNodeAPIHelper.accountNickname(account.addressData);
-                const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
+            accounts.map((account, index) => {
+              const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
+              const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
+              const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);
+              const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData);
+              const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
+                account.addressData
+              );
+              const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData);
+              const nickname = NdauNodeAPIHelper.accountNickname(account.addressData);
+              const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
 
-                return (
-                  <AccountCard
-                    key={index}
-                    index={index}
-                    nickname={nickname}
-                    address={account.address}
-                    eaiPercentage={eaiPercentage}
-                    sendingEAITo={sendingEAITo}
-                    receivingEAIFrom={receivingEAIFrom}
-                    accountBalance={accountBalance}
-                    accountLockedUntil={accountLockedUntil}
-                    accountNoticePeriod={accountNoticePeriod}
-                    accountNotLocked={accountNotLocked}
-                    totalNdau={totalNdau}
-                    lock={this.lock}
-                    unlock={this.unlock}
-                    startTransaction={(address) => {
-                      console.log('state before transaction started', this.state)
-                      this.setState({
-                        activeAddress: address,
-                        modalId: TRANSACTION_MODAL_ID,
-                      })
-                    }}
-                  />
-                );
-              })
-            )
+              return (
+                <AccountCard
+                  key={index}
+                  index={index}
+                  nickname={nickname}
+                  address={account.address}
+                  eaiPercentage={eaiPercentage}
+                  sendingEAITo={sendingEAITo}
+                  receivingEAIFrom={receivingEAIFrom}
+                  accountBalance={accountBalance}
+                  accountLockedUntil={accountLockedUntil}
+                  accountNoticePeriod={accountNoticePeriod}
+                  accountNotLocked={accountNotLocked}
+                  totalNdau={totalNdau}
+                  lock={this.lock}
+                  unlock={this.unlock}
+                  startTransaction={(address) => {
+                    console.log('state before transaction started', this.state)
+                    this.setState({
+                      activeAddress: address,
+                      modalId: TRANSACTION_MODAL_ID,
+                    })
+                  }}
+                />
+              );
+            })
           }
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
