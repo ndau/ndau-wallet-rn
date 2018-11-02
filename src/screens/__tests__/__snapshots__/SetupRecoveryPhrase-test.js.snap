@@ -38,6 +38,13 @@ exports[`testing SetupRecoveryPhrase... renders correctly 1`] = `
         <View
           style={
             Object {
+              "marginBottom": 93.5,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
               "marginBottom": 10,
             }
           }

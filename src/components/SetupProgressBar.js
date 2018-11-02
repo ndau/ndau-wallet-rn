@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import ProgressBar from './ProgressBar';
+
+export const NEW_WALLET_SETUP_TYPE = 'new';
+export const RECOVERY_WALLET_SETUP_TYPE = 'recovery';
 
 const NEW_WALLET_SCREENS = {
   SetupYourWallet: 1,
@@ -31,18 +33,16 @@ class SetupProgressBar extends Component {
     super(props);
 
     const { navigation } = props;
-    if (navigation && navigation.state) {
-      const { routeName, params = {} } = navigation && navigation.state;
-      const { walletSetupType } = params;
-      this.routeName = routeName;
-      this.walletSetupType = walletSetupType;
-    }
+    const { routeName, params={} } = navigation && navigation.state || {};
+    const { walletSetupType } = params;
+    this.routeName = routeName;
+    this.walletSetupType = walletSetupType;
 
     this.screens = {};
-    if (this.walletSetupType === 'new') {
+    if(this.walletSetupType === NEW_WALLET_SETUP_TYPE) {
       this.screens = NEW_WALLET_SCREENS;
     }
-    if (this.walletSetupType === 'recovery') {
+    else if(this.walletSetupType === RECOVERY_WALLET_SETUP_TYPE) {
       this.screens = RECOVERY_SCREENS;
     }
 
@@ -50,11 +50,8 @@ class SetupProgressBar extends Component {
     this.numberOfSteps = this.screens.numberOfSteps;
   }
 
-  componentWillUnmount() {}
-
   render() {
-    if (!this.walletSetupType || !this.screenNumber) {
-      // debugger;
+    if(!this.walletSetupType || !this.screenNumber) {
       return (
         // placeholder for consistent spacing in UI
         <View style={{ marginBottom: hp('7%') }} />
@@ -75,11 +72,11 @@ class SetupProgressBar extends Component {
           progress={progress}
           currentStep={step}
           numberOfSteps={this.numberOfSteps}
-          showSteps
+          showSteps={this.numberOfSteps < 11}
         />
       </View>
     );
   }
 }
 
-export default withNavigation(SetupProgressBar);
+export default SetupProgressBar;

@@ -21,6 +21,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import UserData from '../model/UserData';
+import { NEW_WALLET_SETUP_TYPE, RECOVERY_WALLET_SETUP_TYPE } from '../components/SetupProgressBar';
 
 class Passphrase extends Component {
   constructor(props) {
@@ -109,7 +110,8 @@ class Passphrase extends Component {
   showRecovery = (user) => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
-      encryptionPassword: this.state.password
+      encryptionPassword: this.state.password,
+      walletSetupType: RECOVERY_WALLET_SETUP_TYPE,
     });
   };
 

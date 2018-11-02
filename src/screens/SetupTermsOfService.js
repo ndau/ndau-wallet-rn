@@ -79,7 +79,7 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator={true}
             indicatorStyle="white"
           >
-            {/* <SetupProgressBar {...this.props} screenNumber={8} /> */}
+            <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={styles.mainLegalTextHeading}>Terms of Use{'\n'}</Text>
 
