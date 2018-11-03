@@ -40,8 +40,8 @@ class SetupGetRecoveryPhrase extends Component {
     this.state = {
       size: { width: wp('100%'), height: hp('50%') },
       dialogVisible: false,
-      // recoverPhraseFull: false,
-      recoverPhraseFull: true,
+      recoverPhraseFull: false,
+      // recoverPhraseFull: true,
       textColor: '#ffffff',
       confirmationError: false,
       acquisitionError: false,
@@ -52,7 +52,7 @@ class SetupGetRecoveryPhrase extends Component {
 
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
-    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
     // this.recoveryPhrase = [
     //   'deal',
     //   'perfect',
@@ -67,20 +67,20 @@ class SetupGetRecoveryPhrase extends Component {
     //   'evoke',
     //   'segment'
     // ]
-    this.recoveryPhrase = [
-      'goat',
-      'amount',
-      'liar',
-      'amount',
-      'expire',
-      'adjust',
-      'cage',
-      'candy',
-      'arch',
-      'gather',
-      'drum',
-      'buyer'
-    ]
+    // this.recoveryPhrase = [
+    //   'goat',
+    //   'amount',
+    //   'liar',
+    //   'amount',
+    //   'expire',
+    //   'adjust',
+    //   'cage',
+    //   'candy',
+    //   'arch',
+    //   'gather',
+    //   'drum',
+    //   'buyer'
+    // ]
 
     this.boxWidth = '30%'
     this.boxHeight = '13%'
