@@ -56,7 +56,7 @@ class SetupEncryptionPassword extends Component {
     return this.state.password.length >= 8 && this.state.confirmPassword.length >= 8
   }
 
-  showNextSetup = () => {
+  showNextSetup = async () => {
     if (!this.checkPasswordsExist()) {
       Alert.alert(
         'Error',
@@ -83,7 +83,7 @@ class SetupEncryptionPassword extends Component {
         break
       }
       case AppConstants.PASSWORD_RESET_MODE: {
-        this.resetPassword()
+        await this.resetPassword()
         break
       }
     }
@@ -101,8 +101,8 @@ class SetupEncryptionPassword extends Component {
 
   resetPassword = async () => {
     const recoveryPhraseString = this.props.navigation.getParam('recoveryPhraseString', null)
-    const user = this.props.navigation.getParam('user', null)
-    await MultiSafeHelper.resetPassword(user, recoveryPhraseString, this.state.password)
+    await MultiSafeHelper.resetPassword(recoveryPhraseString, this.state.password)
+    const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
     this.props.navigation.navigate('Dashboard', {
       user,
       encryptionPassword: this.state.password,

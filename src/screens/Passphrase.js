@@ -107,10 +107,9 @@ class Passphrase extends Component {
     this.props.navigation.navigate('SetupWelcome')
   }
 
-  showRecovery = user => {
+  showPasswordReset = user => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
-      encryptionPassword: this.state.password,
       mode: AppConstants.PASSWORD_RESET_MODE
     })
   }
@@ -156,7 +155,7 @@ class Passphrase extends Component {
               />
             </View>
             <View style={styles.centerTextView}>
-              <Text onPress={this.showRecovery} style={cssStyles.linkText}>
+              <Text onPress={this.showPasswordReset} style={cssStyles.linkText}>
                 Forgot your password?
               </Text>
             </View>

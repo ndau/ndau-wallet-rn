@@ -472,7 +472,7 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
   expect(user).toEqual(userGettingCreated)
 
   const newPassword = '123abc'
-  await MultiSafeHelper.resetPassword(user, recoveryPhraseString, newPassword)
+  await MultiSafeHelper.resetPassword(recoveryPhraseString, newPassword)
 
   const userFromNewPassword = await MultiSafeHelper.getDefaultUser(newPassword)
 

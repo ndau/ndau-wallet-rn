@@ -173,9 +173,20 @@ class SetupGetRecoveryPhrase extends Component {
 
   confirm = async () => {
     try {
+      const { navigation } = this.props
+
+      if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
+        navigation.navigate('SetupEncryptionPassword', {
+          user,
+          walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+          mode: AppConstants.PASSWORD_RESET_MODE,
+          recoveryPhraseString: this.recoveryPhrase.join().replace(/,/g, ' ')
+        })
+        return
+      }
+
       const user = await this._checkRecoveryPhrase()
       if (user) {
-        const { navigation } = this.props
         const encryptionPassword = navigation.getParam('encryptionPassword', null)
         // IF we have a password we are fixing up an account from a 1.6 user here
         // so we fixed it up...now save it...and go back to Dashboard
@@ -190,20 +201,11 @@ class SetupGetRecoveryPhrase extends Component {
             walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
           })
         } else {
-          if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
-            navigation.navigate('SetupEncryptionPassword', {
-              user,
-              walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
-              mode: AppConstants.PASSWORD_RESET_MODE,
-              recoveryPhraseString: this.recoveryPhrase.join().replace(/,/g, ' ')
-            })
-          } else {
-            SetupStore.recoveryPhrase = this.recoveryPhrase
-            navigation.navigate('SetupWalletName', {
-              user,
-              walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
-            })
-          }
+          SetupStore.recoveryPhrase = this.recoveryPhrase
+          navigation.navigate('SetupWalletName', {
+            user,
+            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
+          })
         }
       } else {
         this.setState({

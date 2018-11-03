@@ -95,11 +95,10 @@ const saveUser = async (user, encryptionPassword) => {
  * To the outside world this is a password reset. However, for multisafe
  * this is merely adding a new combination given an existing one.
  *
- * @param {User} user
  * @param {string} recoveryPhraseString
  * @param {string} newPassword
  */
-const resetPassword = async (user, recoveryPhraseString, newPassword) => {
+const resetPassword = async (recoveryPhraseString, newPassword) => {
   const multiSafe = new MultiSafe()
 
   // get all storage keys and get the first one
