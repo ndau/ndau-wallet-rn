@@ -8,6 +8,7 @@ const DRAWER_BACKGROUND_COLOR = '#414042';
 const LINK_ORANGE = '#dea85a';
 const ASTERISKS_RED = '#f75f4b';
 const ICON_GRAY = '#A9A9A9';
+const PROGRESS_GRAY = '#3b3b3b';
 
 export default {
   PRIMARY_GREEN,
@@ -17,4 +18,5 @@ export default {
   LINK_ORANGE,
   ASTERISKS_RED,
   ICON_GRAY,
+  PROGRESS_GRAY
 };

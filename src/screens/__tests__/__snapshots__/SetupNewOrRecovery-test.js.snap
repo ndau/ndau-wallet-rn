@@ -34,6 +34,13 @@ exports[`testing SetupNewOrRecovery... renders correctly 1`] = `
       }
     >
       <View>
+        <View
+          style={
+            Object {
+              "marginBottom": 93.5,
+            }
+          }
+        />
         <View>
           <Text
             accessible={true}
