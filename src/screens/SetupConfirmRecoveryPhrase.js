@@ -74,7 +74,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            {/* <SetupProgressBar {...this.props} /> */}
+            <SetupProgressBar navigation={this.props.navigation} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 To confirm that you recorded the phrase, tap the words below in order.{' '}

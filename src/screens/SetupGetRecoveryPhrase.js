@@ -241,7 +241,10 @@ class SetupGetRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps='always'>
-            {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
+            <SetupProgressBar
+              stepNumber={this.state.stepNumber}
+              navigation={this.props.navigation}
+            />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 {this.state.introductionText}
@@ -321,7 +324,10 @@ class SetupGetRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps='always'>
-            {/* <SetupProgressBar {...this.props} stepNumber={this.state.stepNumber} /> */}
+            <SetupProgressBar
+              stepNumber={this.state.stepNumber}
+              navigation={this.props.navigation}
+            />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>Is this the correct recovery phrase? </Text>
             </View>

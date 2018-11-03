@@ -31,7 +31,7 @@ class SetupYourWallet extends Component {
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            {/* <SetupProgressBar {...this.props} screenNumber={5} /> */}
+            <SetupProgressBar navigation={this.props.navigation} />
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
                 <Text style={cssStyles.wizardText}>
