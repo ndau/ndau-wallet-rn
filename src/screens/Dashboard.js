@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { SafeAreaView } from 'react-navigation';
+import React, { Component } from 'react'
+import { SafeAreaView } from 'react-navigation'
 import {
   ScrollView,
   View,
@@ -8,34 +8,34 @@ import {
   Image,
   RefreshControl,
   TouchableOpacity
-} from 'react-native';
-import cssStyles from '../css/styles';
-import styles from '../css/styles';
-import DateHelper from '../helpers/DateHelper';
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper';
+} from 'react-native'
+import cssStyles from '../css/styles'
+import styles from '../css/styles'
+import DateHelper from '../helpers/DateHelper'
+import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import AccountCard from '../components/AccountCard';
-import UnlockModalDialog from '../components/UnlockModalDialog';
-import LockModalDialog from '../components/LockModalDialog';
-import NewAccountModalDialog from '../components/NewAccountModalDialog';
-import TransactionModalDialog from '../components/TransactionModalDialog';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import styleConstants from '../css/styleConstants';
-import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager';
-import MultiSafeHelper from '../helpers/MultiSafeHelper';
-import UserData from '../model/UserData';
+} from 'react-native-responsive-screen'
+import AccountCard from '../components/AccountCard'
+import UnlockModalDialog from '../components/UnlockModalDialog'
+import LockModalDialog from '../components/LockModalDialog'
+import NewAccountModalDialog from '../components/NewAccountModalDialog'
+import TransactionModalDialog from '../components/TransactionModalDialog'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import styleConstants from '../css/styleConstants'
+import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import UserData from '../model/UserData'
 
-const LOCK_MODAL_ID = 'lock';
-const UNLOCK_MODAL_ID = 'unlock';
-const NEW_ACCOUNT_MODAL_ID = 'newAccount';
-const TRANSACTION_MODAL_ID = 'transaction';
+const LOCK_MODAL_ID = 'lock'
+const UNLOCK_MODAL_ID = 'unlock'
+const NEW_ACCOUNT_MODAL_ID = 'newAccount'
+const TRANSACTION_MODAL_ID = 'transaction'
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       modalId: null,
@@ -43,88 +43,85 @@ class Dashboard extends Component {
       activeAddress: null,
       user: {},
       refreshing: false
-    };
+    }
   }
 
-  componentWillMount() {
-    const user = this.props.navigation.getParam('user', {});
-    this.setState({ user });
+  componentWillMount () {
+    const user = this.props.navigation.getParam('user', {})
+    this.setState({ user })
   }
 
-  showModal = (modalId) => {
-    this.setState({ modalId });
-  };
+  showModal = modalId => {
+    this.setState({ modalId })
+  }
 
   closeModal = () => {
-    this.setState({ modalId: null });
-  };
+    this.setState({ modalId: null })
+  }
 
   subtractNumber = () => {
     if (this.state.number > 1) {
-      this.setState({ number: (this.state.number -= 1) });
+      this.setState({ number: (this.state.number -= 1) })
     }
-  };
+  }
 
   addNumber = () => {
-    this.setState({ number: (this.state.number += 1) });
-  };
+    this.setState({ number: (this.state.number += 1) })
+  }
 
   unlock = () => {
-    //TODO: This is for issue #28 and #29 for MVP
-    //This is being commented out for now as we want the
-    //icons, but don't want the actual implementation yet
+    // TODO: This is for issue #28 and #29 for MVP
+    // This is being commented out for now as we want the
+    // icons, but don't want the actual implementation yet
     // this.setState({ unlockModalVisible: true });
-  };
+  }
 
   lock = () => {
-    //TODO: This is for issue #28 and #29 for MVP
-    //This is being commented out for now as we want the
-    //icons, but don't want the actual implementation yet
+    // TODO: This is for issue #28 and #29 for MVP
+    // This is being commented out for now as we want the
+    // icons, but don't want the actual implementation yet
     // this.setState({ lockModalVisible: true });
-  };
+  }
 
   launchAddNewAccountDialog = () => {
-    this.showModal(NEW_ACCOUNT_MODAL_ID);
-  };
+    this.showModal(NEW_ACCOUNT_MODAL_ID)
+  }
 
   addNewAccount = async () => {
-    const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number);
+    const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number)
 
-    await MultiSafeHelper.saveUser(
-      user,
-      this.props.navigation.getParam('encryptionPassword', null)
-    );
+    await MultiSafeHelper.saveUser(user, this.props.navigation.getParam('encryptionPassword', null))
 
-    this.setState({ user });
-  };
+    this.setState({ user })
+  }
 
   _onRefresh = async () => {
-    this.setState({ refreshing: true });
+    this.setState({ refreshing: true })
 
-    const user = this.state.user;
+    const user = this.state.user
 
-    await UserData.loadData(user);
+    await UserData.loadData(user)
 
-    console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`);
+    console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`)
 
-    this.setState({ refreshing: false, user });
-  };
+    this.setState({ refreshing: false, user })
+  }
 
   render = () => {
-    console.debug(`user out of state: ${JSON.stringify(this.state.user, null, 2)}`);
+    console.debug(`user out of state: ${JSON.stringify(this.state.user, null, 2)}`)
 
-    //TODO: this is ONLY temporary as we need to enumerate the wallets
-    const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId];
+    // TODO: this is ONLY temporary as we need to enumerate the wallets
+    const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId]
     if (!accounts) {
-      return <SafeAreaView style={cssStyles.safeContainer}></SafeAreaView>;
+      return <SafeAreaView style={cssStyles.safeContainer} />
     }
-    
-    const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts);
-    const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false);
-    //TODO: move marketPrice to the top level as it does not correspond to a user
-    const currentPrice = NdauNodeAPIHelper.currentPrice(marketPrice, totalNdauNumber);
 
-    console.log('active address is: ', this.state.activeAddress);
+    const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts)
+    const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false)
+    // TODO: move marketPrice to the top level as it does not correspond to a user
+    const currentPrice = NdauNodeAPIHelper.currentPrice(marketPrice, totalNdauNumber)
+
+    console.log('active address is: ', this.state.activeAddress)
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
@@ -151,10 +148,10 @@ class Dashboard extends Component {
           visible={this.state.modalId === TRANSACTION_MODAL_ID}
           setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
           closeModal={this.closeModal}
-          address={this.state.activeAddress}
+          address={this.state.activeAddress || this.props.activeAddress}
         />
 
-        <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
+        <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
 
         <ScrollView
           style={cssStyles.container}
@@ -173,7 +170,7 @@ class Dashboard extends Component {
                   height: hp('6%'),
                   marginRight: wp('1%')
                 }}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={require('img/ndau-icon-green.png')}
               />
               <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
@@ -196,52 +193,49 @@ class Dashboard extends Component {
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
                   onPress={this.launchAddNewAccountDialog}
                 >
-                  <FontAwesome name="plus-circle" color={styleConstants.ICON_GRAY} size={20} />
+                  <FontAwesome name='plus-circle' color={styleConstants.ICON_GRAY} size={20} />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
 
-          {
-            Object.keys(accounts).map((accountKey, index) => {
-              const account = accounts[accountKey];
-              const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
-              const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData);
-              const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData);
-              const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData);
-              const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
-                account.addressData
-              );
-              const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData);
-              const nickname = NdauNodeAPIHelper.accountNickname(account.addressData);
-              const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData);
+          {Object.keys(accounts).map((accountKey, index) => {
+            const account = accounts[accountKey]
+            const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData)
+            const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData)
+            const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData)
+            const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData)
+            const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(account.addressData)
+            const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData)
+            const nickname = NdauNodeAPIHelper.accountNickname(account.addressData)
+            const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData)
 
-              return (
-                <AccountCard
-                  key={index}
-                  index={index}
-                  nickname={nickname}
-                  address={account.address}
-                  eaiPercentage={eaiPercentage}
-                  sendingEAITo={sendingEAITo}
-                  receivingEAIFrom={receivingEAIFrom}
-                  accountBalance={accountBalance}
-                  accountLockedUntil={accountLockedUntil}
-                  accountNoticePeriod={accountNoticePeriod}
-                  accountNotLocked={accountNotLocked}
-                  totalNdau={totalNdau}
-                  lock={this.lock}
-                  unlock={this.unlock}
-                  startTransaction={(address) => {
-                    console.log('state before transaction started', this.state);
-                    this.setState({
-                      activeAddress: address,
-                      modalId: TRANSACTION_MODAL_ID
-                    });
-                  }}
-                />
-              );
-            })}
+            return (
+              <AccountCard
+                key={index}
+                index={index}
+                nickname={nickname}
+                address={account.address}
+                eaiPercentage={eaiPercentage}
+                sendingEAITo={sendingEAITo}
+                receivingEAIFrom={receivingEAIFrom}
+                accountBalance={accountBalance}
+                accountLockedUntil={accountLockedUntil}
+                accountNoticePeriod={accountNoticePeriod}
+                accountNotLocked={accountNotLocked}
+                totalNdau={totalNdau}
+                lock={this.lock}
+                unlock={this.unlock}
+                startTransaction={address => {
+                  console.log('state before transaction started', this.state)
+                  this.setState({
+                    activeAddress: address,
+                    modalId: TRANSACTION_MODAL_ID
+                  })
+                }}
+              />
+            )
+          })}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>
@@ -254,8 +248,8 @@ class Dashboard extends Component {
           </View>
         </ScrollView>
       </SafeAreaView>
-    );
+    )
   }
 }
 
-export default Dashboard;
+export default Dashboard

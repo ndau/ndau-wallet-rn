@@ -95,6 +95,33 @@ exports[`testing Passphrase... renders correctly 1`] = `
               "alignItems": "center",
               "justifyContent": "center",
               "paddingBottom": 53.5,
+              "paddingTop": 40,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            onPress={[Function]}
+            style={
+              Object {
+                "color": "#dea85a",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 18,
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            Forgot your password?
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "justifyContent": "center",
+              "paddingBottom": 53.5,
             }
           }
         >
@@ -122,7 +149,6 @@ exports[`testing Passphrase... renders correctly 1`] = `
               style={
                 Object {
                   "height": 38,
-                  "marginTop": 53.5,
                   "width": 35,
                 }
               }
@@ -141,9 +167,10 @@ exports[`testing Passphrase... renders correctly 1`] = `
       <View
         style={
           Object {
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginBottom": 7.5,
+            "alignItems": "center",
+            "justifyContent": "center",
+            "paddingBottom": 53.5,
+            "paddingTop": 40,
           }
         }
       >
@@ -161,32 +188,10 @@ exports[`testing Passphrase... renders correctly 1`] = `
             }
           }
         >
-          Create a new user
-        </Text>
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          onPress={[Function]}
-          style={
-            Object {
-              "color": "#dea85a",
-              "fontFamily": "TitilliumWeb-Regular",
-              "fontSize": 18,
-              "textDecorationLine": "underline",
-            }
-          }
-        >
-          Recover account
+          Add wallet
         </Text>
       </View>
-      <View
-        style={
-          Object {
-            "marginTop": 10,
-          }
-        }
-      >
+      <View>
         <View
           accessibilityComponentType="button"
           accessibilityTraits="button"
