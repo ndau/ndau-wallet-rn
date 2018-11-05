@@ -112,6 +112,10 @@ class Dashboard extends Component {
 
     // TODO: this is ONLY temporary as we need to enumerate the wallets
     const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId]
+    if (!accounts) {
+      return <SafeAreaView style={cssStyles.safeContainer} />
+    }
+
     const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts)
     const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false)
     // TODO: move marketPrice to the top level as it does not correspond to a user
@@ -119,18 +123,18 @@ class Dashboard extends Component {
 
     console.log('active address is: ', this.state.activeAddress)
 
-    return accounts
-      ? <SafeAreaView style={cssStyles.safeContainer}>
+    return (
+      <SafeAreaView style={cssStyles.safeContainer}>
         <UnlockModalDialog
           visible={this.state.modalId === UNLOCK_MODAL_ID}
           setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}
           closeModal={this.closeModal}
-          />
+        />
         <LockModalDialog
           visible={this.state.modalId === LOCK_MODAL_ID}
           setModalVisible={() => this.showModal(LOCK_MODAL_ID)}
           closeModal={this.closeModal}
-          />
+        />
         <NewAccountModalDialog
           number={this.state.number}
           subtractNumber={this.subtractNumber}
@@ -139,13 +143,13 @@ class Dashboard extends Component {
           visible={this.state.modalId === NEW_ACCOUNT_MODAL_ID}
           setModalVisible={() => this.showModal(NEW_ACCOUNT_MODAL_ID)}
           closeModal={this.closeModal}
-          />
+        />
         <TransactionModalDialog
           visible={this.state.modalId === TRANSACTION_MODAL_ID}
           setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
           closeModal={this.closeModal}
-          address={this.state.activeAddress}
-          />
+          address={this.state.activeAddress || this.props.activeAddress}
+        />
 
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
 
@@ -153,15 +157,13 @@ class Dashboard extends Component {
           style={cssStyles.container}
           refreshControl={
             <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
-            }
-          >
+          }
+        >
           <View style={cssStyles.dashboardTextContainer}>
             <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
           </View>
           <View style={cssStyles.dashboardTextContainer}>
-            <View
-              style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-              >
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
               <Image
                 style={{
                   width: wp('7%'),
@@ -170,7 +172,7 @@ class Dashboard extends Component {
                 }}
                 resizeMode='contain'
                 source={require('img/ndau-icon-green.png')}
-                />
+              />
               <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
             </View>
           </View>
@@ -183,71 +185,70 @@ class Dashboard extends Component {
             <View style={cssStyles.dashboardSmallTextContainer}>
               <View
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-                >
-                <Text style={cssStyles.dashboardTextSmallGreen}>{accounts.length} addresses</Text>
+              >
+                <Text style={cssStyles.dashboardTextSmallGreen}>
+                  {Object.keys(accounts).length} addresses
+                </Text>
                 <TouchableOpacity
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
                   onPress={this.launchAddNewAccountDialog}
-                  >
+                >
                   <FontAwesome name='plus-circle' color={styleConstants.ICON_GRAY} size={20} />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
 
-          {accounts &&
-              Object.keys(accounts).map((accountKey, index) => {
-                const account = accounts[accountKey]
-                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData)
-                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData)
-                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData)
-                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData)
-                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
-                  account.addressData
-                )
-                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData)
-                const nickname = NdauNodeAPIHelper.accountNickname(account.addressData)
-                const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData)
+          {Object.keys(accounts).map((accountKey, index) => {
+            const account = accounts[accountKey]
+            const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData)
+            const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData)
+            const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData)
+            const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData)
+            const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(account.addressData)
+            const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData)
+            const nickname = NdauNodeAPIHelper.accountNickname(account.addressData)
+            const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData)
 
-                return (
-                  <AccountCard
-                    key={index}
-                    index={index}
-                    nickname={nickname}
-                    address={account.address}
-                    eaiPercentage={eaiPercentage}
-                    sendingEAITo={sendingEAITo}
-                    receivingEAIFrom={receivingEAIFrom}
-                    accountBalance={accountBalance}
-                    accountLockedUntil={accountLockedUntil}
-                    accountNoticePeriod={accountNoticePeriod}
-                    accountNotLocked={accountNotLocked}
-                    totalNdau={totalNdau}
-                    lock={this.lock}
-                    unlock={this.unlock}
-                    startTransaction={address => {
-                      console.log('state before transaction started', this.state)
-                      this.setState({
-                        activeAddress: address,
-                        modalId: TRANSACTION_MODAL_ID
-                      })
-                    }}
-                  />
-                )
-              })}
+            return (
+              <AccountCard
+                key={index}
+                index={index}
+                nickname={nickname}
+                address={account.address}
+                eaiPercentage={eaiPercentage}
+                sendingEAITo={sendingEAITo}
+                receivingEAIFrom={receivingEAIFrom}
+                accountBalance={accountBalance}
+                accountLockedUntil={accountLockedUntil}
+                accountNoticePeriod={accountNoticePeriod}
+                accountNotLocked={accountNotLocked}
+                totalNdau={totalNdau}
+                lock={this.lock}
+                unlock={this.unlock}
+                startTransaction={address => {
+                  console.log('state before transaction started', this.state)
+                  this.setState({
+                    activeAddress: address,
+                    modalId: TRANSACTION_MODAL_ID
+                  })
+                }}
+              />
+            )
+          })}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>
-                The estimated value of ndau in US dollars can be calculated using the Target Price at
-                which new ndau have most recently been issued. The value shown here is calculated
-                using that method as of the issue price on {DateHelper.getTodaysDate()}. The Axiom
-                Foundation bears no responsibility or liability for the calculation of that estimated
-                value, or for decisions based on that estimated value.
-              </Text>
+              The estimated value of ndau in US dollars can be calculated using the Target Price at
+              which new ndau have most recently been issued. The value shown here is calculated
+              using that method as of the issue price on {DateHelper.getTodaysDate()}. The Axiom
+              Foundation bears no responsibility or liability for the calculation of that estimated
+              value, or for decisions based on that estimated value.
+            </Text>
           </View>
         </ScrollView>
       </SafeAreaView>
-      : <SafeAreaView style={cssStyles.safeContainer} />
+    )
   }
 }
 

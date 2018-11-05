@@ -105,7 +105,9 @@ class Passphrase extends Component {
   }
 
   showSetup = async () => {
-    this.props.navigation.navigate('SetupWelcome')
+    this.props.navigation.navigate('SetupWelcome', {
+      walletSetupType: NEW_WALLET_SETUP_TYPE
+    })
   }
 
   showPasswordReset = user => {
