@@ -104,13 +104,14 @@ class Passphrase extends Component {
   };
 
   showSetup = async () => {
-    this.props.navigation.navigate('SetupWelcome');
+    this.props.navigation.navigate('SetupWelcome', {
+      walletSetupType: NEW_WALLET_SETUP_TYPE,
+    });
   };
 
   showRecovery = (user) => {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
-      encryptionPassword: this.state.password,
       walletSetupType: RECOVERY_WALLET_SETUP_TYPE,
     });
   };

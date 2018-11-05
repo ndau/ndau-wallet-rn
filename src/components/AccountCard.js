@@ -93,7 +93,7 @@ class AccountCard extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => startTransaction(address)}>
               <Image
-                source={require('img/send_receive_both.png')}
+                source={require('img/receive_only.png')}
                 style={{
                   width: 35,
                   height: 35

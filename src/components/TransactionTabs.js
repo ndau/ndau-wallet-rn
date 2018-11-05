@@ -8,31 +8,25 @@ import {
 } from 'react-native-responsive-screen';
 import CommonButton from '../components/CommonButton';
 
-class Send extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      amount: 0
-    }
-  }
-
-  send = () => {
-    // TODO: transfer funds 
-  }
-
+class TransactionTabs extends Component {
   render() {
-    return (
-      <View>
-        {/* TODO: add Send form */}
+    // const SendWithProps = () => <Send {...this.props} />;
+    const ReceiveWithProps = () => <Receive {...this.props} />;
 
-        <View styles={{flex: 1}}>
-          <CommonButton
-            title={`send ${this.state.amount}`}
-            onPress={this.send}
-          />
-        </View>
-      </View>
+    const Navigator = createMaterialTopTabNavigator(
+      {
+        Receive: ReceiveWithProps,
+        // Send: SendWithProps, 
+      }, 
+      {
+        animationEnabled: false,
+        tabBarOptions,
+        navigationOptions,
+      }
+    );
+
+    return (
+      <Navigator />
     );
   }
 }
@@ -80,29 +74,34 @@ class Receive extends Component {
   }
 }
 
-class TransactionTabs extends Component {
-  render() {
-    const SendWithProps = () => <Send {...this.props} />;
-    const ReceiveWithProps = () => <Receive {...this.props} />;
+// class Send extends Component {
+//   constructor(props) {
+//     super(props);
 
-    const Navigator = createMaterialTopTabNavigator(
-      {
-        Send: SendWithProps,
-        Receive: ReceiveWithProps,
-      }, 
-      {
-        animationEnabled: false,
-        tabBarOptions,
-        navigationOptions,
-      }
-    );
+//     this.state = {
+//       amount: 0
+//     }
+//   }
 
-    return (
-      <Navigator />
-    );
-  }
-}
+//   send = () => {
+//     // TODO: transfer funds 
+//   }
 
+//   render() {
+//     return (
+//       <View>
+//         {/* TODO: add Send form */}
+
+//         <View styles={{flex: 1}}>
+//           <CommonButton
+//             title={`send ${this.state.amount}`}
+//             onPress={this.send}
+//           />
+//         </View>
+//       </View>
+//     );
+//   }
+// }
 
 const tabBarOptions = {
   labelStyle: {
@@ -111,6 +110,7 @@ const tabBarOptions = {
   },
   tabStyle: {
     marginBottom: hp('1%'),
+    backgroundColor: 'transparent',
   },
   indicatorStyle: {
     backgroundColor: '#ffffff',

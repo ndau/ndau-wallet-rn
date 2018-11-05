@@ -115,6 +115,10 @@ class Dashboard extends Component {
 
     //TODO: this is ONLY temporary as we need to enumerate the wallets
     const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId];
+    if (!accounts) {
+      return <SafeAreaView style={cssStyles.safeContainer}></SafeAreaView>;
+    }
+    
     const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts);
     const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false);
     //TODO: move marketPrice to the top level as it does not correspond to a user
@@ -122,7 +126,7 @@ class Dashboard extends Component {
 
     console.log('active address is: ', this.state.activeAddress);
 
-    return accounts ? (
+    return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <UnlockModalDialog
           visible={this.state.modalId === UNLOCK_MODAL_ID}
@@ -185,7 +189,9 @@ class Dashboard extends Component {
               <View
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
               >
-                <Text style={cssStyles.dashboardTextSmallGreen}>{accounts.length} addresses</Text>
+                <Text style={cssStyles.dashboardTextSmallGreen}>
+                  {Object.keys(accounts).length} addresses
+                </Text>
                 <TouchableOpacity
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
                   onPress={this.launchAddNewAccountDialog}
@@ -197,7 +203,6 @@ class Dashboard extends Component {
           </View>
 
           {
-            accounts &&
             Object.keys(accounts).map((accountKey, index) => {
               const account = accounts[accountKey];
               const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
@@ -249,10 +254,8 @@ class Dashboard extends Component {
           </View>
         </ScrollView>
       </SafeAreaView>
-    ) : (
-      <SafeAreaView style={cssStyles.safeContainer} />
     );
-  };
+  }
 }
 
 export default Dashboard;
