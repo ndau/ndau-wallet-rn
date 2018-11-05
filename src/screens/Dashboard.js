@@ -197,7 +197,6 @@ class Dashboard extends Component {
           </View>
 
           {
-            accounts &&
             Object.keys(accounts).map((accountKey, index) => {
               const account = accounts[accountKey];
               const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData);
