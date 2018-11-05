@@ -185,7 +185,7 @@ class Dashboard extends Component {
               <View
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
               >
-                <Text style={cssStyles.dashboardTextSmallGreen}>{accounts.length} addresses</Text>
+                <Text style={cssStyles.dashboardTextSmallGreen}>{Object.keys(accounts).length} addresses</Text>
                 <TouchableOpacity
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
                   onPress={this.launchAddNewAccountDialog}
