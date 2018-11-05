@@ -5,6 +5,7 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafe from '../model/MultiSafe'
 import ErrorDialog from '../components/ErrorDialog'
 import AppConstants from '../AppConstants'
+import { RECOVERY_WALLET_SETUP_TYPE } from '../components/SetupProgressBar'
 
 class AuthLoadingScreen extends React.Component {
   constructor (props) {
@@ -22,7 +23,8 @@ class AuthLoadingScreen extends React.Component {
         // this is only done for users < 1.8, after 1.8 this should not happen
         // again as you will have a MultiSafe
         this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-          mode: AppConstants.GENESIS_MODE
+          mode: AppConstants.GENESIS_MODE,
+          walletSetupType: RECOVERY_WALLET_SETUP_TYPE
         })
       } else if (multiSafes) {
         this.props.navigation.navigate('Auth')
