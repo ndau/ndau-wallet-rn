@@ -117,7 +117,7 @@ class SetupRecoveryPhrase extends Component {
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps="always">
-            {/* <SetupProgressBar {...this.props} /> */}
+            <SetupProgressBar navigation={this.props.navigation} />
             <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Write this 12-word phrase down and store it in a secure location.

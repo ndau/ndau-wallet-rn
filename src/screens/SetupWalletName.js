@@ -1,46 +1,50 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native';
-import CommonButton from '../components/CommonButton';
-import SetupProgressBar from '../components/SetupProgressBar';
-import cssStyles from '../css/styles';
-import SetupStore from '../model/SetupStore';
-import { SafeAreaView } from 'react-navigation';
+import React, { Component } from 'react'
+import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native'
+import CommonButton from '../components/CommonButton'
+import SetupProgressBar from '../components/SetupProgressBar'
+import cssStyles from '../css/styles'
+import SetupStore from '../model/SetupStore'
+import { SafeAreaView } from 'react-navigation'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 class SetupEncryptionPassword extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       nameEntered: false
-    };
+    }
   }
 
   showNextSetup = () => {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
-    const user = navigation.getParam('user', null);
+    const user = navigation.getParam('user', null)
     if (user) {
+      // get it out of AppConstants.TEMP_USER if we have to
+      // and into the new walletId
+      DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
+
       if (!user.userId) {
-        user.userId = SetupStore.walletName;
+        user.userId = SetupStore.walletId
       }
       if (!user.wallets) {
-        user.wallets = [ { walletName: SetupStore.walletName } ];
+        user.wallets = [{ walletId: SetupStore.walletId }]
       }
     }
 
     navigation.navigate('SetupEncryptionPassword', {
-      comingFrom: 'SetupWalletName',
       user,
       walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
-    });
-  };
+    })
+  }
 
-  render() {
+  render () {
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
-            {/* <SetupProgressBar {...this.props} /> */}
+            <SetupProgressBar navigation={this.props.navigation} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Give this wallet a name.
@@ -48,28 +52,28 @@ class SetupEncryptionPassword extends Component {
             </View>
             <TextInput
               style={cssStyles.textInput}
-              onChangeText={(value) => {
-                this.setState({ nameEntered: true });
-                SetupStore.walletName = value;
+              onChangeText={value => {
+                this.setState({ nameEntered: true })
+                SetupStore.walletId = value
               }}
               // value={(value) => {
-              //   SetupStore.walletName = value;
+              //   SetupStore.walletId = value;
               // }}
-              placeholder="Wallet name"
-              placeholderTextColor="#333"
-              autoCapitalize="none"
+              placeholder='Wallet name'
+              placeholderTextColor='#333'
+              autoCapitalize='none'
             />
           </ScrollView>
           <View style={styles.footer}>
             <CommonButton
               onPress={this.showNextSetup}
-              title="Next"
+              title='Next'
               disabled={!this.state.nameEntered}
             />
           </View>
         </View>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -97,6 +101,6 @@ const styles = StyleSheet.create({
   infoParagraph: {
     flexDirection: 'row'
   }
-});
+})
 
-export default SetupEncryptionPassword;
+export default SetupEncryptionPassword

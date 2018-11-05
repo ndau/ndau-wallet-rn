@@ -1,35 +1,38 @@
-import AppConfig from '../AppConfig';
+import AppConfig from '../AppConfig'
 
-const PROTOCOL = 'https';
-const DOMAIN = '.api.ndau.tech';
-// const SELECTED_NODE = AppConfig.NODE_NAMES[Math.floor(Math.random() * AppConfig.NODE_NAMES.length)];
-//TODO: THIS SHOULD NOT BE HARDCODED BUT IS FOR NOW
-const SELECTED_NODE = 'testgroup-0';
+const PROTOCOL = 'https'
+const DOMAIN = '.api.ndau.tech'
+// TODO: THIS SHOULD NOT BE HARDCODED BUT IS FOR NOW
+const SELECTED_NODE = 'testnet-0'
 
-getNodeAddress = (selectedNode) => {
-  const node = selectedNode || SELECTED_NODE;
-  return PROTOCOL + '://' + node.toLowerCase() + DOMAIN;
-};
+getNode = () => {
+  return SELECTED_NODE
+}
 
-getAccountAPIAddress = (selectedNode) => {
-  return getNodeAddress(selectedNode) + '/accounts';
-};
+getNodeAddress = () => {
+  return PROTOCOL + '://' + getNode() + DOMAIN
+}
 
-getEaiPercentageAPIAddress = (selectedNode) => {
-  return getNodeAddress(selectedNode) + '/eaipercentage';
-};
+getAccountAPIAddress = () => {
+  return getNodeAddress() + '/accounts'
+}
 
-getMarketPriceAPIAddress = (selectedNode) => {
-  return getNodeAddress(selectedNode) + '/marketprice';
-};
+getEaiPercentageAPIAddress = () => {
+  return getNodeAddress() + '/eaipercentage'
+}
 
-getNodeStatusAPIAddress = (selectedNode) => {
-  return getNodeAddress(selectedNode) + '/node/status';
-};
+getMarketPriceAPIAddress = () => {
+  return getNodeAddress() + '/marketprice'
+}
+
+getNodeStatusAPIAddress = () => {
+  return getNodeAddress() + '/node/status'
+}
 
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
   getEaiPercentageAPIAddress,
-  getNodeStatusAPIAddress
-};
+  getNodeStatusAPIAddress,
+  SELECTED_NODE
+}

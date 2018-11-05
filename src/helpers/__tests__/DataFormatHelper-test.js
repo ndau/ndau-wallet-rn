@@ -1,0 +1,105 @@
+import DataFormatHelper from '../DataFormatHelper'
+import AppConstants from '../../AppConstants'
+
+test('moveTempUserToWalletName must do the needful', async () => {
+  const user = {
+    userId: AppConstants.TEMP_USER,
+    wallets: {
+      'temp-user': {
+        walletId: AppConstants.TEMP_USER,
+        accountCreationKey: '1e48ba8c',
+        accounts: {
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
+            addressData: {
+              nickname: 'Account 1'
+            },
+            ownershipKey: '9d152ff0',
+            validationKeys: []
+          },
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7',
+            addressData: {
+              nickname: 'Account 2'
+            },
+            ownershipKey: '1e12ca49',
+            validationKeys: []
+          }
+        },
+        keys: {
+          '9d152ff0': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
+            path: "/44'/20036'/100/1",
+            derivedFromRoot: 'yes'
+          },
+          '1e12ca49': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
+            path: "/44'/20036'/100/2",
+            derivedFromRoot: 'yes'
+          },
+          '1e48ba8c': {
+            publicKey: '',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
+            path: "/44'/20036'/100",
+            derivedFromRoot: 'yes'
+          }
+        }
+      }
+    }
+  }
+
+  const userGettingCreated = {
+    userId: 'Kris',
+    wallets: {
+      Kris: {
+        walletId: 'Kris',
+        accountCreationKey: '1e48ba8c',
+        accounts: {
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
+            addressData: {
+              nickname: 'Account 1'
+            },
+            ownershipKey: '9d152ff0',
+            validationKeys: []
+          },
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7',
+            addressData: {
+              nickname: 'Account 2'
+            },
+            ownershipKey: '1e12ca49',
+            validationKeys: []
+          }
+        },
+        keys: {
+          '9d152ff0': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
+            path: "/44'/20036'/100/1",
+            derivedFromRoot: 'yes'
+          },
+          '1e12ca49': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
+            path: "/44'/20036'/100/2",
+            derivedFromRoot: 'yes'
+          },
+          '1e48ba8c': {
+            publicKey: '',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
+            path: "/44'/20036'/100",
+            derivedFromRoot: 'yes'
+          }
+        }
+      }
+    }
+  }
+
+  const walletId = 'Kris'
+  DataFormatHelper.moveTempUserToWalletName(user, walletId)
+  expect(user).toBeDefined()
+  expect(user).toEqual(userGettingCreated)
+})

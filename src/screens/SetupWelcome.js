@@ -46,7 +46,7 @@ class SetupWelcome extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#1c2227" />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            {/* <SetupProgressBar {...this.props} /> */}
+            <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={cssStyles.wizardText}>
                 Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.{' '}

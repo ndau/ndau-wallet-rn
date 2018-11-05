@@ -1,5 +1,5 @@
-const unlock = (selectedNode, addresses) => {};
+const unlock = addresses => {}
 
 export default {
   unlock
-};
+}

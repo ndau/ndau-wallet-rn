@@ -38,6 +38,13 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
         <View
           style={
             Object {
+              "marginBottom": 93.5,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
               "marginBottom": 10,
             }
           }
@@ -54,7 +61,7 @@ exports[`testing SetupGetRecoveryPhrase... renders correctly 1`] = `
               }
             }
           >
-            To verify your account please verify your twelve-word recovery phrase below. Start typing, then pick the correct suggestion.
+            To verify your account please verify your twelve-word recoveryphrase below. Start typing in the box below, then pick the correct suggestion.
           </Text>
         </View>
         <View

@@ -1,9 +1,9 @@
-import { StyleSheet, Platform } from 'react-native';
-import StyleConstants from './styleConstants';
+import { StyleSheet, Platform } from 'react-native'
+import StyleConstants from './styleConstants'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
+} from 'react-native-responsive-screen'
 
 export default StyleSheet.create({
   drawerText: {
@@ -232,5 +232,11 @@ export default StyleSheet.create({
   navButtonWrapper: {
     justifyContent: 'space-between',
     marginTop: hp('2%')
+  },
+  accountCardImageView: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginLeft: wp('1%')
   }
-});
+})
