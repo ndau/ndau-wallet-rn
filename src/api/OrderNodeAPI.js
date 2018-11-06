@@ -23,7 +23,9 @@ const getEAIPercentage = addressData => {
   })
     .then(response => response.json())
     .then(responseJson => {
-      console.info(`eaiPercentageAddress responseJson ${JSON.stringify(responseJson, null, 2)}`)
+      console.info(
+        `eaiPercentageAddress responseJson ${JSON.stringify(responseJson, null, 2)}`
+      )
       return responseJson
     })
 }

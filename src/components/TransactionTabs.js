@@ -1,51 +1,52 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Share } from 'react-native';
-import QRCode from 'react-native-qrcode';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Share } from 'react-native'
+import QRCode from 'react-native-qrcode'
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import CommonButton from '../components/CommonButton';
+} from 'react-native-responsive-screen'
+import CommonButton from '../components/CommonButton'
 
 class TransactionTabs extends Component {
-  render() {
+  render () {
     // const SendWithProps = () => <Send {...this.props} />;
-    const ReceiveWithProps = () => <Receive {...this.props} />;
+    const ReceiveWithProps = () => <Receive {...this.props} />
 
     const Navigator = createMaterialTopTabNavigator(
       {
-        Receive: ReceiveWithProps,
-        // Send: SendWithProps, 
-      }, 
+        Receive: ReceiveWithProps
+        // Send: SendWithProps,
+      },
       {
         animationEnabled: false,
         tabBarOptions,
-        navigationOptions,
+        navigationOptions
       }
-    );
+    )
 
-    return (
-      <Navigator />
-    );
+    return <Navigator />
   }
 }
 
 class Receive extends Component {
   shareAddress = () => {
-    Share.share({
-      message: this.props.address,
-      title: 'Share your public address',
-      url: '/',
-    }, {
-      dialogTitle: 'Share your public address',
-    })
+    Share.share(
+      {
+        message: this.props.address,
+        title: 'Share your public address',
+        url: '/'
+      },
+      {
+        dialogTitle: 'Share your public address'
+      }
+    )
   }
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
-        <View style={{alignSelf: 'center'}}>
+        <View style={{ alignSelf: 'center' }}>
           <QRCode
             value={this.props.address}
             size={250}
@@ -53,24 +54,24 @@ class Receive extends Component {
             backgroundColor='white'
           />
         </View>
-  
+
         <Text style={styles.text}>
           {this.props.address}
         </Text>
-  
-        <View styles={{flex: 1}}>
+
+        <View styles={{ flex: 1 }}>
           <CommonButton
-            title="Share address" 
+            title='Share address'
             onPress={this.shareAddress}
             iconProps={{
-              name: "share-square",
-              color: "#000",
-              size: 20,
+              name: 'share-square',
+              color: '#000',
+              size: 20
             }}
           />
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -84,7 +85,7 @@ class Receive extends Component {
 //   }
 
 //   send = () => {
-//     // TODO: transfer funds 
+//     // TODO: transfer funds
 //   }
 
 //   render() {
@@ -110,18 +111,18 @@ const tabBarOptions = {
   },
   tabStyle: {
     marginBottom: hp('1%'),
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   indicatorStyle: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   style: {
-    backgroundColor: 'transparent',
-  },
+    backgroundColor: 'transparent'
+  }
 }
 
 const navigationOptions = {
-  swipeEnabled: false,
+  swipeEnabled: false
 }
 
 const styles = StyleSheet.create({
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     // alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
   },
   text: {
     color: '#ffffff',
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: hp('1%'),
     marginLeft: wp('1%'),
     marginRight: wp('1%')
-  },
-});
+  }
+})
 
-export default TransactionTabs;
+export default TransactionTabs

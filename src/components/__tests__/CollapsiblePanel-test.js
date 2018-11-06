@@ -1,9 +1,9 @@
-import { mount } from 'enzyme';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import CollapsiblePanel from '../CollapsiblePanel';
+import { mount } from 'enzyme'
+import React from 'react'
+import { StyleSheet } from 'react-native'
+import CollapsiblePanel from '../CollapsiblePanel'
 
-import renderer from 'react-test-renderer';
+import renderer from 'react-test-renderer'
 
 describe('testing CollapsiblePanel...', () => {
   let styles = StyleSheet.create({
@@ -11,10 +11,10 @@ describe('testing CollapsiblePanel...', () => {
       color: '#ffffff',
       fontSize: 20
     }
-  });
+  })
   const navigation = {
     navigate: () => {}
-  };
+  }
   const account = {
     Balance: 200.0,
     TransferKeys: null,
@@ -33,12 +33,18 @@ describe('testing CollapsiblePanel...', () => {
     Settlements: null,
     SettlementSettings: { Period: 0, ChangesAt: null, Next: null },
     ValidationScript: null
-  };
+  }
 
   it('renders correctly', () => {
     const tree = renderer
-      .create(<CollapsiblePanel parentStyles={styles} navigation={navigation} account={account} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
+      .create(
+        <CollapsiblePanel
+          parentStyles={styles}
+          navigation={navigation}
+          account={account}
+        />
+      )
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})

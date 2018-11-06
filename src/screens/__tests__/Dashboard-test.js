@@ -81,7 +81,13 @@ describe('testing Dashboard...', () => {
 
   it('renders correctly', () => {
     const tree = renderer
-      .create(<Dashboard parentStyles={styles} navigation={navigation} activeAddress={'asdf'} />)
+      .create(
+        <Dashboard
+          parentStyles={styles}
+          navigation={navigation}
+          activeAddress={'asdf'}
+        />
+      )
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

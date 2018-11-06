@@ -42,13 +42,25 @@ const setupNewUser = async (
     )
   }
 
-  return _internalSaveUser(user, encryptionPassword, walletId, recoveryPhraseString)
+  return _internalSaveUser(
+    user,
+    encryptionPassword,
+    walletId,
+    recoveryPhraseString
+  )
 }
 
-const _internalSaveUser = async (user, encryptionPassword, walletId, recoveryPhraseString) => {
+const _internalSaveUser = async (
+  user,
+  encryptionPassword,
+  walletId,
+  recoveryPhraseString
+) => {
   const multiSafe = new MultiSafe()
 
-  console.log(`persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`)
+  console.log(
+    `persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`
+  )
 
   await UserData.loadData(user)
 
@@ -57,7 +69,9 @@ const _internalSaveUser = async (user, encryptionPassword, walletId, recoveryPhr
   // store the phone data
   await multiSafe.store(user, encryptionPassword)
   // add recovery phrase as combination so we can unlock with this
-  if (recoveryPhraseString) await multiSafe.addCombination(recoveryPhraseString, encryptionPassword)
+  if (recoveryPhraseString) {
+    await multiSafe.addCombination(recoveryPhraseString, encryptionPassword)
+  }
 
   return user
 }

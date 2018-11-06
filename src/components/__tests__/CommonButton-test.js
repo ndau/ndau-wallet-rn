@@ -1,9 +1,9 @@
-import { mount } from 'enzyme';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import CommonButton from '../CommonButton';
+import { mount } from 'enzyme'
+import React from 'react'
+import { StyleSheet } from 'react-native'
+import CommonButton from '../CommonButton'
 
-import renderer from 'react-test-renderer';
+import renderer from 'react-test-renderer'
 
 describe('testing CommonButton...', () => {
   let styles = StyleSheet.create({
@@ -11,15 +11,15 @@ describe('testing CommonButton...', () => {
       color: '#ffffff',
       fontSize: 20
     }
-  });
+  })
   const navigator = {
     setStyle: () => {}
-  };
+  }
 
   it('renders correctly', () => {
     const tree = renderer
       .create(<CommonButton parentStyles={styles} navigator={navigator} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})

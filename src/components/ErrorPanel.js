@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 
 class ErrorPanel extends Component {
-  render() {
+  render () {
     return (
       <View style={styles.errorOuterContainer}>
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{this.props.errorText}</Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -33,6 +33,6 @@ var styles = StyleSheet.create({
     borderColor: '#f5d8d1',
     borderRadius: 3
   }
-});
+})
 
-export default ErrorPanel;
+export default ErrorPanel

@@ -22,7 +22,10 @@ import {
 } from 'react-native-responsive-screen'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
-import { NEW_WALLET_SETUP_TYPE, RECOVERY_WALLET_SETUP_TYPE } from '../components/SetupProgressBar'
+import {
+  NEW_WALLET_SETUP_TYPE,
+  RECOVERY_WALLET_SETUP_TYPE
+} from '../components/SetupProgressBar'
 
 class Passphrase extends Component {
   constructor (props) {
@@ -41,7 +44,9 @@ class Passphrase extends Component {
     try {
       let user = await MultiSafeHelper.getDefaultUser(this.state.password)
       if (user) {
-        console.log(`user in Passphrase found is ${JSON.stringify(user, null, 2)}`)
+        console.log(
+          `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
+        )
 
         await UserData.loadData(user)
 
@@ -133,7 +138,10 @@ class Passphrase extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <View style={styles.imageView}>
-              <Image style={styles.image} source={require('img/n_icon_ko.png')} />
+              <Image
+                style={styles.image}
+                source={require('img/n_icon_ko.png')}
+              />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <TextInput
@@ -174,7 +182,8 @@ class Passphrase extends Component {
             {this.state.showErrorText
               ? <View style={styles.errorContainer}>
                 <Text style={cssStyles.errorText}>
-                    Please enter the passphrase you chose to decrypt this app.{' '}
+                    Please enter the passphrase you chose to decrypt this app.
+                    {' '}
                 </Text>
               </View>
               : null}

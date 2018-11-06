@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import ModalDropdown from 'react-native-modal-dropdown';
+} from 'react-native-responsive-screen'
+import ModalDropdown from 'react-native-modal-dropdown'
 
-let full = false;
+let full = false
 
 class Dropdown extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     if (this.props.full) {
-      full = this.props.full;
+      full = this.props.full
     }
   }
-  onPress() {
-    this.props.onPress();
+  onPress () {
+    this.props.onPress()
   }
-  render() {
+  render () {
     return (
       <ModalDropdown
         defaultValue={this.props.defaultValue}
         options={this.props.options}
         onSelect={this.props.onSelect}
-        style={[ styles.containerStyle, this.props.style ]}
+        style={[styles.containerStyle, this.props.style]}
         textStyle={styles.text}
         dropdownStyle={styles.dropdownContainerStyle}
         dropdownTextStyle={styles.text}
       />
-    );
+    )
   }
 }
 
@@ -56,6 +56,6 @@ var styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     marginTop: wp('3%')
   }
-});
+})
 
-export default Dropdown;
+export default Dropdown

@@ -1,32 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { StyleSheet, View, ScrollView, Text, TouchableWithoutFeedback } from 'react-native';
-import CommonButton from '../components/CommonButton';
-import SetupProgressBar from '../components/SetupProgressBar';
-import cssStyles from '../css/styles';
-import { SafeAreaView } from 'react-navigation';
-import EntropyHelper from '../helpers/EntropyHelper';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TouchableWithoutFeedback
+} from 'react-native'
+import CommonButton from '../components/CommonButton'
+import SetupProgressBar from '../components/SetupProgressBar'
+import cssStyles from '../css/styles'
+import { SafeAreaView } from 'react-navigation'
+import EntropyHelper from '../helpers/EntropyHelper'
 
 class SetupYourWallet extends Component {
   showNextSetup = async () => {
-    await EntropyHelper.generateEntropy();
+    await EntropyHelper.generateEntropy()
     this.props.navigation.navigate('SetupRecoveryPhrase', {
-      walletSetupType:
-        this.props.navigation.state.params && this.props.navigation.state.params.walletSetupType
-    });
-  };
+      walletSetupType: this.props.navigation.state.params &&
+        this.props.navigation.state.params.walletSetupType
+    })
+  }
 
   testNetToggler = () => {
     if (this.state.maxToggle === this.state.toggleCount) {
-      this.setState({ toggleCount: 1 });
-      SetupStore.toggleAddressType();
+      this.setState({ toggleCount: 1 })
+      SetupStore.toggleAddressType()
     } else {
-      this.setState({ toggleCount: this.state.toggleCount + 1 });
+      this.setState({ toggleCount: this.state.toggleCount + 1 })
     }
-    console.log(`this.state.toggleCount is ${this.state.toggleCount}`);
-  };
+    console.log(`this.state.toggleCount is ${this.state.toggleCount}`)
+  }
 
-  render() {
+  render () {
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
@@ -45,11 +51,14 @@ class SetupYourWallet extends Component {
             </TouchableWithoutFeedback>
           </ScrollView>
           <View style={styles.footer}>
-            <CommonButton onPress={this.showNextSetup} title="Get my recovery phrase" />
+            <CommonButton
+              onPress={this.showNextSetup}
+              title='Get my recovery phrase'
+            />
           </View>
         </View>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -76,6 +85,6 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15
   }
-});
+})
 
-export default SetupYourWallet;
+export default SetupYourWallet

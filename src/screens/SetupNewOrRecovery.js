@@ -86,7 +86,10 @@ class SetupNewOrRecovery extends Component {
               />
             </View>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.showNewWallet()} title='New wallet' />
+              <CommonButton
+                onPress={() => this.showNewWallet()}
+                title='New wallet'
+              />
             </View>
           </View>
         </View>

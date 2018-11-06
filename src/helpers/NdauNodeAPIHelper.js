@@ -5,7 +5,9 @@ import OrderNodeAPI from '../api/OrderNodeAPI'
 
 const populateWalletWithAddressData = async wallet => {
   try {
-    const addressDataFromAPI = await NdauNodeAPI.getAddressData(wallet.addresses)
+    const addressDataFromAPI = await NdauNodeAPI.getAddressData(
+      wallet.addresses
+    )
     const eaiPercentageData = await OrderNodeAPI.getEAIPercentage()
     const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice()
     const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : []
@@ -40,11 +42,15 @@ const populateWalletWithAddressData = async wallet => {
     // and incomingRewardsFromNickname
     addressData.forEach(account => {
       if (account.rewardsTarget) {
-        account.rewardsTargetNickname = addressNicknameMap.get(account.rewardsTarget)
+        account.rewardsTargetNickname = addressNicknameMap.get(
+          account.rewardsTarget
+        )
       }
 
       if (account.incomingRewardsFrom) {
-        account.incomingRewardsFromNickname = addressNicknameMap.get(account.incomingRewardsFrom)
+        account.incomingRewardsFromNickname = addressNicknameMap.get(
+          account.incomingRewardsFrom
+        )
       }
     })
 
@@ -67,11 +73,15 @@ const eaiPercentage = account => {
 }
 
 const receivingEAIFrom = account => {
-  return account && account.incomingRewardsFromNickname ? account.incomingRewardsFromNickname : null
+  return account && account.incomingRewardsFromNickname
+    ? account.incomingRewardsFromNickname
+    : null
 }
 
 const sendingEAITo = account => {
-  return account && account.rewardsTargetNickname ? account.rewardsTargetNickname : null
+  return account && account.rewardsTargetNickname
+    ? account.rewardsTargetNickname
+    : null
 }
 
 const accountNickname = account => {
@@ -114,7 +124,10 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
   if (!accounts) return total
 
   Object.keys(accounts).forEach(accountKey => {
-    if (accounts[accountKey].addressData && accounts[accountKey].addressData.balance) {
+    if (
+      accounts[accountKey].addressData &&
+      accounts[accountKey].addressData.balance
+    ) {
       total += parseFloat(accounts[accountKey].addressData.balance)
     }
   })

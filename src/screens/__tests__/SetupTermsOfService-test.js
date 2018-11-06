@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import SetupTermsOfService from '../SetupTermsOfService';
-import renderer from 'react-test-renderer';
+import React from 'react'
+import { StyleSheet } from 'react-native'
+import SetupTermsOfService from '../SetupTermsOfService'
+import renderer from 'react-test-renderer'
 
 describe('testing SetupTermsOfService...', () => {
   it('renders correctly', () => {
@@ -10,15 +10,17 @@ describe('testing SetupTermsOfService...', () => {
         color: '#ffffff',
         fontSize: 20
       }
-    });
+    })
     const navigator = {
       setStyle: () => {},
       toggleNavBar: () => {}
-    };
+    }
 
     const tree = renderer
-      .create(<SetupTermsOfService navigator={navigator} parentStyles={styles} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
+      .create(
+        <SetupTermsOfService navigator={navigator} parentStyles={styles} />
+      )
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})
