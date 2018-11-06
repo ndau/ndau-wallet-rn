@@ -1,66 +1,74 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { StyleSheet, TouchableOpacity, Text, Platform, NativeModules } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, Platform, NativeModules } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import Autocomplete from 'react-native-autocomplete-input';
-import styleConstants from '../css/styleConstants';
-import AppConstants from '../AppConstants';
+} from 'react-native-responsive-screen'
+import Autocomplete from 'react-native-autocomplete-input'
+import styleConstants from '../css/styleConstants'
+import AppConstants from '../AppConstants'
 
 class RecoveryDropdown extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       query: null,
       list: [],
       textColor: '#ffffff'
-    };
+    }
 
-    this.retrievedData = false;
+    this.retrievedData = false
   }
-  //TODO: we are going to have to write them somewhere...
-  onPress(title) {
-    console.log(`title selected is ${title}`);
-    this.setState({ query: title, list: [] });
-    this.props.addToRecoveryPhrase(title, this.props.index);
+  // TODO: we are going to have to write them somewhere...
+  onPress (title) {
+    console.log(`title selected is ${title}`)
+    this.setState({ query: title, list: [] })
+    this.props.addToRecoveryPhrase(title, this.props.index)
   }
 
-  goGetTheData = async (query) => {
+  goGetTheData = async query => {
     if (query && !this.retrievedData) {
       const words = await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
         AppConstants.APP_LANGUAGE,
         query,
         5
-      );
-      this.retrievedData = true;
-      wordsArray = words.split(' ');
-      console.log(`wordsArray is ${wordsArray}`);
+      )
+      this.retrievedData = true
+      wordsArray = words.split(' ')
+      console.log(`wordsArray is ${wordsArray}`)
 
       if (wordsArray.length <= 0) {
-        this.setState({ textColor: '#ff0000' });
-        this.props.setAcquisitionError(true);
+        this.setState({ textColor: '#ff0000' })
+        this.props.setAcquisitionError(true)
       } else {
-        this.setState({ textColor: '#ffffff' });
-        this.props.setAcquisitionError(false);
+        this.setState({ textColor: '#ffffff' })
+        this.props.setAcquisitionError(false)
       }
 
       this.setState({
         list: wordsArray.length >= 0 ? wordsArray : []
-      });
+      })
     }
-  };
+  }
 
-  getData = (query) => {
-    console.log(`query: ${query}`);
-    this.goGetTheData(query);
-    return this.state.list;
-  };
+  getData = query => {
+    console.log(`query: ${query}`)
+    this.goGetTheData(query)
+    let dropdownValueIsPrinted = false
+    if (
+      this.state.list &&
+      this.state.list.length === 1 &&
+      this.state.list[0] === this.state.query
+    ) {
+      dropdownValueIsPrinted = true
+    }
+    return dropdownValueIsPrinted ? [] : this.state.list
+  }
 
-  render() {
-    const { query } = this.state;
+  render () {
+    const { query } = this.state
     const mainStyle = {
       backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
       color: this.state.textColor,
@@ -68,30 +76,34 @@ class RecoveryDropdown extends Component {
       fontFamily: 'TitilliumWeb-Regular',
       borderRadius: 3,
       zIndex: 1
-    };
+    }
 
     return (
       <Autocomplete
         style={mainStyle}
-        autoCapitalize="none"
+        autoCapitalize='none'
         autoCorrect={false}
         containerStyle={styles.autocompleteContainer}
         inputContainerStyle={styles.containerStyle}
         data={this.getData(query)}
         defaultValue={query || this.props.recoveryPhrase[this.props.index]}
-        onChangeText={(text) => {
-          this.retrievedData = false;
-          this.setState({ query: text, list: text === '' ? [] : this.state.list });
+        onChangeText={text => {
+          this.retrievedData = false
+          this.setState({
+            query: text,
+            list: text === '' ? [] : this.state.list
+          })
+          this.props.addToRecoveryPhrase(text, this.props.index)
         }}
         listContainerStyle={styles.listContainerStyle}
-        placeholderTextColor="#ffffff"
-        renderItem={(item) => (
+        placeholderTextColor='#ffffff'
+        renderItem={item => (
           <TouchableOpacity onPress={() => this.onPress(item)}>
             <Text style={styles.itemText}>{item}</Text>
           </TouchableOpacity>
         )}
       />
-    );
+    )
   }
 }
 
@@ -145,6 +157,6 @@ var styles = StyleSheet.create({
     paddingTop: wp('2%'),
     paddingBottom: wp('2%')
   }
-});
+})
 
-export default RecoveryDropdown;
+export default RecoveryDropdown
