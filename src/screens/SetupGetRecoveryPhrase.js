@@ -113,10 +113,6 @@ class SetupGetRecoveryPhrase extends Component {
 
   addToRecoveryPhrase = (value, index) => {
     this.recoveryPhrase[index] = value
-
-    if (this.recoveryPhrase.indexOf('') === -1) {
-      this.setState({ recoverPhraseFull: true })
-    }
   }
 
   noRecoveryPhrase = () => {
@@ -132,32 +128,41 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({ size: { width: layout.width, height: layout.height } })
   }
 
-  _generatePages = () => {
-    return this.recoveryPhrase.map((phrase, i) => {
-      const style = [this.state.size, cssStyles.recoveryPageView]
-      if (i === 0) {
-        style.push({
-          ...Platform.select({
-            android: {
-              marginLeft: wp('14%')
-            }
-          })
+  _generatePage = index => {
+    const style = [this.state.size, cssStyles.recoveryPageView]
+    if (index === 0) {
+      style.push({
+        ...Platform.select({
+          android: {
+            marginLeft: wp('14%')
+          }
         })
-      }
-      return (
-        <View style={style} key={i}>
-          <Text style={[cssStyles.wizardText, { marginTop: hp('1%'), marginRight: wp('2%') }]}>
-            {i + 1}.
-          </Text>
-          <RecoveryDropdown
-            addToRecoveryPhrase={this.addToRecoveryPhrase}
-            index={i}
-            setAcquisitionError={this.setAcquisitionError}
-            recoveryPhrase={this.recoveryPhrase}
-          />
-        </View>
-      )
+      })
+    }
+    return (
+      <View style={style} key={index}>
+        <Text style={[cssStyles.wizardText, { marginTop: hp('1%'), marginRight: wp('2%') }]}>
+          {index + 1}.
+        </Text>
+        <RecoveryDropdown
+          addToRecoveryPhrase={this.addToRecoveryPhrase}
+          index={index}
+          setAcquisitionError={this.setAcquisitionError}
+          recoveryPhrase={this.recoveryPhrase}
+        />
+      </View>
+    )
+  }
+
+  _generatePages = () => {
+    const pages = this.recoveryPhrase.map((phrase, i) => {
+      return this._generatePage(i)
     })
+
+    // add one more page to facilitate the carousel functionality
+    pages.push(this._generatePage(pages.length))
+
+    return pages
   }
 
   _checkRecoveryPhrase = async () => {
@@ -232,7 +237,12 @@ class SetupGetRecoveryPhrase extends Component {
 
   adjustStepNumber = pageIndex => {
     this.setState({ stepNumber: pageIndex })
+    if (pageIndex === this.recoveryPhrase.length) {
+      this.setState({ recoverPhraseFull: true })
+    }
   }
+
+  checkIfDone = pageIndex => {}
 
   _renderAcquisition = () => {
     const pages = this._generatePages()
@@ -264,6 +274,7 @@ class SetupGetRecoveryPhrase extends Component {
                 isLooped={false}
                 autoplay={false}
                 onAnimateNextPage={this.adjustStepNumber}
+                onPageBeingChanged={this.checkIfDone}
               >
                 {pages}
               </Carousel>
