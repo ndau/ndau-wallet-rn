@@ -16,6 +16,28 @@ const moveTempUserToWalletName = (user, walletId) => {
   }
 }
 
+const getNextPathIndex = (wallet, path) => {
+  const keys = wallet.keys
+  let nextAddress = 0
+  if (!keys) return nextAddress
+
+  Object.keys(keys).forEach(theKey => {
+    const key = keys[theKey]
+    if (key.path && key.path.indexOf(path) !== -1) {
+      let pathLengthAdder = path === '/' ? 0 : 1
+      let nextPossibility = parseInt(
+        key.path.substring(path.length + pathLengthAdder, key.path.length)
+      )
+
+      if (!isNaN(nextPossibility) && nextPossibility >= nextAddress) {
+        nextAddress = nextPossibility + 1
+      }
+    }
+  })
+  return nextAddress === 0 ? nextAddress : nextAddress++
+}
+
 export default {
-  moveTempUserToWalletName
+  moveTempUserToWalletName,
+  getNextPathIndex
 }

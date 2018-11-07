@@ -3,9 +3,9 @@ import data from './data'
 
 const getEAIPercentage = addressData => {
   // TODO: this is TEMP code
-  if (__DEV__) {
-    return data.eaiPercentageResponse
-  }
+  // if (__DEV__) {
+  return data.eaiPercentageResponse
+  // }
 
   const eaiPercentageAddress = NodeAddressHelper.getEaiPercentageAPIAddress()
   console.log(
@@ -23,7 +23,9 @@ const getEAIPercentage = addressData => {
   })
     .then(response => response.json())
     .then(responseJson => {
-      console.info(`eaiPercentageAddress responseJson ${JSON.stringify(responseJson, null, 2)}`)
+      console.info(
+        `eaiPercentageAddress responseJson ${JSON.stringify(responseJson, null, 2)}`
+      )
       return responseJson
     })
 }
