@@ -1,7 +1,6 @@
 import User from '../model/User'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import AppConstants from '../AppConstants'
-import UserData from '../model/UserData'
 import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
 
@@ -42,22 +41,34 @@ const setupNewUser = async (
     )
   }
 
-  return _internalSaveUser(user, encryptionPassword, walletId, recoveryPhraseString)
+  return _internalSaveUser(
+    user,
+    encryptionPassword,
+    walletId,
+    recoveryPhraseString
+  )
 }
 
-const _internalSaveUser = async (user, encryptionPassword, walletId, recoveryPhraseString) => {
+const _internalSaveUser = async (
+  user,
+  encryptionPassword,
+  walletId,
+  recoveryPhraseString
+) => {
   const multiSafe = new MultiSafe()
 
-  console.log(`persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`)
-
-  await UserData.loadData(user)
+  console.log(
+    `persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`
+  )
 
   // create a multisafe
   await multiSafe.create(walletId, encryptionPassword)
   // store the phone data
   await multiSafe.store(user, encryptionPassword)
   // add recovery phrase as combination so we can unlock with this
-  if (recoveryPhraseString) await multiSafe.addCombination(recoveryPhraseString, encryptionPassword)
+  if (recoveryPhraseString) {
+    await multiSafe.addCombination(recoveryPhraseString, encryptionPassword)
+  }
 
   return user
 }
