@@ -27,6 +27,7 @@ import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
+import ErrorDialog from '../components/ErrorDialog'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -88,17 +89,21 @@ class Dashboard extends Component {
   }
 
   addNewAccount = async () => {
-    const user = await KeyAddrGenManager.createNewAccount(
-      this.state.user,
-      this.state.number
-    )
+    try {
+      const user = await KeyAddrGenManager.createNewAccount(
+        this.state.user,
+        this.state.number
+      )
 
-    await MultiSafeHelper.saveUser(
-      user,
-      this.props.navigation.getParam('encryptionPassword', null)
-    )
+      await MultiSafeHelper.saveUser(
+        user,
+        this.props.navigation.getParam('encryptionPassword', null)
+      )
 
-    this.setState({ user })
+      this.setState({ user })
+    } catch (error) {
+      ErrorDialog.showError(error)
+    }
   }
 
   _onRefresh = async () => {
@@ -106,7 +111,11 @@ class Dashboard extends Component {
 
     const user = this.state.user
 
-    await UserData.loadData(user)
+    try {
+      await UserData.loadData(user)
+    } catch (error) {
+      ErrorDialog.showError(error)
+    }
 
     console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`)
 

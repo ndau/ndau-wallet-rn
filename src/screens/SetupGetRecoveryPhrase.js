@@ -25,6 +25,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
+import ErrorDialog from '../components/ErrorDialog'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -217,7 +218,11 @@ class SetupGetRecoveryPhrase extends Component {
         // IF we have a password we are fixing up an account from a 1.6 user here
         // so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
-          await UserData.loadData(user)
+          try {
+            await UserData.loadData(user)
+          } catch (error) {
+            ErrorDialog.showError(error)
+          }
 
           await MultiSafeHelper.saveUser(user, encryptionPassword)
 

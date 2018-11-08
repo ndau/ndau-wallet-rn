@@ -20,7 +20,9 @@ const getAddressData = addresses => {
   })
     .then(response => response.json())
     .then(responseJson => {
-      console.info(`getAddressData responseJson ${JSON.stringify(responseJson, null, 2)}`)
+      console.info(
+        `getAddressData responseJson ${JSON.stringify(responseJson, null, 2)}`
+      )
       return responseJson
     })
 }
@@ -32,10 +34,14 @@ const getMarketPrice = () => {
   // }
 
   const marketPriceAPI = NodeAddressHelper.getMarketPriceAPIAddress()
-  return fetch(marketPriceAPI).then(response => response.json()).then(responseJson => {
-    console.info(`getMarketPrice responseJson ${JSON.stringify(responseJson, null, 2)}`)
-    return responseJson
-  })
+  return fetch(marketPriceAPI)
+    .then(response => response.json())
+    .then(responseJson => {
+      console.info(
+        `getMarketPrice responseJson ${JSON.stringify(responseJson, null, 2)}`
+      )
+      return responseJson
+    })
 }
 
 const getNodeStatus = () => {
@@ -45,10 +51,14 @@ const getNodeStatus = () => {
   // }
 
   const nodeStatusAddress = NodeAddressHelper.getNodeStatusAPIAddress()
-  return fetch(nodeStatusAddress).then(response => response.json()).then(responseJson => {
-    console.info(`nodeStatusAddress responseJson ${JSON.stringify(responseJson, null, 2)}`)
-    return responseJson
-  })
+  return fetch(nodeStatusAddress)
+    .then(response => response.json())
+    .then(responseJson => {
+      console.info(
+        `nodeStatusAddress responseJson ${JSON.stringify(responseJson, null, 2)}`
+      )
+      return responseJson
+    })
 }
 
 export default {

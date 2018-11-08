@@ -2,71 +2,64 @@ import NdauNodeAPI from '../api/NdauNodeAPI'
 import DateHelper from './DateHelper'
 import AppConfig from '../AppConfig'
 import OrderNodeAPI from '../api/OrderNodeAPI'
-import ErrorDialog from '../components/ErrorDialog'
 
 const populateWalletWithAddressData = async wallet => {
-  try {
-    const addressDataFromAPI = await NdauNodeAPI.getAddressData(
-      wallet.addresses
-    )
-    const eaiPercentageData = await OrderNodeAPI.getEAIPercentage()
-    const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice()
-    const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : []
+  const addressDataFromAPI = await NdauNodeAPI.getAddressData(wallet.addresses)
+  const eaiPercentageData = await OrderNodeAPI.getEAIPercentage()
+  const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice()
+  const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : []
 
-    // TODO: NEED TO ADDRESS THIS~!!!!!
-    wallet.marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : 0
+  // TODO: NEED TO ADDRESS THIS~!!!!!
+  wallet.marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : 0
 
-    const eaiPercentageMap = new Map()
-    eaiPercentageData.forEach(account => {
-      eaiPercentageMap.set(account.address, account.eaiPercentage)
-    })
+  const eaiPercentageMap = new Map()
+  eaiPercentageData.forEach(account => {
+    eaiPercentageMap.set(account.address, account.eaiPercentage)
+  })
 
-    const addressNicknameMap = new Map()
+  const addressNicknameMap = new Map()
 
-    // This is mainly done if there is not data, to name the wallet.accounts
-    Object.keys(wallet.accounts).forEach((accountKey, index) => {
-      const account = wallet.accounts[accountKey]
-      if (!account.addressData) {
-        account.addressData = {}
+  // This is mainly done if there is not data, to name the wallet.accounts
+  Object.keys(wallet.accounts).forEach((accountKey, index) => {
+    const account = wallet.accounts[accountKey]
+    if (!account.addressData) {
+      account.addressData = {}
+    }
+    account.addressData.nickname = `Account ${index + 1}`
+  })
+
+  // create a map to create the nickname fields appropriately
+  addressData.forEach((account, index) => {
+    account.nickname = `Account ${index + 1}`
+    account.eaiPercentage = eaiPercentageMap.get(account.address)
+    addressNicknameMap.set(account.address, account.nickname)
+  })
+
+  // now iterate using the map to populate the rewardsTargetNickname
+  // and incomingRewardsFromNickname
+  addressData.forEach(account => {
+    if (account.rewardsTarget) {
+      account.rewardsTargetNickname = addressNicknameMap.get(
+        account.rewardsTarget
+      )
+    }
+
+    if (account.incomingRewardsFrom) {
+      account.incomingRewardsFromNickname = addressNicknameMap.get(
+        account.incomingRewardsFrom
+      )
+    }
+  })
+
+  // NOW get addressData in it's rightful place
+  Object.keys(wallet.accounts).forEach(accountKey => {
+    const account = wallet.accounts[accountKey]
+    addressData.forEach(dataToPutIntoUser => {
+      if (account.address === dataToPutIntoUser.address) {
+        account.addressData = dataToPutIntoUser
       }
-      account.addressData.nickname = `Account ${index + 1}`
     })
-
-    // create a map to create the nickname fields appropriately
-    addressData.forEach((account, index) => {
-      account.nickname = `Account ${index + 1}`
-      account.eaiPercentage = eaiPercentageMap.get(account.address)
-      addressNicknameMap.set(account.address, account.nickname)
-    })
-
-    // now iterate using the map to populate the rewardsTargetNickname
-    // and incomingRewardsFromNickname
-    addressData.forEach(account => {
-      if (account.rewardsTarget) {
-        account.rewardsTargetNickname = addressNicknameMap.get(
-          account.rewardsTarget
-        )
-      }
-
-      if (account.incomingRewardsFrom) {
-        account.incomingRewardsFromNickname = addressNicknameMap.get(
-          account.incomingRewardsFrom
-        )
-      }
-    })
-
-    // NOW get addressData in it's rightful place
-    Object.keys(wallet.accounts).forEach(accountKey => {
-      const account = wallet.accounts[accountKey]
-      addressData.forEach(dataToPutIntoUser => {
-        if (account.address === dataToPutIntoUser.address) {
-          account.addressData = dataToPutIntoUser
-        }
-      })
-    })
-  } catch (error) {
-    ErrorDialog.showError(error)
-  }
+  })
 }
 
 const eaiPercentage = account => {
