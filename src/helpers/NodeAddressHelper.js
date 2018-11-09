@@ -3,7 +3,7 @@ import AppConfig from '../AppConfig'
 const PROTOCOL = 'https'
 const DOMAIN = '.api.ndau.tech'
 // TODO: THIS SHOULD NOT BE HARDCODED BUT IS FOR NOW
-const SELECTED_NODE = 'testnet-0'
+const SELECTED_NODE = 'devnet-0'
 
 getNode = () => {
   return SELECTED_NODE
