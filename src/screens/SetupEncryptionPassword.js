@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  Alert
+} from 'react-native'
 import CheckBox from 'react-native-check-box'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import CommonButton from '../components/CommonButton'
@@ -35,7 +42,10 @@ class SetupEncryptionPassword extends Component {
   }
 
   componentWillMount () {
-    const mode = this.props.navigation.getParam('mode', AppConstants.NEW_PASSWORD_MODE)
+    const mode = this.props.navigation.getParam(
+      'mode',
+      AppConstants.NEW_PASSWORD_MODE
+    )
     let instructionText = this.NEW_PASSWORD_MODE_TEXT
     if (mode === AppConstants.PASSWORD_RESET_MODE) {
       instructionText = this.PASSWORD_RESET_MODE_TEXT
@@ -53,7 +63,9 @@ class SetupEncryptionPassword extends Component {
   }
 
   checkPasswordsLength = () => {
-    return this.state.password.length >= 8 && this.state.confirmPassword.length >= 8
+    return (
+      this.state.password.length >= 8 && this.state.confirmPassword.length >= 8
+    )
   }
 
   showNextSetup = async () => {
@@ -100,8 +112,14 @@ class SetupEncryptionPassword extends Component {
   }
 
   resetPassword = async () => {
-    const recoveryPhraseString = this.props.navigation.getParam('recoveryPhraseString', null)
-    await MultiSafeHelper.resetPassword(recoveryPhraseString, this.state.password)
+    const recoveryPhraseString = this.props.navigation.getParam(
+      'recoveryPhraseString',
+      null
+    )
+    await MultiSafeHelper.resetPassword(
+      recoveryPhraseString,
+      this.state.password
+    )
     const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
     this.props.navigation.navigate('Dashboard', {
       user,
@@ -140,7 +158,12 @@ class SetupEncryptionPassword extends Component {
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 {this.state.instructionText}{'  '}
-                <FontAwesome name='info' color='#ffffff' size={20} style={{ marginBottom: 3 }} />
+                <FontAwesome
+                  name='info'
+                  color='#ffffff'
+                  size={20}
+                  style={{ marginBottom: 3 }}
+                />
               </Text>
             </View>
             <TextInput
@@ -154,7 +177,8 @@ class SetupEncryptionPassword extends Component {
             />
             <TextInput
               style={cssStyles.textInput}
-              onChangeText={confirmPassword => this.setState({ confirmPassword })}
+              onChangeText={confirmPassword =>
+                this.setState({ confirmPassword })}
               value={this.state.confirmPassword}
               placeholder='Confirm your password'
               placeholderTextColor='#333'

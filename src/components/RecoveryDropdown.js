@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 
-import { StyleSheet, TouchableOpacity, Text, Platform, NativeModules } from 'react-native'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Platform,
+  NativeModules
+} from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -58,7 +64,6 @@ class RecoveryDropdown extends Component {
     this.goGetTheData(query)
     let dropdownValueIsPrinted = false
     if (
-      this.state.list &&
       this.state.list.length === 1 &&
       this.state.list[0] === this.state.query
     ) {

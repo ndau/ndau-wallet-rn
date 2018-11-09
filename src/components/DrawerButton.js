@@ -1,23 +1,23 @@
-import React from 'react';
-import { StyleSheet, View, Platform, TouchableOpacity } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import cssStyles from '../css/styles';
+import React from 'react'
+import { StyleSheet, View, Platform, TouchableOpacity } from 'react-native'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import cssStyles from '../css/styles'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
+} from 'react-native-responsive-screen'
 
-export const DrawerButton = (props) => (
+export const DrawerButton = props => (
   <View style={cssStyles.darkBackgroundColor}>
     <TouchableOpacity
       onPress={() => {
-        props.navigation.openDrawer();
+        props.navigation.openDrawer()
       }}
     >
-      <MaterialIcons name="menu" size={32} color="#fff" style={styles.header} />
+      <MaterialIcons name='menu' size={32} color='#fff' style={styles.header} />
     </TouchableOpacity>
   </View>
-);
+)
 
 const styles = StyleSheet.create({
   header: {
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     }),
     paddingLeft: wp('2%')
   }
-});
+})

@@ -270,8 +270,6 @@ class SetupGetRecoveryPhrase extends Component {
     }
   }
 
-  checkIfDone = pageIndex => {}
-
   _renderAcquisition = () => {
     const pages = this._generatePages()
 

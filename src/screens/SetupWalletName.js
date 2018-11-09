@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, Text, TextInput, Alert } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  Alert
+} from 'react-native'
 import CommonButton from '../components/CommonButton'
 import SetupProgressBar from '../components/SetupProgressBar'
 import cssStyles from '../css/styles'
@@ -35,7 +42,8 @@ class SetupEncryptionPassword extends Component {
 
     navigation.navigate('SetupEncryptionPassword', {
       user,
-      walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
+      walletSetupType: navigation.state.params &&
+        navigation.state.params.walletSetupType
     })
   }
 

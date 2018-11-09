@@ -19,7 +19,9 @@ import AppConstants from '../AppConstants'
  * user if we find information.
  */
 const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
-  const recoveryPhraseBytes = await _getRecoveryStringAsBytes(recoveryPhraseString)
+  const recoveryPhraseBytes = await _getRecoveryStringAsBytes(
+    recoveryPhraseString
+  )
 
   // if we are recovering and there is no user we must use a
   // temp userId. It will be changed in the SetupWalletName screen
@@ -27,7 +29,10 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   if (user) {
     userId = user.userId
   }
-  let newUser = await KeyAddrGenManager.createFirstTimeUser(recoveryPhraseBytes, userId)
+  let newUser = await KeyAddrGenManager.createFirstTimeUser(
+    recoveryPhraseBytes,
+    userId
+  )
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`)
@@ -64,7 +69,9 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
 }
 
 const _checkRootAddresses = async recoveryPhraseBytes => {
-  const addresses = await KeyAddrGenManager.getRootAddresses(recoveryPhraseBytes)
+  const addresses = await KeyAddrGenManager.getRootAddresses(
+    recoveryPhraseBytes
+  )
   console.log(`_checkRootAddresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
   const accountData = await NdauNodeAPI.getAddressData(addresses)
@@ -72,7 +79,9 @@ const _checkRootAddresses = async recoveryPhraseBytes => {
 }
 
 const _checkBIP44Addresses = async recoveryPhraseBytes => {
-  const addresses = await KeyAddrGenManager.getBIP44Addresses(recoveryPhraseBytes)
+  const addresses = await KeyAddrGenManager.getBIP44Addresses(
+    recoveryPhraseBytes
+  )
   console.log(`_checkBIP44Addresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
   const accountData = await NdauNodeAPI.getAddressData(addresses)
