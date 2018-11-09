@@ -1,23 +1,31 @@
-import React from 'react';
-import { Alert, ScrollView, SafeAreaView, Text, View, TouchableOpacity, Image } from 'react-native';
-import cssStyles from '../css/styles';
+import React from 'react'
+import {
+  Alert,
+  ScrollView,
+  SafeAreaView,
+  Text,
+  View,
+  TouchableOpacity,
+  Image
+} from 'react-native'
+import cssStyles from '../css/styles'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
+} from 'react-native-responsive-screen'
 
 class DashboardDrawer extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
   }
 
   dashboard = () => {
-    this.props.navigation.closeDrawer();
-    this.props.navigation.navigate('App');
-  };
+    this.props.navigation.closeDrawer()
+    this.props.navigation.navigate('App')
+  }
 
   logout = () => {
-    this.props.navigation.closeDrawer();
+    this.props.navigation.closeDrawer()
     Alert.alert(
       'Logout Confirmation',
       'Are you sure you would like to logout of ndau wallet?',
@@ -30,15 +38,15 @@ class DashboardDrawer extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.navigation.navigate('Auth');
+            this.props.navigation.navigate('Auth')
           }
         }
       ],
       { cancelable: false }
-    );
-  };
+    )
+  }
 
-  render() {
+  render () {
     return (
       <ScrollView>
         <SafeAreaView
@@ -64,14 +72,17 @@ class DashboardDrawer extends React.Component {
           />
           <TouchableOpacity onPress={() => this.logout()}>
             <View style={{ flexDirection: 'row' }}>
-              <Image style={cssStyles.drawerTextImage} source={require('img/ndau_user.png')} />
+              <Image
+                style={cssStyles.drawerTextImage}
+                source={require('img/ndau_user.png')}
+              />
               <Text style={cssStyles.drawerText}>Logout</Text>
             </View>
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
-    );
+    )
   }
 }
 
-export default DashboardDrawer;
+export default DashboardDrawer

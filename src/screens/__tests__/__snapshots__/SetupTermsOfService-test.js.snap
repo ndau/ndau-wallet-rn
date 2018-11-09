@@ -507,7 +507,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             6.1. ANY USE OF THE CONTENT OFFERED TO YOU AND/OR MADE AVAILABLE TO YOU VIA THE PLATFORM IS SUBJECT TO THESE TERMS AND IS NOT PROVIDED EXCLUSIVELY FOR YOU.
             
 
-            6.2. 
+            6.2.
+             
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -526,7 +527,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             . You are not allowed to make any use of the Platform in the event that you are under the age of 16.
             
 
-            6.3. 
+            6.3.
+             
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -545,7 +547,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             . Notwithstanding anything to the contrary herein, you agree to abide by all applicable local, state, national, and international laws and regulations in regard to your use of the Platform and any content offered therein. For the avoidance of doubt, the ability to access our Platform does not necessarily mean that your use is permitted under relevant laws, regulations, and directives.
             
 
-            6.4. 
+            6.4.
+             
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -564,7 +567,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             . In addition to the foregoing, while using the Platform, you will strictly adhere to the respective Platform policies published by us from time to time, such that you should not:
             
 	
-             (a) Browse, surf, process, scan, or use the Platform via operation of a computer program designed to gather information or perform operations imitating a human user (including, without limitation, Bots or Crawlers);
+             
+            (a) Browse, surf, process, scan, or use the Platform via operation of a computer program designed to gather information or perform operations imitating a human user (including, without limitation, Bots or Crawlers);
             
 	
             (b) Manipulate the URL of the Website (or if applicable, the Application), gain access to any internal pages to which we did not provide you with a direct link (including, without limitation, URL Hacking), whether via the Website and/or Application, nor otherwise create any link to (or otherwise embed) the Platform via any Application Program Interface (API);
@@ -597,7 +601,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             (k) Carry out any action which violates any community guidelines, Terms and/or Privacy Notice, as prescribed herein and/or as otherwise published by us.
             
 
-            6.5. 
+            6.5.
+             
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -663,7 +668,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            7.1. 
+            7.1.
+             
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -698,7 +704,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             ”). In the event that the Proprietary Content is licensed to us, then such content might be subject to additional restrictions by its owners.
             
 
-            7.2. 
+            7.2.
+             
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -862,7 +869,8 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
           >
             
 
-            YOU SHALL INDEMNIFY 
+            YOU SHALL INDEMNIFY
+             
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -895,7 +903,9 @@ exports[`testing SetupTermsOfService... renders correctly 1`] = `
             >
               DAMAGES CAUSED, IF
             </Text>
-             RESULTING FROM YOUR USE OF, ACCESS TO, OR RELIANCE ON THE 
+             
+            RESULTING FROM YOUR USE OF, ACCESS TO, OR RELIANCE ON THE
+             
             <Text
               accessible={true}
               allowFontScaling={true}

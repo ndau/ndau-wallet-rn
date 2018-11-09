@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 
 class AlertPanel extends Component {
-  render() {
+  render () {
     return (
       <View style={styles.alertOuterContainer}>
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>{this.props.alertText}</Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -35,6 +35,6 @@ var styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 8
   }
-});
+})
 
-export default AlertPanel;
+export default AlertPanel

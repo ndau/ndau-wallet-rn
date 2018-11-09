@@ -88,9 +88,15 @@ class Dashboard extends Component {
   }
 
   addNewAccount = async () => {
-    const user = await KeyAddrGenManager.createNewAccount(this.state.user, this.state.number)
+    const user = await KeyAddrGenManager.createNewAccount(
+      this.state.user,
+      this.state.number
+    )
 
-    await MultiSafeHelper.saveUser(user, this.props.navigation.getParam('encryptionPassword', null))
+    await MultiSafeHelper.saveUser(
+      user,
+      this.props.navigation.getParam('encryptionPassword', null)
+    )
 
     this.setState({ user })
   }
@@ -108,18 +114,28 @@ class Dashboard extends Component {
   }
 
   render = () => {
-    console.debug(`user out of state: ${JSON.stringify(this.state.user, null, 2)}`)
+    console.debug(
+      `user out of state: ${JSON.stringify(this.state.user, null, 2)}`
+    )
 
     // TODO: this is ONLY temporary as we need to enumerate the wallets
-    const { accounts, marketPrice } = this.state.user.wallets[this.state.user.userId]
+    const { accounts, marketPrice } = this.state.user.wallets[
+      this.state.user.userId
+    ]
     if (!accounts) {
       return <SafeAreaView style={cssStyles.safeContainer} />
     }
 
     const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts)
-    const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(accounts, false)
+    const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(
+      accounts,
+      false
+    )
     // TODO: move marketPrice to the top level as it does not correspond to a user
-    const currentPrice = NdauNodeAPIHelper.currentPrice(marketPrice, totalNdauNumber)
+    const currentPrice = NdauNodeAPIHelper.currentPrice(
+      marketPrice,
+      totalNdauNumber
+    )
 
     console.log('active address is: ', this.state.activeAddress)
 
@@ -156,14 +172,23 @@ class Dashboard extends Component {
         <ScrollView
           style={cssStyles.container}
           refreshControl={
-            <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh} />
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
           }
         >
           <View style={cssStyles.dashboardTextContainer}>
             <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
           </View>
           <View style={cssStyles.dashboardTextContainer}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
               <Image
                 style={{
                   width: wp('7%'),
@@ -180,11 +205,17 @@ class Dashboard extends Component {
             <Text style={cssStyles.dashboardTextSmallGreen}>
               {currentPrice}
               <Text style={styles.asterisks}>**</Text>
-              <Text style={cssStyles.dashboardTextSmallWhiteEnd}> at current price</Text>
+              <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
+                {' '}at current price
+              </Text>
             </Text>
             <View style={cssStyles.dashboardSmallTextContainer}>
               <View
-                style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
               >
                 <Text style={cssStyles.dashboardTextSmallGreen}>
                   {Object.keys(accounts).length} addresses
@@ -193,7 +224,11 @@ class Dashboard extends Component {
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
                   onPress={this.launchAddNewAccountDialog}
                 >
-                  <FontAwesome name='plus-circle' color={styleConstants.ICON_GRAY} size={20} />
+                  <FontAwesome
+                    name='plus-circle'
+                    color={styleConstants.ICON_GRAY}
+                    size={20}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -201,14 +236,30 @@ class Dashboard extends Component {
 
           {Object.keys(accounts).map((accountKey, index) => {
             const account = accounts[accountKey]
-            const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(account.addressData)
-            const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(account.addressData)
-            const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(account.addressData)
-            const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(account.addressData)
-            const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(account.addressData)
-            const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(account.addressData)
-            const nickname = NdauNodeAPIHelper.accountNickname(account.addressData)
-            const accountBalance = NdauNodeAPIHelper.accountNdauAmount(account.addressData)
+            const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(
+              account.addressData
+            )
+            const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(
+              account.addressData
+            )
+            const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(
+              account.addressData
+            )
+            const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(
+              account.addressData
+            )
+            const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
+              account.addressData
+            )
+            const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(
+              account.addressData
+            )
+            const nickname = NdauNodeAPIHelper.accountNickname(
+              account.addressData
+            )
+            const accountBalance = NdauNodeAPIHelper.accountNdauAmount(
+              account.addressData
+            )
 
             return (
               <AccountCard
@@ -241,7 +292,10 @@ class Dashboard extends Component {
             <Text style={cssStyles.dashboardTextVerySmallWhite}>
               The estimated value of ndau in US dollars can be calculated using the Target Price at
               which new ndau have most recently been issued. The value shown here is calculated
-              using that method as of the issue price on {DateHelper.getTodaysDate()}. The Axiom
+              using that method as of the issue price on
+              {' '}
+              {DateHelper.getTodaysDate()}
+              . The Axiom
               Foundation bears no responsibility or liability for the calculation of that estimated
               value, or for decisions based on that estimated value.
             </Text>

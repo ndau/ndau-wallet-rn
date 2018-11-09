@@ -50,7 +50,8 @@ getAddressData.mockReturnValueOnce(data.testAddressData)
 getAddressData.mockReturnValueOnce(data.testAddressData)
 
 const numberOfAccounts = 2
-let recoveryPhraseString = 'goat amount liar amount expire adjust cage candy arch gather drum buyer'
+let recoveryPhraseString =
+  'goat amount liar amount expire adjust cage candy arch gather drum buyer'
 const recoveryPhraseBytes = 'ZWEQAwQFBgcICQoLDA0ODw=='
 const initialPrivateKey =
   'npvt8aaaaaaaaaaaadyj632qv3ip7jhi66dxjzdtbvabf2nrrupjaqignfha5smckbu4nagfhwce3f9gfutkhmk5weuicjwyrsiax8qgq56bnhg5wrb6uwbigqk3bgw3'
@@ -63,7 +64,10 @@ const childPrivate100 =
 const deriveFromKey =
   'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf'
 const address = 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac'
-const keyaddrWordsToBytes = sinon.spy(NativeModules.KeyaddrManager, 'keyaddrWordsToBytes')
+const keyaddrWordsToBytes = sinon.spy(
+  NativeModules.KeyaddrManager,
+  'keyaddrWordsToBytes'
+)
 keyaddrWordsToBytes.mockReturnValue(recoveryPhraseBytes)
 const newKey = sinon.spy(NativeModules.KeyaddrManager, 'newKey')
 newKey.mockReturnValue(initialPrivateKey)
@@ -315,7 +319,13 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
 test('setupTestUser creates a MultiSafe and we can then retrieve with recovery phrase', async () => {
   const walletId = 'Kris'
   const encryptionPassword = 'asdfjkl'
-  await MultiSafeHelper.setupNewUser(null, recoveryPhraseString, walletId, 1, encryptionPassword)
+  await MultiSafeHelper.setupNewUser(
+    null,
+    recoveryPhraseString,
+    walletId,
+    1,
+    encryptionPassword
+  )
 
   const userGettingCreated = {
     userId: 'Kris',

@@ -22,6 +22,8 @@ test('getMarketPriceAPIAddress sends back the correct address', async () => {
 
 test('getEaiPercentageAPIAddress sends back the correct address', async () => {
   expect(await NodeAddressHelper.getEaiPercentageAPIAddress()).toBe(
-    'https://' + NodeAddressHelper.SELECTED_NODE + '.api.ndau.tech/eaipercentage'
+    'https://' +
+      NodeAddressHelper.SELECTED_NODE +
+      '.api.ndau.tech/eaipercentage'
   )
 })

@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import ModalDialog from './ModalDialog';
+} from 'react-native-responsive-screen'
+import ModalDialog from './ModalDialog'
 
 class LockModalDialog extends Component {
-  render() {
+  render () {
     return (
       <ModalDialog {...this.props}>
         <Text style={styles.text}>This is lock dialog</Text>
       </ModalDialog>
-    );
+    )
   }
 }
 
@@ -27,6 +27,6 @@ var styles = StyleSheet.create({
     marginLeft: wp('1%'),
     marginRight: wp('1%')
   }
-});
+})
 
-export default LockModalDialog;
+export default LockModalDialog
