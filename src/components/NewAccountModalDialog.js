@@ -14,6 +14,7 @@ class NewAccountModalDialog extends Component {
   addNewAccount = () => {
     this.props.setModalVisible(false)
     this.props.addNewAccount()
+    this.props.closeModal()
   }
 
   render () {
