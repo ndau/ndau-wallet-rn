@@ -1,35 +1,37 @@
 import AppConfig from '../AppConfig'
+import ServiceDiscovery from '../api/ServiceDiscovery'
 
 const PROTOCOL = 'https'
 
-getNode = () => {
-  return ServiceDiscovery
+getNode = async () => {
+  return await ServiceDiscovery.getServiceNodeURL()
 }
 
-getNodeAddress = () => {
-  return PROTOCOL + '://' + getNode() + DOMAIN
+getNodeAddress = async () => {
+  const node = await getNode()
+  console.log(`TEST: ${node}`)
+  return PROTOCOL + '://' + node
 }
 
-getAccountAPIAddress = () => {
-  return getNodeAddress() + '/accounts'
+getAccountAPIAddress = async () => {
+  return (await getNodeAddress()) + '/accounts'
 }
 
-getEaiPercentageAPIAddress = () => {
-  return getNodeAddress() + '/eaipercentage'
+getEaiPercentageAPIAddress = async () => {
+  return (await getNodeAddress()) + '/eaipercentage'
 }
 
-getMarketPriceAPIAddress = () => {
-  return getNodeAddress() + '/marketprice'
+getMarketPriceAPIAddress = async () => {
+  return (await getNodeAddress()) + '/marketprice'
 }
 
-getNodeStatusAPIAddress = () => {
-  return getNodeAddress() + '/node/status'
+getNodeStatusAPIAddress = async () => {
+  return (await getNodeAddress()) + '/node/status'
 }
 
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
   getEaiPercentageAPIAddress,
-  getNodeStatusAPIAddress,
-  SELECTED_NODE
+  getNodeStatusAPIAddress
 }

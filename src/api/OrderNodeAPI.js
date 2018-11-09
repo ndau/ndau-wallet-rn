@@ -1,13 +1,13 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper'
 import data from './data'
 
-const getEAIPercentage = addressData => {
+const getEAIPercentage = async addressData => {
   // TODO: this is TEMP code
   // if (__DEV__) {
   return data.eaiPercentageResponse
   // }
 
-  const eaiPercentageAddress = NodeAddressHelper.getEaiPercentageAPIAddress()
+  const eaiPercentageAddress = await NodeAddressHelper.getEaiPercentageAPIAddress()
   console.log(
     `eaiPercentageAddress ${JSON.stringify(addressData, null, 2)} to ${eaiPercentageAddress}`
   )
