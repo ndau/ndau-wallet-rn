@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { View, ScrollView, Text, Linking, PixelRatio, Platform } from 'react-native'
+import {
+  View,
+  ScrollView,
+  Text,
+  Linking,
+  PixelRatio,
+  Platform
+} from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
 import CommonButton from '../components/CommonButton'
 import cssStyles from '../css/styles'
@@ -96,7 +103,10 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   componentWillMount () {
-    const mode = this.props.navigation.getParam('mode', AppConstants.NORMAL_MODE)
+    const mode = this.props.navigation.getParam(
+      'mode',
+      AppConstants.NORMAL_MODE
+    )
     switch (mode) {
       case AppConstants.GENESIS_MODE:
         introductionText = this.GENESIS_MODE_TEXT
@@ -120,7 +130,9 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   sendEmail = () => {
-    Linking.openURL('mailto:support@oneiro.freshdesk.com?subject=Lost Recovery Phrase')
+    Linking.openURL(
+      'mailto:support@oneiro.freshdesk.com?subject=Lost Recovery Phrase'
+    )
   }
 
   _onLayoutDidChange = e => {
@@ -141,7 +153,12 @@ class SetupGetRecoveryPhrase extends Component {
     }
     return (
       <View style={style} key={index}>
-        <Text style={[cssStyles.wizardText, { marginTop: hp('1%'), marginRight: wp('2%') }]}>
+        <Text
+          style={[
+            cssStyles.wizardText,
+            { marginTop: hp('1%'), marginRight: wp('2%') }
+          ]}
+        >
           {index + 1}.
         </Text>
         <RecoveryDropdown
@@ -183,7 +200,8 @@ class SetupGetRecoveryPhrase extends Component {
       if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
         navigation.navigate('SetupEncryptionPassword', {
           user,
-          walletSetupType: navigation.state.params && navigation.state.params.walletSetupType,
+          walletSetupType: navigation.state.params &&
+            navigation.state.params.walletSetupType,
           mode: AppConstants.PASSWORD_RESET_MODE,
           recoveryPhraseString: this.recoveryPhrase.join().replace(/,/g, ' ')
         })
@@ -192,7 +210,10 @@ class SetupGetRecoveryPhrase extends Component {
 
       const user = await this._checkRecoveryPhrase()
       if (user) {
-        const encryptionPassword = navigation.getParam('encryptionPassword', null)
+        const encryptionPassword = navigation.getParam(
+          'encryptionPassword',
+          null
+        )
         // IF we have a password we are fixing up an account from a 1.6 user here
         // so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
@@ -203,13 +224,15 @@ class SetupGetRecoveryPhrase extends Component {
           this.props.navigation.navigate('Dashboard', {
             user,
             encryptionPassword,
-            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
+            walletSetupType: navigation.state.params &&
+              navigation.state.params.walletSetupType
           })
         } else {
           SetupStore.recoveryPhrase = this.recoveryPhrase
           navigation.navigate('SetupWalletName', {
             user,
-            walletSetupType: navigation.state.params && navigation.state.params.walletSetupType
+            walletSetupType: navigation.state.params &&
+              navigation.state.params.walletSetupType
           })
         }
       } else {
@@ -242,15 +265,16 @@ class SetupGetRecoveryPhrase extends Component {
     }
   }
 
-  checkIfDone = pageIndex => {}
-
   _renderAcquisition = () => {
     const pages = this._generatePages()
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps='always'>
+          <ScrollView
+            style={cssStyles.contentContainer}
+            keyboardShouldPersistTaps='always'
+          >
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
@@ -304,7 +328,8 @@ class SetupGetRecoveryPhrase extends Component {
           <View>
             <Text style={cssStyles.blackDialogText}>
               Your recovery phrase is necessary to prove ownership of your ndau. Your wallet cannot
-              be restored without it. If you have lost your recovery phrase please contact{' '}
+              be restored without it. If you have lost your recovery phrase please contact
+              {' '}
             </Text>
             <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
               Oneiro concierge support.
@@ -334,13 +359,18 @@ class SetupGetRecoveryPhrase extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer} keyboardShouldPersistTaps='always'>
+          <ScrollView
+            style={cssStyles.contentContainer}
+            keyboardShouldPersistTaps='always'
+          >
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
             <View style={{ marginBottom: 10 }}>
-              <Text style={cssStyles.wizardText}>Is this the correct recovery phrase? </Text>
+              <Text style={cssStyles.wizardText}>
+                Is this the correct recovery phrase?{' '}
+              </Text>
             </View>
             {words.map((row, rowIndex) => {
               return (
@@ -360,7 +390,9 @@ class SetupGetRecoveryPhrase extends Component {
             })}
             {this.state.confirmationError
               ? <ErrorPanel
-                errorText={'Is this the correct recovery phrase? Please correct any errors.'}
+                errorText={
+                    'Is this the correct recovery phrase? Please correct any errors.'
+                  }
                 />
               : null}
           </ScrollView>
@@ -380,7 +412,9 @@ class SetupGetRecoveryPhrase extends Component {
   render () {
     console.log(`recoverPhrase is now: ${this.recoveryPhrase}`)
 
-    return !this.state.recoverPhraseFull ? this._renderAcquisition() : this._renderConfirmation()
+    return !this.state.recoverPhraseFull
+      ? this._renderAcquisition()
+      : this._renderConfirmation()
   }
 }
 

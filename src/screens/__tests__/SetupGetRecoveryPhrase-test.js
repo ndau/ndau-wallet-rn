@@ -20,7 +20,9 @@ describe('testing SetupGetRecoveryPhrase...', () => {
 
   it('renders correctly', () => {
     const tree = renderer
-      .create(<SetupGetRecoveryPhrase parentStyles={styles} navigation={navigation} />)
+      .create(
+        <SetupGetRecoveryPhrase parentStyles={styles} navigation={navigation} />
+      )
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

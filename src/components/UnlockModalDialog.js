@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import ModalDialog from './ModalDialog';
-import CommonButton from '../components/CommonButton';
-import cssStyles from '../css/styles';
+} from 'react-native-responsive-screen'
+import ModalDialog from './ModalDialog'
+import CommonButton from '../components/CommonButton'
+import cssStyles from '../css/styles'
 
 class UnlockModalDialog extends Component {
   unlock = () => {
-    this.props.setModalVisible(false);
-  };
+    this.props.setModalVisible(false)
+  }
 
-  render() {
+  render () {
     return (
       <ModalDialog {...this.props}>
         <Text style={styles.text}>
@@ -26,10 +26,10 @@ class UnlockModalDialog extends Component {
           not be able to add new ndau to this account.
         </Text>
         <View style={cssStyles.footer}>
-          <CommonButton onPress={this.unlock} title="Start unlock countdown" />
+          <CommonButton onPress={this.unlock} title='Start unlock countdown' />
         </View>
       </ModalDialog>
-    );
+    )
   }
 }
 
@@ -43,6 +43,6 @@ var styles = StyleSheet.create({
     marginLeft: wp('1%'),
     marginRight: wp('1%')
   }
-});
+})
 
-export default UnlockModalDialog;
+export default UnlockModalDialog

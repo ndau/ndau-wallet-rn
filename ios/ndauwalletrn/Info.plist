@@ -21,7 +21,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
+<<<<<<< HEAD
+	<string>75</string>
+=======
 	<string>74</string>
+>>>>>>> 52e9348b18399c8eaaed8072e9476b2924056f29
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

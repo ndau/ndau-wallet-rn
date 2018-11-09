@@ -337,7 +337,7 @@ exports[`SetupConfirmRecoveryPhrase presentation renders correctly 1`] = `
                   }
                 }
               >
-                five
+                four
               </Text>
             </View>
           </View>

@@ -1,14 +1,14 @@
 // PRIMARY COLORS
-const PRIMARY_GREEN = '#4e957a';
-const PRIMARY_GRAY = '#414042';
+const PRIMARY_GREEN = '#4e957a'
+const PRIMARY_GRAY = '#414042'
 
 // MISC. COLORS
-const APP_BACKGROUND_COLOR = '#1c2227';
-const DRAWER_BACKGROUND_COLOR = '#414042';
-const LINK_ORANGE = '#dea85a';
-const ASTERISKS_RED = '#f75f4b';
-const ICON_GRAY = '#A9A9A9';
-const PROGRESS_GRAY = '#3b3b3b';
+const APP_BACKGROUND_COLOR = '#1c2227'
+const DRAWER_BACKGROUND_COLOR = '#414042'
+const LINK_ORANGE = '#dea85a'
+const ASTERISKS_RED = '#f75f4b'
+const ICON_GRAY = '#A9A9A9'
+const PROGRESS_GRAY = '#3b3b3b'
 
 export default {
   PRIMARY_GREEN,
@@ -19,4 +19,4 @@ export default {
   ASTERISKS_RED,
   ICON_GRAY,
   PROGRESS_GRAY
-};
+}

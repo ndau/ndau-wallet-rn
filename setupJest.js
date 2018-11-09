@@ -1,39 +1,39 @@
-const { JSDOM } = require('jsdom');
-const jsdom = new JSDOM();
-const { window } = jsdom;
+const { JSDOM } = require('jsdom')
+const jsdom = new JSDOM()
+const { window } = jsdom
 
-function copyProps(src, target) {
+function copyProps (src, target) {
   const props = Object.getOwnPropertyNames(src)
-    .filter((prop) => typeof target[prop] === 'undefined')
-    .map((prop) => Object.getOwnPropertyDescriptor(src, prop));
-  Object.defineProperties(target, props);
+    .filter(prop => typeof target[prop] === 'undefined')
+    .map(prop => Object.getOwnPropertyDescriptor(src, prop))
+  Object.defineProperties(target, props)
 }
 
-global.window = window;
-global.document = window.document;
+global.window = window
+global.document = window.document
 global.navigator = {
   userAgent: 'node.js'
-};
-copyProps(window, global);
+}
+copyProps(window, global)
 
 // Setup adapter to work with enzyme 3.2.0
-const Enzyme = require('enzyme');
-const Adapter = require('enzyme-adapter-react-16');
+const Enzyme = require('enzyme')
+const Adapter = require('enzyme-adapter-react-16')
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({ adapter: new Adapter() })
 
 // Ignore React Web errors when using React Native
-console.error = (message) => {
-  return message;
-};
+console.error = message => {
+  return message
+}
 
-require('react-native-mock-render/mock');
+require('react-native-mock-render/mock')
 
-global.fetch = require('jest-fetch-mock');
+global.fetch = require('jest-fetch-mock')
 
-var chai = require('chai');
+var chai = require('chai')
 
-global.expect = chai.expect;
+global.expect = chai.expect
 
 // This will mutate `react-native`'s require cache with `react-native-mock`'s.
 // require('react-native-mock/mock'); // <-- side-effects!!!

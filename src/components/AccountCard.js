@@ -51,7 +51,9 @@ class AccountCard extends Component {
           </Text>
           : null}
         {accountLockedUntil
-          ? <Text style={cssStyles.text}>Account will be unlocked {accountLockedUntil}</Text>
+          ? <Text style={cssStyles.text}>
+              Account will be unlocked {accountLockedUntil}
+          </Text>
           : null}
         {accountNoticePeriod
           ? <Text style={cssStyles.text}>
@@ -59,8 +61,12 @@ class AccountCard extends Component {
             {accountNoticePeriod} day countdown{')'}
           </Text>
           : null}
-        {accountNotLocked ? <Text style={cssStyles.text}>This account is not locked</Text> : null}
-        {accountBalance === 0 ? <Text style={cssStyles.text}>{address}</Text> : null}
+        {accountNotLocked
+          ? <Text style={cssStyles.text}>This account is not locked</Text>
+          : null}
+        {accountBalance === 0
+          ? <Text style={cssStyles.text}>{address}</Text>
+          : null}
 
         {totalNdau !== 0 &&
           <View style={[cssStyles.accountCardImageView]}>
