@@ -129,9 +129,30 @@ class SetupConfirmRecoveryPhrase extends Component {
     );
   }
 
+  compare (correctSoFar, selected) {
+    if (_.isEqual(correctSoFar, selected)) {
+      return true;
+    }
+    else { // compare strings 
+      const recoveryPhrase = SetupStore.shuffledWords;
+
+      return correctSoFar.every(index => {
+        const correctIndex = correctSoFar[index];
+        const selectedIndex = selected[index];
+        const correctWord = recoveryPhrase[correctIndex];
+        const selectedWord = recoveryPhrase[selectedIndex];
+        const wordsMatch = correctWord && correctWord.length > 0 && correctWord === selectedWord;
+        
+        return wordsMatch;
+      });
+    }
+  }
+
   checkMistakes() {
+    const { selected } = this.state;
     const correctSoFar = SetupStore.shuffledMap.slice(0, this.state.selected.length);
-    if (!_(this.state.selected).isEqual(correctSoFar)) {
+    
+    if (!this.compare(correctSoFar, selected)) {
       let errorCount = this.state.errorCount + 1;
       this.setState({
         inError: true,
