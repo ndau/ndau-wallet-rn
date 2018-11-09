@@ -20,15 +20,10 @@ function makeNavigator () {
   }
 }
 
-<<<<<<< HEAD
 function makeWords () {
-  return 'zero one two three four five six seven eight nine ten eleven'.split(
+  return 'zero one two three four four six seven eight nine ten eleven'.split(
     ' '
   )
-=======
-function makeWords() {
-  return 'zero one two three four four six seven eight nine ten eleven'.split(' ');
->>>>>>> genesis-release-v1.8
 }
 
 describe('SetupConfirmRecoveryPhrase presentation', () => {
@@ -149,27 +144,19 @@ describe('SetupConfirmRecoveryPhrase behavior', () => {
 
     this.press(4) // wrong again
 
-<<<<<<< HEAD
     expect(this.wrapper.state().errorCount).toBe(4)
     this.wrapper.update()
     expect(this.wrapper.state().mustRetry).toBeTruthy()
   })
-})
-=======
-    expect(this.wrapper.state().errorCount).toBe(4);
-    this.wrapper.update();
-    expect(this.wrapper.state().mustRetry).toBeTruthy();
-  });
 
   test('allow incorrect sequence of duplicate words', () => {
-    this.press(0);
-    this.press(1);
-    this.press(2);
-    this.press(3);
-    this.press(5); // "four"
-    this.press(4); // "four"
-    this.wrapper.update();
-    expect(this.wrapper.state().inError).toBeFalsy();
-  });
-});
->>>>>>> genesis-release-v1.8
+    this.press(0)
+    this.press(1)
+    this.press(2)
+    this.press(3)
+    this.press(5) // "four"
+    this.press(4) // "four"
+    this.wrapper.update()
+    expect(this.wrapper.state().inError).toBeFalsy()
+  })
+})
