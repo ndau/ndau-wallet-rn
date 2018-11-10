@@ -6,11 +6,10 @@ import OrderNodeAPI from '../api/OrderNodeAPI'
 const populateWalletWithAddressData = async wallet => {
   const addressDataFromAPI = await NdauNodeAPI.getAddressData(wallet.addresses)
   const eaiPercentageData = await OrderNodeAPI.getEAIPercentage()
-  const marketPriceFromAPI = await NdauNodeAPI.getMarketPrice()
+  const marketPriceFromAPI = await OrderNodeAPI.getMarketPrice()
   const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : []
 
-  // TODO: NEED TO ADDRESS THIS~!!!!!
-  wallet.marketPrice = marketPriceFromAPI ? marketPriceFromAPI.marketPrice : 0
+  wallet.marketPrice = marketPriceFromAPI || 0
 
   const eaiPercentageMap = new Map()
   eaiPercentageData.forEach(account => {

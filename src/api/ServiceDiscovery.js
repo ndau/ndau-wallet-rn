@@ -4,7 +4,13 @@ const AWS_S3_SERVICE_JSON =
 const getServiceNodeURL = async () => {
   try {
     const response = await fetch(AWS_S3_SERVICE_JSON)
-    const responseBody = await response.body
+    let responseBody = response.body
+    if (!responseBody) {
+      responseBody = await response.json()
+    }
+    console.debug(
+      `ServiceDiscovery response: ${JSON.stringify(responseBody, null, 2)}`
+    )
     const apinodes = responseBody.apinodes
 
     // return a random service for use

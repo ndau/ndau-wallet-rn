@@ -207,7 +207,12 @@ const eaiPercentageResponse = [
 ]
 
 const testMarketPrice = {
-  marketPrice: 16.34
+  marketPrice: 16.34,
+  targetPrice: 17,
+  floorPrice: 2.57,
+  endowmentSold: 291900000000000,
+  totalNdau: 2000000,
+  USD: 'USD'
 }
 
 const testUser = {

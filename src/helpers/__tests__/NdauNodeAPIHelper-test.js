@@ -1,8 +1,9 @@
 import NdauNodeAPIHelper from '../NdauNodeAPIHelper'
 import data from '../../api/data'
+import services from '../../api/services.json'
 
 test('populateWalletWithAddressData populates wallet with data from the API', async () => {
-  fetch.mockResponseOnce(JSON.stringify(data.testAddressData))
+  mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
@@ -40,7 +41,7 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
 })
 
 test('make sure we can get the amount of ndau per account', async () => {
-  fetch.mockResponseOnce(JSON.stringify(data.testAddressData))
+  mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
@@ -61,7 +62,7 @@ test('make sure we can get the amount of ndau per account', async () => {
 })
 
 test('make sure we can get the locked until date of ndau per account', async () => {
-  fetch.mockResponseOnce(JSON.stringify(data.testAddressData))
+  mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
@@ -82,7 +83,7 @@ test('make sure we can get the locked until date of ndau per account', async () 
 })
 
 test('make sure we can get the total amount of ndau for accounts', async () => {
-  fetch.mockResponseOnce(JSON.stringify(data.testAddressData))
+  mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
@@ -94,10 +95,10 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 })
 
 test('make sure we can get the current price of the users ndau', async () => {
-  fetch.mockResponseOnce(JSON.stringify(data.testAddressData))
+  mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
   const totalNdau = await NdauNodeAPIHelper.accountTotalNdauAmount(
     wallet.accounts,
     false
@@ -110,7 +111,7 @@ test('make sure we can get the current price of the users ndau', async () => {
 })
 
 test('make sure sending EAI has the nickname set correctly', async () => {
-  fetch.mockResponseOnce(JSON.stringify(data.testAddressData))
+  mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
@@ -131,7 +132,7 @@ test('make sure sending EAI has the nickname set correctly', async () => {
 })
 
 test('make sure receiving EAI has the nickname set correctly', async () => {
-  fetch.mockResponseOnce(JSON.stringify(data.testAddressData))
+  mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
@@ -150,3 +151,16 @@ test('make sure receiving EAI has the nickname set correctly', async () => {
     )
   ).toBe('Account 4')
 })
+
+const mockFetchStuff = () => {
+  fetch.resetMocks()
+
+  fetch.mockResponses(
+    // [services],
+    // [data.testAddressData],
+    // [services],
+    // [data.eaiPercentageResponse],
+    [services],
+    [data.testMarketPrice]
+  )
+}

@@ -9,7 +9,6 @@ getNode = async () => {
 
 getNodeAddress = async () => {
   const node = await getNode()
-  console.log(`TEST: ${node}`)
   return PROTOCOL + '://' + node
 }
 
@@ -22,7 +21,7 @@ getEaiPercentageAPIAddress = async () => {
 }
 
 getMarketPriceAPIAddress = async () => {
-  return (await getNodeAddress()) + '/marketprice'
+  return (await getNodeAddress()) + '/order/current'
 }
 
 getNodeStatusAPIAddress = async () => {

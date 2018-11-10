@@ -27,23 +27,6 @@ const getAddressData = async addresses => {
     })
 }
 
-const getMarketPrice = async () => {
-  // TODO: this is TEMP code
-  // if (__DEV__) {
-  return data.testMarketPrice
-  // }
-
-  const marketPriceAPI = await NodeAddressHelper.getMarketPriceAPIAddress()
-  return fetch(marketPriceAPI)
-    .then(response => response.json())
-    .then(responseJson => {
-      console.info(
-        `getMarketPrice responseJson ${JSON.stringify(responseJson, null, 2)}`
-      )
-      return responseJson
-    })
-}
-
 const getNodeStatus = async () => {
   // TODO: this is TEMP code
   // if (__DEV__) {
@@ -63,6 +46,5 @@ const getNodeStatus = async () => {
 
 export default {
   getAddressData,
-  getMarketPrice,
   getNodeStatus
 }
