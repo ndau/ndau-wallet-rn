@@ -17,14 +17,6 @@ describe('testing SetupNewOrRecovery...', () => {
     toggleNavBar: () => {}
   }
 
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <SetupNewOrRecovery parentStyles={styles} navigator={navigator} />
-      )
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
   it('can click the button', () => {
     const wrapper = mount(
       <SetupNewOrRecovery navigator={navigator} parentStyles={styles} />

@@ -17,18 +17,6 @@ describe('testing SetupEncryptionPassword...', () => {
     routeName: ''
   }
 
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <SetupEncryptionPassword
-          navigation={navigation}
-          parentStyles={styles}
-        />
-      )
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-
   it('render parentStyles', () => {
     const wrapper = mount(
       <SetupEncryptionPassword navigation={navigation} parentStyles={styles} />

@@ -17,12 +17,6 @@ describe('testing SetupMain...', () => {
     toggleNavBar: () => {}
   }
 
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(<SetupWelcome parentStyles={styles} navigator={navigator} />)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
   it('can click the button', () => {
     const wrapper = mount(
       <SetupWelcome navigator={navigator} parentStyles={styles} />
