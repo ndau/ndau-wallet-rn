@@ -16,6 +16,13 @@ const moveTempUserToWalletName = (user, walletId) => {
   }
 }
 
+/**
+ * This function will find the next available path index
+ * within a derived path of a given wallet.
+ *
+ * @param {Wallet} wallet
+ * @param {string} path
+ */
 const getNextPathIndex = (wallet, path) => {
   const keys = wallet.keys
   let nextAddress = 0
@@ -37,6 +44,11 @@ const getNextPathIndex = (wallet, path) => {
   return nextAddress === 0 ? nextAddress : nextAddress++
 }
 
+/**
+ * Convert napu to ndau
+ *
+ * @param {number} napu
+ */
 const getNdauFromNapu = napu => {
   return napu / 100000000
 }
@@ -53,13 +65,28 @@ const getObjectWithAllAccounts = user => {
     const wallet = user.wallets[walletKey]
     Object.assign(newObject, wallet.accounts)
   })
-  console.log(`TEMP: ${JSON.stringify(newObject, null, 2)}`)
   return newObject
+}
+
+/**
+ * Given a wallet send back the format for the
+ * request to /account/eai/rate RESTful API call
+ *
+ * @param {Wallet} wallet
+ */
+const getAccountEaiRateRequest = wallet => {
+  return Object.keys(wallet.accounts).map(accountKey => {
+    const account = wallet.accounts[accountKey]
+    const addressData = Object.create(account.addressData)
+    addressData.address = accountKey
+    return addressData
+  })
 }
 
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
   getNdauFromNapu,
-  getObjectWithAllAccounts
+  getObjectWithAllAccounts,
+  getAccountEaiRateRequest
 }

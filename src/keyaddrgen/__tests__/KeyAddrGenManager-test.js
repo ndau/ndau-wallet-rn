@@ -307,8 +307,8 @@ const mockFetchStuff = () => {
   fetch.mockResponses(
     [services],
     [data.testAddressData],
-    // [services],
-    // [data.eaiPercentageResponse],
+    [services],
+    [data.eaiPercentageResponse],
     [services],
     [data.testMarketPrice]
   )

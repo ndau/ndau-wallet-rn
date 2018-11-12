@@ -25,9 +25,9 @@ test('getMarketPriceAPIAddress sends back the correct address', async () => {
   )
 })
 
-test('getEaiPercentageAPIAddress sends back the correct address', async () => {
+test('getEaiRateAPIAddress sends back the correct address', async () => {
   fetch.mockResponseOnce(services)
-  const eaiPercentageUrl = await NodeAddressHelper.getEaiPercentageAPIAddress()
+  const eaiPercentageUrl = await NodeAddressHelper.getEaiRateAPIAddress()
   expect(
     eaiPercentageUrl.indexOf('.api.ndau.tech/account/eai/rate') !== -1
   ).toBe(true)

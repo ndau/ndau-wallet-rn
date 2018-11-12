@@ -1,5 +1,6 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper'
 import data from './data'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 const getAddressData = async addresses => {
   const accountAPI = await NodeAddressHelper.getAccountAPIAddress()
@@ -21,6 +22,31 @@ const getAddressData = async addresses => {
   return responseBody
 }
 
+const getEaiRate = async wallet => {
+  const accountEaiRateRequestData = DataFormatHelper.getAccountEaiRateRequest(
+    wallet
+  )
+
+  const eaiRateAddress = await NodeAddressHelper.getEaiRateAPIAddress()
+  console.log(
+    `Sending ${JSON.stringify(accountEaiRateRequestData)} to ${eaiRateAddress}`
+  )
+
+  const response = await fetch(eaiRateAddress, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(accountEaiRateRequestData)
+  })
+  let responseBody = response.body
+  if (!responseBody) {
+    responseBody = await response.json()
+  }
+  console.debug(`getEaiRate response: ${JSON.stringify(responseBody, null, 2)}`)
+  return responseBody
+}
+
 const getNodeStatus = async () => {
   const nodeStatusAddress = await NodeAddressHelper.getNodeStatusAPIAddress()
   return fetch(nodeStatusAddress)
@@ -35,5 +61,6 @@ const getNodeStatus = async () => {
 
 export default {
   getAddressData,
+  getEaiRate,
   getNodeStatus
 }

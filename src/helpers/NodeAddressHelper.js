@@ -16,7 +16,7 @@ getAccountAPIAddress = async () => {
   return (await getNodeAddress()) + '/account/accounts'
 }
 
-getEaiPercentageAPIAddress = async () => {
+getEaiRateAPIAddress = async () => {
   return (await getNodeAddress()) + '/account/eai/rate'
 }
 
@@ -31,6 +31,6 @@ getNodeStatusAPIAddress = async () => {
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
-  getEaiPercentageAPIAddress,
+  getEaiRateAPIAddress,
   getNodeStatusAPIAddress
 }
