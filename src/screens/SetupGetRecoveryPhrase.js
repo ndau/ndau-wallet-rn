@@ -215,11 +215,13 @@ class SetupGetRecoveryPhrase extends Component {
           'encryptionPassword',
           null
         )
+        let marketPrice = 0
         // IF we have a password we are fixing up an account from a 1.6 user here
         // so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
           try {
             await UserData.loadData(user)
+            marketPrice = await OrderNodeAPI.getMarketPrice()
           } catch (error) {
             ErrorDialog.showError(error)
           }
@@ -230,7 +232,8 @@ class SetupGetRecoveryPhrase extends Component {
             user,
             encryptionPassword,
             walletSetupType: navigation.state.params &&
-              navigation.state.params.walletSetupType
+              navigation.state.params.walletSetupType,
+            marketPrice
           })
         } else {
           SetupStore.recoveryPhrase = this.recoveryPhrase

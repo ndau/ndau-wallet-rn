@@ -9,10 +9,8 @@ const populateWalletWithAddressData = async wallet => {
     Object.keys(wallet.accounts)
   )
   const eaiPercentageData = await OrderNodeAPI.getEAIPercentage()
-  const marketPriceFromAPI = await OrderNodeAPI.getMarketPrice()
-  const addressData = addressDataFromAPI || {}
 
-  wallet.marketPrice = marketPriceFromAPI || 0
+  const addressData = addressDataFromAPI || {}
 
   const eaiPercentageMap = new Map()
   eaiPercentageData.forEach(account => {
@@ -22,49 +20,49 @@ const populateWalletWithAddressData = async wallet => {
   const addressNicknameMap = new Map()
 
   // This is mainly done if there is not data, to name the wallet.accounts
-  Object.keys(wallet.accounts).forEach((accountKey, index) => {
-    const account = wallet.accounts[accountKey]
-    if (!account.addressData) {
-      account.addressData = {}
-    }
-    account.addressData.nickname = `Account ${index + 1}`
-  })
-
-  // create a map to create the nickname fields appropriately
-  Object.keys(addressData).forEach((accountKey, index) => {
-    const account = addressData[accountKey]
-    account.nickname = `Account ${index + 1}`
-    account.eaiPercentage = eaiPercentageMap.get(accountKey)
-    addressNicknameMap.set(accountKey, account.nickname)
-  })
-
-  // now iterate using the map to populate the rewardsTargetNickname
-  // and incomingRewardsFromNickname
-  Object.keys(addressData).forEach(accountKey => {
-    const account = addressData[accountKey]
-    if (account.rewardsTarget) {
-      account.rewardsTargetNickname = addressNicknameMap.get(
-        account.rewardsTarget
-      )
-    }
-
-    if (account.incomingRewardsFrom) {
-      account.incomingRewardsFromNickname = addressNicknameMap.get(
-        account.incomingRewardsFrom
-      )
-    }
-  })
-
-  // NOW get addressData in it's rightful place
-  Object.keys(wallet.accounts).forEach(accountKey => {
-    const account = wallet.accounts[accountKey]
-    Object.keys(addressData).forEach(dataAccountKey => {
-      const dataToPutIntoUser = addressData[dataAccountKey]
-      if (account.address === dataAccountKey) {
-        account.addressData = dataToPutIntoUser
+  if (!addressData) {
+    Object.keys(wallet.accounts).forEach((accountKey, index) => {
+      const account = wallet.accounts[accountKey]
+      if (!account.addressData) {
+        account.addressData = {}
+      }
+      account.addressData.nickname = `Account ${index + 1}`
+    })
+  } else {
+    const addressDataKeys = Object.keys(addressData)
+    const walletAccountKeys = Object.keys(wallet.accounts)
+    // create a map to create the nickname fields appropriately
+    addressDataKeys.forEach((accountKey, index) => {
+      const account = addressData[accountKey]
+      account.nickname = `Account ${index + 1}`
+      account.eaiPercentage = eaiPercentageMap.get(accountKey)
+      addressNicknameMap.set(accountKey, account.nickname)
+      for (const walletAccountKey of walletAccountKeys) {
+        const walletAccount = wallet.accounts[walletAccountKey]
+        if (walletAccountKey === accountKey) {
+          walletAccount.addressData = account
+          break
+        }
       }
     })
-  })
+
+    // now iterate using the map to populate the rewardsTargetNickname
+    // and incomingRewardsFromNickname
+    addressDataKeys.forEach(accountKey => {
+      const account = addressData[accountKey]
+      if (account.rewardsTarget) {
+        account.rewardsTargetNickname = addressNicknameMap.get(
+          account.rewardsTarget
+        )
+      }
+
+      if (account.incomingRewardsFrom) {
+        account.incomingRewardsFromNickname = addressNicknameMap.get(
+          account.incomingRewardsFrom
+        )
+      }
+    })
+  }
 }
 
 const eaiPercentage = account => {

@@ -10,6 +10,7 @@ import ndauDashboardApi from '../api/NdauDashboardAPI'
 import AppConfig from '../AppConfig'
 import ErrorDialog from '../components/ErrorDialog'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import UserData from '../model/UserData'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -25,6 +26,9 @@ class SetupTermsOfService extends Component {
 
     let user = this.props.navigation.getParam('user', null)
 
+    await UserData.loadData(user)
+    const marketPrice = await OrderNodeAPI.getMarketPrice()
+
     user = await MultiSafeHelper.setupNewUser(
       user,
       SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
@@ -37,7 +41,8 @@ class SetupTermsOfService extends Component {
     this.props.navigation.navigate('Dashboard', {
       user,
       encryptionPassword: SetupStore.encryptionPassword,
-      walletSetupType: null
+      walletSetupType: null,
+      marketPrice
     })
   }
 
