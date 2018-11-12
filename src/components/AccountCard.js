@@ -23,7 +23,8 @@ class AccountCard extends Component {
       totalNdau,
       lock,
       unlock,
-      startTransaction
+      startTransaction,
+      walletId
     } = this.props
 
     return (
@@ -64,9 +65,7 @@ class AccountCard extends Component {
         {accountNotLocked
           ? <Text style={cssStyles.text}>This account is not locked</Text>
           : null}
-        {accountBalance === 0
-          ? <Text style={cssStyles.text}>{address}</Text>
-          : null}
+        <Text style={cssStyles.text}>In wallet {walletId}</Text>
 
         {totalNdau !== 0 &&
           <View style={[cssStyles.accountCardImageView]}>

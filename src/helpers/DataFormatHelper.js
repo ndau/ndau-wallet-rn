@@ -41,8 +41,25 @@ const getNdauFromNapu = napu => {
   return napu / 100000000
 }
 
+/**
+ * Given a user return back all the accounts within
+ * a single object.
+ *
+ * @param {User} user
+ */
+const getObjectWithAllAccounts = user => {
+  const newObject = {}
+  Object.keys(user.wallets).forEach(walletKey => {
+    const wallet = user.wallets[walletKey]
+    Object.assign(newObject, wallet.accounts)
+  })
+  console.log(`TEMP: ${JSON.stringify(newObject, null, 2)}`)
+  return newObject
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
-  getNdauFromNapu
+  getNdauFromNapu,
+  getObjectWithAllAccounts
 }

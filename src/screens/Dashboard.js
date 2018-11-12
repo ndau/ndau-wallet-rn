@@ -29,6 +29,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import ErrorDialog from '../components/ErrorDialog'
 import OrderNodeAPI from '../api/OrderNodeAPI'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -115,21 +116,19 @@ class Dashboard extends Component {
     this.setState({ refreshing: true })
 
     const user = this.state.user
-
+    let marketPrice = this.state.marketPrice
     try {
       await UserData.loadData(user)
+      marketPrice = await OrderNodeAPI.getMarketPrice()
     } catch (error) {
       ErrorDialog.showError(error)
     }
 
-    console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`)
-
-    this.setState({ refreshing: false, user })
+    this.setState({ refreshing: false, user, marketPrice })
   }
 
   render = () => {
-    // TODO: this is ONLY temporary as we need to enumerate the wallets
-    const { accounts } = this.state.user.wallets[this.state.user.userId]
+    const accounts = DataFormatHelper.getObjectWithAllAccounts(this.state.user)
     if (!accounts) {
       return <SafeAreaView style={cssStyles.safeContainer} />
     }
@@ -300,6 +299,7 @@ class Dashboard extends Component {
                       modalId: TRANSACTION_MODAL_ID
                     })
                   }}
+                  walletId={account.addressData.walletId}
                 />
               )
             })}
