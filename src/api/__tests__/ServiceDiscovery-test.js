@@ -1,5 +1,5 @@
 import ServiceDiscovery from '../ServiceDiscovery'
-import services from '../services.json'
+import services from '../services-dev.json'
 
 describe('...testing ServiceDiscovery', () => {
   beforeEach(() => {

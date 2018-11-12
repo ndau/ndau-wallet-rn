@@ -4,7 +4,7 @@ import KeyAddrGenManager from '../KeyAddrGenManager'
 import User from '../../model/User'
 import AppConfig from '../../AppConfig'
 import Wallet from '../../model/Wallet'
-import services from '../../api/services.json'
+import services from '../../api/services-dev.json'
 import data from '../../api/data'
 
 jest.mock('NativeModules', () => {
@@ -305,8 +305,8 @@ const mockFetchStuff = () => {
   fetch.resetMocks()
 
   fetch.mockResponses(
-    // [services],
-    // [data.testAddressData],
+    [services],
+    [data.testAddressData],
     // [services],
     // [data.eaiPercentageResponse],
     [services],

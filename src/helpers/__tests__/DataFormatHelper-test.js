@@ -202,3 +202,8 @@ test('getNextPathIndex gets me the correct next root path index', async () => {
   const nextPathIndex = DataFormatHelper.getNextPathIndex(wallet, '/')
   expect(nextPathIndex).toEqual(5)
 })
+
+test('getNdauFromNapu converts napu correctly', async () => {
+  const ndau = DataFormatHelper.getNdauFromNapu(1000000000)
+  expect(ndau).toEqual(10)
+})

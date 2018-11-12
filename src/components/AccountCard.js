@@ -32,7 +32,7 @@ class AccountCard extends Component {
         title={nickname}
         titleRight={accountBalance}
         lockAdder={accountNotLocked ? 0 : 3}
-        onNotice={!!accountNoticePeriod}
+        onNotice={!!accountLockedUntil}
       >
         {eaiPercentage
           ? <Text style={cssStyles.text}>
@@ -70,7 +70,7 @@ class AccountCard extends Component {
 
         {totalNdau !== 0 &&
           <View style={[cssStyles.accountCardImageView]}>
-            {accountNoticePeriod
+            {accountLockedUntil
               ? <Image
                 style={{
                   width: 23,
@@ -81,7 +81,7 @@ class AccountCard extends Component {
                 />
               : null}
             <TouchableOpacity onPress={unlock}>
-              {accountLockedUntil
+              {accountNoticePeriod
                 ? <Image
                   style={{
                     width: 23,

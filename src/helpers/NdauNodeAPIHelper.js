@@ -2,12 +2,15 @@ import NdauNodeAPI from '../api/NdauNodeAPI'
 import DateHelper from './DateHelper'
 import AppConfig from '../AppConfig'
 import OrderNodeAPI from '../api/OrderNodeAPI'
+import DataFormatHelper from './DataFormatHelper'
 
 const populateWalletWithAddressData = async wallet => {
-  const addressDataFromAPI = await NdauNodeAPI.getAddressData(wallet.addresses)
+  const addressDataFromAPI = await NdauNodeAPI.getAddressData(
+    Object.keys(wallet.accounts)
+  )
   const eaiPercentageData = await OrderNodeAPI.getEAIPercentage()
   const marketPriceFromAPI = await OrderNodeAPI.getMarketPrice()
-  const addressData = addressDataFromAPI ? addressDataFromAPI.addressData : []
+  const addressData = addressDataFromAPI || {}
 
   wallet.marketPrice = marketPriceFromAPI || 0
 
@@ -28,15 +31,17 @@ const populateWalletWithAddressData = async wallet => {
   })
 
   // create a map to create the nickname fields appropriately
-  addressData.forEach((account, index) => {
+  Object.keys(addressData).forEach((accountKey, index) => {
+    const account = addressData[accountKey]
     account.nickname = `Account ${index + 1}`
-    account.eaiPercentage = eaiPercentageMap.get(account.address)
-    addressNicknameMap.set(account.address, account.nickname)
+    account.eaiPercentage = eaiPercentageMap.get(accountKey)
+    addressNicknameMap.set(accountKey, account.nickname)
   })
 
   // now iterate using the map to populate the rewardsTargetNickname
   // and incomingRewardsFromNickname
-  addressData.forEach(account => {
+  Object.keys(addressData).forEach(accountKey => {
+    const account = addressData[accountKey]
     if (account.rewardsTarget) {
       account.rewardsTargetNickname = addressNicknameMap.get(
         account.rewardsTarget
@@ -53,8 +58,9 @@ const populateWalletWithAddressData = async wallet => {
   // NOW get addressData in it's rightful place
   Object.keys(wallet.accounts).forEach(accountKey => {
     const account = wallet.accounts[accountKey]
-    addressData.forEach(dataToPutIntoUser => {
-      if (account.address === dataToPutIntoUser.address) {
+    Object.keys(addressData).forEach(dataAccountKey => {
+      const dataToPutIntoUser = addressData[dataAccountKey]
+      if (account.address === dataAccountKey) {
         account.addressData = dataToPutIntoUser
       }
     })
@@ -108,7 +114,9 @@ const accountNotLocked = account => {
 }
 
 const accountNdauAmount = account => {
-  return account && account.balance ? parseFloat(account.balance) : 0.0
+  return account && account.balance
+    ? parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
+    : 0.0
 }
 
 const accountTotalNdauAmount = (accounts, localizedText = true) => {
@@ -121,7 +129,11 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
       accounts[accountKey].addressData &&
       accounts[accountKey].addressData.balance
     ) {
-      total += parseFloat(accounts[accountKey].addressData.balance)
+      total += parseFloat(
+        DataFormatHelper.getNdauFromNapu(
+          accounts[accountKey].addressData.balance
+        )
+      )
     }
   })
   return localizedText ? total.toLocaleString(AppConfig.LOCALE) : total

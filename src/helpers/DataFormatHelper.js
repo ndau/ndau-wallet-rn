@@ -37,7 +37,12 @@ const getNextPathIndex = (wallet, path) => {
   return nextAddress === 0 ? nextAddress : nextAddress++
 }
 
+const getNdauFromNapu = napu => {
+  return napu / 100000000
+}
+
 export default {
   moveTempUserToWalletName,
-  getNextPathIndex
+  getNextPathIndex,
+  getNdauFromNapu
 }

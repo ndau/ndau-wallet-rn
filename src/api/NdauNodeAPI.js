@@ -2,37 +2,26 @@ import NodeAddressHelper from '../helpers/NodeAddressHelper'
 import data from './data'
 
 const getAddressData = async addresses => {
-  // TODO: this is TEMP code
-  // if (__DEV__) {
-  return data.testAddressData
-  // }
-
   const accountAPI = await NodeAddressHelper.getAccountAPIAddress()
-  console.log(`Sending ${JSON.stringify(addresses, null, 2)} to ${accountAPI}`)
-  return fetch(accountAPI, {
+  console.log(`Sending ${JSON.stringify(addresses)} to ${accountAPI}`)
+  const response = await fetch(accountAPI, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      addresses: addresses
-    })
+    body: JSON.stringify(addresses)
   })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.info(
-        `getAddressData responseJson ${JSON.stringify(responseJson, null, 2)}`
-      )
-      return responseJson
-    })
+  let responseBody = response.body
+  if (!responseBody) {
+    responseBody = await response.json()
+  }
+  console.debug(
+    `getAddressData response: ${JSON.stringify(responseBody, null, 2)}`
+  )
+  return responseBody
 }
 
 const getNodeStatus = async () => {
-  // TODO: this is TEMP code
-  // if (__DEV__) {
-  return data.nodeStatus
-  // }
-
   const nodeStatusAddress = await NodeAddressHelper.getNodeStatusAPIAddress()
   return fetch(nodeStatusAddress)
     .then(response => response.json())

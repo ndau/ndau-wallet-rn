@@ -13,11 +13,11 @@ getNodeAddress = async () => {
 }
 
 getAccountAPIAddress = async () => {
-  return (await getNodeAddress()) + '/accounts'
+  return (await getNodeAddress()) + '/account/accounts'
 }
 
 getEaiPercentageAPIAddress = async () => {
-  return (await getNodeAddress()) + '/eaipercentage'
+  return (await getNodeAddress()) + '/account/eai/rate'
 }
 
 getMarketPriceAPIAddress = async () => {

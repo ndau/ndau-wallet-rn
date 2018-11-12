@@ -1,6 +1,6 @@
 import NdauNodeAPIHelper from '../NdauNodeAPIHelper'
 import data from '../../api/data'
-import services from '../../api/services.json'
+import services from '../../api/services-dev.json'
 
 test('populateWalletWithAddressData populates wallet with data from the API', async () => {
   mockFetchStuff()
@@ -13,11 +13,11 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
   expect(
     wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
       .addressData.balance
-  ).toBe(42.23)
+  ).toBe(4200000000.23)
   expect(
     wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
       .addressData.balance
-  ).toBe(200.2)
+  ).toBe(20000000000.2)
   expect(
     wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
       .addressData.lock
@@ -52,13 +52,13 @@ test('make sure we can get the amount of ndau per account', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe(42.23)
+  ).toBe(42.0000000023)
   expect(
     NdauNodeAPIHelper.accountNdauAmount(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe(200.2)
+  ).toBe(200.000000002)
 })
 
 test('make sure we can get the locked until date of ndau per account', async () => {
@@ -90,7 +90,7 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 
   expect(wallet).toBeDefined()
   expect(NdauNodeAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
-    '1,759.1'
+    '1,757'
   )
 })
 
@@ -106,7 +106,7 @@ test('make sure we can get the current price of the users ndau', async () => {
 
   expect(wallet).toBeDefined()
   expect(NdauNodeAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
-    '$28,743.69'
+    '$28,709.38'
   )
 })
 
@@ -156,8 +156,8 @@ const mockFetchStuff = () => {
   fetch.resetMocks()
 
   fetch.mockResponses(
-    // [services],
-    // [data.testAddressData],
+    [services],
+    [data.testAddressData],
     // [services],
     // [data.eaiPercentageResponse],
     [services],

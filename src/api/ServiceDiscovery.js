@@ -1,5 +1,5 @@
 const AWS_S3_SERVICE_JSON =
-  'https://s3.us-east-2.amazonaws.com/ndau-json/services.json'
+  'https://s3.us-east-2.amazonaws.com/ndau-json/services-prod.json'
 
 const getServiceNodeURL = async () => {
   try {
