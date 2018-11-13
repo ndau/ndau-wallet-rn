@@ -4,6 +4,8 @@ import KeyAddrGenManager from '../KeyAddrGenManager'
 import User from '../../model/User'
 import AppConfig from '../../AppConfig'
 import Wallet from '../../model/Wallet'
+import services from '../../api/services-dev.json'
+import data from '../../api/data'
 
 jest.mock('NativeModules', () => {
   return {
@@ -178,6 +180,8 @@ toPublic
   .mockReturnValueOnce(publicKey + 'h')
 
 test('createFirstTimeUser test', async () => {
+  mockFetchStuff()
+
   const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
     bytes,
     userId,
@@ -296,3 +300,16 @@ test('getBIP44Addresses has an error', async () => {
 
   console.log(`firstTimeUser: ${firstTimeUser}`)
 })
+
+const mockFetchStuff = () => {
+  fetch.resetMocks()
+
+  fetch.mockResponses(
+    [services],
+    [data.testAddressData],
+    [services],
+    [data.eaiPercentageResponse],
+    [services],
+    [data.testMarketPrice]
+  )
+}

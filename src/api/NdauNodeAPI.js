@@ -1,56 +1,54 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper'
 import data from './data'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
-const getAddressData = addresses => {
-  // TODO: this is TEMP code
-  // if (__DEV__) {
-  return data.testAddressData
-  // }
-
-  const accountAPI = NodeAddressHelper.getAccountAPIAddress()
-  console.log(`Sending ${JSON.stringify(addresses, null, 2)} to ${accountAPI}`)
-  return fetch(accountAPI, {
+const getAddressData = async addresses => {
+  const accountAPI = await NodeAddressHelper.getAccountAPIAddress()
+  console.log(`Sending ${JSON.stringify(addresses)} to ${accountAPI}`)
+  const response = await fetch(accountAPI, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      addresses: addresses
-    })
+    body: JSON.stringify(addresses)
   })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.info(
-        `getAddressData responseJson ${JSON.stringify(responseJson, null, 2)}`
-      )
-      return responseJson
-    })
+  let responseBody = response.body
+  if (!responseBody) {
+    responseBody = await response.json()
+  }
+  console.debug(
+    `getAddressData response: ${JSON.stringify(responseBody, null, 2)}`
+  )
+  return responseBody
 }
 
-const getMarketPrice = () => {
-  // TODO: this is TEMP code
-  // if (__DEV__) {
-  return data.testMarketPrice
-  // }
+const getEaiRate = async wallet => {
+  const accountEaiRateRequestData = DataFormatHelper.getAccountEaiRateRequest(
+    wallet
+  )
 
-  const marketPriceAPI = NodeAddressHelper.getMarketPriceAPIAddress()
-  return fetch(marketPriceAPI)
-    .then(response => response.json())
-    .then(responseJson => {
-      console.info(
-        `getMarketPrice responseJson ${JSON.stringify(responseJson, null, 2)}`
-      )
-      return responseJson
-    })
+  const eaiRateAddress = await NodeAddressHelper.getEaiRateAPIAddress()
+  console.log(
+    `Sending ${JSON.stringify(accountEaiRateRequestData)} to ${eaiRateAddress}`
+  )
+
+  const response = await fetch(eaiRateAddress, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(accountEaiRateRequestData)
+  })
+  let responseBody = response.body
+  if (!responseBody) {
+    responseBody = await response.json()
+  }
+  console.debug(`getEaiRate response: ${JSON.stringify(responseBody, null, 2)}`)
+  return responseBody
 }
 
-const getNodeStatus = () => {
-  // TODO: this is TEMP code
-  // if (__DEV__) {
-  return data.nodeStatus
-  // }
-
-  const nodeStatusAddress = NodeAddressHelper.getNodeStatusAPIAddress()
+const getNodeStatus = async () => {
+  const nodeStatusAddress = await NodeAddressHelper.getNodeStatusAPIAddress()
   return fetch(nodeStatusAddress)
     .then(response => response.json())
     .then(responseJson => {
@@ -63,6 +61,6 @@ const getNodeStatus = () => {
 
 export default {
   getAddressData,
-  getMarketPrice,
+  getEaiRate,
   getNodeStatus
 }

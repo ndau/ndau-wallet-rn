@@ -8,6 +8,7 @@ import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import sha256 from 'crypto-js/sha256'
 import ErrorDialog from '../components/ErrorDialog'
 import Wallet from '../model/Wallet'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 /**
  * This function will return an array of addresses that can be
@@ -267,9 +268,14 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
   }
 
   const accountCreationKey = wallet.keys[wallet.accountCreationKey].privateKey
+  const pathIndexIncrementor = DataFormatHelper.getNextPathIndex(
+    wallet,
+    _generateRootPath()
+  )
 
   for (let i = 0; i < numberOfAccounts; i++) {
-    await _createAccount(accountCreationKey, i, wallet)
+    const pathIndex = i + pathIndexIncrementor
+    await _createAccount(accountCreationKey, pathIndex, wallet)
   }
 
   await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)

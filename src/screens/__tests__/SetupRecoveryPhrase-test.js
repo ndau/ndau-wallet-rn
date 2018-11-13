@@ -42,11 +42,6 @@ const makeComponent = () => (
 )
 
 describe('testing SetupRecoveryPhrase...', () => {
-  it('renders correctly', () => {
-    const tree = renderer.create(makeComponent()).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-
   it('calls keyaddrWordsFromBytes as expected', () => {
     mockKeyaddr()
     SetupStore.entropy = 'dGVzdGluZ3dlc3Rpbmdh'

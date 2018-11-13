@@ -26,6 +26,8 @@ import {
   NEW_WALLET_SETUP_TYPE,
   RECOVERY_WALLET_SETUP_TYPE
 } from '../components/SetupProgressBar'
+import ErrorDialog from '../components/ErrorDialog'
+import OrderNodeAPI from '../api/OrderNodeAPI'
 
 class Passphrase extends Component {
   constructor (props) {
@@ -48,12 +50,18 @@ class Passphrase extends Component {
           `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
         )
 
-        await UserData.loadData(user)
+        try {
+          await UserData.loadData(user)
+          const marketPrice = await OrderNodeAPI.getMarketPrice()
 
-        this.props.navigation.navigate('Dashboard', {
-          user,
-          encryptionPassword: this.state.password
-        })
+          this.props.navigation.navigate('Dashboard', {
+            user,
+            encryptionPassword: this.state.password,
+            marketPrice
+          })
+        } catch (error) {
+          ErrorDialog.showError(error)
+        }
       } else {
         this.showLoginError()
       }

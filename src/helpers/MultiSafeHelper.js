@@ -1,7 +1,6 @@
 import User from '../model/User'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import AppConstants from '../AppConstants'
-import UserData from '../model/UserData'
 import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
 
@@ -50,6 +49,49 @@ const setupNewUser = async (
   )
 }
 
+/**
+ * This function simply add a new wallet to an existing storageKey
+ *
+ * @param {User} user
+ * @param {string} recoveryPhraseString
+ * @param {string} walletId
+ * @param {string} storageKey
+ * @param {number} numberOfAccounts
+ * @param {string} encryptionPassword
+ * @param {string} addressType=AppConstants.MAINNET_ADDRESS
+ */
+const addNewWallet = async (
+  user,
+  recoveryPhraseString,
+  walletId,
+  storageKey,
+  numberOfAccounts,
+  encryptionPassword,
+  addressType = AppConstants.MAINNET_ADDRESS
+) => {
+  console.debug(`recoveryPhraseString: ${recoveryPhraseString}`)
+  const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+    AppConstants.APP_LANGUAGE,
+    recoveryPhraseString
+  )
+  console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
+
+  wallet = await KeyAddrGenManager.createWallet(
+    recoveryPhraseAsBytes,
+    null,
+    walletId
+  )
+
+  user.wallets[walletId] = wallet
+
+  return _internalSaveUser(
+    user,
+    encryptionPassword,
+    storageKey,
+    recoveryPhraseString
+  )
+}
+
 const _internalSaveUser = async (
   user,
   encryptionPassword,
@@ -61,8 +103,6 @@ const _internalSaveUser = async (
   console.log(
     `persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`
   )
-
-  await UserData.loadData(user)
 
   // create a multisafe
   await multiSafe.create(walletId, encryptionPassword)
@@ -127,5 +167,6 @@ export default {
   setupNewUser,
   getDefaultUser,
   saveUser,
-  resetPassword
+  resetPassword,
+  addNewWallet
 }

@@ -17,12 +17,6 @@ describe('testing SetupWalletName...', () => {
     toggleNavBar: () => {}
   }
 
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(<SetupWalletName parentStyles={styles} navigator={navigator} />)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
   it('can click the button', () => {
     const wrapper = mount(
       <SetupWalletName navigator={navigator} parentStyles={styles} />

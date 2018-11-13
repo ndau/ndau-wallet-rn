@@ -10,6 +10,8 @@ import ndauDashboardApi from '../api/NdauDashboardAPI'
 import AppConfig from '../AppConfig'
 import ErrorDialog from '../components/ErrorDialog'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import UserData from '../model/UserData'
+import OrderNodeAPI from '../api/OrderNodeAPI'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -25,19 +27,39 @@ class SetupTermsOfService extends Component {
 
     let user = this.props.navigation.getParam('user', null)
 
-    user = await MultiSafeHelper.setupNewUser(
-      user,
-      SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
-      SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
-      SetupStore.numberOfAccounts,
-      SetupStore.encryptionPassword,
-      SetupStore.addressType
+    // check if there is already a safe for this user
+    const existingUser = await MultiSafeHelper.getDefaultUser(
+      SetupStore.encryptionPassword
     )
+    if (Object.keys(existingUser).length) {
+      user = await MultiSafeHelper.addNewWallet(
+        existingUser,
+        SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
+        SetupStore.walletId,
+        existingUser.userId,
+        SetupStore.numberOfAccounts,
+        SetupStore.encryptionPassword,
+        SetupStore.addressType
+      )
+    } else {
+      user = await MultiSafeHelper.setupNewUser(
+        user,
+        SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
+        SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
+        SetupStore.numberOfAccounts,
+        SetupStore.encryptionPassword,
+        SetupStore.addressType
+      )
+    }
+
+    await UserData.loadData(user)
+    const marketPrice = await OrderNodeAPI.getMarketPrice()
 
     this.props.navigation.navigate('Dashboard', {
       user,
       encryptionPassword: SetupStore.encryptionPassword,
-      walletSetupType: null
+      walletSetupType: null,
+      marketPrice
     })
   }
 

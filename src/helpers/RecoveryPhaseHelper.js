@@ -36,23 +36,23 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`)
-  if (bip44Accounts && bip44Accounts.addressData.length > 0) {
+  if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     await KeyAddrGenManager.addAccountsToUser(
       recoveryPhraseBytes,
       newUser,
-      bip44Accounts.addressData.length
+      Object.keys(bip44Accounts).length
     )
     console.log(`newUser with BIP44: ${JSON.stringify(newUser, null, 2)}`)
   }
 
   const rootAccounts = await _checkRootAddresses(recoveryPhraseBytes)
   console.log(`root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`)
-  if (rootAccounts && rootAccounts.addressData.length > 0) {
+  if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     // Here again we are attempting to genereate at the very root of the tree
     await KeyAddrGenManager.addAccountsToUser(
       recoveryPhraseBytes,
       newUser,
-      rootAccounts.addressData.length,
+      Object.keys(rootAccounts).length,
       ''
     )
     console.log(`newUser with root: ${JSON.stringify(newUser, null, 2)}`)

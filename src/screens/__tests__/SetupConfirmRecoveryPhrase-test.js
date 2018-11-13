@@ -41,10 +41,6 @@ describe('SetupConfirmRecoveryPhrase presentation', () => {
       )
       .toJSON()
   })
-
-  test('renders correctly', () => {
-    expect(this.tree).toMatchSnapshot()
-  })
 })
 
 describe('SetupConfirmRecoveryPhrase behavior', () => {
