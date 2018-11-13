@@ -187,7 +187,7 @@ toPublic
   .mockReturnValueOnce(publicKey + 'i')
   .mockReturnValueOnce(publicKey + 'h')
 
-test('setupTestUser creates a MultiSafe and we can then retrieve with password', async () => {
+test('setupNewUser creates a MultiSafe and we can then retrieve with password', async () => {
   const walletId = 'Kris'
   const encryptionPassword = 'asdfjkl'
 
@@ -488,4 +488,89 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
 
   expect(userFromNewPassword).toBeDefined()
   expect(userFromNewPassword).toEqual(userGettingCreated)
+})
+
+test('addNewWallet adds a new wallet to an existing user in a safe', async () => {
+  const walletId = 'Kris'
+  const encryptionPassword = 'asdfjkl'
+
+  await MultiSafeHelper.setupNewUser(
+    null,
+    recoveryPhraseString,
+    walletId,
+    numberOfAccounts,
+    encryptionPassword
+  )
+
+  const userGettingCreated = {
+    userId: 'Kris',
+    wallets: {
+      Kris: {
+        walletId: 'Kris',
+        accountCreationKey: '5a3b36e3',
+        accounts: {
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8',
+            addressData: {},
+            ownershipKey: '42514ecf',
+            validationKeys: []
+          },
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac9: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac9',
+            addressData: {},
+            ownershipKey: '4e842c41',
+            validationKeys: []
+          }
+        },
+        keys: {
+          '42514ecf': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj448',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx8',
+            path: "/44'/20036'/100/1",
+            derivedFromRoot: 'yes'
+          },
+          '4e842c41': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj449',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx9',
+            path: "/44'/20036'/100/2",
+            derivedFromRoot: 'yes'
+          },
+          '5a3b36e3': {
+            publicKey: '',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf5',
+            path: "/44'/20036'/100",
+            derivedFromRoot: 'yes'
+          }
+        }
+      }
+    }
+  }
+
+  // make sure you can get it back with password and recovery phrase
+  const user = await MultiSafeHelper.getDefaultUser(encryptionPassword)
+
+  expect(user).toBeDefined()
+  expect(user).toEqual(userGettingCreated)
+
+  const anotherWalletId = 'Jill'
+
+  await MultiSafeHelper.addNewWallet(
+    user,
+    recoveryPhraseString,
+    anotherWalletId,
+    walletId,
+    numberOfAccounts,
+    encryptionPassword
+  )
+
+  const userWithNewWallet = await MultiSafeHelper.getDefaultUser(
+    recoveryPhraseString
+  )
+
+  console.log(
+    `user with new wallet: ${JSON.stringify(userWithNewWallet, null, 2)}`
+  )
+
+  expect(userWithNewWallet).toBeDefined()
+  expect(Object.keys(userWithNewWallet.wallets).length).toEqual(2)
 })

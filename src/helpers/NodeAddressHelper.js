@@ -1,38 +1,36 @@
 import AppConfig from '../AppConfig'
+import ServiceDiscovery from '../api/ServiceDiscovery'
 
 const PROTOCOL = 'https'
-const DOMAIN = '.api.ndau.tech'
-// TODO: THIS SHOULD NOT BE HARDCODED BUT IS FOR NOW
-const SELECTED_NODE = 'testnet-0'
 
-getNode = () => {
-  return SELECTED_NODE
+getNode = async () => {
+  return await ServiceDiscovery.getServiceNodeURL()
 }
 
-getNodeAddress = () => {
-  return PROTOCOL + '://' + getNode() + DOMAIN
+getNodeAddress = async () => {
+  const node = await getNode()
+  return PROTOCOL + '://' + node
 }
 
-getAccountAPIAddress = () => {
-  return getNodeAddress() + '/accounts'
+getAccountAPIAddress = async () => {
+  return (await getNodeAddress()) + '/account/accounts'
 }
 
-getEaiPercentageAPIAddress = () => {
-  return getNodeAddress() + '/eaipercentage'
+getEaiRateAPIAddress = async () => {
+  return (await getNodeAddress()) + '/account/eai/rate'
 }
 
-getMarketPriceAPIAddress = () => {
-  return getNodeAddress() + '/marketprice'
+getMarketPriceAPIAddress = async () => {
+  return (await getNodeAddress()) + '/order/current'
 }
 
-getNodeStatusAPIAddress = () => {
-  return getNodeAddress() + '/node/status'
+getNodeStatusAPIAddress = async () => {
+  return (await getNodeAddress()) + '/node/status'
 }
 
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
-  getEaiPercentageAPIAddress,
-  getNodeStatusAPIAddress,
-  SELECTED_NODE
+  getEaiRateAPIAddress,
+  getNodeStatusAPIAddress
 }

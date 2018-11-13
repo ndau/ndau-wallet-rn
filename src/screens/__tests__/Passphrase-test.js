@@ -17,12 +17,6 @@ describe('testing Passphrase...', () => {
     toggleNavBar: () => {}
   }
 
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(<Passphrase parentStyles={styles} navigator={navigator} />)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
   it('can click the button', () => {
     const wrapper = mount(
       <Passphrase navigator={navigator} parentStyles={styles} />

@@ -25,6 +25,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
+import ErrorDialog from '../components/ErrorDialog'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -214,10 +215,16 @@ class SetupGetRecoveryPhrase extends Component {
           'encryptionPassword',
           null
         )
+        let marketPrice = 0
         // IF we have a password we are fixing up an account from a 1.6 user here
         // so we fixed it up...now save it...and go back to Dashboard
         if (encryptionPassword) {
-          await UserData.loadData(user)
+          try {
+            await UserData.loadData(user)
+            marketPrice = await OrderNodeAPI.getMarketPrice()
+          } catch (error) {
+            ErrorDialog.showError(error)
+          }
 
           await MultiSafeHelper.saveUser(user, encryptionPassword)
 
@@ -225,7 +232,8 @@ class SetupGetRecoveryPhrase extends Component {
             user,
             encryptionPassword,
             walletSetupType: navigation.state.params &&
-              navigation.state.params.walletSetupType
+              navigation.state.params.walletSetupType,
+            marketPrice
           })
         } else {
           SetupStore.recoveryPhrase = this.recoveryPhrase
@@ -291,8 +299,8 @@ class SetupGetRecoveryPhrase extends Component {
                 leftArrowStyle={cssStyles.carouselArrows}
                 rightArrowText={'＞'}
                 rightArrowStyle={cssStyles.carouselArrows}
-                pageInfo
-                pageInfoTextStyle={cssStyles.smallWhiteText}
+                // pageInfo
+                // pageInfoTextStyle={cssStyles.smallWhiteText}
                 // bullets
                 arrows
                 isLooped={false}

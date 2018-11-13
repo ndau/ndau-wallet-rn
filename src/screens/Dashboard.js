@@ -27,6 +27,9 @@ import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
+import ErrorDialog from '../components/ErrorDialog'
+import OrderNodeAPI from '../api/OrderNodeAPI'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -42,13 +45,17 @@ class Dashboard extends Component {
       number: 1,
       activeAddress: null,
       user: {},
-      refreshing: false
+      refreshing: false,
+      marketPrice: 0
     }
   }
 
-  componentWillMount () {
+  componentWillMount = async () => {
     const user = this.props.navigation.getParam('user', {})
-    this.setState({ user })
+    console.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
+
+    const marketPrice = this.props.navigation.getParam('marketPrice', 0)
+    this.setState({ user, marketPrice })
   }
 
   showModal = modalId => {
@@ -88,40 +95,40 @@ class Dashboard extends Component {
   }
 
   addNewAccount = async () => {
-    const user = await KeyAddrGenManager.createNewAccount(
-      this.state.user,
-      this.state.number
-    )
+    try {
+      const user = await KeyAddrGenManager.createNewAccount(
+        this.state.user,
+        this.state.number
+      )
 
-    await MultiSafeHelper.saveUser(
-      user,
-      this.props.navigation.getParam('encryptionPassword', null)
-    )
+      await MultiSafeHelper.saveUser(
+        user,
+        this.props.navigation.getParam('encryptionPassword', null)
+      )
 
-    this.setState({ user })
+      this.setState({ user })
+    } catch (error) {
+      ErrorDialog.showError(error)
+    }
   }
 
   _onRefresh = async () => {
     this.setState({ refreshing: true })
 
     const user = this.state.user
+    let marketPrice = this.state.marketPrice
+    try {
+      await UserData.loadData(user)
+      marketPrice = await OrderNodeAPI.getMarketPrice()
+    } catch (error) {
+      ErrorDialog.showError(error)
+    }
 
-    await UserData.loadData(user)
-
-    console.debug(`user is NOW after refresh: ${JSON.stringify(user, null, 2)}`)
-
-    this.setState({ refreshing: false, user })
+    this.setState({ refreshing: false, user, marketPrice })
   }
 
   render = () => {
-    console.debug(
-      `user out of state: ${JSON.stringify(this.state.user, null, 2)}`
-    )
-
-    // TODO: this is ONLY temporary as we need to enumerate the wallets
-    const { accounts, marketPrice } = this.state.user.wallets[
-      this.state.user.userId
-    ]
+    const accounts = DataFormatHelper.getObjectWithAllAccounts(this.state.user)
     if (!accounts) {
       return <SafeAreaView style={cssStyles.safeContainer} />
     }
@@ -131,13 +138,10 @@ class Dashboard extends Component {
       accounts,
       false
     )
-    // TODO: move marketPrice to the top level as it does not correspond to a user
     const currentPrice = NdauNodeAPIHelper.currentPrice(
-      marketPrice,
+      this.state.marketPrice,
       totalNdauNumber
     )
-
-    console.log('active address is: ', this.state.activeAddress)
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
@@ -234,59 +238,71 @@ class Dashboard extends Component {
             </View>
           </View>
 
-          {Object.keys(accounts).map((accountKey, index) => {
-            const account = accounts[accountKey]
-            const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(
-              account.addressData
-            )
-            const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(
-              account.addressData
-            )
-            const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(
-              account.addressData
-            )
-            const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(
-              account.addressData
-            )
-            const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
-              account.addressData
-            )
-            const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(
-              account.addressData
-            )
-            const nickname = NdauNodeAPIHelper.accountNickname(
-              account.addressData
-            )
-            const accountBalance = NdauNodeAPIHelper.accountNdauAmount(
-              account.addressData
-            )
+          {Object.keys(accounts)
+            .sort((a, b) => {
+              const nicknameA = accounts[a].addressData.nickname
+              const nicknameB = accounts[b].addressData.nickname
+              if (nicknameA < nicknameB) {
+                return -1
+              } else if (nicknameA > nicknameB) {
+                return 1
+              }
+              return 0
+            })
+            .map((accountKey, index) => {
+              const account = accounts[accountKey]
+              const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(
+                account.addressData
+              )
+              const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(
+                account.addressData
+              )
+              const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(
+                account.addressData
+              )
+              const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(
+                account.addressData
+              )
+              const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
+                account.addressData
+              )
+              const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(
+                account.addressData
+              )
+              const nickname = NdauNodeAPIHelper.accountNickname(
+                account.addressData
+              )
+              const accountBalance = NdauNodeAPIHelper.accountNdauAmount(
+                account.addressData
+              )
 
-            return (
-              <AccountCard
-                key={index}
-                index={index}
-                nickname={nickname}
-                address={account.address}
-                eaiPercentage={eaiPercentage}
-                sendingEAITo={sendingEAITo}
-                receivingEAIFrom={receivingEAIFrom}
-                accountBalance={accountBalance}
-                accountLockedUntil={accountLockedUntil}
-                accountNoticePeriod={accountNoticePeriod}
-                accountNotLocked={accountNotLocked}
-                totalNdau={totalNdau}
-                lock={this.lock}
-                unlock={this.unlock}
-                startTransaction={address => {
-                  console.log('state before transaction started', this.state)
-                  this.setState({
-                    activeAddress: address,
-                    modalId: TRANSACTION_MODAL_ID
-                  })
-                }}
-              />
-            )
-          })}
+              return (
+                <AccountCard
+                  key={index}
+                  index={index}
+                  nickname={nickname}
+                  address={account.address}
+                  eaiPercentage={eaiPercentage}
+                  sendingEAITo={sendingEAITo}
+                  receivingEAIFrom={receivingEAIFrom}
+                  accountBalance={accountBalance}
+                  accountLockedUntil={accountLockedUntil}
+                  accountNoticePeriod={accountNoticePeriod}
+                  accountNotLocked={accountNotLocked}
+                  totalNdau={totalNdau}
+                  lock={this.lock}
+                  unlock={this.unlock}
+                  startTransaction={address => {
+                    console.log('state before transaction started', this.state)
+                    this.setState({
+                      activeAddress: address,
+                      modalId: TRANSACTION_MODAL_ID
+                    })
+                  }}
+                  walletId={account.addressData.walletId}
+                />
+              )
+            })}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
             <Text style={cssStyles.dashboardTextVerySmallWhite}>

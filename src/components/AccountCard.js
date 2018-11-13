@@ -23,7 +23,8 @@ class AccountCard extends Component {
       totalNdau,
       lock,
       unlock,
-      startTransaction
+      startTransaction,
+      walletId
     } = this.props
 
     return (
@@ -32,7 +33,7 @@ class AccountCard extends Component {
         title={nickname}
         titleRight={accountBalance}
         lockAdder={accountNotLocked ? 0 : 3}
-        onNotice={!!accountNoticePeriod}
+        onNotice={!!accountLockedUntil}
       >
         {eaiPercentage
           ? <Text style={cssStyles.text}>
@@ -64,13 +65,11 @@ class AccountCard extends Component {
         {accountNotLocked
           ? <Text style={cssStyles.text}>This account is not locked</Text>
           : null}
-        {accountBalance === 0
-          ? <Text style={cssStyles.text}>{address}</Text>
-          : null}
+        <Text style={cssStyles.text}>In wallet {walletId}</Text>
 
         {totalNdau !== 0 &&
           <View style={[cssStyles.accountCardImageView]}>
-            {accountNoticePeriod
+            {accountLockedUntil
               ? <Image
                 style={{
                   width: 23,
@@ -81,7 +80,7 @@ class AccountCard extends Component {
                 />
               : null}
             <TouchableOpacity onPress={unlock}>
-              {accountLockedUntil
+              {accountNoticePeriod
                 ? <Image
                   style={{
                     width: 23,

@@ -87,6 +87,7 @@ class SetupEncryptionPassword extends Component {
         { cancelable: false }
       )
       this.setState({ textInputColor: '#ff0000' })
+      return
     }
 
     switch (this.state.mode) {

@@ -18,6 +18,8 @@ class AuthLoadingScreen extends React.Component {
     try {
       const userIds = await AsyncStorageHelper.getAllKeys()
       const multiSafes = await MultiSafe.isAMultiSafePresent()
+      // const userIds = ['one']
+      // const multiSafes = false
       if (userIds.length > 0 && !multiSafes) {
         // time for recovery as we need to create real account object for you
         // this is only done for users < 1.8, after 1.8 this should not happen
