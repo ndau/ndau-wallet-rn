@@ -148,7 +148,7 @@ class Passphrase extends Component {
             <View style={styles.imageView}>
               <Image
                 style={styles.image}
-                source={require('img/n_icon_ko.png')}
+                source={require('img/ndau_multi_large_1024.png')}
               />
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -197,11 +197,6 @@ class Passphrase extends Component {
               : null}
           </ScrollView>
           <View style={styles.footer}>
-            <View style={styles.centerTextView}>
-              <Text onPress={this.showSetup} style={cssStyles.linkText}>
-                Add wallet
-              </Text>
-            </View>
             <View>
               <CommonButton onPress={this.login} title='Login' />
             </View>
@@ -236,13 +231,15 @@ const styles = StyleSheet.create({
     paddingTop: hp('3%')
   },
   image: {
-    tintColor: '#4e957a',
+    width: wp('100%'),
     ...Platform.select({
       ios: {
-        marginTop: hp('3%')
+        marginTop: hp('5%'),
+        height: hp('20%')
       },
       android: {
-        marginTop: hp('2%')
+        marginTop: hp('7%'),
+        height: hp('30%')
       }
     })
   },
