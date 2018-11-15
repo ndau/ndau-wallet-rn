@@ -64,16 +64,8 @@ class SetupNewOrRecovery extends Component {
             <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={cssStyles.wizardText}>
-                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.
+                How do you want to setup your wallet? Choose one of the options below
                 {' '}
-                {Platform.OS === 'android' ? '\n' : ''}
-              </Text>
-            </View>
-            <View>
-              <Text style={cssStyles.wizardText}>
-                To get started securely, you will create a new wallet, protect it with a password,
-                and create a recovery phrase which you will need in order to restore your wallet if
-                you lose access to it.
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
