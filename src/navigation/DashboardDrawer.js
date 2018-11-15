@@ -13,6 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import styleConstants from '../css/styleConstants'
 
 class DashboardDrawer extends React.Component {
   constructor (props) {
@@ -22,6 +23,11 @@ class DashboardDrawer extends React.Component {
   dashboard = () => {
     this.props.navigation.closeDrawer()
     this.props.navigation.navigate('App')
+  }
+
+  addOrRecoverWallet = () => {
+    this.props.navigation.closeDrawer()
+    this.props.navigation.navigate('SetupWelcome')
   }
 
   logout = () => {
@@ -57,9 +63,21 @@ class DashboardDrawer extends React.Component {
             <View style={{ flexDirection: 'row' }}>
               <Image
                 style={cssStyles.drawerTextImageDashboard}
-                source={require('img/billfold-revised.png')}
+                source={require('img/billfold-revised1024.png')}
               />
               <Text style={cssStyles.drawerText}>Dashboard</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ marginTop: hp('1.5%') }}
+            onPress={() => this.addOrRecoverWallet()}
+          >
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                style={[cssStyles.drawerTextImageDashboard, { width: 35 }]}
+                source={require('img/plus_add1024.png')}
+              />
+              <Text style={cssStyles.drawerText}>Add or recover wallet</Text>
             </View>
           </TouchableOpacity>
           <View
@@ -74,7 +92,7 @@ class DashboardDrawer extends React.Component {
             <View style={{ flexDirection: 'row' }}>
               <Image
                 style={cssStyles.drawerTextImage}
-                source={require('img/ndau_user.png')}
+                source={require('img/ndau_user1024.png')}
               />
               <Text style={cssStyles.drawerText}>Logout</Text>
             </View>

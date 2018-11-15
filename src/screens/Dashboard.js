@@ -240,11 +240,15 @@ class Dashboard extends Component {
 
           {Object.keys(accounts)
             .sort((a, b) => {
-              const nicknameA = accounts[a].addressData.nickname
-              const nicknameB = accounts[b].addressData.nickname
-              if (nicknameA < nicknameB) {
+              const accountNumberA = parseInt(
+                accounts[a].addressData.nickname.split(' ')[1]
+              )
+              const accountNumberB = parseInt(
+                accounts[b].addressData.nickname.split(' ')[1]
+              )
+              if (accountNumberA < accountNumberB) {
                 return -1
-              } else if (nicknameA > nicknameB) {
+              } else if (accountNumberA > accountNumberB) {
                 return 1
               }
               return 0
