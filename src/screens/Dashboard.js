@@ -240,6 +240,13 @@ class Dashboard extends Component {
 
           {Object.keys(accounts)
             .sort((a, b) => {
+              if (
+                !accounts[a].addressData.nickname ||
+                !accounts[b].addressData.nickname
+              ) {
+                return 0
+              }
+
               const accountNumberA = parseInt(
                 accounts[a].addressData.nickname.split(' ')[1]
               )
@@ -309,7 +316,12 @@ class Dashboard extends Component {
             })}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
-            <Text style={cssStyles.dashboardTextVerySmallWhite}>
+            <Text
+              style={[
+                cssStyles.dashboardTextVerySmallWhite,
+                { paddingRight: wp('4%') }
+              ]}
+            >
               The estimated value of ndau in US dollars can be calculated using the Target Price at
               which new ndau have most recently been issued. The value shown here is calculated
               using that method as of the issue price on
