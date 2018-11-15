@@ -77,6 +77,10 @@ It returns a signature object.
 The key must be a private key.
  */
 - (KeyaddrSignature*)sign:(NSString*)msgstr error:(NSError**)error;
+// skipped method Key.ToExtended with unsupported parameter or return types
+
+// skipped method Key.ToPrivateKey with unsupported parameter or return types
+
 /**
  * ToPublic returns an extended public key from any other extended key.
 If the key is an extended private key, it generates the matching public key.
@@ -84,6 +88,8 @@ If the key is already a public key, it just returns itself.
 It is an error if the key is hardened.
  */
 - (KeyaddrKey*)toPublic:(NSError**)error;
+// skipped method Key.ToPublicKey with unsupported parameter or return types
+
 @end
 
 /**
@@ -97,6 +103,8 @@ It is an error if the key is hardened.
 - (instancetype)init;
 - (NSString*)signature;
 - (void)setSignature:(NSString*)v;
+// skipped method Signature.ToSignature with unsupported parameter or return types
+
 @end
 
 /**
@@ -121,12 +129,24 @@ from a string representation of it.
  */
 FOUNDATION_EXPORT KeyaddrKey* KeyaddrFromString(NSString* s, NSError** error);
 
+// skipped function KeyFromExtended with unsupported parameter or return types
+
+
+// skipped function KeyFromPrivate with unsupported parameter or return types
+
+
+// skipped function KeyFromPublic with unsupported parameter or return types
+
+
 /**
  * NewKey takes a seed (an array of bytes encoded as a base64 string) and creates a private master
 key from it. The key is returned as a string representation of the key;
 it is converted to and from the internal representation by its member functions.
  */
 FOUNDATION_EXPORT KeyaddrKey* KeyaddrNewKey(NSString* seedstr, NSError** error);
+
+// skipped function SignatureFrom with unsupported parameter or return types
+
 
 /**
  * WordsFromBytes takes an array of bytes and converts it to a space-separated list of

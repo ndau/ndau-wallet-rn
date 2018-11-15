@@ -179,12 +179,13 @@ describe('AsyncStorageHelper tests...', () => {
       const arrayOfKeys = ['ABC-123', 'jimmy', 'ABC-123anything']
       console.log(`keys are: ${keys}`)
       expect(keys).toEqual(arrayOfKeys)
-      await AsyncStorageHelper.doesKeyExist('ABC-123').then(present => {
-        expect(present).toBe(true)
-      })
-      await AsyncStorageHelper.doesKeyExist('ABC-123212').then(present => {
-        expect(present).toBe(false)
-      })
     })
+  })
+
+  it('should store and retrieve the password correctly', async () => {
+    const password = '123adsf'
+    await AsyncStorageHelper.setApplicationPassword(password)
+    const retrievedPassword = await AsyncStorageHelper.getApplicationPassword()
+    expect(password).toEqual(retrievedPassword)
   })
 })
