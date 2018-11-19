@@ -16,7 +16,6 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
-import OfflineMessage from '../components/OfflineMessage'
 
 class SetupEncryptionPassword extends Component {
   static PASSWORD_RESET_MODE = 'password-reset'
@@ -154,7 +153,6 @@ class SetupEncryptionPassword extends Component {
     const { textInputColor } = this.state
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />

@@ -12,7 +12,6 @@ import FlashNotification from '../components/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderNodeAPI from '../api/OrderNodeAPI'
-import OfflineMessage from '../components/OfflineMessage'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -101,7 +100,6 @@ class SetupTermsOfService extends Component {
 
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView
             style={styles.contentContainer}

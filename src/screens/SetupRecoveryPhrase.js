@@ -20,7 +20,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import AppConstants from '../AppConstants'
-import OfflineMessage from '../components/OfflineMessage'
 
 var _ = require('lodash')
 
@@ -128,7 +127,6 @@ class SetupRecoveryPhrase extends Component {
     let count = 1
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
-        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView
             style={cssStyles.contentContainer}

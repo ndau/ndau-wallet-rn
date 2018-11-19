@@ -21,7 +21,6 @@ import {
 import EntropyHelper from '../helpers/EntropyHelper'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import FlashNotification from '../components/FlashNotification'
-import OfflineMessage from '../components/OfflineMessage'
 
 var _ = require('lodash')
 
@@ -73,7 +72,6 @@ class SetupConfirmRecoveryPhrase extends Component {
 
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />

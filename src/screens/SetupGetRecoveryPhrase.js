@@ -25,7 +25,6 @@ import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
-import OfflineMessage from '../components/OfflineMessage'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -287,7 +286,6 @@ class SetupGetRecoveryPhrase extends Component {
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
-        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView
             style={cssStyles.contentContainer}

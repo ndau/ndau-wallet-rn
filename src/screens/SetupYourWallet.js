@@ -12,7 +12,6 @@ import SetupProgressBar from '../components/SetupProgressBar'
 import cssStyles from '../css/styles'
 import { SafeAreaView } from 'react-navigation'
 import EntropyHelper from '../helpers/EntropyHelper'
-import OfflineMessage from '../components/OfflineMessage'
 
 class SetupYourWallet extends Component {
   showNextSetup = async () => {
@@ -36,7 +35,6 @@ class SetupYourWallet extends Component {
   render () {
     return (
       <SafeAreaView style={styles.safeContainer}>
-        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />

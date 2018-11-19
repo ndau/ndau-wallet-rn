@@ -29,7 +29,6 @@ import {
 import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import OfflineMessage from '../components/OfflineMessage'
 
 class Passphrase extends Component {
   constructor (props) {
@@ -60,9 +59,7 @@ class Passphrase extends Component {
           await UserData.loadData(user)
           marketPrice = await OrderNodeAPI.getMarketPrice()
         } catch (error) {
-          FlashNotification.showError(
-            `Cannot connect to the internet. Please check your internet connection and try again.`
-          )
+          FlashNotification.showError(error.message, false, false)
         }
 
         this.props.navigation.navigate('Dashboard', {
@@ -142,7 +139,6 @@ class Passphrase extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <View style={styles.imageView}>
