@@ -46,6 +46,7 @@ class Passphrase extends Component {
   login = async () => {
     try {
       let user = await MultiSafeHelper.getDefaultUser(this.state.password)
+      let marketPrice = 0
       if (user) {
         console.log(
           `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
@@ -56,16 +57,16 @@ class Passphrase extends Component {
 
         try {
           await UserData.loadData(user)
-          const marketPrice = await OrderNodeAPI.getMarketPrice()
-
-          this.props.navigation.navigate('Dashboard', {
-            user,
-            encryptionPassword: this.state.password,
-            marketPrice
-          })
+          marketPrice = await OrderNodeAPI.getMarketPrice()
         } catch (error) {
           ErrorDialog.showError(error)
         }
+
+        this.props.navigation.navigate('Dashboard', {
+          user,
+          encryptionPassword: this.state.password,
+          marketPrice
+        })
       } else {
         this.showLoginError()
       }
