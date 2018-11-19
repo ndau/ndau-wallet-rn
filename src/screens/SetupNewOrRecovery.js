@@ -18,6 +18,7 @@ import SetupProgressBar, {
 } from '../components/SetupProgressBar'
 import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase'
 import AppConstants from '../AppConstants'
+import OfflineMessage from '../components/OfflineMessage'
 
 class SetupNewOrRecovery extends Component {
   constructor (props) {
@@ -59,6 +60,7 @@ class SetupNewOrRecovery extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
+        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />

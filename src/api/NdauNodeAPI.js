@@ -1,6 +1,7 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper'
 import data from './data'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import ServerError from '../errors/ServerError'
 
 const getAddressData = async addresses => {
   const accountAPI = await NodeAddressHelper.getAccountAPIAddress()
@@ -12,6 +13,11 @@ const getAddressData = async addresses => {
     },
     body: JSON.stringify(addresses)
   })
+  if (response.status !== 200) {
+    throw new ServerError(
+      `Server responded with ${response.status}: ${response.statusText}`
+    )
+  }
   let responseBody = response.body
   if (!responseBody) {
     responseBody = await response.json()

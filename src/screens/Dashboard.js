@@ -27,9 +27,10 @@ import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import OfflineMessage from '../components/OfflineMessage'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -108,7 +109,7 @@ class Dashboard extends Component {
 
       this.setState({ user })
     } catch (error) {
-      ErrorDialog.showError(error)
+      FlashNotification.showError(error.message)
     }
   }
 
@@ -121,7 +122,7 @@ class Dashboard extends Component {
       await UserData.loadData(user)
       marketPrice = await OrderNodeAPI.getMarketPrice()
     } catch (error) {
-      ErrorDialog.showError(error)
+      FlashNotification.showError(error.message)
     }
 
     this.setState({ refreshing: false, user, marketPrice })
@@ -145,6 +146,7 @@ class Dashboard extends Component {
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
+        <OfflineMessage />
         <UnlockModalDialog
           visible={this.state.modalId === UNLOCK_MODAL_ID}
           setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}

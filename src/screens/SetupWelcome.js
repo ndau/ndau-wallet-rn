@@ -13,6 +13,7 @@ import cssStyles from '../css/styles'
 import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import SetupProgressBar from '../components/SetupProgressBar'
+import OfflineMessage from '../components/OfflineMessage'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -44,6 +45,7 @@ class SetupWelcome extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
+        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />

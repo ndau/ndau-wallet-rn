@@ -10,7 +10,6 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import groupIntoRows from '../helpers/groupIntoRows'
-import ErrorPanel from '../components/ErrorPanel'
 import CommonButton from '../components/CommonButton'
 import SetupProgressBar from '../components/SetupProgressBar'
 import cssStyles from '../css/styles'
@@ -21,6 +20,8 @@ import {
 } from 'react-native-responsive-screen'
 import EntropyHelper from '../helpers/EntropyHelper'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
+import FlashNotification from '../components/FlashNotification'
+import OfflineMessage from '../components/OfflineMessage'
 
 var _ = require('lodash')
 
@@ -72,6 +73,7 @@ class SetupConfirmRecoveryPhrase extends Component {
 
     return (
       <SafeAreaView style={styles.safeContainer}>
+        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
@@ -81,16 +83,6 @@ class SetupConfirmRecoveryPhrase extends Component {
                 {' '}
               </Text>
             </View>
-            {this.state.inError
-              ? <ErrorPanel
-                errorText={
-                    this.state.mustRetry
-                      ? 'Please click the Back button to generate a new recovery phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
-                      : 'Please enter the words in the correct order. De-select the last word to continue.'
-                  }
-                />
-              : null}
-
             {words.map((row, rowIndex) => {
               return (
                 <View key={rowIndex} style={styles.rowView}>
@@ -159,6 +151,11 @@ class SetupConfirmRecoveryPhrase extends Component {
     )
 
     if (!this.compare(correctSoFar, selected)) {
+      const errorText = this.state.mustRetry
+        ? 'Please click the Back button to generate a new recovery phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
+        : 'Please enter the words in the correct order. De-select the last word to continue.'
+      FlashNotification.showError(errorText, true)
+
       let errorCount = this.state.errorCount + 1
       this.setState({
         inError: true,

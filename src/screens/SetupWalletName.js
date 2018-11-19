@@ -14,6 +14,7 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import OfflineMessage from '../components/OfflineMessage'
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
@@ -65,6 +66,7 @@ class SetupEncryptionPassword extends Component {
   render () {
     return (
       <SafeAreaView style={styles.safeContainer}>
+        <OfflineMessage />
         <View style={cssStyles.container}>
           <ScrollView style={styles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
