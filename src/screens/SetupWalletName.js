@@ -82,7 +82,7 @@ class SetupEncryptionPassword extends Component {
               // value={(value) => {
               //   SetupStore.walletId = value;
               // }}
-              placeholder='Wallet name'
+              placeholder={`Wallet ${SetupStore.walletId}`}
               placeholderTextColor='#333'
               autoCapitalize='none'
             />

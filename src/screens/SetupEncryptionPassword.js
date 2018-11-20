@@ -20,6 +20,8 @@ import AppConstants from '../AppConstants'
 class SetupEncryptionPassword extends Component {
   static PASSWORD_RESET_MODE = 'password-reset'
   static NEW_PASSWORD_MODE = 'new-password'
+  static MINIMUM_PASSWORD_LENGTH = 8
+
 
   constructor (props) {
     super(props)
@@ -64,11 +66,14 @@ class SetupEncryptionPassword extends Component {
 
   checkPasswordsLength = () => {
     return (
-      this.state.password.length >= 8 && this.state.confirmPassword.length >= 8
+      this.state.password.length >= this.MINIMUM_PASSWORD_LENGTH && 
+      this.state.confirmPassword.length >= this.MINIMUM_PASSWORD_LENGTH
     )
   }
 
   showNextSetup = async () => {
+    this.checkedProgress();
+
     if (!this.checkPasswordsExist()) {
       Alert.alert(
         'Error',
@@ -133,8 +138,11 @@ class SetupEncryptionPassword extends Component {
     this.setState({ showPasswords: !this.state.showPasswords })
   }
 
-  checkedProgress = () => {
-    this.setState({ progress: !this.state.progress })
+  updateComfirmPassword = confirmPassword => {
+    this.setState({ 
+      confirmPassword, 
+      progress: confirmPassword.length > 0
+    })
   }
 
   showInformation = () => {
@@ -150,7 +158,8 @@ class SetupEncryptionPassword extends Component {
   }
 
   render () {
-    const { textInputColor } = this.state
+    const { textInputColor, progress } = this.state
+    // debugger
     return (
       <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
@@ -178,8 +187,7 @@ class SetupEncryptionPassword extends Component {
             />
             <TextInput
               style={cssStyles.textInput}
-              onChangeText={confirmPassword =>
-                this.setState({ confirmPassword })}
+              onChangeText={this.updateComfirmPassword}
               value={this.state.confirmPassword}
               placeholder='Confirm your password'
               placeholderTextColor='#333'
@@ -189,24 +197,9 @@ class SetupEncryptionPassword extends Component {
             <View>
               <CheckBox
                 style={cssStyles.checkbox}
-                onClick={() => this.checkedShowPasswords()}
+                onClick={this.checkedShowPasswords}
                 isChecked={this.state.showPasswords}
                 rightText='Show passwords'
-                rightTextStyle={{
-                  color: '#ffffff',
-                  fontSize: 20,
-                  fontFamily: 'TitilliumWeb-Regular'
-                }}
-                checkBoxColor='#ffffff'
-              />
-            </View>
-            <View>
-              <CheckBox
-                style={cssStyles.checkbox}
-                onClick={() => this.checkedProgress()}
-                isChecked={this.state.progress}
-                rightText='I understand that ndau cannot help me reset my password, and I will
-                have to recover my wallet from my recovery phrase if I lose my password.'
                 rightTextStyle={{
                   color: '#ffffff',
                   fontSize: 20,
@@ -220,7 +213,7 @@ class SetupEncryptionPassword extends Component {
             <CommonButton
               onPress={this.showNextSetup}
               title='Next'
-              disabled={!this.state.progress}
+              disabled={!progress}
             />
           </View>
         </View>
