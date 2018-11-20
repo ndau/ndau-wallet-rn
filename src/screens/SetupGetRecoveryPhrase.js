@@ -26,6 +26,7 @@ import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import ErrorDialog from '../components/ErrorDialog'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -295,9 +296,9 @@ class SetupGetRecoveryPhrase extends Component {
             <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
               <Carousel
                 style={this.state.size}
-                leftArrowText={'＜'}
+                leftArrowText={<FontAwesome name='angle-left' size={35} />}
                 leftArrowStyle={cssStyles.carouselArrows}
-                rightArrowText={'＞'}
+                rightArrowText={<FontAwesome name='angle-right' size={35} />}
                 rightArrowStyle={cssStyles.carouselArrows}
                 // pageInfo
                 // pageInfoTextStyle={cssStyles.smallWhiteText}
@@ -336,7 +337,7 @@ class SetupGetRecoveryPhrase extends Component {
           <View>
             <Text style={cssStyles.blackDialogText}>
               Your recovery phrase is necessary to prove ownership of your ndau. Your wallet cannot
-              be restored without it. If you have lost your recovery phrase please contact
+              be restored without it. If you have lost your recovery phrase please contact.
               {' '}
             </Text>
             <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
