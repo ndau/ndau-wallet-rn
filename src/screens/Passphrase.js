@@ -28,6 +28,7 @@ import {
 } from '../components/SetupProgressBar'
 import ErrorDialog from '../components/ErrorDialog'
 import OrderNodeAPI from '../api/OrderNodeAPI'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class Passphrase extends Component {
   constructor (props) {
@@ -49,6 +50,9 @@ class Passphrase extends Component {
         console.log(
           `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
         )
+
+        // cache the password
+        await AsyncStorageHelper.setApplicationPassword(this.state.password)
 
         try {
           await UserData.loadData(user)

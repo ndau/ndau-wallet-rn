@@ -14,7 +14,7 @@ export default StyleSheet.create({
   },
   drawerTextImage: {
     width: 36,
-    height: 35,
+    height: 36,
     marginRight: wp('2%'),
     marginLeft: wp('2%')
   },

@@ -5,6 +5,26 @@ import ErrorDialog from '../components/ErrorDialog'
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:'
 const CURRENT_USER_KEY = '@CurrentUserKey'
 
+const APPLICATION_PASSWORD = '@ApplicationPassword'
+
+/**
+ * This is a place to cache the application password to be
+ * used by other sections of the ndau wallet code
+ *
+ * @param {string} password
+ */
+const setApplicationPassword = async password => {
+  await AsyncStorage.setItem(APPLICATION_PASSWORD, password)
+}
+
+/**
+ * Get the cached application password out of AsyncStorage
+ */
+const getApplicationPassword = async () => {
+  const password = await AsyncStorage.getItem(APPLICATION_PASSWORD)
+  return password
+}
+
 /**
  * This function is deprecated. It is only kept around for the 1.8 release. After that
  * we can look at phasing this out.
@@ -109,14 +129,10 @@ const getAllKeys = async () => {
   }
 }
 
-const doesKeyExist = async key => {
-  const keys = await getAllKeys()
-  return keys.includes(key)
-}
-
 export default {
   unlockUser,
   lockUser,
   getAllKeys,
-  doesKeyExist
+  setApplicationPassword,
+  getApplicationPassword
 }

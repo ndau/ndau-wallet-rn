@@ -13,6 +13,7 @@ import cssStyles from '../css/styles'
 import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
@@ -23,28 +24,42 @@ class SetupEncryptionPassword extends Component {
     }
   }
 
-  showNextSetup = () => {
+  showNextSetup = async () => {
     const { navigation } = this.props
 
-    const user = navigation.getParam('user', null)
-    if (user) {
-      // get it out of AppConstants.TEMP_USER if we have to
-      // and into the new walletId
-      DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
+    // if we have an application password in
+    // AsyncStorage then there is no need to show
+    // this screen, so go to terms & conditions
+    const password = await AsyncStorageHelper.getApplicationPassword()
+    if (password) {
+      SetupStore.encryptionPassword = password
+      const user = this.props.navigation.getParam('user', null)
+      this.props.navigation.navigate('SetupTermsOfService', {
+        user,
+        walletSetupType: this.props.navigation.state.params &&
+          this.props.navigation.state.params.walletSetupType
+      })
+    } else {
+      const user = navigation.getParam('user', null)
+      if (user) {
+        // get it out of AppConstants.TEMP_USER if we have to
+        // and into the new walletId
+        DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
 
-      if (!user.userId) {
-        user.userId = SetupStore.walletId
+        if (!user.userId) {
+          user.userId = SetupStore.walletId
+        }
+        if (!user.wallets) {
+          user.wallets = [{ walletId: SetupStore.walletId }]
+        }
       }
-      if (!user.wallets) {
-        user.wallets = [{ walletId: SetupStore.walletId }]
-      }
+
+      navigation.navigate('SetupEncryptionPassword', {
+        user,
+        walletSetupType: navigation.state.params &&
+          navigation.state.params.walletSetupType
+      })
     }
-
-    navigation.navigate('SetupEncryptionPassword', {
-      user,
-      walletSetupType: navigation.state.params &&
-        navigation.state.params.walletSetupType
-    })
   }
 
   render () {
@@ -67,7 +82,7 @@ class SetupEncryptionPassword extends Component {
               // value={(value) => {
               //   SetupStore.walletId = value;
               // }}
-              placeholder='Wallet name'
+              placeholder={`Wallet ${SetupStore.walletId}`}
               placeholderTextColor='#333'
               autoCapitalize='none'
             />

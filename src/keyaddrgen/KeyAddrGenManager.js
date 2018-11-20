@@ -32,16 +32,16 @@ const getRootAddresses = async recoveryBytes => {
     )
 
     for (let i = 1; i <= AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY; i++) {
-      const privateRootKey = await NativeModules.KeyaddrManager.deriveFrom(
+      const derivedKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
         '/',
         `/${i}`
       )
 
-      console.debug(`root privateRootKey: ${privateRootKey}`)
+      console.debug(`root derivedKey: ${derivedKey}`)
 
       const address = await NativeModules.KeyaddrManager.ndauAddress(
-        privateRootKey,
+        derivedKey,
         AppConstants.MAINNET_ADDRESS
       )
 
@@ -77,16 +77,16 @@ const getBIP44Addresses = async recoveryBytes => {
       recoveryBytes
     )
     for (let i = 1; i <= AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY; i++) {
-      const privateRootKey = await NativeModules.KeyaddrManager.deriveFrom(
+      const derivedKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
         '/',
         _generateRootPath() + `/${i}`
       )
 
-      console.debug(`BIP44 privateRootKey: ${privateRootKey}`)
+      console.debug(`BIP44 derivedKey: ${derivedKey}`)
 
       const address = await NativeModules.KeyaddrManager.ndauAddress(
-        privateRootKey,
+        derivedKey,
         AppConstants.MAINNET_ADDRESS
       )
 

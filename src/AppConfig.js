@@ -1,6 +1,6 @@
 const LOCALE = 'en-US'
 const CURRENT_PRICE_CURRENCY = 'USD'
-const NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY = 25
+const NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY = 50
 
 export default {
   LOCALE,
