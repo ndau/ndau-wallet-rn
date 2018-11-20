@@ -3,11 +3,9 @@ import React, { Component } from 'react'
 import { StyleSheet, Text } from 'react-native'
 import Button from 'react-native-button'
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import cssStyles from '../css/styles'
 
 class CommonButton extends Component {
   onPress () {
@@ -23,15 +21,13 @@ class CommonButton extends Component {
         {...this.props}
       >
         <Text style={styles.text}>
-          {this.props.iconProps &&
-          this.props.iconProps.name && // "name" is required
+          { // "name" is required
+            this.props.iconProps && this.props.iconProps.name &&
             <FontAwesome
               {...this.props.iconProps}
-              style={{
-                color: '#fff',
-                paddingRight: 50
-              }}
-            />}
+              color='#fff'
+            />
+          }
           {this.props.title}
         </Text>
       </Button>
