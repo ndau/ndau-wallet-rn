@@ -160,7 +160,7 @@ const resetPassword = async (recoveryPhraseString, newPassword) => {
   // call create to initialize the storageKey
   await multiSafe.create(storageKeys[0], recoveryPhraseString)
   // add a combination to the safe
-  await multiSafe.addCombination(newPassword, recoveryPhraseString)
+  await multiSafe.overwritePassword(newPassword, recoveryPhraseString)
 }
 
 export default {

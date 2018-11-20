@@ -492,7 +492,7 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
 
 test('addNewWallet adds a new wallet to an existing user in a safe', async () => {
   const walletId = 'Kris'
-  const encryptionPassword = 'asdfjkl'
+  const encryptionPassword = '123abc'
 
   await MultiSafeHelper.setupNewUser(
     null,
