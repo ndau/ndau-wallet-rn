@@ -17,6 +17,7 @@ class MultiSafe {
   // AsyncStorage.
   constructor () {
     this.storageKey = ''
+    this._passwordIndex = 0
   }
 
   // _encrypt symmetrically encrypts plaintext with pw
@@ -169,6 +170,9 @@ class MultiSafe {
     // build a random encryption secret
     let dataSecret = await EntropyHelper.generateEntropy()
     let combination0 = this._encrypt(dataSecret, combo)
+    // when building a new one we assume the password/combo
+    // will be at index 0
+    this._passwordIndex = 0
     let meta = {
       combinations: [combination0]
     }
@@ -196,6 +200,29 @@ class MultiSafe {
   store = async (data, combo) => {
     let multisafeKey = MULTISAFE_DATA_PREFIX + this.storageKey
     return this._storeEncryptedObject(multisafeKey, data, combo)
+  }
+
+  /**
+   * This function will first call `overwritePassword` with the
+   * same parameters passed to it. Then, we remove the item in
+   * the combinations that is at `passwordIndex`. You can safely
+   * assume that we have removed the first password. Then we
+   * reset `passwordIndex` to the combination that was just added,
+   * which we can assume is the new password.
+   *
+   * @param {string} newcombo new combination/password to overwrite
+   * @param {string} oldcombo the old combination/password used to
+   * create a new password
+   * @returns an promise to the `_storeObject` function
+   */
+  overwritePassword = async (newcombo, oldcombo) => {
+    await this.addCombination(newcombo, oldcombo)
+
+    let metaKey = MULTISAFE_META_PREFIX + this.storageKey
+    let metadata = await this._retrieveObject(metaKey)
+    metadata.combinations.splice(this._passwordIndex, 1)
+    this._passwordIndex = metadata.combinations.length - 1
+    return this._storeObject(metaKey, metadata)
   }
 
   // AddCombination(newcombo: string, oldcombo: string): Promise(void)
