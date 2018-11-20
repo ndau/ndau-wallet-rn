@@ -259,7 +259,7 @@ class SetupGetRecoveryPhrase extends Component {
         confirmationError: true
       })
     }
-    if (confirmationError) {
+    if (this.state.confirmationError) {
       FlashNotification.showError(
         'Is this the correct recovery phrase? Please correct any errors.',
         true

@@ -181,4 +181,47 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
     console.log(`storageKeys are ${storageKeys}`)
     expect(storageKeys[7]).toEqual(sk)
   })
+
+  it('should be able to reset a password', async () => {
+    let o = {
+      s: "I'm Satoshi Nakamoto",
+      ndau: 1234437970
+    }
+    let k = 'themetalkey'
+    let sk = 'storagekey3'
+    let pw = 'r00t'
+    let newPw = 'thenewguy'
+    let morepws = [
+      'passw0rd',
+      'correct-horse-battery-staple',
+      'random garbage',
+      'kittycat'
+    ]
+    let ms = new MultiSafe()
+    await ms.create(sk, pw)
+    await ms.store(o, pw)
+    for (let p of morepws) {
+      await ms.addCombination(p, pw)
+    }
+    for (let p of morepws) {
+      expect(await ms.verify(p)).toBeTruthy()
+      let y = await ms.retrieve(p)
+      expect(o).toEqual(y)
+    }
+
+    let ms1 = new MultiSafe()
+    await ms1.create(sk, morepws[0])
+    await ms1.overwritePassword(newPw, morepws[0])
+
+    let ms3 = new MultiSafe()
+    await ms3.create(sk, newPw)
+    expect(await ms3.verify(newPw)).toBeTruthy()
+    try {
+      // original password is gone
+      await ms3.verify(pw)
+      expect('should never get here').toBeFalsy()
+    } catch (err) {
+      expect(err).toBeDefined()
+    }
+  })
 })
