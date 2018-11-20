@@ -27,7 +27,7 @@ import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 
@@ -108,7 +108,9 @@ class Dashboard extends Component {
 
       this.setState({ user })
     } catch (error) {
-      ErrorDialog.showError(error)
+      FlashNotification.showError(
+        `Problem adding new account: ${error.message}`
+      )
     }
   }
 
@@ -121,7 +123,7 @@ class Dashboard extends Component {
       await UserData.loadData(user)
       marketPrice = await OrderNodeAPI.getMarketPrice()
     } catch (error) {
-      ErrorDialog.showError(error)
+      FlashNotification.showError(error.message, false, false)
     }
 
     this.setState({ refreshing: false, user, marketPrice })
@@ -240,6 +242,13 @@ class Dashboard extends Component {
 
           {Object.keys(accounts)
             .sort((a, b) => {
+              if (
+                !accounts[a].addressData.nickname ||
+                !accounts[b].addressData.nickname
+              ) {
+                return 0
+              }
+
               const accountNumberA = parseInt(
                 accounts[a].addressData.nickname.split(' ')[1]
               )
@@ -309,7 +318,12 @@ class Dashboard extends Component {
             })}
           <View style={cssStyles.dashboardRowContainerCenter}>
             <Text style={styles.asterisks}>**</Text>
-            <Text style={cssStyles.dashboardTextVerySmallWhite}>
+            <Text
+              style={[
+                cssStyles.dashboardTextVerySmallWhite,
+                { paddingRight: wp('4%') }
+              ]}
+            >
               The estimated value of ndau in US dollars can be calculated using the Target Price at
               which new ndau have most recently been issued. The value shown here is calculated
               using that method as of the issue price on

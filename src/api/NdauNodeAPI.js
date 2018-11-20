@@ -1,6 +1,7 @@
 import NodeAddressHelper from '../helpers/NodeAddressHelper'
 import data from './data'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import BlockchainAPIError from '../errors/BlockchainAPIError'
 
 const getAddressData = async addresses => {
   const accountAPI = await NodeAddressHelper.getAccountAPIAddress()
@@ -12,6 +13,9 @@ const getAddressData = async addresses => {
     },
     body: JSON.stringify(addresses)
   })
+  if (response.status !== 200) {
+    throw new BlockchainAPIError()
+  }
   let responseBody = response.body
   if (!responseBody) {
     responseBody = await response.json()
@@ -39,6 +43,9 @@ const getEaiRate = async wallet => {
     },
     body: JSON.stringify(accountEaiRateRequestData)
   })
+  if (response.status !== 200) {
+    throw new BlockchainAPIError()
+  }
   let responseBody = response.body
   if (!responseBody) {
     responseBody = await response.json()
@@ -49,14 +56,18 @@ const getEaiRate = async wallet => {
 
 const getNodeStatus = async () => {
   const nodeStatusAddress = await NodeAddressHelper.getNodeStatusAPIAddress()
-  return fetch(nodeStatusAddress)
-    .then(response => response.json())
-    .then(responseJson => {
-      console.info(
-        `nodeStatusAddress responseJson ${JSON.stringify(responseJson, null, 2)}`
-      )
-      return responseJson
-    })
+  const response = await fetch(nodeStatusAddress)
+  if (response.status !== 200) {
+    throw new BlockchainAPIError()
+  }
+  let responseBody = response.body
+  if (!responseBody) {
+    responseBody = await response.json()
+  }
+  console.info(
+    `nodeStatusAddress responseJson ${JSON.stringify(responseJson, null, 2)}`
+  )
+  return responseBody
 }
 
 export default {

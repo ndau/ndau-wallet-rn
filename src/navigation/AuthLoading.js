@@ -3,7 +3,7 @@ import { ActivityIndicator, Alert, View } from 'react-native'
 import cssStyles from '../css/styles'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafe from '../model/MultiSafe'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 import AppConstants from '../AppConstants'
 import { RECOVERY_WALLET_SETUP_TYPE } from '../components/SetupProgressBar'
 
@@ -34,7 +34,7 @@ class AuthLoadingScreen extends React.Component {
         this.props.navigation.navigate('SetupWelcome')
       }
     } catch (error) {
-      ErrorDialog.showError(`Problem encountered: ${error}`)
+      FlashNotification.showError(`Problem encountered: ${error.message}`)
     }
   }
 

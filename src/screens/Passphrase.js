@@ -26,7 +26,7 @@ import {
   NEW_WALLET_SETUP_TYPE,
   RECOVERY_WALLET_SETUP_TYPE
 } from '../components/SetupProgressBar'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
@@ -46,6 +46,7 @@ class Passphrase extends Component {
   login = async () => {
     try {
       let user = await MultiSafeHelper.getDefaultUser(this.state.password)
+      let marketPrice = 0
       if (user) {
         console.log(
           `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
@@ -56,16 +57,16 @@ class Passphrase extends Component {
 
         try {
           await UserData.loadData(user)
-          const marketPrice = await OrderNodeAPI.getMarketPrice()
-
-          this.props.navigation.navigate('Dashboard', {
-            user,
-            encryptionPassword: this.state.password,
-            marketPrice
-          })
+          marketPrice = await OrderNodeAPI.getMarketPrice()
         } catch (error) {
-          ErrorDialog.showError(error)
+          FlashNotification.showError(error.message, false, false)
         }
+
+        this.props.navigation.navigate('Dashboard', {
+          user,
+          encryptionPassword: this.state.password,
+          marketPrice
+        })
       } else {
         this.showLoginError()
       }
@@ -95,19 +96,10 @@ class Passphrase extends Component {
     if (this.state.loginAttempt === this.maxLoginAttempts) {
       this.showExitApp()
     }
-    Alert.alert(
-      'Error',
-      `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
-      [
-        {
-          text: 'OK',
-          onPress: () => {
-            this.setState({ loginAttempt: this.state.loginAttempt + 1 })
-          }
-        }
-      ],
-      { cancelable: false }
+    FlashNotification.showError(
+      `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`
     )
+    this.setState({ loginAttempt: this.state.loginAttempt + 1 })
   }
 
   showInformation = () => {
