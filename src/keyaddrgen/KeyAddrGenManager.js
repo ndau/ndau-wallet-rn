@@ -6,7 +6,7 @@ import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import sha256 from 'crypto-js/sha256'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 import Wallet from '../model/Wallet'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 
@@ -50,8 +50,8 @@ const getRootAddresses = async recoveryBytes => {
       addresses.push(address)
     }
   } catch (error) {
-    ErrorDialog.showError(
-      `problem encountered creating root addresses: ${error}`
+    FlashNotification.showError(
+      `problem encountered creating root addresses: ${error.message}`
     )
     throw error
   }
@@ -94,8 +94,8 @@ const getBIP44Addresses = async recoveryBytes => {
       addresses.push(address)
     }
   } catch (error) {
-    ErrorDialog.showError(
-      `problem encountered creating BIP44 addresses: ${error}`
+    FlashNotification.showError(
+      `problem encountered creating BIP44 addresses: ${error.message}`
     )
     throw error
   }
@@ -142,7 +142,7 @@ const createFirstTimeUser = async (
     console.log(`User created is: ${JSON.stringify(user, null, 2)}`)
     return user
   } catch (error) {
-    ErrorDialog.showError(error)
+    FlashNotification.showError(error.message)
   }
 }
 
@@ -199,7 +199,7 @@ const createWallet = async (
 
     return wallet
   } catch (error) {
-    ErrorDialog.showError(error)
+    FlashNotification.showError(error.message)
   }
 }
 

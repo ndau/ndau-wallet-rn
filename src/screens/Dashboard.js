@@ -27,7 +27,7 @@ import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 
@@ -108,7 +108,9 @@ class Dashboard extends Component {
 
       this.setState({ user })
     } catch (error) {
-      ErrorDialog.showError(error)
+      FlashNotification.showError(
+        `Problem adding new account: ${error.message}`
+      )
     }
   }
 
@@ -121,7 +123,7 @@ class Dashboard extends Component {
       await UserData.loadData(user)
       marketPrice = await OrderNodeAPI.getMarketPrice()
     } catch (error) {
-      ErrorDialog.showError(error)
+      FlashNotification.showError(error.message, false, false)
     }
 
     this.setState({ refreshing: false, user, marketPrice })

@@ -18,14 +18,13 @@ import {
 import RecoveryDropdown from '../components/RecoveryDropdown'
 import Carousel from 'react-native-looped-carousel'
 import { Dialog } from 'react-native-simple-dialogs'
-import ErrorPanel from '../components/ErrorPanel'
 import SetupProgressBar from '../components/SetupProgressBar'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -191,6 +190,9 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   setAcquisitionError = value => {
+    if (value) {
+      FlashNotification.showError('Please select a valid word.', true)
+    }
     this.setState({ acquisitionError: value })
   }
 
@@ -223,7 +225,7 @@ class SetupGetRecoveryPhrase extends Component {
             await UserData.loadData(user)
             marketPrice = await OrderNodeAPI.getMarketPrice()
           } catch (error) {
-            ErrorDialog.showError(error)
+            FlashNotification.showError(error.message, true)
           }
 
           await MultiSafeHelper.saveUser(user, encryptionPassword)
@@ -255,6 +257,12 @@ class SetupGetRecoveryPhrase extends Component {
         textColor: '#ff0000',
         confirmationError: true
       })
+    }
+    if (confirmationError) {
+      FlashNotification.showError(
+        'Is this the correct recovery phrase? Please correct any errors.',
+        true
+      )
     }
   }
 
@@ -311,9 +319,6 @@ class SetupGetRecoveryPhrase extends Component {
                 {pages}
               </Carousel>
             </View>
-            {this.state.acquisitionError
-              ? <ErrorPanel errorText={'Please select a valid word.'} />
-              : null}
           </ScrollView>
           <View style={cssStyles.footer}>
             <Text
@@ -396,13 +401,6 @@ class SetupGetRecoveryPhrase extends Component {
                 </View>
               )
             })}
-            {this.state.confirmationError
-              ? <ErrorPanel
-                errorText={
-                    'Is this the correct recovery phrase? Please correct any errors.'
-                  }
-                />
-              : null}
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>

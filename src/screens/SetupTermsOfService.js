@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-navigation'
 import SetupStore from '../model/SetupStore'
 import ndauDashboardApi from '../api/NdauDashboardAPI'
 import AppConfig from '../AppConfig'
-import ErrorDialog from '../components/ErrorDialog'
+import FlashNotification from '../components/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderNodeAPI from '../api/OrderNodeAPI'
@@ -83,7 +83,7 @@ class SetupTermsOfService extends Component {
           resolve(whatPersisted)
         })
         .catch(error => {
-          ErrorDialog.showError(error)
+          FlashNotification.showError(error.message)
           reject(error)
         })
     })
