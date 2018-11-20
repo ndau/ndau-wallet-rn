@@ -202,6 +202,19 @@ class MultiSafe {
     return this._storeEncryptedObject(multisafeKey, data, combo)
   }
 
+  /**
+   * This function will first call `overwritePassword` with the
+   * same parameters passed to it. Then, we remove the item in
+   * the combinations that is at `passwordIndex`. You can safely
+   * assume that we have removed the first password. Then we
+   * reset `passwordIndex` to the combination that was just added,
+   * which we can assume is the new password.
+   *
+   * @param {string} newcombo new combination/password to overwrite
+   * @param {string} oldcombo the old combination/password used to
+   * create a new password
+   * @returns an promise to the `_storeObject` function
+   */
   overwritePassword = async (newcombo, oldcombo) => {
     await this.addCombination(newcombo, oldcombo)
 
