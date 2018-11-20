@@ -5,7 +5,11 @@ import cssStyles from '../css/styles'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
+} from 'react-native-responsive-screen';
+
+const SEND_AND_RECEIVE_ICON = require('img/send_receive_both.png');
+const RECEIVE_ONLY_ICON = require('img/receive_only.png');
+
 
 class AccountCard extends Component {
   render () {
@@ -26,6 +30,8 @@ class AccountCard extends Component {
       startTransaction,
       walletId
     } = this.props
+
+    const transactionIcon = accountNotLocked ? SEND_AND_RECEIVE_ICON : RECEIVE_ONLY_ICON;
 
     return (
       <CollapsiblePanel
@@ -103,9 +109,10 @@ class AccountCard extends Component {
                   />
                 : null}
             </TouchableOpacity>
+
             <TouchableOpacity onPress={() => startTransaction(address)}>
               <Image
-                source={require('img/receive_only.png')}
+                source={transactionIcon}
                 style={{
                   width: 35,
                   height: 35,
