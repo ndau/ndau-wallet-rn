@@ -143,6 +143,8 @@ class Dashboard extends Component {
       totalNdauNumber
     )
 
+    const numberOfAccounts = Object.keys(accounts).length;
+
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <UnlockModalDialog
@@ -222,7 +224,7 @@ class Dashboard extends Component {
                 }}
               >
                 <Text style={cssStyles.dashboardTextSmallGreen}>
-                  {Object.keys(accounts).length} addresses
+                  {numberOfAccounts} account{numberOfAccounts !== 1 && 's'}
                 </Text>
                 <TouchableOpacity
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
