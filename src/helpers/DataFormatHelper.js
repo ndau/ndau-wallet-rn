@@ -2,13 +2,20 @@ import AppConstants from '../AppConstants'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_USER
- * present. If there is
+ * present. If there is we will change it to the walletId. Also, if there
+ * is a wallet hanging around with a temp user, we switch that too.
+ *
  * @param {User} user
  * @param {string} walletId
  */
 const moveTempUserToWalletName = (user, walletId) => {
   if (user.userId === AppConstants.TEMP_USER) {
     user.userId = walletId
+    const wallet = user.wallets[AppConstants.TEMP_USER]
+    wallet.walletId = walletId
+    user.wallets[walletId] = wallet
+    delete user.wallets[AppConstants.TEMP_USER]
+  } else if (user.wallets[AppConstants.TEMP_USER]) {
     const wallet = user.wallets[AppConstants.TEMP_USER]
     wallet.walletId = walletId
     user.wallets[walletId] = wallet

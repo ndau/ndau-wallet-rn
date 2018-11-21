@@ -25,7 +25,7 @@ class DashboardDrawer extends React.Component {
     this.props.navigation.navigate('App')
   }
 
-  addOrRecoverWallet = () => {
+  addOrRecoverWallet = async () => {
     this.props.navigation.closeDrawer()
     this.props.navigation.navigate('SetupWelcome')
   }

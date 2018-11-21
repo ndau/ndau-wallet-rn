@@ -12,6 +12,7 @@ import FlashNotification from '../components/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderNodeAPI from '../api/OrderNodeAPI'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -31,7 +32,13 @@ class SetupTermsOfService extends Component {
     const existingUser = await MultiSafeHelper.getDefaultUser(
       SetupStore.encryptionPassword
     )
-    if (Object.keys(existingUser).length) {
+    if (user) {
+      let password = await AsyncStorageHelper.getApplicationPassword()
+      if (!password) {
+        password = SetupStore.encryptionPassword
+      }
+      user = await MultiSafeHelper.saveUser(user, password)
+    } else if (Object.keys(existingUser).length) {
       user = await MultiSafeHelper.addNewWallet(
         existingUser,
         SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
@@ -54,6 +61,10 @@ class SetupTermsOfService extends Component {
 
     await UserData.loadData(user)
     const marketPrice = await OrderNodeAPI.getMarketPrice()
+
+    await AsyncStorageHelper.setApplicationPassword(
+      SetupStore.encryptionPassword
+    )
 
     this.props.navigation.navigate('Dashboard', {
       user,

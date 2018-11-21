@@ -62,18 +62,18 @@ class SetupGetRecoveryPhrase extends Component {
     // on a known phrase that works in testnet/devnet
     this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
     // this.recoveryPhrase = [
-    //   'deal',
-    //   'perfect',
-    //   'success',
-    //   'good',
-    //   'noodle',
-    //   'reason',
-    //   'sunset',
-    //   'method',
-    //   'grid',
-    //   'credit',
-    //   'evoke',
-    //   'segment'
+    //   'coin',
+    //   'tortoise',
+    //   'approve',
+    //   'jar',
+    //   'moon',
+    //   'reunion',
+    //   'utility',
+    //   'hello',
+    //   'vicious',
+    //   'shed',
+    //   'property',
+    //   'pet'
     // ]
     // this.recoveryPhrase = [
     //   'goat',
@@ -251,15 +251,17 @@ class SetupGetRecoveryPhrase extends Component {
           textColor: '#ff0000',
           confirmationError: true
         })
+        FlashNotification.showError(
+          'Is this the correct recovery phrase? Please correct any errors.',
+          true
+        )
       }
     } catch (error) {
-      console.error(error)
+      console.warn(error)
       this.setState({
         textColor: '#ff0000',
         confirmationError: true
       })
-    }
-    if (this.state.confirmationError) {
       FlashNotification.showError(
         'Is this the correct recovery phrase? Please correct any errors.',
         true
@@ -304,9 +306,9 @@ class SetupGetRecoveryPhrase extends Component {
             <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
               <Carousel
                 style={this.state.size}
-                leftArrowText={<FontAwesome name='angle-left' size={35} />}
+                leftArrowText={'＜'}
                 leftArrowStyle={cssStyles.carouselArrows}
-                rightArrowText={<FontAwesome name='angle-right' size={35} />}
+                rightArrowText={'＞'}
                 rightArrowStyle={cssStyles.carouselArrows}
                 // pageInfo
                 // pageInfoTextStyle={cssStyles.smallWhiteText}
