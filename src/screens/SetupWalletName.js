@@ -26,6 +26,12 @@ class SetupEncryptionPassword extends Component {
 
   showNextSetup = async () => {
     const { navigation } = this.props
+    const user = navigation.getParam('user', null)
+    if (user) {
+      // get it out of AppConstants.TEMP_USER if we have to
+      // and into the new walletId
+      DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
+    }
 
     // if we have an application password in
     // AsyncStorage then there is no need to show
@@ -33,19 +39,13 @@ class SetupEncryptionPassword extends Component {
     const password = await AsyncStorageHelper.getApplicationPassword()
     if (password) {
       SetupStore.encryptionPassword = password
-      const user = this.props.navigation.getParam('user', null)
       this.props.navigation.navigate('SetupTermsOfService', {
         user,
         walletSetupType: this.props.navigation.state.params &&
           this.props.navigation.state.params.walletSetupType
       })
     } else {
-      const user = navigation.getParam('user', null)
       if (user) {
-        // get it out of AppConstants.TEMP_USER if we have to
-        // and into the new walletId
-        DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
-
         if (!user.userId) {
           user.userId = SetupStore.walletId
         }

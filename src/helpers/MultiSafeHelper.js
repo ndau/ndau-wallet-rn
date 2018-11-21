@@ -124,13 +124,17 @@ const _internalSaveUser = async (
  */
 const getDefaultUser = async encryptionPassword => {
   const multiSafe = new MultiSafe()
+  let user = null
 
   // get all storage keys and get the first one
   const storageKeys = await multiSafe.getStorageKeys()
-  // call create to initialize the storageKey
-  await multiSafe.create(storageKeys[0], encryptionPassword)
-  // actually get the data
-  const user = await multiSafe.retrieve(encryptionPassword)
+  console.log(`STORAGEKEYS ${encryptionPassword}`)
+  if (storageKeys && encryptionPassword) {
+    // call create to initialize the storageKey
+    await multiSafe.create(storageKeys[0], encryptionPassword)
+    // actually get the data
+    user = await multiSafe.retrieve(encryptionPassword)
+  }
 
   return user
 }

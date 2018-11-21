@@ -207,16 +207,17 @@ const addAccountsToUser = async (
   recoveryPhraseBytes,
   user,
   numberOfAccounts,
-  rootDerivedPath
+  rootDerivedPath,
+  walletId
 ) => {
   const wallet = await createWallet(
     recoveryPhraseBytes,
     null,
-    user.userId,
+    walletId,
     AppConstants.MAINNET_ADDRESS,
     numberOfAccounts
   )
-  user.wallets[user.userId] = wallet
+  user.wallets[walletId] = wallet
 
   await addAccounts(
     wallet,

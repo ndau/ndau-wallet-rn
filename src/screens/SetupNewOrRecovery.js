@@ -18,6 +18,8 @@ import SetupProgressBar, {
 } from '../components/SetupProgressBar'
 import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase'
 import AppConstants from '../AppConstants'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
 
 class SetupNewOrRecovery extends Component {
   constructor (props) {
@@ -47,11 +49,18 @@ class SetupNewOrRecovery extends Component {
     })
   }
 
-  showUseExistingRecovery = () => {
+  showUseExistingRecovery = async () => {
+    const password = await AsyncStorageHelper.getApplicationPassword()
+    // let user = null
+    // if (password) {
+    const user = await MultiSafeHelper.getDefaultUser(password)
+    // }
+
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       walletSetupType: 'recovery',
       mode: AppConstants.NORMAL_MODE,
-      walletSetupType: RECOVERY_WALLET_SETUP_TYPE
+      walletSetupType: RECOVERY_WALLET_SETUP_TYPE,
+      user
     })
   }
 
