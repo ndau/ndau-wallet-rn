@@ -132,6 +132,19 @@ class SetupStore {
     console.debug(`SetupStore.walletId ${this._walletId}`)
     console.debug(`SetupStore.addressType ${this._addressType}`)
   }
+
+  reset = () => {
+    this._userId = ''
+    this._numberOfAccounts = 0
+    this._qrCode = ''
+    this._encryptionPassword = ''
+    this._entropy = ''
+    this._recoveryPhrase = ''
+    this._shuffledMap = []
+    this._shuffledWord = []
+    this._addressType = AppConstants.MAINNET_ADDRESS
+    this._walletId = ''
+  }
 }
 
 const instance = new SetupStore()

@@ -37,7 +37,8 @@ class SetupWelcome extends Component {
   }
 
   showNextSetup = () => {
-    this.props.navigation.navigate('SetupNewOrRecovery')
+    const user = this.props.navigation.getParam('user', null)
+    this.props.navigation.navigate('SetupNewOrRecovery', { user })
   }
 
   render () {

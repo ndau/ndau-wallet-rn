@@ -27,22 +27,30 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   // temp userId. It will be changed in the SetupWalletName screen
   let userId = AppConstants.TEMP_USER
   if (user) {
-    userId = user.userId
+    const wallet = await KeyAddrGenManager.createWallet(
+      recoveryPhraseBytes,
+      null,
+      userId
+    )
+    user.wallets[userId] = wallet
+  } else {
+    user = await KeyAddrGenManager.createFirstTimeUser(
+      recoveryPhraseBytes,
+      userId
+    )
   }
-  let newUser = await KeyAddrGenManager.createFirstTimeUser(
-    recoveryPhraseBytes,
-    userId
-  )
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`)
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     await KeyAddrGenManager.addAccountsToUser(
       recoveryPhraseBytes,
-      newUser,
-      Object.keys(bip44Accounts).length
+      user,
+      Object.keys(bip44Accounts).length,
+      undefined,
+      userId
     )
-    console.log(`newUser with BIP44: ${JSON.stringify(newUser, null, 2)}`)
+    console.log(`user with BIP44: ${JSON.stringify(user, null, 2)}`)
   }
 
   const rootAccounts = await _checkRootAddresses(recoveryPhraseBytes)
@@ -51,14 +59,15 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
     // Here again we are attempting to genereate at the very root of the tree
     await KeyAddrGenManager.addAccountsToUser(
       recoveryPhraseBytes,
-      newUser,
+      user,
       Object.keys(rootAccounts).length,
-      ''
+      '',
+      userId
     )
-    console.log(`newUser with root: ${JSON.stringify(newUser, null, 2)}`)
+    console.log(`user with root: ${JSON.stringify(user, null, 2)}`)
   }
 
-  return newUser.wallets[newUser.userId].accounts ? newUser : null
+  return user
 }
 
 const _getRecoveryStringAsBytes = async recoveryPhraseString => {

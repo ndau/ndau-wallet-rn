@@ -18,10 +18,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 
 class SetupEncryptionPassword extends Component {
-  static PASSWORD_RESET_MODE = 'password-reset'
-  static NEW_PASSWORD_MODE = 'new-password'
   static MINIMUM_PASSWORD_LENGTH = 8
-
 
   constructor (props) {
     super(props)
@@ -66,14 +63,14 @@ class SetupEncryptionPassword extends Component {
 
   checkPasswordsLength = () => {
     return (
-      this.state.password.length >= this.MINIMUM_PASSWORD_LENGTH && 
-      this.state.confirmPassword.length >= this.MINIMUM_PASSWORD_LENGTH
+      this.state.password.length >=
+        SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH &&
+      this.state.confirmPassword.length >=
+        SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH
     )
   }
 
   showNextSetup = async () => {
-    this.checkedProgress();
-
     if (!this.checkPasswordsExist()) {
       Alert.alert(
         'Error',
@@ -139,8 +136,8 @@ class SetupEncryptionPassword extends Component {
   }
 
   updateComfirmPassword = confirmPassword => {
-    this.setState({ 
-      confirmPassword, 
+    this.setState({
+      confirmPassword,
       progress: confirmPassword.length > 0
     })
   }
