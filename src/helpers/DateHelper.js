@@ -1,4 +1,5 @@
 import moment from 'moment'
+import AppConstants from '../AppConstants'
 
 const DATE_FORMAT = 'MM/DD/YYYY'
 
@@ -7,7 +8,10 @@ const getTodaysDate = () => {
 }
 
 const getDateFromMilliseconds = date => {
-  return moment().millisecond(date).format(DATE_FORMAT)
+  return moment()
+    .millisecond(date / 1000)
+    .subtract(AppConstants.NDAU_YEARS_ADDED_TO_EPOCH, 'y')
+    .format(DATE_FORMAT)
 }
 
 const getDaysFromMicroseconds = microseconds => {
