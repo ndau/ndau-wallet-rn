@@ -488,18 +488,44 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
 
   expect(userFromNewPassword).toBeDefined()
   expect(userFromNewPassword).toEqual(userGettingCreated)
+
+  const anotherPassword = 'asdfasdf'
+  await MultiSafeHelper.resetPassword(recoveryPhraseString, anotherPassword)
+
+  const userFromNewPassword1 = await MultiSafeHelper.getDefaultUser(
+    anotherPassword
+  )
+
+  expect(userFromNewPassword1).toBeDefined()
+  expect(userFromNewPassword1).toEqual(userGettingCreated)
+
+  try {
+    // original password is gone
+    await MultiSafeHelper.getDefaultUser(newPassword)
+    expect('should never get here').toBeFalsy()
+  } catch (err) {
+    expect(err).toBeDefined()
+  }
+
+  try {
+    // original password is gone
+    await MultiSafeHelper.getDefaultUser(encryptionPassword)
+    expect('should never get here').toBeFalsy()
+  } catch (err) {
+    expect(err).toBeDefined()
+  }
 })
 
 test('addNewWallet adds a new wallet to an existing user in a safe', async () => {
-  const walletId = 'Kris'
-  const encryptionPassword = '123abc'
+  const walletIdNew = 'Kris'
+  const encryptionPasswordNew = 'asdfasdf'
 
   await MultiSafeHelper.setupNewUser(
     null,
     recoveryPhraseString,
-    walletId,
+    walletIdNew,
     numberOfAccounts,
-    encryptionPassword
+    encryptionPasswordNew
   )
 
   const userGettingCreated = {
@@ -547,7 +573,9 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
   }
 
   // make sure you can get it back with password and recovery phrase
-  const user = await MultiSafeHelper.getDefaultUser(encryptionPassword)
+  const user = await MultiSafeHelper.getDefaultUser(encryptionPasswordNew)
+
+  console.log(`user: ${JSON.stringify(user, null, 2)}`)
 
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
@@ -558,9 +586,9 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
     user,
     recoveryPhraseString,
     anotherWalletId,
-    walletId,
+    walletIdNew,
     numberOfAccounts,
-    encryptionPassword
+    encryptionPasswordNew
   )
 
   const userWithNewWallet = await MultiSafeHelper.getDefaultUser(

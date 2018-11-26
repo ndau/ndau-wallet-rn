@@ -11,13 +11,14 @@ const MULTISAFE_PREFIX = 'MultiSafe_'
 const MULTISAFE_DATA_PREFIX = MULTISAFE_PREFIX + 'Data_'
 const MULTISAFE_META_PREFIX = MULTISAFE_PREFIX + 'Meta_'
 
+const PASSWORD_INDEX = 'PasswordIndex'
+
 class MultiSafe {
   // a MultiSafe is created with the constructor but may not be used until it
   // is initialized with create(), which is an async function because of
   // AsyncStorage.
   constructor () {
     this.storageKey = ''
-    this._passwordIndex = 0
   }
 
   // _encrypt symmetrically encrypts plaintext with pw
@@ -172,7 +173,7 @@ class MultiSafe {
     let combination0 = this._encrypt(dataSecret, combo)
     // when building a new one we assume the password/combo
     // will be at index 0
-    this._passwordIndex = 0
+    await this._storeString(PASSWORD_INDEX, '0')
     let meta = {
       combinations: [combination0]
     }
@@ -220,8 +221,12 @@ class MultiSafe {
 
     let metaKey = MULTISAFE_META_PREFIX + this.storageKey
     let metadata = await this._retrieveObject(metaKey)
-    metadata.combinations.splice(this._passwordIndex, 1)
-    this._passwordIndex = metadata.combinations.length - 1
+    let passwordIndex = parseInt(await this._retrieveString(PASSWORD_INDEX))
+    console.log(`TEST PASSWORD INDEX TO USE: ${passwordIndex}`)
+    metadata.combinations.splice(passwordIndex, 1)
+    passwordIndex = metadata.combinations.length - 1
+    console.log(`TEST NEW PASSWORD INDEX: ${passwordIndex}`)
+    await this._storeString(PASSWORD_INDEX, passwordIndex.toString())
     return this._storeObject(metaKey, metadata)
   }
 

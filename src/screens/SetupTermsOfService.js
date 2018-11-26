@@ -37,7 +37,11 @@ class SetupTermsOfService extends Component {
       if (!password) {
         password = SetupStore.encryptionPassword
       }
-      user = await MultiSafeHelper.saveUser(user, password)
+      user = await MultiSafeHelper.saveUser(
+        user,
+        password,
+        SetupStore.recoveryPhrase.join().replace(/,/g, ' ')
+      )
     } else if (Object.keys(existingUser).length) {
       user = await MultiSafeHelper.addNewWallet(
         existingUser,

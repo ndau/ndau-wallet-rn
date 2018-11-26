@@ -60,21 +60,21 @@ class SetupGetRecoveryPhrase extends Component {
 
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
-    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
-    // this.recoveryPhrase = [
-    //   'coin',
-    //   'tortoise',
-    //   'approve',
-    //   'jar',
-    //   'moon',
-    //   'reunion',
-    //   'utility',
-    //   'hello',
-    //   'vicious',
-    //   'shed',
-    //   'property',
-    //   'pet'
-    // ]
+    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    this.recoveryPhrase = [
+      'wink',
+      'fantasy',
+      'surface',
+      'flame',
+      'magic',
+      'video',
+      'manage',
+      'wing',
+      'logic',
+      'insane',
+      'slam',
+      'empower'
+    ]
     // this.recoveryPhrase = [
     //   'goat',
     //   'amount',
@@ -229,7 +229,11 @@ class SetupGetRecoveryPhrase extends Component {
             FlashNotification.showError(error.message, true)
           }
 
-          await MultiSafeHelper.saveUser(user, encryptionPassword)
+          await MultiSafeHelper.saveUser(
+            user,
+            encryptionPassword,
+            this.recoveryPhrase.join().replace(/,/g, ' ')
+          )
 
           this.props.navigation.navigate('Dashboard', {
             user,
