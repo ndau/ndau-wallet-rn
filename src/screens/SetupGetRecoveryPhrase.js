@@ -60,21 +60,21 @@ class SetupGetRecoveryPhrase extends Component {
 
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
-    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
-    this.recoveryPhrase = [
-      'wink',
-      'fantasy',
-      'surface',
-      'flame',
-      'magic',
-      'video',
-      'manage',
-      'wing',
-      'logic',
-      'insane',
-      'slam',
-      'empower'
-    ]
+    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    // this.recoveryPhrase = [
+    //   'wink',
+    //   'fantasy',
+    //   'surface',
+    //   'flame',
+    //   'magic',
+    //   'video',
+    //   'manage',
+    //   'wing',
+    //   'logic',
+    //   'insane',
+    //   'slam',
+    //   'empower'
+    // ]
     // this.recoveryPhrase = [
     //   'goat',
     //   'amount',
