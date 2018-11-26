@@ -222,10 +222,8 @@ class MultiSafe {
     let metaKey = MULTISAFE_META_PREFIX + this.storageKey
     let metadata = await this._retrieveObject(metaKey)
     let passwordIndex = parseInt(await this._retrieveString(PASSWORD_INDEX))
-    console.log(`TEST PASSWORD INDEX TO USE: ${passwordIndex}`)
     metadata.combinations.splice(passwordIndex, 1)
     passwordIndex = metadata.combinations.length - 1
-    console.log(`TEST NEW PASSWORD INDEX: ${passwordIndex}`)
     await this._storeString(PASSWORD_INDEX, passwordIndex.toString())
     return this._storeObject(metaKey, metadata)
   }
