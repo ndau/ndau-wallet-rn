@@ -373,3 +373,24 @@ test('convert words from array', async () => {
     'wink fantasy surface flame magic video manage wing logic insane slam empower'
   )
 })
+
+test('if adding commas to 1 - 6 numbers works', async () => {
+  expect(DataFormatHelper.addCommas(1)).toBe('1.000')
+  expect(DataFormatHelper.addCommas(11)).toBe('11.000')
+  expect(DataFormatHelper.addCommas(111)).toBe('111.000')
+  expect(DataFormatHelper.addCommas(1111)).toBe('1,111.000')
+  expect(DataFormatHelper.addCommas(11111)).toBe('11,111.000')
+  expect(DataFormatHelper.addCommas(111111)).toBe('111,111.000')
+})
+
+test('if adding commas to 6 - 13 numbers with precision 2 passed works', async () => {
+  expect(DataFormatHelper.addCommas(1111111, 2)).toBe('1,111,111.00')
+  expect(DataFormatHelper.addCommas(11111111, 2)).toBe('11,111,111.00')
+  expect(DataFormatHelper.addCommas(111111111, 2)).toBe('111,111,111.00')
+  expect(DataFormatHelper.addCommas(1111111111, 2)).toBe('1,111,111,111.00')
+  expect(DataFormatHelper.addCommas(11111111111, 2)).toBe('11,111,111,111.00')
+  expect(DataFormatHelper.addCommas(111111111111, 2)).toBe('111,111,111,111.00')
+  expect(DataFormatHelper.addCommas(1111111111111, 2)).toBe(
+    '1,111,111,111,111.00'
+  )
+})
