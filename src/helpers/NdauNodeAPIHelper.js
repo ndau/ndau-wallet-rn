@@ -134,7 +134,12 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
       )
     }
   })
-  return localizedText ? total.toFixed(AppConfig.NDAU_SUMMARY_PRECISION) : total
+  return localizedText
+    ? total
+        .toFixed(AppConfig.NDAU_SUMMARY_PRECISION)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    : total
 }
 
 const currentPrice = (marketPrice, totalNdau) => {

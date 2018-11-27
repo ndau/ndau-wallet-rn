@@ -90,7 +90,7 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 
   expect(wallet).toBeDefined()
   expect(NdauNodeAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
-    '1757.000'
+    '1,757.000'
   )
 })
 
