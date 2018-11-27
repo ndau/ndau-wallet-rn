@@ -16,6 +16,8 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
+import OrderNodeAPI from '../api/OrderNodeAPI'
+import UserData from '../model/UserData'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -124,6 +126,12 @@ class SetupEncryptionPassword extends Component {
       this.state.password
     )
     const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
+    try {
+      await UserData.loadData(user)
+      marketPrice = await OrderNodeAPI.getMarketPrice()
+    } catch (error) {
+      FlashNotification.showError(error.message, false, false)
+    }
     this.props.navigation.navigate('Dashboard', {
       user,
       encryptionPassword: this.state.password,

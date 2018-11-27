@@ -111,7 +111,9 @@ const accountNotLocked = account => {
 
 const accountNdauAmount = account => {
   return account && account.balance
-    ? parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
+    ? parseFloat(DataFormatHelper.getNdauFromNapu(account.balance)).toFixed(
+        AppConfig.NDAU_SUMMARY_PRECISION
+      )
     : 0.0
 }
 
@@ -132,7 +134,7 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
       )
     }
   })
-  return localizedText ? total.toLocaleString(AppConfig.LOCALE) : total
+  return localizedText ? total.toFixed(AppConfig.NDAU_SUMMARY_PRECISION) : total
 }
 
 const currentPrice = (marketPrice, totalNdau) => {

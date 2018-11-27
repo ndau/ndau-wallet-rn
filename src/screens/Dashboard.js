@@ -145,7 +145,7 @@ class Dashboard extends Component {
       totalNdauNumber
     )
 
-    const numberOfAccounts = Object.keys(accounts).length;
+    const numberOfAccounts = Object.keys(accounts).length
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
