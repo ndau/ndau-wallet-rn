@@ -111,10 +111,9 @@ const accountNotLocked = account => {
 
 const accountNdauAmount = account => {
   return account && account.balance
-    ? parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
-        .toFixed(AppConfig.NDAU_SUMMARY_PRECISION)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    ? DataFormatHelper.addCommas(
+        parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
+      )
     : 0.0
 }
 
@@ -135,12 +134,7 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
       )
     }
   })
-  return localizedText
-    ? total
-        .toFixed(AppConfig.NDAU_SUMMARY_PRECISION)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    : total
+  return localizedText ? DataFormatHelper.addCommas(total) : total
 }
 
 const currentPrice = (marketPrice, totalNdau) => {
@@ -149,11 +143,7 @@ const currentPrice = (marketPrice, totalNdau) => {
   // why not use .toLocaleString you ask...here is why:
   // https://github.com/facebook/react-native/issues/15717
   const currentPrice = marketPrice
-    ? '$' +
-        parseFloat(totalNdau * marketPrice)
-          .toFixed(2)
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    ? '$' + DataFormatHelper.addCommas(parseFloat(totalNdau * marketPrice), 2)
     : '$0.00'
   console.log(`currentPrice: ${currentPrice}`)
 

@@ -1,4 +1,5 @@
 import AppConstants from '../AppConstants'
+import AppConfig from '../AppConfig'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_USER
@@ -98,11 +99,32 @@ const convertRecoveryArrayToString = recoveryPhrase => {
     .toLowerCase()
 }
 
+/**
+ * Add commas into the number given.
+ *
+ * why not use .toLocaleString you ask...here is why:
+ *
+ * https://github.com/facebook/react-native/issues/15717
+ *
+ * @param {number | float} number
+ * @param {number} precision=AppConfig.NDAU_SUMMARY_PRECISION
+ *
+ * @returns {string} the return value is a string version
+ * of the number
+ */
+const addCommas = (number, precision = AppConfig.NDAU_SUMMARY_PRECISION) => {
+  return number
+    .toFixed(precision)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
   getNdauFromNapu,
   getObjectWithAllAccounts,
   getAccountEaiRateRequest,
-  convertRecoveryArrayToString
+  convertRecoveryArrayToString,
+  addCommas
 }
