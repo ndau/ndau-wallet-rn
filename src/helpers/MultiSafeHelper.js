@@ -128,7 +128,6 @@ const getDefaultUser = async encryptionPassword => {
 
   // get all storage keys and get the first one
   const storageKeys = await multiSafe.getStorageKeys()
-  console.log(`STORAGEKEYS ${encryptionPassword}`)
   if (storageKeys && encryptionPassword) {
     // call create to initialize the storageKey
     await multiSafe.create(storageKeys[0], encryptionPassword)
@@ -144,9 +143,15 @@ const getDefaultUser = async encryptionPassword => {
  *
  * @param {User} user User to be saved into MultiSafe
  * @param {string} encryptionPassword to save it in with
+ * @param {string} recoveryPhraseString as another combination to use
  */
-const saveUser = async (user, encryptionPassword) => {
-  return _internalSaveUser(user, encryptionPassword, user.userId)
+const saveUser = async (user, encryptionPassword, recoveryPhraseString) => {
+  return _internalSaveUser(
+    user,
+    encryptionPassword,
+    user.userId,
+    recoveryPhraseString
+  )
 }
 
 /**

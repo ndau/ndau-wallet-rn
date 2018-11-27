@@ -52,13 +52,13 @@ test('make sure we can get the amount of ndau per account', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe(42.0000000023)
+  ).toBe('42.000')
   expect(
     NdauNodeAPIHelper.accountNdauAmount(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe(200.000000002)
+  ).toBe('200.000')
 })
 
 test('make sure we can get the locked until date of ndau per account', async () => {
@@ -90,7 +90,7 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 
   expect(wallet).toBeDefined()
   expect(NdauNodeAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
-    '1,757'
+    '1757.000'
   )
 })
 

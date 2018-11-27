@@ -350,3 +350,26 @@ test('getAccountEaiRateRequest gets the correct request format', async () => {
   const request = DataFormatHelper.getAccountEaiRateRequest(wallet)
   expect(request.length).toEqual(2)
 })
+
+test('convert words from array', async () => {
+  const recoveryPhrase = [
+    'Wink',
+    'fantasy',
+    'surface',
+    'flame',
+    'MAGIC',
+    '  video',
+    'manage',
+    'wing',
+    'logic',
+    'insane',
+    'slaM  ',
+    'empower    '
+  ]
+  const newString = DataFormatHelper.convertRecoveryArrayToString(
+    recoveryPhrase
+  )
+  expect(newString).toBe(
+    'wink fantasy surface flame magic video manage wing logic insane slam empower'
+  )
+})

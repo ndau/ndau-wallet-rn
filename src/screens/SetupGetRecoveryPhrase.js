@@ -26,6 +26,7 @@ import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -62,18 +63,18 @@ class SetupGetRecoveryPhrase extends Component {
     // on a known phrase that works in testnet/devnet
     this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
     // this.recoveryPhrase = [
-    //   'coin',
-    //   'tortoise',
-    //   'approve',
-    //   'jar',
-    //   'moon',
-    //   'reunion',
-    //   'utility',
-    //   'hello',
-    //   'vicious',
-    //   'shed',
-    //   'property',
-    //   'pet'
+    //   'wink',
+    //   'fantasy',
+    //   'surface',
+    //   'flame',
+    //   'magic',
+    //   'video',
+    //   'manage',
+    //   'wing',
+    //   'logic',
+    //   'insane',
+    //   'slam',
+    //   'empower'
     // ]
     // this.recoveryPhrase = [
     //   'goat',
@@ -185,7 +186,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   _checkRecoveryPhrase = async () => {
     return await RecoveryPhaseHelper.checkRecoveryPhrase(
-      this.recoveryPhrase.join().replace(/,/g, ' '),
+      DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase),
       this.props.navigation.getParam('user', null)
     )
   }
@@ -207,7 +208,9 @@ class SetupGetRecoveryPhrase extends Component {
           walletSetupType: navigation.state.params &&
             navigation.state.params.walletSetupType,
           mode: AppConstants.PASSWORD_RESET_MODE,
-          recoveryPhraseString: this.recoveryPhrase.join().replace(/,/g, ' ')
+          recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
+            this.recoveryPhrase
+          )
         })
         return
       }
@@ -229,7 +232,11 @@ class SetupGetRecoveryPhrase extends Component {
             FlashNotification.showError(error.message, true)
           }
 
-          await MultiSafeHelper.saveUser(user, encryptionPassword)
+          await MultiSafeHelper.saveUser(
+            user,
+            encryptionPassword,
+            DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase)
+          )
 
           this.props.navigation.navigate('Dashboard', {
             user,
