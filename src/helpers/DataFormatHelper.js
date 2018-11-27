@@ -90,10 +90,19 @@ const getAccountEaiRateRequest = wallet => {
   })
 }
 
+const convertRecoveryArrayToString = recoveryPhrase => {
+  return recoveryPhrase
+    .join()
+    .replace(/\s+/g, '')
+    .replace(/,/g, ' ')
+    .toLowerCase()
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
   getNdauFromNapu,
   getObjectWithAllAccounts,
-  getAccountEaiRateRequest
+  getAccountEaiRateRequest,
+  convertRecoveryArrayToString
 }

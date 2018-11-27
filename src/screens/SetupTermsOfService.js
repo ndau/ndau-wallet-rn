@@ -13,6 +13,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -40,12 +41,14 @@ class SetupTermsOfService extends Component {
       user = await MultiSafeHelper.saveUser(
         user,
         password,
-        SetupStore.recoveryPhrase.join().replace(/,/g, ' ')
+        DataFormatHelper.convertRecoveryArrayToString(SetupStore.recoveryPhrase)
       )
     } else if (Object.keys(existingUser).length) {
       user = await MultiSafeHelper.addNewWallet(
         existingUser,
-        SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
+        DataFormatHelper.convertRecoveryArrayToString(
+          SetupStore.recoveryPhrase
+        ),
         SetupStore.walletId,
         existingUser.userId,
         SetupStore.numberOfAccounts,
@@ -55,7 +58,9 @@ class SetupTermsOfService extends Component {
     } else {
       user = await MultiSafeHelper.setupNewUser(
         user,
-        SetupStore.recoveryPhrase.join().replace(/,/g, ' '),
+        DataFormatHelper.convertRecoveryArrayToString(
+          SetupStore.recoveryPhrase
+        ),
         SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
         SetupStore.numberOfAccounts,
         SetupStore.encryptionPassword,

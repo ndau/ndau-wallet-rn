@@ -8,10 +8,12 @@ const getTodaysDate = () => {
 }
 
 const getDateFromMilliseconds = date => {
-  return moment()
-    .millisecond(date / 1000)
-    .subtract(AppConstants.NDAU_YEARS_ADDED_TO_EPOCH, 'y')
-    .format(DATE_FORMAT)
+  const walletDate = new Date(date)
+  const millisecondsWallet = walletDate.getTime() / 1000
+  const ndauEpoch = new Date(AppConstants.NDAU_EPOCH)
+  const millisecondsNdau = ndauEpoch.getTime()
+  const correctDate = new Date(millisecondsWallet + millisecondsNdau)
+  return moment(correctDate).format(DATE_FORMAT)
 }
 
 const getDaysFromMicroseconds = microseconds => {

@@ -15,7 +15,7 @@ const NEW_PASSWORD_MODE = 'new-password'
 
 const TEMP_USER = 'temp-user'
 
-const NDAU_YEARS_ADDED_TO_EPOCH = 30
+const NDAU_EPOCH = '2000-01-01T00:00:00Z'
 
 export default {
   HARDENED_CHILD_BIP_44,
@@ -32,5 +32,5 @@ export default {
   GENESIS_MODE,
   NEW_PASSWORD_MODE,
   TEMP_USER,
-  NDAU_YEARS_ADDED_TO_EPOCH
+  NDAU_EPOCH
 }
