@@ -111,9 +111,10 @@ const accountNotLocked = account => {
 
 const accountNdauAmount = account => {
   return account && account.balance
-    ? parseFloat(DataFormatHelper.getNdauFromNapu(account.balance)).toFixed(
-        AppConfig.NDAU_SUMMARY_PRECISION
-      )
+    ? parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
+        .toFixed(AppConfig.NDAU_SUMMARY_PRECISION)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     : 0.0
 }
 
