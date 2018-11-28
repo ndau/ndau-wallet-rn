@@ -273,7 +273,8 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({
       recoverPhraseFull: false,
       confirmationError: false,
-      textColor: '#ffffff'
+      textColor: '#ffffff',
+      stepNumber: 0,
     })
   }
 
