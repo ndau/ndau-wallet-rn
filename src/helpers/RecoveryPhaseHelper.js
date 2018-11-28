@@ -3,6 +3,7 @@ import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import NdauNodeAPI from '../api/NdauNodeAPI'
 import AppConfig from '../AppConfig'
 import AppConstants from '../AppConstants'
+import DataFormatHelper from './DataFormatHelper'
 
 /**
  * First we check to see if there are a variable number of accounts existent
@@ -32,7 +33,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
       null,
       userId
     )
-    user.wallets[userId] = wallet
+    user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
   } else {
     user = await KeyAddrGenManager.createFirstTimeUser(
       recoveryPhraseBytes,

@@ -202,7 +202,7 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
   const userGettingCreated = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
         accountCreationKey: 'c1ca8e03',
         accounts: {
@@ -246,7 +246,7 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(encryptionPassword)
 
-  console.log(`user: ${JSON.stringify(user, null, 2)}`)
+  // console.log(`user: ${JSON.stringify(user, null, 2)}`)
 
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
@@ -266,7 +266,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
   const userGettingCreated = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
         accountCreationKey: '4cb4dca9',
         accounts: {
@@ -310,7 +310,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
 
-  console.log(`user: ${JSON.stringify(user, null, 2)}`)
+  // console.log(`user: ${JSON.stringify(user, null, 2)}`)
 
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
@@ -330,7 +330,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
   const userGettingCreated = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
         accountCreationKey: '5ba05375',
         accounts: {
@@ -362,7 +362,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
 
-  console.log(`user: ${JSON.stringify(user, null, 2)}`)
+  // console.log(`user: ${JSON.stringify(user, null, 2)}`)
 
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
@@ -370,7 +370,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
   const newUser = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
         accountCreationKey: '5ba05375',
         accounts: {
@@ -432,7 +432,7 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
   const userGettingCreated = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
         accountCreationKey: '1e48ba8c',
         accounts: {
@@ -476,7 +476,7 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
 
-  console.log(`user: ${JSON.stringify(user, null, 2)}`)
+  // // console.log(`user: ${JSON.stringify(user, null, 2)}`)
 
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
@@ -531,7 +531,7 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
   const userGettingCreated = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
         accountCreationKey: '5a3b36e3',
         accounts: {
@@ -575,7 +575,7 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(encryptionPasswordNew)
 
-  console.log(`user: ${JSON.stringify(user, null, 2)}`)
+  // // console.log(`user: ${JSON.stringify(user, null, 2)}`)
 
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
@@ -595,10 +595,80 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
     recoveryPhraseString
   )
 
-  console.log(
-    `user with new wallet: ${JSON.stringify(userWithNewWallet, null, 2)}`
-  )
+  // // console.log(
+  //   `user with new wallet: ${JSON.stringify(userWithNewWallet, null, 2)}`
+  // )
 
   expect(userWithNewWallet).toBeDefined()
   expect(Object.keys(userWithNewWallet.wallets).length).toEqual(2)
+})
+
+test('if you can check that a recovery phrase exists already', async () => {
+  const walletIdNew = 'Kris'
+  const encryptionPasswordNew = 'asdfasdf'
+
+  await MultiSafeHelper.setupNewUser(
+    null,
+    recoveryPhraseString,
+    walletIdNew,
+    numberOfAccounts,
+    encryptionPasswordNew
+  )
+
+  const userGettingCreated = {
+    userId: 'Kris',
+    wallets: {
+      '61d9b642': {
+        walletId: 'Kris',
+        accountCreationKey: '5a3b36e3',
+        accounts: {
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8',
+            addressData: {},
+            ownershipKey: '42514ecf',
+            validationKeys: []
+          },
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac9: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac9',
+            addressData: {},
+            ownershipKey: '4e842c41',
+            validationKeys: []
+          }
+        },
+        keys: {
+          '42514ecf': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj448',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx8',
+            path: "/44'/20036'/100/1",
+            derivedFromRoot: 'yes'
+          },
+          '4e842c41': {
+            publicKey: 'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj449',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx9',
+            path: "/44'/20036'/100/2",
+            derivedFromRoot: 'yes'
+          },
+          '5a3b36e3': {
+            publicKey: '',
+            privateKey: 'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf5',
+            path: "/44'/20036'/100",
+            derivedFromRoot: 'yes'
+          }
+        }
+      }
+    }
+  }
+
+  expect(
+    await MultiSafeHelper.recoveryPhraseAlreadyExists(
+      'Kris',
+      recoveryPhraseString
+    )
+  ).toBeTruthy()
+  expect(
+    await MultiSafeHelper.recoveryPhraseAlreadyExists(
+      'Kris',
+      'this twelve word phrase is not already in the multisafe at all'
+    )
+  ).toBeFalsy()
 })

@@ -136,7 +136,7 @@ const createFirstTimeUser = async (
         chainId,
         numberOfAccounts
       )
-      user.wallets[userId] = wallet
+      user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
     console.log(`User created is: ${JSON.stringify(user, null, 2)}`)
@@ -182,7 +182,9 @@ const createWallet = async (
     let wallet = new Wallet()
     wallet.walletId = walletId
 
-    wallet.accountCreationKey = _createKeyHash(accountCreationKey)
+    wallet.accountCreationKey = DataFormatHelper.create8CharHash(
+      accountCreationKey
+    )
 
     if (numberOfAccounts > 0) {
       await addAccounts(
@@ -217,7 +219,7 @@ const addAccountsToUser = async (
     AppConstants.MAINNET_ADDRESS,
     numberOfAccounts
   )
-  user.wallets[walletId] = wallet
+  user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
 
   await addAccounts(
     wallet,
@@ -263,7 +265,11 @@ const addAccounts = async (
  * @param  {number} numberOfAccounts=1
  */
 const createNewAccount = async (user, numberOfAccounts = 1) => {
-  const wallet = user.wallets[user.userId]
+  // TODO: FOR NOW WE HARDCODE to the first wallet
+  // I have done this as this will all change in MVP where
+  // we will have the ability to add accounts to specific
+  // wallets. This meets the need for the Genesis release
+  const wallet = user.wallets[Object.keys(user.wallets)[0]]
   if (!wallet.accountCreationKey) {
     throw new Error(`The user's wallet passed in has no accountCreationKey`)
   }
@@ -311,11 +317,9 @@ const _generateRootPath = () => {
 }
 
 const _createInitialKeys = (wallet, accountCreationKey) => {
-  wallet.keys[_createKeyHash(accountCreationKey)] = _createKey(
-    accountCreationKey,
-    null,
-    _generateRootPath()
-  )
+  wallet.keys[
+    DataFormatHelper.create8CharHash(accountCreationKey)
+  ] = _createKey(accountCreationKey, null, _generateRootPath())
 }
 
 const _createKey = (privateKey, publicKey, path) => {
@@ -344,9 +348,9 @@ const _createAccount = async (
     accountCreationKey,
     childIndex
   )
-  account.ownershipKey = _createKeyHash(privateKeyForAddress)
+  account.ownershipKey = DataFormatHelper.create8CharHash(privateKeyForAddress)
 
-  const privateKeyHash = _createKeyHash(privateKeyForAddress)
+  const privateKeyHash = DataFormatHelper.create8CharHash(privateKeyForAddress)
   const publicKey = await NativeModules.KeyaddrManager.toPublic(
     privateKeyForAddress
   )
@@ -361,10 +365,6 @@ const _createAccount = async (
   account.address = address
 
   wallet.accounts[address] = account
-}
-
-const _createKeyHash = key => {
-  return sha256(key).toString().substring(0, 8)
 }
 
 const _createAccounts = async (

@@ -14,6 +14,7 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import FlashNotification from '../components/FlashNotification'
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
@@ -22,11 +23,38 @@ class SetupEncryptionPassword extends Component {
     this.state = {
       nameEntered: false
     }
+    this.walletCount = 1
+  }
+
+  componentWillMount = () => {
+    const user = this.props.navigation.getParam('user', null)
+    if (user) {
+      this.walletCount = Object.keys(user.wallets).length
+    }
+    SetupStore.walletId = `Wallet ${this.walletCount}`
+  }
+
+  checkIfWalletAlreadyExists = user => {
+    if (
+      DataFormatHelper.checkIfWalletAlreadyExists(user, SetupStore.walletId)
+    ) {
+      FlashNotification.showError(
+        `${SetupStore.walletId} already exists as a wallet. Please choose another name for your wallet.`
+      )
+      return true
+    }
+
+    return false
   }
 
   showNextSetup = async () => {
     const { navigation } = this.props
     const user = navigation.getParam('user', null)
+
+    if (this.checkIfWalletAlreadyExists(user)) {
+      return
+    }
+
     if (user) {
       // get it out of AppConstants.TEMP_USER if we have to
       // and into the new walletId
@@ -79,10 +107,10 @@ class SetupEncryptionPassword extends Component {
                 this.setState({ nameEntered: true })
                 SetupStore.walletId = value
               }}
-              // value={(value) => {
-              //   SetupStore.walletId = value;
+              // value={value => {
+              //   SetupStore.walletId = value
               // }}
-              placeholder={`Wallet ${SetupStore.walletId}`}
+              placeholder={SetupStore.walletId}
               placeholderTextColor='#333'
               autoCapitalize='none'
             />
@@ -91,7 +119,7 @@ class SetupEncryptionPassword extends Component {
             <CommonButton
               onPress={this.showNextSetup}
               title='Next'
-              disabled={!this.state.nameEntered}
+              // disabled={!this.state.nameEntered}
             />
           </View>
         </View>

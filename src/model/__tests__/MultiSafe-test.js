@@ -120,7 +120,7 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
   })
 
   it('should be able to get the storage with a newly created MultiSafe', async () => {
-    console.log('starting last test')
+    // console.log('starting last test')
     let o = {
       s: 'I am Groot',
       ndau: 1234437970
@@ -128,22 +128,22 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
     let pw = '1234'
     let sk = 'storagekey6'
     let ms = new MultiSafe()
-    console.log('creating 1')
+    // console.log('creating 1')
     await ms.create(sk, pw)
-    console.log('Storing 1')
+    // console.log('Storing 1')
     await ms.store(o, pw)
-    console.log('retrieving 1')
+    // console.log('retrieving 1')
     let y = await ms.retrieve(pw)
     expect(y).toEqual(o)
     expect(await ms.verify(pw)).toBeTruthy()
 
     let ms1 = new MultiSafe()
-    console.log('creating 2')
+    // console.log('creating 2')
     await ms1.create(sk, pw)
     expect(ms1.storageKey).toEqual(ms.storageKey)
-    console.log('verifying 2')
+    // console.log('verifying 2')
     expect(await ms1.verify(pw)).toBeTruthy()
-    console.log('retrieving 2')
+    // console.log('retrieving 2')
     let z = await ms1.retrieve(pw)
     expect(z).toEqual(o)
   })
@@ -178,7 +178,7 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
 
     let ms1 = new MultiSafe()
     let storageKeys = await ms1.getStorageKeys()
-    console.log(`storageKeys are ${storageKeys}`)
+    // console.log(`storageKeys are ${storageKeys}`)
     expect(storageKeys[7]).toEqual(sk)
   })
 
