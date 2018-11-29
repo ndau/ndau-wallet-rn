@@ -15,8 +15,16 @@ class TransactionTabs extends Component {
 
     const Navigator = createMaterialTopTabNavigator(
       {
-        Receive: ReceiveWithProps
+        Receive: ReceiveWithProps,
         // Send: SendWithProps,
+
+        Receive: {
+          screen: ReceiveWithProps,
+          navigationOptions: ({ navigation }) => ({
+            title: 'Receive ndau',
+          }),
+        },
+      
       },
       {
         animationEnabled: false,
@@ -55,7 +63,7 @@ class Receive extends Component {
           />
         </View>
 
-        <Text style={styles.text}>
+        <Text style={styles.address}>
           {this.props.address}
         </Text>
 
@@ -105,12 +113,12 @@ class Receive extends Component {
 // }
 
 const tabBarOptions = {
+  upperCaseLabel: false,
   labelStyle: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   tabStyle: {
-    marginBottom: hp('1%'),
     backgroundColor: 'transparent'
   },
   indicatorStyle: {
@@ -133,12 +141,12 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'space-around'
   },
-  text: {
+  address: {
     color: '#ffffff',
-    fontSize: 17,
-    fontFamily: 'TitilliumWeb-Regular',
-    marginTop: hp('1%'),
-    marginBottom: hp('1%'),
+    fontSize: 13,
+    fontFamily: 'TitilliumWeb-300',
+    marginTop: hp('0.5%'),
+    marginBottom: hp('0.5%'),
     marginLeft: wp('1%'),
     marginRight: wp('1%')
   }

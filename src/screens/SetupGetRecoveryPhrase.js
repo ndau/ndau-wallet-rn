@@ -248,7 +248,7 @@ class SetupGetRecoveryPhrase extends Component {
         }
       } else {
         this.setState({
-          textColor: '#ff0000',
+          textColor: '#f05123',
           confirmationError: true
         })
         FlashNotification.showError(
@@ -259,7 +259,7 @@ class SetupGetRecoveryPhrase extends Component {
     } catch (error) {
       console.warn(error)
       this.setState({
-        textColor: '#ff0000',
+        textColor: '#f05123',
         confirmationError: true
       })
       FlashNotification.showError(

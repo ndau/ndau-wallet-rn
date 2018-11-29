@@ -73,7 +73,7 @@ class SetupNewOrRecovery extends Component {
             <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={cssStyles.wizardText}>
-                How do you want to setup your wallet? Choose one of the options below
+                How do you want to set up your wallet? Choose one of the options below:
                 {' '}
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
