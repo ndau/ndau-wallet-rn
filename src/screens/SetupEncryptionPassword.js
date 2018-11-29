@@ -8,7 +8,7 @@ import {
   Alert
 } from 'react-native'
 import CheckBox from 'react-native-check-box'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import CommonButton from '../components/CommonButton'
 import SetupProgressBar from '../components/SetupProgressBar'
 import cssStyles from '../css/styles'
@@ -173,11 +173,12 @@ class SetupEncryptionPassword extends Component {
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 {this.state.instructionText}{'  '}
-                <FontAwesome
+                <FontAwesome5Pro
                   name='info'
                   color='#ffffff'
                   size={20}
                   style={{ marginBottom: 3 }}
+                  light
                 />
               </Text>
             </View>

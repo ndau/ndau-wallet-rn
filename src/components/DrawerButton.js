@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Platform, TouchableOpacity } from 'react-native'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import cssStyles from '../css/styles'
 import {
   widthPercentageToDP as wp,
@@ -14,7 +14,13 @@ export const DrawerButton = props => (
         props.navigation.openDrawer()
       }}
     >
-      <MaterialIcons name='menu' size={32} color='#fff' style={styles.header} />
+      <FontAwesome5Pro
+        name='bars'
+        size={32}
+        color='#fff'
+        style={styles.header}
+        light
+      />
     </TouchableOpacity>
   </View>
 )

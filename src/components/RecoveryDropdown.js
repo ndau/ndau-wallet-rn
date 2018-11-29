@@ -31,7 +31,11 @@ class RecoveryDropdown extends Component {
   onPress (title) {
     console.log(`title selected is ${title}`)
     this.setState({ query: title, list: [] })
-    this.props.addToRecoveryPhrase(title, this.props.index)
+    this.props.addToRecoveryPhrase(title)
+  }
+
+  clearWord = () => {
+    this.setState({ query: '' })
   }
 
   goGetTheData = async query => {
@@ -92,14 +96,14 @@ class RecoveryDropdown extends Component {
         containerStyle={styles.autocompleteContainer}
         inputContainerStyle={styles.containerStyle}
         data={this.getData(query)}
-        defaultValue={query || this.props.recoveryPhrase[this.props.index]}
+        defaultValue={query || this.props.recoveryWord}
         onChangeText={text => {
           this.retrievedData = false
           this.setState({
             query: text,
             list: text === '' ? [] : this.state.list
           })
-          this.props.addToRecoveryPhrase(text, this.props.index)
+          this.props.addToRecoveryPhrase(text)
         }}
         listContainerStyle={styles.listContainerStyle}
         placeholderTextColor='#ffffff'

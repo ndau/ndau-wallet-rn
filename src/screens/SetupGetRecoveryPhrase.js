@@ -17,7 +17,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import RecoveryDropdown from '../components/RecoveryDropdown'
-import Carousel from 'react-native-looped-carousel'
 import { Dialog } from 'react-native-simple-dialogs'
 import SetupProgressBar from '../components/SetupProgressBar'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
@@ -26,7 +25,7 @@ import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
@@ -39,7 +38,7 @@ class SetupGetRecoveryPhrase extends Component {
     super(props)
     this.NORMAL_MODE_TEXT =
       `To verify your account please verify your twelve-word recovery` +
-      `phrase below. Start typing in the box below, then pick the correct suggestion.`
+      ` phrase below. Start typing in the box below, then pick the correct suggestion.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
@@ -59,7 +58,9 @@ class SetupGetRecoveryPhrase extends Component {
       acquisitionError: false,
       stepNumber: 0,
       introductionText: this.NORMAL_MODE_TEXT,
-      mode: AppConstants.NORMAL_MODE
+      mode: AppConstants.NORMAL_MODE,
+      recoveryWord: '',
+      recoveryIndex: 0
     }
 
     this.index = 0
@@ -107,6 +108,7 @@ class SetupGetRecoveryPhrase extends Component {
       this.boxHeight = '30%'
       console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`)
     }
+    this.recoveryDropdownRef = null
   }
 
   componentWillMount () {
@@ -128,8 +130,8 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({ mode, introductionText })
   }
 
-  addToRecoveryPhrase = (value, index) => {
-    this.recoveryPhrase[index] = value
+  addToRecoveryPhrase = value => {
+    this.recoveryPhrase[this.state.recoveryIndex] = value
   }
 
   noRecoveryPhrase = () => {
@@ -142,61 +144,25 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
-  // _onLayoutDidChange = e => {
-  //   const layout = e.nativeEvent.layout
-  //   this.setState({ size: { width: layout.width, height: layout.height } })
-  // }
-
-  // _generatePage = index => {
-  //   const style = [this.state.size, cssStyles.recoveryPageView]
-  //   if (index === 0) {
-  //     style.push({
-  //       ...Platform.select({
-  //         android: {
-  //           marginLeft: wp('14%')
-  //         }
-  //       })
-  //     })
-  //   }
-  //   return (
-  //     <View style={style} key={index}>
-  //       <Text
-  //         style={[
-  //           cssStyles.wizardText,
-  //           { marginTop: hp('1%'), marginRight: wp('2%') }
-  //         ]}
-  //       >
-  //         {index + 1}.
-  //       </Text>
-  //       <RecoveryDropdown
-  //         addToRecoveryPhrase={this.addToRecoveryPhrase}
-  //         index={index}
-  //         setAcquisitionError={this.setAcquisitionError}
-  //         recoveryPhrase={this.recoveryPhrase}
-  //       />
-  //     </View>
-  //   )
-  // }
-
-  // _generatePages = () => {
-  //   const pages = this.recoveryPhrase.map((phrase, i) => {
-  //     return this._generatePage(i)
-  //   })
-
-  //   // add one more page to facilitate the carousel functionality
-  //   pages.push(this._generatePage(pages.length))
-
-  //   return pages
-  // }
   _moveToNextWord = () => {
-    if (this.index < 11) {
-      this.index++
+    if (this.state.recoveryIndex < 11) {
+      this.setState({
+        recoveryIndex: this.state.recoveryIndex + 1,
+        recoveryWord: this.recoveryPhrase[this.state.recoveryIndex + 1]
+      })
+      if (this.recoveryDropdownRef) {
+        this.recoveryDropdownRef.clearWord()
+      }
     }
   }
 
   _moveBackAWord = () => {
-    if (this.index < 0) {
-      this.index--
+    if (this.state.recoveryIndex > 0) {
+      this.setState({ recoveryIndex: this.state.recoveryIndex - 1 }, () => {
+        this.setState({
+          recoveryWord: this.recoveryPhrase[this.state.recoveryIndex]
+        })
+      })
     }
   }
 
@@ -221,8 +187,8 @@ class SetupGetRecoveryPhrase extends Component {
       if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
         navigation.navigate('SetupEncryptionPassword', {
           user,
-          walletSetupType: navigation.state.params &&
-            navigation.state.params.walletSetupType,
+          walletSetupType:
+            navigation.state.params && navigation.state.params.walletSetupType,
           mode: AppConstants.PASSWORD_RESET_MODE,
           recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
             this.recoveryPhrase
@@ -257,7 +223,8 @@ class SetupGetRecoveryPhrase extends Component {
           this.props.navigation.navigate('Dashboard', {
             user,
             encryptionPassword,
-            walletSetupType: navigation.state.params &&
+            walletSetupType:
+              navigation.state.params &&
               navigation.state.params.walletSetupType,
             marketPrice
           })
@@ -277,7 +244,8 @@ class SetupGetRecoveryPhrase extends Component {
           SetupStore.recoveryPhrase = this.recoveryPhrase
           navigation.navigate('SetupWalletName', {
             user,
-            walletSetupType: navigation.state.params &&
+            walletSetupType:
+              navigation.state.params &&
               navigation.state.params.walletSetupType
           })
         }
@@ -333,7 +301,7 @@ class SetupGetRecoveryPhrase extends Component {
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View style={{ marginBottom: 10 }}>
+            <View style={{ marginBottom: wp('5%') }}>
               <Text style={cssStyles.wizardText}>
                 {this.state.introductionText}
               </Text>
@@ -345,23 +313,6 @@ class SetupGetRecoveryPhrase extends Component {
                 justifyContent: 'center'
               }}
             >
-              {/* <Carousel
-                style={this.state.size}
-                leftArrowText={'＜'}
-                leftArrowStyle={cssStyles.carouselArrows}
-                rightArrowText={'＞'}
-                rightArrowStyle={cssStyles.carouselArrows}
-                // pageInfo
-                // pageInfoTextStyle={cssStyles.smallWhiteText}
-                // bullets
-                arrows
-                isLooped={false}
-                autoplay={false}
-                onAnimateNextPage={this.adjustStepNumber}
-                onPageBeingChanged={this.checkIfDone}
-              >
-                {pages}
-              </Carousel> */}
               <View
                 style={{
                   flexDirection: 'row',
@@ -369,29 +320,38 @@ class SetupGetRecoveryPhrase extends Component {
                   justifyContent: 'center'
                 }}
               >
-                <TouchableOpacity onPress={this.props.subtractNumber}>
-                  <FontAwesome
-                    name='arrow-alt-circle-left'
+                <TouchableOpacity
+                  style={{ marginRight: wp('3%') }}
+                  onPress={this._moveBackAWord}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-left'
                     color={styleConstants.ICON_GRAY}
                     size={32}
+                    light
                   />
                 </TouchableOpacity>
                 <RecoveryDropdown
                   addToRecoveryPhrase={this.addToRecoveryPhrase}
-                  // index={index}
                   setAcquisitionError={this.setAcquisitionError}
-                  recoveryPhrase={this.recoveryPhrase}
+                  recoveryWord={this.state.recoveryWord}
+                  ref={input => {
+                    this.recoveryDropdownRef = input
+                  }}
                 />
-                <TouchableOpacity onPress={this.props.addNumber}>
-                  <FontAwesome
-                    name='plus-circle'
+                <TouchableOpacity
+                  style={{ marginLeft: wp('3%') }}
+                  onPress={this._moveToNextWord}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-right'
                     color={styleConstants.ICON_GRAY}
                     size={32}
+                    light
                   />
                 </TouchableOpacity>
               </View>
             </View>
-
           </ScrollView>
           <View style={cssStyles.footer}>
             <Text
@@ -413,9 +373,9 @@ class SetupGetRecoveryPhrase extends Component {
         >
           <View>
             <Text style={cssStyles.blackDialogText}>
-              Your recovery phrase is necessary to prove ownership of your ndau. Your wallet cannot
-              be restored without it. If you have lost your recovery phrase please contact.
-              {' '}
+              Your recovery phrase is necessary to prove ownership of your ndau.
+              Your wallet cannot be restored without it. If you have lost your
+              recovery phrase please contact.{' '}
             </Text>
             <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
               Oneiro concierge support.

@@ -22,7 +22,7 @@ import UnlockModalDialog from '../components/UnlockModalDialog'
 import LockModalDialog from '../components/LockModalDialog'
 import NewAccountModalDialog from '../components/NewAccountModalDialog'
 import TransactionModalDialog from '../components/TransactionModalDialog'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
@@ -214,7 +214,8 @@ class Dashboard extends Component {
               {currentPrice}
               <Text style={styles.asterisks}>**</Text>
               <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
-                {' '}at current price
+                {' '}
+                at current price
               </Text>
             </Text>
             <View style={cssStyles.dashboardSmallTextContainer}>
@@ -232,10 +233,11 @@ class Dashboard extends Component {
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
                   onPress={this.launchAddNewAccountDialog}
                 >
-                  <FontAwesome
+                  <FontAwesome5Pro
                     name='plus-circle'
                     color={styleConstants.ICON_GRAY}
                     size={20}
+                    light
                   />
                 </TouchableOpacity>
               </View>
@@ -326,14 +328,12 @@ class Dashboard extends Component {
                 { paddingRight: wp('4%') }
               ]}
             >
-              The estimated value of ndau in US dollars can be calculated using the Target Price at
-              which new ndau have most recently been issued. The value shown here is calculated
-              using that method as of the issue price on
-              {' '}
-              {DateHelper.getTodaysDate()}
-              . The Axiom
-              Foundation bears no responsibility or liability for the calculation of that estimated
-              value, or for decisions based on that estimated value.
+              The estimated value of ndau in US dollars can be calculated using
+              the Target Price at which new ndau have most recently been issued.
+              The value shown here is calculated using that method as of the
+              issue price on {DateHelper.getTodaysDate()}. The Axiom Foundation
+              bears no responsibility or liability for the calculation of that
+              estimated value, or for decisions based on that estimated value.
             </Text>
           </View>
         </ScrollView>
