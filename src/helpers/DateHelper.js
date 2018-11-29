@@ -7,6 +7,10 @@ const getTodaysDate = () => {
   return moment().format(DATE_FORMAT)
 }
 
+const getMicrosecondsSinceNdauEpoch = () => {
+  return moment().diff(AppConstants.NDAU_EPOCH, 'milliseconds') * 1000
+}
+
 const getDateFromMilliseconds = date => {
   const walletDate = new Date(date)
   const millisecondsWallet = walletDate.getTime() / 1000
@@ -23,5 +27,6 @@ const getDaysFromMicroseconds = microseconds => {
 export default {
   getTodaysDate,
   getDateFromMilliseconds,
-  getDaysFromMicroseconds
+  getDaysFromMicroseconds,
+  getMicrosecondsSinceNdauEpoch
 }

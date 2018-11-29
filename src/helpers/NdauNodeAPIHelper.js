@@ -9,12 +9,11 @@ const populateWalletWithAddressData = async wallet => {
     Object.keys(wallet.accounts)
   )
   const eaiRateData = await NdauNodeAPI.getEaiRate(wallet)
-
   const addressData = addressDataFromAPI || {}
 
   const eaiRateMap = new Map()
   eaiRateData.forEach(account => {
-    eaiRateMap.set(account.address, account.eaiPercentage)
+    eaiRateMap.set(account.address, account.eairate)
   })
 
   const addressNicknameMap = new Map()
@@ -64,7 +63,9 @@ const populateWalletWithAddressData = async wallet => {
 }
 
 const eaiPercentage = account => {
-  return account && account.eaiPercentage ? account.eaiPercentage : null
+  return account && account.eaiPercentage
+    ? account.eaiPercentage / 10000000000
+    : null
 }
 
 const receivingEAIFrom = account => {
