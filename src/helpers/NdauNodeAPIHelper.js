@@ -3,6 +3,7 @@ import DateHelper from './DateHelper'
 import AppConfig from '../AppConfig'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from './DataFormatHelper'
+import AppConstants from '../AppConstants'
 
 const populateWalletWithAddressData = async wallet => {
   const addressDataFromAPI = await NdauNodeAPI.getAddressData(
@@ -64,7 +65,7 @@ const populateWalletWithAddressData = async wallet => {
 
 const eaiPercentage = account => {
   return account && account.eaiPercentage
-    ? account.eaiPercentage / 10000000000
+    ? account.eaiPercentage / AppConstants.RATE_DENOMINATOR
     : null
 }
 

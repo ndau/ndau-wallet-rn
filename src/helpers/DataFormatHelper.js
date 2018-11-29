@@ -99,10 +99,13 @@ const getObjectWithAllAccounts = user => {
 const getAccountEaiRateRequest = wallet => {
   return Object.keys(wallet.accounts).map(accountKey => {
     const account = wallet.accounts[accountKey]
-    const weightedAverageAge =
-      account.addressData.weightedAverageAge +
-      (DateHelper.getMicrosecondsSinceNdauEpoch() -
-        account.addressData.lastWAAUpdate)
+    let weightedAverageAge = account.addressData.weightedAverageAge
+    if (weightedAverageAge === 0) {
+      weightedAverageAge =
+        account.addressData.weightedAverageAge +
+        (DateHelper.getMicrosecondsSinceNdauEpoch() -
+          account.addressData.lastWAAUpdate)
+    }
     return {
       address: accountKey,
       weightedAverageAge,

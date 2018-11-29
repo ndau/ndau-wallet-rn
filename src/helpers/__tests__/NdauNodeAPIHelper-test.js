@@ -170,5 +170,5 @@ test('if we can get the correct EAI rate from what comes back', async () => {
     eaiPercentage: 70000000000
   }
 
-  expect(NdauNodeAPIHelper.eaiPercentage(account)).toBe(7)
+  expect(NdauNodeAPIHelper.eaiPercentage(account)).toBe(0.07)
 })
