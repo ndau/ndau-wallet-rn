@@ -5,7 +5,8 @@ import {
   Text,
   Linking,
   PixelRatio,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
 import CommonButton from '../components/CommonButton'
@@ -28,6 +29,7 @@ import FlashNotification from '../components/FlashNotification'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import styleConstants from '../css/styleConstants'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -60,23 +62,25 @@ class SetupGetRecoveryPhrase extends Component {
       mode: AppConstants.NORMAL_MODE
     }
 
+    this.index = 0
+
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
-    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
-    this.recoveryPhrase = [
-      'crouch',
-      'like',
-      'blue',
-      'heavy',
-      'fatal',
-      'board',
-      'night',
-      'protect',
-      'cushion',
-      'bag',
-      'sun',
-      'grace'
-    ]
+    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    // this.recoveryPhrase = [
+    //   'crouch',
+    //   'like',
+    //   'blue',
+    //   'heavy',
+    //   'fatal',
+    //   'board',
+    //   'night',
+    //   'protect',
+    //   'cushion',
+    //   'bag',
+    //   'sun',
+    //   'grace'
+    // ]
     // this.recoveryPhrase = [
     //   'goat',
     //   'amount',
@@ -138,51 +142,62 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
-  _onLayoutDidChange = e => {
-    const layout = e.nativeEvent.layout
-    this.setState({ size: { width: layout.width, height: layout.height } })
-  }
+  // _onLayoutDidChange = e => {
+  //   const layout = e.nativeEvent.layout
+  //   this.setState({ size: { width: layout.width, height: layout.height } })
+  // }
 
-  _generatePage = index => {
-    const style = [this.state.size, cssStyles.recoveryPageView]
-    if (index === 0) {
-      style.push({
-        ...Platform.select({
-          android: {
-            marginLeft: wp('14%')
-          }
-        })
-      })
+  // _generatePage = index => {
+  //   const style = [this.state.size, cssStyles.recoveryPageView]
+  //   if (index === 0) {
+  //     style.push({
+  //       ...Platform.select({
+  //         android: {
+  //           marginLeft: wp('14%')
+  //         }
+  //       })
+  //     })
+  //   }
+  //   return (
+  //     <View style={style} key={index}>
+  //       <Text
+  //         style={[
+  //           cssStyles.wizardText,
+  //           { marginTop: hp('1%'), marginRight: wp('2%') }
+  //         ]}
+  //       >
+  //         {index + 1}.
+  //       </Text>
+  //       <RecoveryDropdown
+  //         addToRecoveryPhrase={this.addToRecoveryPhrase}
+  //         index={index}
+  //         setAcquisitionError={this.setAcquisitionError}
+  //         recoveryPhrase={this.recoveryPhrase}
+  //       />
+  //     </View>
+  //   )
+  // }
+
+  // _generatePages = () => {
+  //   const pages = this.recoveryPhrase.map((phrase, i) => {
+  //     return this._generatePage(i)
+  //   })
+
+  //   // add one more page to facilitate the carousel functionality
+  //   pages.push(this._generatePage(pages.length))
+
+  //   return pages
+  // }
+  _moveToNextWord = () => {
+    if (this.index < 11) {
+      this.index++
     }
-    return (
-      <View style={style} key={index}>
-        <Text
-          style={[
-            cssStyles.wizardText,
-            { marginTop: hp('1%'), marginRight: wp('2%') }
-          ]}
-        >
-          {index + 1}.
-        </Text>
-        <RecoveryDropdown
-          addToRecoveryPhrase={this.addToRecoveryPhrase}
-          index={index}
-          setAcquisitionError={this.setAcquisitionError}
-          recoveryPhrase={this.recoveryPhrase}
-        />
-      </View>
-    )
   }
 
-  _generatePages = () => {
-    const pages = this.recoveryPhrase.map((phrase, i) => {
-      return this._generatePage(i)
-    })
-
-    // add one more page to facilitate the carousel functionality
-    pages.push(this._generatePage(pages.length))
-
-    return pages
+  _moveBackAWord = () => {
+    if (this.index < 0) {
+      this.index--
+    }
   }
 
   _checkRecoveryPhrase = async () => {
@@ -305,7 +320,7 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   _renderAcquisition = () => {
-    const pages = this._generatePages()
+    // const pages = this._generatePages()
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
@@ -323,8 +338,14 @@ class SetupGetRecoveryPhrase extends Component {
                 {this.state.introductionText}
               </Text>
             </View>
-            <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
-              <Carousel
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              {/* <Carousel
                 style={this.state.size}
                 leftArrowText={'＜'}
                 leftArrowStyle={cssStyles.carouselArrows}
@@ -340,8 +361,37 @@ class SetupGetRecoveryPhrase extends Component {
                 onPageBeingChanged={this.checkIfDone}
               >
                 {pages}
-              </Carousel>
+              </Carousel> */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <TouchableOpacity onPress={this.props.subtractNumber}>
+                  <FontAwesome
+                    name='arrow-alt-circle-left'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                  />
+                </TouchableOpacity>
+                <RecoveryDropdown
+                  addToRecoveryPhrase={this.addToRecoveryPhrase}
+                  // index={index}
+                  setAcquisitionError={this.setAcquisitionError}
+                  recoveryPhrase={this.recoveryPhrase}
+                />
+                <TouchableOpacity onPress={this.props.addNumber}>
+                  <FontAwesome
+                    name='plus-circle'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
+
           </ScrollView>
           <View style={cssStyles.footer}>
             <Text

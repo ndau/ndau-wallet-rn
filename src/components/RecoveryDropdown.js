@@ -88,6 +88,7 @@ class RecoveryDropdown extends Component {
         style={mainStyle}
         autoCapitalize='none'
         autoCorrect={false}
+        autoFocus
         containerStyle={styles.autocompleteContainer}
         inputContainerStyle={styles.containerStyle}
         data={this.getData(query)}
