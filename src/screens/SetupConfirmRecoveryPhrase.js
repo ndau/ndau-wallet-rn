@@ -152,7 +152,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       const errorText = this.state.mustRetry
         ? 'Please click the Back button to generate a new recovery phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
         : 'Please enter the words in the correct order. De-select the last word to continue.'
-      FlashNotification.showError(errorText, true)
+      FlashNotification.showError(errorText)
 
       let errorCount = this.state.errorCount + 1
       this.setState({

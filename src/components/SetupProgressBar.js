@@ -53,7 +53,7 @@ class SetupProgressBar extends Component {
     if (!this.walletSetupType || !this.screenNumber) {
       return (
         // placeholder for consistent spacing in UI
-        <View style={{ marginBottom: hp('7%') }} />
+        <View style={{ marginBottom: hp('10%') }} />
       )
     }
 
@@ -66,12 +66,12 @@ class SetupProgressBar extends Component {
     const progress = 100 / this.numberOfSteps * step
 
     return (
-      <View style={{ marginBottom: hp('3%') }}>
+      <View style={{ marginTop: hp('3%'), marginBottom: hp('3%') }}>
         <ProgressBar
           progress={progress}
           currentStep={step}
           numberOfSteps={this.numberOfSteps}
-          showSteps={this.numberOfSteps < 11}
+          // showSteps={this.numberOfSteps < 11}
         />
       </View>
     )

@@ -193,7 +193,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   setAcquisitionError = value => {
     if (value) {
-      FlashNotification.showError('Please select a valid word.', true)
+      FlashNotification.showError('Please select a valid word.', false)
     }
     this.setState({ acquisitionError: value })
   }
@@ -229,7 +229,7 @@ class SetupGetRecoveryPhrase extends Component {
             await UserData.loadData(user)
             marketPrice = await OrderNodeAPI.getMarketPrice()
           } catch (error) {
-            FlashNotification.showError(error.message, true)
+            FlashNotification.showError(error.message)
           }
 
           await MultiSafeHelper.saveUser(
@@ -255,18 +255,15 @@ class SetupGetRecoveryPhrase extends Component {
         }
       } else {
         this.setState({
-          textColor: '#ff0000',
+          textColor: '#f05123',
           confirmationError: true
         })
-        FlashNotification.showError(
-          'Is this the correct recovery phrase? Please correct any errors.',
-          true
-        )
+        FlashNotification.showError('Is this the correct recovery phrase? Please correct any errors.')
       }
     } catch (error) {
       console.warn(error)
       this.setState({
-        textColor: '#ff0000',
+        textColor: '#f05123',
         confirmationError: true
       })
       FlashNotification.showError(
@@ -280,7 +277,8 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({
       recoverPhraseFull: false,
       confirmationError: false,
-      textColor: '#ffffff'
+      textColor: '#ffffff',
+      stepNumber: 0,
     })
   }
 

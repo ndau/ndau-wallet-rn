@@ -34,7 +34,7 @@ class DashboardDrawer extends React.Component {
     this.props.navigation.closeDrawer()
     Alert.alert(
       'Logout Confirmation',
-      'Are you sure you would like to logout of ndau wallet?',
+      'Are you sure you want to log out of ndau wallet?',
       [
         {
           text: 'Cancel',
@@ -65,7 +65,7 @@ class DashboardDrawer extends React.Component {
                 style={cssStyles.drawerTextImageDashboard}
                 source={require('img/billfold-revised1024.png')}
               />
-              <Text style={cssStyles.drawerText}>Dashboard</Text>
+              <Text style={cssStyles.drawerText}>Wallets</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
