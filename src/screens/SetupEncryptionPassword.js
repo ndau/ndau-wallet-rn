@@ -111,7 +111,8 @@ class SetupEncryptionPassword extends Component {
     const user = this.props.navigation.getParam('user', null)
     this.props.navigation.navigate('SetupTermsOfService', {
       user,
-      walletSetupType: this.props.navigation.state.params &&
+      walletSetupType:
+        this.props.navigation.state.params &&
         this.props.navigation.state.params.walletSetupType
     })
   }
@@ -172,9 +173,10 @@ class SetupEncryptionPassword extends Component {
             <SetupProgressBar navigation={this.props.navigation} />
             <View style={styles.textContainer}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                {this.state.instructionText}{'  '}
+                {this.state.instructionText}
+                {'  '}
                 <FontAwesome5Pro
-                  name='info'
+                  name='info-circle'
                   color='#ffffff'
                   size={20}
                   style={{ marginBottom: 3 }}

@@ -11,7 +11,9 @@ const loadData = async user => {
 
   // after the data is loaded successfully then save the user
   const password = await AsyncStorageHelper.getApplicationPassword()
-  await MultiSafeHelper.saveUser(user, password)
+  if (user && password) {
+    await MultiSafeHelper.saveUser(user, password)
+  }
 }
 
 export default {

@@ -32,6 +32,7 @@ class RecoveryDropdown extends Component {
     console.log(`title selected is ${title}`)
     this.setState({ query: title, list: [] })
     this.props.addToRecoveryPhrase(title)
+    this.props.setDisableArrows(false)
   }
 
   clearWord = () => {
@@ -46,6 +47,13 @@ class RecoveryDropdown extends Component {
         5
       )
       this.retrievedData = true
+
+      console.log(`words; ${words} query: ${query}`)
+      if (words === query) {
+        this.props.setDisableArrows(false)
+        this.setState({ list: [] })
+        return
+      }
       wordsArray = words.split(' ')
       // console.log(`wordsArray is ${wordsArray}`)
 

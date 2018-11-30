@@ -29,6 +29,8 @@ import {
 import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import styleConstants from '../css/styleConstants'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 
 class Passphrase extends Component {
   constructor (props) {
@@ -97,7 +99,9 @@ class Passphrase extends Component {
       this.showExitApp()
     }
     FlashNotification.showError(
-      `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`
+      `Login attempt ${this.state.loginAttempt} of ${
+        this.maxLoginAttempts
+      } failed.`
     )
     this.setState({ loginAttempt: this.state.loginAttempt + 1 })
   }
@@ -177,20 +181,21 @@ class Passphrase extends Component {
             </View>
             <View style={styles.imageView}>
               <TouchableOpacity onPress={this.showInformation}>
-                <Image
-                  style={{ width: 35, height: 38 }}
-                  source={require('img/info_icon_gold.png')}
+                <FontAwesome5Pro
+                  name='info-circle'
+                  color={styleConstants.LINK_ORANGE}
+                  size={30}
+                  light
                 />
               </TouchableOpacity>
             </View>
-            {this.state.showErrorText
-              ? <View style={styles.errorContainer}>
+            {this.state.showErrorText ? (
+              <View style={styles.errorContainer}>
                 <Text style={cssStyles.errorText}>
-                    Please enter the passphrase you chose to decrypt this app.
-                    {' '}
+                  Please enter the passphrase you chose to decrypt this app.{' '}
                 </Text>
               </View>
-              : null}
+            ) : null}
           </ScrollView>
           <View style={styles.footer}>
             <View>

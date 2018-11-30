@@ -60,28 +60,29 @@ class SetupGetRecoveryPhrase extends Component {
       introductionText: this.NORMAL_MODE_TEXT,
       mode: AppConstants.NORMAL_MODE,
       recoveryWord: '',
-      recoveryIndex: 0
+      recoveryIndex: 0,
+      disableArrows: true
     }
 
     this.index = 0
 
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
-    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
-    // this.recoveryPhrase = [
-    //   'crouch',
-    //   'like',
-    //   'blue',
-    //   'heavy',
-    //   'fatal',
-    //   'board',
-    //   'night',
-    //   'protect',
-    //   'cushion',
-    //   'bag',
-    //   'sun',
-    //   'grace'
-    // ]
+    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    this.recoveryPhrase = [
+      'crouch',
+      'like',
+      'blue',
+      'heavy',
+      'fatal',
+      'board',
+      'night',
+      'protect',
+      'cushion',
+      'bag',
+      'sun',
+      'grace'
+    ]
     // this.recoveryPhrase = [
     //   'goat',
     //   'amount',
@@ -150,7 +151,8 @@ class SetupGetRecoveryPhrase extends Component {
       this.setState(
         {
           recoveryIndex: newRecoveryIndex,
-          recoveryWord: this.recoveryPhrase[newRecoveryIndex]
+          recoveryWord: this.recoveryPhrase[newRecoveryIndex],
+          disableArrows: this.recoveryPhrase[newRecoveryIndex] === ''
         },
         () => {
           this.adjustStepNumber(this.state.recoveryIndex)
@@ -168,7 +170,8 @@ class SetupGetRecoveryPhrase extends Component {
       this.setState(
         {
           recoveryIndex: newRecoveryIndex,
-          recoveryWord: this.recoveryPhrase[newRecoveryIndex]
+          recoveryWord: this.recoveryPhrase[newRecoveryIndex],
+          disableArrows: false
         },
         () => {
           this.adjustStepNumber(this.state.recoveryIndex)
@@ -184,9 +187,14 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
+  setDisableArrows = value => {
+    this.setState({ disableArrows: value })
+  }
+
   setAcquisitionError = value => {
     if (value) {
       FlashNotification.showError('Please select a valid word.', true)
+      this.setState({ disableArrows: value })
     }
     this.setState({ acquisitionError: value })
   }
@@ -290,7 +298,8 @@ class SetupGetRecoveryPhrase extends Component {
       textColor: '#ffffff',
       recoveryIndex: 0,
       stepNumber: 0,
-      recoveryWord: this.recoveryPhrase[0]
+      recoveryWord: this.recoveryPhrase[0],
+      disableArrows: false
     })
   }
 
@@ -329,16 +338,22 @@ class SetupGetRecoveryPhrase extends Component {
               <View
                 style={{
                   flexDirection: 'row',
-                  alignItems: 'center',
                   justifyContent: 'center'
                 }}
               >
                 <TouchableOpacity
-                  style={{ marginRight: wp('3%') }}
+                  style={{
+                    marginLeft: wp('5%'),
+                    ...Platform.select({
+                      ios: {
+                        marginRight: hp('2%')
+                      },
+                      android: {
+                        marginRight: hp('3%')
+                      }
+                    })
+                  }}
                   onPress={this._moveBackAWord}
-                  disabled={
-                    !this.state.recoveryWord && this.state.acquisitionError
-                  }
                 >
                   <FontAwesome5Pro
                     name='arrow-circle-left'
@@ -351,16 +366,15 @@ class SetupGetRecoveryPhrase extends Component {
                   addToRecoveryPhrase={this.addToRecoveryPhrase}
                   setAcquisitionError={this.setAcquisitionError}
                   recoveryWord={this.state.recoveryWord}
+                  setDisableArrows={this.setDisableArrows}
                   ref={input => {
                     this.recoveryDropdownRef = input
                   }}
                 />
                 <TouchableOpacity
-                  style={{ marginLeft: wp('3%') }}
+                  style={{ marginLeft: wp('3%'), marginRight: wp('5%') }}
                   onPress={this._moveToNextWord}
-                  disabled={
-                    !this.state.recoveryWord && this.state.acquisitionError
-                  }
+                  disabled={this.state.disableArrows}
                 >
                   <FontAwesome5Pro
                     name='arrow-circle-right'
