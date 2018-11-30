@@ -55,16 +55,14 @@ class Receive extends Component {
           />
         </View>
 
-        <Text style={styles.text}>
-          {this.props.address}
-        </Text>
+        <Text style={styles.text}>{this.props.address}</Text>
 
         <View styles={{ flex: 1 }}>
           <CommonButton
             title='Share address'
             onPress={this.shareAddress}
             iconProps={{
-              name: 'share-square',
+              name: 'share',
               color: '#000',
               size: 20
             }}

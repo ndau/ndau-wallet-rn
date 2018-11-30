@@ -166,6 +166,7 @@ class SetupGetRecoveryPhrase extends Component {
         this.recoveryDropdownRef.clearWord()
       }
     }
+    FlashNotification.hideMessage()
   }
 
   _moveBackAWord = () => {
@@ -182,6 +183,7 @@ class SetupGetRecoveryPhrase extends Component {
         }
       )
     }
+    FlashNotification.hideMessage()
   }
 
   _checkRecoveryPhrase = async () => {
@@ -299,6 +301,7 @@ class SetupGetRecoveryPhrase extends Component {
       recoveryWord: this.recoveryPhrase[0],
       disableArrows: false
     })
+    FlashNotification.hideMessage()
   }
 
   adjustStepNumber = pageIndex => {
@@ -321,10 +324,34 @@ class SetupGetRecoveryPhrase extends Component {
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View style={{ marginBottom: wp('6%') }}>
+
+            <View style={{ marginBottom: wp('4%') }}>
               <Text style={cssStyles.wizardText}>
                 {this.state.introductionText}
               </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Text style={cssStyles.wizardText}>
+                  {this.state.recoveryIndex + 1}
+                </Text>
+                <Text style={cssStyles.wizardText}>{' of '}</Text>
+                <Text style={cssStyles.wizardText}>
+                  {this.recoveryPhrase.length}
+                </Text>
+              </View>
             </View>
             <View
               style={{
@@ -342,9 +369,10 @@ class SetupGetRecoveryPhrase extends Component {
                 <TouchableOpacity
                   style={{
                     marginLeft: wp('5%'),
+                    marginTop: hp('.8%'),
                     ...Platform.select({
                       ios: {
-                        marginRight: hp('2%')
+                        marginRight: hp('1.6%')
                       },
                       android: {
                         marginRight: hp('3%')
@@ -370,7 +398,11 @@ class SetupGetRecoveryPhrase extends Component {
                   }}
                 />
                 <TouchableOpacity
-                  style={{ marginLeft: wp('3%'), marginRight: wp('5%') }}
+                  style={{
+                    marginTop: hp('.5%'),
+                    marginLeft: wp('3%'),
+                    marginRight: wp('5%')
+                  }}
                   onPress={this._moveToNextWord}
                   disabled={this.state.disableArrows}
                 >
@@ -381,30 +413,6 @@ class SetupGetRecoveryPhrase extends Component {
                     light
                   />
                 </TouchableOpacity>
-              </View>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginTop: hp('35%')
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <Text style={cssStyles.wizardText}>
-                  {this.state.recoveryIndex + 1}
-                </Text>
-                <Text style={cssStyles.wizardText}>{' of '}</Text>
-                <Text style={cssStyles.wizardText}>
-                  {this.recoveryPhrase.length}
-                </Text>
               </View>
             </View>
           </ScrollView>

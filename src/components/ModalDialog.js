@@ -52,8 +52,8 @@ var styles = StyleSheet.create({
     paddingBottom: hp('2%')
   },
   closeButton: {
-    marginTop: hp('.5%'),
-    marginLeft: wp('1%')
+    marginTop: hp('.8%'),
+    marginLeft: wp('.8%')
   }
 })
 
