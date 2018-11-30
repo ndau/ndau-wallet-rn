@@ -164,6 +164,7 @@ class SetupGetRecoveryPhrase extends Component {
       )
       if (this.recoveryDropdownRef) {
         this.recoveryDropdownRef.clearWord()
+        this.recoveryDropdownRef.focus()
       }
     }
     FlashNotification.hideMessage()
@@ -182,6 +183,9 @@ class SetupGetRecoveryPhrase extends Component {
           this.adjustStepNumber(this.state.recoveryIndex)
         }
       )
+      if (this.recoveryDropdownRef) {
+        this.recoveryDropdownRef.focus()
+      }
     }
     FlashNotification.hideMessage()
   }
@@ -393,6 +397,7 @@ class SetupGetRecoveryPhrase extends Component {
                   setAcquisitionError={this.setAcquisitionError}
                   recoveryWord={this.state.recoveryWord}
                   setDisableArrows={this.setDisableArrows}
+                  onSubmitEditing={this._moveToNextWord}
                   ref={input => {
                     this.recoveryDropdownRef = input
                   }}

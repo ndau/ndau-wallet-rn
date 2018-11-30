@@ -57,6 +57,7 @@ class SetupWelcome extends Component {
           'You have successfully switched to MainNet!'
         )
       }
+      this.setState({ toggleCount: 1 })
     } else {
       this.setState({ toggleCount: this.state.toggleCount + 1 })
     }

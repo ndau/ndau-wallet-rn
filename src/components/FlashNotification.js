@@ -17,7 +17,7 @@ class FlashNotification extends Component {
     })
   }
 
-  static showInformation (message, autoHide = false, hideOnPress = true) {
+  static showInformation (message, autoHide = true, hideOnPress = true) {
     showMessage({
       message: message,
       autoHide,

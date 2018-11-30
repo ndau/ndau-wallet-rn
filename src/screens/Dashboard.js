@@ -30,6 +30,7 @@ import UserData from '../model/UserData'
 import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -48,6 +49,8 @@ class Dashboard extends Component {
       refreshing: false,
       marketPrice: 0
     }
+
+    this.isTestNet = false
   }
 
   componentWillMount = async () => {
@@ -56,6 +59,8 @@ class Dashboard extends Component {
 
     const marketPrice = this.props.navigation.getParam('marketPrice', 0)
     this.setState({ user, marketPrice })
+    this.isTestNet = await AsyncStorageHelper.isTestNet()
+    // if (this.isTestNet) console.log(`TESTNET IS ${this.isTestNet}`)
   }
 
   showModal = modalId => {
@@ -187,6 +192,16 @@ class Dashboard extends Component {
           }
         >
           <View style={cssStyles.dashboardTextContainer}>
+            {this.isTestNet ? (
+              <Text
+                style={[
+                  cssStyles.dashboardTextSmallWhiteEnd,
+                  { color: styleConstants.LINK_ORANGE }
+                ]}
+              >
+                TestNet
+              </Text>
+            ) : null}
             <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
           </View>
           <View style={cssStyles.dashboardTextContainer}>

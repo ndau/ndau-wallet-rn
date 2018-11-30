@@ -9,10 +9,7 @@ import {
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 
-export const DrawerButton = async props => {
-  const barsColor = (await AsyncStorageHelper.isMainNet())
-    ? '#fff'
-    : styleConstants.LINK_ORANGE
+export const DrawerButton = props => {
   return (
     <View style={cssStyles.darkBackgroundColor}>
       <TouchableOpacity
@@ -23,7 +20,7 @@ export const DrawerButton = async props => {
         <FontAwesome5Pro
           name='bars'
           size={32}
-          color={barsColor}
+          color='#fff'
           style={styles.header}
           light
         />

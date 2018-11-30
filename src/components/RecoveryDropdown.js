@@ -26,6 +26,7 @@ class RecoveryDropdown extends Component {
     }
 
     this.retrievedData = false
+    this.autoCompleteRef = null
   }
   // TODO: we are going to have to write them somewhere...
   onPress (title) {
@@ -37,6 +38,12 @@ class RecoveryDropdown extends Component {
 
   clearWord = () => {
     this.setState({ query: '' })
+  }
+
+  focus = () => {
+    if (this.autoCompleteRef) {
+      this.autoCompleteRef.focus()
+    }
   }
 
   goGetTheData = async query => {
@@ -120,6 +127,10 @@ class RecoveryDropdown extends Component {
             <Text style={styles.itemText}>{item}</Text>
           </TouchableOpacity>
         )}
+        ref={input => {
+          this.autoCompleteRef = input
+        }}
+        {...this.prop}
       />
     )
   }

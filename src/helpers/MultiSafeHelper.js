@@ -118,7 +118,7 @@ const _internalSaveUser = async (
   )
 
   // create a multisafe
-  await multiSafe.create(walletId, encryptionPassword)
+  await multiSafe.create(walletId.replace(/\s+/g, ''), encryptionPassword)
   // store the phone data
   await multiSafe.store(user, encryptionPassword)
   // add recovery phrase as combination so we can unlock with this

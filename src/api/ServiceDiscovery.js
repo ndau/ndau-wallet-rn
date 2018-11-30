@@ -1,10 +1,21 @@
 import ServiceDiscoveryError from '../errors/ServiceDiscoveryError'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
-const AWS_S3_SERVICE_JSON =
+const AWS_S3_SERVICE_JSON_PROD =
   'https://s3.us-east-2.amazonaws.com/ndau-json/services-prod.json'
+const AWS_S3_SERVICE_JSON_TEST =
+  'https://s3.us-east-2.amazonaws.com/ndau-json/services-test.json'
+const AWS_S3_SERVICE_JSON_DEV =
+  'https://s3.us-east-2.amazonaws.com/ndau-json/services-dev.json'
 
 const getServiceNodeURL = async () => {
-  const response = await fetch(AWS_S3_SERVICE_JSON)
+  let url = AWS_S3_SERVICE_JSON_PROD
+  if (await AsyncStorageHelper.isTestNet()) {
+    url = AWS_S3_SERVICE_JSON_TEST
+  }
+  console.debug(`Service Discovery URL: ${url}`)
+
+  const response = await fetch(url)
   if (response.status !== 200) {
     throw new ServiceDiscoveryError()
   }

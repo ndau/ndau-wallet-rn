@@ -155,7 +155,12 @@ const getAllKeys = async () => {
       .map(key => {
         return key.replace(STORAGE_KEY_PREFIX, '')
       })
-      .filter(key => key !== CURRENT_USER_KEY)
+      .filter(
+        key =>
+          key !== CURRENT_USER_KEY &&
+          key !== APPLICATION_NETWORK &&
+          key !== APPLICATION_PASSWORD
+      )
     console.debug(`keys found in getAllKeys are ${newKeys}`)
     return newKeys
   } catch (error) {
