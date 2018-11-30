@@ -192,7 +192,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   setAcquisitionError = value => {
     if (value) {
-      FlashNotification.showError('Please select a valid word.', true)
+      FlashNotification.showError('Please select a valid word.', false)
     }
     this.setState({ acquisitionError: value })
   }
@@ -226,7 +226,7 @@ class SetupGetRecoveryPhrase extends Component {
             await UserData.loadData(user)
             marketPrice = await OrderNodeAPI.getMarketPrice()
           } catch (error) {
-            FlashNotification.showError(error.message, true)
+            FlashNotification.showError(error.message)
           }
 
           await MultiSafeHelper.saveUser(user, encryptionPassword)
@@ -251,10 +251,7 @@ class SetupGetRecoveryPhrase extends Component {
           textColor: '#f05123',
           confirmationError: true
         })
-        FlashNotification.showError(
-          'Is this the correct recovery phrase? Please correct any errors.',
-          true
-        )
+        FlashNotification.showError('Is this the correct recovery phrase? Please correct any errors.')
       }
     } catch (error) {
       console.warn(error)

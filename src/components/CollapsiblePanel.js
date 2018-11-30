@@ -76,17 +76,16 @@ class CollapsiblePanel extends Component {
     })
   }
 
-  componentDidMount() {
-    if (!this.state.expanded) {
-      this.toggle()
+  // componentDidMount() {
+  //   if (!this.state.expanded) {
+  //     this.toggle()
 
-      this.setState(({animation, minHeight}) => ({
-          animation: animation.setValue(minHeight || 10)
-      
-        })
-      )
-    }
-  }
+  //     this.setState((state) => ({
+  //         animation: state.animation.setValue(state.minHeight || 10)
+  //       })
+  //     )
+  //   }
+  // }
 
   render () {
     const lockAdder = this.props.lockAdder ? this.props.lockAdder : 0
