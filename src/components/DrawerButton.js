@@ -6,24 +6,31 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import styleConstants from '../css/styleConstants'
 
-export const DrawerButton = props => (
-  <View style={cssStyles.darkBackgroundColor}>
-    <TouchableOpacity
-      onPress={() => {
-        props.navigation.openDrawer()
-      }}
-    >
-      <FontAwesome5Pro
-        name='bars'
-        size={32}
-        color='#fff'
-        style={styles.header}
-        light
-      />
-    </TouchableOpacity>
-  </View>
-)
+export const DrawerButton = async props => {
+  const barsColor = (await AsyncStorageHelper.isMainNet())
+    ? '#fff'
+    : styleConstants.LINK_ORANGE
+  return (
+    <View style={cssStyles.darkBackgroundColor}>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.openDrawer()
+        }}
+      >
+        <FontAwesome5Pro
+          name='bars'
+          size={32}
+          color={barsColor}
+          style={styles.header}
+          light
+        />
+      </TouchableOpacity>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   header: {

@@ -13,6 +13,8 @@ import cssStyles from '../css/styles'
 import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import SetupProgressBar from '../components/SetupProgressBar'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import FlashNotification from '../components/FlashNotification'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -32,13 +34,33 @@ class SetupWelcome extends Component {
     return true
   }
 
-  componentDidMount () {
+  componentDidMount = async () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+    await AsyncStorageHelper.useMainNet()
   }
 
   showNextSetup = () => {
     const user = this.props.navigation.getParam('user', null)
     this.props.navigation.navigate('SetupNewOrRecovery', { user })
+  }
+
+  testNetToggler = async () => {
+    if (this.state.maxToggle === this.state.toggleCount) {
+      if (await AsyncStorageHelper.isMainNet()) {
+        await AsyncStorageHelper.useTestNet()
+        FlashNotification.showInformation(
+          'You have successfully switched to TestNet!'
+        )
+      } else {
+        await AsyncStorageHelper.useMainNet()
+        FlashNotification.showInformation(
+          'You have successfully switched to MainNet!'
+        )
+      }
+    } else {
+      this.setState({ toggleCount: this.state.toggleCount + 1 })
+    }
+    console.log(`this.state.toggleCount is ${this.state.toggleCount}`)
   }
 
   render () {
@@ -48,18 +70,20 @@ class SetupWelcome extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
+            <TouchableWithoutFeedback onPress={this.testNetToggler}>
+              <View>
+                <Text style={cssStyles.wizardText}>
+                  Welcome to ndau, a cryptocurrency designed to be a buoyant
+                  long-term store of value.{' '}
+                  {Platform.OS === 'android' ? '\n' : ''}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
             <View>
               <Text style={cssStyles.wizardText}>
-                Welcome to ndau, a cryptocurrency designed to be a buoyant long-term store of value.
-                {' '}
-                {Platform.OS === 'android' ? '\n' : ''}
-              </Text>
-            </View>
-            <View>
-              <Text style={cssStyles.wizardText}>
-                To get started securely, you will create a new wallet, protect it with a password,
-                and create a recovery phrase which you will need in order to restore your wallet if
-                you lose access to it.
+                To get started securely, you will create a new wallet, protect
+                it with a password, and create a recovery phrase which you will
+                need in order to restore your wallet if you lose access to it.
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>

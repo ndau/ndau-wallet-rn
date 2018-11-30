@@ -1,13 +1,13 @@
 import MockAsyncStorage from 'mock-async-storage'
 
+import AsyncStorageHelper from '../AsyncStorageHelper'
+
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
   jest.mock('AsyncStorage', () => mockImpl)
 }
 
 mock()
-
-import AsyncStorageHelper from '../AsyncStorageHelper'
 
 describe('AsyncStorageHelper tests...', () => {
   it('should set one user', async () => {
@@ -18,15 +18,14 @@ describe('AsyncStorageHelper tests...', () => {
 
     await AsyncStorageHelper.lockUser(user, password)
 
-    await AsyncStorageHelper.unlockUser(
-      user.userId,
-      password
-    ).then(storedUser => {
-      // console.log(
-      // `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user)}`
-      // )
-      expect(storedUser).toEqual(user)
-    })
+    await AsyncStorageHelper.unlockUser(user.userId, password).then(
+      storedUser => {
+        // console.log(
+        // `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user)}`
+        // )
+        expect(storedUser).toEqual(user)
+      }
+    )
   })
 
   it('should set 3 users and get one', async () => {
@@ -47,15 +46,14 @@ describe('AsyncStorageHelper tests...', () => {
     await AsyncStorageHelper.lockUser(user2, password2)
     await AsyncStorageHelper.lockUser(user3, password3)
 
-    await AsyncStorageHelper.unlockUser(
-      user2.userId,
-      password2
-    ).then(storedUser => {
-      // console.log(
-      //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
-      // )
-      expect(storedUser).toEqual(user2)
-    })
+    await AsyncStorageHelper.unlockUser(user2.userId, password2).then(
+      storedUser => {
+        // console.log(
+        //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
+        // )
+        expect(storedUser).toEqual(user2)
+      }
+    )
   })
 
   it('should set 3 users and get all', async () => {
@@ -76,33 +74,30 @@ describe('AsyncStorageHelper tests...', () => {
     await AsyncStorageHelper.lockUser(user2, password2)
     await AsyncStorageHelper.lockUser(user3, password3)
 
-    await AsyncStorageHelper.unlockUser(
-      user1.userId,
-      password1
-    ).then(storedUser => {
-      // console.log(
-      //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user1)}`
-      // )
-      expect(storedUser).toEqual(user1)
-    })
-    await AsyncStorageHelper.unlockUser(
-      user2.userId,
-      password2
-    ).then(storedUser => {
-      // console.log(
-      //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
-      // )
-      expect(storedUser).toEqual(user2)
-    })
-    await AsyncStorageHelper.unlockUser(
-      user3.userId,
-      password3
-    ).then(storedUser => {
-      // console.log(
-      //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user3)}`
-      // )
-      expect(storedUser).toEqual(user3)
-    })
+    await AsyncStorageHelper.unlockUser(user1.userId, password1).then(
+      storedUser => {
+        // console.log(
+        //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user1)}`
+        // )
+        expect(storedUser).toEqual(user1)
+      }
+    )
+    await AsyncStorageHelper.unlockUser(user2.userId, password2).then(
+      storedUser => {
+        // console.log(
+        //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user2)}`
+        // )
+        expect(storedUser).toEqual(user2)
+      }
+    )
+    await AsyncStorageHelper.unlockUser(user3.userId, password3).then(
+      storedUser => {
+        // console.log(
+        //   `stored user is ${JSON.stringify(storedUser)} and user is ${JSON.stringify(user3)}`
+        // )
+        expect(storedUser).toEqual(user3)
+      }
+    )
   })
 
   it('should set 3 users and get one that does not exist', async () => {
@@ -187,5 +182,17 @@ describe('AsyncStorageHelper tests...', () => {
     await AsyncStorageHelper.setApplicationPassword(password)
     const retrievedPassword = await AsyncStorageHelper.getApplicationPassword()
     expect(password).toEqual(retrievedPassword)
+  })
+
+  it('should set MainNet and validate that is being used', async () => {
+    await AsyncStorageHelper.useMainNet()
+    expect(await AsyncStorageHelper.isMainNet()).toBe(true)
+    expect(await AsyncStorageHelper.isTestNet()).toBe(false)
+  })
+
+  it('should set TestNet and validate that is being used', async () => {
+    await AsyncStorageHelper.useTestNet()
+    expect(await AsyncStorageHelper.isMainNet()).toBe(false)
+    expect(await AsyncStorageHelper.isTestNet()).toBe(true)
   })
 })
