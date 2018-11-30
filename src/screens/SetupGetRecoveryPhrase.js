@@ -145,11 +145,17 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   _moveToNextWord = () => {
-    if (this.state.recoveryIndex < 11) {
-      this.setState({
-        recoveryIndex: this.state.recoveryIndex + 1,
-        recoveryWord: this.recoveryPhrase[this.state.recoveryIndex + 1]
-      })
+    if (this.state.recoveryIndex <= 11) {
+      const newRecoveryIndex = this.state.recoveryIndex + 1
+      this.setState(
+        {
+          recoveryIndex: newRecoveryIndex,
+          recoveryWord: this.recoveryPhrase[newRecoveryIndex]
+        },
+        () => {
+          this.adjustStepNumber(this.state.recoveryIndex)
+        }
+      )
       if (this.recoveryDropdownRef) {
         this.recoveryDropdownRef.clearWord()
       }
@@ -158,11 +164,16 @@ class SetupGetRecoveryPhrase extends Component {
 
   _moveBackAWord = () => {
     if (this.state.recoveryIndex > 0) {
-      this.setState({ recoveryIndex: this.state.recoveryIndex - 1 }, () => {
-        this.setState({
-          recoveryWord: this.recoveryPhrase[this.state.recoveryIndex]
-        })
-      })
+      const newRecoveryIndex = this.state.recoveryIndex - 1
+      this.setState(
+        {
+          recoveryIndex: newRecoveryIndex,
+          recoveryWord: this.recoveryPhrase[newRecoveryIndex]
+        },
+        () => {
+          this.adjustStepNumber(this.state.recoveryIndex)
+        }
+      )
     }
   }
 
@@ -276,20 +287,22 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({
       recoverPhraseFull: false,
       confirmationError: false,
-      textColor: '#ffffff'
+      textColor: '#ffffff',
+      recoveryIndex: 0,
+      stepNumber: 0,
+      recoveryWord: this.recoveryPhrase[0]
     })
   }
 
   adjustStepNumber = pageIndex => {
     this.setState({ stepNumber: pageIndex })
+    console.log(`pageIndex: ${pageIndex}`)
     if (pageIndex === this.recoveryPhrase.length) {
       this.setState({ recoverPhraseFull: true })
     }
   }
 
   _renderAcquisition = () => {
-    // const pages = this._generatePages()
-
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
@@ -301,7 +314,7 @@ class SetupGetRecoveryPhrase extends Component {
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View style={{ marginBottom: wp('5%') }}>
+            <View style={{ marginBottom: wp('6%') }}>
               <Text style={cssStyles.wizardText}>
                 {this.state.introductionText}
               </Text>
@@ -323,6 +336,9 @@ class SetupGetRecoveryPhrase extends Component {
                 <TouchableOpacity
                   style={{ marginRight: wp('3%') }}
                   onPress={this._moveBackAWord}
+                  disabled={
+                    !this.state.recoveryWord && this.state.acquisitionError
+                  }
                 >
                   <FontAwesome5Pro
                     name='arrow-circle-left'
@@ -342,6 +358,9 @@ class SetupGetRecoveryPhrase extends Component {
                 <TouchableOpacity
                   style={{ marginLeft: wp('3%') }}
                   onPress={this._moveToNextWord}
+                  disabled={
+                    !this.state.recoveryWord && this.state.acquisitionError
+                  }
                 >
                   <FontAwesome5Pro
                     name='arrow-circle-right'
@@ -350,6 +369,30 @@ class SetupGetRecoveryPhrase extends Component {
                     light
                   />
                 </TouchableOpacity>
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: hp('35%')
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Text style={cssStyles.wizardText}>
+                  {this.state.recoveryIndex + 1}
+                </Text>
+                <Text style={cssStyles.wizardText}>{' of '}</Text>
+                <Text style={cssStyles.wizardText}>
+                  {this.recoveryPhrase.length}
+                </Text>
               </View>
             </View>
           </ScrollView>
