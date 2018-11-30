@@ -47,6 +47,10 @@ class SetupGetRecoveryPhrase extends Component {
       `We're almost ready to get you on the ndau blockchain, ` +
       'but we need one last thing from you. \n\nPlease verify your twelve word ' +
       'recovery phrase. Start typing in the box below, then pick the correct suggestion'
+    this.NOT_ON_BLOCKCHAIN_MESSAGE =
+      'We tried to find matching accounts ' +
+      'on the blockchain and found none. Please confirm ' +
+      'you entered the correct phrase, and try again.'
 
     this.state = {
       size: { width: wp('100%'), height: hp('50%') },
@@ -68,21 +72,21 @@ class SetupGetRecoveryPhrase extends Component {
 
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
-    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
-    this.recoveryPhrase = [
-      'crouch',
-      'like',
-      'blue',
-      'heavy',
-      'fatal',
-      'board',
-      'night',
-      'protect',
-      'cushion',
-      'bag',
-      'sun',
-      'grace'
-    ]
+    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    // this.recoveryPhrase = [
+    //   'crouch',
+    //   'like',
+    //   'blue',
+    //   'heavy',
+    //   'fatal',
+    //   'board',
+    //   'night',
+    //   'protect',
+    //   'cushion',
+    //   'bag',
+    //   'sun',
+    //   'grace'
+    // ]
     // this.recoveryPhrase = [
     //   'goat',
     //   'amount',
@@ -273,10 +277,7 @@ class SetupGetRecoveryPhrase extends Component {
           textColor: '#ff0000',
           confirmationError: true
         })
-        FlashNotification.showError(
-          'Is this the correct recovery phrase? Please correct any errors.',
-          true
-        )
+        FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
       }
     } catch (error) {
       console.warn(error)
@@ -284,10 +285,7 @@ class SetupGetRecoveryPhrase extends Component {
         textColor: '#ff0000',
         confirmationError: true
       })
-      FlashNotification.showError(
-        'Is this the correct recovery phrase? Please correct any errors.',
-        true
-      )
+      FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
     }
   }
 
