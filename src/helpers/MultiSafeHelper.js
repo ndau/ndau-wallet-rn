@@ -114,11 +114,15 @@ const _internalSaveUser = async (
   const multiSafe = new MultiSafe()
 
   console.log(
-    `persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`
+    `persisting key ${walletId} into MultiSafe: ${JSON.stringify(
+      user,
+      null,
+      2
+    )}`
   )
 
   // create a multisafe
-  await multiSafe.create(walletId, encryptionPassword)
+  await multiSafe.create(walletId.replace(/\s+/g, ''), encryptionPassword)
   // store the phone data
   await multiSafe.store(user, encryptionPassword)
   // add recovery phrase as combination so we can unlock with this
@@ -141,8 +145,11 @@ const getDefaultUser = async encryptionPassword => {
 
   // get all storage keys and get the first one
   const storageKeys = await multiSafe.getStorageKeys()
-  if (storageKeys && encryptionPassword) {
+  // TODO: storageKeys[0] is a workaround for single user
+  // once we have multiple users we will need to revisit this
+  if (storageKeys && storageKeys[0] && encryptionPassword) {
     // call create to initialize the storageKey
+    // Iterate through array to get to the right key
     await multiSafe.create(storageKeys[0], encryptionPassword)
     // actually get the data
     user = await multiSafe.retrieve(encryptionPassword)
