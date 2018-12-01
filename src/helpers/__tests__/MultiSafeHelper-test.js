@@ -204,7 +204,7 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: 'c1ca8e03',
+        accountCreationKeyHash: 'c1ca8e03',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac1: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac1',
@@ -268,7 +268,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '4cb4dca9',
+        accountCreationKeyHash: '4cb4dca9',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac3: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac3',
@@ -332,7 +332,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '5ba05375',
+        accountCreationKeyHash: '5ba05375',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5',
@@ -372,7 +372,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '5ba05375',
+        accountCreationKeyHash: '5ba05375',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5',
@@ -434,7 +434,7 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -533,7 +533,7 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '5a3b36e3',
+        accountCreationKeyHash: '5a3b36e3',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8',
@@ -620,7 +620,7 @@ test('if you can check that a recovery phrase exists already', async () => {
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '5a3b36e3',
+        accountCreationKeyHash: '5a3b36e3',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8',

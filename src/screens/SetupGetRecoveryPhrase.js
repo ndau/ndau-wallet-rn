@@ -236,7 +236,7 @@ class SetupGetRecoveryPhrase extends Component {
             await UserData.loadData(user)
             marketPrice = await OrderNodeAPI.getMarketPrice()
           } catch (error) {
-            FlashNotification.showError(error.message, true)
+            FlashNotification.showError(error.message)
           }
 
           await MultiSafeHelper.saveUser(
@@ -276,7 +276,7 @@ class SetupGetRecoveryPhrase extends Component {
         }
       } else {
         this.setState({
-          textColor: '#ff0000',
+          textColor: '#f05123',
           confirmationError: true
         })
         FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
@@ -284,7 +284,7 @@ class SetupGetRecoveryPhrase extends Component {
     } catch (error) {
       console.warn(error)
       this.setState({
-        textColor: '#ff0000',
+        textColor: '#f05123',
         confirmationError: true
       })
       FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)

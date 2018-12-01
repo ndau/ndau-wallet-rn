@@ -5,7 +5,7 @@
 class Wallet {
   constructor () {
     this.walletId = ''
-    this.accountCreationKey = ''
+    this.accountCreationKeyHash = ''
     this.accounts = {}
     this.keys = {}
   }
@@ -13,7 +13,7 @@ class Wallet {
   toJSON = () => {
     return {
       walletId: this.walletId,
-      accountCreationKey: this.accountCreationKey,
+      accountCreationKeyHash: this.accountCreationKeyHash,
       accounts: this.accounts,
       keys: this.keys
     }

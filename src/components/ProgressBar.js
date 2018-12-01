@@ -7,7 +7,7 @@ import {
 import styleConstants from '../css/styleConstants'
 
 const WIDTH = wp('96%')
-const HEIGHT = hp('4.5%')
+const HEIGHT = hp('3.5%')
 
 class ProgressBar extends Component {
   render () {
@@ -16,9 +16,9 @@ class ProgressBar extends Component {
     const progressStyle = {
       backgroundColor: styleConstants.PRIMARY_GREEN,
       height: HEIGHT,
-      minHeight: 35,
+      // minHeight: 24,
       width: progressWidth,
-      borderRadius: progressWidth / 2,
+      borderRadius: WIDTH,
       position: 'absolute',
       zIndex: 2,
       opacity: 0.9
