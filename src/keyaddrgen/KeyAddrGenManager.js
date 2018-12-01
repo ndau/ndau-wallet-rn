@@ -182,7 +182,7 @@ const createWallet = async (
     let wallet = new Wallet()
     wallet.walletId = walletId
 
-    wallet.accountCreationKey = DataFormatHelper.create8CharHash(
+    wallet.accountCreationKeyHash = DataFormatHelper.create8CharHash(
       accountCreationKey
     )
 
@@ -223,7 +223,7 @@ const addAccountsToUser = async (
 
   await addAccounts(
     wallet,
-    wallet.keys[wallet.accountCreationKey].privateKey,
+    wallet.keys[wallet.accountCreationKeyHash].privateKey,
     numberOfAccounts,
     rootDerivedPath,
     AppConstants.MAINNET_ADDRESS
@@ -270,11 +270,12 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
   // we will have the ability to add accounts to specific
   // wallets. This meets the need for the Genesis release
   const wallet = user.wallets[Object.keys(user.wallets)[0]]
-  if (!wallet.accountCreationKey) {
-    throw new Error(`The user's wallet passed in has no accountCreationKey`)
+  if (!wallet.accountCreationKeyHash) {
+    throw new Error(`The user's wallet passed in has no accountCreationKeyHash`)
   }
 
-  const accountCreationKey = wallet.keys[wallet.accountCreationKey].privateKey
+  const accountCreationKey =
+    wallet.keys[wallet.accountCreationKeyHash].privateKey
   const pathIndexIncrementor = DataFormatHelper.getNextPathIndex(
     wallet,
     _generateRootPath()
