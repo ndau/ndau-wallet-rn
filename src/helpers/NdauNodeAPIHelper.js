@@ -3,18 +3,18 @@ import DateHelper from './DateHelper'
 import AppConfig from '../AppConfig'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from './DataFormatHelper'
+import AppConstants from '../AppConstants'
 
 const populateWalletWithAddressData = async wallet => {
   const addressDataFromAPI = await NdauNodeAPI.getAddressData(
     Object.keys(wallet.accounts)
   )
   const eaiRateData = await NdauNodeAPI.getEaiRate(wallet)
-
   const addressData = addressDataFromAPI || {}
 
   const eaiRateMap = new Map()
   eaiRateData.forEach(account => {
-    eaiRateMap.set(account.address, account.eaiPercentage)
+    eaiRateMap.set(account.address, account.eairate)
   })
 
   const addressNicknameMap = new Map()
@@ -64,7 +64,9 @@ const populateWalletWithAddressData = async wallet => {
 }
 
 const eaiPercentage = account => {
-  return account && account.eaiPercentage ? account.eaiPercentage : null
+  return account && account.eaiPercentage
+    ? account.eaiPercentage / AppConstants.RATE_DENOMINATOR
+    : null
 }
 
 const receivingEAIFrom = account => {

@@ -2,12 +2,13 @@ import DataFormatHelper from '../DataFormatHelper'
 import AppConstants from '../../AppConstants'
 
 test('moveTempUserToWalletName must do the needful', async () => {
+  const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_USER)
   const user = {
     userId: AppConstants.TEMP_USER,
     wallets: {
-      'temp-user': {
+      [key]: {
         walletId: AppConstants.TEMP_USER,
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -53,9 +54,9 @@ test('moveTempUserToWalletName must do the needful', async () => {
   const userGettingCreated = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -107,7 +108,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
 test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
   const wallet = {
     walletId: AppConstants.TEMP_USER,
-    accountCreationKey: '1e48ba8c',
+    accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
         address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -158,7 +159,7 @@ test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
 test('getNextPathIndex gets me the correct next root path index', async () => {
   const wallet = {
     walletId: AppConstants.TEMP_USER,
-    accountCreationKey: '1e48ba8c',
+    accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
         address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -212,9 +213,9 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
   const user = {
     userId: 'Kris',
     wallets: {
-      Kris: {
+      '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -256,7 +257,7 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
       },
       Jill: {
         walletId: 'Jill',
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8',
@@ -306,7 +307,7 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
 test('getAccountEaiRateRequest gets the correct request format', async () => {
   const wallet = {
     walletId: AppConstants.TEMP_USER,
-    accountCreationKey: '1e48ba8c',
+    accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
         address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -393,4 +394,39 @@ test('if adding commas to 6 - 13 numbers with precision 2 passed works', async (
   expect(DataFormatHelper.addCommas(1111111111111, 2)).toBe(
     '1,111,111,111,111.00'
   )
+})
+
+test('if pass in string we get 8 char hash back', async () => {
+  expect(
+    DataFormatHelper.create8CharHash('creating a hash from this').length
+  ).toBe(8)
+  expect(DataFormatHelper.create8CharHash('Wallet 23').length).toBe(8)
+  expect(
+    DataFormatHelper.create8CharHash(`and she's buying a stairway...to heaven`)
+      .length
+  ).toBe(8)
+})
+
+test('if we can find a wallet already existent', async () => {
+  const user = {
+    userId: 'doesntmatter',
+    wallets: {
+      blahblahhashblah: {
+        walletId: 'jimmypage'
+      },
+      blahanotherhash: {
+        walletId: 'ericjohnson'
+      }
+    },
+    accounts: {}
+  }
+  expect(
+    DataFormatHelper.checkIfWalletAlreadyExists(user, 'jimmypage')
+  ).toBeTruthy()
+  expect(
+    DataFormatHelper.checkIfWalletAlreadyExists(user, 'ericjohnson')
+  ).toBeTruthy()
+  expect(
+    DataFormatHelper.checkIfWalletAlreadyExists(user, 'stevierayvaughan')
+  ).toBeFalsy()
 })

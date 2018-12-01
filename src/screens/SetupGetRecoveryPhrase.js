@@ -27,6 +27,7 @@ import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -63,18 +64,18 @@ class SetupGetRecoveryPhrase extends Component {
     // on a known phrase that works in testnet/devnet
     this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
     // this.recoveryPhrase = [
-    //   'wink',
-    //   'fantasy',
-    //   'surface',
-    //   'flame',
-    //   'magic',
-    //   'video',
-    //   'manage',
-    //   'wing',
-    //   'logic',
-    //   'insane',
-    //   'slam',
-    //   'empower'
+    //   'crouch',
+    //   'like',
+    //   'blue',
+    //   'heavy',
+    //   'fatal',
+    //   'board',
+    //   'night',
+    //   'protect',
+    //   'cushion',
+    //   'bag',
+    //   'sun',
+    //   'grace'
     // ]
     // this.recoveryPhrase = [
     //   'goat',
@@ -246,6 +247,18 @@ class SetupGetRecoveryPhrase extends Component {
             marketPrice
           })
         } else {
+          const password = await AsyncStorageHelper.getApplicationPassword()
+          if (
+            await MultiSafeHelper.recoveryPhraseAlreadyExists(
+              user.userId,
+              password
+            )
+          ) {
+            FlashNotification.showError(
+              'This recovery phrase already exists in the wallet.'
+            )
+            return
+          }
           SetupStore.recoveryPhrase = this.recoveryPhrase
           navigation.navigate('SetupWalletName', {
             user,

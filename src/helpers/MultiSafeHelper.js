@@ -3,6 +3,7 @@ import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import AppConstants from '../AppConstants'
 import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
+import DataFormatHelper from './DataFormatHelper'
 
 /**
  * This function will persist the user information after any setup is
@@ -49,6 +50,18 @@ const setupNewUser = async (
   )
 }
 
+const recoveryPhraseAlreadyExists = async (userId, recoveryPhrase) => {
+  const multiSafe = new MultiSafe()
+
+  try {
+    await multiSafe.create(userId, recoveryPhrase)
+  } catch (error) {
+    return false
+  }
+  // if we got here...it's already there
+  return true
+}
+
 /**
  * This function simply add a new wallet to an existing storageKey
  *
@@ -82,7 +95,7 @@ const addNewWallet = async (
     walletId
   )
 
-  user.wallets[walletId] = wallet
+  user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
 
   return _internalSaveUser(
     user,
@@ -177,5 +190,6 @@ export default {
   getDefaultUser,
   saveUser,
   resetPassword,
-  addNewWallet
+  addNewWallet,
+  recoveryPhraseAlreadyExists
 }
