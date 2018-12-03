@@ -30,3 +30,5 @@ yarn-error.log*
 
 ## Xcode User settings
 xcuserdata/
+
+./remote-content
