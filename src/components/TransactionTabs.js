@@ -15,8 +15,15 @@ class TransactionTabs extends Component {
 
     const Navigator = createMaterialTopTabNavigator(
       {
-        Receive: ReceiveWithProps
+        Receive: ReceiveWithProps,
         // Send: SendWithProps,
+
+        Receive: {
+          screen: ReceiveWithProps,
+          navigationOptions: ({ navigation }) => ({
+            title: 'Receive ndau'
+          })
+        }
       },
       {
         animationEnabled: false,
@@ -55,7 +62,15 @@ class Receive extends Component {
           />
         </View>
 
-        <Text style={styles.text}>{this.props.address}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Text style={styles.address}>{this.props.address}</Text>
+        </View>
 
         <View styles={{ flex: 1 }}>
           <CommonButton
@@ -73,42 +88,13 @@ class Receive extends Component {
   }
 }
 
-// class Send extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       amount: 0
-//     }
-//   }
-
-//   send = () => {
-//     // TODO: transfer funds
-//   }
-
-//   render() {
-//     return (
-//       <View>
-//         {/* TODO: add Send form */}
-
-//         <View styles={{flex: 1}}>
-//           <CommonButton
-//             title={`send ${this.state.amount}`}
-//             onPress={this.send}
-//           />
-//         </View>
-//       </View>
-//     );
-//   }
-// }
-
 const tabBarOptions = {
+  upperCaseLabel: false,
   labelStyle: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   tabStyle: {
-    marginBottom: hp('1%'),
     backgroundColor: 'transparent'
   },
   indicatorStyle: {
@@ -131,12 +117,12 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'space-around'
   },
-  text: {
+  address: {
     color: '#ffffff',
-    fontSize: 17,
+    fontSize: 13,
     fontFamily: 'TitilliumWeb-Regular',
-    marginTop: hp('1%'),
-    marginBottom: hp('1%'),
+    marginTop: hp('0.5%'),
+    marginBottom: hp('0.5%'),
     marginLeft: wp('1%'),
     marginRight: wp('1%')
   }

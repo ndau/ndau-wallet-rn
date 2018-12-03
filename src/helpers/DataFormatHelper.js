@@ -102,7 +102,7 @@ const getAccountEaiRateRequest = wallet => {
   return Object.keys(wallet.accounts).map(accountKey => {
     const account = wallet.accounts[accountKey]
     let weightedAverageAge = account.addressData.weightedAverageAge
-    if (weightedAverageAge == 0) {
+    if (!weightedAverageAge) {
       weightedAverageAge =
         account.addressData.weightedAverageAge +
         (DateHelper.getMicrosecondsSinceNdauEpoch() -

@@ -62,7 +62,6 @@ class RecoveryDropdown extends Component {
         return
       }
       wordsArray = words.split(' ')
-      // console.log(`wordsArray is ${wordsArray}`)
 
       if (wordsArray[0] === '') {
         this.setState({ textColor: '#ff0000', list: [] })
@@ -79,7 +78,6 @@ class RecoveryDropdown extends Component {
   }
 
   getData = query => {
-    // console.log(`query: ${query}`)
     this.goGetTheData(query)
     let dropdownValueIsPrinted = false
     if (

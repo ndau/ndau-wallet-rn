@@ -8,7 +8,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
     wallets: {
       [key]: {
         walletId: AppConstants.TEMP_USER,
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -56,7 +56,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -108,7 +108,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
 test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
   const wallet = {
     walletId: AppConstants.TEMP_USER,
-    accountCreationKey: '1e48ba8c',
+    accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
         address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -159,7 +159,7 @@ test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
 test('getNextPathIndex gets me the correct next root path index', async () => {
   const wallet = {
     walletId: AppConstants.TEMP_USER,
-    accountCreationKey: '1e48ba8c',
+    accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
         address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -215,7 +215,7 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
@@ -257,7 +257,7 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
       },
       Jill: {
         walletId: 'Jill',
-        accountCreationKey: '1e48ba8c',
+        accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8: {
             address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac8',
@@ -307,7 +307,7 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
 test('getAccountEaiRateRequest gets the correct request format', async () => {
   const wallet = {
     walletId: AppConstants.TEMP_USER,
-    accountCreationKey: '1e48ba8c',
+    accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
         address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',

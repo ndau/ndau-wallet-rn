@@ -31,11 +31,13 @@ class CollapsiblePanel extends Component {
     ]
 
     this.state = {
-      expanded: true,
+      expanded: this.props.expanded,
       animation: new Animated.Value(),
       maxHeight: 0,
       minHeight: 0
     }
+
+    this.toggle = this.toggle.bind(this)
   }
 
   toggle () {
@@ -45,10 +47,11 @@ class CollapsiblePanel extends Component {
 
     let initialValue = this.state.expanded
       ? this.state.maxHeight + this.state.minHeight
-      : this.state.minHeight,
-      finalValue = this.state.expanded
-        ? this.state.minHeight
-        : this.state.maxHeight + this.state.minHeight
+      : this.state.minHeight
+
+    let finalValue = this.state.expanded
+      ? this.state.minHeight
+      : this.state.maxHeight + this.state.minHeight
 
     this.state.animation.setValue(initialValue)
     Animated.spring(this.state.animation, {
@@ -74,6 +77,17 @@ class CollapsiblePanel extends Component {
     })
   }
 
+  // componentDidMount() {
+  //   if (!this.state.expanded) {
+  //     this.toggle()
+
+  //     this.setState((state) => ({
+  //         animation: state.animation.setValue(state.minHeight || 10)
+  //       })
+  //     )
+  //   }
+  // }
+
   render () {
     const lockAdder = this.props.lockAdder ? this.props.lockAdder : 0
     return (
@@ -83,7 +97,7 @@ class CollapsiblePanel extends Component {
         <ImageBackground
           source={
             this.cardBackgrounds[
-              this.props.onNotice ? 6 : this.props.index % 3 + lockAdder
+              this.props.onNotice ? 6 : (this.props.index % 3) + lockAdder
             ]
           }
           style={{ width: '100%' }}
@@ -94,14 +108,14 @@ class CollapsiblePanel extends Component {
           >
             <View style={styles.titleContainer} onLayout={this.setMinHeight}>
               <Text style={styles.titleLeft}>{this.props.title}</Text>
-              {this.props.titleRight !== undefined
-                ? <View
+              {this.props.titleRight !== undefined ? (
+                <View
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}
-                  >
+                >
                   <Image
                     style={{
                       width: wp('3%'),
@@ -110,12 +124,10 @@ class CollapsiblePanel extends Component {
                     }}
                     resizeMode='contain'
                     source={require('img/ndau-icon-white.png')}
-                    />
-                  <Text style={styles.titleRight}>
-                    {this.props.titleRight}
-                  </Text>
+                  />
+                  <Text style={styles.titleRight}>{this.props.titleRight}</Text>
                 </View>
-                : null}
+              ) : null}
             </View>
           </TouchableHighlight>
           <View style={styles.border} />
@@ -147,7 +159,7 @@ var styles = StyleSheet.create({
     marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Bold',
+    fontFamily: 'TitilliumWeb-Regular',
     textAlign: 'left'
   },
   titleRight: {
@@ -158,7 +170,7 @@ var styles = StyleSheet.create({
     marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Bold',
+    fontFamily: 'TitilliumWeb-Regular',
     textAlign: 'right'
   },
   body: {
@@ -170,7 +182,8 @@ var styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginLeft: wp('1%'),
     marginRight: wp('1%'),
-    marginBottom: hp('1%')
+    marginBottom: hp('1%'),
+    opacity: 0.2
   }
 })
 

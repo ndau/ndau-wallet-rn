@@ -72,21 +72,21 @@ class SetupGetRecoveryPhrase extends Component {
 
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
-    this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
-    // this.recoveryPhrase = [
-    //   'crouch',
-    //   'like',
-    //   'blue',
-    //   'heavy',
-    //   'fatal',
-    //   'board',
-    //   'night',
-    //   'protect',
-    //   'cushion',
-    //   'bag',
-    //   'sun',
-    //   'grace'
-    // ]
+    // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
+    this.recoveryPhrase = [
+      'crouch',
+      'like',
+      'blue',
+      'heavy',
+      'fatal',
+      'board',
+      'night',
+      'protect',
+      'cushion',
+      'bag',
+      'sun',
+      'grace'
+    ]
     // this.recoveryPhrase = [
     //   'goat',
     //   'amount',
@@ -240,7 +240,7 @@ class SetupGetRecoveryPhrase extends Component {
             await UserData.loadData(user)
             marketPrice = await OrderNodeAPI.getMarketPrice()
           } catch (error) {
-            FlashNotification.showError(error.message, true)
+            FlashNotification.showError(error.message)
           }
 
           await MultiSafeHelper.saveUser(
@@ -280,7 +280,7 @@ class SetupGetRecoveryPhrase extends Component {
         }
       } else {
         this.setState({
-          textColor: '#ff0000',
+          textColor: '#f05123',
           confirmationError: true
         })
         FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
@@ -288,7 +288,7 @@ class SetupGetRecoveryPhrase extends Component {
     } catch (error) {
       console.warn(error)
       this.setState({
-        textColor: '#ff0000',
+        textColor: '#f05123',
         confirmationError: true
       })
       FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)

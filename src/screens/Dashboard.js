@@ -10,7 +10,6 @@ import {
   TouchableOpacity
 } from 'react-native'
 import cssStyles from '../css/styles'
-import styles from '../css/styles'
 import DateHelper from '../helpers/DateHelper'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import {
@@ -227,7 +226,7 @@ class Dashboard extends Component {
           <View style={cssStyles.dashboardSmallTextContainer}>
             <Text style={cssStyles.dashboardTextSmallGreen}>
               {currentPrice}
-              <Text style={styles.asterisks}>**</Text>
+              <Text style={cssStyles.asterisks}>**</Text>
               <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
                 {' '}
                 at current price
@@ -332,15 +331,16 @@ class Dashboard extends Component {
                     })
                   }}
                   walletId={account.addressData.walletId}
+                  expanded={index === 0}
                 />
               )
             })}
-          <View style={cssStyles.dashboardRowContainerCenter}>
-            <Text style={styles.asterisks}>**</Text>
+          <View style={[cssStyles.dashboardRowContainerCenter, {paddingTop: hp('4%')}]}>
+            <Text style={cssStyles.asterisks}>*</Text>
             <Text
               style={[
                 cssStyles.dashboardTextVerySmallWhite,
-                { paddingRight: wp('4%') }
+                { paddingLeft: wp('1%') }
               ]}
             >
               The estimated value of ndau in US dollars can be calculated using
