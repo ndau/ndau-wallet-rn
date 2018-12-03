@@ -50,20 +50,26 @@ const setupNewUser = async (
   )
 }
 
+/**
+ * Check to see if the userId and recoveryPhrase pased in
+ * exists in the wallet. If it does then we send back true
+ * @param {string} userId User.userId
+ * @param {string} recoveryPhrase 12 words phrase/combo
+ */
 const recoveryPhraseAlreadyExists = async (userId, recoveryPhrase) => {
   const multiSafe = new MultiSafe()
 
   try {
-    await multiSafe.create(userId, recoveryPhrase)
-  } catch (error) {
-    return false
-  }
-  // if we got here...it's already there
-  return true
+    return await multiSafe.doesMultiSafeExist(
+      userId.replace(/\s+/g, ''),
+      recoveryPhrase
+    )
+  } catch (error) {}
+  return false
 }
 
 /**
- * This function simply add a new wallet to an existing storageKey
+ * This function simply add a new walletyarn to an existing storageKey
  *
  * @param {User} user
  * @param {string} recoveryPhraseString

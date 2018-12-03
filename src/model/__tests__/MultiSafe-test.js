@@ -1,14 +1,14 @@
 import MockAsyncStorage from 'mock-async-storage'
 
+import MultiSafe from '../MultiSafe'
+import { HTML5_FMT } from 'moment'
+
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
   jest.mock('AsyncStorage', () => mockImpl)
 }
 
 mock()
-
-import MultiSafe from '../MultiSafe'
-import { HTML5_FMT } from 'moment'
 
 describe('MultiSafe _encrypt/_decrypt tests...', () => {
   it('should store and retrieve an object using the official API', async () => {
@@ -216,4 +216,25 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
       expect(err).toBeDefined()
     }
   })
+})
+
+it('should be able to see if a specific MultiSafe exists', async () => {
+  let o = {
+    s: 'I am Groot',
+    ndau: 1234437970
+  }
+  let pw = '1234'
+  let sk = 'storagekey6'
+  let ms = new MultiSafe()
+  await ms.create(sk, pw)
+  await ms.store(o, pw)
+  let y = await ms.retrieve(pw)
+  expect(y).toEqual(o)
+  expect(await ms.verify(pw)).toBeTruthy()
+
+  let ms1 = new MultiSafe()
+  expect(await ms1.doesMultiSafeExist(sk, pw)).toEqual(true)
+  expect(await ms1.doesMultiSafeExist(sk + '1', pw)).toEqual(false)
+  expect(await ms1.doesMultiSafeExist(sk, pw + '1')).toEqual(false)
+  expect(await ms1.doesMultiSafeExist(sk + '1', pw + '1')).toEqual(false)
 })

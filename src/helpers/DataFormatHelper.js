@@ -104,7 +104,7 @@ const getAccountEaiRateRequest = wallet => {
     let weightedAverageAge = account.addressData.weightedAverageAge
     if (!weightedAverageAge) {
       weightedAverageAge =
-        account.addressData.weightedAverageAge +
+        weightedAverageAge +
         (DateHelper.getMicrosecondsSinceNdauEpoch() -
           account.addressData.lastWAAUpdate)
     }

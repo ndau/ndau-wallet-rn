@@ -73,34 +73,34 @@ class SetupGetRecoveryPhrase extends Component {
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
     // this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
-    this.recoveryPhrase = [
-      'crouch',
-      'like',
-      'blue',
-      'heavy',
-      'fatal',
-      'board',
-      'night',
-      'protect',
-      'cushion',
-      'bag',
-      'sun',
-      'grace'
-    ]
     // this.recoveryPhrase = [
-    //   'goat',
-    //   'amount',
-    //   'liar',
-    //   'amount',
-    //   'expire',
-    //   'adjust',
-    //   'cage',
-    //   'candy',
-    //   'arch',
-    //   'gather',
-    //   'drum',
-    //   'buyer'
+    //   'crouch',
+    //   'like',
+    //   'blue',
+    //   'heavy',
+    //   'fatal',
+    //   'board',
+    //   'night',
+    //   'protect',
+    //   'cushion',
+    //   'bag',
+    //   'sun',
+    //   'grace'
     // ]
+    this.recoveryPhrase = [
+      'great',
+      'permit',
+      'assault',
+      'grocery',
+      'creek',
+      'bright',
+      'talk',
+      'chat',
+      'deal',
+      'predict',
+      'smoke',
+      'shoot'
+    ]
 
     this.boxWidth = '30%'
     this.boxHeight = '13%'
@@ -258,11 +258,10 @@ class SetupGetRecoveryPhrase extends Component {
             marketPrice
           })
         } else {
-          const password = await AsyncStorageHelper.getApplicationPassword()
           if (
             await MultiSafeHelper.recoveryPhraseAlreadyExists(
               user.userId,
-              password
+              this.recoveryPhrase
             )
           ) {
             FlashNotification.showError(
