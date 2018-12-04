@@ -31,4 +31,6 @@ yarn-error.log*
 ## Xcode User settings
 xcuserdata/
 
-./remote-content
+/remote-content
+/assets/fonts
+/android/app/src/main/assets/fonts

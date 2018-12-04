@@ -40,7 +40,8 @@
     "testnew": "jest -o",
     "xcode-open": "open ios/ndauwalletrn.xcodeproj",
     "android-install": "cd android && ./gradlew installDebug",
-    "clear-cache": "watchman watch-del-all; rm -rf /tmp/metro-bundler-cache-*; rm -rf /tmp/haste-map-react-native-packager-*"
+    "clear-cache": "watchman watch-del-all; rm -rf /tmp/metro-bundler-cache-*; rm -rf /tmp/haste-map-react-native-packager-*",
+    "load-assets": "./download_from_s3.sh ndau-fonts 1.0.0"
   },
   "jest": {
     "preset": "react-native",

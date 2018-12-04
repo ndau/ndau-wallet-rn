@@ -9,11 +9,8 @@ download_from_s3() {
     echo "Making remote-content directory"
     mkdir remote-content
 
-    echo "Setting read permissions on https://s3.amazonaws.com/${bucket}/${prefix}/${name}"
-    aws s3api get-object \
-        --bucket ${bucket} \
-        --key ${prefix}/${name} \
-        remote-content/${name}
+    echo "Pulling S3 resource: https://s3.amazonaws.com/${bucket}/${prefix}/${name}"
+    curl -o remote-content/${name} "https://s3.amazonaws.com/${bucket}/${prefix}/${name}"
 }
 
 if [ "$1" ] && [ "$2" ]; then
