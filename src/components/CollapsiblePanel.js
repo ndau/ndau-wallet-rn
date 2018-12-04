@@ -31,11 +31,13 @@ class CollapsiblePanel extends Component {
     ]
 
     this.state = {
-      expanded: true,
+      expanded: this.props.expanded,
       animation: new Animated.Value(),
       maxHeight: 0,
       minHeight: 0
     }
+
+    this.toggle = this.toggle.bind(this)
   }
 
   toggle () {
@@ -57,7 +59,7 @@ class CollapsiblePanel extends Component {
   }
 
   setMaxHeight = event => {
-    let adjustment = hp('1.2%')
+    let adjustment = hp('1.2%');
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
       console.debug(
         `setting maxHeight for first time: ${event.nativeEvent.layout.height}`
@@ -73,6 +75,17 @@ class CollapsiblePanel extends Component {
       minHeight: event.nativeEvent.layout.height
     })
   }
+
+  // componentDidMount() {
+  //   if (!this.state.expanded) {
+  //     this.toggle()
+
+  //     this.setState((state) => ({
+  //         animation: state.animation.setValue(state.minHeight || 10)
+  //       })
+  //     )
+  //   }
+  // }
 
   render () {
     const lockAdder = this.props.lockAdder ? this.props.lockAdder : 0
@@ -147,7 +160,7 @@ var styles = StyleSheet.create({
     marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Bold',
+    fontFamily: 'TitilliumWeb-Light',
     textAlign: 'left'
   },
   titleRight: {
@@ -158,7 +171,7 @@ var styles = StyleSheet.create({
     marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Bold',
+    fontFamily: 'TitilliumWeb-Light',
     textAlign: 'right'
   },
   body: {
@@ -170,7 +183,8 @@ var styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginLeft: wp('1%'),
     marginRight: wp('1%'),
-    marginBottom: hp('1%')
+    marginBottom: hp('1%'),
+    opacity: 0.2,
   }
 })
 

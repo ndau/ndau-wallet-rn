@@ -35,16 +35,16 @@ class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
     this.NORMAL_MODE_TEXT =
-      `To verify your account please verify your twelve-word recovery` +
-      `phrase below. Start typing in the box below, then pick the correct suggestion.`
+      `To recover your wallet, please verify your twelve-word recovery phrase. 
+      Start typing in the box below, then pick the correct suggestion.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
-      'correct suggestion'
+      'correct suggestion.'
     this.GENESIS_MODE_TEXT =
       `We're almost ready to get you on the ndau blockchain, ` +
       'but we need one last thing from you. \n\nPlease verify your twelve word ' +
-      'recovery phrase. Start typing in the box below, then pick the correct suggestion'
+      'recovery phrase. Start typing in the box below, then pick the correct suggestion.'
 
     this.state = {
       size: { width: wp('100%'), height: hp('50%') },
@@ -193,7 +193,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   setAcquisitionError = value => {
     if (value) {
-      FlashNotification.showError('Please select a valid word.', true)
+      FlashNotification.showError('Please select a valid word.', false)
     }
     this.setState({ acquisitionError: value })
   }
@@ -229,7 +229,7 @@ class SetupGetRecoveryPhrase extends Component {
             await UserData.loadData(user)
             marketPrice = await OrderNodeAPI.getMarketPrice()
           } catch (error) {
-            FlashNotification.showError(error.message, true)
+            FlashNotification.showError(error.message)
           }
 
           await MultiSafeHelper.saveUser(
@@ -255,18 +255,15 @@ class SetupGetRecoveryPhrase extends Component {
         }
       } else {
         this.setState({
-          textColor: '#ff0000',
+          textColor: '#f05123',
           confirmationError: true
         })
-        FlashNotification.showError(
-          'Is this the correct recovery phrase? Please correct any errors.',
-          true
-        )
+        FlashNotification.showError('Is this the correct recovery phrase? Please correct any errors.')
       }
     } catch (error) {
       console.warn(error)
       this.setState({
-        textColor: '#ff0000',
+        textColor: '#f05123',
         confirmationError: true
       })
       FlashNotification.showError(
@@ -280,7 +277,8 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({
       recoverPhraseFull: false,
       confirmationError: false,
-      textColor: '#ffffff'
+      textColor: '#ffffff',
+      stepNumber: 0,
     })
   }
 
