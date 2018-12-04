@@ -35,7 +35,9 @@ const moveTempUserToWalletName = (user, walletId) => {
  * @param {string} toHash
  */
 const create8CharHash = toHash => {
-  return sha256(toHash).toString().substring(0, 8)
+  return sha256(toHash)
+    .toString()
+    .substring(0, 8)
 }
 
 /**
@@ -100,9 +102,9 @@ const getAccountEaiRateRequest = wallet => {
   return Object.keys(wallet.accounts).map(accountKey => {
     const account = wallet.accounts[accountKey]
     let weightedAverageAge = account.addressData.weightedAverageAge
-    if (weightedAverageAge === 0) {
+    if (!weightedAverageAge) {
       weightedAverageAge =
-        account.addressData.weightedAverageAge +
+        weightedAverageAge +
         (DateHelper.getMicrosecondsSinceNdauEpoch() -
           account.addressData.lastWAAUpdate)
     }

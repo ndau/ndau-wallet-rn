@@ -39,7 +39,7 @@ class SetupEncryptionPassword extends Component {
       DataFormatHelper.checkIfWalletAlreadyExists(user, SetupStore.walletId)
     ) {
       FlashNotification.showError(
-        `${SetupStore.walletId} already exists as a wallet. Please choose another name for your wallet.`
+        `There is already a wallet named "${SetupStore.walletId}". Please choose another name.`
       )
       return true
     }

@@ -6,6 +6,10 @@ const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:'
 const CURRENT_USER_KEY = '@CurrentUserKey'
 
 const APPLICATION_PASSWORD = '@ApplicationPassword'
+const APPLICATION_NETWORK = '@ApplicationNetwork'
+
+const TEST_NET = 'TestNet'
+const MAIN_NET = 'MainNet'
 
 /**
  * This is a place to cache the application password to be
@@ -23,6 +27,36 @@ const setApplicationPassword = async password => {
 const getApplicationPassword = async () => {
   const password = await AsyncStorage.getItem(APPLICATION_PASSWORD)
   return password
+}
+
+/**
+ * Application will be using MainNet
+ */
+const useMainNet = async () => {
+  await AsyncStorage.setItem(APPLICATION_NETWORK, MAIN_NET)
+}
+
+/**
+ * Application will be using TestNet
+ */
+const useTestNet = async () => {
+  await AsyncStorage.setItem(APPLICATION_NETWORK, TEST_NET)
+}
+
+/**
+ * Is the application using MainNet
+ */
+const isMainNet = async () => {
+  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  return applicationNetwork === MAIN_NET
+}
+
+/**
+ * Is the application using TestNet
+ */
+const isTestNet = async () => {
+  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  return applicationNetwork === TEST_NET
 }
 
 /**
@@ -121,7 +155,12 @@ const getAllKeys = async () => {
       .map(key => {
         return key.replace(STORAGE_KEY_PREFIX, '')
       })
-      .filter(key => key !== CURRENT_USER_KEY)
+      .filter(
+        key =>
+          key !== CURRENT_USER_KEY &&
+          key !== APPLICATION_NETWORK &&
+          key !== APPLICATION_PASSWORD
+      )
     console.debug(`keys found in getAllKeys are ${newKeys}`)
     return newKeys
   } catch (error) {
@@ -134,5 +173,9 @@ export default {
   lockUser,
   getAllKeys,
   setApplicationPassword,
-  getApplicationPassword
+  getApplicationPassword,
+  useMainNet,
+  useTestNet,
+  isMainNet,
+  isTestNet
 }

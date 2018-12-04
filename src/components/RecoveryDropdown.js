@@ -26,12 +26,24 @@ class RecoveryDropdown extends Component {
     }
 
     this.retrievedData = false
+    this.autoCompleteRef = null
   }
   // TODO: we are going to have to write them somewhere...
   onPress (title) {
     console.log(`title selected is ${title}`)
     this.setState({ query: title, list: [] })
-    this.props.addToRecoveryPhrase(title, this.props.index)
+    this.props.addToRecoveryPhrase(title)
+    this.props.setDisableArrows(false)
+  }
+
+  clearWord = () => {
+    this.setState({ query: '' })
+  }
+
+  focus = () => {
+    if (this.autoCompleteRef) {
+      this.autoCompleteRef.focus()
+    }
   }
 
   goGetTheData = async query => {
@@ -42,11 +54,17 @@ class RecoveryDropdown extends Component {
         5
       )
       this.retrievedData = true
-      wordsArray = words.split(' ')
-      console.log(`wordsArray is ${wordsArray}`)
 
-      if (wordsArray.length <= 0) {
-        this.setState({ textColor: '#ff0000' })
+      console.log(`words; ${words} query: ${query}`)
+      if (words === query) {
+        this.props.setDisableArrows(false)
+        this.setState({ list: [] })
+        return
+      }
+      wordsArray = words.split(' ')
+
+      if (wordsArray[0] === '') {
+        this.setState({ textColor: '#ff0000', list: [] })
         this.props.setAcquisitionError(true)
       } else {
         this.setState({ textColor: '#ffffff' })
@@ -60,7 +78,6 @@ class RecoveryDropdown extends Component {
   }
 
   getData = query => {
-    console.log(`query: ${query}`)
     this.goGetTheData(query)
     let dropdownValueIsPrinted = false
     if (
@@ -88,17 +105,18 @@ class RecoveryDropdown extends Component {
         style={mainStyle}
         autoCapitalize='none'
         autoCorrect={false}
+        autoFocus
         containerStyle={styles.autocompleteContainer}
         inputContainerStyle={styles.containerStyle}
         data={this.getData(query)}
-        defaultValue={query || this.props.recoveryPhrase[this.props.index]}
+        defaultValue={query || this.props.recoveryWord}
         onChangeText={text => {
           this.retrievedData = false
           this.setState({
             query: text,
             list: text === '' ? [] : this.state.list
           })
-          this.props.addToRecoveryPhrase(text, this.props.index)
+          this.props.addToRecoveryPhrase(text)
         }}
         listContainerStyle={styles.listContainerStyle}
         placeholderTextColor='#ffffff'
@@ -107,6 +125,10 @@ class RecoveryDropdown extends Component {
             <Text style={styles.itemText}>{item}</Text>
           </TouchableOpacity>
         )}
+        ref={input => {
+          this.autoCompleteRef = input
+        }}
+        {...this.prop}
       />
     )
   }

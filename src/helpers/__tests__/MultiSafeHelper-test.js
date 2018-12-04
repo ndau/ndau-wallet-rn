@@ -246,8 +246,6 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(encryptionPassword)
 
-  // console.log(`user: ${JSON.stringify(user, null, 2)}`)
-
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
 })
@@ -310,8 +308,6 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
 
-  // console.log(`user: ${JSON.stringify(user, null, 2)}`)
-
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
 })
@@ -361,8 +357,6 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
 
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
-
-  // console.log(`user: ${JSON.stringify(user, null, 2)}`)
 
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
@@ -476,8 +470,6 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
 
-  // // console.log(`user: ${JSON.stringify(user, null, 2)}`)
-
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
 
@@ -575,8 +567,6 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
   // make sure you can get it back with password and recovery phrase
   const user = await MultiSafeHelper.getDefaultUser(encryptionPasswordNew)
 
-  // // console.log(`user: ${JSON.stringify(user, null, 2)}`)
-
   expect(user).toBeDefined()
   expect(user).toEqual(userGettingCreated)
 
@@ -594,10 +584,6 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
   const userWithNewWallet = await MultiSafeHelper.getDefaultUser(
     recoveryPhraseString
   )
-
-  // // console.log(
-  //   `user with new wallet: ${JSON.stringify(userWithNewWallet, null, 2)}`
-  // )
 
   expect(userWithNewWallet).toBeDefined()
   expect(Object.keys(userWithNewWallet.wallets).length).toEqual(2)

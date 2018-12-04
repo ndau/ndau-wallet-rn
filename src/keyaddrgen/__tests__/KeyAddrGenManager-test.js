@@ -6,6 +6,14 @@ import AppConfig from '../../AppConfig'
 import Wallet from '../../model/Wallet'
 import services from '../../api/services-dev.json'
 import data from '../../api/data'
+import MockAsyncStorage from 'mock-async-storage'
+
+const mock = () => {
+  const mockImpl = new MockAsyncStorage()
+  jest.mock('AsyncStorage', () => mockImpl)
+}
+
+mock()
 
 jest.mock('NativeModules', () => {
   return {
@@ -205,8 +213,6 @@ test('createFirstTimeUser with 0, as this will be possible post Genesis', async 
     chainId
   )
 
-  // console.log(`firstTimeUser: ${JSON.stringify(firstTimeUser)}`)
-
   expect(firstTimeUser).toBeDefined()
   expect(JSON.stringify(firstTimeUser)).toBe(
     `{"userId":"TAC-3PY","wallets":{"c79af3b6":{"walletId":"TAC-3PY","accountCreationKeyHash":"4cb4dca9","accounts":{},"keys":{"4cb4dca9":{"publicKey":"","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf2","path":"/44'/20036'/100","derivedFromRoot":"yes"}}}}}`
@@ -220,8 +226,6 @@ test('createFirstTimeUser no bytes', async () => {
     console.error(error)
     expect(error.toString()).toBe(errorString)
   }
-
-  // console.log(`firstTimeUser: ${firstTimeUser}`)
 })
 
 test('createNewAccount test', async () => {
@@ -231,8 +235,6 @@ test('createNewAccount test', async () => {
     chainId,
     numberOfAccounts
   )
-
-  // console.log(`firstTimeUser: ${JSON.stringify(firstTimeUser)}`)
 
   expect(firstTimeUser).toBeDefined()
   expect(Object.keys(firstTimeUser.wallets['c79af3b6'].accounts).length).toBe(5)
@@ -257,8 +259,6 @@ test('createNewAccount has bogus user', async () => {
     console.error(error)
     expect(error.toString()).toBe(errorNewAccountUser)
   }
-
-  // console.log(`firstTimeUser: ${firstTimeUser}`)
 })
 
 test('test getRootAddresses to make sure we get back one address in the array', async () => {
@@ -273,8 +273,6 @@ test('getRootAddresses has an error', async () => {
     console.error(error)
     expect(error.toString()).toBe(errorGetRootAddresses)
   }
-
-  // console.log(`firstTimeUser: ${firstTimeUser}`)
 })
 
 test('test getBIP44Addresses to make sure we get back one address in the array', async () => {
@@ -289,8 +287,6 @@ test('getBIP44Addresses has an error', async () => {
     console.error(error)
     expect(error.toString()).toBe(errorGetBIP44Addresses)
   }
-
-  // console.log(`firstTimeUser: ${firstTimeUser}`)
 })
 
 const mockFetchStuff = () => {

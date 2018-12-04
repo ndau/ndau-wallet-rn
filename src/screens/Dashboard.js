@@ -21,7 +21,7 @@ import UnlockModalDialog from '../components/UnlockModalDialog'
 import LockModalDialog from '../components/LockModalDialog'
 import NewAccountModalDialog from '../components/NewAccountModalDialog'
 import TransactionModalDialog from '../components/TransactionModalDialog'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
@@ -29,6 +29,7 @@ import UserData from '../model/UserData'
 import FlashNotification from '../components/FlashNotification'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -47,6 +48,8 @@ class Dashboard extends Component {
       refreshing: false,
       marketPrice: 0
     }
+
+    this.isTestNet = false
   }
 
   componentWillMount = async () => {
@@ -55,6 +58,8 @@ class Dashboard extends Component {
 
     const marketPrice = this.props.navigation.getParam('marketPrice', 0)
     this.setState({ user, marketPrice })
+    this.isTestNet = await AsyncStorageHelper.isTestNet()
+    // if (this.isTestNet) console.log(`TESTNET IS ${this.isTestNet}`)
   }
 
   showModal = modalId => {
@@ -186,6 +191,16 @@ class Dashboard extends Component {
           }
         >
           <View style={cssStyles.dashboardTextContainer}>
+            {this.isTestNet ? (
+              <Text
+                style={[
+                  cssStyles.dashboardTextSmallWhiteEnd,
+                  { color: styleConstants.LINK_ORANGE }
+                ]}
+              >
+                TestNet
+              </Text>
+            ) : null}
             <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
           </View>
           <View style={cssStyles.dashboardTextContainer}>
@@ -213,7 +228,8 @@ class Dashboard extends Component {
               {currentPrice}
               <Text style={cssStyles.asterisks}>**</Text>
               <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
-                {' '}at current price
+                {' '}
+                at current price
               </Text>
             </Text>
             <View style={cssStyles.dashboardSmallTextContainer}>
@@ -231,10 +247,11 @@ class Dashboard extends Component {
                   style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
                   onPress={this.launchAddNewAccountDialog}
                 >
-                  <FontAwesome
+                  <FontAwesome5Pro
                     name='plus-circle'
                     color={styleConstants.ICON_GRAY}
                     size={20}
+                    light
                   />
                 </TouchableOpacity>
               </View>
@@ -326,14 +343,12 @@ class Dashboard extends Component {
                 { paddingLeft: wp('1%') }
               ]}
             >
-              The estimated value of ndau in US dollars can be calculated using the Target Price at
-              which new ndau have most recently been issued. The value shown here is calculated
-              using that method as of the issue price on
-              {' '}
-              {DateHelper.getTodaysDate()}
-              . The Axiom
-              Foundation bears no responsibility or liability for the calculation of that estimated
-              value, or for decisions based on that estimated value.
+              The estimated value of ndau in US dollars can be calculated using
+              the Target Price at which new ndau have most recently been issued.
+              The value shown here is calculated using that method as of the
+              issue price on {DateHelper.getTodaysDate()}. The Axiom Foundation
+              bears no responsibility or liability for the calculation of that
+              estimated value, or for decisions based on that estimated value.
             </Text>
           </View>
         </ScrollView>
