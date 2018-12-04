@@ -27,7 +27,8 @@ class AccountCard extends Component {
       lock,
       unlock,
       startTransaction,
-      walletId
+      walletId,
+      expanded,
     } = this.props
 
     const transactionIcon = accountNotLocked
@@ -41,6 +42,7 @@ class AccountCard extends Component {
         titleRight={accountBalance}
         lockAdder={accountNotLocked ? 0 : 3}
         onNotice={!!accountLockedUntil}
+        expanded={expanded}
       >
         {eaiPercentage
           ? <Text style={cssStyles.text}>

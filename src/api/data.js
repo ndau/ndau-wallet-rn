@@ -211,7 +211,7 @@ const testUser = {
   wallets: {
     '7MP-4FV': {
       walletId: '7MP-4FV',
-      accountCreationKey: 'e58b438d',
+      accountCreationKeyHash: 'e58b438d',
       accounts: {
         ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
           address: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',

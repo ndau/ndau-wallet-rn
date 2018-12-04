@@ -51,10 +51,7 @@ class SetupNewOrRecovery extends Component {
 
   showUseExistingRecovery = async () => {
     const password = await AsyncStorageHelper.getApplicationPassword()
-    // let user = null
-    // if (password) {
     const user = await MultiSafeHelper.getDefaultUser(password)
-    // }
 
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       walletSetupType: 'recovery',
@@ -73,9 +70,8 @@ class SetupNewOrRecovery extends Component {
             <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={cssStyles.wizardText}>
-                How do you want to setup your wallet? Choose one of the options below
-                {' '}
-                {Platform.OS === 'android' ? '\n' : ''}
+                How do you want to set up your wallet? Choose one of the options
+                below: {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
           </ScrollView>

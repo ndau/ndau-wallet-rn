@@ -1,14 +1,14 @@
 import MockAsyncStorage from 'mock-async-storage'
 
+import MultiSafe from '../MultiSafe'
+import { HTML5_FMT } from 'moment'
+
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
   jest.mock('AsyncStorage', () => mockImpl)
 }
 
 mock()
-
-import MultiSafe from '../MultiSafe'
-import { HTML5_FMT } from 'moment'
 
 describe('MultiSafe _encrypt/_decrypt tests...', () => {
   it('should store and retrieve an object using the official API', async () => {
@@ -120,7 +120,6 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
   })
 
   it('should be able to get the storage with a newly created MultiSafe', async () => {
-    console.log('starting last test')
     let o = {
       s: 'I am Groot',
       ndau: 1234437970
@@ -128,22 +127,16 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
     let pw = '1234'
     let sk = 'storagekey6'
     let ms = new MultiSafe()
-    console.log('creating 1')
     await ms.create(sk, pw)
-    console.log('Storing 1')
     await ms.store(o, pw)
-    console.log('retrieving 1')
     let y = await ms.retrieve(pw)
     expect(y).toEqual(o)
     expect(await ms.verify(pw)).toBeTruthy()
 
     let ms1 = new MultiSafe()
-    console.log('creating 2')
     await ms1.create(sk, pw)
     expect(ms1.storageKey).toEqual(ms.storageKey)
-    console.log('verifying 2')
     expect(await ms1.verify(pw)).toBeTruthy()
-    console.log('retrieving 2')
     let z = await ms1.retrieve(pw)
     expect(z).toEqual(o)
   })
@@ -178,7 +171,6 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
 
     let ms1 = new MultiSafe()
     let storageKeys = await ms1.getStorageKeys()
-    console.log(`storageKeys are ${storageKeys}`)
     expect(storageKeys[7]).toEqual(sk)
   })
 
@@ -224,4 +216,25 @@ describe('MultiSafe _encrypt/_decrypt tests...', () => {
       expect(err).toBeDefined()
     }
   })
+})
+
+it('should be able to see if a specific MultiSafe exists', async () => {
+  let o = {
+    s: 'I am Groot',
+    ndau: 1234437970
+  }
+  let pw = '1234'
+  let sk = 'storagekey6'
+  let ms = new MultiSafe()
+  await ms.create(sk, pw)
+  await ms.store(o, pw)
+  let y = await ms.retrieve(pw)
+  expect(y).toEqual(o)
+  expect(await ms.verify(pw)).toBeTruthy()
+
+  let ms1 = new MultiSafe()
+  expect(await ms1.doesMultiSafeExist(sk, pw)).toEqual(true)
+  expect(await ms1.doesMultiSafeExist(sk + '1', pw)).toEqual(false)
+  expect(await ms1.doesMultiSafeExist(sk, pw + '1')).toEqual(false)
+  expect(await ms1.doesMultiSafeExist(sk + '1', pw + '1')).toEqual(false)
 })

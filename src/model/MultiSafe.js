@@ -270,6 +270,31 @@ class MultiSafe {
   }
 
   /**
+   * Does a MultiSafe already exist for the passed in
+   * storageKey combo. If it does we get a true back,
+   * otherwise false
+   *
+   * @param {string} storageKey to check
+   * @param {string} combo combination or password to check
+   * @returns true if present else false
+   */
+  doesMultiSafeExist = async (storageKey, combo) => {
+    this.storageKey = storageKey
+    let multisafeKey = MULTISAFE_DATA_PREFIX + storageKey
+    let metaKey = MULTISAFE_META_PREFIX + storageKey
+    if (await this._keyExists(metaKey)) {
+      try {
+        await this.verify(combo)
+      } catch (error) {
+        return false
+      }
+      return true
+    }
+
+    return false
+  }
+
+  /**
    * Is a MultiSafe present within the AsyncStorage keys.
    * @returns {boolean} true if present, false if not
    */

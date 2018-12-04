@@ -10,17 +10,17 @@ Below you will find instructions on how to get ndau wallet running in both Andro
 - [Getting Started](#getting-started)
 - [Mandatory Scripts](#mandatory-scripts)
 - [Available Scripts](#available-scripts)
-  - [`npm start`](#npm-start)
-    - [`npm test`](#npm-test)
-    - [`npm run ios`](#npm-run-ios)
-    - [`npm run android`](#npm-run-android)
+    - [`npm start`](#npm-start)
+        - [`npm test`](#npm-test)
+        - [`npm run ios`](#npm-run-ios)
+        - [`npm run android`](#npm-run-android)
 - [Writing and Running Tests](#writing-and-running-tests)
 - [Circle-CI integration](#circle-ci-integration)
 - [Deployment](#deployment)
-  - [iOS Deployment](#ios-deployment)
-  - [Android Deployment](#android-deployment)
+    - [iOS Deployment](#ios-deployment)
+    - [Android Deployment](#android-deployment)
 - [Troubleshooting](#troubleshooting)
-  - [iOS Simulator won't open](#ios-simulator-wont-open)
+    - [iOS Simulator won't open](#ios-simulator-wont-open)
 
 ## Getting Started
 
@@ -52,6 +52,12 @@ After the above is run you MUST now run the following commands:
 
 `npm install`
 `yarn install` (just incase you use yarn)
+
+Next make sure you run the following command to get all the
+fonts used within the ndau wallet app
+
+`npm run load-assets`
+`yarn load-assets`
 
 ## Available Scripts
 

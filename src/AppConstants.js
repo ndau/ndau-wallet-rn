@@ -16,6 +16,8 @@ const NEW_PASSWORD_MODE = 'new-password'
 const TEMP_USER = 'temp-user'
 
 const NDAU_EPOCH = '2000-01-01T00:00:00Z'
+const QUANTA_PER_UNIT = 100000000
+const RATE_DENOMINATOR = QUANTA_PER_UNIT * 10000
 
 export default {
   HARDENED_CHILD_BIP_44,
@@ -32,5 +34,7 @@ export default {
   GENESIS_MODE,
   NEW_PASSWORD_MODE,
   TEMP_USER,
-  NDAU_EPOCH
+  NDAU_EPOCH,
+  QUANTA_PER_UNIT,
+  RATE_DENOMINATOR
 }

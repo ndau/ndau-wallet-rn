@@ -164,3 +164,11 @@ const mockFetchStuff = () => {
     [data.testMarketPrice]
   )
 }
+
+test('if we can get the correct EAI rate from what comes back', async () => {
+  const account = {
+    eaiPercentage: 70000000000
+  }
+
+  expect(NdauNodeAPIHelper.eaiPercentage(account)).toBe(0.07)
+})

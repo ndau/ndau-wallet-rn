@@ -6,7 +6,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import cssStyles from '../css/styles'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import styleConstants from '../css/styleConstants'
 
 class UnlockModalDialog extends Component {
@@ -21,18 +21,20 @@ class UnlockModalDialog extends Component {
           }}
         >
           <TouchableOpacity onPress={this.props.subtractNumber}>
-            <FontAwesome
+            <FontAwesome5Pro
               name='minus-circle'
               color={styleConstants.ICON_GRAY}
               size={32}
+              light
             />
           </TouchableOpacity>
           <Text style={styles.text}>{this.props.number}</Text>
           <TouchableOpacity onPress={this.props.addNumber}>
-            <FontAwesome
+            <FontAwesome5Pro
               name='plus-circle'
               color={styleConstants.ICON_GRAY}
               size={32}
+              light
             />
           </TouchableOpacity>
         </View>
