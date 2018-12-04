@@ -34,16 +34,16 @@ class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
     this.NORMAL_MODE_TEXT =
-      `To verify your account please verify your twelve-word recovery` +
-      `phrase below. Start typing in the box below, then pick the correct suggestion.`
+      `To recover your wallet, please verify your twelve-word recovery phrase. 
+      Start typing in the box below, then pick the correct suggestion.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
-      'correct suggestion'
+      'correct suggestion.'
     this.GENESIS_MODE_TEXT =
       `We're almost ready to get you on the ndau blockchain, ` +
       'but we need one last thing from you. \n\nPlease verify your twelve word ' +
-      'recovery phrase. Start typing in the box below, then pick the correct suggestion'
+      'recovery phrase. Start typing in the box below, then pick the correct suggestion.'
 
     this.state = {
       size: { width: wp('100%'), height: hp('50%') },

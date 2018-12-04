@@ -160,7 +160,7 @@ var styles = StyleSheet.create({
     marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-300',
+    fontFamily: 'TitilliumWeb-Light',
     textAlign: 'left'
   },
   titleRight: {
@@ -171,7 +171,7 @@ var styles = StyleSheet.create({
     marginBottom: hp('.5%'),
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-300',
+    fontFamily: 'TitilliumWeb-Light',
     textAlign: 'right'
   },
   body: {

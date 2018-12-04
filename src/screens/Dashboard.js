@@ -211,7 +211,7 @@ class Dashboard extends Component {
           <View style={cssStyles.dashboardSmallTextContainer}>
             <Text style={cssStyles.dashboardTextSmallGreen}>
               {currentPrice}
-              <Text style={cssStyles.asterisks}>**</Text>
+              <Text style={cssStyles.asterisks}>*</Text>
               <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
                 {' '}at current price
               </Text>
