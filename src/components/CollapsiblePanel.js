@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Animated,
   Image,
+  Platform,
   PixelRatio
 } from 'react-native'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
@@ -15,6 +16,9 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import cssStyles from '../css/styles'
+
+
+const PADDING = wp('4%')
 
 class CollapsiblePanel extends Component {
   constructor (props) {
@@ -31,7 +35,7 @@ class CollapsiblePanel extends Component {
     ]
 
     this.state = {
-      expanded: this.props.expanded,
+      expanded: true,
       animation: new Animated.Value(),
       maxHeight: 0,
       minHeight: 0
@@ -60,7 +64,7 @@ class CollapsiblePanel extends Component {
   }
 
   setMaxHeight = event => {
-    let adjustment = hp('1.2%')
+    let adjustment = hp('1.2%');
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
       console.debug(
         `setting maxHeight for first time: ${event.nativeEvent.layout.height}`
@@ -115,17 +119,28 @@ class CollapsiblePanel extends Component {
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}
-                >
-                  <Image
-                    style={{
-                      width: wp('3%'),
-                      height: hp('2%'),
-                      marginRight: wp('.1%')
-                    }}
-                    resizeMode='contain'
-                    source={require('img/ndau-icon-white.png')}
-                  />
-                  <Text style={styles.titleRight}>{this.props.titleRight}</Text>
+                  >
+                  <Text style={styles.titleRight}>
+                    <Image
+                      style={{
+                        ...Platform.select({
+                          ios: {
+                            width: 10,
+                            height: 15,
+                            marginBottom: wp('0.5%'),
+                          },
+                          android: {
+                            width: 40,
+                            height: 50,
+                          }
+                        }),
+                      }}
+                      resizeMode='contain'
+                      source={require('img/ndau-icon-white.png')}
+                    />
+                    {'  '}
+                    {this.props.titleRight}
+                  </Text>
                 </View>
               ) : null}
             </View>
@@ -144,46 +159,38 @@ var styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
     overflow: 'hidden',
-    marginBottom: hp('.5%'),
-    borderRadius: 3,
-    borderWidth: 0.5
+    borderRadius: 5,
+    borderWidth: 0.5,
   },
   titleContainer: {
     flexDirection: 'row'
   },
   titleLeft: {
     flex: 1,
-    marginTop: hp('.5%'),
-    marginLeft: wp('1%'),
-    marginRight: wp('1%'),
-    marginBottom: hp('.5%'),
+    padding: PADDING,
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular',
+    fontFamily: 'TitilliumWeb-Light',
     textAlign: 'left'
   },
   titleRight: {
     flexDirection: 'row',
-    marginTop: hp('.5%'),
-    marginLeft: wp('1%'),
-    marginRight: wp('1%'),
-    marginBottom: hp('.5%'),
+    margin: PADDING,
     color: '#fff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular',
-    textAlign: 'right'
+    fontFamily: 'TitilliumWeb-Light',
+    textAlign: 'right',
   },
   body: {
-    padding: hp('1%'),
-    paddingTop: 0
+    padding: PADDING,
+    paddingTop: wp('1%'),
   },
   border: {
     borderBottomColor: 'white',
     borderBottomWidth: 1,
-    marginLeft: wp('1%'),
-    marginRight: wp('1%'),
-    marginBottom: hp('1%'),
-    opacity: 0.2
+    marginLeft: PADDING,
+    marginRight: PADDING,
+    opacity: 0.2,
   }
 })
 

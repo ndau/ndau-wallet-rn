@@ -14,6 +14,7 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
 
 class SetupEncryptionPassword extends Component {
@@ -92,30 +93,33 @@ class SetupEncryptionPassword extends Component {
 
   render () {
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
-            <View style={styles.textContainer}>
+            <Padding top={0}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Give this wallet a name.
               </Text>
-            </View>
-            <TextInput
-              style={cssStyles.textInput}
-              onChangeText={value => {
-                this.setState({ nameEntered: true })
-                SetupStore.walletId = value
-              }}
-              // value={value => {
-              //   SetupStore.walletId = value
-              // }}
-              placeholder={SetupStore.walletId}
-              placeholderTextColor='#333'
-              autoCapitalize='none'
-            />
+            </Padding>
+
+            <Padding>
+              <TextInput
+                style={cssStyles.textInput}
+                onChangeText={value => {
+                  this.setState({ nameEntered: true })
+                  SetupStore.walletId = value
+                }}
+                // value={(value) => {
+                //   SetupStore.walletId = value;
+                // }}
+                placeholder={`Wallet ${SetupStore.walletId}`}
+                placeholderTextColor='#333'
+                autoCapitalize='none'
+              />
+            </Padding>
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <CommonButton
               onPress={this.showNextSetup}
               title='Next'
@@ -129,25 +133,8 @@ class SetupEncryptionPassword extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  button: {
-    marginTop: 0
-  },
   textContainer: {
     marginBottom: 8
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 15,
-    paddingBottom: 15
   },
   infoParagraph: {
     flexDirection: 'row'
