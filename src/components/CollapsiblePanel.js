@@ -35,11 +35,7 @@ class CollapsiblePanel extends Component {
     ]
 
     this.state = {
-<<<<<<< HEAD
-      expanded: false,
-=======
-      expanded: this.props.expanded,
->>>>>>> 81ca9bde682ec7638f64c1f3174bec6349bd753c
+      expanded: true,
       animation: new Animated.Value(),
       maxHeight: 0,
       minHeight: 0
@@ -174,11 +170,7 @@ var styles = StyleSheet.create({
     padding: PADDING,
     color: '#fff',
     fontSize: 18,
-<<<<<<< HEAD
     fontFamily: 'TitilliumWeb-Light',
-=======
-    fontFamily: 'TitilliumWeb-Regular',
->>>>>>> 81ca9bde682ec7638f64c1f3174bec6349bd753c
     textAlign: 'left'
   },
   titleRight: {
@@ -186,13 +178,8 @@ var styles = StyleSheet.create({
     margin: PADDING,
     color: '#fff',
     fontSize: 18,
-<<<<<<< HEAD
     fontFamily: 'TitilliumWeb-Light',
     textAlign: 'right',
-=======
-    fontFamily: 'TitilliumWeb-Regular',
-    textAlign: 'right'
->>>>>>> 81ca9bde682ec7638f64c1f3174bec6349bd753c
   },
   body: {
     padding: PADDING,
@@ -201,16 +188,9 @@ var styles = StyleSheet.create({
   border: {
     borderBottomColor: 'white',
     borderBottomWidth: 1,
-<<<<<<< HEAD
     marginLeft: PADDING,
     marginRight: PADDING,
     opacity: 0.2,
-=======
-    marginLeft: wp('1%'),
-    marginRight: wp('1%'),
-    marginBottom: hp('1%'),
-    opacity: 0.2
->>>>>>> 81ca9bde682ec7638f64c1f3174bec6349bd753c
   }
 })
 

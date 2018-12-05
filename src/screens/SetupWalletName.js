@@ -14,11 +14,8 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-<<<<<<< HEAD
 import Padding from '../components/Padding'
-=======
 import FlashNotification from '../components/FlashNotification'
->>>>>>> 81ca9bde682ec7638f64c1f3174bec6349bd753c
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
