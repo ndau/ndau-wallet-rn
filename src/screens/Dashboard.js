@@ -35,6 +35,7 @@ const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
 const NEW_ACCOUNT_MODAL_ID = 'newAccount'
 const TRANSACTION_MODAL_ID = 'transaction'
+const NDAU_GREEN = require('img/ndau-icon-green.png')
 
 class Dashboard extends Component {
   constructor (props) {
@@ -218,7 +219,7 @@ class Dashboard extends Component {
                   marginRight: wp('1%')
                 }}
                 resizeMode='contain'
-                source={require('img/ndau-icon-green.png')}
+                source={NDAU_GREEN}
               />
               <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
             </View>
@@ -335,7 +336,12 @@ class Dashboard extends Component {
                 />
               )
             })}
-          <View style={[cssStyles.dashboardRowContainerCenter, {paddingTop: hp('4%')}]}>
+          <View
+            style={[
+              cssStyles.dashboardRowContainerCenter,
+              { paddingTop: hp('4%') }
+            ]}
+          >
             <Text style={cssStyles.asterisks}>*</Text>
             <Text
               style={[

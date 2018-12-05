@@ -29,6 +29,7 @@ import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -65,7 +66,8 @@ class SetupGetRecoveryPhrase extends Component {
       mode: AppConstants.NORMAL_MODE,
       recoveryWord: '',
       recoveryIndex: 0,
-      disableArrows: true
+      disableArrows: true,
+      spinner: false
     }
 
     this.index = 0
@@ -210,88 +212,92 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   confirm = async () => {
-    try {
-      const { navigation } = this.props
+    this.setState({ spinner: true }, async () => {
+      try {
+        const { navigation } = this.props
 
-      if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
-        navigation.navigate('SetupEncryptionPassword', {
-          user,
-          walletSetupType:
-            navigation.state.params && navigation.state.params.walletSetupType,
-          mode: AppConstants.PASSWORD_RESET_MODE,
-          recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
-            this.recoveryPhrase
-          )
-        })
-        return
-      }
-
-      const user = await this._checkRecoveryPhrase()
-      if (user) {
-        const encryptionPassword = navigation.getParam(
-          'encryptionPassword',
-          null
-        )
-        let marketPrice = 0
-        // IF we have a password we are fixing up an account from a 1.6 user here
-        // so we fixed it up...now save it...and go back to Dashboard
-        if (encryptionPassword) {
-          try {
-            await UserData.loadData(user)
-            marketPrice = await OrderNodeAPI.getMarketPrice()
-          } catch (error) {
-            FlashNotification.showError(error.message)
-          }
-
-          await MultiSafeHelper.saveUser(
+        if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
+          navigation.navigate('SetupEncryptionPassword', {
             user,
-            encryptionPassword,
-            DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase)
-          )
-
-          this.props.navigation.navigate('Dashboard', {
-            user,
-            encryptionPassword,
             walletSetupType:
               navigation.state.params &&
               navigation.state.params.walletSetupType,
-            marketPrice
-          })
-        } else {
-          if (
-            await MultiSafeHelper.recoveryPhraseAlreadyExists(
-              user.userId,
+            mode: AppConstants.PASSWORD_RESET_MODE,
+            recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
               this.recoveryPhrase
             )
-          ) {
-            FlashNotification.showError(
-              'This recovery phrase already exists in the wallet.'
-            )
-            return
-          }
-          SetupStore.recoveryPhrase = this.recoveryPhrase
-          navigation.navigate('SetupWalletName', {
-            user,
-            walletSetupType:
-              navigation.state.params &&
-              navigation.state.params.walletSetupType
           })
+          return
         }
-      } else {
+
+        const user = await this._checkRecoveryPhrase()
+        if (user) {
+          const encryptionPassword = navigation.getParam(
+            'encryptionPassword',
+            null
+          )
+          let marketPrice = 0
+          // IF we have a password we are fixing up an account from a 1.6 user here
+          // so we fixed it up...now save it...and go back to Dashboard
+          if (encryptionPassword) {
+            try {
+              await UserData.loadData(user)
+              marketPrice = await OrderNodeAPI.getMarketPrice()
+            } catch (error) {
+              FlashNotification.showError(error.message)
+            }
+
+            await MultiSafeHelper.saveUser(
+              user,
+              encryptionPassword,
+              DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase)
+            )
+
+            this.props.navigation.navigate('Dashboard', {
+              user,
+              encryptionPassword,
+              walletSetupType:
+                navigation.state.params &&
+                navigation.state.params.walletSetupType,
+              marketPrice
+            })
+          } else {
+            if (
+              await MultiSafeHelper.recoveryPhraseAlreadyExists(
+                user.userId,
+                this.recoveryPhrase
+              )
+            ) {
+              FlashNotification.showError(
+                'This recovery phrase already exists in the wallet.'
+              )
+              return
+            }
+            SetupStore.recoveryPhrase = this.recoveryPhrase
+            navigation.navigate('SetupWalletName', {
+              user,
+              walletSetupType:
+                navigation.state.params &&
+                navigation.state.params.walletSetupType
+            })
+          }
+        } else {
+          this.setState({
+            textColor: '#f05123',
+            confirmationError: true
+          })
+          FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
+        }
+      } catch (error) {
+        console.warn(error)
         this.setState({
           textColor: '#f05123',
           confirmationError: true
         })
         FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
       }
-    } catch (error) {
-      console.warn(error)
-      this.setState({
-        textColor: '#f05123',
-        confirmationError: true
-      })
-      FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
-    }
+      this.setState({ spinner: false })
+    })
   }
 
   pushBack = () => {
@@ -323,6 +329,17 @@ class SetupGetRecoveryPhrase extends Component {
             style={cssStyles.contentContainer}
             keyboardShouldPersistTaps='always'
           >
+            <Spinner
+              visible={this.state.spinner}
+              textContent={'Talking to blockchain...'}
+              textStyle={{
+                color: '#ffffff',
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              animation='fade'
+              overlayColor='rgba(0, 0, 0, 0.7)'
+            />
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
@@ -476,6 +493,17 @@ class SetupGetRecoveryPhrase extends Component {
             style={cssStyles.contentContainer}
             keyboardShouldPersistTaps='always'
           >
+            <Spinner
+              visible={this.state.spinner}
+              textContent={'Talking to blockchain...'}
+              textStyle={{
+                color: '#ffffff',
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              animation='fade'
+              overlayColor='rgba(0, 0, 0, 0.7)'
+            />
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}

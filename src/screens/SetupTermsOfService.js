@@ -14,73 +14,84 @@ import UserData from '../model/UserData'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      agree: !!__DEV__
+      agree: !!__DEV__,
+      spinner: false
     }
   }
 
   finishSetup = async () => {
-    console.debug('Finishing Setup...')
+    this.setState({ spinner: true }, async () => {
+      try {
+        console.debug('Finishing Setup...')
 
-    let user = this.props.navigation.getParam('user', null)
+        let user = this.props.navigation.getParam('user', null)
 
-    // check if there is already a safe for this user
-    const existingUser = await MultiSafeHelper.getDefaultUser(
-      SetupStore.encryptionPassword
-    )
-    if (user) {
-      let password = await AsyncStorageHelper.getApplicationPassword()
-      if (!password) {
-        password = SetupStore.encryptionPassword
+        // check if there is already a safe for this user
+        const existingUser = await MultiSafeHelper.getDefaultUser(
+          SetupStore.encryptionPassword
+        )
+        if (user) {
+          let password = await AsyncStorageHelper.getApplicationPassword()
+          if (!password) {
+            password = SetupStore.encryptionPassword
+          }
+          user = await MultiSafeHelper.saveUser(
+            user,
+            password,
+            DataFormatHelper.convertRecoveryArrayToString(
+              SetupStore.recoveryPhrase
+            )
+          )
+        } else if (Object.keys(existingUser).length) {
+          user = await MultiSafeHelper.addNewWallet(
+            existingUser,
+            DataFormatHelper.convertRecoveryArrayToString(
+              SetupStore.recoveryPhrase
+            ),
+            SetupStore.walletId,
+            existingUser.userId,
+            SetupStore.numberOfAccounts,
+            SetupStore.encryptionPassword,
+            SetupStore.addressType
+          )
+        } else {
+          user = await MultiSafeHelper.setupNewUser(
+            user,
+            DataFormatHelper.convertRecoveryArrayToString(
+              SetupStore.recoveryPhrase
+            ),
+            SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
+            SetupStore.numberOfAccounts,
+            SetupStore.encryptionPassword,
+            SetupStore.addressType
+          )
+        }
+
+        await UserData.loadData(user)
+        const marketPrice = await OrderNodeAPI.getMarketPrice()
+
+        await AsyncStorageHelper.setApplicationPassword(
+          SetupStore.encryptionPassword
+        )
+
+        this.props.navigation.navigate('Dashboard', {
+          user,
+          encryptionPassword: SetupStore.encryptionPassword,
+          walletSetupType: null,
+          marketPrice
+        })
+      } catch (error) {
+        FlashNotification.showError(error.message)
       }
-      user = await MultiSafeHelper.saveUser(
-        user,
-        password,
-        DataFormatHelper.convertRecoveryArrayToString(SetupStore.recoveryPhrase)
-      )
-    } else if (Object.keys(existingUser).length) {
-      user = await MultiSafeHelper.addNewWallet(
-        existingUser,
-        DataFormatHelper.convertRecoveryArrayToString(
-          SetupStore.recoveryPhrase
-        ),
-        SetupStore.walletId,
-        existingUser.userId,
-        SetupStore.numberOfAccounts,
-        SetupStore.encryptionPassword,
-        SetupStore.addressType
-      )
-    } else {
-      user = await MultiSafeHelper.setupNewUser(
-        user,
-        DataFormatHelper.convertRecoveryArrayToString(
-          SetupStore.recoveryPhrase
-        ),
-        SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
-        SetupStore.numberOfAccounts,
-        SetupStore.encryptionPassword,
-        SetupStore.addressType
-      )
-    }
-
-    await UserData.loadData(user)
-    const marketPrice = await OrderNodeAPI.getMarketPrice()
-
-    await AsyncStorageHelper.setApplicationPassword(
-      SetupStore.encryptionPassword
-    )
-
-    this.props.navigation.navigate('Dashboard', {
-      user,
-      encryptionPassword: SetupStore.encryptionPassword,
-      walletSetupType: null,
-      marketPrice
     })
+    this.setState({ spinner: false })
   }
 
   sendAddressesToOneiro = user => {
@@ -126,6 +137,17 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator
             indicatorStyle='white'
           >
+            <Spinner
+              visible={this.state.spinner}
+              textContent={'Talking to blockchain...'}
+              textStyle={{
+                color: '#ffffff',
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              animation='fade'
+              overlayColor='rgba(0, 0, 0, 0.7)'
+            />
             <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={styles.mainLegalTextHeading}>

@@ -16,18 +16,27 @@ import {
 } from 'react-native-responsive-screen'
 import cssStyles from '../css/styles'
 
+const GREEN_CARD = require('img/green-card.png')
+const BLUE_CARD = require('img/light-blue-card.png')
+const DARK_BLUE_CARD = require('img/dark-blue-card.png')
+const GREEN_LOCKED_CARD = require('img/green-locked-card.png')
+const BLUE_LOCKED_CARD = require('img/light-blue-locked-card.png')
+const DARK_BLUE_LOCKED_CARD = require('img/dark-blue-locked-card.png')
+const GREY_NOTIFIED_CARD = require('img/grey-notified-card.png')
+const WHITE_NDAU = require('img/ndau-icon-white.png')
+
 class CollapsiblePanel extends Component {
   constructor (props) {
     super(props)
 
     this.cardBackgrounds = [
-      require('img/green-card.png'),
-      require('img/light-blue-card.png'),
-      require('img/dark-blue-card.png'),
-      require('img/green-locked-card.png'),
-      require('img/light-blue-locked-card.png'),
-      require('img/dark-blue-locked-card.png'),
-      require('img/grey-notified-card.png')
+      GREEN_CARD,
+      BLUE_CARD,
+      DARK_BLUE_CARD,
+      GREEN_LOCKED_CARD,
+      BLUE_LOCKED_CARD,
+      DARK_BLUE_LOCKED_CARD,
+      GREY_NOTIFIED_CARD
     ]
 
     this.state = {
@@ -123,7 +132,7 @@ class CollapsiblePanel extends Component {
                       marginRight: wp('.1%')
                     }}
                     resizeMode='contain'
-                    source={require('img/ndau-icon-white.png')}
+                    source={WHITE_NDAU}
                   />
                   <Text style={styles.titleRight}>{this.props.titleRight}</Text>
                 </View>
