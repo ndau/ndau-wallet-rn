@@ -16,6 +16,9 @@ import {
 } from 'react-native-responsive-screen'
 import cssStyles from '../css/styles'
 
+
+const PADDING = wp('4%')
+
 class CollapsiblePanel extends Component {
   constructor (props) {
     super(props)
@@ -115,17 +118,19 @@ class CollapsiblePanel extends Component {
                     justifyContent: 'center'
                   }}
                   >
-                  <Image
-                    style={{
-                      width: wp('3%'),
-                      height: hp('2%'),
-                      marginRight: wp('.1%')
-                    }}
-                    resizeMode='contain'
-                    source={require('img/ndau-icon-white.png')}
-                    />
                   <Text style={styles.titleRight}>
-                    {this.props.titleRight}
+                    <Image
+                      style={{
+                        width: 40,
+                        height: 50,
+                      }}
+                      resizeMode='contain'
+                      source={require('img/ndau-icon-white.png')}
+                    />
+                    {'  '}
+                    <Text style={{paddingLeft: wp('1%')}}>
+                      {this.props.titleRight}
+                    </Text>
                   </Text>
                 </View>
                 : null}
@@ -145,19 +150,16 @@ var styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
     overflow: 'hidden',
-    marginBottom: hp('.5%'),
-    borderRadius: 3,
-    borderWidth: 0.5
+    borderRadius: 5,
+    borderWidth: 0.5,
+    // padding: wp('3%'),
   },
   titleContainer: {
     flexDirection: 'row'
   },
   titleLeft: {
     flex: 1,
-    marginTop: hp('.5%'),
-    marginLeft: wp('1%'),
-    marginRight: wp('1%'),
-    marginBottom: hp('.5%'),
+    padding: PADDING,
     color: '#fff',
     fontSize: 18,
     fontFamily: 'TitilliumWeb-Light',
@@ -165,25 +167,21 @@ var styles = StyleSheet.create({
   },
   titleRight: {
     flexDirection: 'row',
-    marginTop: hp('.5%'),
-    marginLeft: wp('1%'),
-    marginRight: wp('1%'),
-    marginBottom: hp('.5%'),
+    padding: PADDING,
     color: '#fff',
     fontSize: 18,
     fontFamily: 'TitilliumWeb-Light',
     textAlign: 'right'
   },
   body: {
-    padding: hp('1%'),
-    paddingTop: 0
+    padding: PADDING,
+    paddingTop: wp('1%'),
   },
   border: {
     borderBottomColor: 'white',
     borderBottomWidth: 1,
-    marginLeft: wp('1%'),
-    marginRight: wp('1%'),
-    marginBottom: hp('1%'),
+    marginLeft: PADDING,
+    marginRight: PADDING,
     opacity: 0.2,
   }
 })

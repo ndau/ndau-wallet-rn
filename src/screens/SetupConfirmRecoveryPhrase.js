@@ -21,13 +21,14 @@ import {
 import EntropyHelper from '../helpers/EntropyHelper'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import FlashNotification from '../components/FlashNotification'
+import Padding from '../components/Padding'
 
 var _ = require('lodash')
 
 const MAX_ERRORS = 4 // 4 strikes and you're out
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 
-let boxWidth = '30%'
+let boxWidth = '28%'
 let boxHeight = '10%'
 
 class SetupConfirmRecoveryPhrase extends Component {
@@ -71,37 +72,41 @@ class SetupConfirmRecoveryPhrase extends Component {
     }, {})
 
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
-            <View style={{ marginBottom: 10 }}>
+            <Padding top={0}>
               <Text style={cssStyles.wizardText}>
                 To confirm that you recorded the phrase, tap the words below in order.
                 {' '}
               </Text>
-            </View>
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={styles.rowView}>
-                  {row.map((item, index) => {
-                    const i = index + row.length * rowIndex
-                    return (
-                      <Word
-                        key={i}
-                        error={this.state.errorWord == i}
-                        selected={selected[i]}
-                        onPress={event => this.handleClick(i, event)}
-                      >
-                        {item}
-                      </Word>
-                    )
-                  })}
-                </View>
-              )
-            })}
+            </Padding>
+
+            <Padding>
+              {
+                words.map((row, rowIndex) => {
+                return (
+                  <View key={rowIndex} style={styles.rowView}>
+                    {row.map((item, index) => {
+                      const i = index + row.length * rowIndex
+                      return (
+                        <Word
+                          key={i}
+                          error={this.state.errorWord == i}
+                          selected={selected[i]}
+                          onPress={event => this.handleClick(i, event)}
+                        >
+                          {item}
+                        </Word>
+                      )
+                    })}
+                  </View>
+                )
+              })}
+            </Padding>
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
               <CommonButton
                 onPress={() => this.pushBack()}
@@ -232,40 +237,13 @@ function Word (props) {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end',
-    display: 'flex'
-  },
   navButtons: {
     width: wp('40%')
-  },
-  progress: {
-    paddingTop: 30,
-    paddingBottom: 30
   },
   rowView: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
-  },
-  textArea: {
-    height: hp('100%'),
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: hp('1%'),
-    marginTop: hp('1%'),
-    paddingLeft: wp('1%'),
-    color: '#000000',
-    backgroundColor: '#ffffff',
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular'
   }
 })
 

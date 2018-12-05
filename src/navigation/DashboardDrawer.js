@@ -13,7 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import styleConstants from '../css/styleConstants'
+import Padding from '../components/Padding'
 
 class DashboardDrawer extends React.Component {
   constructor (props) {
@@ -58,45 +58,56 @@ class DashboardDrawer extends React.Component {
         <SafeAreaView
           style={cssStyles.drawerContainer}
           forceInset={{ top: 'always', horizontal: 'never' }}
-        >
-          <TouchableOpacity onPress={() => this.dashboard()}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                style={cssStyles.drawerTextImageDashboard}
-                source={require('img/billfold-revised1024.png')}
-              />
-              <Text style={cssStyles.drawerText}>Wallets</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ marginTop: hp('1.5%') }}
-            onPress={() => this.addOrRecoverWallet()}
-          >
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                style={[cssStyles.drawerTextImageDashboard, { width: 35 }]}
-                source={require('img/plus_add1024.png')}
-              />
-              <Text style={cssStyles.drawerText}>Add or recover wallet</Text>
-            </View>
-          </TouchableOpacity>
-          <View
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-              marginTop: hp('1.5%'),
-              marginBottom: hp('1.5%')
-            }}
-          />
-          <TouchableOpacity onPress={() => this.logout()}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                style={cssStyles.drawerTextImage}
-                source={require('img/ndau_user1024.png')}
-              />
-              <Text style={cssStyles.drawerText}>Logout</Text>
-            </View>
-          </TouchableOpacity>
+        > 
+          <Padding>
+            <TouchableOpacity onPress={() => this.dashboard()}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image
+                  style={cssStyles.drawerTextImageDashboard}
+                  source={require('img/billfold-revised1024.png')}
+                />
+                <Text style={cssStyles.drawerText}>Wallets</Text>
+              </View>
+            </TouchableOpacity>
+          </Padding>
+         
+          <Padding>
+            <TouchableOpacity
+              style={{ marginTop: hp('1.5%') }}
+              onPress={() => this.addOrRecoverWallet()}
+            >
+              <View style={{ flexDirection: 'row' }}>
+                <Image
+                  style={[cssStyles.drawerTextImageDashboard, { width: 35 }]}
+                  source={require('img/plus_add1024.png')}
+                />
+                <Text style={cssStyles.drawerText}>Add or recover wallet</Text>
+              </View>
+            </TouchableOpacity>
+          </Padding>
+          
+          <Padding>
+            <View
+              style={{
+                borderBottomColor: '#555',
+                borderBottomWidth: 1,
+                marginTop: hp('1.5%'),
+                marginBottom: hp('1.5%')
+              }}
+            />
+          </Padding>
+
+          <Padding>
+            <TouchableOpacity onPress={() => this.logout()}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image
+                  style={cssStyles.drawerTextImage}
+                  source={require('img/ndau_user1024.png')}
+                />
+                <Text style={cssStyles.drawerText}>Logout</Text>
+              </View>
+            </TouchableOpacity>
+          </Padding>
         </SafeAreaView>
       </ScrollView>
     )

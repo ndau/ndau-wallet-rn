@@ -25,6 +25,7 @@ import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
+import Padding from '../components/Padding'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 
@@ -35,8 +36,8 @@ class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
     this.NORMAL_MODE_TEXT =
-      `To recover your wallet, please verify your twelve-word recovery phrase. 
-      Start typing in the box below, then pick the correct suggestion.`
+      `To recover your wallet, please verify your twelve-word recovery phrase. ` + 
+      `Start typing in the box below, then pick the correct suggestion.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
@@ -148,28 +149,30 @@ class SetupGetRecoveryPhrase extends Component {
       style.push({
         ...Platform.select({
           android: {
-            marginLeft: wp('14%')
+            marginLeft: wp('11%')
           }
         })
       })
     }
     return (
-      <View style={style} key={index}>
-        <Text
-          style={[
-            cssStyles.wizardText,
-            { marginTop: hp('1%'), marginRight: wp('2%') }
-          ]}
-        >
-          {index + 1}.
-        </Text>
-        <RecoveryDropdown
-          addToRecoveryPhrase={this.addToRecoveryPhrase}
-          index={index}
-          setAcquisitionError={this.setAcquisitionError}
-          recoveryPhrase={this.recoveryPhrase}
-        />
-      </View>
+      <Padding top={7.3} key={index}>
+        <View style={style}>
+          <Text
+            style={[
+              cssStyles.wizardText,
+              { marginTop: hp('1.5%'), marginRight: wp('3%') }
+            ]}
+          >
+            {index + 1}.
+          </Text>
+          <RecoveryDropdown
+            addToRecoveryPhrase={this.addToRecoveryPhrase}
+            index={index}
+            setAcquisitionError={this.setAcquisitionError}
+            recoveryPhrase={this.recoveryPhrase}
+          />
+        </View>
+      </Padding>
     )
   }
 
@@ -303,7 +306,7 @@ class SetupGetRecoveryPhrase extends Component {
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View style={{ marginBottom: 10 }}>
+            <View>
               <Text style={cssStyles.wizardText}>
                 {this.state.introductionText}
               </Text>
@@ -328,13 +331,16 @@ class SetupGetRecoveryPhrase extends Component {
               </Carousel>
             </View>
           </ScrollView>
+          
           <View style={cssStyles.footer}>
-            <Text
-              onPress={this.noRecoveryPhrase}
-              style={[cssStyles.linkText, { textAlign: 'center' }]}
-            >
-              I don't have my recovery phrase
-            </Text>
+            <Padding bottom={2}>
+              <Text
+                onPress={this.noRecoveryPhrase}
+                style={[cssStyles.linkText, { textAlign: 'center' }]}
+              >
+                I don't have my recovery phrase
+              </Text>
+            </Padding>
           </View>
         </View>
         <Dialog
@@ -388,31 +394,34 @@ class SetupGetRecoveryPhrase extends Component {
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View style={{ marginBottom: 10 }}>
-              <Text style={cssStyles.wizardText}>
+            <Padding top={0} bottom={0}>
+              <Text style={[cssStyles.wizardText, {alignSelf: 'center'}]}>
                 Is this the correct recovery phrase?{' '}
               </Text>
-            </View>
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={cssStyles.rowView}>
-                  {row.map((item, index) => {
-                    return (
-                      <View key={index} style={styles.rowTextView}>
-                        <Text style={styles.textStyle}>
-                          {count++}.{'\n'}
-                          {item}
-                        </Text>
-                      </View>
-                    )
-                  })}
-                </View>
-              )
-            })}
+            </Padding>
+            
+            <Padding>
+              {words.map((row, rowIndex) => {
+                return (
+                  <View key={rowIndex} style={cssStyles.rowView}>
+                    {row.map((item, index) => {
+                      return (
+                        <View key={index} style={styles.rowTextView}>
+                          <Text style={styles.textStyle}>
+                            {count++}.{'\n'}
+                            {item}
+                          </Text>
+                        </View>
+                      )
+                    })}
+                  </View>
+                )
+              })}
+            </Padding>
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.pushBack()} title='Back' />
+              <CommonButton onPress={() => this.pushBack()} title='Back'/>
             </View>
             <View style={cssStyles.navButtonWrapper}>
               <CommonButton onPress={() => this.confirm()} title='Confirm' />

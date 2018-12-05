@@ -27,6 +27,7 @@ import {
   RECOVERY_WALLET_SETUP_TYPE
 } from '../components/SetupProgressBar'
 import FlashNotification from '../components/FlashNotification'
+import Padding from '../components/Padding'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
@@ -141,61 +142,78 @@ class Passphrase extends Component {
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <View style={styles.imageView}>
-              <Image
-                style={styles.image}
-                source={require('img/ndau_multi_large_1024.png')}
-              />
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <TextInput
-                style={{
-                  height: hp('7%'),
-                  width: wp('96%'),
-                  borderColor: 'gray',
-                  borderWidth: 1,
-                  borderRadius: 3,
-                  marginTop: hp('1%'),
-                  paddingLeft: wp('1%'),
-                  color: '#000000',
-                  backgroundColor: '#ffffff',
-                  fontSize: 18,
-                  fontFamily: 'TitilliumWeb-Regular'
-                }}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
-                placeholder='App Password'
-                placeholderTextColor='#333'
-                secureTextEntry={!this.state.showPasswords}
-                autoCapitalize='none'
-              />
-            </View>
-            <View style={styles.centerTextView}>
-              <Text onPress={this.showPasswordReset} style={cssStyles.linkText}>
-                Forgot your password?
-              </Text>
-            </View>
-            <View style={styles.imageView}>
-              <TouchableOpacity onPress={this.showInformation}>
+            <Padding top={2}>
+              <View style={styles.imageView}>
                 <Image
-                  style={{ width: 35, height: 38 }}
-                  source={require('img/info_icon_gold.png')}
+                  style={styles.image}
+                  source={require('img/ndau_multi_large_1024.png')}
                 />
-              </TouchableOpacity>
-            </View>
-            {this.state.showErrorText
-              ? <View style={styles.errorContainer}>
-                <Text style={cssStyles.errorText}>
-                    Please enter the passphrase you chose to decrypt this app.
-                    {' '}
-                </Text>
               </View>
-              : null}
+            </Padding>
+            
+            <Padding top={2}>
+              <View style={{ flexDirection: 'row' }}>
+                <TextInput
+                  style={{
+                    height: hp('7%'),
+                    width: wp('96%'),
+                    borderColor: 'gray',
+                    borderWidth: 1,
+                    borderRadius: 3,
+                    // marginTop: hp('1%'),
+                    paddingLeft: wp('1%'),
+                    color: '#000000',
+                    backgroundColor: '#ffffff',
+                    fontSize: 18,
+                    fontFamily: 'TitilliumWeb-Regular'
+                  }}
+                  onChangeText={password => this.setState({ password })}
+                  value={this.state.password}
+                  placeholder='App Password'
+                  placeholderTextColor='#333'
+                  secureTextEntry={!this.state.showPasswords}
+                  autoCapitalize='none'
+                />
+              </View>
+            </Padding>
+            
+            <Padding top={0}>
+              <Padding>
+                <View style={styles.centerTextView}>
+                  <Text onPress={this.showPasswordReset} style={cssStyles.linkText}>
+                    Forgot your password?
+                  </Text>
+                </View>
+              </Padding>
+              <Padding>
+                <View style={styles.imageView}>
+                  <TouchableOpacity onPress={this.showInformation}>
+                    <Image
+                      style={{ width: 35, height: 38 }}
+                      source={require('img/info_icon_gold.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </Padding>
+              
+              {
+                this.state.showErrorText ? 
+                <Padding>
+                  <View style={styles.errorContainer}>
+                    <Text style={cssStyles.errorText}>
+                        Please enter the passphrase you chose to decrypt this app.
+                        {' '}
+                    </Text>
+                  </View>
+                </Padding>
+                : null
+              }
+            </Padding>
+
+            
           </ScrollView>
-          <View style={styles.footer}>
-            <View>
-              <CommonButton onPress={this.login} title='Login' />
-            </View>
+          <View style={cssStyles.footer}>
+            <CommonButton onPress={this.login} title='Login' />
           </View>
         </View>
       </SafeAreaView>
@@ -205,43 +223,40 @@ class Passphrase extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: 0
+    // marginTop: 0
   },
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: wp('1%')
-  },
-  footer: {
-    justifyContent: 'flex-end'
+    // marginBottom: wp('1%')
   },
   imageView: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: hp('4%')
+    // paddingBottom: hp('4%')
   },
   centerTextView: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: hp('4%'),
-    paddingTop: hp('3%')
+    // paddingBottom: hp('4%'),
+    // paddingTop: hp('3%')
   },
   image: {
     width: wp('100%'),
     ...Platform.select({
       ios: {
-        marginTop: hp('5%'),
+        // marginTop: hp('5%'),
         height: hp('20%')
       },
       android: {
-        marginTop: hp('7%'),
+        // marginTop: hp('7%'),
         height: hp('30%')
       }
     })
   },
   infoIcon: {
     marginLeft: 12,
-    marginTop: 20
+    // marginTop: 20
   }
 })
 
