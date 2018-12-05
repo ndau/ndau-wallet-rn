@@ -177,7 +177,7 @@ class SetupEncryptionPassword extends Component {
               <View style={styles.textContainer}>
                 <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                   {this.state.instructionText}{'  '}
-                  <FontAwesome
+                  <FontAwesome5Pro
                     name='info'
                     color='#ffffff'
                     size={20}
