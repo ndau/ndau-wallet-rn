@@ -160,7 +160,6 @@ class Passphrase extends Component {
                     borderColor: 'gray',
                     borderWidth: 1,
                     borderRadius: 3,
-                    // marginTop: hp('1%'),
                     paddingLeft: wp('1%'),
                     color: '#000000',
                     backgroundColor: '#ffffff',
@@ -223,40 +222,32 @@ class Passphrase extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    // marginTop: 0
   },
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // marginBottom: wp('1%')
   },
   imageView: {
     justifyContent: 'center',
     alignItems: 'center',
-    // paddingBottom: hp('4%')
   },
   centerTextView: {
     justifyContent: 'center',
     alignItems: 'center',
-    // paddingBottom: hp('4%'),
-    // paddingTop: hp('3%')
   },
   image: {
     width: wp('100%'),
     ...Platform.select({
       ios: {
-        // marginTop: hp('5%'),
         height: hp('20%')
       },
       android: {
-        // marginTop: hp('7%'),
         height: hp('30%')
       }
     })
   },
   infoIcon: {
     marginLeft: 12,
-    // marginTop: 20
   }
 })
 

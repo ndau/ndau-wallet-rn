@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    // alignItems: 'center',
     justifyContent: 'space-around'
   },
   address: {

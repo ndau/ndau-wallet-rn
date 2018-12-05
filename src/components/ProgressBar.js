@@ -16,7 +16,6 @@ class ProgressBar extends Component {
     const progressStyle = {
       backgroundColor: styleConstants.PRIMARY_GREEN,
       height: HEIGHT,
-      // minHeight: 24,
       width: progressWidth,
       borderRadius: WIDTH,
       position: 'absolute',

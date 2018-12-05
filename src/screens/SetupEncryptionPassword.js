@@ -240,22 +240,6 @@ class SetupEncryptionPassword extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  // button: {
-  //   marginTop: 0
-  // },
-  // textContainer: {
-  //   marginBottom: 8
-  // },
-  // contentContainer: {
-  //   flex: 1 // pushes the footer to the end of the screen
-  // },
-  // footer: {
-  //   justifyContent: 'flex-end'
-  // },
   infoParagraph: {
     flexDirection: 'row'
   }

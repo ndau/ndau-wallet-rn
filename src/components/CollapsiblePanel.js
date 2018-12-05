@@ -149,7 +149,6 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 5,
     borderWidth: 0.5,
-    // padding: wp('3%'),
   },
   titleContainer: {
     flexDirection: 'row'

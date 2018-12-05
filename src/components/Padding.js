@@ -6,21 +6,13 @@ import {
 } from 'react-native-responsive-screen'
 
 class Padding extends Component {
-  // static lineHeight = parseInt(hp('50%'));
-
   constructor(props) {
     super(props);
     this.lineHeight = hp('3%');
     this.style = {
       paddingTop: this.getPadding(props.top, 1),
       paddingBottom: this.getPadding(props.bottom, 0),
-      
-      // TEST
-      // borderRadius: 4,
-      // borderWidth: 0.5,
-      // borderColor: 'red',
     }
-    
   }
 
   getPadding = (value, defaultValue) => {
