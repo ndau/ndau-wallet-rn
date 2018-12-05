@@ -52,7 +52,7 @@
       "__DEV__": true
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message)/)"
+      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message|react-native-loading-spinner-overlay)/)"
     ]
   },
   "dependencies": {
