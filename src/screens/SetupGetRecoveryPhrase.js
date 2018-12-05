@@ -5,7 +5,8 @@ import {
   Text,
   Linking,
   PixelRatio,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
 import CommonButton from '../components/CommonButton'
@@ -16,7 +17,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import RecoveryDropdown from '../components/RecoveryDropdown'
-import Carousel from 'react-native-looped-carousel'
 import { Dialog } from 'react-native-simple-dialogs'
 import SetupProgressBar from '../components/SetupProgressBar'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
@@ -26,8 +26,10 @@ import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import styleConstants from '../css/styleConstants'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -45,7 +47,11 @@ class SetupGetRecoveryPhrase extends Component {
     this.GENESIS_MODE_TEXT =
       `We're almost ready to get you on the ndau blockchain, ` +
       'but we need one last thing from you. \n\nPlease verify your twelve word ' +
-      'recovery phrase. Start typing in the box below, then pick the correct suggestion.'
+      'recovery phrase. Start typing in the box below, then pick the correct suggestion'
+    this.NOT_ON_BLOCKCHAIN_MESSAGE =
+      'We tried to find matching accounts ' +
+      'on the blockchain and found none. Please confirm ' +
+      'you entered the correct phrase, and try again.'
 
     this.state = {
       size: { width: wp('100%'), height: hp('50%') },
@@ -57,39 +63,44 @@ class SetupGetRecoveryPhrase extends Component {
       acquisitionError: false,
       stepNumber: 0,
       introductionText: this.NORMAL_MODE_TEXT,
-      mode: AppConstants.NORMAL_MODE
+      mode: AppConstants.NORMAL_MODE,
+      recoveryWord: '',
+      recoveryIndex: 0,
+      disableArrows: true
     }
+
+    this.index = 0
 
     // TODO: you can uncomment the below if you need to do some testing
     // on a known phrase that works in testnet/devnet
     this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
     // this.recoveryPhrase = [
-    //   'wink',
-    //   'fantasy',
-    //   'surface',
-    //   'flame',
-    //   'magic',
-    //   'video',
-    //   'manage',
-    //   'wing',
-    //   'logic',
-    //   'insane',
-    //   'slam',
-    //   'empower'
+    //   'crouch',
+    //   'like',
+    //   'blue',
+    //   'heavy',
+    //   'fatal',
+    //   'board',
+    //   'night',
+    //   'protect',
+    //   'cushion',
+    //   'bag',
+    //   'sun',
+    //   'grace'
     // ]
     // this.recoveryPhrase = [
-    //   'goat',
-    //   'amount',
-    //   'liar',
-    //   'amount',
-    //   'expire',
-    //   'adjust',
-    //   'cage',
-    //   'candy',
-    //   'arch',
-    //   'gather',
-    //   'drum',
-    //   'buyer'
+    //   'great',
+    //   'permit',
+    //   'assault',
+    //   'grocery',
+    //   'creek',
+    //   'bright',
+    //   'talk',
+    //   'chat',
+    //   'deal',
+    //   'predict',
+    //   'smoke',
+    //   'shoot'
     // ]
 
     this.boxWidth = '30%'
@@ -103,6 +114,7 @@ class SetupGetRecoveryPhrase extends Component {
       this.boxHeight = '30%'
       console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`)
     }
+    this.recoveryDropdownRef = null
   }
 
   componentWillMount () {
@@ -124,8 +136,8 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({ mode, introductionText })
   }
 
-  addToRecoveryPhrase = (value, index) => {
-    this.recoveryPhrase[index] = value
+  addToRecoveryPhrase = value => {
+    this.recoveryPhrase[this.state.recoveryIndex] = value
   }
 
   noRecoveryPhrase = () => {
@@ -138,53 +150,45 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
-  _onLayoutDidChange = e => {
-    const layout = e.nativeEvent.layout
-    this.setState({ size: { width: layout.width, height: layout.height } })
-  }
-
-  _generatePage = index => {
-    const style = [this.state.size, cssStyles.recoveryPageView]
-    if (index === 0) {
-      style.push({
-        ...Platform.select({
-          android: {
-            marginLeft: wp('11%')
-          }
-        })
-      })
+  _moveToNextWord = () => {
+    if (this.state.recoveryIndex <= 11) {
+      const newRecoveryIndex = this.state.recoveryIndex + 1
+      this.setState(
+        {
+          recoveryIndex: newRecoveryIndex,
+          recoveryWord: this.recoveryPhrase[newRecoveryIndex],
+          disableArrows: this.recoveryPhrase[newRecoveryIndex] === ''
+        },
+        () => {
+          this.adjustStepNumber(this.state.recoveryIndex)
+        }
+      )
+      if (this.recoveryDropdownRef) {
+        this.recoveryDropdownRef.clearWord()
+        this.recoveryDropdownRef.focus()
+      }
     }
-    return (
-      <Padding top={7.3} key={index}>
-        <View style={style}>
-          <Text
-            style={[
-              cssStyles.wizardText,
-              { marginTop: hp('1.5%'), marginRight: wp('3%') }
-            ]}
-          >
-            {index + 1}.
-          </Text>
-          <RecoveryDropdown
-            addToRecoveryPhrase={this.addToRecoveryPhrase}
-            index={index}
-            setAcquisitionError={this.setAcquisitionError}
-            recoveryPhrase={this.recoveryPhrase}
-          />
-        </View>
-      </Padding>
-    )
+    FlashNotification.hideMessage()
   }
 
-  _generatePages = () => {
-    const pages = this.recoveryPhrase.map((phrase, i) => {
-      return this._generatePage(i)
-    })
-
-    // add one more page to facilitate the carousel functionality
-    pages.push(this._generatePage(pages.length))
-
-    return pages
+  _moveBackAWord = () => {
+    if (this.state.recoveryIndex > 0) {
+      const newRecoveryIndex = this.state.recoveryIndex - 1
+      this.setState(
+        {
+          recoveryIndex: newRecoveryIndex,
+          recoveryWord: this.recoveryPhrase[newRecoveryIndex],
+          disableArrows: false
+        },
+        () => {
+          this.adjustStepNumber(this.state.recoveryIndex)
+        }
+      )
+      if (this.recoveryDropdownRef) {
+        this.recoveryDropdownRef.focus()
+      }
+    }
+    FlashNotification.hideMessage()
   }
 
   _checkRecoveryPhrase = async () => {
@@ -194,9 +198,14 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
+  setDisableArrows = value => {
+    this.setState({ disableArrows: value })
+  }
+
   setAcquisitionError = value => {
     if (value) {
-      FlashNotification.showError('Please select a valid word.', false)
+      FlashNotification.showError('Please select a valid word.', true)
+      this.setState({ disableArrows: value })
     }
     this.setState({ acquisitionError: value })
   }
@@ -208,8 +217,8 @@ class SetupGetRecoveryPhrase extends Component {
       if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
         navigation.navigate('SetupEncryptionPassword', {
           user,
-          walletSetupType: navigation.state.params &&
-            navigation.state.params.walletSetupType,
+          walletSetupType:
+            navigation.state.params && navigation.state.params.walletSetupType,
           mode: AppConstants.PASSWORD_RESET_MODE,
           recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
             this.recoveryPhrase
@@ -244,15 +253,28 @@ class SetupGetRecoveryPhrase extends Component {
           this.props.navigation.navigate('Dashboard', {
             user,
             encryptionPassword,
-            walletSetupType: navigation.state.params &&
+            walletSetupType:
+              navigation.state.params &&
               navigation.state.params.walletSetupType,
             marketPrice
           })
         } else {
+          if (
+            await MultiSafeHelper.recoveryPhraseAlreadyExists(
+              user.userId,
+              this.recoveryPhrase
+            )
+          ) {
+            FlashNotification.showError(
+              'This recovery phrase already exists in the wallet.'
+            )
+            return
+          }
           SetupStore.recoveryPhrase = this.recoveryPhrase
           navigation.navigate('SetupWalletName', {
             user,
-            walletSetupType: navigation.state.params &&
+            walletSetupType:
+              navigation.state.params &&
               navigation.state.params.walletSetupType
           })
         }
@@ -261,7 +283,7 @@ class SetupGetRecoveryPhrase extends Component {
           textColor: '#f05123',
           confirmationError: true
         })
-        FlashNotification.showError('Is this the correct recovery phrase? Please correct any errors.')
+        FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
       }
     } catch (error) {
       console.warn(error)
@@ -269,10 +291,7 @@ class SetupGetRecoveryPhrase extends Component {
         textColor: '#f05123',
         confirmationError: true
       })
-      FlashNotification.showError(
-        'Is this the correct recovery phrase? Please correct any errors.',
-        true
-      )
+      FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
     }
   }
 
@@ -281,20 +300,23 @@ class SetupGetRecoveryPhrase extends Component {
       recoverPhraseFull: false,
       confirmationError: false,
       textColor: '#ffffff',
+      recoveryIndex: 0,
       stepNumber: 0,
+      recoveryWord: this.recoveryPhrase[0],
+      disableArrows: false
     })
+    FlashNotification.hideMessage()
   }
 
   adjustStepNumber = pageIndex => {
     this.setState({ stepNumber: pageIndex })
+    console.log(`pageIndex: ${pageIndex}`)
     if (pageIndex === this.recoveryPhrase.length) {
       this.setState({ recoverPhraseFull: true })
     }
   }
 
   _renderAcquisition = () => {
-    const pages = this._generatePages()
-
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
@@ -306,29 +328,97 @@ class SetupGetRecoveryPhrase extends Component {
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View>
+
+            <View style={{ marginBottom: wp('4%') }}>
               <Text style={cssStyles.wizardText}>
                 {this.state.introductionText}
               </Text>
             </View>
-            <View style={{ flex: 1 }} onLayout={this._onLayoutDidChange}>
-              <Carousel
-                style={this.state.size}
-                leftArrowText={'＜'}
-                leftArrowStyle={cssStyles.carouselArrows}
-                rightArrowText={'＞'}
-                rightArrowStyle={cssStyles.carouselArrows}
-                // pageInfo
-                // pageInfoTextStyle={cssStyles.smallWhiteText}
-                // bullets
-                arrows
-                isLooped={false}
-                autoplay={false}
-                onAnimateNextPage={this.adjustStepNumber}
-                onPageBeingChanged={this.checkIfDone}
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
               >
-                {pages}
-              </Carousel>
+                <Text style={cssStyles.wizardText}>
+                  {this.state.recoveryIndex + 1}
+                </Text>
+                <Text style={cssStyles.wizardText}>{' of '}</Text>
+                <Text style={cssStyles.wizardText}>
+                  {this.recoveryPhrase.length}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center'
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    marginLeft: wp('5%'),
+                    marginTop: hp('.8%'),
+                    ...Platform.select({
+                      ios: {
+                        marginRight: hp('1.6%')
+                      },
+                      android: {
+                        marginRight: hp('3%')
+                      }
+                    })
+                  }}
+                  onPress={this._moveBackAWord}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-left'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                    light
+                  />
+                </TouchableOpacity>
+                <RecoveryDropdown
+                  addToRecoveryPhrase={this.addToRecoveryPhrase}
+                  setAcquisitionError={this.setAcquisitionError}
+                  recoveryWord={this.state.recoveryWord}
+                  setDisableArrows={this.setDisableArrows}
+                  onSubmitEditing={this._moveToNextWord}
+                  ref={input => {
+                    this.recoveryDropdownRef = input
+                  }}
+                />
+                <TouchableOpacity
+                  style={{
+                    marginTop: hp('.5%'),
+                    marginLeft: wp('3%'),
+                    marginRight: wp('5%')
+                  }}
+                  onPress={this._moveToNextWord}
+                  disabled={this.state.disableArrows}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-right'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                    light
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
           
@@ -354,9 +444,9 @@ class SetupGetRecoveryPhrase extends Component {
         >
           <View>
             <Text style={cssStyles.blackDialogText}>
-              Your recovery phrase is necessary to prove ownership of your ndau. Your wallet cannot
-              be restored without it. If you have lost your recovery phrase please contact.
-              {' '}
+              Your recovery phrase is necessary to prove ownership of your ndau.
+              Your wallet cannot be restored without it. If you have lost your
+              recovery phrase please contact.{' '}
             </Text>
             <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
               Oneiro concierge support.

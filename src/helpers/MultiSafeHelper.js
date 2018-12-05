@@ -3,6 +3,7 @@ import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import AppConstants from '../AppConstants'
 import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
+import DataFormatHelper from './DataFormatHelper'
 
 /**
  * This function will persist the user information after any setup is
@@ -50,7 +51,25 @@ const setupNewUser = async (
 }
 
 /**
- * This function simply add a new wallet to an existing storageKey
+ * Check to see if the userId and recoveryPhrase pased in
+ * exists in the wallet. If it does then we send back true
+ * @param {string} userId User.userId
+ * @param {string} recoveryPhrase 12 words phrase/combo
+ */
+const recoveryPhraseAlreadyExists = async (userId, recoveryPhrase) => {
+  const multiSafe = new MultiSafe()
+
+  try {
+    return await multiSafe.doesMultiSafeExist(
+      userId.replace(/\s+/g, ''),
+      recoveryPhrase
+    )
+  } catch (error) {}
+  return false
+}
+
+/**
+ * This function simply add a new walletyarn to an existing storageKey
  *
  * @param {User} user
  * @param {string} recoveryPhraseString
@@ -82,7 +101,7 @@ const addNewWallet = async (
     walletId
   )
 
-  user.wallets[walletId] = wallet
+  user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
 
   return _internalSaveUser(
     user,
@@ -101,11 +120,15 @@ const _internalSaveUser = async (
   const multiSafe = new MultiSafe()
 
   console.log(
-    `persisting the following into MultiSafe: ${JSON.stringify(user, null, 2)}`
+    `persisting key ${walletId} into MultiSafe: ${JSON.stringify(
+      user,
+      null,
+      2
+    )}`
   )
 
   // create a multisafe
-  await multiSafe.create(walletId, encryptionPassword)
+  await multiSafe.create(walletId.replace(/\s+/g, ''), encryptionPassword)
   // store the phone data
   await multiSafe.store(user, encryptionPassword)
   // add recovery phrase as combination so we can unlock with this
@@ -128,8 +151,11 @@ const getDefaultUser = async encryptionPassword => {
 
   // get all storage keys and get the first one
   const storageKeys = await multiSafe.getStorageKeys()
-  if (storageKeys && encryptionPassword) {
+  // TODO: storageKeys[0] is a workaround for single user
+  // once we have multiple users we will need to revisit this
+  if (storageKeys && storageKeys[0] && encryptionPassword) {
     // call create to initialize the storageKey
+    // Iterate through array to get to the right key
     await multiSafe.create(storageKeys[0], encryptionPassword)
     // actually get the data
     user = await multiSafe.retrieve(encryptionPassword)
@@ -177,5 +203,6 @@ export default {
   getDefaultUser,
   saveUser,
   resetPassword,
-  addNewWallet
+  addNewWallet,
+  recoveryPhraseAlreadyExists
 }

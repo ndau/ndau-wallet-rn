@@ -14,7 +14,11 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+<<<<<<< HEAD
 import Padding from '../components/Padding'
+=======
+import FlashNotification from '../components/FlashNotification'
+>>>>>>> 81ca9bde682ec7638f64c1f3174bec6349bd753c
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
@@ -23,11 +27,38 @@ class SetupEncryptionPassword extends Component {
     this.state = {
       nameEntered: false
     }
+    this.walletCount = 1
+  }
+
+  componentWillMount = () => {
+    const user = this.props.navigation.getParam('user', null)
+    if (user) {
+      this.walletCount = Object.keys(user.wallets).length
+    }
+    SetupStore.walletId = `Wallet ${this.walletCount}`
+  }
+
+  checkIfWalletAlreadyExists = user => {
+    if (
+      DataFormatHelper.checkIfWalletAlreadyExists(user, SetupStore.walletId)
+    ) {
+      FlashNotification.showError(
+        `There is already a wallet named "${SetupStore.walletId}". Please choose another name.`
+      )
+      return true
+    }
+
+    return false
   }
 
   showNextSetup = async () => {
     const { navigation } = this.props
     const user = navigation.getParam('user', null)
+
+    if (this.checkIfWalletAlreadyExists(user)) {
+      return
+    }
+
     if (user) {
       // get it out of AppConstants.TEMP_USER if we have to
       // and into the new walletId
@@ -95,7 +126,7 @@ class SetupEncryptionPassword extends Component {
             <CommonButton
               onPress={this.showNextSetup}
               title='Next'
-              disabled={!this.state.nameEntered}
+              // disabled={!this.state.nameEntered}
             />
           </View>
         </View>

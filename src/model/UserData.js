@@ -1,4 +1,6 @@
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
+import AsyncStorageHelper from './AsyncStorageHelper'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
 
 const loadData = async user => {
   const walletKeys = Object.keys(user.wallets)
@@ -6,6 +8,12 @@ const loadData = async user => {
     const wallet = user.wallets[walletKey]
     await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
   }
+
+  // after the data is loaded successfully then save the user
+  // const password = await AsyncStorageHelper.getApplicationPassword()
+  // if (user && password) {
+  //   await MultiSafeHelper.saveUser(user, password)
+  // }
 }
 
 export default {

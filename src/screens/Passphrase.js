@@ -30,6 +30,8 @@ import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import styleConstants from '../css/styleConstants'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 
 class Passphrase extends Component {
   constructor (props) {
@@ -61,8 +63,10 @@ class Passphrase extends Component {
           marketPrice = await OrderNodeAPI.getMarketPrice()
         } catch (error) {
           FlashNotification.showError(error.message, false, false)
+          return
         }
 
+        FlashNotification.hideMessage()
         this.props.navigation.navigate('Dashboard', {
           user,
           encryptionPassword: this.state.password,
@@ -98,7 +102,9 @@ class Passphrase extends Component {
       this.showExitApp()
     }
     FlashNotification.showError(
-      `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`
+      `Login attempt ${this.state.loginAttempt} of ${
+        this.maxLoginAttempts
+      } failed.`
     )
     this.setState({ loginAttempt: this.state.loginAttempt + 1 })
   }
@@ -115,12 +121,14 @@ class Passphrase extends Component {
   }
 
   showSetup = async () => {
+    FlashNotification.hideMessage()
     this.props.navigation.navigate('SetupWelcome', {
       walletSetupType: NEW_WALLET_SETUP_TYPE
     })
   }
 
   showPasswordReset = user => {
+    FlashNotification.hideMessage()
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
       mode: AppConstants.PASSWORD_RESET_MODE,

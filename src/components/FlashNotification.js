@@ -17,6 +17,20 @@ class FlashNotification extends Component {
     })
   }
 
+  static showInformation (message, autoHide = true, hideOnPress = true) {
+    showMessage({
+      message: message,
+      autoHide,
+      backgroundColor: '#c7f3e2',
+      color: '#4e957a',
+      fontSize: 20,
+      fontFamily: 'TitilliumWeb-Regular',
+      icon: 'info',
+      duration: 10000,
+      hideOnPress
+    })
+  }
+
   static hideMessage () {
     hideMessage()
   }

@@ -8,7 +8,7 @@
 // then refrerence it with:
 // iconsMap['ndau-icon']
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons'
 import icoMoonConfig from './selection.json'

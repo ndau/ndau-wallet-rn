@@ -1,5 +1,8 @@
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
+import sha256 from 'crypto-js/sha256'
+import DataFormatHelper from '../helpers/DataFormatHelper'
+import DateHelper from './DateHelper'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_USER
@@ -10,18 +13,31 @@ import AppConfig from '../AppConfig'
  * @param {string} walletId
  */
 const moveTempUserToWalletName = (user, walletId) => {
+  const hashedTempKey = create8CharHash(AppConstants.TEMP_USER)
   if (user.userId === AppConstants.TEMP_USER) {
     user.userId = walletId
-    const wallet = user.wallets[AppConstants.TEMP_USER]
+    const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
-    user.wallets[walletId] = wallet
-    delete user.wallets[AppConstants.TEMP_USER]
-  } else if (user.wallets[AppConstants.TEMP_USER]) {
-    const wallet = user.wallets[AppConstants.TEMP_USER]
+    user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
+    delete user.wallets[hashedTempKey]
+  } else if (user.wallets[create8CharHash(AppConstants.TEMP_USER)]) {
+    const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
-    user.wallets[walletId] = wallet
-    delete user.wallets[AppConstants.TEMP_USER]
+    user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
+    delete user.wallets[hashedTempKey]
   }
+}
+
+/**
+ * Simple function to create a 8 character SHA256 hash
+ * of the string passed in.
+ *
+ * @param {string} toHash
+ */
+const create8CharHash = toHash => {
+  return sha256(toHash)
+    .toString()
+    .substring(0, 8)
 }
 
 /**
@@ -80,14 +96,22 @@ const getObjectWithAllAccounts = user => {
  * Given a wallet send back the format for the
  * request to /account/eai/rate RESTful API call
  *
- * @param {Wallet} wallet
+ * @param {string} addressData
  */
-const getAccountEaiRateRequest = wallet => {
-  return Object.keys(wallet.accounts).map(accountKey => {
-    const account = wallet.accounts[accountKey]
-    const addressData = Object.create(account.addressData)
-    addressData.address = accountKey
-    return addressData
+const getAccountEaiRateRequest = addressData => {
+  return Object.keys(addressData).map(accountKey => {
+    const account = addressData[accountKey]
+    let weightedAverageAge = account.weightedAverageAge
+    if (!weightedAverageAge && account.lastWAAUpdate) {
+      weightedAverageAge =
+        weightedAverageAge +
+        (DateHelper.getMicrosecondsSinceNdauEpoch() - account.lastWAAUpdate)
+    }
+    return {
+      address: accountKey,
+      weightedAverageAge,
+      lock: account.lock
+    }
   })
 }
 
@@ -119,6 +143,23 @@ const addCommas = (number, precision = AppConfig.NDAU_SUMMARY_PRECISION) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
+/**
+ * Check if the walletId passed in is an actual wallet within
+ * the User already.
+ *
+ * @param {User} user
+ * @param {string} walletId
+ */
+const checkIfWalletAlreadyExists = (user, walletId) => {
+  for (const walletKey of Object.keys(user.wallets)) {
+    const wallet = user.wallets[walletKey]
+    if (wallet.walletId === walletId) {
+      return true
+    }
+  }
+  return false
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
@@ -126,5 +167,7 @@ export default {
   getObjectWithAllAccounts,
   getAccountEaiRateRequest,
   convertRecoveryArrayToString,
-  addCommas
+  addCommas,
+  checkIfWalletAlreadyExists,
+  create8CharHash
 }

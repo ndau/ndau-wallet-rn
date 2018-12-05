@@ -12,14 +12,15 @@ describe('testing SetupWalletName...', () => {
       fontSize: 20
     }
   })
-  const navigator = {
-    setStyle: () => {},
-    toggleNavBar: () => {}
+  const navigation = {
+    navigate: jest.fn(),
+    getParam: jest.fn(),
+    routeName: ''
   }
 
   it('can click the button', () => {
     const wrapper = mount(
-      <SetupWalletName navigator={navigator} parentStyles={styles} />
+      <SetupWalletName navigation={navigation} parentStyles={styles} />
     )
     const onlyButton = wrapper.find('Button').at(0)
     onlyButton.simulate('click')

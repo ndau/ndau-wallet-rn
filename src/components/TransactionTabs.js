@@ -21,10 +21,9 @@ class TransactionTabs extends Component {
         Receive: {
           screen: ReceiveWithProps,
           navigationOptions: ({ navigation }) => ({
-            title: 'Receive ndau',
-          }),
-        },
-      
+            title: 'Receive ndau'
+          })
+        }
       },
       {
         animationEnabled: false,
@@ -72,7 +71,7 @@ class Receive extends Component {
             title='Share address'
             onPress={this.shareAddress}
             iconProps={{
-              name: 'share-square',
+              name: 'share',
               color: '#000',
               size: 20
             }}
@@ -82,35 +81,6 @@ class Receive extends Component {
     )
   }
 }
-
-// class Send extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       amount: 0
-//     }
-//   }
-
-//   send = () => {
-//     // TODO: transfer funds
-//   }
-
-//   render() {
-//     return (
-//       <View>
-//         {/* TODO: add Send form */}
-
-//         <View styles={{flex: 1}}>
-//           <CommonButton
-//             title={`send ${this.state.amount}`}
-//             onPress={this.send}
-//           />
-//         </View>
-//       </View>
-//     );
-//   }
-// }
 
 const tabBarOptions = {
   upperCaseLabel: false,
@@ -143,7 +113,7 @@ const styles = StyleSheet.create({
   address: {
     color: '#ffffff',
     fontSize: 13,
-    fontFamily: 'TitilliumWeb-Light',
+    fontFamily: 'TitilliumWeb-Regular',
     marginTop: hp('0.5%'),
     marginBottom: hp('0.5%'),
     marginLeft: wp('1%'),
