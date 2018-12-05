@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   address: {
     color: '#ffffff',
     fontSize: 13,
-    fontFamily: 'TitilliumWeb-300',
+    fontFamily: 'TitilliumWeb-Light',
     marginTop: hp('0.5%'),
     marginBottom: hp('0.5%'),
     marginLeft: wp('1%'),

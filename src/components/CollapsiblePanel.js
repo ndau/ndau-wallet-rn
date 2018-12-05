@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Animated,
   Image,
+  Platform,
   PixelRatio
 } from 'react-native'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
@@ -34,7 +35,7 @@ class CollapsiblePanel extends Component {
     ]
 
     this.state = {
-      expanded: this.props.expanded,
+      expanded: false,
       animation: new Animated.Value(),
       maxHeight: 0,
       minHeight: 0
@@ -79,17 +80,6 @@ class CollapsiblePanel extends Component {
     })
   }
 
-  // componentDidMount() {
-  //   if (!this.state.expanded) {
-  //     this.toggle()
-
-  //     this.setState((state) => ({
-  //         animation: state.animation.setValue(state.minHeight || 10)
-  //       })
-  //     )
-  //   }
-  // }
-
   render () {
     const lockAdder = this.props.lockAdder ? this.props.lockAdder : 0
     return (
@@ -121,16 +111,23 @@ class CollapsiblePanel extends Component {
                   <Text style={styles.titleRight}>
                     <Image
                       style={{
-                        width: 40,
-                        height: 50,
+                        ...Platform.select({
+                          ios: {
+                            width: 10,
+                            height: 15,
+                            marginBottom: wp('0.5%'),
+                          },
+                          android: {
+                            width: 40,
+                            height: 50,
+                          }
+                        }),
                       }}
                       resizeMode='contain'
                       source={require('img/ndau-icon-white.png')}
                     />
                     {'  '}
-                    <Text style={{paddingLeft: wp('1%')}}>
-                      {this.props.titleRight}
-                    </Text>
+                    {this.props.titleRight}
                   </Text>
                 </View>
                 : null}
@@ -167,11 +164,11 @@ var styles = StyleSheet.create({
   },
   titleRight: {
     flexDirection: 'row',
-    padding: PADDING,
+    margin: PADDING,
     color: '#fff',
     fontSize: 18,
     fontFamily: 'TitilliumWeb-Light',
-    textAlign: 'right'
+    textAlign: 'right',
   },
   body: {
     padding: PADDING,
