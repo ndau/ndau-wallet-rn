@@ -39,7 +39,7 @@ class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
     this.NORMAL_MODE_TEXT =
-      `To recover your wallet, please verify your twelve-word recovery phrase. ` + 
+      `To recover your wallet, please verify your twelve-word recovery phrase. ` +
       `Start typing in the box below, then pick the correct suggestion.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
@@ -275,11 +275,13 @@ class SetupGetRecoveryPhrase extends Component {
               return
             }
             SetupStore.recoveryPhrase = this.recoveryPhrase
-            navigation.navigate('SetupWalletName', {
-              user,
-              walletSetupType:
-                navigation.state.params &&
-                navigation.state.params.walletSetupType
+            this.setState({ spinner: false }, () => {
+              navigation.navigate('SetupWalletName', {
+                user,
+                walletSetupType:
+                  navigation.state.params &&
+                  navigation.state.params.walletSetupType
+              })
             })
           }
         } else {
@@ -288,6 +290,7 @@ class SetupGetRecoveryPhrase extends Component {
             confirmationError: true
           })
           FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
+          this.setState({ spinner: false })
         }
       } catch (error) {
         console.warn(error)
@@ -296,8 +299,8 @@ class SetupGetRecoveryPhrase extends Component {
           confirmationError: true
         })
         FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
+        this.setState({ spinner: false })
       }
-      this.setState({ spinner: false })
     })
   }
 
@@ -438,7 +441,7 @@ class SetupGetRecoveryPhrase extends Component {
               </View>
             </View>
           </ScrollView>
-          
+
           <View style={cssStyles.footer}>
             <Padding bottom={2}>
               <Text
@@ -513,11 +516,11 @@ class SetupGetRecoveryPhrase extends Component {
               navigation={this.props.navigation}
             />
             <Padding top={0} bottom={0}>
-              <Text style={[cssStyles.wizardText, {alignSelf: 'center'}]}>
+              <Text style={[cssStyles.wizardText, { alignSelf: 'center' }]}>
                 Is this the correct recovery phrase?{' '}
               </Text>
             </Padding>
-            
+
             <Padding>
               {words.map((row, rowIndex) => {
                 return (
@@ -539,7 +542,7 @@ class SetupGetRecoveryPhrase extends Component {
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.pushBack()} title='Back'/>
+              <CommonButton onPress={() => this.pushBack()} title='Back' />
             </View>
             <View style={cssStyles.navButtonWrapper}>
               <CommonButton onPress={() => this.confirm()} title='Confirm' />

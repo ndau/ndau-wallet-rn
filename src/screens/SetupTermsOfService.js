@@ -82,17 +82,19 @@ class SetupTermsOfService extends Component {
           SetupStore.encryptionPassword
         )
 
-        this.props.navigation.navigate('Dashboard', {
-          user,
-          encryptionPassword: SetupStore.encryptionPassword,
-          walletSetupType: null,
-          marketPrice
+        this.setState({ spinner: false }, () => {
+          this.props.navigation.navigate('Dashboard', {
+            user,
+            encryptionPassword: SetupStore.encryptionPassword,
+            walletSetupType: null,
+            marketPrice
+          })
         })
       } catch (error) {
         FlashNotification.showError(error.message)
+        this.setState({ spinner: false })
       }
     })
-    this.setState({ spinner: false })
   }
 
   sendAddressesToOneiro = user => {

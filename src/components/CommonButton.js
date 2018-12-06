@@ -28,7 +28,11 @@ class CommonButton extends Component {
               {// "name" is required
                 this.props.iconProps && this.props.iconProps.name && (
                   <Text>
-                    <FontAwesome5Pro name='bars' size={32} color='#fff' light />
+                    <FontAwesome5Pro
+                      {...this.props.iconProps}
+                      color='#fff'
+                      light
+                    />
                     {'  '}
                   </Text>
                 )}

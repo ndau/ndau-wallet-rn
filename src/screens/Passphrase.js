@@ -72,19 +72,22 @@ class Passphrase extends Component {
           }
 
           FlashNotification.hideMessage()
-          this.props.navigation.navigate('Dashboard', {
-            user,
-            encryptionPassword: this.state.password,
-            marketPrice
+          this.setState({ spinner: false }, () => {
+            this.props.navigation.navigate('Dashboard', {
+              user,
+              encryptionPassword: this.state.password,
+              marketPrice
+            })
           })
         } else {
           this.showLoginError()
+          this.setState({ spinner: false })
         }
       } catch (error) {
         console.log(error)
         this.showLoginError()
+        this.setState({ spinner: false })
       }
-      this.setState({ spinner: false })
     })
   }
 
