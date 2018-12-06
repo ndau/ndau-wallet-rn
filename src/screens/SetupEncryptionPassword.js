@@ -182,11 +182,12 @@ class SetupEncryptionPassword extends Component {
                     color='#ffffff'
                     size={20}
                     style={{ marginBottom: 3 }}
+                    light
                   />
                 </Text>
               </View>
             </Padding>
-            
+
             <Padding top={2}>
               <TextInput
                 style={cssStyles.textInput}
@@ -198,7 +199,7 @@ class SetupEncryptionPassword extends Component {
                 autoCapitalize='none'
               />
             </Padding>
-            
+
             <Padding>
               <TextInput
                 style={cssStyles.textInput}
@@ -210,7 +211,7 @@ class SetupEncryptionPassword extends Component {
                 autoCapitalize='none'
               />
             </Padding>
-            
+
             <Padding>
               <CheckBox
                 style={cssStyles.checkbox}

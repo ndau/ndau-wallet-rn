@@ -261,10 +261,11 @@ class Dashboard extends Component {
                         style={{ marginLeft: wp('1.5%') }}
                         onPress={this.launchAddNewAccountDialog}
                       >
-                        <FontAwesome
+                        <FontAwesome5Pro
                           name='plus-circle'
                           color={styleConstants.ICON_GRAY}
                           size={20}
+                          light
                         />
                       </TouchableOpacity>
                     </View>

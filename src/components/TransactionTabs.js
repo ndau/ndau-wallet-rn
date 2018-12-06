@@ -62,9 +62,7 @@ class Receive extends Component {
           />
         </View>
 
-        <Text style={styles.address}>
-          {this.props.address}
-        </Text>
+        <Text style={styles.address}>{this.props.address}</Text>
 
         <View styles={{ flex: 1 }}>
           <CommonButton
