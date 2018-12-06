@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import ProgressBar from './ProgressBar'
+import Padding from './Padding'
 
 export const NEW_WALLET_SETUP_TYPE = 'new'
 export const RECOVERY_WALLET_SETUP_TYPE = 'recovery'
@@ -66,14 +67,14 @@ class SetupProgressBar extends Component {
     const progress = 100 / this.numberOfSteps * step
 
     return (
-      <View style={{ marginTop: hp('3%'), marginBottom: hp('3%') }}>
+      <Padding top={2} bottom={2}>
         <ProgressBar
           progress={progress}
           currentStep={step}
           numberOfSteps={this.numberOfSteps}
           // showSteps={this.numberOfSteps < 11}
         />
-      </View>
+      </Padding>
     )
   }
 }

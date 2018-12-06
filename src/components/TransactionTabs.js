@@ -62,15 +62,9 @@ class Receive extends Component {
           />
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <Text style={styles.address}>{this.props.address}</Text>
-        </View>
+        <Text style={styles.address}>
+          {this.props.address}
+        </Text>
 
         <View styles={{ flex: 1 }}>
           <CommonButton
@@ -114,7 +108,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    // alignItems: 'center',
     justifyContent: 'space-around'
   },
   address: {

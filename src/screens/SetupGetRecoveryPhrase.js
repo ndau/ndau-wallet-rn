@@ -25,6 +25,7 @@ import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
+import Padding from '../components/Padding'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
@@ -38,12 +39,12 @@ class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
     this.NORMAL_MODE_TEXT =
-      `To verify your account please verify your twelve-word recovery` +
-      ` phrase below. Start typing in the box below, then pick the correct suggestion.`
+      `To recover your wallet, please verify your twelve-word recovery phrase. ` + 
+      `Start typing in the box below, then pick the correct suggestion.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
-      'correct suggestion'
+      'correct suggestion.'
     this.GENESIS_MODE_TEXT =
       `We're almost ready to get you on the ndau blockchain, ` +
       'but we need one last thing from you. \n\nPlease verify your twelve word ' +
@@ -437,13 +438,16 @@ class SetupGetRecoveryPhrase extends Component {
               </View>
             </View>
           </ScrollView>
+          
           <View style={cssStyles.footer}>
-            <Text
-              onPress={this.noRecoveryPhrase}
-              style={[cssStyles.linkText, { textAlign: 'center' }]}
-            >
-              I don't have my recovery phrase
-            </Text>
+            <Padding bottom={2}>
+              <Text
+                onPress={this.noRecoveryPhrase}
+                style={[cssStyles.linkText, { textAlign: 'center' }]}
+              >
+                I don't have my recovery phrase
+              </Text>
+            </Padding>
           </View>
         </View>
         <Dialog
@@ -508,31 +512,34 @@ class SetupGetRecoveryPhrase extends Component {
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View style={{ marginBottom: 10 }}>
-              <Text style={cssStyles.wizardText}>
+            <Padding top={0} bottom={0}>
+              <Text style={[cssStyles.wizardText, {alignSelf: 'center'}]}>
                 Is this the correct recovery phrase?{' '}
               </Text>
-            </View>
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={cssStyles.rowView}>
-                  {row.map((item, index) => {
-                    return (
-                      <View key={index} style={styles.rowTextView}>
-                        <Text style={styles.textStyle}>
-                          {count++}.{'\n'}
-                          {item}
-                        </Text>
-                      </View>
-                    )
-                  })}
-                </View>
-              )
-            })}
+            </Padding>
+            
+            <Padding>
+              {words.map((row, rowIndex) => {
+                return (
+                  <View key={rowIndex} style={cssStyles.rowView}>
+                    {row.map((item, index) => {
+                      return (
+                        <View key={index} style={styles.rowTextView}>
+                          <Text style={styles.textStyle}>
+                            {count++}.{'\n'}
+                            {item}
+                          </Text>
+                        </View>
+                      )
+                    })}
+                  </View>
+                )
+              })}
+            </Padding>
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.pushBack()} title='Back' />
+              <CommonButton onPress={() => this.pushBack()} title='Back'/>
             </View>
             <View style={cssStyles.navButtonWrapper}>
               <CommonButton onPress={() => this.confirm()} title='Confirm' />
