@@ -20,7 +20,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import AppConstants from '../AppConstants'
-import Padding from '../components/Padding';
+import Padding from '../components/Padding'
 
 var _ = require('lodash')
 
@@ -104,14 +104,16 @@ class SetupRecoveryPhrase extends Component {
   }
 
   showNextSetup = () => {
+    const user = this.props.navigation.getParam('user', {})
     SetupStore.recoveryPhrase = this.state.recoveryPhrase
     SetupStore.shuffledMap = this.shuffleMap
     SetupStore.shuffledWords = this.shuffledWords
 
     const { navigation } = this.props
     navigation.navigate('SetupConfirmRecoveryPhrase', {
-      walletSetupType: navigation.state.params &&
-        navigation.state.params.walletSetupType
+      walletSetupType:
+        navigation.state.params && navigation.state.params.walletSetupType,
+      user
     })
   }
 
@@ -137,13 +139,13 @@ class SetupRecoveryPhrase extends Component {
 
             <Padding top={0}>
               <Text style={cssStyles.wizardText}>
-                Write this 12-word phrase down and store it in a secure location.
+                Write this 12-word phrase down and store it in a secure
+                location.
               </Text>
             </Padding>
 
             <Padding>
-              {
-                words.map((row, rowIndex) => {
+              {words.map((row, rowIndex) => {
                 return (
                   <View key={rowIndex} style={cssStyles.rowView}>
                     {row.map((item, index) => {
@@ -167,7 +169,6 @@ class SetupRecoveryPhrase extends Component {
                 )
               })}
             </Padding>
-            
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton

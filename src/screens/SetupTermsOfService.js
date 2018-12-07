@@ -50,18 +50,6 @@ class SetupTermsOfService extends Component {
               SetupStore.recoveryPhrase
             )
           )
-        } else if (Object.keys(existingUser).length) {
-          user = await MultiSafeHelper.addNewWallet(
-            existingUser,
-            DataFormatHelper.convertRecoveryArrayToString(
-              SetupStore.recoveryPhrase
-            ),
-            SetupStore.walletId,
-            existingUser.userId,
-            SetupStore.numberOfAccounts,
-            SetupStore.encryptionPassword,
-            SetupStore.addressType
-          )
         } else {
           user = await MultiSafeHelper.setupNewUser(
             user,

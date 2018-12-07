@@ -432,4 +432,7 @@ test('if we can find a wallet already existent', async () => {
   expect(
     DataFormatHelper.checkIfWalletAlreadyExists(user, 'stevierayvaughan')
   ).toBeFalsy()
+  expect(
+    DataFormatHelper.checkIfWalletAlreadyExists(undefined, 'stevierayvaughan')
+  ).toBeFalsy()
 })

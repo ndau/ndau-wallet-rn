@@ -151,6 +151,8 @@ const addCommas = (number, precision = AppConfig.NDAU_SUMMARY_PRECISION) => {
  * @param {string} walletId
  */
 const checkIfWalletAlreadyExists = (user, walletId) => {
+  if (!user) return false
+
   for (const walletKey of Object.keys(user.wallets)) {
     const wallet = user.wallets[walletKey]
     if (wallet.walletId === walletId) {

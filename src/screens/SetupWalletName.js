@@ -30,7 +30,7 @@ class SetupEncryptionPassword extends Component {
   componentWillMount = () => {
     const user = this.props.navigation.getParam('user', null)
     if (user) {
-      this.walletCount = Object.keys(user.wallets).length
+      this.walletCount = Object.keys(user.wallets).length + 1
     }
     SetupStore.walletId = `Wallet ${this.walletCount}`
   }
@@ -40,7 +40,9 @@ class SetupEncryptionPassword extends Component {
       DataFormatHelper.checkIfWalletAlreadyExists(user, SetupStore.walletId)
     ) {
       FlashNotification.showError(
-        `There is already a wallet named "${SetupStore.walletId}". Please choose another name.`
+        `There is already a wallet named "${
+          SetupStore.walletId
+        }". Please choose another name.`
       )
       return true
     }
@@ -70,7 +72,8 @@ class SetupEncryptionPassword extends Component {
       SetupStore.encryptionPassword = password
       this.props.navigation.navigate('SetupTermsOfService', {
         user,
-        walletSetupType: this.props.navigation.state.params &&
+        walletSetupType:
+          this.props.navigation.state.params &&
           this.props.navigation.state.params.walletSetupType
       })
     } else {
@@ -85,8 +88,8 @@ class SetupEncryptionPassword extends Component {
 
       navigation.navigate('SetupEncryptionPassword', {
         user,
-        walletSetupType: navigation.state.params &&
-          navigation.state.params.walletSetupType
+        walletSetupType:
+          navigation.state.params && navigation.state.params.walletSetupType
       })
     }
   }
@@ -110,10 +113,7 @@ class SetupEncryptionPassword extends Component {
                   this.setState({ nameEntered: true })
                   SetupStore.walletId = value
                 }}
-                // value={(value) => {
-                //   SetupStore.walletId = value;
-                // }}
-                placeholder={`Wallet ${SetupStore.walletId}`}
+                placeholder={`${SetupStore.walletId}`}
                 placeholderTextColor='#333'
                 autoCapitalize='none'
               />

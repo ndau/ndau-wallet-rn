@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
         paddingTop: hp('1%')
       }
     }),
-    paddingLeft: wp('2%')
+    paddingLeft: wp('6%')
   }
 })

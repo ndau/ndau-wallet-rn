@@ -22,6 +22,9 @@ import EntropyHelper from '../helpers/EntropyHelper'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import DataFormatHelper from '../helpers/DataFormatHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 var _ = require('lodash')
 
@@ -53,12 +56,31 @@ class SetupConfirmRecoveryPhrase extends Component {
   }
 
   showNextSetup = async () => {
-    this.props.navigation.navigate('SetupWalletName')
+    let user = this.props.navigation.getParam('user', {})
+    if (user) {
+      // if a user is present then we have wallets and can assume
+      // they are logged in, so we get the password setup
+      const password = await AsyncStorageHelper.getApplicationPassword()
+      user = await MultiSafeHelper.addNewWallet(
+        user,
+        DataFormatHelper.convertRecoveryArrayToString(
+          SetupStore.recoveryPhrase
+        ),
+        SetupStore.walletId,
+        user.userId,
+        SetupStore.numberOfAccounts,
+        password
+      )
+    }
+
+    this.props.navigation.navigate('SetupWalletName', { user })
   }
 
   pushBack = async () => {
+    const user = this.props.navigation.getParam('user', {})
+
     await EntropyHelper.generateEntropy()
-    this.props.navigation.navigate('SetupYourWallet')
+    this.props.navigation.navigate('SetupYourWallet', { user })
   }
 
   render () {
@@ -78,14 +100,13 @@ class SetupConfirmRecoveryPhrase extends Component {
             <SetupProgressBar navigation={this.props.navigation} />
             <Padding top={0}>
               <Text style={cssStyles.wizardText}>
-                To confirm that you recorded the phrase, tap the words below in order.
-                {' '}
+                To confirm that you recorded the phrase, tap the words below in
+                order.{' '}
               </Text>
             </Padding>
 
             <Padding>
-              {
-                words.map((row, rowIndex) => {
+              {words.map((row, rowIndex) => {
                 return (
                   <View key={rowIndex} style={styles.rowView}>
                     {row.map((item, index) => {
@@ -171,6 +192,7 @@ class SetupConfirmRecoveryPhrase extends Component {
         inError: false,
         errorWord: null
       })
+      FlashNotification.hideMessage()
     }
   }
 
