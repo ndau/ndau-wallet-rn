@@ -84,6 +84,7 @@ class SetupNewOrRecovery extends Component {
               <CommonButton
                 onPress={() => this.showUseExistingRecovery()}
                 title='Recover a wallet (less common)'
+                bottomPadding={0}
               />
             </View>
             <View style={cssStyles.navButtonWrapper}>

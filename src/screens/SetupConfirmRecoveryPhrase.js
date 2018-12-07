@@ -31,7 +31,7 @@ var _ = require('lodash')
 const MAX_ERRORS = 4 // 4 strikes and you're out
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 
-let boxWidth = '28%'
+let boxWidth = '25%'
 let boxHeight = '10%'
 
 class SetupConfirmRecoveryPhrase extends Component {
@@ -51,7 +51,7 @@ class SetupConfirmRecoveryPhrase extends Component {
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       boxWidth = '100%'
-      boxHeight = '17%'
+      boxHeight = '15%'
     }
   }
 
@@ -112,14 +112,16 @@ class SetupConfirmRecoveryPhrase extends Component {
                     {row.map((item, index) => {
                       const i = index + row.length * rowIndex
                       return (
-                        <Word
-                          key={i}
-                          error={this.state.errorWord == i}
-                          selected={selected[i]}
-                          onPress={event => this.handleClick(i, event)}
-                        >
-                          {item}
-                        </Word>
+                        <Padding key={i} top={0} bottom={0.85}>
+                          <Word
+                            error={this.state.errorWord == i}
+                            selected={selected[i]}
+                            onPress={event => this.handleClick(i, event)}
+                          >
+                            {item}
+                          </Word>
+                        </Padding>
+                        
                       )
                     })}
                   </View>
@@ -132,6 +134,7 @@ class SetupConfirmRecoveryPhrase extends Component {
               <CommonButton
                 onPress={() => this.pushBack()}
                 title='Back (resets phrase)'
+                bottomPadding={0}
               />
             </View>
             <View style={cssStyles.navButtonWrapper}>
@@ -234,8 +237,6 @@ function Word (props) {
         style={{
           height: hp(boxHeight),
           width: wp(boxWidth),
-          marginBottom: wp('1%'),
-          marginTop: wp('1%'),
           backgroundColor: bgColor,
           alignItems: 'center',
           justifyContent: 'center',
