@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import CommonButton from '../components/CommonButton'
-import Padding from './Padding';
+import Padding from './Padding'
 
 class TransactionTabs extends Component {
   render () {
@@ -64,14 +64,11 @@ class Receive extends Component {
             />
           </View>
         </Padding>
-        
-        
+
         <Padding bottom={0}>
-          <Text style={styles.address}>
-            {this.props.address}
-          </Text>
+          <Text style={styles.address}>{this.props.address}</Text>
         </Padding>
-        
+
         <View styles={{ flex: 1 }}>
           <CommonButton
             title='Share address'
@@ -95,13 +92,13 @@ const tabBarOptions = {
     fontWeight: 'bold'
   },
   tabStyle: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   indicatorStyle: {
     backgroundColor: '#ffffff'
   },
   style: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   }
 }
 
@@ -121,7 +118,7 @@ const styles = StyleSheet.create({
   address: {
     color: '#ffffff',
     fontSize: 13,
-    fontFamily: 'TitilliumWeb-Regular',
+    fontFamily: 'TitilliumWeb-Regular'
   }
 })
 

@@ -15,6 +15,10 @@ import {
 } from 'react-native-responsive-screen'
 import Padding from '../components/Padding'
 
+const BILLFOLD = require('img/billfold-revised1024.png')
+const PLUS_ADD = require('img/plus_add1024.png')
+const LOGOUT = require('img/ndau_user1024.png')
+
 class DashboardDrawer extends React.Component {
   constructor (props) {
     super(props)
@@ -58,19 +62,19 @@ class DashboardDrawer extends React.Component {
         <SafeAreaView
           style={cssStyles.drawerContainer}
           forceInset={{ top: 'always', horizontal: 'never' }}
-        > 
+        >
           <Padding>
             <TouchableOpacity onPress={() => this.dashboard()}>
               <View style={{ flexDirection: 'row' }}>
                 <Image
                   style={cssStyles.drawerTextImageDashboard}
-                  source={require('img/billfold-revised1024.png')}
+                  source={BILLFOLD}
                 />
                 <Text style={cssStyles.drawerText}>Wallets</Text>
               </View>
             </TouchableOpacity>
           </Padding>
-         
+
           <Padding>
             <TouchableOpacity
               style={{ marginTop: hp('1.5%') }}
@@ -79,13 +83,13 @@ class DashboardDrawer extends React.Component {
               <View style={{ flexDirection: 'row' }}>
                 <Image
                   style={[cssStyles.drawerTextImageDashboard, { width: 35 }]}
-                  source={require('img/plus_add1024.png')}
+                  source={PLUS_ADD}
                 />
                 <Text style={cssStyles.drawerText}>Add or recover wallet</Text>
               </View>
             </TouchableOpacity>
           </Padding>
-          
+
           <Padding>
             <View
               style={{
@@ -100,10 +104,7 @@ class DashboardDrawer extends React.Component {
           <Padding>
             <TouchableOpacity onPress={() => this.logout()}>
               <View style={{ flexDirection: 'row' }}>
-                <Image
-                  style={cssStyles.drawerTextImage}
-                  source={require('img/ndau_user1024.png')}
-                />
+                <Image style={cssStyles.drawerTextImage} source={LOGOUT} />
                 <Text style={cssStyles.drawerText}>Logout</Text>
               </View>
             </TouchableOpacity>

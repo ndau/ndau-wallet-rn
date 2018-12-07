@@ -32,6 +32,9 @@ import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Spinner from 'react-native-loading-spinner-overlay'
+
+const NDAU = require('img/ndau_multi_large_1024.png')
 
 class Passphrase extends Component {
   constructor (props) {
@@ -40,45 +43,52 @@ class Passphrase extends Component {
     this.state = {
       password: '',
       showErrorText: false,
-      loginAttempt: 1
+      loginAttempt: 1,
+      spinner: false
     }
 
     this.maxLoginAttempts = 10
   }
 
   login = async () => {
-    try {
-      let user = await MultiSafeHelper.getDefaultUser(this.state.password)
-      let marketPrice = 0
-      if (user) {
-        console.log(
-          `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
-        )
+    this.setState({ spinner: true }, async () => {
+      try {
+        let user = await MultiSafeHelper.getDefaultUser(this.state.password)
+        let marketPrice = 0
+        if (user) {
+          console.log(
+            `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
+          )
 
-        // cache the password
-        await AsyncStorageHelper.setApplicationPassword(this.state.password)
+          // cache the password
+          await AsyncStorageHelper.setApplicationPassword(this.state.password)
 
-        try {
-          await UserData.loadData(user)
-          marketPrice = await OrderNodeAPI.getMarketPrice()
-        } catch (error) {
-          FlashNotification.showError(error.message, false, false)
-          return
+          try {
+            await UserData.loadData(user)
+            marketPrice = await OrderNodeAPI.getMarketPrice()
+          } catch (error) {
+            FlashNotification.showError(error.message, false, false)
+            return
+          }
+
+          FlashNotification.hideMessage()
+          this.setState({ spinner: false }, () => {
+            this.props.navigation.navigate('Dashboard', {
+              user,
+              encryptionPassword: this.state.password,
+              marketPrice
+            })
+          })
+        } else {
+          this.showLoginError()
+          this.setState({ spinner: false })
         }
-
-        FlashNotification.hideMessage()
-        this.props.navigation.navigate('Dashboard', {
-          user,
-          encryptionPassword: this.state.password,
-          marketPrice
-        })
-      } else {
+      } catch (error) {
+        console.log(error)
         this.showLoginError()
+        this.setState({ spinner: false })
       }
-    } catch (error) {
-      console.log(error)
-      this.showLoginError()
-    }
+    })
   }
 
   showExitApp () {
@@ -150,15 +160,23 @@ class Passphrase extends Component {
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
+            <Spinner
+              visible={this.state.spinner}
+              textContent={'Talking to blockchain...'}
+              textStyle={{
+                color: '#ffffff',
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              animation='fade'
+              overlayColor='rgba(0, 0, 0, 0.7)'
+            />
             <Padding top={2}>
               <View style={styles.imageView}>
-                <Image
-                  style={styles.image}
-                  source={require('img/ndau_multi_large_1024.png')}
-                />
+                <Image style={styles.image} source={NDAU} />
               </View>
             </Padding>
-            
+
             <Padding top={2}>
               <View style={{ flexDirection: 'row' }}>
                 <TextInput
@@ -183,11 +201,14 @@ class Passphrase extends Component {
                 />
               </View>
             </Padding>
-            
+
             <Padding top={0}>
               <Padding>
                 <View style={styles.centerTextView}>
-                  <Text onPress={this.showPasswordReset} style={cssStyles.linkText}>
+                  <Text
+                    onPress={this.showPasswordReset}
+                    style={cssStyles.linkText}
+                  >
                     Forgot your password?
                   </Text>
                 </View>
@@ -202,22 +223,17 @@ class Passphrase extends Component {
                   </TouchableOpacity>
                 </View>
               </Padding>
-              
-              {
-                this.state.showErrorText ? 
+
+              {this.state.showErrorText ? (
                 <Padding>
                   <View style={styles.errorContainer}>
                     <Text style={cssStyles.errorText}>
-                        Please enter the passphrase you chose to decrypt this app.
-                        {' '}
+                      Please enter the passphrase you chose to decrypt this app.{' '}
                     </Text>
                   </View>
                 </Padding>
-                : null
-              }
+              ) : null}
             </Padding>
-
-            
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton onPress={this.login} title='Login' />
@@ -229,19 +245,18 @@ class Passphrase extends Component {
 }
 
 const styles = StyleSheet.create({
-  button: {
-  },
+  button: {},
   textContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   imageView: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   centerTextView: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   image: {
     width: wp('100%'),
@@ -255,7 +270,7 @@ const styles = StyleSheet.create({
     })
   },
   infoIcon: {
-    marginLeft: 12,
+    marginLeft: 12
   }
 })
 

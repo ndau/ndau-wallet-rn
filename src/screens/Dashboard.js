@@ -36,6 +36,7 @@ const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
 const NEW_ACCOUNT_MODAL_ID = 'newAccount'
 const TRANSACTION_MODAL_ID = 'transaction'
+const NDAU_GREEN = require('img/ndau-icon-green.png')
 
 class Dashboard extends Component {
   constructor (props) {
@@ -191,8 +192,18 @@ class Dashboard extends Component {
               />
             }
           >
-            <Padding top={0}> 
+            <Padding top={0}>
               <View style={cssStyles.dashboardTextContainer}>
+                {this.isTestNet ? (
+                  <Text
+                    style={[
+                      cssStyles.dashboardTextSmallWhiteEnd,
+                      { color: styleConstants.LINK_ORANGE }
+                    ]}
+                  >
+                    TestNet
+                  </Text>
+                ) : null}
                 <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
               </View>
             </Padding>
@@ -213,20 +224,23 @@ class Dashboard extends Component {
                       marginRight: wp('1%')
                     }}
                     resizeMode='contain'
-                    source={require('img/ndau-icon-green.png')}
+                    source={NDAU_GREEN}
                   />
-                  <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
+                  <Text style={cssStyles.dashboardTextVeryLarge}>
+                    {totalNdau}
+                  </Text>
                 </View>
               </View>
             </Padding>
-            
+
             <Padding top={0.5} bottom={0.5}>
               <View style={cssStyles.dashboardSmallTextContainer}>
                 <Text style={cssStyles.dashboardTextSmallGreen}>
                   {currentPrice}
                   <Text style={cssStyles.asterisks}>*</Text>
                   <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
-                    {' '}at current price
+                    {' '}
+                    at current price
                   </Text>
                 </Text>
 
@@ -240,16 +254,18 @@ class Dashboard extends Component {
                       }}
                     >
                       <Text style={cssStyles.dashboardTextSmallGreen}>
-                        {numberOfAccounts} account{numberOfAccounts !== 1 && 's'}
+                        {numberOfAccounts} account
+                        {numberOfAccounts !== 1 && 's'}
                       </Text>
                       <TouchableOpacity
                         style={{ marginLeft: wp('1.5%') }}
                         onPress={this.launchAddNewAccountDialog}
                       >
-                        <FontAwesome
+                        <FontAwesome5Pro
                           name='plus-circle'
                           color={styleConstants.ICON_GRAY}
                           size={20}
+                          light
                         />
                       </TouchableOpacity>
                     </View>
@@ -257,10 +273,8 @@ class Dashboard extends Component {
                 </Padding>
               </View>
             </Padding>
-            
 
-            {
-              Object.keys(accounts)
+            {Object.keys(accounts)
               .sort((a, b) => {
                 if (
                   !accounts[a].addressData.nickname ||
@@ -326,7 +340,10 @@ class Dashboard extends Component {
                       lock={this.lock}
                       unlock={this.unlock}
                       startTransaction={address => {
-                        console.log('state before transaction started', this.state)
+                        console.log(
+                          'state before transaction started',
+                          this.state
+                        )
                         this.setState({
                           activeAddress: address,
                           modalId: TRANSACTION_MODAL_ID
@@ -337,8 +354,7 @@ class Dashboard extends Component {
                     />
                   </Padding>
                 )
-              })
-            }
+              })}
 
             <Padding>
               <View style={cssStyles.dashboardRowContainerCenter}>
@@ -349,18 +365,16 @@ class Dashboard extends Component {
                     { paddingLeft: wp('1%') }
                   ]}
                 >
-                  The estimated value of ndau in US dollars can be calculated using the Target Price at
-                  which new ndau have most recently been issued. The value shown here is calculated
-                  using that method as of the issue price on
-                  {' '}
-                  {DateHelper.getTodaysDate()}
-                  . The Axiom
-                  Foundation bears no responsibility or liability for the calculation of that estimated
-                  value, or for decisions based on that estimated value.
+                  The estimated value of ndau in US dollars can be calculated
+                  using the Target Price at which new ndau have most recently
+                  been issued. The value shown here is calculated using that
+                  method as of the issue price on {DateHelper.getTodaysDate()}.
+                  The Axiom Foundation bears no responsibility or liability for
+                  the calculation of that estimated value, or for decisions
+                  based on that estimated value.
                 </Text>
               </View>
             </Padding>
-            
           </ScrollView>
         </View>
       </SafeAreaView>
