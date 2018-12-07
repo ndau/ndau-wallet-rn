@@ -26,7 +26,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
 
   // if we are recovering and there is no user we must use a
   // temp userId. It will be changed in the SetupWalletName screen
-  let userId = AppConstants.TEMP_USER
+  let userId = AppConstants.TEMP_ID
   if (user) {
     const wallet = await KeyAddrGenManager.createWallet(
       recoveryPhraseBytes,

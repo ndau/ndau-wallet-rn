@@ -25,6 +25,7 @@ import Padding from '../components/Padding'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import AppConstants from '../AppConstants'
 
 var _ = require('lodash')
 
@@ -66,12 +67,16 @@ class SetupConfirmRecoveryPhrase extends Component {
         DataFormatHelper.convertRecoveryArrayToString(
           SetupStore.recoveryPhrase
         ),
-        SetupStore.walletId,
+        AppConstants.TEMP_ID,
         user.userId,
         SetupStore.numberOfAccounts,
         password
       )
     }
+
+    console.log(
+      `user going into SetupWalletName: ${JSON.stringify(user, null, 2)}`
+    )
 
     this.props.navigation.navigate('SetupWalletName', { user })
   }
@@ -121,7 +126,6 @@ class SetupConfirmRecoveryPhrase extends Component {
                             {item}
                           </Word>
                         </Padding>
-                        
                       )
                     })}
                   </View>

@@ -30,7 +30,7 @@ class SetupEncryptionPassword extends Component {
   componentWillMount = () => {
     const user = this.props.navigation.getParam('user', null)
     if (user) {
-      this.walletCount = Object.keys(user.wallets).length + 1
+      this.walletCount = Object.keys(user.wallets).length
     }
     SetupStore.walletId = `Wallet ${this.walletCount}`
   }
@@ -59,7 +59,7 @@ class SetupEncryptionPassword extends Component {
     }
 
     if (user) {
-      // get it out of AppConstants.TEMP_USER if we have to
+      // get it out of AppConstants.TEMP_ID if we have to
       // and into the new walletId
       DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
     }
