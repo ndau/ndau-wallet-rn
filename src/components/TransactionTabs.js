@@ -7,6 +7,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import CommonButton from '../components/CommonButton'
+import Padding from './Padding';
 
 class TransactionTabs extends Component {
   render () {
@@ -53,19 +54,24 @@ class Receive extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <View style={{ alignSelf: 'center' }}>
-          <QRCode
-            value={this.props.address}
-            size={250}
-            color='black'
-            backgroundColor='white'
-          />
-        </View>
-
-        <Text style={styles.address}>
-          {this.props.address}
-        </Text>
-
+        <Padding>
+          <View style={{ alignSelf: 'center' }}>
+            <QRCode
+              value={this.props.address}
+              size={250}
+              color='black'
+              backgroundColor='white'
+            />
+          </View>
+        </Padding>
+        
+        
+        <Padding bottom={0}>
+          <Text style={styles.address}>
+            {this.props.address}
+          </Text>
+        </Padding>
+        
         <View styles={{ flex: 1 }}>
           <CommonButton
             title='Share address'
@@ -89,13 +95,13 @@ const tabBarOptions = {
     fontWeight: 'bold'
   },
   tabStyle: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   indicatorStyle: {
     backgroundColor: '#ffffff'
   },
   style: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   }
 }
 
@@ -108,16 +114,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'space-between',
+    marginLeft: wp('2%'),
+    marginRight: wp('2%')
   },
   address: {
     color: '#ffffff',
     fontSize: 13,
     fontFamily: 'TitilliumWeb-Regular',
-    marginTop: hp('0.5%'),
-    marginBottom: hp('0.5%'),
-    marginLeft: wp('1%'),
-    marginRight: wp('1%')
   }
 })
 
