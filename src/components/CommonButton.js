@@ -14,8 +14,10 @@ class CommonButton extends Component {
     this.props.onPress()
   }
   render () {
+    const { bottomPadding } = this.props;
+
     return (
-      <Padding bottom={1}>
+      <Padding bottom={ bottomPadding === 0 ? 0 : (bottomPadding || 1) }>
         <View style={styles.containerStyle}>
           <Button
             style={styles.text}
