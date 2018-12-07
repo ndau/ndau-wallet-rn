@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen'
 import styleConstants from '../css/styleConstants'
 
-const WIDTH = wp('88%')
+const WIDTH = wp('96%')
 const HEIGHT = hp('3.5%')
 
 class ProgressBar extends Component {
@@ -16,6 +16,7 @@ class ProgressBar extends Component {
     const progressStyle = {
       backgroundColor: styleConstants.PRIMARY_GREEN,
       height: HEIGHT,
+      // minHeight: 24,
       width: progressWidth,
       borderRadius: WIDTH,
       position: 'absolute',

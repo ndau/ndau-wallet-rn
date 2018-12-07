@@ -26,9 +26,9 @@ const getAddressData = async addresses => {
   return responseBody
 }
 
-const getEaiRate = async addressData => {
+const getEaiRate = async wallet => {
   const accountEaiRateRequestData = DataFormatHelper.getAccountEaiRateRequest(
-    addressData
+    wallet
   )
 
   const eaiRateAddress = await NodeAddressHelper.getEaiRateAPIAddress()

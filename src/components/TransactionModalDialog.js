@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { StyleSheet } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -15,5 +16,17 @@ class TransactionModalDialog extends Component {
     )
   }
 }
+
+var styles = StyleSheet.create({
+  text: {
+    color: '#000000',
+    fontSize: 20,
+    fontFamily: 'TitilliumWeb-Regular',
+    marginTop: hp('1%'),
+    marginBottom: hp('1%'),
+    marginLeft: wp('1%'),
+    marginRight: wp('1%')
+  }
+})
 
 export default TransactionModalDialog

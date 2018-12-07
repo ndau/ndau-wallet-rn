@@ -34,9 +34,9 @@ class SetupYourWallet extends Component {
 
   render () {
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
+      <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
+          <ScrollView style={styles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
@@ -50,7 +50,7 @@ class SetupYourWallet extends Component {
               </View>
             </TouchableWithoutFeedback>
           </ScrollView>
-          <View style={cssStyles.footer}>
+          <View style={styles.footer}>
             <CommonButton
               onPress={this.showNextSetup}
               title='Get my recovery phrase'
@@ -63,10 +63,27 @@ class SetupYourWallet extends Component {
 }
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: '#1c2227'
+  },
+  button: {
+    marginTop: 0
+  },
   text: {
     color: '#ffffff',
     fontSize: 22,
     fontFamily: 'TitilliumWeb-Regular'
+  },
+  contentContainer: {
+    flex: 1 // pushes the footer to the end of the screen
+  },
+  footer: {
+    justifyContent: 'flex-end'
+  },
+  progress: {
+    paddingTop: 15,
+    paddingBottom: 15
   }
 })
 

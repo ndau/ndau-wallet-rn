@@ -20,7 +20,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import AppConstants from '../AppConstants'
-import Padding from '../components/Padding';
 
 var _ = require('lodash')
 
@@ -34,7 +33,7 @@ class SetupRecoveryPhrase extends Component {
     }
 
     this.boxWidth = '30%'
-    this.boxHeight = '14%'
+    this.boxHeight = '18%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
     console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
@@ -134,40 +133,34 @@ class SetupRecoveryPhrase extends Component {
             keyboardShouldPersistTaps='always'
           >
             <SetupProgressBar navigation={this.props.navigation} />
-
-            <Padding top={0}>
+            <View style={{ marginBottom: 10 }}>
               <Text style={cssStyles.wizardText}>
                 Write this 12-word phrase down and store it in a secure location.
               </Text>
-            </Padding>
-
-            <Padding>
-              {
-                words.map((row, rowIndex) => {
-                return (
-                  <View key={rowIndex} style={cssStyles.rowView}>
-                    {row.map((item, index) => {
-                      return (
-                        <View key={index} style={styles.rowTextView}>
-                          <Text
-                            style={{
-                              color: '#ffffff',
-                              fontSize: 20,
-                              fontFamily: 'TitilliumWeb-Regular',
-                              textAlign: 'center'
-                            }}
-                          >
-                            {count++}.{'\n'}
-                            {item}
-                          </Text>
-                        </View>
-                      )
-                    })}
-                  </View>
-                )
-              })}
-            </Padding>
-            
+            </View>
+            {words.map((row, rowIndex) => {
+              return (
+                <View key={rowIndex} style={cssStyles.rowView}>
+                  {row.map((item, index) => {
+                    return (
+                      <View key={index} style={styles.rowTextView}>
+                        <Text
+                          style={{
+                            color: '#ffffff',
+                            fontSize: 20,
+                            fontFamily: 'TitilliumWeb-Regular',
+                            textAlign: 'center'
+                          }}
+                        >
+                          {count++}.{'\n'}
+                          {item}
+                        </Text>
+                      </View>
+                    )
+                  })}
+                </View>
+              )
+            })}
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton

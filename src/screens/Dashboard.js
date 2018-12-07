@@ -21,13 +21,12 @@ import UnlockModalDialog from '../components/UnlockModalDialog'
 import LockModalDialog from '../components/LockModalDialog'
 import NewAccountModalDialog from '../components/NewAccountModalDialog'
 import TransactionModalDialog from '../components/TransactionModalDialog'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import styleConstants from '../css/styleConstants'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
@@ -181,188 +180,178 @@ class Dashboard extends Component {
         />
 
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-        <View style={cssStyles.container}>
-          <ScrollView
-            style={cssStyles.contentContainer}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
+
+        <ScrollView
+          style={cssStyles.container}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+        >
+          <View style={cssStyles.dashboardTextContainer}>
+            {this.isTestNet ? (
+              <Text
+                style={[
+                  cssStyles.dashboardTextSmallWhiteEnd,
+                  { color: styleConstants.LINK_ORANGE }
+                ]}
+              >
+                TestNet
+              </Text>
+            ) : null}
+            <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
+          </View>
+          <View style={cssStyles.dashboardTextContainer}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Image
+                style={{
+                  width: wp('7%'),
+                  height: hp('6%'),
+                  marginRight: wp('1%')
+                }}
+                resizeMode='contain'
+                source={require('img/ndau-icon-green.png')}
               />
-            }
-          >
-            <Padding top={0}> 
-              <View style={cssStyles.dashboardTextContainer}>
-                <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
-              </View>
-            </Padding>
-
-            <Padding>
-              <View style={cssStyles.dashboardTextContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <Image
-                    style={{
-                      width: wp('7%'),
-                      maxHeight: hp('5%'),
-                      marginRight: wp('1%')
-                    }}
-                    resizeMode='contain'
-                    source={require('img/ndau-icon-green.png')}
-                  />
-                  <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
-                </View>
-              </View>
-            </Padding>
-            
-            <Padding top={0.5} bottom={0.5}>
-              <View style={cssStyles.dashboardSmallTextContainer}>
+              <Text style={cssStyles.dashboardTextVeryLarge}>{totalNdau}</Text>
+            </View>
+          </View>
+          <View style={cssStyles.dashboardSmallTextContainer}>
+            <Text style={cssStyles.dashboardTextSmallGreen}>
+              {currentPrice}
+              <Text style={cssStyles.asterisks}>**</Text>
+              <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
+                {' '}
+                at current price
+              </Text>
+            </Text>
+            <View style={cssStyles.dashboardSmallTextContainer}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
                 <Text style={cssStyles.dashboardTextSmallGreen}>
-                  {currentPrice}
-                  <Text style={cssStyles.asterisks}>*</Text>
-                  <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
-                    {' '}at current price
-                  </Text>
+                  {numberOfAccounts} account{numberOfAccounts !== 1 && 's'}
                 </Text>
-
-                <Padding top={0.5}>
-                  <View style={cssStyles.dashboardSmallTextContainer}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      <Text style={cssStyles.dashboardTextSmallGreen}>
-                        {numberOfAccounts} account{numberOfAccounts !== 1 && 's'}
-                      </Text>
-                      <TouchableOpacity
-                        style={{ marginLeft: wp('1.5%') }}
-                        onPress={this.launchAddNewAccountDialog}
-                      >
-                        <FontAwesome
-                          name='plus-circle'
-                          color={styleConstants.ICON_GRAY}
-                          size={20}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </Padding>
-              </View>
-            </Padding>
-            
-
-            {
-              Object.keys(accounts)
-              .sort((a, b) => {
-                if (
-                  !accounts[a].addressData.nickname ||
-                  !accounts[b].addressData.nickname
-                ) {
-                  return 0
-                }
-
-                const accountNumberA = parseInt(
-                  accounts[a].addressData.nickname.split(' ')[1]
-                )
-                const accountNumberB = parseInt(
-                  accounts[b].addressData.nickname.split(' ')[1]
-                )
-                if (accountNumberA < accountNumberB) {
-                  return -1
-                } else if (accountNumberA > accountNumberB) {
-                  return 1
-                }
-                return 0
-              })
-              .map((accountKey, index) => {
-                const account = accounts[accountKey]
-                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(
-                  account.addressData
-                )
-                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(
-                  account.addressData
-                )
-                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(
-                  account.addressData
-                )
-                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(
-                  account.addressData
-                )
-                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
-                  account.addressData
-                )
-                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(
-                  account.addressData
-                )
-                const nickname = NdauNodeAPIHelper.accountNickname(
-                  account.addressData
-                )
-                const accountBalance = NdauNodeAPIHelper.accountNdauAmount(
-                  account.addressData
-                )
-
-                return (
-                  <Padding key={index} top={0.5}>
-                    <AccountCard
-                      index={index}
-                      nickname={nickname}
-                      address={account.address}
-                      eaiPercentage={eaiPercentage}
-                      sendingEAITo={sendingEAITo}
-                      receivingEAIFrom={receivingEAIFrom}
-                      accountBalance={accountBalance}
-                      accountLockedUntil={accountLockedUntil}
-                      accountNoticePeriod={accountNoticePeriod}
-                      accountNotLocked={accountNotLocked}
-                      totalNdau={totalNdau}
-                      lock={this.lock}
-                      unlock={this.unlock}
-                      startTransaction={address => {
-                        console.log('state before transaction started', this.state)
-                        this.setState({
-                          activeAddress: address,
-                          modalId: TRANSACTION_MODAL_ID
-                        })
-                      }}
-                      walletId={account.addressData.walletId}
-                      expanded={index === 0}
-                    />
-                  </Padding>
-                )
-              })
-            }
-
-            <Padding>
-              <View style={cssStyles.dashboardRowContainerCenter}>
-                <Text style={cssStyles.asterisks}>*</Text>
-                <Text
-                  style={[
-                    cssStyles.dashboardTextVerySmallWhite,
-                    { paddingLeft: wp('1%') }
-                  ]}
+                <TouchableOpacity
+                  style={{ marginLeft: wp('1.5%'), marginTop: hp('.3%') }}
+                  onPress={this.launchAddNewAccountDialog}
                 >
-                  The estimated value of ndau in US dollars can be calculated using the Target Price at
-                  which new ndau have most recently been issued. The value shown here is calculated
-                  using that method as of the issue price on
-                  {' '}
-                  {DateHelper.getTodaysDate()}
-                  . The Axiom
-                  Foundation bears no responsibility or liability for the calculation of that estimated
-                  value, or for decisions based on that estimated value.
-                </Text>
+                  <FontAwesome5Pro
+                    name='plus-circle'
+                    color={styleConstants.ICON_GRAY}
+                    size={20}
+                    light
+                  />
+                </TouchableOpacity>
               </View>
-            </Padding>
-            
-          </ScrollView>
-        </View>
+            </View>
+          </View>
+
+          {Object.keys(accounts)
+            .sort((a, b) => {
+              if (
+                !accounts[a].addressData.nickname ||
+                !accounts[b].addressData.nickname
+              ) {
+                return 0
+              }
+
+              const accountNumberA = parseInt(
+                accounts[a].addressData.nickname.split(' ')[1]
+              )
+              const accountNumberB = parseInt(
+                accounts[b].addressData.nickname.split(' ')[1]
+              )
+              if (accountNumberA < accountNumberB) {
+                return -1
+              } else if (accountNumberA > accountNumberB) {
+                return 1
+              }
+              return 0
+            })
+            .map((accountKey, index) => {
+              const account = accounts[accountKey]
+              const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(
+                account.addressData
+              )
+              const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(
+                account.addressData
+              )
+              const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(
+                account.addressData
+              )
+              const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(
+                account.addressData
+              )
+              const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
+                account.addressData
+              )
+              const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(
+                account.addressData
+              )
+              const nickname = NdauNodeAPIHelper.accountNickname(
+                account.addressData
+              )
+              const accountBalance = NdauNodeAPIHelper.accountNdauAmount(
+                account.addressData
+              )
+
+              return (
+                <AccountCard
+                  key={index}
+                  index={index}
+                  nickname={nickname}
+                  address={account.address}
+                  eaiPercentage={eaiPercentage}
+                  sendingEAITo={sendingEAITo}
+                  receivingEAIFrom={receivingEAIFrom}
+                  accountBalance={accountBalance}
+                  accountLockedUntil={accountLockedUntil}
+                  accountNoticePeriod={accountNoticePeriod}
+                  accountNotLocked={accountNotLocked}
+                  totalNdau={totalNdau}
+                  lock={this.lock}
+                  unlock={this.unlock}
+                  startTransaction={address => {
+                    console.log('state before transaction started', this.state)
+                    this.setState({
+                      activeAddress: address,
+                      modalId: TRANSACTION_MODAL_ID
+                    })
+                  }}
+                  walletId={account.addressData.walletId}
+                  expanded={index === 0}
+                />
+              )
+            })}
+          <View style={[cssStyles.dashboardRowContainerCenter, {paddingTop: hp('4%')}]}>
+            <Text style={cssStyles.asterisks}>*</Text>
+            <Text
+              style={[
+                cssStyles.dashboardTextVerySmallWhite,
+                { paddingLeft: wp('1%') }
+              ]}
+            >
+              The estimated value of ndau in US dollars can be calculated using
+              the Target Price at which new ndau have most recently been issued.
+              The value shown here is calculated using that method as of the
+              issue price on {DateHelper.getTodaysDate()}. The Axiom Foundation
+              bears no responsibility or liability for the calculation of that
+              estimated value, or for decisions based on that estimated value.
+            </Text>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     )
   }

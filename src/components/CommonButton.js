@@ -1,47 +1,34 @@
 import React, { Component } from 'react'
 
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import Button from 'react-native-button'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import Padding from './Padding'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 
 class CommonButton extends Component {
   onPress () {
     this.props.onPress()
   }
   render () {
-    const { bottomPadding } = this.props;
-
     return (
-      <Padding bottom={ bottomPadding === 0 ? 0 : (bottomPadding || 1) }>
-        <View style={styles.containerStyle}>
-          <Button
-            style={styles.text}
-            disabledContainerStyle={styles.disabledStyle}
-            containerStyle={styles.containerStyle}
-            onPress={this.props.onPress}
-            {...this.props}
-          >
-            <Text style={styles.text}>
-              { // "name" is required
-                this.props.iconProps && this.props.iconProps.name &&
-                <Text>
-                  <FontAwesome
-                    {...this.props.iconProps}
-                    color='#fff'
-                  />
-                  {'  '}
-                </Text>
-              }
-              {this.props.title}
-            </Text>
-          </Button>
-        </View>
-      </Padding>
+      <Button
+        style={styles.text}
+        disabledContainerStyle={styles.disabledStyle}
+        containerStyle={styles.containerStyle}
+        onPress={this.props.onPress}
+        {...this.props}
+      >
+        <Text style={styles.text}>
+          {// "name" is required
+            this.props.iconProps && this.props.iconProps.name && (
+              <FontAwesome5Pro {...this.props.iconProps} color='#fff' light />
+            )}{' '}
+          {this.props.title}
+        </Text>
+      </Button>
     )
   }
 }
@@ -62,7 +49,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     height: hp('7%'),
-    backgroundColor: '#4e957a',
+    backgroundColor: '#4e957a'
   }
 })
 

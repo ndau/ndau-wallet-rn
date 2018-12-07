@@ -15,7 +15,6 @@ import { SafeAreaView } from 'react-navigation'
 import SetupProgressBar from '../components/SetupProgressBar'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding';
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -81,15 +80,14 @@ class SetupWelcome extends Component {
                 </Text>
               </View>
             </TouchableWithoutFeedback>
-            <Padding bottom={1}>
+            <View>
               <Text style={cssStyles.wizardText}>
                 To get started securely, you will create a new wallet, protect
                 it with a password, and create a recovery phrase which you will
                 need in order to restore your wallet if you lose access to it.
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
-            </Padding>
-            
+            </View>
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton onPress={this.showNextSetup} title='Start' />

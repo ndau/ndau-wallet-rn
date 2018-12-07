@@ -5,7 +5,6 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
-import Padding from './Padding'
 import styleConstants from '../css/styleConstants'
 
 class ModalDialog extends Component {
@@ -19,17 +18,15 @@ class ModalDialog extends Component {
       >
         <View style={[styles.outerView, this.props.outerViewStyle]}>
           <View style={[styles.innerView, this.props.innerViewStyle]}>
-            <Padding>
-              <TouchableHighlight onPress={this.props.closeModal}>
-                <FontAwesome5Pro
-                  style={styles.closeButton}
-                  name='times'
-                  color={styleConstants.ICON_GRAY}
-                  size={20}
-                  light
-                />
-              </TouchableHighlight>
-            </Padding>
+            <TouchableHighlight onPress={this.props.closeModal}>
+              <FontAwesome5Pro
+                style={styles.closeButton}
+                name='times'
+                color={styleConstants.ICON_GRAY}
+                size={20}
+                light
+              />
+            </TouchableHighlight>
             {this.props.children}
           </View>
         </View>
@@ -42,7 +39,7 @@ var styles = StyleSheet.create({
   outerView: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   innerView: {
@@ -50,10 +47,13 @@ var styles = StyleSheet.create({
     borderRadius: 3,
     width: wp('90%'),
     height: hp('70%'),
-    paddingLeft: wp('3%'),
-    paddingRight: wp('3%'),
+    paddingLeft: wp('2%'),
+    paddingRight: wp('2%'),
+    paddingBottom: hp('2%')
   },
   closeButton: {
+    marginTop: hp('.8%'),
+    marginLeft: wp('.8%')
   }
 })
 

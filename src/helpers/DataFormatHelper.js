@@ -96,21 +96,22 @@ const getObjectWithAllAccounts = user => {
  * Given a wallet send back the format for the
  * request to /account/eai/rate RESTful API call
  *
- * @param {string} addressData
+ * @param {Wallet} wallet
  */
-const getAccountEaiRateRequest = addressData => {
-  return Object.keys(addressData).map(accountKey => {
-    const account = addressData[accountKey]
-    let weightedAverageAge = account.weightedAverageAge
-    if (!weightedAverageAge && account.lastWAAUpdate) {
+const getAccountEaiRateRequest = wallet => {
+  return Object.keys(wallet.accounts).map(accountKey => {
+    const account = wallet.accounts[accountKey]
+    let weightedAverageAge = account.addressData.weightedAverageAge
+    if (!weightedAverageAge) {
       weightedAverageAge =
         weightedAverageAge +
-        (DateHelper.getMicrosecondsSinceNdauEpoch() - account.lastWAAUpdate)
+        (DateHelper.getMicrosecondsSinceNdauEpoch() -
+          account.addressData.lastWAAUpdate)
     }
     return {
       address: accountKey,
       weightedAverageAge,
-      lock: account.lock
+      lock: account.addressData.lock
     }
   })
 }

@@ -18,7 +18,6 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import UserData from '../model/UserData'
-import Padding from '../components/Padding';
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -168,50 +167,42 @@ class SetupEncryptionPassword extends Component {
     const { textInputColor, progress } = this.state
     // debugger
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
+      <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
+          <ScrollView style={styles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
-
-            <Padding top={0} bottom={0} >
-              <View style={styles.textContainer}>
-                <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                  {this.state.instructionText}{'  '}
-                  <FontAwesome5Pro
-                    name='info'
-                    color='#ffffff'
-                    size={20}
-                    style={{ marginBottom: 3 }}
-                  />
-                </Text>
-              </View>
-            </Padding>
-            
-            <Padding top={2}>
-              <TextInput
-                style={cssStyles.textInput}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
-                placeholder='Enter a password'
-                placeholderTextColor='#333'
-                secureTextEntry={!this.state.showPasswords}
-                autoCapitalize='none'
-              />
-            </Padding>
-            
-            <Padding>
-              <TextInput
-                style={cssStyles.textInput}
-                onChangeText={this.updateComfirmPassword}
-                value={this.state.confirmPassword}
-                placeholder='Confirm your password'
-                placeholderTextColor='#333'
-                secureTextEntry={!this.state.showPasswords}
-                autoCapitalize='none'
-              />
-            </Padding>
-            
-            <Padding>
+            <View style={styles.textContainer}>
+              <Text style={cssStyles.wizardText} onPress={this.showInformation}>
+                {this.state.instructionText}
+                {'  '}
+                <FontAwesome5Pro
+                  name='info-circle'
+                  color='#ffffff'
+                  size={20}
+                  style={{ marginBottom: 3 }}
+                  light
+                />
+              </Text>
+            </View>
+            <TextInput
+              style={cssStyles.textInput}
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+              placeholder='Enter a password'
+              placeholderTextColor='#333'
+              secureTextEntry={!this.state.showPasswords}
+              autoCapitalize='none'
+            />
+            <TextInput
+              style={cssStyles.textInput}
+              onChangeText={this.updateComfirmPassword}
+              value={this.state.confirmPassword}
+              placeholder='Confirm your password'
+              placeholderTextColor='#333'
+              secureTextEntry={!this.state.showPasswords}
+              autoCapitalize='none'
+            />
+            <View>
               <CheckBox
                 style={cssStyles.checkbox}
                 onClick={this.checkedShowPasswords}
@@ -224,10 +215,9 @@ class SetupEncryptionPassword extends Component {
                 }}
                 checkBoxColor='#ffffff'
               />
-            </Padding>
+            </View>
           </ScrollView>
-
-          <View style={cssStyles.footer}>
+          <View style={styles.footer}>
             <CommonButton
               onPress={this.showNextSetup}
               title='Next'
@@ -241,6 +231,26 @@ class SetupEncryptionPassword extends Component {
 }
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: '#1c2227'
+  },
+  button: {
+    marginTop: 0
+  },
+  textContainer: {
+    marginBottom: 8
+  },
+  contentContainer: {
+    flex: 1 // pushes the footer to the end of the screen
+  },
+  footer: {
+    justifyContent: 'flex-end'
+  },
+  progress: {
+    paddingTop: 15,
+    paddingBottom: 15
+  },
   infoParagraph: {
     flexDirection: 'row'
   }

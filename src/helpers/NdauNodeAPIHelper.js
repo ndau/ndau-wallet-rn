@@ -9,7 +9,7 @@ const populateWalletWithAddressData = async wallet => {
   const addressDataFromAPI = await NdauNodeAPI.getAddressData(
     Object.keys(wallet.accounts)
   )
-  const eaiRateData = await NdauNodeAPI.getEaiRate(addressDataFromAPI)
+  const eaiRateData = await NdauNodeAPI.getEaiRate(wallet)
   const addressData = addressDataFromAPI || {}
 
   const eaiRateMap = new Map()
@@ -114,8 +114,8 @@ const accountNotLocked = account => {
 const accountNdauAmount = account => {
   return account && account.balance
     ? DataFormatHelper.addCommas(
-      parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
-    )
+        parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
+      )
     : 0.0
 }
 

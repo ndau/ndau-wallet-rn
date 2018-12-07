@@ -35,8 +35,8 @@ if [ "$1" ] && [ "$2" ]; then
         download_from_s3 $bucket icomoon.ttf $version
 
         echo "copy all ndau-fonts content to assets folder"
-        mkdir -p assets/fonts
-        mkdir -p android/app/src/main/assets/fonts
+        mkdir assets/fonts
+        mkdir android/app/src/main/assets/fonts
         cp -Rf remote-content/* assets/fonts
         cp -Rf remote-content/* android/app/src/main/assets/fonts
     elif [ $bucket == "$ndautxmobile" ]; then

@@ -9,7 +9,6 @@ import SetupStore from '../model/SetupStore'
 import ndauDashboardApi from '../api/NdauDashboardAPI'
 import AppConfig from '../AppConfig'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderNodeAPI from '../api/OrderNodeAPI'
@@ -120,10 +119,10 @@ class SetupTermsOfService extends Component {
     SetupStore.printData()
 
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
+      <SafeAreaView style={styles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView
-            style={cssStyles.contentContainer}
+            style={styles.contentContainer}
             showsVerticalScrollIndicator
             indicatorStyle='white'
           >
@@ -612,7 +611,7 @@ class SetupTermsOfService extends Component {
               />
             </View>
           </ScrollView>
-          <View style={cssStyles.footer}>
+          <View style={styles.footer}>
             <CommonButton
               onPress={this.finishSetup}
               title='Next'
@@ -626,6 +625,21 @@ class SetupTermsOfService extends Component {
 }
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: '#1c2227'
+  },
+  contentContainer: {
+    flex: 1 // pushes the footer to the end of the screen
+  },
+  footer: {
+    justifyContent: 'flex-end',
+    marginTop: 20
+  },
+  progress: {
+    paddingTop: 30,
+    paddingBottom: 30
+  },
   legalText: {
     color: '#ffffff',
     fontSize: 16,
