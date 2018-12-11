@@ -369,9 +369,10 @@ class Dashboard extends Component {
                   using the Target Price at which new ndau have most recently
                   been issued. The value shown here is calculated using that
                   method as of the issue price on {DateHelper.getTodaysDate()}.
-                  The Axiom Foundation bears no responsibility or liability for
-                  the calculation of that estimated value, or for decisions
-                  based on that estimated value.
+                  The Axiom Foundation, creator and issuer of ndau, bears no
+                  responsibility or liability for the calculation of that
+                  estimated value, or for decisions based on that estimated
+                  value.
                 </Text>
               </View>
             </Padding>

@@ -65,7 +65,6 @@ class SetupGetRecoveryPhrase extends Component {
       stepNumber: 0,
       introductionText: this.NORMAL_MODE_TEXT,
       mode: AppConstants.NORMAL_MODE,
-      recoveryWord: '',
       recoveryIndex: 0,
       disableArrows: true,
       spinner: false
@@ -158,7 +157,6 @@ class SetupGetRecoveryPhrase extends Component {
       this.setState(
         {
           recoveryIndex: newRecoveryIndex,
-          recoveryWord: this.recoveryPhrase[newRecoveryIndex],
           disableArrows: this.recoveryPhrase[newRecoveryIndex] === ''
         },
         () => {
@@ -179,7 +177,6 @@ class SetupGetRecoveryPhrase extends Component {
       this.setState(
         {
           recoveryIndex: newRecoveryIndex,
-          recoveryWord: this.recoveryPhrase[newRecoveryIndex],
           disableArrows: false
         },
         () => {
@@ -208,6 +205,8 @@ class SetupGetRecoveryPhrase extends Component {
     if (value) {
       FlashNotification.showError('Please select a valid word.', true)
       this.setState({ disableArrows: value })
+    } else {
+      FlashNotification.hideMessage()
     }
     this.setState({ acquisitionError: value })
   }
@@ -311,7 +310,6 @@ class SetupGetRecoveryPhrase extends Component {
       textColor: '#ffffff',
       recoveryIndex: 0,
       stepNumber: 0,
-      recoveryWord: this.recoveryPhrase[0],
       disableArrows: false
     })
     FlashNotification.hideMessage()
@@ -415,7 +413,7 @@ class SetupGetRecoveryPhrase extends Component {
                 <RecoveryDropdown
                   addToRecoveryPhrase={this.addToRecoveryPhrase}
                   setAcquisitionError={this.setAcquisitionError}
-                  recoveryWord={this.state.recoveryWord}
+                  recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
                   setDisableArrows={this.setDisableArrows}
                   onSubmitEditing={this._moveToNextWord}
                   ref={input => {
