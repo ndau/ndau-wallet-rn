@@ -37,7 +37,7 @@ class RecoveryDropdown extends Component {
   }
 
   clearWord = () => {
-    this.setState({ query: '' })
+    this.setState({ query: '', list: [] })
   }
 
   focus = () => {
@@ -54,14 +54,18 @@ class RecoveryDropdown extends Component {
         5
       )
       this.retrievedData = true
+      const wordsArray = words.split(' ')
 
       console.log(`words; ${words} query: ${query}`)
       if (words === query) {
         this.props.setDisableArrows(false)
         this.setState({ list: [] })
         return
+      } else if (wordsArray.indexOf(query) >= 0) {
+        this.props.setDisableArrows(false)
+      } else {
+        this.props.setDisableArrows(true)
       }
-      wordsArray = words.split(' ')
 
       if (wordsArray[0] === '') {
         this.setState({ textColor: '#ff0000', list: [] })
