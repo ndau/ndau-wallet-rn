@@ -9,7 +9,6 @@ import {
 
 const SEND_AND_RECEIVE_ICON = require('img/send_receive_both.png')
 const RECEIVE_ONLY_ICON = require('img/receive_only.png')
-const ANIMATED_GIF = require('img/lock_countdown_animation_white.gif')
 const UNLOCKED = require('img/unlocked.png')
 const LOCKED = require('img/locked.png')
 
@@ -81,18 +80,8 @@ class AccountCard extends Component {
 
         {totalNdau !== 0 && (
           <View style={[cssStyles.accountCardImageView]}>
-            {/* {accountLockedUntil ? (
-              <Image
-                style={{
-                  width: 23,
-                  height: 35,
-                  marginLeft: wp('1.5%')
-                }}
-                source={ANIMATED_GIF}
-              />
-            ) : null} */}
             <TouchableOpacity onPress={unlock}>
-              {accountNoticePeriod && !accountLockedUntil ? (
+              {accountNoticePeriod ? (
                 <Image
                   style={{
                     width: 23,

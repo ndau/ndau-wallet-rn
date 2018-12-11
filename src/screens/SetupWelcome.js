@@ -41,8 +41,7 @@ class SetupWelcome extends Component {
   }
 
   showNextSetup = () => {
-    const user = this.props.navigation.getParam('user', null)
-    this.props.navigation.navigate('SetupNewOrRecovery', { user })
+    this.props.navigation.navigate('SetupNewOrRecovery')
   }
 
   testNetToggler = async () => {

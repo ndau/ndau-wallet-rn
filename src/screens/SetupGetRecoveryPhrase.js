@@ -542,7 +542,11 @@ class SetupGetRecoveryPhrase extends Component {
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.pushBack()} title='Back' />
+              <CommonButton
+                onPress={() => this.pushBack()}
+                title='Back'
+                bottomPadding={0}
+              />
             </View>
             <View style={cssStyles.navButtonWrapper}>
               <CommonButton onPress={() => this.confirm()} title='Confirm' />

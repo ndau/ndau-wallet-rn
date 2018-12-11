@@ -11,7 +11,7 @@ class FlashNotification extends Component {
       color: '#f75f4b',
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      icon: 'danger',
+      // icon: 'danger',
       duration: 10000,
       hideOnPress
     })
@@ -25,7 +25,7 @@ class FlashNotification extends Component {
       color: '#4e957a',
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      icon: 'info',
+      // icon: 'info',
       duration: 10000,
       hideOnPress
     })
