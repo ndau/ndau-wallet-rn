@@ -52,9 +52,9 @@ var styles = StyleSheet.create({
     height: hp('70%'),
     paddingLeft: wp('3%'),
     paddingRight: wp('3%'),
+    marginTop: hp('10%')
   },
-  closeButton: {
-  }
+  closeButton: {}
 })
 
 export default ModalDialog
