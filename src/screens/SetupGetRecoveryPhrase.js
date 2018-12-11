@@ -205,6 +205,8 @@ class SetupGetRecoveryPhrase extends Component {
     if (value) {
       FlashNotification.showError('Please select a valid word.', true)
       this.setState({ disableArrows: value })
+    } else {
+      FlashNotification.hideMessage()
     }
     this.setState({ acquisitionError: value })
   }

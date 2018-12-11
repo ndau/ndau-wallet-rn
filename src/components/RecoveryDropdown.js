@@ -46,34 +46,52 @@ class RecoveryDropdown extends Component {
     }
   }
 
-  goGetTheData = async query => {
-    if (query && !this.retrievedData) {
+  _checkIfArrowsNeedToBeDisabled (words, textEntered) {
+    const wordsArray = words.split(' ')
+
+    if (words === textEntered) {
+      // if the textEntered matches the full words string then
+      // we have an exact match, so we are all done. this happens
+      // when someone types the whole word
+      this.props.setDisableArrows(false)
+      this.setState({ list: [] })
+    } else if (wordsArray.indexOf(textEntered) >= 0) {
+      // if we have a word that matches in the array of words
+      // then they have typed a word in there which is present
+      // 2 times. For example, if someone types in 'pig', you will
+      // see 'pig' and 'pigeon' in the list. The word 'pig' is a
+      // match, so they can move on...hence we enable the arrows
+      this.props.setDisableArrows(false)
+    } else {
+      // otherwise disable the arrows!
+      this.props.setDisableArrows(true)
+    }
+  }
+
+  _checkForErrors (wordsArray) {
+    if (wordsArray[0] === '') {
+      this.setState({ textColor: '#ff0000', list: [] })
+      this.props.setAcquisitionError(true)
+    } else {
+      this.setState({ textColor: '#ffffff' })
+      this.props.setAcquisitionError(false)
+    }
+  }
+
+  goGetTheData = async textEntered => {
+    if (textEntered && !this.retrievedData) {
       const words = await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
         AppConstants.APP_LANGUAGE,
-        query,
+        textEntered,
         5
       )
       this.retrievedData = true
       const wordsArray = words.split(' ')
+      // console.log(`words; ${words} textEntered: ${textEntered}`)
 
-      console.log(`words; ${words} query: ${query}`)
-      if (words === query) {
-        this.props.setDisableArrows(false)
-        this.setState({ list: [] })
-        return
-      } else if (wordsArray.indexOf(query) >= 0) {
-        this.props.setDisableArrows(false)
-      } else {
-        this.props.setDisableArrows(true)
-      }
+      this._checkIfArrowsNeedToBeDisabled(words, textEntered)
 
-      if (wordsArray[0] === '') {
-        this.setState({ textColor: '#ff0000', list: [] })
-        this.props.setAcquisitionError(true)
-      } else {
-        this.setState({ textColor: '#ffffff' })
-        this.props.setAcquisitionError(false)
-      }
+      this._checkForErrors(wordsArray)
 
       this.setState({
         list: wordsArray.length >= 0 ? wordsArray : []
