@@ -159,7 +159,7 @@ var styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 3,
-    width: wp('60%'),
+    width: wp('53%'),
     backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
     overflow: 'hidden',
     ...Platform.select({
@@ -173,7 +173,7 @@ var styles = StyleSheet.create({
     })
   },
   listContainerStyle: {
-    width: wp('60%')
+    width: wp('53%')
   },
   itemText: {
     color: '#ffffff',
