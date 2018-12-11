@@ -21,13 +21,18 @@ import {
 import EntropyHelper from '../helpers/EntropyHelper'
 import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
 import FlashNotification from '../components/FlashNotification'
+import Padding from '../components/Padding'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import DataFormatHelper from '../helpers/DataFormatHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import AppConstants from '../AppConstants'
 
 var _ = require('lodash')
 
 const MAX_ERRORS = 4 // 4 strikes and you're out
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 
-let boxWidth = '30%'
+let boxWidth = '25%'
 let boxHeight = '10%'
 
 class SetupConfirmRecoveryPhrase extends Component {
@@ -47,17 +52,40 @@ class SetupConfirmRecoveryPhrase extends Component {
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       boxWidth = '100%'
-      boxHeight = '17%'
+      boxHeight = '15%'
     }
   }
 
   showNextSetup = async () => {
-    this.props.navigation.navigate('SetupWalletName')
+    let user = this.props.navigation.getParam('user', {})
+    if (user) {
+      // if a user is present then we have wallets and can assume
+      // they are logged in, so we get the password setup
+      const password = await AsyncStorageHelper.getApplicationPassword()
+      user = await MultiSafeHelper.addNewWallet(
+        user,
+        DataFormatHelper.convertRecoveryArrayToString(
+          SetupStore.recoveryPhrase
+        ),
+        AppConstants.TEMP_ID,
+        user.userId,
+        SetupStore.numberOfAccounts,
+        password
+      )
+    }
+
+    console.log(
+      `user going into SetupWalletName: ${JSON.stringify(user, null, 2)}`
+    )
+
+    this.props.navigation.navigate('SetupWalletName', { user })
   }
 
   pushBack = async () => {
+    const user = this.props.navigation.getParam('user', {})
+
     await EntropyHelper.generateEntropy()
-    this.props.navigation.navigate('SetupYourWallet')
+    this.props.navigation.navigate('SetupYourWallet', { user })
   }
 
   render () {
@@ -71,41 +99,46 @@ class SetupConfirmRecoveryPhrase extends Component {
     }, {})
 
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
-            <View style={{ marginBottom: 10 }}>
+            <Padding top={0}>
               <Text style={cssStyles.wizardText}>
-                To confirm that you recorded the phrase, tap the words below in order.
-                {' '}
+                To confirm that you recorded the phrase, tap the words below in
+                order.{' '}
               </Text>
-            </View>
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={styles.rowView}>
-                  {row.map((item, index) => {
-                    const i = index + row.length * rowIndex
-                    return (
-                      <Word
-                        key={i}
-                        error={this.state.errorWord == i}
-                        selected={selected[i]}
-                        onPress={event => this.handleClick(i, event)}
-                      >
-                        {item}
-                      </Word>
-                    )
-                  })}
-                </View>
-              )
-            })}
+            </Padding>
+
+            <Padding>
+              {words.map((row, rowIndex) => {
+                return (
+                  <View key={rowIndex} style={styles.rowView}>
+                    {row.map((item, index) => {
+                      const i = index + row.length * rowIndex
+                      return (
+                        <Padding key={i} top={0} bottom={0.85}>
+                          <Word
+                            error={this.state.errorWord == i}
+                            selected={selected[i]}
+                            onPress={event => this.handleClick(i, event)}
+                          >
+                            {item}
+                          </Word>
+                        </Padding>
+                      )
+                    })}
+                  </View>
+                )
+              })}
+            </Padding>
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
               <CommonButton
                 onPress={() => this.pushBack()}
                 title='Back (resets phrase)'
+                bottomPadding={0}
               />
             </View>
             <View style={cssStyles.navButtonWrapper}>
@@ -166,6 +199,7 @@ class SetupConfirmRecoveryPhrase extends Component {
         inError: false,
         errorWord: null
       })
+      FlashNotification.hideMessage()
     }
   }
 
@@ -207,8 +241,6 @@ function Word (props) {
         style={{
           height: hp(boxHeight),
           width: wp(boxWidth),
-          marginBottom: wp('1%'),
-          marginTop: wp('1%'),
           backgroundColor: bgColor,
           alignItems: 'center',
           justifyContent: 'center',
@@ -232,40 +264,13 @@ function Word (props) {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end',
-    display: 'flex'
-  },
   navButtons: {
     width: wp('40%')
-  },
-  progress: {
-    paddingTop: 30,
-    paddingBottom: 30
   },
   rowView: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
-  },
-  textArea: {
-    height: hp('100%'),
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: hp('1%'),
-    marginTop: hp('1%'),
-    paddingLeft: wp('1%'),
-    color: '#000000',
-    backgroundColor: '#ffffff',
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular'
   }
 })
 

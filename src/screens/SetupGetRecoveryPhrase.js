@@ -25,10 +25,12 @@ import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
 import FlashNotification from '../components/FlashNotification'
+import Padding from '../components/Padding'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -37,12 +39,12 @@ class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
     this.NORMAL_MODE_TEXT =
-      `To verify your account please verify your twelve-word recovery` +
-      ` phrase below. Start typing in the box below, then pick the correct suggestion.`
+      `To recover your wallet, please verify your twelve-word recovery phrase. ` +
+      `Start typing in the box below, then pick the correct suggestion.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
-      'correct suggestion'
+      'correct suggestion.'
     this.GENESIS_MODE_TEXT =
       `We're almost ready to get you on the ndau blockchain, ` +
       'but we need one last thing from you. \n\nPlease verify your twelve word ' +
@@ -65,7 +67,8 @@ class SetupGetRecoveryPhrase extends Component {
       mode: AppConstants.NORMAL_MODE,
       recoveryWord: '',
       recoveryIndex: 0,
-      disableArrows: true
+      disableArrows: true,
+      spinner: false
     }
 
     this.index = 0
@@ -210,88 +213,95 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   confirm = async () => {
-    try {
-      const { navigation } = this.props
+    this.setState({ spinner: true }, async () => {
+      try {
+        const { navigation } = this.props
 
-      if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
-        navigation.navigate('SetupEncryptionPassword', {
-          user,
-          walletSetupType:
-            navigation.state.params && navigation.state.params.walletSetupType,
-          mode: AppConstants.PASSWORD_RESET_MODE,
-          recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
-            this.recoveryPhrase
-          )
-        })
-        return
-      }
-
-      const user = await this._checkRecoveryPhrase()
-      if (user) {
-        const encryptionPassword = navigation.getParam(
-          'encryptionPassword',
-          null
-        )
-        let marketPrice = 0
-        // IF we have a password we are fixing up an account from a 1.6 user here
-        // so we fixed it up...now save it...and go back to Dashboard
-        if (encryptionPassword) {
-          try {
-            await UserData.loadData(user)
-            marketPrice = await OrderNodeAPI.getMarketPrice()
-          } catch (error) {
-            FlashNotification.showError(error.message)
-          }
-
-          await MultiSafeHelper.saveUser(
+        if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
+          navigation.navigate('SetupEncryptionPassword', {
             user,
-            encryptionPassword,
-            DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase)
-          )
-
-          this.props.navigation.navigate('Dashboard', {
-            user,
-            encryptionPassword,
             walletSetupType:
               navigation.state.params &&
               navigation.state.params.walletSetupType,
-            marketPrice
-          })
-        } else {
-          if (
-            await MultiSafeHelper.recoveryPhraseAlreadyExists(
-              user.userId,
+            mode: AppConstants.PASSWORD_RESET_MODE,
+            recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
               this.recoveryPhrase
             )
-          ) {
-            FlashNotification.showError(
-              'This recovery phrase already exists in the wallet.'
-            )
-            return
-          }
-          SetupStore.recoveryPhrase = this.recoveryPhrase
-          navigation.navigate('SetupWalletName', {
-            user,
-            walletSetupType:
-              navigation.state.params &&
-              navigation.state.params.walletSetupType
           })
+          return
         }
-      } else {
+
+        const user = await this._checkRecoveryPhrase()
+        if (user) {
+          const encryptionPassword = navigation.getParam(
+            'encryptionPassword',
+            null
+          )
+          let marketPrice = 0
+          // IF we have a password we are fixing up an account from a 1.6 user here
+          // so we fixed it up...now save it...and go back to Dashboard
+          if (encryptionPassword) {
+            try {
+              await UserData.loadData(user)
+              marketPrice = await OrderNodeAPI.getMarketPrice()
+            } catch (error) {
+              FlashNotification.showError(error.message)
+            }
+
+            await MultiSafeHelper.saveUser(
+              user,
+              encryptionPassword,
+              DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase)
+            )
+
+            this.props.navigation.navigate('Dashboard', {
+              user,
+              encryptionPassword,
+              walletSetupType:
+                navigation.state.params &&
+                navigation.state.params.walletSetupType,
+              marketPrice
+            })
+          } else {
+            if (
+              await MultiSafeHelper.recoveryPhraseAlreadyExists(
+                user.userId,
+                this.recoveryPhrase
+              )
+            ) {
+              FlashNotification.showError(
+                'This recovery phrase already exists in the wallet.'
+              )
+              return
+            }
+            SetupStore.recoveryPhrase = this.recoveryPhrase
+            this.setState({ spinner: false }, () => {
+              navigation.navigate('SetupWalletName', {
+                user,
+                walletSetupType:
+                  navigation.state.params &&
+                  navigation.state.params.walletSetupType
+              })
+            })
+          }
+        } else {
+          this.setState({
+            textColor: '#f05123',
+            confirmationError: true
+          })
+          FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
+          this.setState({ spinner: false })
+        }
+      } catch (error) {
+        console.warn(error)
         this.setState({
           textColor: '#f05123',
           confirmationError: true
         })
         FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
+        this.setState({ spinner: false })
       }
-    } catch (error) {
-      console.warn(error)
-      this.setState({
-        textColor: '#f05123',
-        confirmationError: true
-      })
-      FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
-    }
+    })
   }
 
   pushBack = () => {
@@ -323,6 +333,17 @@ class SetupGetRecoveryPhrase extends Component {
             style={cssStyles.contentContainer}
             keyboardShouldPersistTaps='always'
           >
+            <Spinner
+              visible={this.state.spinner}
+              textContent={'Talking to blockchain...'}
+              textStyle={{
+                color: '#ffffff',
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              animation='fade'
+              overlayColor='rgba(0, 0, 0, 0.7)'
+            />
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
@@ -420,13 +441,16 @@ class SetupGetRecoveryPhrase extends Component {
               </View>
             </View>
           </ScrollView>
+
           <View style={cssStyles.footer}>
-            <Text
-              onPress={this.noRecoveryPhrase}
-              style={[cssStyles.linkText, { textAlign: 'center' }]}
-            >
-              I don't have my recovery phrase
-            </Text>
+            <Padding bottom={2}>
+              <Text
+                onPress={this.noRecoveryPhrase}
+                style={[cssStyles.linkText, { textAlign: 'center' }]}
+              >
+                I don't have my recovery phrase
+              </Text>
+            </Padding>
           </View>
         </View>
         <Dialog
@@ -476,35 +500,53 @@ class SetupGetRecoveryPhrase extends Component {
             style={cssStyles.contentContainer}
             keyboardShouldPersistTaps='always'
           >
+            <Spinner
+              visible={this.state.spinner}
+              textContent={'Talking to blockchain...'}
+              textStyle={{
+                color: '#ffffff',
+                fontSize: 20,
+                fontFamily: 'TitilliumWeb-Regular'
+              }}
+              animation='fade'
+              overlayColor='rgba(0, 0, 0, 0.7)'
+            />
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
             />
-            <View style={{ marginBottom: 10 }}>
-              <Text style={cssStyles.wizardText}>
+            <Padding top={0} bottom={0}>
+              <Text style={[cssStyles.wizardText, { alignSelf: 'center' }]}>
                 Is this the correct recovery phrase?{' '}
               </Text>
-            </View>
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={cssStyles.rowView}>
-                  {row.map((item, index) => {
-                    return (
-                      <View key={index} style={styles.rowTextView}>
-                        <Text style={styles.textStyle}>
-                          {count++}.{'\n'}
-                          {item}
-                        </Text>
-                      </View>
-                    )
-                  })}
-                </View>
-              )
-            })}
+            </Padding>
+
+            <Padding>
+              {words.map((row, rowIndex) => {
+                return (
+                  <View key={rowIndex} style={cssStyles.rowView}>
+                    {row.map((item, index) => {
+                      return (
+                        <View key={index} style={styles.rowTextView}>
+                          <Text style={styles.textStyle}>
+                            {count++}.{'\n'}
+                            {item}
+                          </Text>
+                        </View>
+                      )
+                    })}
+                  </View>
+                )
+              })}
+            </Padding>
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.pushBack()} title='Back' />
+              <CommonButton
+                onPress={() => this.pushBack()}
+                title='Back'
+                bottomPadding={0}
+              />
             </View>
             <View style={cssStyles.navButtonWrapper}>
               <CommonButton onPress={() => this.confirm()} title='Confirm' />

@@ -14,6 +14,7 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
 
 class SetupEncryptionPassword extends Component {
@@ -39,7 +40,9 @@ class SetupEncryptionPassword extends Component {
       DataFormatHelper.checkIfWalletAlreadyExists(user, SetupStore.walletId)
     ) {
       FlashNotification.showError(
-        `There is already a wallet named "${SetupStore.walletId}". Please choose another name.`
+        `There is already a wallet named "${
+          SetupStore.walletId
+        }". Please choose another name.`
       )
       return true
     }
@@ -56,7 +59,7 @@ class SetupEncryptionPassword extends Component {
     }
 
     if (user) {
-      // get it out of AppConstants.TEMP_USER if we have to
+      // get it out of AppConstants.TEMP_ID if we have to
       // and into the new walletId
       DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
     }
@@ -69,7 +72,8 @@ class SetupEncryptionPassword extends Component {
       SetupStore.encryptionPassword = password
       this.props.navigation.navigate('SetupTermsOfService', {
         user,
-        walletSetupType: this.props.navigation.state.params &&
+        walletSetupType:
+          this.props.navigation.state.params &&
           this.props.navigation.state.params.walletSetupType
       })
     } else {
@@ -84,38 +88,38 @@ class SetupEncryptionPassword extends Component {
 
       navigation.navigate('SetupEncryptionPassword', {
         user,
-        walletSetupType: navigation.state.params &&
-          navigation.state.params.walletSetupType
+        walletSetupType:
+          navigation.state.params && navigation.state.params.walletSetupType
       })
     }
   }
 
   render () {
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
-            <View style={styles.textContainer}>
+            <Padding top={0}>
               <Text style={cssStyles.wizardText} onPress={this.showInformation}>
                 Give this wallet a name.
               </Text>
-            </View>
-            <TextInput
-              style={cssStyles.textInput}
-              onChangeText={value => {
-                this.setState({ nameEntered: true })
-                SetupStore.walletId = value
-              }}
-              // value={value => {
-              //   SetupStore.walletId = value
-              // }}
-              placeholder={SetupStore.walletId}
-              placeholderTextColor='#333'
-              autoCapitalize='none'
-            />
+            </Padding>
+
+            <Padding>
+              <TextInput
+                style={cssStyles.textInput}
+                onChangeText={value => {
+                  this.setState({ nameEntered: true })
+                  SetupStore.walletId = value
+                }}
+                placeholder={`${SetupStore.walletId}`}
+                placeholderTextColor='#333'
+                autoCapitalize='none'
+              />
+            </Padding>
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <CommonButton
               onPress={this.showNextSetup}
               title='Next'
@@ -129,25 +133,8 @@ class SetupEncryptionPassword extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  button: {
-    marginTop: 0
-  },
   textContainer: {
     marginBottom: 8
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 15,
-    paddingBottom: 15
   },
   infoParagraph: {
     flexDirection: 'row'

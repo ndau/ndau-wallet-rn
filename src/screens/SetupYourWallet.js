@@ -15,10 +15,14 @@ import EntropyHelper from '../helpers/EntropyHelper'
 
 class SetupYourWallet extends Component {
   showNextSetup = async () => {
+    const user = this.props.navigation.getParam('user', {})
+
     await EntropyHelper.generateEntropy()
     this.props.navigation.navigate('SetupRecoveryPhrase', {
-      walletSetupType: this.props.navigation.state.params &&
-        this.props.navigation.state.params.walletSetupType
+      walletSetupType:
+        this.props.navigation.state.params &&
+        this.props.navigation.state.params.walletSetupType,
+      user
     })
   }
 
@@ -34,23 +38,24 @@ class SetupYourWallet extends Component {
 
   render () {
     return (
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
-          <ScrollView style={styles.contentContainer}>
+          <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
                 <Text style={cssStyles.wizardText}>
-                  Next we will give you a recovery phrase. This is critical to restoring your
-                  wallet. You risk losing access to your funds if you do not WRITE IT DOWN and store
-                  it in a secure location. Do not save this phrase on your device or in the cloud.
-                  Do not do this step in a public place where someone looking over your shoulder
-                  could see this phrase.
+                  Next we will give you a recovery phrase. This is critical to
+                  restoring your wallet. You risk losing access to your funds if
+                  you do not WRITE IT DOWN and store it in a secure location. Do
+                  not save this phrase on your device or in the cloud. Do not do
+                  this step in a public place where someone looking over your
+                  shoulder could see this phrase.
                 </Text>
               </View>
             </TouchableWithoutFeedback>
           </ScrollView>
-          <View style={styles.footer}>
+          <View style={cssStyles.footer}>
             <CommonButton
               onPress={this.showNextSetup}
               title='Get my recovery phrase'
@@ -63,27 +68,10 @@ class SetupYourWallet extends Component {
 }
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: '#1c2227'
-  },
-  button: {
-    marginTop: 0
-  },
   text: {
     color: '#ffffff',
     fontSize: 22,
     fontFamily: 'TitilliumWeb-Regular'
-  },
-  contentContainer: {
-    flex: 1 // pushes the footer to the end of the screen
-  },
-  footer: {
-    justifyContent: 'flex-end'
-  },
-  progress: {
-    paddingTop: 15,
-    paddingBottom: 15
   }
 })
 

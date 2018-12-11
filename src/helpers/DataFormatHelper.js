@@ -5,7 +5,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import DateHelper from './DateHelper'
 
 /**
- * This method will check to see if there is a AppConstants.TEMP_USER
+ * This method will check to see if there is a AppConstants.TEMP_ID
  * present. If there is we will change it to the walletId. Also, if there
  * is a wallet hanging around with a temp user, we switch that too.
  *
@@ -13,14 +13,14 @@ import DateHelper from './DateHelper'
  * @param {string} walletId
  */
 const moveTempUserToWalletName = (user, walletId) => {
-  const hashedTempKey = create8CharHash(AppConstants.TEMP_USER)
-  if (user.userId === AppConstants.TEMP_USER) {
+  const hashedTempKey = create8CharHash(AppConstants.TEMP_ID)
+  if (user.userId === AppConstants.TEMP_ID) {
     user.userId = walletId
     const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
     user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
     delete user.wallets[hashedTempKey]
-  } else if (user.wallets[create8CharHash(AppConstants.TEMP_USER)]) {
+  } else if (user.wallets[create8CharHash(AppConstants.TEMP_ID)]) {
     const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
     user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
@@ -96,22 +96,21 @@ const getObjectWithAllAccounts = user => {
  * Given a wallet send back the format for the
  * request to /account/eai/rate RESTful API call
  *
- * @param {Wallet} wallet
+ * @param {string} addressData
  */
-const getAccountEaiRateRequest = wallet => {
-  return Object.keys(wallet.accounts).map(accountKey => {
-    const account = wallet.accounts[accountKey]
-    let weightedAverageAge = account.addressData.weightedAverageAge
-    if (!weightedAverageAge) {
+const getAccountEaiRateRequest = addressData => {
+  return Object.keys(addressData).map(accountKey => {
+    const account = addressData[accountKey]
+    let weightedAverageAge = account.weightedAverageAge
+    if (!weightedAverageAge && account.lastWAAUpdate) {
       weightedAverageAge =
         weightedAverageAge +
-        (DateHelper.getMicrosecondsSinceNdauEpoch() -
-          account.addressData.lastWAAUpdate)
+        (DateHelper.getMicrosecondsSinceNdauEpoch() - account.lastWAAUpdate)
     }
     return {
       address: accountKey,
       weightedAverageAge,
-      lock: account.addressData.lock
+      lock: account.lock
     }
   })
 }
@@ -152,6 +151,8 @@ const addCommas = (number, precision = AppConfig.NDAU_SUMMARY_PRECISION) => {
  * @param {string} walletId
  */
 const checkIfWalletAlreadyExists = (user, walletId) => {
+  if (!user) return false
+
   for (const walletKey of Object.keys(user.wallets)) {
     const wallet = user.wallets[walletKey]
     if (wallet.walletId === walletId) {

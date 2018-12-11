@@ -9,6 +9,8 @@ import {
 
 const SEND_AND_RECEIVE_ICON = require('img/send_receive_both.png')
 const RECEIVE_ONLY_ICON = require('img/receive_only.png')
+const UNLOCKED = require('img/unlocked.png')
+const LOCKED = require('img/locked.png')
 
 class AccountCard extends Component {
   render () {
@@ -28,7 +30,7 @@ class AccountCard extends Component {
       unlock,
       startTransaction,
       walletId,
-      expanded,
+      expanded
     } = this.props
 
     const transactionIcon = accountNotLocked
@@ -44,73 +46,63 @@ class AccountCard extends Component {
         onNotice={!!accountLockedUntil}
         expanded={expanded}
       >
-        {eaiPercentage
-          ? <Text style={cssStyles.text}>
+        {eaiPercentage ? (
+          <Text style={cssStyles.text}>
             {eaiPercentage}
             {'%'} annualized EAI
-            </Text>
-          : null}
-        {sendingEAITo
-          ? <Text style={cssStyles.text}>
-              Sending incentive {'('}EAI{')'} to {sendingEAITo}
           </Text>
-          : null}
-        {receivingEAIFrom
-          ? <Text style={cssStyles.text}>
-              Receiving incentive {'('}EAI{')'} to {receivingEAIFrom}
+        ) : null}
+        {sendingEAITo ? (
+          <Text style={cssStyles.text}>
+            Sending incentive {'('}EAI{')'} to {sendingEAITo}
           </Text>
-          : null}
-        {accountLockedUntil
-          ? <Text style={cssStyles.text}>
-              Account will be unlocked {accountLockedUntil}
+        ) : null}
+        {receivingEAIFrom ? (
+          <Text style={cssStyles.text}>
+            Receiving incentive {'('}EAI{')'} to {receivingEAIFrom}
           </Text>
-          : null}
-        {accountNoticePeriod
-          ? <Text style={cssStyles.text}>
-              Locked {'('}
+        ) : null}
+        {accountLockedUntil ? (
+          <Text style={cssStyles.text}>
+            Account will be unlocked {accountLockedUntil}
+          </Text>
+        ) : null}
+        {accountNoticePeriod ? (
+          <Text style={cssStyles.text}>
+            Locked {'('}
             {accountNoticePeriod} day countdown{')'}
           </Text>
-          : null}
-        {accountNotLocked
-          ? <Text style={cssStyles.text}>This account is not locked</Text>
-          : null}
+        ) : null}
+        {accountNotLocked ? (
+          <Text style={cssStyles.text}>This account is not locked</Text>
+        ) : null}
         <Text style={cssStyles.text}>In wallet {walletId}</Text>
 
-        {totalNdau !== 0 &&
+        {totalNdau !== 0 && (
           <View style={[cssStyles.accountCardImageView]}>
-            {accountLockedUntil
-              ? <Image
-                style={{
-                  width: 23,
-                  height: 35,
-                  marginLeft: wp('1.5%')
-                }}
-                source={require('img/lock_countdown_animation_white.gif')}
-                />
-              : null}
             <TouchableOpacity onPress={unlock}>
-              {accountNoticePeriod && !accountLockedUntil
-                ? <Image
+              {accountNoticePeriod ? (
+                <Image
                   style={{
                     width: 23,
                     height: 35,
                     marginLeft: wp('1.5%')
                   }}
-                  source={require('img/locked.png')}
-                  />
-                : null}
+                  source={LOCKED}
+                />
+              ) : null}
             </TouchableOpacity>
             <TouchableOpacity onPress={lock}>
-              {accountNotLocked
-                ? <Image
+              {accountNotLocked ? (
+                <Image
                   style={{
                     width: 30,
                     height: 35,
                     marginLeft: wp('1.5%')
                   }}
-                  source={require('img/unlocked.png')}
-                  />
-                : null}
+                  source={UNLOCKED}
+                />
+              ) : null}
             </TouchableOpacity>
             <TouchableOpacity onPress={() => startTransaction(address)}>
               <Image
@@ -122,7 +114,8 @@ class AccountCard extends Component {
                 }}
               />
             </TouchableOpacity>
-          </View>}
+          </View>
+        )}
       </CollapsiblePanel>
     )
   }

@@ -13,7 +13,7 @@ const PASSWORD_RESET_MODE = 'password-reset'
 const GENESIS_MODE = 'genesis'
 const NEW_PASSWORD_MODE = 'new-password'
 
-const TEMP_USER = 'temp-user'
+const TEMP_ID = 'temp-id'
 
 const NDAU_EPOCH = '2000-01-01T00:00:00Z'
 const QUANTA_PER_UNIT = 100000000
@@ -33,7 +33,7 @@ export default {
   PASSWORD_RESET_MODE,
   GENESIS_MODE,
   NEW_PASSWORD_MODE,
-  TEMP_USER,
+  TEMP_ID,
   NDAU_EPOCH,
   QUANTA_PER_UNIT,
   RATE_DENOMINATOR
