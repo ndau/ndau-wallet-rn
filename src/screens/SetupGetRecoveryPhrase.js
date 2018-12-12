@@ -499,24 +499,22 @@ class SetupGetRecoveryPhrase extends Component {
               </Text>
             </Padding>
 
-            <Padding>
-              {words.map((row, rowIndex) => {
-                return (
-                  <View key={rowIndex} style={cssStyles.rowView}>
-                    {row.map((item, index) => {
-                      return (
-                        <View key={index} style={styles.rowTextView}>
-                          <Text style={styles.textStyle}>
-                            {count++}.{'\n'}
-                            {item}
-                          </Text>
-                        </View>
-                      )
-                    })}
-                  </View>
-                )
-              })}
-            </Padding>
+            {words.map((row, rowIndex) => {
+              return (
+                <View key={rowIndex} style={cssStyles.rowView}>
+                  {row.map((item, index) => {
+                    return (
+                      <View key={index} style={styles.rowTextView}>
+                        <Text style={styles.textStyle}>
+                          {count++}.{'\n'}
+                          {item}
+                        </Text>
+                      </View>
+                    )
+                  })}
+                </View>
+              )
+            })}
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>

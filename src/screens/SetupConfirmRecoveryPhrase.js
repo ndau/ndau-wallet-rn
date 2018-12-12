@@ -103,35 +103,31 @@ class SetupConfirmRecoveryPhrase extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
-            <Padding top={0}>
+            <Padding top={0} bottom={1}>
               <Text style={cssStyles.wizardText}>
                 To confirm that you recorded the phrase, tap the words below in
                 order.{' '}
               </Text>
             </Padding>
 
-            <Padding>
-              {words.map((row, rowIndex) => {
-                return (
-                  <View key={rowIndex} style={styles.rowView}>
-                    {row.map((item, index) => {
-                      const i = index + row.length * rowIndex
-                      return (
-                        <Padding key={i} top={0} bottom={0.85}>
-                          <Word
-                            error={this.state.errorWord == i}
-                            selected={selected[i]}
-                            onPress={event => this.handleClick(i, event)}
-                          >
-                            {item}
-                          </Word>
-                        </Padding>
-                      )
-                    })}
-                  </View>
-                )
-              })}
-            </Padding>
+            {words.map((row, rowIndex) => {
+              return (
+                <View key={rowIndex} style={styles.rowView}>
+                  {row.map((item, index) => {
+                    const i = index + row.length * rowIndex
+                    return (
+                      <Word
+                        error={this.state.errorWord == i}
+                        selected={selected[i]}
+                        onPress={event => this.handleClick(i, event)}
+                      >
+                        {item}
+                      </Word>
+                    )
+                  })}
+                </View>
+              )
+            })}
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
@@ -245,7 +241,11 @@ function Word (props) {
           alignItems: 'center',
           justifyContent: 'center',
           flex: 1,
-          borderRadius: 3
+          borderRadius: 3,
+          marginTop: hp('1%'),
+          marginBottom: hp('1%'),
+          marginLeft: wp('1%'),
+          marginRight: wp('1%')
         }}
       >
         <Text
