@@ -453,7 +453,7 @@ class SetupGetRecoveryPhrase extends Component {
             <Text style={cssStyles.blackDialogText}>
               Your recovery phrase is necessary to prove ownership of your ndau.
               Your wallet cannot be restored without it. If you have lost your
-              recovery phrase please contact.{' '}
+              recovery phrase please contact{' '}
             </Text>
             <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
               Oneiro concierge support.

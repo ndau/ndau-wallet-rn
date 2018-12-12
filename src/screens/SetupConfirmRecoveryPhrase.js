@@ -86,6 +86,7 @@ class SetupConfirmRecoveryPhrase extends Component {
 
     await EntropyHelper.generateEntropy()
     this.props.navigation.navigate('SetupYourWallet', { user })
+    FlashNotification.hideMessage()
   }
 
   render () {
@@ -117,6 +118,7 @@ class SetupConfirmRecoveryPhrase extends Component {
                     const i = index + row.length * rowIndex
                     return (
                       <Word
+                        key={index}
                         error={this.state.errorWord == i}
                         selected={selected[i]}
                         onPress={event => this.handleClick(i, event)}
