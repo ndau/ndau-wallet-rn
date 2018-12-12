@@ -20,6 +20,7 @@ import OrderNodeAPI from '../api/OrderNodeAPI'
 import UserData from '../model/UserData'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -124,22 +125,28 @@ class SetupEncryptionPassword extends Component {
       'recoveryPhraseString',
       null
     )
-    await MultiSafeHelper.resetPassword(
-      recoveryPhraseString,
-      this.state.password
-    )
-    const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
+
     try {
+      await MultiSafeHelper.resetPassword(
+        recoveryPhraseString,
+        this.state.password
+      )
+      const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
+      await AsyncStorageHelper.setApplicationPassword(this.state.password)
+
       await UserData.loadData(user)
-      marketPrice = await OrderNodeAPI.getMarketPrice()
+      const marketPrice = await OrderNodeAPI.getMarketPrice()
+
+      this.props.navigation.navigate('Dashboard', {
+        user,
+        encryptionPassword: this.state.password,
+        walletSetupType: null,
+        marketPrice
+      })
     } catch (error) {
+      console.error(error)
       FlashNotification.showError(error.message, false, false)
     }
-    this.props.navigation.navigate('Dashboard', {
-      user,
-      encryptionPassword: this.state.password,
-      walletSetupType: null
-    })
   }
 
   checkedShowPasswords = () => {
