@@ -30,7 +30,7 @@ import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
-import Spinner from 'react-native-loading-spinner-overlay'
+import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -227,6 +227,7 @@ class SetupGetRecoveryPhrase extends Component {
               this.recoveryPhrase
             )
           })
+          this.setState({ spinner: false })
           return
         }
 
@@ -274,13 +275,11 @@ class SetupGetRecoveryPhrase extends Component {
               return
             }
             SetupStore.recoveryPhrase = this.recoveryPhrase
-            this.setState({ spinner: false }, () => {
-              navigation.navigate('SetupWalletName', {
-                user,
-                walletSetupType:
-                  navigation.state.params &&
-                  navigation.state.params.walletSetupType
-              })
+            navigation.navigate('SetupWalletName', {
+              user,
+              walletSetupType:
+                navigation.state.params &&
+                navigation.state.params.walletSetupType
             })
           }
         } else {
@@ -289,7 +288,6 @@ class SetupGetRecoveryPhrase extends Component {
             confirmationError: true
           })
           FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
-          this.setState({ spinner: false })
         }
       } catch (error) {
         console.warn(error)
@@ -298,8 +296,8 @@ class SetupGetRecoveryPhrase extends Component {
           confirmationError: true
         })
         FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
-        this.setState({ spinner: false })
       }
+      this.setState({ spinner: false })
     })
   }
 
@@ -331,17 +329,8 @@ class SetupGetRecoveryPhrase extends Component {
             style={cssStyles.contentContainer}
             keyboardShouldPersistTaps='always'
           >
-            <Spinner
-              visible={this.state.spinner}
-              textContent={'Talking to blockchain...'}
-              textStyle={{
-                color: '#ffffff',
-                fontSize: 20,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
-              animation='fade'
-              overlayColor='rgba(0, 0, 0, 0.7)'
-            />
+            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}
@@ -498,17 +487,8 @@ class SetupGetRecoveryPhrase extends Component {
             style={cssStyles.contentContainer}
             keyboardShouldPersistTaps='always'
           >
-            <Spinner
-              visible={this.state.spinner}
-              textContent={'Talking to blockchain...'}
-              textStyle={{
-                color: '#ffffff',
-                fontSize: 20,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
-              animation='fade'
-              overlayColor='rgba(0, 0, 0, 0.7)'
-            />
+            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+
             <SetupProgressBar
               stepNumber={this.state.stepNumber}
               navigation={this.props.navigation}

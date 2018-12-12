@@ -18,7 +18,8 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import UserData from '../model/UserData'
-import Padding from '../components/Padding';
+import Padding from '../components/Padding'
+import FlashNotification from '../components/FlashNotification'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -173,10 +174,14 @@ class SetupEncryptionPassword extends Component {
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
 
-            <Padding top={0} bottom={0} >
+            <Padding top={0} bottom={0}>
               <View style={styles.textContainer}>
-                <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                  {this.state.instructionText}{'  '}
+                <Text
+                  style={cssStyles.wizardText}
+                  onPress={this.showInformation}
+                >
+                  {this.state.instructionText}
+                  {'  '}
                   <FontAwesome5Pro
                     name='info'
                     color='#ffffff'
