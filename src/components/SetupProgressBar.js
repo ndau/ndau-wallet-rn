@@ -64,10 +64,10 @@ class SetupProgressBar extends Component {
       step = this.screenNumber + this.props.stepNumber
     }
 
-    const progress = 100 / this.numberOfSteps * step
+    const progress = (100 / this.numberOfSteps) * step
 
     return (
-      <Padding top={2} bottom={2}>
+      <Padding top={1} bottom={1}>
         <ProgressBar
           progress={progress}
           currentStep={step}

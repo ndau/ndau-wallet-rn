@@ -18,7 +18,9 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import UserData from '../model/UserData'
-import Padding from '../components/Padding';
+import Padding from '../components/Padding'
+import FlashNotification from '../components/FlashNotification'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -123,22 +125,28 @@ class SetupEncryptionPassword extends Component {
       'recoveryPhraseString',
       null
     )
-    await MultiSafeHelper.resetPassword(
-      recoveryPhraseString,
-      this.state.password
-    )
-    const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
+
     try {
+      await MultiSafeHelper.resetPassword(
+        recoveryPhraseString,
+        this.state.password
+      )
+      const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
+      await AsyncStorageHelper.setApplicationPassword(this.state.password)
+
       await UserData.loadData(user)
-      marketPrice = await OrderNodeAPI.getMarketPrice()
+      const marketPrice = await OrderNodeAPI.getMarketPrice()
+
+      this.props.navigation.navigate('Dashboard', {
+        user,
+        encryptionPassword: this.state.password,
+        walletSetupType: null,
+        marketPrice
+      })
     } catch (error) {
+      console.error(error)
       FlashNotification.showError(error.message, false, false)
     }
-    this.props.navigation.navigate('Dashboard', {
-      user,
-      encryptionPassword: this.state.password,
-      walletSetupType: null
-    })
   }
 
   checkedShowPasswords = () => {
@@ -157,7 +165,7 @@ class SetupEncryptionPassword extends Component {
       'Information',
       'We use encryption to protect your data. This password protects ' +
         'this app on your mobile only. This is not the same thing as your ' +
-        'recovery phrase, which codes for the key to your wallet. We ' +
+        'recovery phrase, which is the key to your wallet. We ' +
         'recommend you use a strong password which you do not use anywhere else.',
       [{ text: 'OK', onPress: () => {} }],
       { cancelable: false }
@@ -173,10 +181,14 @@ class SetupEncryptionPassword extends Component {
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
 
-            <Padding top={0} bottom={0} >
+            <Padding top={0} bottom={0}>
               <View style={styles.textContainer}>
-                <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                  {this.state.instructionText}{'  '}
+                <Text
+                  style={cssStyles.wizardText}
+                  onPress={this.showInformation}
+                >
+                  {this.state.instructionText}
+                  {'  '}
                   <FontAwesome5Pro
                     name='info'
                     color='#ffffff'
