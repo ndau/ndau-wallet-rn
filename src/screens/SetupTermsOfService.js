@@ -15,7 +15,7 @@ import UserData from '../model/UserData'
 import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import Spinner from 'react-native-loading-spinner-overlay'
+import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -128,17 +128,8 @@ class SetupTermsOfService extends Component {
             showsVerticalScrollIndicator
             indicatorStyle='white'
           >
-            <Spinner
-              visible={this.state.spinner}
-              textContent={'Talking to blockchain...'}
-              textStyle={{
-                color: '#ffffff',
-                fontSize: 20,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
-              animation='fade'
-              overlayColor='rgba(0, 0, 0, 0.7)'
-            />
+            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+
             <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={styles.mainLegalTextHeading}>

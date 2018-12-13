@@ -70,7 +70,7 @@ class RecoveryDropdown extends Component {
 
   _checkForErrors (wordsArray) {
     if (wordsArray[0] === '') {
-      this.setState({ textColor: '#ff0000', list: [] })
+      this.setState({ textColor: styleConstants.ASTERISKS_RED, list: [] })
       this.props.setAcquisitionError(true)
     } else {
       this.setState({ textColor: '#ffffff' })
