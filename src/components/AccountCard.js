@@ -85,7 +85,7 @@ class AccountCard extends Component {
                 <Image
                   style={{
                     width: 23,
-                    height: 35,
+                    height: 36,
                     marginLeft: wp('1.5%')
                   }}
                   source={LOCKED}

@@ -123,8 +123,8 @@ android {
         applicationId "com.ndauwalletrn"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18210
-        versionName "1.8.210"
+        versionCode 19001
+        versionName "1.9.001"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

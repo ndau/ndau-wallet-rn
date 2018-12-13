@@ -32,7 +32,7 @@ import OrderNodeAPI from '../api/OrderNodeAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
-import Spinner from 'react-native-loading-spinner-overlay'
+import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 
 const NDAU = require('img/ndau_multi_large_1024.png')
 
@@ -160,17 +160,7 @@ class Passphrase extends Component {
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <Spinner
-              visible={this.state.spinner}
-              textContent={'Talking to blockchain...'}
-              textStyle={{
-                color: '#ffffff',
-                fontSize: 20,
-                fontFamily: 'TitilliumWeb-Regular'
-              }}
-              animation='fade'
-              overlayColor='rgba(0, 0, 0, 0.7)'
-            />
+            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
             <Padding top={2}>
               <View style={styles.imageView}>
                 <Image style={styles.image} source={NDAU} />
