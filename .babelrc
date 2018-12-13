@@ -1,9 +1,4 @@
 {
-  "presets": [ "react-native" ],
-  "env": {
-    "development": {
-      "plugins": [ "transform-react-jsx-source" ]
-    }
-  },
+  "presets": ["module:metro-react-native-babel-preset"],
   "ignore": [ "**/keyaddr.js" ]
 }

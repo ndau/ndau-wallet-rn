@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.ndauwalletrn",
+    package = "com.ndau-wallet-rn",
 )
 
 android_resource(
     name = "res",
-    package = "com.ndauwalletrn",
+    package = "com.ndau-wallet-rn",
     res = "src/main/res",
 )
 

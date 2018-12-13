@@ -112,8 +112,8 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
         dexOptions {
             javaMaxHeapSize "4g"
         }
@@ -121,8 +121,8 @@ android {
     defaultConfig {
         //multiDexEnabled true
         applicationId "com.ndauwalletrn"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 18175
         versionName "1.8.175"
         ndk {
