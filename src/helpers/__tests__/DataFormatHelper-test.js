@@ -2,12 +2,12 @@ import DataFormatHelper from '../DataFormatHelper'
 import AppConstants from '../../AppConstants'
 
 test('moveTempUserToWalletName must do the needful', async () => {
-  const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_USER)
+  const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_ID)
   const user = {
-    userId: AppConstants.TEMP_USER,
+    userId: AppConstants.TEMP_ID,
     wallets: {
       [key]: {
-        walletId: AppConstants.TEMP_USER,
+        walletId: AppConstants.TEMP_ID,
         accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
@@ -117,7 +117,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
 
 test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
   const wallet = {
-    walletId: AppConstants.TEMP_USER,
+    walletId: AppConstants.TEMP_ID,
     accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
@@ -173,7 +173,7 @@ test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
 
 test('getNextPathIndex gets me the correct next root path index', async () => {
   const wallet = {
-    walletId: AppConstants.TEMP_USER,
+    walletId: AppConstants.TEMP_ID,
     accountCreationKeyHash: '1e48ba8c',
     accounts: {
       tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
@@ -431,5 +431,8 @@ test('if we can find a wallet already existent', async () => {
   ).toBeTruthy()
   expect(
     DataFormatHelper.checkIfWalletAlreadyExists(user, 'stevierayvaughan')
+  ).toBeFalsy()
+  expect(
+    DataFormatHelper.checkIfWalletAlreadyExists(undefined, 'stevierayvaughan')
   ).toBeFalsy()
 })

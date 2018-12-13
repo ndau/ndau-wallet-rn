@@ -43,9 +43,13 @@ class SetupNewOrRecovery extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
   }
 
-  showNewWallet = () => {
+  showNewWallet = async () => {
+    const password = await AsyncStorageHelper.getApplicationPassword()
+    const user = await MultiSafeHelper.getDefaultUser(password)
+
     this.props.navigation.navigate('SetupYourWallet', {
-      walletSetupType: 'new'
+      walletSetupType: 'new',
+      user
     })
   }
 
