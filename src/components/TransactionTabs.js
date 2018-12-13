@@ -58,7 +58,7 @@ class Receive extends Component {
           <View style={{ alignSelf: 'center' }}>
             <QRCode
               value={this.props.address}
-              size={250}
+              size={wp('55%')}
               color='black'
               backgroundColor='white'
             />

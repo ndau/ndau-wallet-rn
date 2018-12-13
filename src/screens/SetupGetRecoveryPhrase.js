@@ -453,7 +453,7 @@ class SetupGetRecoveryPhrase extends Component {
             <Text style={cssStyles.blackDialogText}>
               Your recovery phrase is necessary to prove ownership of your ndau.
               Your wallet cannot be restored without it. If you have lost your
-              recovery phrase please contact.{' '}
+              recovery phrase please contact{' '}
             </Text>
             <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
               Oneiro concierge support.
@@ -499,24 +499,22 @@ class SetupGetRecoveryPhrase extends Component {
               </Text>
             </Padding>
 
-            <Padding>
-              {words.map((row, rowIndex) => {
-                return (
-                  <View key={rowIndex} style={cssStyles.rowView}>
-                    {row.map((item, index) => {
-                      return (
-                        <View key={index} style={styles.rowTextView}>
-                          <Text style={styles.textStyle}>
-                            {count++}.{'\n'}
-                            {item}
-                          </Text>
-                        </View>
-                      )
-                    })}
-                  </View>
-                )
-              })}
-            </Padding>
+            {words.map((row, rowIndex) => {
+              return (
+                <View key={rowIndex} style={cssStyles.rowView}>
+                  {row.map((item, index) => {
+                    return (
+                      <View key={index} style={styles.rowTextView}>
+                        <Text style={styles.textStyle}>
+                          {count++}.{'\n'}
+                          {item}
+                        </Text>
+                      </View>
+                    )
+                  })}
+                </View>
+              )
+            })}
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>

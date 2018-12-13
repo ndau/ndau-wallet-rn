@@ -165,7 +165,7 @@ class SetupEncryptionPassword extends Component {
       'Information',
       'We use encryption to protect your data. This password protects ' +
         'this app on your mobile only. This is not the same thing as your ' +
-        'recovery phrase, which codes for the key to your wallet. We ' +
+        'recovery phrase, which is the key to your wallet. We ' +
         'recommend you use a strong password which you do not use anywhere else.',
       [{ text: 'OK', onPress: () => {} }],
       { cancelable: false }

@@ -137,38 +137,36 @@ class SetupRecoveryPhrase extends Component {
           >
             <SetupProgressBar navigation={this.props.navigation} />
 
-            <Padding top={0}>
+            <Padding top={0} bottom={1}>
               <Text style={cssStyles.wizardText}>
                 Write this 12-word phrase down and store it in a secure
                 location.
               </Text>
             </Padding>
 
-            <Padding>
-              {words.map((row, rowIndex) => {
-                return (
-                  <View key={rowIndex} style={cssStyles.rowView}>
-                    {row.map((item, index) => {
-                      return (
-                        <View key={index} style={styles.rowTextView}>
-                          <Text
-                            style={{
-                              color: '#ffffff',
-                              fontSize: 20,
-                              fontFamily: 'TitilliumWeb-Regular',
-                              textAlign: 'center'
-                            }}
-                          >
-                            {count++}.{'\n'}
-                            {item}
-                          </Text>
-                        </View>
-                      )
-                    })}
-                  </View>
-                )
-              })}
-            </Padding>
+            {words.map((row, rowIndex) => {
+              return (
+                <View key={rowIndex} style={cssStyles.rowView}>
+                  {row.map((item, index) => {
+                    return (
+                      <View key={index} style={styles.rowTextView}>
+                        <Text
+                          style={{
+                            color: '#ffffff',
+                            fontSize: 20,
+                            fontFamily: 'TitilliumWeb-Regular',
+                            textAlign: 'center'
+                          }}
+                        >
+                          {count++}.{'\n'}
+                          {item}
+                        </Text>
+                      </View>
+                    )
+                  })}
+                </View>
+              )
+            })}
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton
