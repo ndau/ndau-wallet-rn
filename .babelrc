@@ -1,4 +1,11 @@
 {
-  "presets": ["react-native"],
-  "ignore": [ "**/keyaddr.js" ]
+  "presets": [
+    "module:metro-react-native-babel-preset"
+  ],
+  "ignore": [
+    "**/keyaddr.js"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ]
 }
