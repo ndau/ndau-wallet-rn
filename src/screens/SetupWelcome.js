@@ -15,7 +15,8 @@ import { SafeAreaView } from 'react-navigation'
 import SetupProgressBar from '../components/SetupProgressBar'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding';
+import Padding from '../components/Padding'
+import IdentityMind from '../web/identitymind/IndentityMind'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -67,7 +68,7 @@ class SetupWelcome extends Component {
   render () {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
-        <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
+        {/* <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
@@ -88,12 +89,13 @@ class SetupWelcome extends Component {
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </Padding>
-            
+
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton onPress={this.showNextSetup} title='Start' />
           </View>
-        </View>
+        </View> */}
+        <IdentityMind />
       </SafeAreaView>
     )
   }
