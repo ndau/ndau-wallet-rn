@@ -8,6 +8,6 @@
 #define __Keyaddr_FRAMEWORK_H__
 
 #include "Keyaddr.objc.h"
-#include "universe.objc.h"
+#include "Universe.objc.h"
 
 #endif
