@@ -292,6 +292,14 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
   return user
 }
 
+/**
+ * Create a validation key given the wallet and account passed in.
+ * The wallet is updated directly in this function so there is no need
+ * for a return arguement.
+ *
+ * @param {Wallet} wallet
+ * @param {Account} account
+ */
 const addValidationKey = async (wallet, account) => {
   const nextIndex = DataFormatHelper.getNextPathIndex(
     wallet,
