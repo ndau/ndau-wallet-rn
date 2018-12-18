@@ -142,6 +142,7 @@
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp-urlconnection:3.6.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.fresco:imagepipeline-1.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: artifacts:txmobile" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:runtime-1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: artifacts:keyaddr" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.fresco:animated-base-1.5.0" level="project" />
