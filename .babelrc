@@ -1,4 +1,8 @@
 {
-  "presets": ["react-native"],
-  "ignore": [ "**/keyaddr.js" ]
+  "presets": [
+    "module:metro-react-native-babel-preset"
+  ],
+  "ignore": [
+    "**/keyaddr.js"
+  ]
 }

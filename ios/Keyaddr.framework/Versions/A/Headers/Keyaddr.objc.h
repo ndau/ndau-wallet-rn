@@ -69,7 +69,7 @@ error if the key is invalid.
 Key can be either public or private; if it is private it will be
 converted to a public key first.
  */
-- (KeyaddrAddress*)ndauAddress:(NSString*)p0 error:(NSError**)error;
+- (KeyaddrAddress*)ndauAddress:(NSError**)error;
 /**
  * Sign uses the given key to sign a message; the message must be the
 standard base64 encoding of the bytes of the message.
