@@ -152,15 +152,6 @@ const currentPrice = (marketPrice, totalNdau) => {
   return currentPrice
 }
 
-const isMainNetAlive = async () => {
-  const jsonStatus = await NdauNodeAPI.getNodeStatus()
-  if (jsonStatus.node_info.network === 'ndau mainnet') {
-    return true
-  }
-
-  return false
-}
-
 export default {
   populateWalletWithAddressData,
   accountLockedUntil,
@@ -172,6 +163,5 @@ export default {
   accountNickname,
   receivingEAIFrom,
   sendingEAITo,
-  eaiPercentage,
-  isMainNetAlive
+  eaiPercentage
 }
