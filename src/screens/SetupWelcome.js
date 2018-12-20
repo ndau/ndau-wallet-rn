@@ -15,7 +15,8 @@ import { SafeAreaView } from 'react-navigation'
 import SetupProgressBar from '../components/SetupProgressBar'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding';
+import Padding from '../components/Padding'
+import { WebView } from 'react-native-webview'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -68,7 +69,7 @@ class SetupWelcome extends Component {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-        <View style={cssStyles.container}>
+        {/* <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <SetupProgressBar navigation={this.props.navigation} />
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
@@ -88,12 +89,17 @@ class SetupWelcome extends Component {
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </Padding>
-            
+
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton onPress={this.showNextSetup} title='Start' />
           </View>
-        </View>
+        </View> */}
+        <WebView
+          source={{ uri: 'https://infinite.red/react-native' }}
+          style={{ marginTop: 20 }}
+          onLoadProgress={e => console.log(e.nativeEvent.progress)}
+        />
       </SafeAreaView>
     )
   }
