@@ -41,10 +41,7 @@ const getRootAddresses = async recoveryBytes => {
 
       console.debug(`root derivedKey: ${derivedKey}`)
 
-      const address = await NativeModules.KeyaddrManager.ndauAddress(
-        derivedKey,
-        AppConstants.MAINNET_ADDRESS
-      )
+      const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
       console.debug(`root address: ${address}`)
 
@@ -86,10 +83,7 @@ const getBIP44Addresses = async recoveryBytes => {
 
       console.debug(`BIP44 derivedKey: ${derivedKey}`)
 
-      const address = await NativeModules.KeyaddrManager.ndauAddress(
-        derivedKey,
-        AppConstants.MAINNET_ADDRESS
-      )
+      const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
       console.debug(`BIP44 address: ${address}`)
       addresses.push(address)
@@ -386,10 +380,7 @@ const _createAccount = async (
   const newKey = _createKey(privateKeyForAddress, publicKey, childPath)
   wallet.keys[privateKeyHash] = newKey
 
-  const address = await NativeModules.KeyaddrManager.ndauAddress(
-    publicKey,
-    chainId
-  )
+  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey)
   account.address = address
 
   wallet.accounts[address] = account
