@@ -4,6 +4,7 @@ import sinon from 'sinon'
 import MultiSafeHelper from '../MultiSafeHelper'
 import data from '../../api/data'
 import NdauNodeAPI from '../../api/NdauNodeAPI'
+import KeyPathHelper from '../KeyPathHelper'
 
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
@@ -229,7 +230,7 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj441',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx1',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '20f4d175': {
@@ -237,14 +238,14 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj442',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           c1ca8e03: {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf1',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -296,7 +297,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx3',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '90808ebd': {
@@ -304,14 +305,14 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx4',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '4cb4dca9': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf2',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -357,14 +358,14 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx5',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '5ba05375': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf3',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -404,7 +405,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx5',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           d8cc78c2: {
@@ -412,14 +413,14 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx5',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '5ba05375': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf3',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -471,7 +472,7 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '1e12ca49': {
@@ -479,14 +480,14 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '1e48ba8c': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -573,7 +574,7 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj448',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx8',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '4e842c41': {
@@ -581,14 +582,14 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj449',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx9',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '5a3b36e3': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf5',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -659,7 +660,7 @@ test('if you can check that a recovery phrase exists already', async () => {
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj448',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx8',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '4e842c41': {
@@ -667,14 +668,14 @@ test('if you can check that a recovery phrase exists already', async () => {
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj449',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx9',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '5a3b36e3': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf5',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }

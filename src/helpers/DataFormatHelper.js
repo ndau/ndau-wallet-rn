@@ -49,7 +49,7 @@ const create8CharHash = toHash => {
  */
 const getNextPathIndex = (wallet, path) => {
   const keys = wallet.keys
-  let nextAddress = 0
+  let nextAddress = 1
   if (!keys) return nextAddress
 
   Object.keys(keys).forEach(theKey => {

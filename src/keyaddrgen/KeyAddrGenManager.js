@@ -9,6 +9,7 @@ import sha256 from 'crypto-js/sha256'
 import FlashNotification from '../components/FlashNotification'
 import Wallet from '../model/Wallet'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import KeyPathHelper from '../helpers/KeyPathHelper'
 
 /**
  * This function will return an array of addresses that can be
@@ -40,10 +41,7 @@ const getRootAddresses = async recoveryBytes => {
 
       console.debug(`root derivedKey: ${derivedKey}`)
 
-      const address = await NativeModules.KeyaddrManager.ndauAddress(
-        derivedKey,
-        AppConstants.MAINNET_ADDRESS
-      )
+      const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
       console.debug(`root address: ${address}`)
 
@@ -80,15 +78,12 @@ const getBIP44Addresses = async recoveryBytes => {
       const derivedKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
         '/',
-        _generateRootPath() + `/${i}`
+        KeyPathHelper.accountCreationKeyPath() + `/${i}`
       )
 
       console.debug(`BIP44 derivedKey: ${derivedKey}`)
 
-      const address = await NativeModules.KeyaddrManager.ndauAddress(
-        derivedKey,
-        AppConstants.MAINNET_ADDRESS
-      )
+      const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
       console.debug(`BIP44 address: ${address}`)
       addresses.push(address)
@@ -191,7 +186,7 @@ const createWallet = async (
         wallet,
         accountCreationKey,
         numberOfAccounts,
-        _generateRootPath(),
+        KeyPathHelper.accountCreationKeyPath(),
         chainId
       )
     }
@@ -278,7 +273,7 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
     wallet.keys[wallet.accountCreationKeyHash].privateKey
   const pathIndexIncrementor = DataFormatHelper.getNextPathIndex(
     wallet,
-    _generateRootPath()
+    KeyPathHelper.accountCreationKeyPath()
   )
 
   for (let i = 0; i < numberOfAccounts; i++) {
@@ -291,6 +286,42 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
   return user
 }
 
+/**
+ * Create a validation key given the wallet and account passed in.
+ * The wallet is updated directly in this function so there is no need
+ * for a return arguement.
+ *
+ * @param {Wallet} wallet
+ * @param {Account} account
+ */
+const addValidationKey = async (wallet, account) => {
+  const nextIndex = DataFormatHelper.getNextPathIndex(
+    wallet,
+    KeyPathHelper.validationKeyPath()
+  )
+  const keyPath = KeyPathHelper.validationKeyPath() + `/${nextIndex}`
+
+  const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
+    wallet.keys[account.ownershipKey].privateKey,
+    '/',
+    keyPath
+  )
+
+  const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
+    validationPrivateKey
+  )
+
+  const validationKeyHash = DataFormatHelper.create8CharHash(
+    validationPrivateKey
+  )
+  wallet.keys[validationKeyHash] = _createKey(
+    validationPrivateKey,
+    validationPublicKey,
+    keyPath
+  )
+  account.validationKeys.push(validationKeyHash)
+}
+
 const _createAccountCreationKey = async recoveryBytes => {
   const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
     recoveryBytes
@@ -298,29 +329,19 @@ const _createAccountCreationKey = async recoveryBytes => {
   const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
     rootPrivateKey,
     '/',
-    _generateRootPath()
+    KeyPathHelper.accountCreationKeyPath()
   )
   return accountCreationKey
-}
-
-const _generateRootPath = () => {
-  const returnValue =
-    '/' +
-    AppConstants.HARDENED_CHILD_BIP_44 +
-    "'" +
-    '/' +
-    AppConstants.NDAU_CONSTANT +
-    "'" +
-    '/' +
-    AppConstants.ACCOUNT_CREATION_KEY_CHILD
-
-  return returnValue
 }
 
 const _createInitialKeys = (wallet, accountCreationKey) => {
   wallet.keys[
     DataFormatHelper.create8CharHash(accountCreationKey)
-  ] = _createKey(accountCreationKey, null, _generateRootPath())
+  ] = _createKey(
+    accountCreationKey,
+    null,
+    KeyPathHelper.accountCreationKeyPath()
+  )
 }
 
 const _createKey = (privateKey, publicKey, path) => {
@@ -336,7 +357,7 @@ const _createAccount = async (
   accountCreationKey,
   childIndex,
   wallet,
-  rootDerivedPath = _generateRootPath(),
+  rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
   if (childIndex < 0) {
@@ -359,10 +380,7 @@ const _createAccount = async (
   const newKey = _createKey(privateKeyForAddress, publicKey, childPath)
   wallet.keys[privateKeyHash] = newKey
 
-  const address = await NativeModules.KeyaddrManager.ndauAddress(
-    publicKey,
-    chainId
-  )
+  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey)
   account.address = address
 
   wallet.accounts[address] = account
@@ -372,7 +390,7 @@ const _createAccounts = async (
   numberOfAccounts,
   accountCreationKey,
   wallet,
-  rootDerivedPath = _generateRootPath(),
+  rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
   chainId = AppConstants.MAINNET_ADDRESS
 ) => {
   for (let i = 1; i <= numberOfAccounts; i++) {
@@ -394,5 +412,6 @@ export default {
   addAccountsToUser,
   getRootAddresses,
   getBIP44Addresses,
-  addAccounts
+  addAccounts,
+  addValidationKey
 }
