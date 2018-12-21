@@ -169,7 +169,7 @@ class TxSignPrep {
           var keys = Object.keys(v).sort()
           keys.forEach(k => {
             // prepare all its elements unless they're named signature or signatures
-            if (!k.match(/signatures?$/i)) {
+            if (!k.match(/^signatures?$/i)) {
               this.prepare(v[k])
             }
           })
