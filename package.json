@@ -19,7 +19,6 @@
     "jest-serializer-enzyme": "1.0.0",
     "jsdom": "11.11.0",
     "mock-async-storage": "2.0.3",
-    "react": "16.3.1",
     "react-addons-test-utils": "15.6.2",
     "react-dom": "16.4.1",
     "react-native-mock": "0.3.1",
@@ -51,13 +50,14 @@
     "globals": {
       "__DEV__": true
     },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message|react-native-loading-spinner-overlay)/)"
-    ]
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    }
   },
   "dependencies": {
     "@tradle/react-native-http": "2.0.1",
     "assert": "1.4.1",
+    "babel-preset-react-native": "4.0.1",
     "base-64": "0.1.0",
     "buffer": "4.9.1",
     "crypto-js": "3.1.9-1",
@@ -65,12 +65,14 @@
     "domain-browser": "1.2.0",
     "events": "1.1.1",
     "lodash": "4.17.10",
+    "metro-react-native-babel-preset": "0.50.0",
     "moment": "2.22.2",
     "process": "0.11.10",
     "prop-types": "15.6.2",
     "punycode": "1.4.1",
     "querystring-es3": "0.2.1",
-    "react-native": "~0.55.2",
+    "react": "16.6.3",
+    "react-native": "0.57.7",
     "react-native-autocomplete-input": "3.6.0",
     "react-native-button": "2.3.0",
     "react-native-camera": "1.1.4",
@@ -88,6 +90,7 @@
     "react-native-securerandom": "0.1.1",
     "react-native-simple-dialogs": "0.4.1",
     "react-native-vector-icons": "6.1.0",
+    "react-native-webview": "^2.14.3",
     "react-navigation": "2.13.0",
     "readable-stream": "1.0.33",
     "string_decoder": "0.10.31",

@@ -29,26 +29,30 @@ jest.mock('NativeModules', () => {
 
 jest.mock('../../api/NdauNodeAPI', () => {
   return {
-    getAddressData: jest.fn()
+    getAddressData: jest
+      .fn()
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
   }
 })
-
-const getAddressData = sinon.spy(NdauNodeAPI, 'getAddressData')
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
 
 const numberOfAccounts = 2
 let recoveryPhraseString =

@@ -57,8 +57,8 @@ class TxSignPrep {
 
   // helper function to look up a character in _keyStr
   _lookup = (s, ix) => {
-    c = s.charAt(ix)
-    p = this._keyStr.indexOf(c)
+    const c = s.charAt(ix)
+    const p = this._keyStr.indexOf(c)
     return p
   }
 
@@ -67,7 +67,7 @@ class TxSignPrep {
   b64decode = s => {
     // strip noise
     s = s.replace(/[^A-Za-z0-9\+\/\=]/g, '')
-    t = []
+    const t = []
     var a, b, c, d
     var i = 0
     while (i < s.length) {
@@ -169,7 +169,7 @@ class TxSignPrep {
           var keys = Object.keys(v).sort()
           keys.forEach(k => {
             // prepare all its elements unless they're named signature or signatures
-            if (!k.match(/signatures?$/i)) {
+            if (!k.match(/^signatures?$/i)) {
               this.prepare(v[k])
             }
           })
