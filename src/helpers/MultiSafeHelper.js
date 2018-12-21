@@ -95,7 +95,7 @@ const addNewWallet = async (
   )
   console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
 
-  wallet = await KeyAddrGenManager.createWallet(
+  const wallet = await KeyAddrGenManager.createWallet(
     recoveryPhraseAsBytes,
     null,
     walletId

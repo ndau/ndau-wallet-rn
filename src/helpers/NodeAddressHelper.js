@@ -3,28 +3,28 @@ import ServiceDiscovery from '../api/ServiceDiscovery'
 
 const PROTOCOL = 'https'
 
-getNode = async () => {
+const getNode = async () => {
   return await ServiceDiscovery.getServiceNodeURL()
 }
 
-getNodeAddress = async () => {
+const getNodeAddress = async () => {
   const node = await getNode()
   return PROTOCOL + '://' + node
 }
 
-getAccountAPIAddress = async () => {
+const getAccountAPIAddress = async () => {
   return (await getNodeAddress()) + '/account/accounts'
 }
 
-getEaiRateAPIAddress = async () => {
+const getEaiRateAPIAddress = async () => {
   return (await getNodeAddress()) + '/account/eai/rate'
 }
 
-getMarketPriceAPIAddress = async () => {
+const getMarketPriceAPIAddress = async () => {
   return (await getNodeAddress()) + '/order/current'
 }
 
-getNodeStatusAPIAddress = async () => {
+const getNodeStatusAPIAddress = async () => {
   return (await getNodeAddress()) + '/node/status'
 }
 

@@ -50,8 +50,7 @@ class MultiSafe {
       return null
     }
     // we're good, strip off the ends
-    value = decrypted.slice(PREFIX.length, -SUFFIX.length)
-    return value
+    return decrypted.slice(PREFIX.length, -SUFFIX.length)
   }
 
   _getMultisafeKeys = async () => {
@@ -134,7 +133,7 @@ class MultiSafe {
       throw Error('no object was stored under ' + MULTISAFE_META_PREFIX)
     }
     for (let combo of meta.combinations) {
-      decrypted = this._decrypt(combo, pw)
+      const decrypted = this._decrypt(combo, pw)
       if (decrypted !== null) {
         return decrypted
       }
@@ -178,7 +177,7 @@ class MultiSafe {
       combinations: [combination0]
     }
     await this._storeObject(metaKey, meta)
-    data = {}
+    const data = {}
     await this._storeEncryptedObject(multisafeKey, data, combo)
     return this
   }
