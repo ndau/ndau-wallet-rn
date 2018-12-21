@@ -1,5 +1,5 @@
-import OrderNodeAPI from '../OrderNodeAPI'
-import NdauNodeAPI from '../NdauNodeAPI'
+import OrderAPI from '../OrderAPI'
+import AccountAPI from '../AccountAPI'
 import data from '../data'
 import services from '../../api/services-dev.json'
 
@@ -9,7 +9,7 @@ fetch.resetMocks()
 test('getAddressData should return something back', async () => {
   fetch.mockResponses([services], [data.testAddressData])
 
-  const ndau = await NdauNodeAPI.getAddressData(user)
+  const ndau = await AccountAPI.getAddressData(user)
 
   expect(ndau).toBeDefined()
 })
@@ -17,7 +17,7 @@ test('getAddressData should return something back', async () => {
 test('getMarketPrice should return something back', async () => {
   fetch.mockResponses([services], [data.testMarketPrice])
 
-  const marketPrice = await OrderNodeAPI.getMarketPrice()
+  const marketPrice = await OrderAPI.getMarketPrice()
 
   expect(marketPrice).toBeDefined()
 })

@@ -3,7 +3,7 @@ import MockAsyncStorage from 'mock-async-storage'
 import sinon from 'sinon'
 import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
 import data from '../../api/data'
-import NdauNodeAPI from '../../api/NdauNodeAPI'
+import AccountAPI from '../../api/AccountAPI'
 import services from '../../api/services-dev.json'
 import AppConstants from '../../AppConstants'
 
@@ -16,7 +16,7 @@ mock()
 
 fetch.resetMocks()
 
-jest.mock('../../api/NdauNodeAPI', () => {
+jest.mock('../../api/AccountAPI', () => {
   return {
     getAddressData: jest
       .fn()

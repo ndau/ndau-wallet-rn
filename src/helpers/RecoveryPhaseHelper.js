@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native'
 import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
-import NdauNodeAPI from '../api/NdauNodeAPI'
+import AccountAPI from '../api/AccountAPI'
 import AppConfig from '../AppConfig'
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
@@ -84,7 +84,7 @@ const _checkRootAddresses = async recoveryPhraseBytes => {
   )
   console.log(`_checkRootAddresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
-  const accountData = await NdauNodeAPI.getAddressData(addresses)
+  const accountData = await AccountAPI.getAddressData(addresses)
   return accountData
 }
 
@@ -94,7 +94,7 @@ const _checkBIP44Addresses = async recoveryPhraseBytes => {
   )
   console.log(`_checkBIP44Addresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
-  const accountData = await NdauNodeAPI.getAddressData(addresses)
+  const accountData = await AccountAPI.getAddressData(addresses)
   return accountData
 }
 

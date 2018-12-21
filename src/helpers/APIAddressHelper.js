@@ -28,9 +28,14 @@ const getNodeStatusAPIAddress = async () => {
   return (await getNodeAddress()) + '/node/status'
 }
 
+const getTransactionPrevalidateAPIAddress = async () => {
+  return (await getNodeAddress()) + '/tx/prevalidate'
+}
+
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
   getEaiRateAPIAddress,
-  getNodeStatusAPIAddress
+  getNodeStatusAPIAddress,
+  getTransactionPrevalidateAPIAddress
 }

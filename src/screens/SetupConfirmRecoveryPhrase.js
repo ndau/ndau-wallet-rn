@@ -19,7 +19,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import EntropyHelper from '../helpers/EntropyHelper'
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
+import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'

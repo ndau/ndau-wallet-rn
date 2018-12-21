@@ -1,15 +1,15 @@
-import NdauNodeAPI from '../api/NdauNodeAPI'
+import AccountAPI from '../api/AccountAPI'
 import DateHelper from './DateHelper'
 import AppConfig from '../AppConfig'
-import OrderNodeAPI from '../api/OrderNodeAPI'
+import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
 
 const populateWalletWithAddressData = async wallet => {
-  const addressDataFromAPI = await NdauNodeAPI.getAddressData(
+  const addressDataFromAPI = await AccountAPI.getAddressData(
     Object.keys(wallet.accounts)
   )
-  const eaiRateData = await NdauNodeAPI.getEaiRate(addressDataFromAPI)
+  const eaiRateData = await AccountAPI.getEaiRate(addressDataFromAPI)
   const addressData = addressDataFromAPI || {}
 
   const eaiRateMap = new Map()

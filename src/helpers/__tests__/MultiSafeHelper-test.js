@@ -3,7 +3,7 @@ import { NativeModules } from 'react-native'
 import sinon from 'sinon'
 import MultiSafeHelper from '../MultiSafeHelper'
 import data from '../../api/data'
-import NdauNodeAPI from '../../api/NdauNodeAPI'
+import AccountAPI from '../../api/AccountAPI'
 import KeyPathHelper from '../KeyPathHelper'
 
 const mock = () => {
@@ -27,7 +27,7 @@ jest.mock('NativeModules', () => {
   }
 })
 
-jest.mock('../../api/NdauNodeAPI', () => {
+jest.mock('../../api/AccountAPI', () => {
   return {
     getAddressData: jest
       .fn()

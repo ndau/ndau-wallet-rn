@@ -10,7 +10,7 @@ import {
   Platform,
   PixelRatio
 } from 'react-native'
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
+import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp

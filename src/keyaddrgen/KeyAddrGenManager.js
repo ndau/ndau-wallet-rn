@@ -4,7 +4,7 @@ import Account from '../model/Account'
 import { NativeModules } from 'react-native'
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
+import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import sha256 from 'crypto-js/sha256'
 import FlashNotification from '../components/FlashNotification'
 import Wallet from '../model/Wallet'
@@ -281,7 +281,7 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
     await _createAccount(accountCreationKey, pathIndex, wallet)
   }
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
   return user
 }

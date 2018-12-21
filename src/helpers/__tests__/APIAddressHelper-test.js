@@ -1,4 +1,4 @@
-import NodeAddressHelper from '../NodeAddressHelper'
+import APIAddressHelper from '../APIAddressHelper'
 import services from '../../api/services-dev.json'
 
 const user = {
@@ -11,7 +11,7 @@ const user = {
 
 test('getAccountAPIAddress sends back the correct address', async () => {
   fetch.mockResponseOnce(services)
-  const accountsUrl = await NodeAddressHelper.getAccountAPIAddress()
+  const accountsUrl = await APIAddressHelper.getAccountAPIAddress()
   expect(accountsUrl.indexOf('.api.ndau.tech/account/accounts') !== -1).toBe(
     true
   )
@@ -19,7 +19,7 @@ test('getAccountAPIAddress sends back the correct address', async () => {
 
 test('getMarketPriceAPIAddress sends back the correct address', async () => {
   fetch.mockResponseOnce(services)
-  const marketPriceUrl = await NodeAddressHelper.getMarketPriceAPIAddress()
+  const marketPriceUrl = await APIAddressHelper.getMarketPriceAPIAddress()
   expect(marketPriceUrl.indexOf('.api.ndau.tech/order/current') !== -1).toBe(
     true
   )
@@ -27,8 +27,16 @@ test('getMarketPriceAPIAddress sends back the correct address', async () => {
 
 test('getEaiRateAPIAddress sends back the correct address', async () => {
   fetch.mockResponseOnce(services)
-  const eaiPercentageUrl = await NodeAddressHelper.getEaiRateAPIAddress()
+  const eaiPercentageUrl = await APIAddressHelper.getEaiRateAPIAddress()
   expect(
     eaiPercentageUrl.indexOf('.api.ndau.tech/account/eai/rate') !== -1
   ).toBe(true)
+})
+
+test('getTransactionPrevalidateAPIAddress sends back the correct address', async () => {
+  fetch.mockResponseOnce(services)
+  const eaiPercentageUrl = await APIAddressHelper.getTransactionPrevalidateAPIAddress()
+  expect(eaiPercentageUrl.indexOf('.api.ndau.tech/tx/prevalidate') !== -1).toBe(
+    true
+  )
 })

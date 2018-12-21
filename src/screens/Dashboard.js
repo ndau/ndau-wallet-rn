@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import cssStyles from '../css/styles'
 import DateHelper from '../helpers/DateHelper'
-import NdauNodeAPIHelper from '../helpers/NdauNodeAPIHelper'
+import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -28,7 +28,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
-import OrderNodeAPI from '../api/OrderNodeAPI'
+import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
@@ -127,7 +127,7 @@ class Dashboard extends Component {
     let marketPrice = this.state.marketPrice
     try {
       await UserData.loadData(user)
-      marketPrice = await OrderNodeAPI.getMarketPrice()
+      marketPrice = await OrderAPI.getMarketPrice()
     } catch (error) {
       FlashNotification.showError(error.message, false, false)
     }
@@ -141,12 +141,12 @@ class Dashboard extends Component {
       return <SafeAreaView style={cssStyles.safeContainer} />
     }
 
-    const totalNdau = NdauNodeAPIHelper.accountTotalNdauAmount(accounts)
-    const totalNdauNumber = NdauNodeAPIHelper.accountTotalNdauAmount(
+    const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
+    const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
       accounts,
       false
     )
-    const currentPrice = NdauNodeAPIHelper.currentPrice(
+    const currentPrice = AccountAPIHelper.currentPrice(
       this.state.marketPrice,
       totalNdauNumber
     )
@@ -298,28 +298,28 @@ class Dashboard extends Component {
               })
               .map((accountKey, index) => {
                 const account = accounts[accountKey]
-                const eaiPercentage = NdauNodeAPIHelper.eaiPercentage(
+                const eaiPercentage = AccountAPIHelper.eaiPercentage(
                   account.addressData
                 )
-                const sendingEAITo = NdauNodeAPIHelper.sendingEAITo(
+                const sendingEAITo = AccountAPIHelper.sendingEAITo(
                   account.addressData
                 )
-                const receivingEAIFrom = NdauNodeAPIHelper.receivingEAIFrom(
+                const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
                   account.addressData
                 )
-                const accountLockedUntil = NdauNodeAPIHelper.accountLockedUntil(
+                const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
                   account.addressData
                 )
-                const accountNoticePeriod = NdauNodeAPIHelper.accountNoticePeriod(
+                const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
                   account.addressData
                 )
-                const accountNotLocked = NdauNodeAPIHelper.accountNotLocked(
+                const accountNotLocked = AccountAPIHelper.accountNotLocked(
                   account.addressData
                 )
-                const nickname = NdauNodeAPIHelper.accountNickname(
+                const nickname = AccountAPIHelper.accountNickname(
                   account.addressData
                 )
-                const accountBalance = NdauNodeAPIHelper.accountNdauAmount(
+                const accountBalance = AccountAPIHelper.accountNdauAmount(
                   account.addressData
                 )
 
