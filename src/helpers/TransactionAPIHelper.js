@@ -4,6 +4,7 @@ import KeyMaster from './KeyMaster'
 import TransactionAPI from '../api/TransactionAPI'
 import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/FlashNotification'
+import Base64 from 'base-64'
 
 const sendClaimTransaction = async (wallet, account) => {
   // ok...if we got here we can assume we do NOT have a validation
@@ -43,7 +44,12 @@ const sendClaimTransaction = async (wallet, account) => {
   claimTransaction.sign(jsonClaimTransaction, signature)
 
   // base64 the JSON
-  const base64EncodedJSONClaimTx = btoa(JSON.stringify(jsonClaimTransaction))
+  // we assume the string has no special characters otherwise
+  // we should use the utf8 npm package to encode before we send
+  // to base-64's encode
+  const base64EncodedJSONClaimTx = Base64.encode(
+    JSON.stringify(jsonClaimTransaction)
+  )
 
   // send to prevalidate
   try {
