@@ -132,10 +132,10 @@ test('prevalidate should return something back', async () => {
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
     ],
-    user.wallets.c79af3b6.keys,
-    'somethingIdonthaveyet'
+    user.wallets.c79af3b6.keys
   )
   const claimTxToSend = claimTransaction.create()
+  claimTransaction.sign(claimTxToSend, 'somethingIdonthaveyet')
   expect(claimTxToSend).toEqual(theClaimTransaction)
 
   const ndau = await TransactionAPI.prevalidate(claimTxToSend)

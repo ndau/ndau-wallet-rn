@@ -23,7 +23,7 @@ import NewAccountModalDialog from '../components/NewAccountModalDialog'
 import TransactionModalDialog from '../components/TransactionModalDialog'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import styleConstants from '../css/styleConstants'
-import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
+import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/FlashNotification'
@@ -102,7 +102,7 @@ class Dashboard extends Component {
 
   addNewAccount = async () => {
     try {
-      const user = await KeyAddrGenManager.createNewAccount(
+      const user = await KeyMaster.createNewAccount(
         this.state.user,
         this.state.number
       )

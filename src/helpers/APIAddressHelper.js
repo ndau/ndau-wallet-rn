@@ -32,10 +32,15 @@ const getTransactionPrevalidateAPIAddress = async () => {
   return (await getNodeAddress()) + '/tx/prevalidate'
 }
 
+const getTransactionSubmitAPIAddress = async () => {
+  return (await getNodeAddress()) + '/tx/submit'
+}
+
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
   getEaiRateAPIAddress,
   getNodeStatusAPIAddress,
-  getTransactionPrevalidateAPIAddress
+  getTransactionPrevalidateAPIAddress,
+  getTransactionSubmitAPIAddress
 }

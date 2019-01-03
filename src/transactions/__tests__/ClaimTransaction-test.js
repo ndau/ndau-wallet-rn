@@ -126,10 +126,11 @@ test('creation of a claim transaction', async () => {
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
     ],
-    user.wallets.c79af3b6.keys,
-    'somethingIdonthaveyet'
+    user.wallets.c79af3b6.keys
   )
-  expect(claimTransaction.create()).toEqual(theClaimTransaction)
+  const createdClaimTransaction = claimTransaction.create()
+  claimTransaction.sign(createdClaimTransaction, 'somethingIdonthaveyet')
+  expect(createdClaimTransaction).toEqual(theClaimTransaction)
 })
 
 test('claim fails if no validation keys', async () => {
@@ -139,11 +140,7 @@ test('claim fails if no validation keys', async () => {
   }
 
   try {
-    const claimTransaction = new ClaimTransaction(
-      'something',
-      'something',
-      'somethingIdonthaveyet'
-    )
+    const claimTransaction = new ClaimTransaction('something', 'something')
     claimTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
@@ -192,8 +189,7 @@ test('claim fails if no sequence', async () => {
       userNoValidationKeys.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
       ],
-      userNoValidationKeys.wallets.c79af3b6.keys,
-      'somethingIdonthaveyet'
+      userNoValidationKeys.wallets.c79af3b6.keys
     )
     claimTransaction.create()
     expect(false).toBe(true)

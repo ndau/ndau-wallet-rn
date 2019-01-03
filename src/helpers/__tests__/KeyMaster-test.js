@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native'
 import sinon from 'sinon'
-import KeyAddrGenManager from '../KeyAddrGenManager'
+import KeyMaster from '../KeyMaster'
 import User from '../../model/User'
 import AppConfig from '../../AppConfig'
 import Wallet from '../../model/Wallet'
@@ -200,7 +200,7 @@ for (let i = 0; i < 30; i++) {
 test('createFirstTimeUser test', async () => {
   mockFetchStuff()
 
-  const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
+  const firstTimeUser = await KeyMaster.createFirstTimeUser(
     bytes,
     userId,
     chainId,
@@ -216,7 +216,7 @@ test('createFirstTimeUser test', async () => {
 })
 
 test('createFirstTimeUser with 0, as this will be possible post Genesis', async () => {
-  const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
+  const firstTimeUser = await KeyMaster.createFirstTimeUser(
     numberOfAccounts,
     userId,
     bytes,
@@ -231,7 +231,7 @@ test('createFirstTimeUser with 0, as this will be possible post Genesis', async 
 
 test('createFirstTimeUser no bytes', async () => {
   try {
-    await KeyAddrGenManager.createFirstTimeUser(null, userId, chainId)
+    await KeyMaster.createFirstTimeUser(null, userId, chainId)
   } catch (error) {
     console.error(error)
     expect(error.toString()).toBe(errorString)
@@ -239,7 +239,7 @@ test('createFirstTimeUser no bytes', async () => {
 })
 
 test('createNewAccount test', async () => {
-  const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
+  const firstTimeUser = await KeyMaster.createFirstTimeUser(
     bytes,
     userId,
     chainId,
@@ -249,7 +249,7 @@ test('createNewAccount test', async () => {
   expect(firstTimeUser).toBeDefined()
   expect(Object.keys(firstTimeUser.wallets['c79af3b6'].accounts).length).toBe(5)
 
-  await KeyAddrGenManager.createNewAccount(firstTimeUser)
+  await KeyMaster.createNewAccount(firstTimeUser)
   expect(Object.keys(firstTimeUser.wallets['c79af3b6'].accounts).length).toBe(6)
   expect(
     firstTimeUser.wallets['c79af3b6'].accounts[
@@ -264,7 +264,7 @@ test('createNewAccount has bogus user', async () => {
     user.userId = 'blahblah'
     const wallet = new Wallet()
     user.wallets[user.userId] = wallet
-    await KeyAddrGenManager.createNewAccount(user)
+    await KeyMaster.createNewAccount(user)
   } catch (error) {
     console.error(error)
     expect(error.toString()).toBe(errorNewAccountUser)
@@ -272,13 +272,13 @@ test('createNewAccount has bogus user', async () => {
 })
 
 test('test getRootAddresses to make sure we get back one address in the array', async () => {
-  const addresses = await KeyAddrGenManager.getRootAddresses(bytes)
+  const addresses = await KeyMaster.getRootAddresses(bytes)
   expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY)
 })
 
 test('getRootAddresses has an error', async () => {
   try {
-    await KeyAddrGenManager.getRootAddresses(null)
+    await KeyMaster.getRootAddresses(null)
   } catch (error) {
     console.error(error)
     expect(error.toString()).toBe(errorGetRootAddresses)
@@ -286,13 +286,13 @@ test('getRootAddresses has an error', async () => {
 })
 
 test('test getBIP44Addresses to make sure we get back one address in the array', async () => {
-  const addresses = await KeyAddrGenManager.getBIP44Addresses(bytes)
+  const addresses = await KeyMaster.getBIP44Addresses(bytes)
   expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY)
 })
 
 test('getBIP44Addresses has an error', async () => {
   try {
-    await KeyAddrGenManager.getBIP44Addresses(null)
+    await KeyMaster.getBIP44Addresses(null)
   } catch (error) {
     console.error(error)
     expect(error.toString()).toBe(errorGetBIP44Addresses)
@@ -300,7 +300,7 @@ test('getBIP44Addresses has an error', async () => {
 })
 
 test('addVadidationKey test', async () => {
-  const firstTimeUser = await KeyAddrGenManager.createFirstTimeUser(
+  const firstTimeUser = await KeyMaster.createFirstTimeUser(
     bytes,
     userId,
     chainId,
@@ -317,8 +317,8 @@ test('addVadidationKey test', async () => {
     wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb']
   const keysLength = Object.keys(wallet.keys).length
 
-  await KeyAddrGenManager.addValidationKey(wallet, account)
-  await KeyAddrGenManager.addValidationKey(wallet, account)
+  await KeyMaster.addValidationKey(wallet, account)
+  await KeyMaster.addValidationKey(wallet, account)
 
   console.log(
     `user with validation keys: ${JSON.stringify(firstTimeUser, null, 2)}`
@@ -326,6 +326,72 @@ test('addVadidationKey test', async () => {
 
   expect(account.validationKeys.length).toBe(2)
   expect(Object.keys(wallet.keys).length).toBe(keysLength + 2)
+})
+
+test('getPublicKeyFromHash test', async () => {
+  const firstTimeUser = await KeyMaster.createFirstTimeUser(
+    bytes,
+    userId,
+    chainId,
+    numberOfAccounts
+  )
+
+  expect(firstTimeUser).toBeDefined()
+
+  const wallet = firstTimeUser.wallets['c79af3b6']
+  const account =
+    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacg']
+  const keysLength = Object.keys(wallet.keys).length
+
+  await KeyMaster.addValidationKey(wallet, account)
+
+  console.log(
+    `user with validation keys: ${JSON.stringify(firstTimeUser, null, 2)}`
+  )
+
+  expect(account.validationKeys.length).toBe(1)
+  expect(Object.keys(wallet.keys).length).toBe(keysLength + 1)
+
+  const publicKey = KeyMaster.getPublicKeyFromHash(
+    wallet,
+    account.validationKeys[0]
+  )
+  expect(
+    'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444'
+  ).toBe(publicKey)
+})
+
+test('getPrivateKeyFromHash test', async () => {
+  const firstTimeUser = await KeyMaster.createFirstTimeUser(
+    bytes,
+    userId,
+    chainId,
+    numberOfAccounts
+  )
+
+  expect(firstTimeUser).toBeDefined()
+
+  const wallet = firstTimeUser.wallets['c79af3b6']
+  const account =
+    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac2']
+  const keysLength = Object.keys(wallet.keys).length
+
+  await KeyMaster.addValidationKey(wallet, account)
+
+  console.log(
+    `user with validation keys: ${JSON.stringify(firstTimeUser, null, 2)}`
+  )
+
+  expect(account.validationKeys.length).toBe(1)
+  expect(Object.keys(wallet.keys).length).toBe(keysLength + 1)
+
+  const privateKey = KeyMaster.getPrivateKeyFromHash(
+    wallet,
+    account.validationKeys[0]
+  )
+  expect(
+    'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf0'
+  ).toBe(privateKey)
 })
 
 const mockFetchStuff = () => {

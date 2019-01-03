@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native'
-import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
+import KeyMaster from './KeyMaster'
 import AccountAPI from '../api/AccountAPI'
 import AppConfig from '../AppConfig'
 import AppConstants from '../AppConstants'
@@ -28,14 +28,14 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   // temp userId. It will be changed in the SetupWalletName screen
   let userId = AppConstants.TEMP_ID
   if (user) {
-    const wallet = await KeyAddrGenManager.createWallet(
+    const wallet = await KeyMaster.createWallet(
       recoveryPhraseBytes,
       null,
       userId
     )
     user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
   } else {
-    user = await KeyAddrGenManager.createFirstTimeUser(
+    user = await KeyMaster.createFirstTimeUser(
       recoveryPhraseBytes,
       userId
     )
@@ -44,7 +44,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
   console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`)
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
-    await KeyAddrGenManager.addAccountsToUser(
+    await KeyMaster.addAccountsToUser(
       recoveryPhraseBytes,
       user,
       Object.keys(bip44Accounts).length,
@@ -58,7 +58,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   console.log(`root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`)
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     // Here again we are attempting to genereate at the very root of the tree
-    await KeyAddrGenManager.addAccountsToUser(
+    await KeyMaster.addAccountsToUser(
       recoveryPhraseBytes,
       user,
       Object.keys(rootAccounts).length,
@@ -79,7 +79,7 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
 }
 
 const _checkRootAddresses = async recoveryPhraseBytes => {
-  const addresses = await KeyAddrGenManager.getRootAddresses(
+  const addresses = await KeyMaster.getRootAddresses(
     recoveryPhraseBytes
   )
   console.log(`_checkRootAddresses found: ${addresses}`)
@@ -89,7 +89,7 @@ const _checkRootAddresses = async recoveryPhraseBytes => {
 }
 
 const _checkBIP44Addresses = async recoveryPhraseBytes => {
-  const addresses = await KeyAddrGenManager.getBIP44Addresses(
+  const addresses = await KeyMaster.getBIP44Addresses(
     recoveryPhraseBytes
   )
   console.log(`_checkBIP44Addresses found: ${addresses}`)

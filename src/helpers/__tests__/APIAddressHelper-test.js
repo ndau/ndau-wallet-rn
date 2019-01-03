@@ -40,3 +40,9 @@ test('getTransactionPrevalidateAPIAddress sends back the correct address', async
     true
   )
 })
+
+test('getTransactionSubmitAPIAddress sends back the correct address', async () => {
+  fetch.mockResponseOnce(services)
+  const submitUrl = await APIAddressHelper.getTransactionSubmitAPIAddress()
+  expect(submitUrl.indexOf('.api.ndau.tech/tx/submit') !== -1).toBe(true)
+})

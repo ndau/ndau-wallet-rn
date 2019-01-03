@@ -4,12 +4,12 @@ import Account from '../model/Account'
 import { NativeModules } from 'react-native'
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import AccountAPIHelper from './AccountAPIHelper'
 import sha256 from 'crypto-js/sha256'
 import FlashNotification from '../components/FlashNotification'
 import Wallet from '../model/Wallet'
-import DataFormatHelper from '../helpers/DataFormatHelper'
-import KeyPathHelper from '../helpers/KeyPathHelper'
+import DataFormatHelper from './DataFormatHelper'
+import KeyPathHelper from './KeyPathHelper'
 
 /**
  * This function will return an array of addresses that can be
@@ -322,6 +322,28 @@ const addValidationKey = async (wallet, account) => {
   account.validationKeys.push(validationKeyHash)
 }
 
+/**
+ * Given the wallet and the key hash, this function will pass back
+ * the string representation of the public key found.
+ *
+ * @param {Wallet} wallet
+ * @param {string} hashForKey
+ */
+const getPublicKeyFromHash = (wallet, hashForKey) => {
+  return wallet.keys[hashForKey].publicKey
+}
+
+/**
+ * Given the wallet and the key hash, this function will pass back
+ * the string representation of the private key found.
+ *
+ * @param {Wallet} wallet
+ * @param {string} hashForKey
+ */
+const getPrivateKeyFromHash = (wallet, hashForKey) => {
+  return wallet.keys[hashForKey].privateKey
+}
+
 const _createAccountCreationKey = async recoveryBytes => {
   const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
     recoveryBytes
@@ -413,5 +435,7 @@ export default {
   getRootAddresses,
   getBIP44Addresses,
   addAccounts,
-  addValidationKey
+  addValidationKey,
+  getPublicKeyFromHash,
+  getPrivateKeyFromHash
 }
