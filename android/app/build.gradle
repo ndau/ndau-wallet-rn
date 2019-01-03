@@ -112,8 +112,8 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
         dexOptions {
             javaMaxHeapSize "4g"
         }
@@ -121,10 +121,10 @@ android {
     defaultConfig {
         //multiDexEnabled true
         applicationId "com.ndauwalletrn"
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 18183
-        versionName "1.8.183"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 19001
+        versionName "1.9.001"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -181,6 +181,7 @@ android {
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 dependencies {
+    compile project(':react-native-webview')
     implementation project(':react-native-exit-app')
     implementation project(':react-native-securerandom')
     implementation project(':react-native-vector-icons')

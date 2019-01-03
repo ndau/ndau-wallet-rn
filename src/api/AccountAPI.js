@@ -1,10 +1,10 @@
-import NodeAddressHelper from '../helpers/NodeAddressHelper'
+import APIAddressHelper from '../helpers/APIAddressHelper'
 import data from './data'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 
 const getAddressData = async addresses => {
-  const accountAPI = await NodeAddressHelper.getAccountAPIAddress()
+  const accountAPI = await APIAddressHelper.getAccountAPIAddress()
   console.log(`Sending ${JSON.stringify(addresses)} to ${accountAPI}`)
   const response = await fetch(accountAPI, {
     method: 'POST',
@@ -31,7 +31,7 @@ const getEaiRate = async addressData => {
     addressData
   )
 
-  const eaiRateAddress = await NodeAddressHelper.getEaiRateAPIAddress()
+  const eaiRateAddress = await APIAddressHelper.getEaiRateAPIAddress()
   console.log(
     `Sending ${JSON.stringify(accountEaiRateRequestData)} to ${eaiRateAddress}`
   )
@@ -55,7 +55,7 @@ const getEaiRate = async addressData => {
 }
 
 const getNodeStatus = async () => {
-  const nodeStatusAddress = await NodeAddressHelper.getNodeStatusAPIAddress()
+  const nodeStatusAddress = await APIAddressHelper.getNodeStatusAPIAddress()
   const response = await fetch(nodeStatusAddress)
   if (response.status !== 200) {
     throw new BlockchainAPIError()

@@ -1,9 +1,9 @@
-import NodeAddressHelper from '../helpers/NodeAddressHelper'
+import APIAddressHelper from '../helpers/APIAddressHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import data from './data'
 
 const getMarketPrice = async () => {
-  const marketPriceAPI = await NodeAddressHelper.getMarketPriceAPIAddress()
+  const marketPriceAPI = await APIAddressHelper.getMarketPriceAPIAddress()
   const response = await fetch(marketPriceAPI)
   if (response.status !== 200) {
     throw new BlockchainAPIError()

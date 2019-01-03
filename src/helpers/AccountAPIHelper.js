@@ -1,15 +1,16 @@
-import NdauNodeAPI from '../api/NdauNodeAPI'
+import AccountAPI from '../api/AccountAPI'
 import DateHelper from './DateHelper'
 import AppConfig from '../AppConfig'
-import OrderNodeAPI from '../api/OrderNodeAPI'
+import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
+import TransactionAPIHelper from './TransactionAPIHelper'
 
 const populateWalletWithAddressData = async wallet => {
-  const addressDataFromAPI = await NdauNodeAPI.getAddressData(
+  const addressDataFromAPI = await AccountAPI.getAddressData(
     Object.keys(wallet.accounts)
   )
-  const eaiRateData = await NdauNodeAPI.getEaiRate(addressDataFromAPI)
+  const eaiRateData = await AccountAPI.getEaiRate(addressDataFromAPI)
   const addressData = addressDataFromAPI || {}
 
   const eaiRateMap = new Map()
@@ -21,16 +22,22 @@ const populateWalletWithAddressData = async wallet => {
   const addressDataKeys = Object.keys(addressData)
   const walletAccountKeys = Object.keys(wallet.accounts)
   // create a map to create the nickname fields appropriately
-  addressDataKeys.forEach((accountKey, index) => {
+  // when iterating the address data we can check it to see
+  // if a claim transaction must be done
+  addressDataKeys.forEach(async (accountKey, index) => {
     const account = addressData[accountKey]
     account.nickname = `Account ${index + 1}`
     account.walletId = wallet.walletId
     account.eaiPercentage = eaiRateMap.get(accountKey)
     addressNicknameMap.set(accountKey, account.nickname)
+
     for (const walletAccountKey of walletAccountKeys) {
       const walletAccount = wallet.accounts[walletAccountKey]
       if (walletAccountKey === accountKey) {
         walletAccount.addressData = account
+
+        await sendClaimTransactionIfNeeded(wallet, walletAccount, account)
+
         break
       }
     }
@@ -61,6 +68,13 @@ const populateWalletWithAddressData = async wallet => {
       account.addressData.walletId = wallet.walletId
     }
   })
+}
+
+const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
+  if (addressData.balance > 0 && !addressData.validationKeys) {
+    console.debug(`Sending claim transaction for ${addressData.nickname}`)
+    await TransactionAPIHelper.sendClaimTransaction(wallet, account)
+  }
 }
 
 const eaiPercentage = account => {
@@ -152,15 +166,6 @@ const currentPrice = (marketPrice, totalNdau) => {
   return currentPrice
 }
 
-const isMainNetAlive = async () => {
-  const jsonStatus = await NdauNodeAPI.getNodeStatus()
-  if (jsonStatus.node_info.network === 'ndau mainnet') {
-    return true
-  }
-
-  return false
-}
-
 export default {
   populateWalletWithAddressData,
   accountLockedUntil,
@@ -172,6 +177,5 @@ export default {
   accountNickname,
   receivingEAIFrom,
   sendingEAITo,
-  eaiPercentage,
-  isMainNetAlive
+  eaiPercentage
 }

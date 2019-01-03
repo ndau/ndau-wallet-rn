@@ -49,7 +49,7 @@ RCT_REMAP_METHOD(keyaddrWordsFromPrefix,lang:(NSString*)lang prefix:(NSString*)p
 {
   RCTLogInfo(@"keyaddrWordsFromPrefix call with %@ prefix %@ max %@", lang, prefix, max);
   NSError *__autoreleasing *error = NULL;
-  
+
   NSString *words = KeyaddrWordsFromPrefix(lang, prefix, [max longValue]);
   if (error) {
     reject(@"no_events", @"Issue calling keyaddrWordsFromPrefix", *error);
@@ -94,7 +94,7 @@ RCT_REMAP_METHOD(hardenedChild,keyHC:(NSString*)keyHC index:(nonnull NSNumber*)i
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(keyHC, error);
   KeyaddrKey *privateKey = [keyAddrKey hardenedChild:[index intValue] error:error];
-  
+
   if (error) {
     reject(@"no_events", @"Issue calling hardenedChild", *error);
   } else {
@@ -109,7 +109,7 @@ RCT_REMAP_METHOD(toPublic,key:(NSString*)key resolver:(RCTPromiseResolveBlock)re
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
   KeyaddrKey *publicKey = [keyAddrKey toPublic:error];
-  
+
   if (error) {
     reject(@"no_events", @"Issue calling toPublic", *error);
   } else {
@@ -117,18 +117,34 @@ RCT_REMAP_METHOD(toPublic,key:(NSString*)key resolver:(RCTPromiseResolveBlock)re
   }
 }
 
-RCT_REMAP_METHOD(ndauAddress,key:(NSString*)key chainId:(NSString*)chainId  resolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(ndauAddress,ndauAddr:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"toPublic call on %@", key);
+  RCTLogInfo(@"ndauAddress call on %@", key);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
-  KeyaddrAddress *address = [keyAddrKey ndauAddress:chainId error:error];
-  
+  KeyaddrAddress *address = [keyAddrKey ndauAddress:error];
+
   if (error) {
     reject(@"no_events", @"Issue calling ndauAddress", *error);
   } else {
     resolve([address address]);
+  }
+}
+
+RCT_REMAP_METHOD(sign,key:(NSString*)key msgstr:(NSString*)msgstr resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject )
+{
+  RCTLogInfo(@"sign call with key:%@ and msgstr:%@", key, msgstr);
+  NSError *__autoreleasing *error = NULL;
+  KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
+  KeyaddrSignature *sig = [keyAddrKey sign:msgstr error:error];
+  RCTLogInfo(@"sign call created signature %@", sig);
+
+  if (error) {
+    reject(@"no_events", @"Issue calling sign", *error);
+  } else {
+    resolve([sig signature]);
   }
 }
 
@@ -138,7 +154,7 @@ RCT_REMAP_METHOD(deriveFrom, parentKey:(NSString*)parentKey parentPath:(NSString
   RCTLogInfo(@"deriveFrom call on %@", parentPath);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrDeriveFrom(parentKey, parentPath, childPath, error);
-  
+
   if (error) {
     reject(@"no_events", @"Issue calling deriveFrom", *error);
   } else {
@@ -146,7 +162,7 @@ RCT_REMAP_METHOD(deriveFrom, parentKey:(NSString*)parentKey parentPath:(NSString
   }
 }
 
-RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count chainId:(NSString*)chainId neuterithResolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count neuterithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
   RCTLogInfo(@"CreatePublicAddress call on %@", seed);
@@ -156,7 +172,7 @@ RCT_REMAP_METHOD(CreatePublicAddress,seed:(NSString*)seed count:(NSInteger)count
 
   for (int i = 1; i <= count; i++) {
     KeyaddrKey *publicKey = [keyAddrKey child:i error:error];
-    KeyaddrAddress *address = [publicKey ndauAddress:chainId error:error];
+    KeyaddrAddress *address = [publicKey ndauAddress:error];
     NSString *addressString = [address address];
     [array addObject:addressString];
     RCTLogInfo(@"ndau addressString is:%@",addressString);

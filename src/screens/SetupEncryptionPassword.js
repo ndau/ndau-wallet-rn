@@ -16,7 +16,7 @@ import SetupStore from '../model/SetupStore'
 import { SafeAreaView } from 'react-navigation'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
-import OrderNodeAPI from '../api/OrderNodeAPI'
+import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
@@ -135,7 +135,7 @@ class SetupEncryptionPassword extends Component {
       await AsyncStorageHelper.setApplicationPassword(this.state.password)
 
       await UserData.loadData(user)
-      const marketPrice = await OrderNodeAPI.getMarketPrice()
+      const marketPrice = await OrderAPI.getMarketPrice()
 
       this.props.navigation.navigate('Dashboard', {
         user,

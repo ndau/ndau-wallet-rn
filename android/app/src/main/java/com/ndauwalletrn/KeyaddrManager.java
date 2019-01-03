@@ -92,11 +92,22 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void ndauAddress(String key, String chainId, Promise promise) {
+    public void ndauAddress(String key, Promise promise) {
         try {
             Key theKey = Keyaddr.fromString(key);
 
-            promise.resolve(theKey.ndauAddress(chainId).getAddress());
+            promise.resolve(theKey.ndauAddress().getAddress());
+        } catch (Exception e) {
+            promise.reject("problem getting ndauAddress", e.getLocalizedMessage());
+        }
+    }
+
+    @ReactMethod
+    public void sign(String key, String message, Promise promise) {
+        try {
+            Key theKey = Keyaddr.fromString(key);
+
+            promise.resolve(theKey.sign(message).getSignature());
         } catch (Exception e) {
             promise.reject("problem getting ndauAddress", e.getLocalizedMessage());
         }
@@ -114,13 +125,13 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void CreatePublicAddress(String bytes, Integer count, String chainId, Promise promise) {
+    public void CreatePublicAddress(String bytes, Integer count, Promise promise) {
         // no longer iterate and make this a bridge
         // this shoudl accept a keynow instead
         try {
             WritableNativeArray array = new WritableNativeArray();
             for (int i = 1; i <= count; i++) {
-                Address publicAddress = Keyaddr.newKey(bytes).child(i).ndauAddress(chainId);
+                Address publicAddress = Keyaddr.newKey(bytes).child(i).ndauAddress();
                 array.pushString(publicAddress.getAddress());
             }
 

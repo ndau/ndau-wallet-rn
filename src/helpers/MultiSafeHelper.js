@@ -1,5 +1,5 @@
 import User from '../model/User'
-import KeyAddrGenManager from '../keyaddrgen/KeyAddrGenManager'
+import KeyMaster from './KeyMaster'
 import AppConstants from '../AppConstants'
 import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
@@ -34,7 +34,7 @@ const setupNewUser = async (
     )
     console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
 
-    user = await KeyAddrGenManager.createFirstTimeUser(
+    user = await KeyMaster.createFirstTimeUser(
       recoveryPhraseAsBytes,
       walletId,
       addressType,
@@ -95,7 +95,7 @@ const addNewWallet = async (
   )
   console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
 
-  wallet = await KeyAddrGenManager.createWallet(
+  const wallet = await KeyMaster.createWallet(
     recoveryPhraseAsBytes,
     null,
     walletId

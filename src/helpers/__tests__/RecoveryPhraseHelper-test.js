@@ -1,16 +1,27 @@
 import { NativeModules } from 'react-native'
+import MockAsyncStorage from 'mock-async-storage'
 import sinon from 'sinon'
 import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
 import data from '../../api/data'
-import NdauNodeAPI from '../../api/NdauNodeAPI'
+import AccountAPI from '../../api/AccountAPI'
 import services from '../../api/services-dev.json'
 import AppConstants from '../../AppConstants'
 
+const mock = () => {
+  const mockImpl = new MockAsyncStorage()
+  jest.mock('AsyncStorage', () => mockImpl)
+}
+
+mock()
+
 fetch.resetMocks()
 
-jest.mock('../../api/NdauNodeAPI', () => {
+jest.mock('../../api/AccountAPI', () => {
   return {
-    getAddressData: jest.fn()
+    getAddressData: jest
+      .fn()
+      .mockReturnValueOnce(data.testAddressData)
+      .mockReturnValueOnce(data.testAddressData)
   }
 })
 
@@ -27,10 +38,6 @@ jest.mock('NativeModules', () => {
     }
   }
 })
-
-const getAddressData = sinon.spy(NdauNodeAPI, 'getAddressData')
-getAddressData.mockReturnValueOnce(data.testAddressData)
-getAddressData.mockReturnValueOnce(data.testAddressData)
 
 let recoveryPhraseString =
   'goat amount liar amount expire adjust cage candy arch gather drum buyer'
@@ -200,7 +207,12 @@ for (let i = 0; i < 30; i++) {
 }
 
 test('checkRecoveryPhrase test', async () => {
-  fetch.mockResponses([services], [data.testAddressData])
+  fetch.mockResponses(
+    [services],
+    [data.testAddressData],
+    [services],
+    [data.testAddressData]
+  )
 
   const user = {
     userId: userId,

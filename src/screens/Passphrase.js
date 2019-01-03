@@ -28,7 +28,7 @@ import {
 } from '../components/SetupProgressBar'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
-import OrderNodeAPI from '../api/OrderNodeAPI'
+import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
@@ -65,7 +65,7 @@ class Passphrase extends Component {
 
           try {
             await UserData.loadData(user)
-            marketPrice = await OrderNodeAPI.getMarketPrice()
+            marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
             FlashNotification.showError(error.message, false, false)
             return

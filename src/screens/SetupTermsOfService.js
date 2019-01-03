@@ -12,7 +12,7 @@ import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
-import OrderNodeAPI from '../api/OrderNodeAPI'
+import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
@@ -64,7 +64,7 @@ class SetupTermsOfService extends Component {
         }
 
         await UserData.loadData(user)
-        const marketPrice = await OrderNodeAPI.getMarketPrice()
+        const marketPrice = await OrderAPI.getMarketPrice()
 
         await AsyncStorageHelper.setApplicationPassword(
           SetupStore.encryptionPassword

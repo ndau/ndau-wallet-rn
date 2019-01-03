@@ -1,4 +1,4 @@
-import NdauNodeAPIHelper from '../NdauNodeAPIHelper'
+import AccountAPIHelper from '../AccountAPIHelper'
 import data from '../../api/data'
 import services from '../../api/services-dev.json'
 
@@ -6,7 +6,7 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
   mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
   expect(wallet).toBeDefined()
   expect(wallet.accounts).toBeDefined()
@@ -44,17 +44,17 @@ test('make sure we can get the amount of ndau per account', async () => {
   mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
   expect(wallet).toBeDefined()
   expect(
-    NdauNodeAPIHelper.accountNdauAmount(
+    AccountAPIHelper.accountNdauAmount(
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
   ).toBe('42.000')
   expect(
-    NdauNodeAPIHelper.accountNdauAmount(
+    AccountAPIHelper.accountNdauAmount(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
@@ -65,17 +65,17 @@ test('make sure we can get the locked until date of ndau per account', async () 
   mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
   expect(wallet).toBeDefined()
   expect(
-    NdauNodeAPIHelper.accountLockedUntil(
+    AccountAPIHelper.accountLockedUntil(
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
   ).toBe(null)
   expect(
-    NdauNodeAPIHelper.accountLockedUntil(
+    AccountAPIHelper.accountLockedUntil(
       wallet.accounts['ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55']
         .addressData
     )
@@ -86,10 +86,10 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
   mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
   expect(wallet).toBeDefined()
-  expect(NdauNodeAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
+  expect(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
     '1,757.000'
   )
 })
@@ -98,14 +98,14 @@ test('make sure we can get the current price of the users ndau', async () => {
   mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
-  const totalNdau = await NdauNodeAPIHelper.accountTotalNdauAmount(
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
+  const totalNdau = await AccountAPIHelper.accountTotalNdauAmount(
     wallet.accounts,
     false
   )
 
   expect(wallet).toBeDefined()
-  expect(NdauNodeAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
+  expect(AccountAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
     '$28,709.38'
   )
 })
@@ -114,17 +114,17 @@ test('make sure sending EAI has the nickname set correctly', async () => {
   mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
   expect(wallet).toBeDefined()
   expect(
-    NdauNodeAPIHelper.sendingEAITo(
+    AccountAPIHelper.sendingEAITo(
       wallet.accounts['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g']
         .addressData
     )
   ).toBe('Account 3')
   expect(
-    NdauNodeAPIHelper.sendingEAITo(
+    AccountAPIHelper.sendingEAITo(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
@@ -135,17 +135,17 @@ test('make sure receiving EAI has the nickname set correctly', async () => {
   mockFetchStuff()
   const wallet = data.testUser.wallets['7MP-4FV']
 
-  await NdauNodeAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
   expect(wallet).toBeDefined()
   expect(
-    NdauNodeAPIHelper.receivingEAIFrom(
+    AccountAPIHelper.receivingEAIFrom(
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
   ).toBe('Account 2')
   expect(
-    NdauNodeAPIHelper.receivingEAIFrom(
+    AccountAPIHelper.receivingEAIFrom(
       wallet.accounts['ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55']
         .addressData
     )
@@ -170,5 +170,5 @@ test('if we can get the correct EAI rate from what comes back', async () => {
     eaiPercentage: 70000000000
   }
 
-  expect(NdauNodeAPIHelper.eaiPercentage(account)).toBe(0.07)
+  expect(AccountAPIHelper.eaiPercentage(account)).toBe(0.07)
 })

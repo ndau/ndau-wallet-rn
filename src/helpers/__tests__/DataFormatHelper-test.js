@@ -1,5 +1,6 @@
 import DataFormatHelper from '../DataFormatHelper'
 import AppConstants from '../../AppConstants'
+import KeyPathHelper from '../KeyPathHelper'
 
 test('moveTempUserToWalletName must do the needful', async () => {
   const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_ID)
@@ -33,7 +34,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '1e12ca49': {
@@ -41,14 +42,14 @@ test('moveTempUserToWalletName must do the needful', async () => {
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '1e48ba8c': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -86,7 +87,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '1e12ca49': {
@@ -94,14 +95,14 @@ test('moveTempUserToWalletName must do the needful', async () => {
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '1e48ba8c': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -143,7 +144,7 @@ test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
           'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
         privateKey:
           'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
-        path: "/44'/20036'/100/1",
+        path: KeyPathHelper.accountCreationKeyPath() + '/1',
         derivedFromRoot: 'yes'
       },
       '1e12ca49': {
@@ -151,14 +152,14 @@ test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
           'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
         privateKey:
           'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
-        path: "/44'/20036'/100/2",
+        path: KeyPathHelper.accountCreationKeyPath() + '/2',
         derivedFromRoot: 'yes'
       },
       '1e48ba8c': {
         publicKey: '',
         privateKey:
           'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
-        path: "/44'/20036'/100",
+        path: KeyPathHelper.accountCreationKeyPath(),
         derivedFromRoot: 'yes'
       }
     }
@@ -166,7 +167,7 @@ test('getNextPathIndex gets me the correct next BIP44 path index', async () => {
 
   const nextPathIndex = DataFormatHelper.getNextPathIndex(
     wallet,
-    "/44'/20036'/100"
+    KeyPathHelper.accountCreationKeyPath()
   )
   expect(nextPathIndex).toEqual(3)
 })
@@ -224,6 +225,227 @@ test('getNextPathIndex gets me the correct next root path index', async () => {
   expect(nextPathIndex).toEqual(5)
 })
 
+test('getNextPathIndex gets me the correct next validation path', async () => {
+  const wallet = {
+    walletId: AppConstants.TEMP_ID,
+    accountCreationKeyHash: '1e48ba8c',
+    accounts: {
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
+        addressData: {
+          nickname: 'Account 1'
+        },
+        ownershipKey: '9d152ff0',
+        validationKeys: []
+      },
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7',
+        addressData: {
+          nickname: 'Account 2'
+        },
+        ownershipKey: '1e12ca49',
+        validationKeys: []
+      }
+    },
+    keys: {
+      '9d152ff0': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
+        path: KeyPathHelper.validationKeyPath() + '/1',
+        derivedFromRoot: 'yes'
+      },
+      '1e12ca49': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
+        path: KeyPathHelper.validationKeyPath() + '/400',
+        derivedFromRoot: 'yes'
+      },
+      '1e48ba8c': {
+        publicKey: '',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
+        path: KeyPathHelper.validationKeyPath() + '/299',
+        derivedFromRoot: 'yes'
+      }
+    }
+  }
+
+  const nextPathIndex = DataFormatHelper.getNextPathIndex(
+    wallet,
+    KeyPathHelper.validationKeyPath()
+  )
+  expect(nextPathIndex).toEqual(401)
+})
+
+test('getNextPathIndex gets me the correct next validation path with others', async () => {
+  const wallet = {
+    walletId: AppConstants.TEMP_ID,
+    accountCreationKeyHash: '1e48ba8c',
+    accounts: {
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
+        addressData: {
+          nickname: 'Account 1'
+        },
+        ownershipKey: '9d152ff0',
+        validationKeys: []
+      },
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7',
+        addressData: {
+          nickname: 'Account 2'
+        },
+        ownershipKey: '1e12ca49',
+        validationKeys: []
+      }
+    },
+    keys: {
+      '9d152ff0': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
+        path: KeyPathHelper.accountCreationKeyPath() + '/3000',
+        derivedFromRoot: 'yes'
+      },
+      '1e12ca49': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
+        path: '/400',
+        derivedFromRoot: 'yes'
+      },
+      '1e48ba8c': {
+        publicKey: '',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
+        path: KeyPathHelper.validationKeyPath() + '/299',
+        derivedFromRoot: 'yes'
+      }
+    }
+  }
+
+  const nextPathIndex = DataFormatHelper.getNextPathIndex(
+    wallet,
+    KeyPathHelper.validationKeyPath()
+  )
+  expect(nextPathIndex).toEqual(300)
+})
+
+test('getNextPathIndex gets me the correct next account creation path with others', async () => {
+  const wallet = {
+    walletId: AppConstants.TEMP_ID,
+    accountCreationKeyHash: '1e48ba8c',
+    accounts: {
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
+        addressData: {
+          nickname: 'Account 1'
+        },
+        ownershipKey: '9d152ff0',
+        validationKeys: []
+      },
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7',
+        addressData: {
+          nickname: 'Account 2'
+        },
+        ownershipKey: '1e12ca49',
+        validationKeys: []
+      }
+    },
+    keys: {
+      '9d152ff0': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
+        path: KeyPathHelper.accountCreationKeyPath() + '/3000',
+        derivedFromRoot: 'yes'
+      },
+      '1e12ca49': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
+        path: '/400',
+        derivedFromRoot: 'yes'
+      },
+      '1e48ba8c': {
+        publicKey: '',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
+        path: KeyPathHelper.validationKeyPath() + '/299',
+        derivedFromRoot: 'yes'
+      }
+    }
+  }
+
+  const nextPathIndex = DataFormatHelper.getNextPathIndex(
+    wallet,
+    KeyPathHelper.accountCreationKeyPath()
+  )
+  expect(nextPathIndex).toEqual(3001)
+})
+
+test('getNextPathIndex gets me the correct next root path with others', async () => {
+  const wallet = {
+    walletId: AppConstants.TEMP_ID,
+    accountCreationKeyHash: '1e48ba8c',
+    accounts: {
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6',
+        addressData: {
+          nickname: 'Account 1'
+        },
+        ownershipKey: '9d152ff0',
+        validationKeys: []
+      },
+      tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7: {
+        address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac7',
+        addressData: {
+          nickname: 'Account 2'
+        },
+        ownershipKey: '1e12ca49',
+        validationKeys: []
+      }
+    },
+    keys: {
+      '9d152ff0': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
+        path: KeyPathHelper.accountCreationKeyPath() + '/3000',
+        derivedFromRoot: 'yes'
+      },
+      '1e12ca49': {
+        publicKey:
+          'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
+        path: '/400',
+        derivedFromRoot: 'yes'
+      },
+      '1e48ba8c': {
+        publicKey: '',
+        privateKey:
+          'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
+        path: KeyPathHelper.validationKeyPath() + '/299',
+        derivedFromRoot: 'yes'
+      }
+    }
+  }
+
+  const nextPathIndex = DataFormatHelper.getNextPathIndex(wallet, '/')
+  expect(nextPathIndex).toEqual(401)
+})
+
 test('getNdauFromNapu converts napu correctly', async () => {
   const ndau = DataFormatHelper.getNdauFromNapu(1000000000)
   expect(ndau).toEqual(10)
@@ -260,7 +482,7 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '1e12ca49': {
@@ -268,14 +490,14 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '1e48ba8c': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
@@ -307,7 +529,7 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
-            path: "/44'/20036'/100/1",
+            path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '1e12ca49': {
@@ -315,14 +537,14 @@ test('getObjectWithAllAccounts sends back the correct amount of accounts', async
               'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
-            path: "/44'/20036'/100/2",
+            path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '1e48ba8c': {
             publicKey: '',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
-            path: "/44'/20036'/100",
+            path: KeyPathHelper.accountCreationKeyPath(),
             derivedFromRoot: 'yes'
           }
         }
