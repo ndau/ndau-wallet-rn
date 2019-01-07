@@ -12,11 +12,19 @@ import SetupTermsOfService from '../screens/SetupTermsOfService'
 import SetupYourWallet from '../screens/SetupYourWallet'
 import Passphrase from '../screens/Passphrase'
 import AuthLoading from './AuthLoading'
+import IdentityMind from '../screens/IdentityMind'
 
 const PassphraseScreen = ({ navigation }) => (
   <Passphrase navigation={navigation} />
 )
 PassphraseScreen.navigationOptions = {
+  header: null
+}
+
+const IdentityMindScreen = ({ navigation }) => (
+  <IdentityMind navigation={navigation} />
+)
+IdentityMindScreen.navigationOptions = {
   header: null
 }
 
@@ -91,7 +99,8 @@ DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
 })
 
 const AuthStack = createStackNavigator({
-  Passphrase: { screen: PassphraseScreen }
+  Passphrase: { screen: PassphraseScreen },
+  IdentityMind: { screen: IdentityMindScreen }
 })
 
 const SetupStack = createStackNavigator({
