@@ -29,9 +29,9 @@ class AuthLoadingScreen extends React.Component {
           walletSetupType: RECOVERY_WALLET_SETUP_TYPE
         })
       } else if (multiSafes) {
-        this.props.navigation.navigate('IdentityMind')
+        this.props.navigation.navigate('Auth')
       } else {
-        this.props.navigation.navigate('IdentityMind')
+        this.props.navigation.navigate('SetupWelcome')
       }
     } catch (error) {
       FlashNotification.showError(`Problem encountered: ${error.message}`)

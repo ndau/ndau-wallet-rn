@@ -31,6 +31,7 @@ import Padding from '../components/Padding'
 import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import CommonButton from '../components/CommonButton'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -94,6 +95,12 @@ class Dashboard extends Component {
     // This is being commented out for now as we want the
     // icons, but don't want the actual implementation yet
     // this.setState({ lockModalVisible: true });
+  }
+
+  buy = () => {
+    // if no code exists we have to verify identity
+    this.props.navigation.navigate('IdentityVerificationIntro')
+    // otherwise we can continue in the purchase of ndau
   }
 
   launchAddNewAccountDialog = () => {
@@ -243,7 +250,7 @@ class Dashboard extends Component {
                     at current price
                   </Text>
                 </Text>
-
+                <CommonButton onPress={this.buy} title={` Buy ndau `} />
                 <Padding top={0.5}>
                   <View style={cssStyles.dashboardSmallTextContainer}>
                     <View
