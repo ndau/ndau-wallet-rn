@@ -32,12 +32,14 @@ import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import CommonButton from '../components/CommonButton'
+import { FloatingAction } from 'react-native-floating-action'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
 const NEW_ACCOUNT_MODAL_ID = 'newAccount'
 const TRANSACTION_MODAL_ID = 'transaction'
 const NDAU_GREEN = require('img/ndau-icon-green.png')
+const BILLFOLD = require('img/billfold-revised1024.png')
 
 class Dashboard extends Component {
   constructor (props) {
@@ -98,9 +100,9 @@ class Dashboard extends Component {
   }
 
   buy = () => {
-    // if no code exists we have to verify identity
+    // TODO: if no code exists we have to verify identity
     this.props.navigation.navigate('IdentityVerificationIntro')
-    // otherwise we can continue in the purchase of ndau
+    // TODO: otherwise we can continue in the purchase of ndau
   }
 
   launchAddNewAccountDialog = () => {
@@ -142,6 +144,12 @@ class Dashboard extends Component {
     this.setState({ refreshing: false, user, marketPrice })
   }
 
+  _handleFloatingButtonPress = async buttonName => {
+    if (buttonName === 'add_account') {
+      this.launchAddNewAccountDialog()
+    }
+  }
+
   render = () => {
     const accounts = DataFormatHelper.getObjectWithAllAccounts(this.state.user)
     if (!accounts) {
@@ -159,6 +167,16 @@ class Dashboard extends Component {
     )
 
     const numberOfAccounts = Object.keys(accounts).length
+
+    const actions = [
+      {
+        text: 'Account',
+        icon: BILLFOLD,
+        name: 'add_account',
+        position: 2,
+        color: styleConstants.PRIMARY_GREEN
+      }
+    ]
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
@@ -199,24 +217,54 @@ class Dashboard extends Component {
               />
             }
           >
-            <Padding top={0}>
-              <View style={cssStyles.dashboardTextContainer}>
-                {this.isTestNet ? (
-                  <Text
-                    style={[
-                      cssStyles.dashboardTextSmallWhiteEnd,
-                      { color: styleConstants.LINK_ORANGE }
-                    ]}
-                  >
-                    TestNet
-                  </Text>
-                ) : null}
-                <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
-              </View>
-            </Padding>
+            <View style={cssStyles.dashboardTextContainer}>
+              {this.isTestNet ? (
+                <Text
+                  style={[
+                    cssStyles.dashboardTextSmallWhiteEnd,
+                    { color: styleConstants.LINK_ORANGE }
+                  ]}
+                >
+                  TestNet
+                </Text>
+              ) : null}
+              <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
+            </View>
 
-            <Padding>
-              <View style={cssStyles.dashboardTextContainer}>
+            <View style={cssStyles.dashboardTextContainer}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Image
+                  style={{
+                    width: wp('7%'),
+                    maxHeight: hp('5%'),
+                    marginRight: wp('1%')
+                  }}
+                  resizeMode='contain'
+                  source={NDAU_GREEN}
+                />
+                <Text style={cssStyles.dashboardTextVeryLarge}>
+                  {totalNdau}
+                </Text>
+              </View>
+            </View>
+
+            <View style={cssStyles.dashboardSmallTextContainer}>
+              <Text style={cssStyles.dashboardTextSmallGreen}>
+                {currentPrice}
+                <Text style={cssStyles.asterisks}>*</Text>
+                <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
+                  {' '}
+                  at current price
+                </Text>
+              </Text>
+              <CommonButton top={0.8} onPress={this.buy} title={`Buy ndau`} />
+              <View style={cssStyles.dashboardSmallTextContainer}>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -224,43 +272,7 @@ class Dashboard extends Component {
                     justifyContent: 'center'
                   }}
                 >
-                  <Image
-                    style={{
-                      width: wp('7%'),
-                      maxHeight: hp('5%'),
-                      marginRight: wp('1%')
-                    }}
-                    resizeMode='contain'
-                    source={NDAU_GREEN}
-                  />
-                  <Text style={cssStyles.dashboardTextVeryLarge}>
-                    {totalNdau}
-                  </Text>
-                </View>
-              </View>
-            </Padding>
-
-            <Padding top={0.5} bottom={0.5}>
-              <View style={cssStyles.dashboardSmallTextContainer}>
-                <Text style={cssStyles.dashboardTextSmallGreen}>
-                  {currentPrice}
-                  <Text style={cssStyles.asterisks}>*</Text>
-                  <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
-                    {' '}
-                    at current price
-                  </Text>
-                </Text>
-                <CommonButton onPress={this.buy} title={` Buy ndau `} />
-                <Padding top={0.5}>
-                  <View style={cssStyles.dashboardSmallTextContainer}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      <Text style={cssStyles.dashboardTextSmallGreen}>
+                  {/* <Text style={cssStyles.dashboardTextSmallGreen}>
                         {numberOfAccounts} account
                         {numberOfAccounts !== 1 && 's'}
                       </Text>
@@ -274,12 +286,10 @@ class Dashboard extends Component {
                           size={20}
                           light
                         />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </Padding>
+                      </TouchableOpacity> */}
+                </View>
               </View>
-            </Padding>
+            </View>
 
             {Object.keys(accounts)
               .sort((a, b) => {
@@ -383,6 +393,16 @@ class Dashboard extends Component {
                 </Text>
               </View>
             </Padding>
+
+            <FloatingAction
+              ref={ref => {
+                this.floatingAction = ref
+              }}
+              actions={actions}
+              onPressItem={this._handleFloatingButtonPress}
+              color={styleConstants.PRIMARY_GREEN}
+              position='right'
+            />
           </ScrollView>
         </View>
       </SafeAreaView>

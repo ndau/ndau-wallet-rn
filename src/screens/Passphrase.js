@@ -68,6 +68,7 @@ class Passphrase extends Component {
             marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
             FlashNotification.showError(error.message, false, false)
+            this.setState({ spinner: false })
             return
           }
 
@@ -161,13 +162,13 @@ class Passphrase extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-            <Padding top={2}>
+            <Padding top={1}>
               <View style={styles.imageView}>
                 <Image style={styles.image} source={NDAU} />
               </View>
             </Padding>
 
-            <Padding top={2}>
+            <Padding top={1}>
               <View style={{ flexDirection: 'row' }}>
                 <TextInput
                   style={{

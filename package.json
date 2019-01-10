@@ -73,6 +73,7 @@
     "react-native-check-box": "2.1.7",
     "react-native-exit-app": "1.0.0",
     "react-native-flash-message": "0.1.10",
+    "react-native-floating-action": "^1.13.0",
     "react-native-loading-spinner-overlay": "1.0.1",
     "react-native-modal-dropdown": "0.6.2",
     "react-native-qrcode": "0.2.7",

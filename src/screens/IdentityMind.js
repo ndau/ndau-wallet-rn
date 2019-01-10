@@ -11,7 +11,10 @@ class IdentityMind extends Component {
   }
 
   handleMessage = event => {
-    console.log(`Message from webview: ${event.nativeEvent.data}`)
+    console.log(
+      `Message from webview: ${JSON.stringify(event.nativeEvent.data, null, 2)}`
+    )
+    alert(JSON.stringify(event.nativeEvent.data, null, 2))
     // handle response jwtresponse here
     // A simple example below:
     // const array = jwtresponse.split('.');
@@ -22,14 +25,19 @@ class IdentityMind extends Component {
   }
 
   render () {
+    let kycUrl = 'https://ntrd.io/kyc/'
+    // if (__DEV__) {
+    kycUrl = 'https://staging.ntrd.io/kyc/'
+    // }
+    console.log(kycUrl)
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <WebView
             ref={ref => (this.webview = ref)}
-            source={{ uri: 'https://ntrd.io/kyc/' }}
+            source={{ uri: kycUrl }}
             javaScriptEnabled
-            domStorageEnabled
+            // domStorageEnabled
             startInLoadingState
             style={{
               flex: 1,
@@ -37,6 +45,7 @@ class IdentityMind extends Component {
             }}
             onLoadProgress={e => console.log(e.nativeEvent.progress)}
             onMessage={this.handleMessage}
+            bounces={false}
           />
         </View>
       </SafeAreaView>

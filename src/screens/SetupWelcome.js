@@ -69,7 +69,6 @@ class SetupWelcome extends Component {
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar navigation={this.props.navigation} />
             <TouchableWithoutFeedback onPress={this.testNetToggler}>
               <View>
                 <Text style={cssStyles.wizardText}>
