@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native';
-import QRCodeScanner from 'react-native-qrcode-scanner';
-import CommonButton from '../components/CommonButton';
-import Stepper from '../components/Stepper';
-import cssStyles from '../css/styles';
-import SetupStore from '../model/SetupStore';
-import { SafeAreaView } from 'react-navigation';
+import React, { Component } from 'react'
+import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native'
+import QRCodeScanner from 'react-native-qrcode-scanner'
+import CommonButton from '../components/CommonButton'
+import Stepper from '../components/Stepper'
+import cssStyles from '../css/styles'
+import SetupStore from '../model/SetupStore'
+import { SafeAreaView } from 'react-navigation'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
+} from 'react-native-responsive-screen'
 
 class SetupQRCode extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
-    let qrToken = '';
-    let codeCaptured = false;
+    let qrToken = ''
+    let codeCaptured = false
 
-    if (__DEV__) {
-      qrToken = 'ndqrc0ffeefacade';
-      codeCaptured = true;
-    }
+    // if (__DEV__) {
+    //   qrToken = 'ndqrc0ffeefacade'
+    //   codeCaptured = true
+    // }
 
     this.state = {
       textColor: '#ffffff',
@@ -29,11 +29,12 @@ class SetupQRCode extends Component {
       qrToken: qrToken,
       codeCaptured: codeCaptured,
       scanning: true,
-      cameraPermission: false
-    };
+      cameraPermission: false,
+      cameraType: 'back'
+    }
   }
 
-  onSuccess(e) {
+  onSuccess (e) {
     if (e.data.substr(0, 4) !== 'ndqr') {
       Alert.alert(
         'Confirmation Error',
@@ -42,78 +43,100 @@ class SetupQRCode extends Component {
           {
             text: 'OK',
             onPress: () => {
-              this.scanner.reactivate();
+              this.scanner.reactivate()
             }
           }
         ],
         { cancelable: false }
-      );
+      )
     } else {
       this.setState({
         codeCaptured: true,
         qrToken: e.data
-      });
+      })
     }
   }
 
   showNextSetup = () => {
-    SetupStore.setQRCode(this.state.qrToken);
+    SetupStore.setQRCode(this.state.qrToken)
 
-    this.props.navigation.navigate('SetupEncryptionPassword');
-  };
+    this.props.navigation.navigate('SetupEncryptionPassword')
+  }
 
-  render() {
+  render () {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <Stepper screenNumber={3} />
             <View>
-              <Text style={[ cssStyles.wizardText, { marginBottom: hp('1.5%') } ]}>
-                To send and receive ndau, you will need to use your device's camera.
+              <Text
+                style={[cssStyles.wizardText, { marginBottom: hp('1.5%') }]}
+              >
+                To send and receive ndau, you will need to use your device's
+                camera.
               </Text>
               <CommonButton
                 onPress={() => {
-                  this.setState({ cameraPermision: true });
+                  this.setState({ cameraPermision: true })
                 }}
                 disabled={this.state.cameraPermision}
-                title="Give camera permission"
+                title='Give camera permission'
               />
 
               {this.state.cameraPermision && this.state.codeCaptured ? (
-                <Text style={styles.successText}>Code successfully scanned.</Text>
+                <Text style={styles.successText}>
+                  Code successfully scanned.
+                </Text>
               ) : this.state.cameraPermision && !this.state.codeCaptured ? (
                 <QRCodeScanner
                   style={{ marginRight: wp('2%') }}
-                  ref={(node) => {
-                    this.scanner = node;
+                  ref={node => {
+                    this.scanner = node
                   }}
-                  onRead={(e) => this.onSuccess(e)}
+                  onRead={e => this.onSuccess(e)}
                   topContent={
                     <Text
                       style={[
                         cssStyles.wizardText,
-                        { marginTop: hp('1.5%'), marginBottom: hp('1.5%'), marginRight: wp('2%') }
+                        {
+                          marginTop: hp('1.5%'),
+                          marginBottom: hp('1.5%'),
+                          marginRight: wp('2%')
+                        }
                       ]}
                     >
-                      Point this device’s camera at the QR code square in the email we sent, so that
-                      it appears below.
+                      Point this device’s camera at the QR code square in the
+                      email we sent, so that it appears below.
                     </Text>
                   }
+                  cameraType={this.state.cameraType}
                 />
               ) : null}
             </View>
           </ScrollView>
           <View style={cssStyles.footer}>
-            <CommonButton
-              onPress={() => this.showNextSetup()}
-              title="Next"
-              disabled={!this.state.codeCaptured}
-            />
+            <View style={styles.navButtonWrapper}>
+              <CommonButton
+                onPress={() => {
+                  this.state.cameraType === 'front'
+                    ? this.setState({ cameraType: 'back' })
+                    : this.setState({ cameraType: 'front' })
+                }}
+                title='Flip camera'
+              />
+            </View>
+            <View style={styles.navButtonWrapper}>
+              <CommonButton
+                onPress={() => this.showNextSetup()}
+                title='Next'
+                disabled={!this.state.codeCaptured}
+              />
+            </View>
           </View>
         </View>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -129,7 +152,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular',
     textAlign: 'center'
+  },
+  navButtonWrapper: {
+    justifyContent: 'space-between',
+    marginTop: hp('2%')
   }
-});
+})
 
-export default SetupQRCode;
+export default SetupQRCode
