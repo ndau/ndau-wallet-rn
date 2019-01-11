@@ -76,6 +76,7 @@
     "react-native-floating-action": "^1.13.0",
     "react-native-loading-spinner-overlay": "1.0.1",
     "react-native-modal-dropdown": "0.6.2",
+    "react-native-permissions": "^1.1.1",
     "react-native-qrcode": "0.2.7",
     "react-native-remote-svg": "1.4.0",
     "react-native-responsive-screen": "1.2.0",
@@ -83,7 +84,8 @@
     "react-native-simple-dialogs": "1.0.0",
     "react-native-vector-icons": "6.1.0",
     "react-native-webview": "^2.14.3",
-    "react-navigation": "2.18.3"
+    "react-navigation": "2.18.3",
+    "react-navigation-tabs": "^1.0.2"
   },
   "rnpm": {
     "assets": [
