@@ -11,13 +11,12 @@ import {
 import CommonButton from '../components/CommonButton'
 import cssStyles from '../css/styles'
 import { SafeAreaView } from 'react-navigation'
-import SetupProgressBar from '../components/SetupProgressBar'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
 
 class SetupWelcome extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -26,11 +25,11 @@ class SetupWelcome extends Component {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }
 
-  handleBackButton () {
+  handleBackButton() {
     return true
   }
 
@@ -63,7 +62,7 @@ class SetupWelcome extends Component {
     console.log(`this.state.toggleCount is ${this.state.toggleCount}`)
   }
 
-  render () {
+  render() {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />

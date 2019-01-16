@@ -42,7 +42,7 @@ const NDAU_GREEN = require('img/ndau-icon-green.png')
 const BILLFOLD = require('img/billfold-revised1024.png')
 
 class Dashboard extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -168,6 +168,11 @@ class Dashboard extends Component {
 
     const numberOfAccounts = Object.keys(accounts).length
 
+    const error = this.props.navigation.getParam('error', null)
+    if (error) {
+      FlashNotification.showError(error, false, true)
+    }
+
     const actions = [
       {
         text: 'Account',
@@ -272,21 +277,21 @@ class Dashboard extends Component {
                     justifyContent: 'center'
                   }}
                 >
-                  {/* <Text style={cssStyles.dashboardTextSmallGreen}>
-                        {numberOfAccounts} account
+                  <Text style={cssStyles.dashboardTextSmallGreen}>
+                    {numberOfAccounts} account
                         {numberOfAccounts !== 1 && 's'}
-                      </Text>
-                      <TouchableOpacity
-                        style={{ marginLeft: wp('1.5%') }}
-                        onPress={this.launchAddNewAccountDialog}
-                      >
-                        <FontAwesome5Pro
-                          name='plus-circle'
-                          color={styleConstants.ICON_GRAY}
-                          size={20}
-                          light
-                        />
-                      </TouchableOpacity> */}
+                  </Text>
+                  <TouchableOpacity
+                    style={{ marginLeft: wp('1.5%') }}
+                    onPress={this.launchAddNewAccountDialog}
+                  >
+                    <FontAwesome5Pro
+                      name='plus-circle'
+                      color={styleConstants.ICON_GRAY}
+                      size={20}
+                      light
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -394,7 +399,7 @@ class Dashboard extends Component {
               </View>
             </Padding>
 
-            <FloatingAction
+            {/* <FloatingAction
               ref={ref => {
                 this.floatingAction = ref
               }}
@@ -402,7 +407,7 @@ class Dashboard extends Component {
               onPressItem={this._handleFloatingButtonPress}
               color={styleConstants.PRIMARY_GREEN}
               position='right'
-            />
+            /> */}
           </ScrollView>
         </View>
       </SafeAreaView>

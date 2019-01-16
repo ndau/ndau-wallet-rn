@@ -12,7 +12,7 @@ import cssStyles from '../css/styles'
 import { SafeAreaView } from 'react-navigation'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
-class IdentityVerificationInfo extends Component {
+class IdentityVerificationSuccess extends Component {
   constructor(props) {
     super(props)
 
@@ -36,7 +36,7 @@ class IdentityVerificationInfo extends Component {
   }
 
   showNextSetup = () => {
-    this.props.navigation.navigate('IdentityMind')
+    this.props.navigation.navigate('SetupTermsOfService')
   }
 
   render() {
@@ -47,14 +47,13 @@ class IdentityVerificationInfo extends Component {
           <ScrollView style={cssStyles.contentContainer}>
             <View>
               <Text style={cssStyles.wizardText}>
-                To buy ndau, you will need to complete an identity verification
-                process. Please have an image of your ID ready.{' '}
+                Congratulations you have been successfully verified.{' '}
                 {Platform.OS === 'android' ? '\n' : ''}
               </Text>
             </View>
           </ScrollView>
           <View style={cssStyles.footer}>
-            <CommonButton onPress={this.showNextSetup} title='Continue' />
+            <CommonButton onPress={this.showNextSetup} title='Buy ndau' />
           </View>
         </View>
       </SafeAreaView>
@@ -62,4 +61,4 @@ class IdentityVerificationInfo extends Component {
   }
 }
 
-export default IdentityVerificationInfo
+export default IdentityVerificationSuccess

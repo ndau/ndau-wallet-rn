@@ -14,6 +14,8 @@ import Passphrase from '../screens/Passphrase'
 import AuthLoading from './AuthLoading'
 import IdentityMind from '../screens/IdentityMind'
 import IdentityVerificationIntro from '../screens/IdentityVerificationIntro'
+import IdentityVerificationSuccess from '../screens/IdentityVerificationSuccess'
+
 
 const PassphraseScreen = ({ navigation }) => (
   <Passphrase navigation={navigation} />
@@ -33,6 +35,13 @@ const IdentityVerificationIntroScreen = ({ navigation }) => (
   <IdentityVerificationIntro navigation={navigation} />
 )
 IdentityVerificationIntroScreen.navigationOptions = {
+  header: null
+}
+
+const IdentityVerificationSuccessScreen = ({ navigation }) => (
+  <IdentityVerificationSuccess navigation={navigation} />
+)
+IdentityVerificationSuccessScreen.navigationOptions = {
   header: null
 }
 
@@ -121,7 +130,9 @@ const SetupStack = createStackNavigator({
   SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
   SetupYourWallet: { screen: SetupYourWalletScreen },
   IdentityMind: { screen: IdentityMindScreen },
-  IdentityVerificationIntro: { screen: IdentityVerificationIntroScreen }
+  IdentityVerificationIntro: { screen: IdentityVerificationIntroScreen },
+  IdentityVerificationSuccess: { screen: IdentityVerificationSuccessScreen }
+
 })
 
 export default createSwitchNavigator(

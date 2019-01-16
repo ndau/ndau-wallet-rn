@@ -4,9 +4,10 @@ import { SafeAreaView } from 'react-navigation'
 import { View, Button } from 'react-native'
 import cssStyles from '../css/styles'
 import styleConstants from '../css/styleConstants'
+import AppConstants from '../AppConstants';
 
 class IdentityMind extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
@@ -14,17 +15,22 @@ class IdentityMind extends Component {
     console.log(
       `Message from webview: ${JSON.stringify(event.nativeEvent.data, null, 2)}`
     )
-    alert(JSON.stringify(event.nativeEvent.data, null, 2))
-    // handle response jwtresponse here
-    // A simple example below:
-    // const array = jwtresponse.split('.');
-    // const header = JSON.parse(atob(array[0]));
-    // const response = JSON.parse(atob(array[1]));
-    // const signature = array[2];
-    // alert("Result from Identitymind: " + response.kyc_result);
+    if (event.nativeEvent.data === AppConstants.KYC_ACCEPTED) {
+      this.props.navigation.navigate('IdentityVerificationSuccess')
+    } else if (event.nativeEvent.data === AppConstants.KYC_MANUAL_REVIEW) {
+      this.props.navigation.navigate('IdentityVerificationSuccess', {
+        error: 'Please note that your verification is in manual review at this time. You can ' +
+          'however proceed in the purchase of ndau',
+      })
+    } else {
+      this.props.navigation.navigate('Dashboard', {
+        error: 'We apologize but your customer verification was not approved. If you feel ' +
+          'this decision was made in error please contact support@oneiro.freshdesk.com.',
+      })
+    }
   }
 
-  render () {
+  render() {
     let kycUrl = 'https://ntrd.io/kyc/'
     // if (__DEV__) {
     kycUrl = 'https://staging.ntrd.io/kyc/'
