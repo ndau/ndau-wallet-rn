@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "axios-mock-adapter": "^1.16.0",
     "chai": "4.1.2",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
@@ -57,6 +58,9 @@
     ]
   },
   "dependencies": {
+    "@react-navigation/core": "^3.0.2",
+    "@react-navigation/native": "^3.1.1",
+    "axios": "^0.18.0",
     "babel-preset-react-native": "4.0.1",
     "base-64": "0.1.0",
     "crypto-js": "3.1.9-1",
@@ -83,7 +87,8 @@
     "react-native-simple-dialogs": "1.0.0",
     "react-native-vector-icons": "6.1.0",
     "react-native-webview": "^2.14.3",
-    "react-navigation": "2.18.3"
+    "react-navigation": "2.18.3",
+    "react-navigation-tabs": "^1.0.2"
   },
   "rnpm": {
     "assets": [

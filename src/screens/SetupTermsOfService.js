@@ -16,9 +16,10 @@ import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import AppConstants from '../AppConstants';
 
 class SetupTermsOfService extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -111,14 +112,32 @@ class SetupTermsOfService extends Component {
     })
   }
 
-  sendingErrorOccured = () => {}
+  sendingErrorOccured = () => { }
 
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree })
   }
 
-  render () {
+  goBuyNdau = () => {
+
+  }
+
+  performFinishingAction = () => {
+    let mode = this.props.navigation.getParam('mode', AppConstants.TOS_SETUP)
+    switch (mode) {
+      case AppConstants.TOS_BUY:
+        this.goBuyNdau()
+        break
+      case AppConstants.TOS_SETUP:
+      default:
+        this.finishSetup()
+        break
+    }
+  }
+
+  render() {
     SetupStore.printData()
+
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
@@ -310,9 +329,9 @@ class SetupTermsOfService extends Component {
                 strictly adhere to the respective Platform policies published by
                 us from time to time, such that you should not:
                 {'\n\t'} (a) Browse, surf, process, scan, or use the Platform
-                via operation of a computer program designed to gather
-                information or perform operations imitating a human user
-                (including, without limitation, Bots or Crawlers);
+            via operation of a computer program designed to gather
+            information or perform operations imitating a human user
+            (including, without limitation, Bots or Crawlers);
                 {'\n\t'}
                 (b) Manipulate the URL of the Website (or if applicable, the
                 Application), gain access to any internal pages to which we did
@@ -617,7 +636,7 @@ class SetupTermsOfService extends Component {
           </ScrollView>
           <View style={cssStyles.footer}>
             <CommonButton
-              onPress={this.finishSetup}
+              onPress={this.performFinishingAction}
               title='Next'
               disabled={!this.state.agree}
             />

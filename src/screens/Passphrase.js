@@ -56,28 +56,31 @@ class Passphrase extends Component {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
         let marketPrice = 0
         if (user) {
+          FlashNotification.hideMessage()
+
           console.log(
             `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
           )
 
           // cache the password
           await AsyncStorageHelper.setApplicationPassword(this.state.password)
+          let errorMessage = null
 
           try {
             await UserData.loadData(user)
             marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
             FlashNotification.showError(error.message, false, false)
-            this.setState({ spinner: false })
-            return
+            console.warn(error)
+            errorMessage = error.message
           }
 
-          FlashNotification.hideMessage()
           this.setState({ spinner: false }, () => {
             this.props.navigation.navigate('Dashboard', {
               user,
               encryptionPassword: this.state.password,
-              marketPrice
+              marketPrice,
+              error: errorMessage
             })
           })
         } else {
@@ -162,13 +165,13 @@ class Passphrase extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-            <Padding top={2}>
+            <Padding top={1}>
               <View style={styles.imageView}>
                 <Image style={styles.image} source={NDAU} />
               </View>
             </Padding>
 
-            <Padding top={2}>
+            <Padding top={1}>
               <View style={{ flexDirection: 'row' }}>
                 <TextInput
                   style={{

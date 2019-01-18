@@ -24,10 +24,6 @@ const getMarketPriceAPIAddress = async () => {
   return (await getNodeAddress()) + '/order/current'
 }
 
-const getNodeStatusAPIAddress = async () => {
-  return (await getNodeAddress()) + '/node/status'
-}
-
 const getTransactionPrevalidateAPIAddress = async () => {
   return (await getNodeAddress()) + '/tx/prevalidate'
 }
@@ -40,7 +36,6 @@ export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
   getEaiRateAPIAddress,
-  getNodeStatusAPIAddress,
   getTransactionPrevalidateAPIAddress,
   getTransactionSubmitAPIAddress
 }

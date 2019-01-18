@@ -31,6 +31,7 @@ import Padding from '../components/Padding'
 import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import CommonButton from '../components/CommonButton'
 
 const LOCK_MODAL_ID = 'lock'
 const UNLOCK_MODAL_ID = 'unlock'
@@ -39,7 +40,7 @@ const TRANSACTION_MODAL_ID = 'transaction'
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
 class Dashboard extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -56,12 +57,26 @@ class Dashboard extends Component {
 
   componentWillMount = async () => {
     const user = this.props.navigation.getParam('user', {})
-    console.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
 
     const marketPrice = this.props.navigation.getParam('marketPrice', 0)
     this.setState({ user, marketPrice })
     this.isTestNet = await AsyncStorageHelper.isTestNet()
-    // if (this.isTestNet) console.log(`TESTNET IS ${this.isTestNet}`)
+  }
+
+  componentDidMount = async () => {
+    let user = this.props.navigation.getParam('user', null)
+    if (!user) {
+      const password = await AsyncStorageHelper.getApplicationPassword()
+      user = await MultiSafeHelper.getDefaultUser(password)
+    }
+    console.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
+
+    this.setState({ user })
+
+    const error = this.props.navigation.getParam('error', null)
+    if (error) {
+      FlashNotification.showError(error, false, true)
+    }
   }
 
   showModal = modalId => {
@@ -94,6 +109,12 @@ class Dashboard extends Component {
     // This is being commented out for now as we want the
     // icons, but don't want the actual implementation yet
     // this.setState({ lockModalVisible: true });
+  }
+
+  buy = () => {
+    // TODO: if no code exists we have to verify identity
+    this.props.navigation.navigate('IdentityVerificationIntro')
+    // TODO: otherwise we can continue in the purchase of ndau
   }
 
   launchAddNewAccountDialog = () => {
@@ -135,64 +156,70 @@ class Dashboard extends Component {
     this.setState({ refreshing: false, user, marketPrice })
   }
 
-  render = () => {
-    const accounts = DataFormatHelper.getObjectWithAllAccounts(this.state.user)
-    if (!accounts) {
-      return <SafeAreaView style={cssStyles.safeContainer} />
+  _handleFloatingButtonPress = async buttonName => {
+    if (buttonName === 'add_account') {
+      this.launchAddNewAccountDialog()
     }
+  }
 
-    const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
-    const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
-      accounts,
-      false
-    )
-    const currentPrice = AccountAPIHelper.currentPrice(
-      this.state.marketPrice,
-      totalNdauNumber
-    )
+  render = () => {
+    try {
+      const accounts = DataFormatHelper.getObjectWithAllAccounts(this.state.user)
+      if (!accounts) {
+        return <SafeAreaView style={cssStyles.safeContainer} />
+      }
 
-    const numberOfAccounts = Object.keys(accounts).length
+      const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
+      const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
+        accounts,
+        false
+      )
+      const currentPrice = AccountAPIHelper.currentPrice(
+        this.state.marketPrice,
+        totalNdauNumber
+      )
 
-    return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <UnlockModalDialog
-          visible={this.state.modalId === UNLOCK_MODAL_ID}
-          setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}
-          closeModal={this.closeModal}
-        />
-        <LockModalDialog
-          visible={this.state.modalId === LOCK_MODAL_ID}
-          setModalVisible={() => this.showModal(LOCK_MODAL_ID)}
-          closeModal={this.closeModal}
-        />
-        <NewAccountModalDialog
-          number={this.state.number}
-          subtractNumber={this.subtractNumber}
-          addNumber={this.addNumber}
-          addNewAccount={this.addNewAccount}
-          visible={this.state.modalId === NEW_ACCOUNT_MODAL_ID}
-          setModalVisible={() => this.showModal(NEW_ACCOUNT_MODAL_ID)}
-          closeModal={this.closeModal}
-        />
-        <TransactionModalDialog
-          visible={this.state.modalId === TRANSACTION_MODAL_ID}
-          setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
-          closeModal={this.closeModal}
-          address={this.state.activeAddress || this.props.activeAddress}
-        />
+      const numberOfAccounts = Object.keys(accounts).length
 
-        <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-        <View style={cssStyles.container}>
-          <ScrollView
-            style={cssStyles.contentContainer}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
-              />
-            }
-          >
-            <Padding top={0}>
+      return (
+        <SafeAreaView style={cssStyles.safeContainer}>
+          <UnlockModalDialog
+            visible={this.state.modalId === UNLOCK_MODAL_ID}
+            setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}
+            closeModal={this.closeModal}
+          />
+          <LockModalDialog
+            visible={this.state.modalId === LOCK_MODAL_ID}
+            setModalVisible={() => this.showModal(LOCK_MODAL_ID)}
+            closeModal={this.closeModal}
+          />
+          <NewAccountModalDialog
+            number={this.state.number}
+            subtractNumber={this.subtractNumber}
+            addNumber={this.addNumber}
+            addNewAccount={this.addNewAccount}
+            visible={this.state.modalId === NEW_ACCOUNT_MODAL_ID}
+            setModalVisible={() => this.showModal(NEW_ACCOUNT_MODAL_ID)}
+            closeModal={this.closeModal}
+          />
+          <TransactionModalDialog
+            visible={this.state.modalId === TRANSACTION_MODAL_ID}
+            setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
+            closeModal={this.closeModal}
+            address={this.state.activeAddress || this.props.activeAddress}
+          />
+
+          <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
+          <View style={cssStyles.container}>
+            <ScrollView
+              style={cssStyles.contentContainer}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
+                />
+              }
+            >
               <View style={cssStyles.dashboardTextContainer}>
                 {this.isTestNet ? (
                   <Text
@@ -202,13 +229,11 @@ class Dashboard extends Component {
                     ]}
                   >
                     TestNet
-                  </Text>
+                </Text>
                 ) : null}
                 <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
               </View>
-            </Padding>
 
-            <Padding>
               <View style={cssStyles.dashboardTextContainer}>
                 <View
                   style={{
@@ -231,9 +256,7 @@ class Dashboard extends Component {
                   </Text>
                 </View>
               </View>
-            </Padding>
 
-            <Padding top={0.5} bottom={0.5}>
               <View style={cssStyles.dashboardSmallTextContainer}>
                 <Text style={cssStyles.dashboardTextSmallGreen}>
                   {currentPrice}
@@ -241,145 +264,149 @@ class Dashboard extends Component {
                   <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
                     {' '}
                     at current price
-                  </Text>
                 </Text>
-
-                <Padding top={0.5}>
-                  <View style={cssStyles.dashboardSmallTextContainer}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      <Text style={cssStyles.dashboardTextSmallGreen}>
-                        {numberOfAccounts} account
+                </Text>
+                <CommonButton top={0.8} onPress={this.buy} title={`Buy ndau`} />
+                <View style={cssStyles.dashboardSmallTextContainer}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <Text style={cssStyles.dashboardTextSmallGreen}>
+                      {numberOfAccounts} account
                         {numberOfAccounts !== 1 && 's'}
-                      </Text>
-                      <TouchableOpacity
-                        style={{ marginLeft: wp('1.5%') }}
-                        onPress={this.launchAddNewAccountDialog}
-                      >
-                        <FontAwesome5Pro
-                          name='plus-circle'
-                          color={styleConstants.ICON_GRAY}
-                          size={20}
-                          light
-                        />
-                      </TouchableOpacity>
-                    </View>
+                    </Text>
+                    <TouchableOpacity
+                      style={{ marginLeft: wp('1.5%') }}
+                      onPress={this.launchAddNewAccountDialog}
+                    >
+                      <FontAwesome5Pro
+                        name='plus-circle'
+                        color={styleConstants.ICON_GRAY}
+                        size={20}
+                        light
+                      />
+                    </TouchableOpacity>
                   </View>
-                </Padding>
+                </View>
               </View>
-            </Padding>
 
-            {Object.keys(accounts)
-              .sort((a, b) => {
-                if (
-                  !accounts[a].addressData.nickname ||
-                  !accounts[b].addressData.nickname
-                ) {
+              {Object.keys(accounts)
+                .sort((a, b) => {
+                  if (
+                    !accounts[a].addressData.nickname ||
+                    !accounts[b].addressData.nickname
+                  ) {
+                    return 0
+                  }
+
+                  const accountNumberA = parseInt(
+                    accounts[a].addressData.nickname.split(' ')[1]
+                  )
+                  const accountNumberB = parseInt(
+                    accounts[b].addressData.nickname.split(' ')[1]
+                  )
+                  if (accountNumberA < accountNumberB) {
+                    return -1
+                  } else if (accountNumberA > accountNumberB) {
+                    return 1
+                  }
                   return 0
-                }
+                })
+                .map((accountKey, index) => {
+                  const account = accounts[accountKey]
+                  const eaiPercentage = AccountAPIHelper.eaiPercentage(
+                    account.addressData
+                  )
+                  const sendingEAITo = AccountAPIHelper.sendingEAITo(
+                    account.addressData
+                  )
+                  const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
+                    account.addressData
+                  )
+                  const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
+                    account.addressData
+                  )
+                  const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
+                    account.addressData
+                  )
+                  const accountNotLocked = AccountAPIHelper.accountNotLocked(
+                    account.addressData
+                  )
+                  const nickname = AccountAPIHelper.accountNickname(
+                    account.addressData
+                  )
+                  const accountBalance = AccountAPIHelper.accountNdauAmount(
+                    account.addressData
+                  )
 
-                const accountNumberA = parseInt(
-                  accounts[a].addressData.nickname.split(' ')[1]
-                )
-                const accountNumberB = parseInt(
-                  accounts[b].addressData.nickname.split(' ')[1]
-                )
-                if (accountNumberA < accountNumberB) {
-                  return -1
-                } else if (accountNumberA > accountNumberB) {
-                  return 1
-                }
-                return 0
-              })
-              .map((accountKey, index) => {
-                const account = accounts[accountKey]
-                const eaiPercentage = AccountAPIHelper.eaiPercentage(
-                  account.addressData
-                )
-                const sendingEAITo = AccountAPIHelper.sendingEAITo(
-                  account.addressData
-                )
-                const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
-                  account.addressData
-                )
-                const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-                  account.addressData
-                )
-                const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-                  account.addressData
-                )
-                const accountNotLocked = AccountAPIHelper.accountNotLocked(
-                  account.addressData
-                )
-                const nickname = AccountAPIHelper.accountNickname(
-                  account.addressData
-                )
-                const accountBalance = AccountAPIHelper.accountNdauAmount(
-                  account.addressData
-                )
+                  return (
+                    <Padding key={index} top={0.5}>
+                      <AccountCard
+                        index={index}
+                        nickname={nickname}
+                        address={account.address}
+                        eaiPercentage={eaiPercentage}
+                        sendingEAITo={sendingEAITo}
+                        receivingEAIFrom={receivingEAIFrom}
+                        accountBalance={accountBalance}
+                        accountLockedUntil={accountLockedUntil}
+                        accountNoticePeriod={accountNoticePeriod}
+                        accountNotLocked={accountNotLocked}
+                        totalNdau={totalNdau}
+                        lock={this.lock}
+                        unlock={this.unlock}
+                        startTransaction={address => {
+                          console.log(
+                            'state before transaction started',
+                            this.state
+                          )
+                          this.setState({
+                            activeAddress: address,
+                            modalId: TRANSACTION_MODAL_ID
+                          })
+                        }}
+                        walletId={account.addressData.walletId}
+                        expanded={index === 0}
+                      />
+                    </Padding>
+                  )
+                })}
 
-                return (
-                  <Padding key={index} top={0.5}>
-                    <AccountCard
-                      index={index}
-                      nickname={nickname}
-                      address={account.address}
-                      eaiPercentage={eaiPercentage}
-                      sendingEAITo={sendingEAITo}
-                      receivingEAIFrom={receivingEAIFrom}
-                      accountBalance={accountBalance}
-                      accountLockedUntil={accountLockedUntil}
-                      accountNoticePeriod={accountNoticePeriod}
-                      accountNotLocked={accountNotLocked}
-                      totalNdau={totalNdau}
-                      lock={this.lock}
-                      unlock={this.unlock}
-                      startTransaction={address => {
-                        console.log(
-                          'state before transaction started',
-                          this.state
-                        )
-                        this.setState({
-                          activeAddress: address,
-                          modalId: TRANSACTION_MODAL_ID
-                        })
-                      }}
-                      walletId={account.addressData.walletId}
-                      expanded={index === 0}
-                    />
-                  </Padding>
-                )
-              })}
-
-            <Padding>
-              <View style={cssStyles.dashboardRowContainerCenter}>
-                <Text style={cssStyles.asterisks}>*</Text>
-                <Text
-                  style={[
-                    cssStyles.dashboardTextVerySmallWhite,
-                    { paddingLeft: wp('1%') }
-                  ]}
-                >
-                  The estimated value of ndau in US dollars can be calculated
-                  using the Target Price at which new ndau have most recently
-                  been issued. The value shown here is calculated using that
+              <Padding>
+                <View style={cssStyles.dashboardRowContainerCenter}>
+                  <Text style={cssStyles.asterisks}>*</Text>
+                  <Text
+                    style={[
+                      cssStyles.dashboardTextVerySmallWhite,
+                      { paddingLeft: wp('1%') }
+                    ]}
+                  >
+                    The estimated value of ndau in US dollars can be calculated
+                    using the Target Price at which new ndau have most recently
+                    been issued. The value shown here is calculated using that
                   method as of the issue price on {DateHelper.getTodaysDate()}.
-                  The Axiom Foundation, creator and issuer of ndau, bears no
-                  responsibility or liability for the calculation of that
-                  estimated value, or for decisions based on that estimated
-                  value.
+                            The Axiom Foundation, creator and issuer of ndau, bears no
+                            responsibility or liability for the calculation of that
+                            estimated value, or for decisions based on that estimated
+                            value.
                 </Text>
-              </View>
-            </Padding>
-          </ScrollView>
-        </View>
-      </SafeAreaView>
-    )
+                </View>
+              </Padding>
+
+            </ScrollView>
+          </View>
+        </SafeAreaView>
+      )
+    } catch (error) {
+      console.warn(error)
+      FlashNotification.showError(error.message, false, false)
+    }
+
+    return <SafeAreaView style={cssStyles.safeContainer} />
   }
 }
 

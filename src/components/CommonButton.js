@@ -14,10 +14,13 @@ class CommonButton extends Component {
     this.props.onPress()
   }
   render () {
-    const { bottomPadding } = this.props;
+    const { bottomPadding } = this.props
 
     return (
-      <Padding bottom={ bottomPadding === 0 ? 0 : (bottomPadding || 1) }>
+      <Padding
+        bottom={bottomPadding === 0 ? 0 : bottomPadding || 1}
+        {...this.props}
+      >
         <View style={styles.containerStyle}>
           <Button
             style={styles.text}
@@ -62,7 +65,8 @@ var styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 3,
-    height: hp('7%'),
+    height: hp('6%'),
+    paddingHorizontal: wp('2%'),
     backgroundColor: '#4e957a'
   }
 })
