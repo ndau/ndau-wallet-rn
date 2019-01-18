@@ -4,10 +4,10 @@ import { SafeAreaView } from 'react-navigation'
 import { View, Button } from 'react-native'
 import cssStyles from '../css/styles'
 import styleConstants from '../css/styleConstants'
-import AppConstants from '../AppConstants';
+import AppConstants from '../AppConstants'
 
 class IdentityMind extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
   }
 
@@ -19,22 +19,24 @@ class IdentityMind extends Component {
       this.props.navigation.navigate('IdentityVerificationSuccess')
     } else if (event.nativeEvent.data === AppConstants.KYC_MANUAL_REVIEW) {
       this.props.navigation.navigate('IdentityVerificationSuccess', {
-        error: 'Please note that your verification is in manual review at this time. You can ' +
-          'however proceed in the purchase of ndau',
+        error:
+          'Please note that your verification is in manual review at this time. You can ' +
+          'however proceed in the purchase of ndau'
       })
     } else {
       this.props.navigation.navigate('Dashboard', {
-        error: 'We apologize but your customer verification was not approved. If you feel ' +
-          'this decision was made in error please contact support@oneiro.freshdesk.com.',
+        error:
+          'We apologize but your customer verification was not approved. If you feel ' +
+          'this decision was made in error please contact support@oneiro.freshdesk.com.'
       })
     }
   }
 
-  render() {
+  render () {
     let kycUrl = 'https://ntrd.io/kyc/'
-    // if (__DEV__) {
-    kycUrl = 'https://staging.ntrd.io/kyc/'
-    // }
+    if (__DEV__) {
+      kycUrl = 'https://staging.ntrd.io/kyc/'
+    }
     console.log(kycUrl)
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
