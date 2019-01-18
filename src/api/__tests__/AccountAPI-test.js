@@ -6,7 +6,6 @@ import MockHelper from '../../helpers/MockHelper'
 const user = data.testUser
 
 test('getAddressData should return something back', async () => {
-  // fetch.mockResponses([services], [data.testAddressData])
   MockHelper.mockServiceDiscovery()
   MockHelper.mockAccountAPI()
 
@@ -16,7 +15,6 @@ test('getAddressData should return something back', async () => {
 })
 
 test('getMarketPrice should return something back', async () => {
-  // fetch.mockResponses([services], [data.testMarketPrice])
   MockHelper.mockServiceDiscovery()
   MockHelper.mockMarketPriceAPI()
 
