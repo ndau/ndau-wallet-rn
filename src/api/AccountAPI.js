@@ -6,7 +6,10 @@ import APICommunicationHelper from '../helpers/APICommunicationHelper'
 const getAddressData = async addresses => {
   const accountAPI = await APIAddressHelper.getAccountAPIAddress()
   try {
-    return APICommunicationHelper.post(accountAPI, JSON.stringify(addresses))
+    return await APICommunicationHelper.post(
+      accountAPI,
+      JSON.stringify(addresses)
+    )
   } catch (error) {
     console.warn(error)
     throw new BlockchainAPIError()
@@ -20,7 +23,7 @@ const getEaiRate = async addressData => {
 
   const eaiRateAddress = await APIAddressHelper.getEaiRateAPIAddress()
   try {
-    return APICommunicationHelper.post(
+    return await APICommunicationHelper.post(
       eaiRateAddress,
       JSON.stringify(accountEaiRateRequestData)
     )

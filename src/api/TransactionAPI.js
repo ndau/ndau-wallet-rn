@@ -4,7 +4,7 @@ import APICommunicationHelper from '../helpers/APICommunicationHelper'
 
 const _postTransaction = async (submitAddress, transaction) => {
   try {
-    return APICommunicationHelper.post(
+    return await APICommunicationHelper.post(
       submitAddress,
       JSON.stringify(transaction)
     )

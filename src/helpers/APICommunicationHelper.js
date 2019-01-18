@@ -12,7 +12,7 @@ const post = async (url, data, timeout = 10000) => {
   try {
     console.log(`Sending ${data} to ${url}`)
     const response = await axios.post(url, data, { timeout })
-    console.debug(`${url} response: ${JSON.stringify(response, null, 2)}`)
+    console.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
     return response.data
   } catch (error) {
     console.warn(error)
@@ -30,7 +30,7 @@ const get = async (url, timeout = 10000) => {
   try {
     console.log(`Performing GET on ${url}`)
     const response = await axios.get(url, { timeout })
-    console.debug(`${url} response: ${JSON.stringify(response, null, 2)}`)
+    console.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
     return response.data
   } catch (error) {
     console.warn(error)

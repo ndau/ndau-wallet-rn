@@ -51,10 +51,7 @@ class Transaction {
       ) {
         throw Error('No validation keys present')
       }
-      if (
-        !this._account.addressData.sequence ||
-        isNaN(this._account.addressData.sequence)
-      ) {
+      if (isNaN(this._account.addressData.sequence)) {
         throw Error('No sequence found in addressData')
       }
 
@@ -96,7 +93,7 @@ class Transaction {
       console.debug(`key to use for signature is ${this._keyToUse}`)
       const privateKeyFromHash = KeyMaster.getPrivateKeyFromHash(
         this._wallet,
-        this._keyToUse === Transaction.CLAIM_ACCOUNT
+        this._type === Transaction.CLAIM_ACCOUNT
           ? this._account.ownershipKey
           : this._account.validationKeys[0]
       )
@@ -131,7 +128,6 @@ class Transaction {
    * is well you can then call submit.
    */
   prevalidate = async () => {
-    console.log(`this submit ${this._submitAddress}`)
     try {
       const response = await TransactionAPI.prevalidate(
         this._submitAddress,
