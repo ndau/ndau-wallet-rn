@@ -14,6 +14,7 @@ class Transaction {
     this._keys = wallet.keys
     this._type = type
     this._jsonTransaction = {}
+    this._submitAddress = ''
 
     if (!this._wallet || !this._account || !this._type) {
       throw new Error('You must pass wallet, account and type')
@@ -33,7 +34,7 @@ class Transaction {
   create = async () => {
     try {
       // Create the submission address
-      this._createSubmissionAddress()
+      await this._createSubmissionAddress()
 
       // ok...if we got here we can assume we do NOT have a validation
       // key, so we need that to call KeyaddrManager.sign...so create it
@@ -130,6 +131,7 @@ class Transaction {
    * is well you can then call submit.
    */
   prevalidate = async () => {
+    console.log(`this submit ${this._submitAddress}`)
     try {
       const response = await TransactionAPI.prevalidate(
         this._submitAddress,

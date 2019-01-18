@@ -1,13 +1,14 @@
 import TransactionAPI from '../TransactionAPI'
 import data from '../data'
 import services from '../../api/services-dev.json'
-import ClaimTransaction from '../../transactions/ClaimTransaction'
 import MockHelper from '../../helpers/MockHelper'
+import Transaction from '../../transactions/Transaction'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
+MockHelper.mockClaimAccountTx()
 
 const user = {
   userId: 'TAC-3PY',

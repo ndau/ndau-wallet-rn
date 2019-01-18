@@ -29,9 +29,19 @@ const mockEaiRate = () => {
     .reply(200, data.eaiPercentageResponse)
 }
 
+const mockClaimAccountTx = () => {
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/ClaimAccount')
+    .reply(200, data.claimAccountTxRes)
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/submit/ClaimAccount')
+    .reply(200, data.claimAccountTxRes)
+}
+
 export default {
   mockServiceDiscovery,
   mockAccountAPI,
   mockMarketPriceAPI,
-  mockEaiRate
+  mockEaiRate,
+  mockClaimAccountTx
 }
