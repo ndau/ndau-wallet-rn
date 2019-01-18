@@ -1,4 +1,11 @@
 import Transaction from '../Transaction'
+import MockHelper from '../../helpers/MockHelper'
+
+MockHelper.mockServiceDiscovery()
+MockHelper.mockAccountAPI()
+MockHelper.mockEaiRate()
+MockHelper.mockMarketPriceAPI()
+MockHelper.mockClaimAccountTx()
 
 const user = {
   userId: 'TAC-3PY',
