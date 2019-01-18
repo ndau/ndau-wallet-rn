@@ -7,6 +7,12 @@ import Wallet from '../../model/Wallet'
 import services from '../../api/services-dev.json'
 import data from '../../api/data'
 import MockAsyncStorage from 'mock-async-storage'
+import MockHelper from '../MockHelper'
+
+MockHelper.mockServiceDiscovery()
+MockHelper.mockAccountAPI()
+MockHelper.mockEaiRate()
+MockHelper.mockMarketPriceAPI()
 
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
@@ -198,8 +204,6 @@ for (let i = 0; i < 30; i++) {
 }
 
 test('createFirstTimeUser test', async () => {
-  mockFetchStuff()
-
   const firstTimeUser = await KeyMaster.createFirstTimeUser(
     bytes,
     userId,
@@ -393,16 +397,3 @@ test('getPrivateKeyFromHash test', async () => {
     'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf0'
   ).toBe(privateKey)
 })
-
-const mockFetchStuff = () => {
-  fetch.resetMocks()
-
-  fetch.mockResponses(
-    [services],
-    [data.testAddressData],
-    [services],
-    [data.eaiPercentageResponse],
-    [services],
-    [data.testMarketPrice]
-  )
-}

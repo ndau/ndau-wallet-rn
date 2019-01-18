@@ -11,6 +11,7 @@ import CommonButton from '../components/CommonButton'
 import cssStyles from '../css/styles'
 import { SafeAreaView } from 'react-navigation'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import FlashNotification from '../components/FlashNotification';
 
 class IdentityVerificationSuccess extends Component {
   constructor(props) {
@@ -40,6 +41,11 @@ class IdentityVerificationSuccess extends Component {
   }
 
   render() {
+    const error = this.props.navigation.getParam('error', null)
+    if (error) {
+      FlashNotification.showError(error)
+    }
+
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
