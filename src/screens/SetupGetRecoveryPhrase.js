@@ -243,7 +243,7 @@ class SetupGetRecoveryPhrase extends Component {
           if (encryptionPassword) {
             try {
               await UserData.loadData(user)
-              marketPrice = await OrderNodeAPI.getMarketPrice()
+              marketPrice = await OrderAPI.getMarketPrice()
             } catch (error) {
               FlashNotification.showError(error.message)
             }

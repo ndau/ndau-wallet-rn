@@ -28,7 +28,7 @@ import {
 } from '../components/SetupProgressBar'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
-import OrderNodeAPI from '../api/OrderNodeAPI'
+import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
@@ -37,7 +37,7 @@ import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinn
 const NDAU = require('img/ndau_multi_large_1024.png')
 
 class Passphrase extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -56,27 +56,30 @@ class Passphrase extends Component {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
         let marketPrice = 0
         if (user) {
+          FlashNotification.hideMessage()
+
           console.log(
             `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
           )
 
           // cache the password
           await AsyncStorageHelper.setApplicationPassword(this.state.password)
+          let errorMessage = null
 
           try {
             await UserData.loadData(user)
-            marketPrice = await OrderNodeAPI.getMarketPrice()
+            marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
-            FlashNotification.showError(error.message, false, false)
-            return
+            console.warn(error)
+            errorMessage = error.message
           }
 
-          FlashNotification.hideMessage()
           this.setState({ spinner: false }, () => {
             this.props.navigation.navigate('Dashboard', {
               user,
               encryptionPassword: this.state.password,
-              marketPrice
+              marketPrice,
+              error: errorMessage
             })
           })
         } else {
@@ -91,7 +94,7 @@ class Passphrase extends Component {
     })
   }
 
-  showExitApp () {
+  showExitApp() {
     Alert.alert(
       '',
       `You have hit the maximum amount of login attempts.`,
@@ -113,7 +116,7 @@ class Passphrase extends Component {
     }
     FlashNotification.showError(
       `Login attempt ${this.state.loginAttempt} of ${
-        this.maxLoginAttempts
+      this.maxLoginAttempts
       } failed.`
     )
     this.setState({ loginAttempt: this.state.loginAttempt + 1 })
@@ -123,9 +126,9 @@ class Passphrase extends Component {
     Alert.alert(
       'Information',
       'Please enter the password you chose to encrypt this app. ' +
-        'This is not the same thing as your six-character ID or key ' +
-        'recovery phrase.',
-      [{ text: 'OK', onPress: () => {} }],
+      'This is not the same thing as your six-character ID or key ' +
+      'recovery phrase.',
+      [{ text: 'OK', onPress: () => { } }],
       { cancelable: false }
     )
   }
@@ -152,7 +155,7 @@ class Passphrase extends Component {
     })
   }
 
-  render () {
+  render() {
     console.log(`rendering Passphrase`)
     const { textInputColor } = this.state
     return (
@@ -161,13 +164,13 @@ class Passphrase extends Component {
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
             <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-            <Padding top={2}>
+            <Padding top={1}>
               <View style={styles.imageView}>
                 <Image style={styles.image} source={NDAU} />
               </View>
             </Padding>
 
-            <Padding top={2}>
+            <Padding top={1}>
               <View style={{ flexDirection: 'row' }}>
                 <TextInput
                   style={{

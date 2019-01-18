@@ -1,4 +1,13 @@
-import ClaimTransaction from '../ClaimTransaction'
+import TransactionAPI from '../TransactionAPI'
+import data from '../data'
+import services from '../../api/services-dev.json'
+import ClaimTransaction from '../../transactions/ClaimTransaction'
+import MockHelper from '../../helpers/MockHelper'
+
+MockHelper.mockServiceDiscovery()
+MockHelper.mockAccountAPI()
+MockHelper.mockEaiRate()
+MockHelper.mockMarketPriceAPI()
 
 const user = {
   userId: 'TAC-3PY',
@@ -108,8 +117,11 @@ const user = {
     }
   }
 }
+fetch.resetMocks()
 
-test('creation of a claim transaction', async () => {
+test('prevalidate should return something back', async () => {
+  fetch.mockResponses([services], [data.testAddressData])
+
   const theClaimTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     ownership:
@@ -128,73 +140,11 @@ test('creation of a claim transaction', async () => {
     ],
     user.wallets.c79af3b6.keys
   )
-  const createdClaimTransaction = claimTransaction.create()
-  claimTransaction.sign(createdClaimTransaction, 'somethingIdonthaveyet')
-  expect(createdClaimTransaction).toEqual(theClaimTransaction)
-})
+  const claimTxToSend = claimTransaction.create()
+  claimTransaction.sign(claimTxToSend, 'somethingIdonthaveyet')
+  expect(claimTxToSend).toEqual(theClaimTransaction)
 
-test('claim fails if no validation keys', async () => {
-  const userNoValidationKeys = {
-    userId: 'fail',
-    wallets: { c79af3b6: { accounts: {} } }
-  }
+  const ndau = await TransactionAPI.prevalidate(claimTxToSend)
 
-  try {
-    const claimTransaction = new ClaimTransaction('something', 'something')
-    claimTransaction.create()
-    expect(false).toBe(true)
-  } catch (error) {
-    console.error(error)
-    expect(error.toString()).toEqual('Error: No validation keys present')
-  }
-})
-
-test('claim fails if no sequence', async () => {
-  const userNoValidationKeys = {
-    userId: 'fail',
-    wallets: {
-      c79af3b6: {
-        accounts: {
-          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb: {
-            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-            addressData: {},
-            ownershipKey: 'a0bb883b',
-            validationKeys: ['5a3b36e3', 'ea7ced47']
-          }
-        },
-        keys: {
-          '5a3b36e3': {
-            publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-            privateKey:
-              'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf5',
-            path: "/44'/20036'/2000/1",
-            derivedFromRoot: 'yes'
-          },
-          ea7ced47: {
-            publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h',
-            privateKey:
-              'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf6',
-            path: "/44'/20036'/2000/2",
-            derivedFromRoot: 'yes'
-          }
-        }
-      }
-    }
-  }
-
-  try {
-    const claimTransaction = new ClaimTransaction(
-      userNoValidationKeys.wallets.c79af3b6.accounts[
-        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      userNoValidationKeys.wallets.c79af3b6.keys
-    )
-    claimTransaction.create()
-    expect(false).toBe(true)
-  } catch (error) {
-    console.error(error)
-    expect(error.toString()).toEqual('Error: No sequence found in addressData')
-  }
+  expect(ndau).toBeDefined()
 })

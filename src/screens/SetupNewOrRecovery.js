@@ -71,7 +71,6 @@ class SetupNewOrRecovery extends Component {
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar navigation={this.props.navigation} />
             <View>
               <Text style={cssStyles.wizardText}>
                 How do you want to set up your wallet? Choose one of the options

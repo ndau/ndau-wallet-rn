@@ -107,7 +107,7 @@ public class KeyaddrManager extends ReactContextBaseJavaModule {
         try {
             Key theKey = Keyaddr.fromString(key);
 
-            promise.resolve(theKey.sign(message));
+            promise.resolve(theKey.sign(message).getSignature());
         } catch (Exception e) {
             promise.reject("problem getting ndauAddress", e.getLocalizedMessage());
         }

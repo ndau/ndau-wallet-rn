@@ -3,9 +3,13 @@ import MockAsyncStorage from 'mock-async-storage'
 import sinon from 'sinon'
 import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
 import data from '../../api/data'
-import NdauNodeAPI from '../../api/NdauNodeAPI'
 import services from '../../api/services-dev.json'
-import AppConstants from '../../AppConstants'
+import MockHelper from '../MockHelper'
+
+MockHelper.mockServiceDiscovery()
+MockHelper.mockAccountAPI()
+MockHelper.mockEaiRate()
+MockHelper.mockMarketPriceAPI()
 
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
@@ -14,9 +18,7 @@ const mock = () => {
 
 mock()
 
-fetch.resetMocks()
-
-jest.mock('../../api/NdauNodeAPI', () => {
+jest.mock('../../api/AccountAPI', () => {
   return {
     getAddressData: jest
       .fn()
@@ -207,13 +209,6 @@ for (let i = 0; i < 30; i++) {
 }
 
 test('checkRecoveryPhrase test', async () => {
-  fetch.mockResponses(
-    [services],
-    [data.testAddressData],
-    [services],
-    [data.testAddressData]
-  )
-
   const user = {
     userId: userId,
     wallets: {},

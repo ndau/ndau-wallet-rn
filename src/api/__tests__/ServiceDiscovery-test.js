@@ -1,17 +1,13 @@
 import ServiceDiscovery from '../ServiceDiscovery'
-import services from '../services-dev.json'
+import MockHelper from '../../helpers/MockHelper'
 
 describe('...testing ServiceDiscovery', () => {
-  beforeEach(() => {
-    fetch.resetMocks()
-  })
-
   test('getServiceNodeURL should return something back', async () => {
-    fetch.mockResponseOnce(services)
+    MockHelper.mockServiceDiscovery()
 
     const serverUrl = await ServiceDiscovery.getServiceNodeURL()
 
-    expect(serverUrl).toBeDefined()
-    expect(serverUrl.indexOf('devnet'))
+    // its testnet because that is what we pull in within MockHelper
+    expect(serverUrl).toEqual('testnet-0.api.ndau.tech')
   })
 })

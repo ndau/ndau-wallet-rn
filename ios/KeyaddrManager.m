@@ -120,7 +120,7 @@ RCT_REMAP_METHOD(toPublic,key:(NSString*)key resolver:(RCTPromiseResolveBlock)re
 RCT_REMAP_METHOD(ndauAddress,ndauAddr:(NSString*)key resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"toPublic call on %@", key);
+  RCTLogInfo(@"ndauAddress call on %@", key);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
   KeyaddrAddress *address = [keyAddrKey ndauAddress:error];
@@ -132,18 +132,19 @@ RCT_REMAP_METHOD(ndauAddress,ndauAddr:(NSString*)key resolver:(RCTPromiseResolve
   }
 }
 
-RCT_REMAP_METHOD(sign,key:(NSString*)key message:(NSString*)message resolver:(RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(sign,key:(NSString*)key msgstr:(NSString*)msgstr resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"toPublic call on %@", key);
+  RCTLogInfo(@"sign call with key:%@ and msgstr:%@", key, msgstr);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
-  KeyaddrSignature *sig = [keyAddrKey sign:message error:error];
+  KeyaddrSignature *sig = [keyAddrKey sign:msgstr error:error];
+  RCTLogInfo(@"sign call created signature %@", sig);
 
   if (error) {
     reject(@"no_events", @"Issue calling sign", *error);
   } else {
-    resolve(sig);
+    resolve([sig signature]);
   }
 }
 
