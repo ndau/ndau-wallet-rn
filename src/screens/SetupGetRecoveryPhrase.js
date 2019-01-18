@@ -295,7 +295,10 @@ class SetupGetRecoveryPhrase extends Component {
           textColor: '#f05123',
           confirmationError: true
         })
-        FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
+        FlashNotification.showError(
+          !error.message ? this.NOT_ON_BLOCKCHAIN_MESSAGE : error.message,
+          true
+        )
       }
       this.setState({ spinner: false })
     })

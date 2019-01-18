@@ -1,7 +1,7 @@
 import TransactionAPI from '../TransactionAPI'
 import data from '../data'
 import services from '../../api/services-dev.json'
-import ClaimTransaction from '../../transactions/ClaimTransaction'
+import Transaction from '../../transactions/Transaction'
 
 const user = {
   userId: 'TAC-3PY',
@@ -114,7 +114,7 @@ const user = {
 fetch.resetMocks()
 
 test('prevalidate should return something back', async () => {
-  fetch.mockResponses([services], [data.testAddressData])
+  fetch.mockResponses([services], [data.claimAccountTxRes])
 
   const theClaimTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
@@ -124,21 +124,20 @@ test('prevalidate should return something back', async () => {
       'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
       'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
     ],
-    sequence: 3830689465,
-    signature: 'somethingIdonthaveyet'
+    sequence: 3830689465
   }
 
-  const claimTransaction = new ClaimTransaction(
+  const claimTransaction = new Transaction(
+    user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
     ],
-    user.wallets.c79af3b6.keys
+    Transaction.CLAIM_ACCOUNT
   )
-  const claimTxToSend = claimTransaction.create()
-  claimTransaction.sign(claimTxToSend, 'somethingIdonthaveyet')
+  const claimTxToSend = await claimTransaction.create()
   expect(claimTxToSend).toEqual(theClaimTransaction)
 
-  const ndau = await TransactionAPI.prevalidate(claimTxToSend)
+  const ndau = await claimTransaction.prevalidate()
 
   expect(ndau).toBeDefined()
 })

@@ -75,6 +75,7 @@
     "react-native-flash-message": "0.1.10",
     "react-native-loading-spinner-overlay": "1.0.1",
     "react-native-modal-dropdown": "0.6.2",
+    "react-native-permissions": "^1.1.1",
     "react-native-qrcode": "0.2.7",
     "react-native-remote-svg": "1.4.0",
     "react-native-responsive-screen": "1.2.0",

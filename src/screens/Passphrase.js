@@ -68,6 +68,7 @@ class Passphrase extends Component {
             marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
             FlashNotification.showError(error.message, false, false)
+            this.setState({ spinner: false })
             return
           }
 
