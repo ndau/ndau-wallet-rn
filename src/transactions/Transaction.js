@@ -15,6 +15,7 @@ class Transaction {
     this._type = type
     this._jsonTransaction = {}
     this._submitAddress = ''
+    this._prevalidateAddress = ''
 
     if (!this._wallet || !this._account || !this._type) {
       throw new Error('You must pass wallet, account and type')
@@ -23,6 +24,13 @@ class Transaction {
 
   _createSubmissionAddress = async () => {
     this._submitAddress =
+      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
+      '/' +
+      this._type
+  }
+
+  _createPrevalidateAddress = async () => {
+    this._prevalidateAddress =
       (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
       '/' +
       this._type
@@ -33,7 +41,8 @@ class Transaction {
    */
   create = async () => {
     try {
-      // Create the submission address
+      // Create the prevalidate and submission addresses
+      await this._createPrevalidateAddress()
       await this._createSubmissionAddress()
 
       // ok...if we got here we can assume we do NOT have a validation
@@ -130,7 +139,7 @@ class Transaction {
   prevalidate = async () => {
     try {
       const response = await TransactionAPI.prevalidate(
-        this._submitAddress,
+        this._prevalidateAddress,
         this._jsonTransaction
       )
       if (response.err) {

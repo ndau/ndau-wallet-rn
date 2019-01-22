@@ -19,7 +19,7 @@ class ModalDialog extends Component {
       >
         <View style={[styles.outerView, this.props.outerViewStyle]}>
           <View style={[styles.innerView, this.props.innerViewStyle]}>
-            <Padding>
+            <Padding top={0.5}>
               <TouchableHighlight onPress={this.props.closeModal}>
                 <FontAwesome5Pro
                   style={styles.closeButton}
@@ -52,7 +52,7 @@ var styles = StyleSheet.create({
     height: hp('70%'),
     paddingLeft: wp('3%'),
     paddingRight: wp('3%'),
-    marginTop: hp('10%')
+    marginTop: hp('20%')
   },
   closeButton: {}
 })

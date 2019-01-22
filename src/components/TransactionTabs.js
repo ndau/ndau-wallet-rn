@@ -65,7 +65,7 @@ class Receive extends Component {
           </View>
         </Padding>
 
-        <Padding bottom={0}>
+        <Padding top={0}>
           <Text style={styles.address}>{this.props.address}</Text>
         </Padding>
 
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   address: {
     color: '#ffffff',
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: 'TitilliumWeb-Regular'
   }
 })

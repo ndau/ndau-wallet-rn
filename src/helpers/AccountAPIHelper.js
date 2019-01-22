@@ -81,7 +81,7 @@ const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
     await transaction.create()
     await transaction.sign()
     await transaction.prevalidate()
-    // await transaction.submit()
+    await transaction.submit()
   }
 }
 
