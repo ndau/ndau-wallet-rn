@@ -10,7 +10,6 @@ const AWS_S3_SERVICE_JSON_DEV =
   'https://s3.us-east-2.amazonaws.com/ndau-json/services-dev.json'
 
 const getServiceNodeURL = async () => {
-  // return new Promise(async (resolve, reject) => {
   let url = AWS_S3_SERVICE_JSON_PROD
   if (await AsyncStorageHelper.isTestNet()) {
     url = AWS_S3_SERVICE_JSON_TEST

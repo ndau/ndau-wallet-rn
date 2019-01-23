@@ -1,56 +1,25 @@
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
+import APICommunicationHelper from '../helpers/APICommunicationHelper'
 
-const prevalidate = async transaction => {
-  const submitAddress = await APIAddressHelper.getTransactionPrevalidateAPIAddress()
-
-  const dataToSend = { data: transaction }
-  console.log(`Sending ${JSON.stringify(dataToSend)} to ${submitAddress}`)
-
-  const response = await fetch(submitAddress, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataToSend)
-  })
-  if (response.status !== 200) {
-    const body = await response.json()
-    throw new BlockchainAPIError(body.msg)
+const _postTransaction = async (submitAddress, transaction) => {
+  try {
+    return await APICommunicationHelper.post(
+      submitAddress,
+      JSON.stringify(transaction)
+    )
+  } catch (error) {
+    console.warn(error)
+    throw new BlockchainAPIError()
   }
-  let responseBody = response.body
-  if (!responseBody) {
-    responseBody = await response.json()
-  }
-  console.debug(
-    `prevalidate response: ${JSON.stringify(responseBody, null, 2)}`
-  )
-  return responseBody
 }
 
-const submit = async transaction => {
-  const submitAddress = await APIAddressHelper.getTransactionSubmitAPIAddress()
+const prevalidate = async (submitAddress, transaction) => {
+  return await _postTransaction(submitAddress, transaction)
+}
 
-  const dataToSend = { data: transaction }
-  console.log(`Sending ${JSON.stringify(dataToSend)} to ${submitAddress}`)
-
-  const response = await fetch(submitAddress, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataToSend)
-  })
-  if (response.status !== 200) {
-    const body = await response.json()
-    throw new BlockchainAPIError(body.msg)
-  }
-  let responseBody = response.body
-  if (!responseBody) {
-    responseBody = await response.json()
-  }
-  console.debug(`submit response: ${JSON.stringify(responseBody, null, 2)}`)
-  return responseBody
+const submit = async (submitAddress, transaction) => {
+  return await _postTransaction(submitAddress, transaction)
 }
 
 export default {

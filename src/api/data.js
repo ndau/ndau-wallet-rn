@@ -366,10 +366,15 @@ const nodeStatus = {
   }
 }
 
+const claimAccountTxRes = {
+  fee_napu: 0
+}
+
 export default {
   testAddressData,
   testMarketPrice,
   testUser,
   eaiPercentageResponse,
-  nodeStatus
+  nodeStatus,
+  claimAccountTxRes
 }

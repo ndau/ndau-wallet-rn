@@ -5,7 +5,8 @@ import APICommunicationHelper from '../helpers/APICommunicationHelper'
 const getMarketPrice = async () => {
   const marketPriceAPI = await APIAddressHelper.getMarketPriceAPIAddress()
   try {
-    return APICommunicationHelper.get(marketPriceAPI)
+    const data = await APICommunicationHelper.get(marketPriceAPI)
+    return data.marketPrice
   } catch (error) {
     console.warn(error)
     throw new BlockchainAPIError()

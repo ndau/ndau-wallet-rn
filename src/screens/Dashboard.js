@@ -40,7 +40,7 @@ const TRANSACTION_MODAL_ID = 'transaction'
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
 class Dashboard extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -164,7 +164,9 @@ class Dashboard extends Component {
 
   render = () => {
     try {
-      const accounts = DataFormatHelper.getObjectWithAllAccounts(this.state.user)
+      const accounts = DataFormatHelper.getObjectWithAllAccounts(
+        this.state.user
+      )
       if (!accounts) {
         return <SafeAreaView style={cssStyles.safeContainer} />
       }
@@ -229,7 +231,7 @@ class Dashboard extends Component {
                     ]}
                   >
                     TestNet
-                </Text>
+                  </Text>
                 ) : null}
                 <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
               </View>
@@ -264,9 +266,9 @@ class Dashboard extends Component {
                   <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
                     {' '}
                     at current price
+                  </Text>
                 </Text>
-                </Text>
-                <CommonButton top={0.8} onPress={this.buy} title={`Buy ndau`} />
+                {/* <CommonButton top={0.8} onPress={this.buy} title={`Buy ndau`} /> */}
                 <View style={cssStyles.dashboardSmallTextContainer}>
                   <View
                     style={{
@@ -277,7 +279,7 @@ class Dashboard extends Component {
                   >
                     <Text style={cssStyles.dashboardTextSmallGreen}>
                       {numberOfAccounts} account
-                        {numberOfAccounts !== 1 && 's'}
+                      {numberOfAccounts !== 1 && 's'}
                     </Text>
                     <TouchableOpacity
                       style={{ marginLeft: wp('1.5%') }}
@@ -388,15 +390,14 @@ class Dashboard extends Component {
                     The estimated value of ndau in US dollars can be calculated
                     using the Target Price at which new ndau have most recently
                     been issued. The value shown here is calculated using that
-                  method as of the issue price on {DateHelper.getTodaysDate()}.
-                            The Axiom Foundation, creator and issuer of ndau, bears no
-                            responsibility or liability for the calculation of that
-                            estimated value, or for decisions based on that estimated
-                            value.
-                </Text>
+                    method as of the issue price on {DateHelper.getTodaysDate()}
+                    . The Axiom Foundation, creator and issuer of ndau, bears no
+                    responsibility or liability for the calculation of that
+                    estimated value, or for decisions based on that estimated
+                    value.
+                  </Text>
                 </View>
               </Padding>
-
             </ScrollView>
           </View>
         </SafeAreaView>

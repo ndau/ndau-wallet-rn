@@ -37,7 +37,7 @@ import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinn
 const NDAU = require('img/ndau_multi_large_1024.png')
 
 class Passphrase extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -70,6 +70,7 @@ class Passphrase extends Component {
             await UserData.loadData(user)
             marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
+            FlashNotification.showError(error.message, false, false)
             console.warn(error)
             errorMessage = error.message
           }
@@ -94,7 +95,7 @@ class Passphrase extends Component {
     })
   }
 
-  showExitApp() {
+  showExitApp () {
     Alert.alert(
       '',
       `You have hit the maximum amount of login attempts.`,
@@ -116,7 +117,7 @@ class Passphrase extends Component {
     }
     FlashNotification.showError(
       `Login attempt ${this.state.loginAttempt} of ${
-      this.maxLoginAttempts
+        this.maxLoginAttempts
       } failed.`
     )
     this.setState({ loginAttempt: this.state.loginAttempt + 1 })
@@ -126,9 +127,9 @@ class Passphrase extends Component {
     Alert.alert(
       'Information',
       'Please enter the password you chose to encrypt this app. ' +
-      'This is not the same thing as your six-character ID or key ' +
-      'recovery phrase.',
-      [{ text: 'OK', onPress: () => { } }],
+        'This is not the same thing as your six-character ID or key ' +
+        'recovery phrase.',
+      [{ text: 'OK', onPress: () => {} }],
       { cancelable: false }
     )
   }
@@ -155,7 +156,7 @@ class Passphrase extends Component {
     })
   }
 
-  render() {
+  render () {
     console.log(`rendering Passphrase`)
     const { textInputColor } = this.state
     return (
