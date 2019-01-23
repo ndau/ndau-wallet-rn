@@ -49,7 +49,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#333333',
     borderRadius: 3,
     width: wp('90%'),
-    height: hp('70%'),
+    height: hp('60%'),
     paddingLeft: wp('3%'),
     paddingRight: wp('3%'),
     marginTop: hp('20%')

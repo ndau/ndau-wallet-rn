@@ -1,11 +1,32 @@
 import Transaction from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
+import { NativeModules } from 'react-native'
+import MockAsyncStorage from 'mock-async-storage'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
 MockHelper.mockClaimAccountTx()
+
+jest.mock('NativeModules', () => {
+  return {
+    KeyaddrManager: {
+      sign: jest.fn().mockRejectedValue(new Error('testing sign error'))
+    }
+  }
+})
+
+const mock = () => {
+  const mockImpl = new MockAsyncStorage()
+  jest.mock('AsyncStorage', () => mockImpl)
+}
+
+mock()
+
+jest.mock('../../api/TransactionAPI', {
+  prevalidate: jest.fn().mockReturnValue({ err: 'error being sent' })
+})
 
 const user = {
   userId: 'TAC-3PY',
@@ -187,5 +208,92 @@ test('claim fails if no sequence', async () => {
   } catch (error) {
     console.error(error)
     expect(error.toString()).toEqual('Error: No sequence found in addressData')
+  }
+})
+
+test('failure of any transaction around sign', async () => {
+  const theClaimTransaction = {
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    ownership:
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
+    validation_keys: [
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
+    ],
+    sequence: 3830689465
+  }
+
+  try {
+    const claimTransaction = new Transaction(
+      user.wallets.c79af3b6,
+      user.wallets.c79af3b6.accounts[
+        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+      ],
+      Transaction.CLAIM_ACCOUNT
+    )
+    const createdClaimTransaction = await claimTransaction.create()
+    expect(createdClaimTransaction).toEqual(theClaimTransaction)
+    await claimTransaction.sign()
+  } catch (error) {
+    console.error(error)
+    expect(error.toString()).toEqual('Error: testing sign error')
+  }
+})
+
+test('failure of any transaction around prevalidate', async () => {
+  const theClaimTransaction = {
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    ownership:
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
+    validation_keys: [
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
+    ],
+    sequence: 3830689465
+  }
+
+  try {
+    const claimTransaction = new Transaction(
+      user.wallets.c79af3b6,
+      user.wallets.c79af3b6.accounts[
+        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+      ],
+      Transaction.CLAIM_ACCOUNT
+    )
+    const createdClaimTransaction = await claimTransaction.create()
+    expect(createdClaimTransaction).toEqual(theClaimTransaction)
+    await claimTransaction.prevalidate()
+  } catch (error) {
+    console.error(error)
+    expect(error.toString()).toEqual('Error: error being sent')
+  }
+})
+
+test('failure of any transaction around submit', async () => {
+  const theClaimTransaction = {
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    ownership:
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
+    validation_keys: [
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
+    ],
+    sequence: 3830689465
+  }
+
+  try {
+    const claimTransaction = new Transaction(
+      user.wallets.c79af3b6,
+      user.wallets.c79af3b6.accounts[
+        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+      ],
+      Transaction.CLAIM_ACCOUNT
+    )
+    const createdClaimTransaction = await claimTransaction.create()
+    expect(createdClaimTransaction).toEqual(theClaimTransaction)
+    await claimTransaction.submit()
+  } catch (error) {
+    console.error(error)
+    expect(error.toString()).toEqual('Error: error being sent')
   }
 })

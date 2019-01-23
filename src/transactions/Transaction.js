@@ -91,7 +91,7 @@ class Transaction {
   }
 
   /**
-   * Sign the transaction for prevalidation and submission. You mush
+   * Sign the transaction for prevalidation and submission. You must
    * call `create` first before you call this method.
    */
   sign = async () => {
@@ -128,13 +128,14 @@ class Transaction {
           this._account.addressData.nickname
         }`
       )
+      throw new Error(error.message)
     }
   }
 
   /**
    * Send this transaction to the blockchain to see if all is well.
-   * You must first call create and sign before you call this. If all
-   * is well you can then call submit.
+   * You must first call `create` and `sign` before you call this. If all
+   * is well you can then call `submit`.
    */
   prevalidate = async () => {
     try {
@@ -149,6 +150,7 @@ class Transaction {
             this._account.addressData.nickname
           }`
         )
+        throw new Error(response.err)
       } else {
         return response
       }
@@ -159,6 +161,7 @@ class Transaction {
           this._account.addressData.nickname
         }`
       )
+      throw new Error(error.message)
     }
   }
 
@@ -180,6 +183,7 @@ class Transaction {
             this._account.addressData.nickname
           }`
         )
+        throw new Error(response.err)
       } else {
         return response
       }
@@ -190,6 +194,7 @@ class Transaction {
           this._account.addressData.nickname
         }`
       )
+      throw new Error(error.message)
     }
   }
 }
