@@ -35,26 +35,27 @@ const day = 24 * 60 * 60 * sec
 // ISO-8601 strings but give them a fixed interpretation.
 // 1m is 1 month, t1m is 1 minute. 1y2m3dt4h5m6s7us covers everything
 // see the test file for more examples.
-const durations = {
-  yr: { pat: '((?<yr>[0-9]+)y)?', dur: 365 * day },
-  mon: { pat: '((?<mon>[0-9]+)m)?', dur: 30 * day },
-  day: { pat: '((?<day>[0-9]+)d)?', dur: day },
-  hr: { pat: '((?<hr>[0-9]+)h)?', dur: 60 * 60 * sec },
-  min: { pat: '((?<min>[0-9]+)m)?', dur: 60 * sec },
-  sec: { pat: '((?<sec>[0-9]+)s)?', dur: sec },
-  usec: { pat: '((?<usec>[0-9]+)us?)?', dur: 1 }
-}
-// match elements that look like a number followed by some letters
+const durations = [
+  {}, // 0th element just so that the pattern number and the position in the array match
+  { pat: '(?:([0-9]+)y)?', dur: 365 * day },
+  { pat: '(?:([0-9]+)m)?', dur: 30 * day },
+  { pat: '(?:([0-9]+)d)?', dur: day },
+  { pat: '(?:([0-9]+)h)?', dur: 60 * 60 * sec },
+  { pat: '(?:([0-9]+)m)?', dur: 60 * sec },
+  { pat: '(?:([0-9]+)s)?', dur: sec },
+  { pat: '(?:([0-9]+)us?)?', dur: 1 }
+]
+// now build the regexp out of the pieces
 const pat = new RegExp(
   'p?' +
-    durations.yr.pat +
-    durations.mon.pat +
-    durations.day.pat +
-    '(t' +
-    durations.hr.pat +
-    durations.min.pat +
-    durations.sec.pat +
-    durations.usec.pat +
+    durations[1].pat +
+    durations[2].pat +
+    durations[3].pat +
+    '(?:t' +
+    durations[4].pat +
+    durations[5].pat +
+    durations[6].pat +
+    durations[7].pat +
     ')?'
 )
 
@@ -65,10 +66,11 @@ const parseDurationToMicroseconds = dur => {
   if (!match) {
     return 0
   }
+  // iterate through the matches looking for ones with data in them
   var t = 0
-  for (var k in match.groups) {
-    if (match.groups[k]) {
-      t = t + parseInt(match.groups[k]) * durations[k].dur
+  for (var k = 1; k < match.length; k++) {
+    if (match[k]) {
+      t = t + parseInt(match[k]) * durations[k].dur
     }
   }
   return t
