@@ -81,7 +81,7 @@ test('make sure we can get the locked until date of ndau per account', async () 
       wallet.accounts['ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55']
         .addressData
     )
-  ).toContain('/')
+  ).toContain(' ')
 })
 
 test('make sure we can get the total amount of ndau for accounts', async () => {

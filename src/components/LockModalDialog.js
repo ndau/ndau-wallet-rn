@@ -28,20 +28,22 @@ class LockModalDialog extends Component {
 
   _lock = async () => {
     if (!this._wallet && !this._account) {
-      return
+      console.warn('wallet and account are falsey in lock and should not be')
+    } else {
+      const transaction = new Transaction(
+        this._wallet,
+        this._account,
+        Transaction.LOCK,
+        this.state.period
+      )
+      await transaction.create()
+      await transaction.sign()
+      await transaction.prevalidate()
+      await transaction.submit()
     }
-    const transaction = new Transaction(
-      this._wallet,
-      this._account,
-      'Lock',
-      this.state.period
-    )
-    await transaction.create()
-    await transaction.sign()
-    await transaction.prevalidate()
-    await transaction.submit()
 
     this.closeModal()
+    this.props.refresh()
   }
 
   showModal = () => {

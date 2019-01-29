@@ -12,7 +12,6 @@ import NumberPicker from './NumberPicker'
 
 class NewAccountModalDialog extends Component {
   addNewAccount = () => {
-    this.props.setModalVisible(false)
     this.props.addNewAccount()
     this.closeModal()
   }

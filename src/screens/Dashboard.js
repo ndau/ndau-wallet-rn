@@ -85,6 +85,8 @@ class Dashboard extends Component {
   }
 
   unlock = (wallet, account) => {
+    this._unlockModalDialog.setWallet(wallet)
+    this._unlockModalDialog.setAccount(account)
     this._unlockModalDialog.showModal()
   }
 
@@ -170,9 +172,11 @@ class Dashboard extends Component {
         <SafeAreaView style={cssStyles.safeContainer}>
           <UnlockModalDialog
             ref={component => (this._unlockModalDialog = component)}
+            refresh={this._onRefresh}
           />
           <LockModalDialog
             ref={component => (this._lockModalDialog = component)}
+            refresh={this._onRefresh}
           />
           <NewAccountModalDialog
             number={this.state.number}

@@ -8,10 +8,34 @@ import {
 import ModalDialog from './ModalDialog'
 import CommonButton from '../components/CommonButton'
 import cssStyles from '../css/styles'
+import Transaction from '../transactions/Transaction'
 
 class UnlockModalDialog extends Component {
-  _unlock = () => {
+  _unlock = async () => {
+    if (!this._wallet && !this._account) {
+      console.warn('wallet and account are falsey in unlock and should not be')
+    } else {
+      const transaction = new Transaction(
+        this._wallet,
+        this._account,
+        Transaction.NOTIFY
+      )
+      await transaction.create()
+      await transaction.sign()
+      await transaction.prevalidate()
+      await transaction.submit()
+    }
+
     this.closeModal()
+    this.props.refresh()
+  }
+
+  setWallet = wallet => {
+    this._wallet = wallet
+  }
+
+  setAccount = account => {
+    this._account = account
   }
 
   showModal = () => {
