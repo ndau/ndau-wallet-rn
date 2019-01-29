@@ -7,7 +7,7 @@ const mock = new MockAdapter(axios)
 
 const mockServiceDiscovery = () => {
   mock
-    .onGet('https://s3.us-east-2.amazonaws.com/ndau-json/services-prod.json')
+    .onGet('https://s3.us-east-2.amazonaws.com/ndau-json/services-test.json')
     .reply(200, services)
 }
 
