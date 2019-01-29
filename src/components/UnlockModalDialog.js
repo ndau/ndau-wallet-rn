@@ -10,23 +10,35 @@ import CommonButton from '../components/CommonButton'
 import cssStyles from '../css/styles'
 
 class UnlockModalDialog extends Component {
-  unlock = () => {
-    this.props.setModalVisible(false)
+  _unlock = () => {
+    this.closeModal()
+  }
+
+  showModal = () => {
+    this._modalDialog.showModal()
+  }
+
+  closeModal = () => {
+    this._modalDialog.closeModal()
   }
 
   render () {
     return (
-      <ModalDialog {...this.props}>
+      <ModalDialog
+        ref={component => (this._modalDialog = component)}
+        {...this.props}
+      >
         <Text style={styles.text}>
-          Unlocking the account means you will be able to spend from it, but it will no longer
-          accrue on incentive (EAI). Are you sure you want to unlock?
+          Unlocking this account means you will be able to spend from it, but it
+          will no longer accrue an incentive (EAI). Are you sure you want to
+          unlock?
         </Text>
         <Text style={styles.text}>
-          Funds from this account till be available to you in 90 days. Until 90 days are up you will
-          not be able to add new ndau to this account.
+          Funds from this account till be available to you in 90 days. Until 90
+          days are up you will not be able to add new ndau to this account.
         </Text>
         <View style={cssStyles.footer}>
-          <CommonButton onPress={this.unlock} title='Start unlock countdown' />
+          <CommonButton onPress={this._unlock} title='Start unlock countdown' />
         </View>
       </ModalDialog>
     )

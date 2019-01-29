@@ -24,9 +24,20 @@ class TransactionModalDialog extends Component {
     )
   }
 
+  showModal = () => {
+    this._modalDialog.showModal()
+  }
+
+  closeModal = () => {
+    this._modalDialog.closeModal()
+  }
+
   render () {
     return (
-      <ModalDialog {...this.props}>
+      <ModalDialog
+        ref={component => (this._modalDialog = component)}
+        {...this.props}
+      >
         <View style={styles.container}>
           <Padding>
             <View style={{ alignSelf: 'center' }}>

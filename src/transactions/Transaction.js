@@ -7,12 +7,14 @@ import APIAddressHelper from '../helpers/APIAddressHelper'
 
 class Transaction {
   static CLAIM_ACCOUNT = 'ClaimAccount'
+  static LOCK = 'Lock'
 
-  constructor (wallet, account, type) {
+  constructor (wallet, account, type, period) {
     this._wallet = wallet
     this._account = account
     this._keys = wallet.keys
     this._type = type
+    this._period = period
     this._jsonTransaction = {}
     this._submitAddress = ''
     this._prevalidateAddress = ''
@@ -73,9 +75,18 @@ class Transaction {
       // blockchain directly
       this._jsonTransaction = {
         target: this._account.address,
-        ownership: this._keys[this._account.ownershipKey].publicKey,
-        validation_keys: validationKeys,
         sequence: this._account.addressData.sequence + 1
+      }
+
+      if (this._type === Transaction.CLAIM_ACCOUNT) {
+        this._jsonTransaction.ownership = this._keys[
+          this._account.ownershipKey
+        ].publicKey
+        this._jsonTransaction.validation_keys = validationKeys
+      }
+
+      if (this._period) {
+        this._jsonTransaction.period = this._period
       }
 
       return this._jsonTransaction
@@ -120,7 +131,11 @@ class Transaction {
       )
 
       console.debug(`signature from KeyaddrManager.sign is ${signature}`)
-      this._jsonTransaction.signature = signature
+      if (this._type === Transaction.CLAIM_ACCOUNT) {
+        this._jsonTransaction.signature = signature
+      } else {
+        this._jsonTransaction.signatures = [signature]
+      }
     } catch (error) {
       console.warn(`Error from blockchain: ${error.message}`)
       FlashNotification.showError(

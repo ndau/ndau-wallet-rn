@@ -14,7 +14,15 @@ class NewAccountModalDialog extends Component {
   addNewAccount = () => {
     this.props.setModalVisible(false)
     this.props.addNewAccount()
-    this.props.closeModal()
+    this.closeModal()
+  }
+
+  showModal = () => {
+    this._modalDialog.showModal()
+  }
+
+  closeModal = () => {
+    this._modalDialog.closeModal()
   }
 
   render () {
@@ -22,7 +30,11 @@ class NewAccountModalDialog extends Component {
       height: hp('40%')
     }
     return (
-      <ModalDialog innerViewStyle={innerViewStyle} {...this.props}>
+      <ModalDialog
+        ref={component => (this._modalDialog = component)}
+        innerViewStyle={innerViewStyle}
+        {...this.props}
+      >
         <Text style={styles.text}>
           How many new accounts would you like to add to your wallet?
         </Text>
