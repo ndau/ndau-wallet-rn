@@ -102,11 +102,6 @@ const getAccountEaiRateRequest = addressData => {
   return Object.keys(addressData).map(accountKey => {
     const account = addressData[accountKey]
     let weightedAverageAge = account.weightedAverageAge
-    if (!weightedAverageAge && account.lastWAAUpdate) {
-      weightedAverageAge =
-        weightedAverageAge +
-        (DateHelper.getMicrosecondsSinceNdauEpoch() - account.lastWAAUpdate)
-    }
     return {
       address: accountKey,
       weightedAverageAge,

@@ -35,10 +35,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
     )
     user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
   } else {
-    user = await KeyMaster.createFirstTimeUser(
-      recoveryPhraseBytes,
-      userId
-    )
+    user = await KeyMaster.createFirstTimeUser(recoveryPhraseBytes, userId)
   }
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
@@ -79,9 +76,7 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
 }
 
 const _checkRootAddresses = async recoveryPhraseBytes => {
-  const addresses = await KeyMaster.getRootAddresses(
-    recoveryPhraseBytes
-  )
+  const addresses = await KeyMaster.getRootAddresses(recoveryPhraseBytes)
   console.log(`_checkRootAddresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
   const accountData = await AccountAPI.getAddressData(addresses)
@@ -89,9 +84,7 @@ const _checkRootAddresses = async recoveryPhraseBytes => {
 }
 
 const _checkBIP44Addresses = async recoveryPhraseBytes => {
-  const addresses = await KeyMaster.getBIP44Addresses(
-    recoveryPhraseBytes
-  )
+  const addresses = await KeyMaster.getBIP44Addresses(recoveryPhraseBytes)
   console.log(`_checkBIP44Addresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
   const accountData = await AccountAPI.getAddressData(addresses)
