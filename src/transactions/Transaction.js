@@ -6,37 +6,18 @@ import FlashNotification from '../components/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 
 class Transaction {
-  static CLAIM_ACCOUNT = 'ClaimAccount'
-  static LOCK = 'Lock'
-  static NOTIFY = 'Notify'
-
-  constructor (wallet, account, type, period) {
+  constructor (wallet, account) {
     this._wallet = wallet
     this._account = account
+
     this._keys = wallet.keys
-    this._type = type
-    this._period = period
     this._jsonTransaction = {}
     this._submitAddress = ''
     this._prevalidateAddress = ''
 
-    if (!this._wallet || !this._account || !this._type) {
-      throw new Error('You must pass wallet, account and type')
+    if (!this._wallet || !this._account) {
+      throw new Error('You must pass wallet and account')
     }
-  }
-
-  _createSubmissionAddress = async () => {
-    this._submitAddress =
-      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
-      '/' +
-      this._type
-  }
-
-  _createPrevalidateAddress = async () => {
-    this._prevalidateAddress =
-      (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
-      '/' +
-      this._type
   }
 
   /**
@@ -45,8 +26,8 @@ class Transaction {
   create = async () => {
     try {
       // Create the prevalidate and submission addresses
-      await this._createPrevalidateAddress()
-      await this._createSubmissionAddress()
+      await this.createPrevalidateAddress()
+      await this.createSubmissionAddress()
 
       // ok...if we got here we can assume we do NOT have a validation
       // key, so we need that to call KeyaddrManager.sign...so create it
@@ -67,11 +48,6 @@ class Transaction {
         throw Error('No sequence found in addressData')
       }
 
-      const validationKeys = []
-      this._account.validationKeys.forEach(validationKeyHash => {
-        validationKeys.push(this._keys[validationKeyHash].publicKey)
-      })
-
       // SEQUENCE needs to be gotten from a utility/helper from
       // blockchain directly
       this._jsonTransaction = {
@@ -79,27 +55,22 @@ class Transaction {
         sequence: this._account.addressData.sequence + 1
       }
 
-      if (this._type === Transaction.CLAIM_ACCOUNT) {
-        this._jsonTransaction.ownership = this._keys[
-          this._account.ownershipKey
-        ].publicKey
-        this._jsonTransaction.validation_keys = validationKeys
-      }
-
-      if (this._period) {
-        this._jsonTransaction.period = this._period
-      }
+      this.addToJsonTransaction()
 
       return this._jsonTransaction
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred sending a ${this._type} transaction for ${
-          this._account.addressData.nickname
-        }`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
+  }
+
+  handleError = message => {
+    console.warn(`Error from blockchain: ${message}`)
+    FlashNotification.showError(
+      `Problem occurred sending a transaction for ${
+        this._account.addressData.nickname
+      }`
+    )
+    throw new Error(message)
   }
 
   /**
@@ -112,12 +83,7 @@ class Transaction {
       // the ONLY time we use the ownershipKey. Any subsequent/other
       // transactions use the validationKey within the account
       console.debug(`key to use for signature is ${this._keyToUse}`)
-      const privateKeyFromHash = KeyMaster.getPrivateKeyFromHash(
-        this._wallet,
-        this._type === Transaction.CLAIM_ACCOUNT
-          ? this._account.ownershipKey
-          : this._account.validationKeys[0]
-      )
+      const privateKeyFromHash = this.privateKeyForSigning()
 
       // Use the TxSignPrep to get it ready to send
       const preparedTransaction = new TxSignPrep().prepare(
@@ -132,20 +98,21 @@ class Transaction {
       )
 
       console.debug(`signature from KeyaddrManager.sign is ${signature}`)
-      if (this._type === Transaction.CLAIM_ACCOUNT) {
-        this._jsonTransaction.signature = signature
-      } else {
-        this._jsonTransaction.signatures = [signature]
-      }
+      this.addSignatureToJsonTransaction()
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred signing a ${this._type} transaction for ${
-          this._account.addressData.nickname
-        }`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
+  }
+
+  privateKeyForSigning = () => {
+    return KeyMaster.getPrivateKeyFromHash(
+      this._wallet,
+      this._account.validationKeys[0]
+    )
+  }
+
+  addSignatureToJsonTransaction = signature => {
+    this._jsonTransaction.signatures = [signature]
   }
 
   /**
@@ -160,24 +127,12 @@ class Transaction {
         this._jsonTransaction
       )
       if (response.err) {
-        console.warn(`Error from blockchain: ${response.err}`)
-        FlashNotification.showError(
-          `Problem occurred sending prevalidate for a ${
-            this._type
-          } transaction for ${this._account.addressData.nickname}`
-        )
-        throw new Error(response.err)
+        this.handleError(response.err)
       } else {
         return response
       }
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred sending prevalidate for a ${
-          this._type
-        } transaction for ${this._account.addressData.nickname}`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
   }
 
@@ -193,24 +148,12 @@ class Transaction {
         this._jsonTransaction
       )
       if (response.err) {
-        console.warn(`Error from blockchain: ${response.err}`)
-        FlashNotification.showError(
-          `Problem occurred sending submit for a ${
-            this._type
-          } transaction for ${this._account.addressData.nickname}`
-        )
-        throw new Error(response.err)
+        this.handleError(response.err)
       } else {
         return response
       }
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred sending submit for a ${this._type} transaction for ${
-          this._account.addressData.nickname
-        }`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
   }
 }

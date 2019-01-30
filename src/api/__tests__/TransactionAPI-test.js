@@ -2,7 +2,7 @@ import TransactionAPI from '../TransactionAPI'
 import data from '../data'
 import services from '../../api/services-dev.json'
 import MockHelper from '../../helpers/MockHelper'
-import Transaction from '../../transactions/Transaction'
+import ClaimTransaction from '../../transactions/ClaimTransaction'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
@@ -134,12 +134,11 @@ test('prevalidate should return something back', async () => {
     sequence: 3830689465
   }
 
-  const claimTransaction = new Transaction(
+  const claimTransaction = new ClaimTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-    ],
-    Transaction.CLAIM_ACCOUNT
+    ]
   )
   const claimTxToSend = await claimTransaction.create()
   expect(claimTxToSend).toEqual(theClaimTransaction)
