@@ -161,10 +161,11 @@ class Passphrase extends Component {
     const { textInputColor } = this.state
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
             <Padding top={1}>
               <View style={styles.imageView}>
                 <Image style={styles.image} source={NDAU} />

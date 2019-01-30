@@ -12,21 +12,30 @@ import Transaction from '../transactions/Transaction'
 
 class UnlockModalDialog extends Component {
   _unlock = async () => {
-    if (!this._wallet && !this._account) {
-      console.warn('wallet and account are falsey in unlock and should not be')
-    } else {
-      const transaction = new Transaction(
-        this._wallet,
-        this._account,
-        Transaction.NOTIFY
-      )
-      await transaction.create()
-      await transaction.sign()
-      await transaction.prevalidate()
-      await transaction.submit()
+    this.props.startSpinner()
+    this.closeModal()
+
+    try {
+      if (!this._wallet && !this._account) {
+        console.warn(
+          'wallet and account are falsey in unlock and should not be'
+        )
+      } else {
+        const transaction = new Transaction(
+          this._wallet,
+          this._account,
+          Transaction.NOTIFY
+        )
+        await transaction.create()
+        await transaction.sign()
+        await transaction.prevalidate()
+        await transaction.submit()
+      }
+    } catch (error) {
+      console.warn(error)
     }
 
-    this.closeModal()
+    this.props.stopSpinner()
     this.props.refresh()
   }
 

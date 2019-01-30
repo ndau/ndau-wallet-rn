@@ -32,6 +32,7 @@ import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import CommonButton from '../components/CommonButton'
+import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
@@ -44,7 +45,8 @@ class Dashboard extends Component {
       activeAddress: null,
       user: {},
       refreshing: false,
-      marketPrice: 0
+      marketPrice: 0,
+      spinner: false
     }
 
     this.isTestNet = false
@@ -94,6 +96,14 @@ class Dashboard extends Component {
     this._lockModalDialog.setWallet(wallet)
     this._lockModalDialog.setAccount(account)
     this._lockModalDialog.showModal()
+  }
+
+  stopSpinner = () => {
+    this.setState({ spinner: false })
+  }
+
+  startSpinner = () => {
+    this.setState({ spinner: true })
   }
 
   buy = () => {
@@ -173,10 +183,14 @@ class Dashboard extends Component {
           <UnlockModalDialog
             ref={component => (this._unlockModalDialog = component)}
             refresh={this._onRefresh}
+            stopSpinner={this.stopSpinner}
+            startSpinner={this.startSpinner}
           />
           <LockModalDialog
             ref={component => (this._lockModalDialog = component)}
             refresh={this._onRefresh}
+            stopSpinner={this.stopSpinner}
+            startSpinner={this.startSpinner}
           />
           <NewAccountModalDialog
             number={this.state.number}
@@ -189,6 +203,7 @@ class Dashboard extends Component {
             address={this.state.activeAddress || this.props.activeAddress}
             ref={component => (this._transactionModal = component)}
           />
+          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
 
           <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
           <View style={cssStyles.container}>
