@@ -32,11 +32,8 @@ import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import CommonButton from '../components/CommonButton'
+import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 
-const LOCK_MODAL_ID = 'lock'
-const UNLOCK_MODAL_ID = 'unlock'
-const NEW_ACCOUNT_MODAL_ID = 'newAccount'
-const TRANSACTION_MODAL_ID = 'transaction'
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
 class Dashboard extends Component {
@@ -44,12 +41,12 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      modalId: null,
       number: 1,
       activeAddress: null,
       user: {},
       refreshing: false,
-      marketPrice: 0
+      marketPrice: 0,
+      spinner: false
     }
 
     this.isTestNet = false
@@ -79,14 +76,6 @@ class Dashboard extends Component {
     }
   }
 
-  showModal = modalId => {
-    this.setState({ modalId })
-  }
-
-  closeModal = () => {
-    this.setState({ modalId: null })
-  }
-
   subtractNumber = () => {
     if (this.state.number > 1) {
       this.setState({ number: (this.state.number -= 1) })
@@ -97,18 +86,24 @@ class Dashboard extends Component {
     this.setState({ number: (this.state.number += 1) })
   }
 
-  unlock = () => {
-    // TODO: This is for issue #28 and #29 for MVP
-    // This is being commented out for now as we want the
-    // icons, but don't want the actual implementation yet
-    // this.setState({ unlockModalVisible: true });
+  unlock = (wallet, account) => {
+    this._unlockModalDialog.setWallet(wallet)
+    this._unlockModalDialog.setAccount(account)
+    this._unlockModalDialog.showModal()
   }
 
-  lock = () => {
-    // TODO: This is for issue #28 and #29 for MVP
-    // This is being commented out for now as we want the
-    // icons, but don't want the actual implementation yet
-    // this.setState({ lockModalVisible: true });
+  lock = (wallet, account) => {
+    this._lockModalDialog.setWallet(wallet)
+    this._lockModalDialog.setAccount(account)
+    this._lockModalDialog.showModal()
+  }
+
+  stopSpinner = () => {
+    this.setState({ spinner: false })
+  }
+
+  startSpinner = () => {
+    this.setState({ spinner: true })
   }
 
   buy = () => {
@@ -118,7 +113,7 @@ class Dashboard extends Component {
   }
 
   launchAddNewAccountDialog = () => {
-    this.showModal(NEW_ACCOUNT_MODAL_ID)
+    this._newAccountModal.showModal()
   }
 
   addNewAccount = async () => {
@@ -164,9 +159,9 @@ class Dashboard extends Component {
 
   render = () => {
     try {
-      const accounts = DataFormatHelper.getObjectWithAllAccounts(
-        this.state.user
-      )
+      const user = this.state.user
+      const wallet = Object.values(user.wallets)[0]
+      const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
       if (!accounts) {
         return <SafeAreaView style={cssStyles.safeContainer} />
       }
@@ -186,30 +181,29 @@ class Dashboard extends Component {
       return (
         <SafeAreaView style={cssStyles.safeContainer}>
           <UnlockModalDialog
-            visible={this.state.modalId === UNLOCK_MODAL_ID}
-            setModalVisible={() => this.showModal(UNLOCK_MODAL_ID)}
-            closeModal={this.closeModal}
+            ref={component => (this._unlockModalDialog = component)}
+            refresh={this._onRefresh}
+            stopSpinner={this.stopSpinner}
+            startSpinner={this.startSpinner}
           />
           <LockModalDialog
-            visible={this.state.modalId === LOCK_MODAL_ID}
-            setModalVisible={() => this.showModal(LOCK_MODAL_ID)}
-            closeModal={this.closeModal}
+            ref={component => (this._lockModalDialog = component)}
+            refresh={this._onRefresh}
+            stopSpinner={this.stopSpinner}
+            startSpinner={this.startSpinner}
           />
           <NewAccountModalDialog
             number={this.state.number}
             subtractNumber={this.subtractNumber}
             addNumber={this.addNumber}
             addNewAccount={this.addNewAccount}
-            visible={this.state.modalId === NEW_ACCOUNT_MODAL_ID}
-            setModalVisible={() => this.showModal(NEW_ACCOUNT_MODAL_ID)}
-            closeModal={this.closeModal}
+            ref={component => (this._newAccountModal = component)}
           />
           <TransactionModalDialog
-            visible={this.state.modalId === TRANSACTION_MODAL_ID}
-            setModalVisible={() => this.showModal(TRANSACTION_MODAL_ID)}
-            closeModal={this.closeModal}
             address={this.state.activeAddress || this.props.activeAddress}
+            ref={component => (this._transactionModal = component)}
           />
+          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
 
           <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
           <View style={cssStyles.container}>
@@ -350,6 +344,8 @@ class Dashboard extends Component {
                       <AccountCard
                         index={index}
                         nickname={nickname}
+                        wallet={wallet}
+                        account={account}
                         address={account.address}
                         eaiPercentage={eaiPercentage}
                         sendingEAITo={sendingEAITo}
@@ -367,9 +363,9 @@ class Dashboard extends Component {
                             this.state
                           )
                           this.setState({
-                            activeAddress: address,
-                            modalId: TRANSACTION_MODAL_ID
+                            activeAddress: address
                           })
+                          this._transactionModal.showModal()
                         }}
                         walletId={account.addressData.walletId}
                         expanded={index === 0}

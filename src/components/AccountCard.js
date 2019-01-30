@@ -17,6 +17,8 @@ class AccountCard extends Component {
     const {
       index,
       nickname,
+      wallet,
+      account,
       address,
       eaiPercentage,
       sendingEAITo,
@@ -80,7 +82,7 @@ class AccountCard extends Component {
 
         {totalNdau !== 0 && (
           <View style={[cssStyles.accountCardImageView]}>
-            <TouchableOpacity onPress={unlock}>
+            <TouchableOpacity onPress={() => unlock(wallet, account)}>
               {accountNoticePeriod ? (
                 <Image
                   style={{
@@ -92,7 +94,7 @@ class AccountCard extends Component {
                 />
               ) : null}
             </TouchableOpacity>
-            <TouchableOpacity onPress={lock}>
+            <TouchableOpacity onPress={() => lock(wallet, account)}>
               {accountNotLocked ? (
                 <Image
                   style={{

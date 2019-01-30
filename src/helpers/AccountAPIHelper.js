@@ -112,7 +112,7 @@ const accountLockedUntil = account => {
 
   const unlocksOn = account.lock ? account.lock.unlocksOn : null
   if (unlocksOn) {
-    return DateHelper.getDateFromMilliseconds(account.lock.unlocksOn)
+    return DateHelper.getDate(account.lock.unlocksOn)
   }
 
   return null
@@ -123,7 +123,8 @@ const accountNoticePeriod = account => {
 
   const noticePeriod = account.lock ? account.lock.noticePeriod : null
   if (noticePeriod) {
-    return DateHelper.getDaysFromMicroseconds(noticePeriod)
+    const duration = DateHelper.parseDurationToMicroseconds(noticePeriod)
+    return DateHelper.getDaysFromMicroseconds(duration)
   }
 
   return null

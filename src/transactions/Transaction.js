@@ -7,12 +7,15 @@ import APIAddressHelper from '../helpers/APIAddressHelper'
 
 class Transaction {
   static CLAIM_ACCOUNT = 'ClaimAccount'
+  static LOCK = 'Lock'
+  static NOTIFY = 'Notify'
 
-  constructor (wallet, account, type) {
+  constructor (wallet, account, type, period) {
     this._wallet = wallet
     this._account = account
     this._keys = wallet.keys
     this._type = type
+    this._period = period
     this._jsonTransaction = {}
     this._submitAddress = ''
     this._prevalidateAddress = ''
@@ -73,16 +76,25 @@ class Transaction {
       // blockchain directly
       this._jsonTransaction = {
         target: this._account.address,
-        ownership: this._keys[this._account.ownershipKey].publicKey,
-        validation_keys: validationKeys,
         sequence: this._account.addressData.sequence + 1
+      }
+
+      if (this._type === Transaction.CLAIM_ACCOUNT) {
+        this._jsonTransaction.ownership = this._keys[
+          this._account.ownershipKey
+        ].publicKey
+        this._jsonTransaction.validation_keys = validationKeys
+      }
+
+      if (this._period) {
+        this._jsonTransaction.period = this._period
       }
 
       return this._jsonTransaction
     } catch (error) {
       console.warn(`Error from blockchain: ${error.message}`)
       FlashNotification.showError(
-        `Problem occurred sending a claim transaction for ${
+        `Problem occurred sending a ${this._type} transaction for ${
           this._account.addressData.nickname
         }`
       )
@@ -113,18 +125,22 @@ class Transaction {
       )
       const base64EncodedPrepTx = preparedTransaction.b64encode()
 
-      // Get the signature to use in the claim transaction
+      // Get the signature to use in the transaction
       const signature = await NativeModules.KeyaddrManager.sign(
         privateKeyFromHash,
         base64EncodedPrepTx
       )
 
       console.debug(`signature from KeyaddrManager.sign is ${signature}`)
-      this._jsonTransaction.signature = signature
+      if (this._type === Transaction.CLAIM_ACCOUNT) {
+        this._jsonTransaction.signature = signature
+      } else {
+        this._jsonTransaction.signatures = [signature]
+      }
     } catch (error) {
       console.warn(`Error from blockchain: ${error.message}`)
       FlashNotification.showError(
-        `Problem occurred sending a claim transaction for ${
+        `Problem occurred signing a ${this._type} transaction for ${
           this._account.addressData.nickname
         }`
       )
@@ -146,9 +162,9 @@ class Transaction {
       if (response.err) {
         console.warn(`Error from blockchain: ${response.err}`)
         FlashNotification.showError(
-          `Problem occurred sending a claim transaction for ${
-            this._account.addressData.nickname
-          }`
+          `Problem occurred sending prevalidate for a ${
+            this._type
+          } transaction for ${this._account.addressData.nickname}`
         )
         throw new Error(response.err)
       } else {
@@ -157,9 +173,9 @@ class Transaction {
     } catch (error) {
       console.warn(`Error from blockchain: ${error.message}`)
       FlashNotification.showError(
-        `Problem occurred sending a claim transaction for ${
-          this._account.addressData.nickname
-        }`
+        `Problem occurred sending prevalidate for a ${
+          this._type
+        } transaction for ${this._account.addressData.nickname}`
       )
       throw new Error(error.message)
     }
@@ -179,9 +195,9 @@ class Transaction {
       if (response.err) {
         console.warn(`Error from blockchain: ${response.err}`)
         FlashNotification.showError(
-          `Problem occurred sending a claim transaction for ${
-            this._account.addressData.nickname
-          }`
+          `Problem occurred sending submit for a ${
+            this._type
+          } transaction for ${this._account.addressData.nickname}`
         )
         throw new Error(response.err)
       } else {
@@ -190,7 +206,7 @@ class Transaction {
     } catch (error) {
       console.warn(`Error from blockchain: ${error.message}`)
       FlashNotification.showError(
-        `Problem occurred sending a claim transaction for ${
+        `Problem occurred sending submit for a ${this._type} transaction for ${
           this._account.addressData.nickname
         }`
       )

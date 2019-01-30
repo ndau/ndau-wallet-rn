@@ -6,12 +6,69 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import ModalDialog from './ModalDialog'
+import CommonButton from '../components/CommonButton'
+import Transaction from '../transactions/Transaction'
 
 class LockModalDialog extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      period: '3m'
+    }
+  }
+
+  setWallet = wallet => {
+    this._wallet = wallet
+  }
+
+  setAccount = account => {
+    this._account = account
+  }
+
+  _lock = async () => {
+    this.props.startSpinner()
+    this.closeModal()
+
+    try {
+      if (!this._wallet && !this._account) {
+        console.warn('wallet and account are falsey in lock and should not be')
+      } else {
+        const transaction = new Transaction(
+          this._wallet,
+          this._account,
+          Transaction.LOCK,
+          this.state.period
+        )
+        await transaction.create()
+        await transaction.sign()
+        await transaction.prevalidate()
+        await transaction.submit()
+      }
+    } catch (error) {
+      console.warn(error)
+    }
+
+    this.props.stopSpinner()
+    this.props.refresh()
+  }
+
+  showModal = () => {
+    this._modalDialog.showModal()
+  }
+
+  closeModal = () => {
+    this._modalDialog.closeModal()
+  }
+
   render () {
     return (
-      <ModalDialog {...this.props}>
+      <ModalDialog
+        ref={component => (this._modalDialog = component)}
+        {...this.props}
+      >
         <Text style={styles.text}>This is lock dialog</Text>
+        <CommonButton title='Lock' onPress={this._lock} />
       </ModalDialog>
     )
   }

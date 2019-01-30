@@ -84,19 +84,20 @@ class CollapsiblePanel extends Component {
   }
 
   setMinHeight = event => {
-    this.setState({
-      minHeight: event.nativeEvent.layout.height
-    })
+    if (!this.state.minHeight) {
+      this.setState({
+        minHeight: event.nativeEvent.layout.height
+      })
+    }
   }
 
-  // componentDidMount() {
+  // componentDidMount () {
   //   if (!this.state.expanded) {
   //     this.toggle()
 
-  //     this.setState((state) => ({
-  //         animation: state.animation.setValue(state.minHeight || 10)
-  //       })
-  //     )
+  //     this.setState(state => ({
+  //       animation: state.animation.setValue(state.minHeight || 10)
+  //     }))
   //   }
   // }
 
@@ -129,7 +130,7 @@ class CollapsiblePanel extends Component {
                   }}
                 >
                   <Text style={styles.titleRight}>
-                    <Image
+                    {/* <Image
                       style={{
                         width: 10,
                         height: 15,
@@ -142,7 +143,7 @@ class CollapsiblePanel extends Component {
                       resizeMode='contain'
                       source={WHITE_NDAU}
                     />
-                    {'  '}
+                    {'  '} */}
                     {this.props.titleRight}
                   </Text>
                 </View>

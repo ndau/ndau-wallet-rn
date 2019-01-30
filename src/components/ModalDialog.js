@@ -9,18 +9,35 @@ import Padding from './Padding'
 import styleConstants from '../css/styleConstants'
 
 class ModalDialog extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      visible: false
+    }
+  }
+
+  showModal = () => {
+    this.setState({ visible: true })
+  }
+
+  closeModal = () => {
+    this.setState({ visible: false })
+  }
+
   render () {
     return (
       <Modal
         animationType='slide'
         transparent
         onRequestClose={() => {}}
+        visible={this.state.visible}
         {...this.props}
       >
         <View style={[styles.outerView, this.props.outerViewStyle]}>
           <View style={[styles.innerView, this.props.innerViewStyle]}>
             <Padding top={0.5}>
-              <TouchableHighlight onPress={this.props.closeModal}>
+              <TouchableHighlight onPress={this.closeModal}>
                 <FontAwesome5Pro
                   style={styles.closeButton}
                   name='times'

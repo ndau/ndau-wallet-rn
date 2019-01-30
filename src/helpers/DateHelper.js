@@ -1,10 +1,14 @@
 import moment from 'moment'
 import AppConstants from '../AppConstants'
 
-const DATE_FORMAT = 'MM/DD/YYYY'
+const DATE_FORMAT = 'DD MMM YYYY'
 
 const getTodaysDate = () => {
   return moment().format(DATE_FORMAT)
+}
+
+const getDate = date => {
+  return moment(date).format(DATE_FORMAT)
 }
 
 const getMicrosecondsSinceNdauEpoch = () => {
@@ -78,6 +82,7 @@ const parseDurationToMicroseconds = dur => {
 
 export default {
   getTodaysDate,
+  getDate,
   getDateFromMilliseconds,
   getDaysFromMicroseconds,
   getMicrosecondsSinceNdauEpoch,
