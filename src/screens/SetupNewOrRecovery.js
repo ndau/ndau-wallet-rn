@@ -20,6 +20,7 @@ import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase'
 import AppConstants from '../AppConstants'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import Padding from '../components/Padding'
 
 class SetupNewOrRecovery extends Component {
   constructor (props) {
@@ -71,12 +72,14 @@ class SetupNewOrRecovery extends Component {
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
         <View style={cssStyles.container}>
           <ScrollView style={cssStyles.contentContainer}>
-            <View>
-              <Text style={cssStyles.wizardText}>
-                How do you want to set up your wallet? Choose one of the options
-                below: {Platform.OS === 'android' ? '\n' : ''}
-              </Text>
-            </View>
+            <Padding>
+              <View>
+                <Text style={cssStyles.wizardText}>
+                  How do you want to set up your wallet? Choose one of the
+                  options below: {Platform.OS === 'android' ? '\n' : ''}
+                </Text>
+              </View>
+            </Padding>
           </ScrollView>
           <View style={cssStyles.footer}>
             <View style={cssStyles.navButtonWrapper}>
