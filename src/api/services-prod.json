@@ -1,9 +1,5 @@
 {
   "apinodes": [
-    "mainnet-0.api.ndau.tech",
-    "mainnet-1.api.ndau.tech",
-    "mainnet-2.api.ndau.tech",
-    "mainnet-3.api.ndau.tech",
-    "mainnet-4.api.ndau.tech"
+    "node-0.main.ndau.tech"
   ]
 }

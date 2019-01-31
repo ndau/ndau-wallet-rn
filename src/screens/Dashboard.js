@@ -87,17 +87,15 @@ class Dashboard extends Component {
   }
 
   unlock = (wallet, account) => {
-    // TODO this is pulled out for genesis
-    // this._unlockModalDialog.setWallet(wallet)
-    // this._unlockModalDialog.setAccount(account)
-    // this._unlockModalDialog.showModal()
+    this._unlockModalDialog.setWallet(wallet)
+    this._unlockModalDialog.setAccount(account)
+    this._unlockModalDialog.showModal()
   }
 
   lock = (wallet, account) => {
-    // TODO this is pulled out for genesis
-    // this._lockModalDialog.setWallet(wallet)
-    // this._lockModalDialog.setAccount(account)
-    // this._lockModalDialog.showModal()
+    this._lockModalDialog.setWallet(wallet)
+    this._lockModalDialog.setAccount(account)
+    this._lockModalDialog.showModal()
   }
 
   stopSpinner = () => {
