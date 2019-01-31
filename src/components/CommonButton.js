@@ -66,7 +66,6 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 3,
     height: hp('6%'),
-    paddingHorizontal: wp('2%'),
     backgroundColor: '#4e957a'
   }
 })
