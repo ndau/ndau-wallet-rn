@@ -138,6 +138,7 @@ class Dashboard extends Component {
   }
 
   _onRefresh = async () => {
+    FlashNotification.hideMessage()
     this.setState({ refreshing: true })
 
     const user = this.state.user
