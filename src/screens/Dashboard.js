@@ -33,6 +33,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import CommonButton from '../components/CommonButton'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import OfflineMessage from '../components/OfflineMessage'
 
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
@@ -396,6 +397,7 @@ class Dashboard extends Component {
               </Padding>
             </ScrollView>
           </View>
+          <OfflineMessage />
         </SafeAreaView>
       )
     } catch (error) {
