@@ -2,7 +2,6 @@ import React from 'react'
 import { YellowBox, View, NetInfo } from 'react-native'
 import AppNavigation from './navigation/AppNavigation'
 import FlashMessage from 'react-native-flash-message'
-import OfflineMessage from './components/OfflineMessage'
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
@@ -16,7 +15,6 @@ export default class App extends React.Component {
       <View style={{ flex: 1 }}>
         <AppNavigation />
         <FlashMessage position='top' />
-        <OfflineMessage />
       </View>
     )
   }
