@@ -1,4 +1,5 @@
-import ClaimTransaction from '../ClaimTransaction'
+import { ClaimTransaction } from '../ClaimTransaction'
+import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
 import MockAsyncStorage from 'mock-async-storage'
@@ -149,6 +150,8 @@ test('creation of a claim transaction', async () => {
     sequence: 3830689465
   }
 
+  Object.assign(ClaimTransaction.prototype, Transaction)
+
   const claimTransaction = new ClaimTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
@@ -195,6 +198,8 @@ test('claim fails if no sequence', async () => {
   }
 
   try {
+    Object.assign(ClaimTransaction.prototype, Transaction)
+
     const claimTransaction = new ClaimTransaction(
       userNoValidationKeys.wallets.c79af3b6,
       userNoValidationKeys.wallets.c79af3b6.accounts[
@@ -222,6 +227,8 @@ test('failure of any transaction around sign', async () => {
   }
 
   try {
+    Object.assign(ClaimTransaction.prototype, Transaction)
+
     const claimTransaction = new ClaimTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
@@ -250,6 +257,8 @@ test('failure of any transaction around prevalidate', async () => {
   }
 
   try {
+    Object.assign(ClaimTransaction.prototype, Transaction)
+
     const claimTransaction = new ClaimTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
@@ -278,6 +287,8 @@ test('failure of any transaction around submit', async () => {
   }
 
   try {
+    Object.assign(ClaimTransaction.prototype, Transaction)
+
     const claimTransaction = new ClaimTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[

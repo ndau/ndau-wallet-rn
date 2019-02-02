@@ -38,10 +38,30 @@ const mockClaimAccountTx = () => {
     .reply(200, data.claimAccountTxRes)
 }
 
+const mockLockTx = () => {
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/Lock')
+    .reply(200, data.lockTxRes)
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/submit/Lock')
+    .reply(200, data.lockTxRes)
+}
+
+const mockNotifyTx = () => {
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/Notify')
+    .reply(200, data.notifyTxRes)
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/submit/Notify')
+    .reply(200, data.notifyTxRes)
+}
+
 export default {
   mockServiceDiscovery,
   mockAccountAPI,
   mockMarketPriceAPI,
   mockEaiRate,
-  mockClaimAccountTx
+  mockClaimAccountTx,
+  mockLockTx,
+  mockNotifyTx
 }

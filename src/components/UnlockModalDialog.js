@@ -8,7 +8,8 @@ import {
 import ModalDialog from './ModalDialog'
 import CommonButton from '../components/CommonButton'
 import cssStyles from '../css/styles'
-import NotifyTransaction from '../transactions/NotifyTransaction'
+import { NotifyTransaction } from '../transactions/NotifyTransaction'
+import { Transaction } from '../transactions/Transaction'
 
 class UnlockModalDialog extends Component {
   _unlock = async () => {
@@ -21,6 +22,7 @@ class UnlockModalDialog extends Component {
           'wallet and account are falsey in unlock and should not be'
         )
       } else {
+        Object.assign(NotifyTransaction.prototype, Transaction)
         const notifyTransaction = new NotifyTransaction(
           this._wallet,
           this._account

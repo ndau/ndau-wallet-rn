@@ -1,34 +1,44 @@
-import Transaction from './Transaction'
 import FlashNotification from '../components/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import KeyMaster from '../helpers/KeyMaster'
 
-class LockTransaction extends Transaction {
-  static LOCK = 'Lock'
-
+export class LockTransaction {
   constructor (wallet, account, period) {
-    super(wallet, account)
+    this._wallet = wallet
+    this._account = account
     this._period = period
+
+    this._keys = wallet.keys
+    this._jsonTransaction = {}
+    this._submitAddress = ''
+    this._prevalidateAddress = ''
+
+    if (!this._wallet || !this._account) {
+      throw new Error('You must pass wallet and account')
+    }
+
+    this._period = period
+    this.LOCK = 'Lock'
   }
 
   createSubmissionAddress = async () => {
     this._submitAddress =
       (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
       '/' +
-      LockTransaction.LOCK
+      this.LOCK
   }
 
   createPrevalidateAddress = async () => {
     this._prevalidateAddress =
       (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
       '/' +
-      LockTransaction.LOCK
+      this.LOCK
   }
 
   handleError = message => {
     console.warn(`Error from blockchain: ${message}`)
     FlashNotification.showError(
-      `Problem occurred sending a ${LockTransaction.LOCK} transaction for ${
+      `Problem occurred sending a ${this.LOCK} transaction for ${
         this._account.addressData.nickname
       }`
     )
@@ -39,5 +49,3 @@ class LockTransaction extends Transaction {
     this._jsonTransaction.period = this._period
   }
 }
-
-export default LockTransaction

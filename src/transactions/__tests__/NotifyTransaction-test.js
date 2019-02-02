@@ -1,4 +1,4 @@
-import { LockTransaction } from '../LockTransaction'
+import { NotifyTransaction } from '../NotifyTransaction'
 import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
@@ -8,7 +8,7 @@ MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-MockHelper.mockLockTx()
+MockHelper.mockNotifyTx()
 
 jest.mock('NativeModules', () => {
   return {
@@ -138,27 +138,25 @@ const user = {
   }
 }
 
-test('creation of a lock transaction', async () => {
-  const theLockTransaction = {
-    period: '3m',
+test('creation of a notify transaction', async () => {
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     sequence: 3830689465
   }
 
-  Object.assign(LockTransaction.prototype, Transaction)
+  Object.assign(NotifyTransaction.prototype, Transaction)
 
-  const lockTransaction = new LockTransaction(
+  const notifyTransaction = new NotifyTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-    ],
-    '3m'
+    ]
   )
-  const createdLockTransaction = await lockTransaction.create()
-  expect(createdLockTransaction).toEqual(theLockTransaction)
+  const createdNotifyTransaction = await notifyTransaction.create()
+  expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
 })
 
-test('lock fails if no sequence', async () => {
+test('notify fails if no sequence', async () => {
   const userNoValidationKeys = {
     userId: 'fail',
     wallets: {
@@ -194,16 +192,15 @@ test('lock fails if no sequence', async () => {
   }
 
   try {
-    Object.assign(LockTransaction.prototype, Transaction)
+    Object.assign(NotifyTransaction.prototype, Transaction)
 
-    const lockTransaction = new LockTransaction(
+    const notifyTransaction = new NotifyTransaction(
       userNoValidationKeys.wallets.c79af3b6,
       userNoValidationKeys.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      '3m'
+      ]
     )
-    await lockTransaction.create()
+    await notifyTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
     console.error(error)
@@ -212,25 +209,23 @@ test('lock fails if no sequence', async () => {
 })
 
 test('failure of any transaction around sign', async () => {
-  const theLockTransaction = {
-    period: '5m',
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     sequence: 3830689465
   }
 
   try {
-    Object.assign(LockTransaction.prototype, Transaction)
+    Object.assign(NotifyTransaction.prototype, Transaction)
 
-    const lockTransaction = new LockTransaction(
+    const notifyTransaction = new NotifyTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      '5m'
+      ]
     )
-    const createdLockTransaction = await lockTransaction.create()
-    expect(createdLockTransaction).toEqual(theLockTransaction)
-    await lockTransaction.sign()
+    const createdNotifyTransaction = await notifyTransaction.create()
+    expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
+    await notifyTransaction.sign()
   } catch (error) {
     console.error(error)
     expect(error.toString()).toEqual('Error: testing sign error')
@@ -238,24 +233,22 @@ test('failure of any transaction around sign', async () => {
 })
 
 test('failure of any transaction around prevalidate', async () => {
-  const theLockTransaction = {
-    period: '12m',
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     sequence: 3830689465
   }
 
   try {
-    Object.assign(LockTransaction.prototype, Transaction)
-    const lockTransaction = new LockTransaction(
+    Object.assign(NotifyTransaction.prototype, Transaction)
+    const notifyTransaction = new NotifyTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      '12m'
+      ]
     )
-    const createdLockTransaction = await lockTransaction.create()
-    expect(createdLockTransaction).toEqual(theLockTransaction)
-    await lockTransaction.prevalidate()
+    const createdNotifyTransaction = await notifyTransaction.create()
+    expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
+    await notifyTransaction.prevalidate()
   } catch (error) {
     console.error(error)
     expect(error.toString()).toEqual('Error: error being sent')
@@ -263,24 +256,22 @@ test('failure of any transaction around prevalidate', async () => {
 })
 
 test('failure of any transaction around submit', async () => {
-  const theLockTransaction = {
-    period: '2m',
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     sequence: 3830689465
   }
 
   try {
-    Object.assign(LockTransaction.prototype, Transaction)
-    const lockTransaction = new LockTransaction(
+    Object.assign(NotifyTransaction.prototype, Transaction)
+    const notifyTransaction = new NotifyTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      '2m'
+      ]
     )
-    const createdLockTransaction = await lockTransaction.create()
-    expect(createdLockTransaction).toEqual(theLockTransaction)
-    await lockTransaction.submit()
+    const createdNotifyTransaction = await notifyTransaction.create()
+    expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
+    await notifyTransaction.submit()
   } catch (error) {
     console.error(error)
     expect(error.toString()).toEqual('Error: error being sent')

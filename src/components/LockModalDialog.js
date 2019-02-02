@@ -7,7 +7,8 @@ import {
 } from 'react-native-responsive-screen'
 import ModalDialog from './ModalDialog'
 import CommonButton from '../components/CommonButton'
-import LockTransaction from '../transactions/LockTransaction'
+import { LockTransaction } from '../transactions/LockTransaction'
+import { Transaction } from '../transactions/Transaction'
 
 class LockModalDialog extends Component {
   constructor (props) {
@@ -34,6 +35,7 @@ class LockModalDialog extends Component {
       if (!this._wallet && !this._account) {
         console.warn('wallet and account are falsey in lock and should not be')
       } else {
+        Object.assign(LockTransaction.prototype, Transaction)
         const lockTransaction = new LockTransaction(
           this._wallet,
           this._account,

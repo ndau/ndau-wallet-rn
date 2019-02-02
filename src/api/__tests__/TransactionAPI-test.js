@@ -2,7 +2,8 @@ import TransactionAPI from '../TransactionAPI'
 import data from '../data'
 import services from '../../api/services-dev.json'
 import MockHelper from '../../helpers/MockHelper'
-import ClaimTransaction from '../../transactions/ClaimTransaction'
+import { ClaimTransaction } from '../../transactions/ClaimTransaction'
+import { Transaction } from '../../transactions/Transaction'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
@@ -134,6 +135,7 @@ test('prevalidate should return something back', async () => {
     sequence: 3830689465
   }
 
+  Object.assign(ClaimTransaction.prototype, Transaction)
   const claimTransaction = new ClaimTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[

@@ -1,14 +1,22 @@
-import Transaction from './Transaction'
 import FlashNotification from '../components/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import KeyMaster from '../helpers/KeyMaster'
 
-class NotifyTransaction extends Transaction {
+export class NotifyTransaction {
   static NOTIFY = 'Notify'
 
-  constructor (wallet, account, period) {
-    super(wallet, account)
-    this._period = period
+  constructor (wallet, account) {
+    this._wallet = wallet
+    this._account = account
+
+    this._keys = wallet.keys
+    this._jsonTransaction = {}
+    this._submitAddress = ''
+    this._prevalidateAddress = ''
+
+    if (!this._wallet || !this._account) {
+      throw new Error('You must pass wallet and account')
+    }
   }
 
   createSubmissionAddress = async () => {
@@ -35,9 +43,5 @@ class NotifyTransaction extends Transaction {
     throw new Error(message)
   }
 
-  addToJsonTransaction = () => {
-    this._jsonTransaction.period = this._period
-  }
+  addToJsonTransaction = () => {}
 }
-
-export default NotifyTransaction

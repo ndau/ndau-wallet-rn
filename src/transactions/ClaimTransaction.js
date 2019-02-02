@@ -1,35 +1,44 @@
-import Transaction from './Transaction'
 import FlashNotification from '../components/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import KeyMaster from '../helpers/KeyMaster'
 
-class ClaimTransaction extends Transaction {
-  static CLAIM_ACCOUNT = 'ClaimAccount'
+export class ClaimTransaction {
+  constructor (wallet, account) {
+    this._wallet = wallet
+    this._account = account
 
-  constructor (wallet, account, period) {
-    super(wallet, account, period)
+    this._keys = wallet.keys
+    this._jsonTransaction = {}
+    this._submitAddress = ''
+    this._prevalidateAddress = ''
+
+    if (!this._wallet || !this._account) {
+      throw new Error('You must pass wallet and account')
+    }
+
+    this.CLAIM_ACCOUNT = 'ClaimAccount'
   }
 
   createSubmissionAddress = async () => {
     this._submitAddress =
       (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
       '/' +
-      ClaimTransaction.CLAIM_ACCOUNT
+      this.CLAIM_ACCOUNT
   }
 
   createPrevalidateAddress = async () => {
     this._prevalidateAddress =
       (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
       '/' +
-      ClaimTransaction.CLAIM_ACCOUNT
+      this.CLAIM_ACCOUNT
   }
 
   handleError = message => {
     console.warn(`Error from blockchain: ${message}`)
     FlashNotification.showError(
-      `Problem occurred sending a ${
-        ClaimTransaction.CLAIM_ACCOUNT
-      } transaction for ${this._account.addressData.nickname}`
+      `Problem occurred sending a ${this.CLAIM_ACCOUNT} transaction for ${
+        this._account.addressData.nickname
+      }`
     )
     throw new Error(message)
   }
@@ -57,5 +66,3 @@ class ClaimTransaction extends Transaction {
     this._jsonTransaction.signature = [signature]
   }
 }
-
-export default ClaimTransaction
