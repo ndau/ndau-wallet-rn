@@ -20,6 +20,8 @@ export class ClaimTransaction {
   }
 
   addToJsonTransaction = () => {
+    this._jsonTransaction.target = this._account.address
+
     const validationKeys = []
     this._account.validationKeys.forEach(validationKeyHash => {
       validationKeys.push(this._keys[validationKeyHash].publicKey)

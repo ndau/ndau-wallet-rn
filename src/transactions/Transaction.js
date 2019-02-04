@@ -37,7 +37,6 @@ export const Transaction = {
       // SEQUENCE needs to be gotten from a utility/helper from
       // blockchain directly
       this._jsonTransaction = {
-        target: this._account.address,
         sequence: this._account.addressData.sequence + 1
       }
 

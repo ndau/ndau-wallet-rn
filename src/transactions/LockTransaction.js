@@ -23,5 +23,6 @@ export class LockTransaction {
 
   addToJsonTransaction = () => {
     this._jsonTransaction.period = this._period
+    this._jsonTransaction.target = this._account.address
   }
 }
