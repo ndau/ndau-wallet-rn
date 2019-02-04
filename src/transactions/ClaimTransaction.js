@@ -39,6 +39,6 @@ export class ClaimTransaction {
   }
 
   addSignatureToJsonTransaction = signature => {
-    this._jsonTransaction.signature = [signature]
+    this._jsonTransaction.signature = signature
   }
 }

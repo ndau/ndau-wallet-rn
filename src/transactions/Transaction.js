@@ -98,7 +98,7 @@ export const Transaction = {
       )
 
       console.debug(`signature from KeyaddrManager.sign is ${signature}`)
-      this.addSignatureToJsonTransaction()
+      this.addSignatureToJsonTransaction(signature)
     } catch (error) {
       this.handleError(error.message)
     }
