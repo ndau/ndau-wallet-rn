@@ -18,31 +18,7 @@ export class LockTransaction {
     }
 
     this._period = period
-    this.LOCK = 'Lock'
-  }
-
-  createSubmissionAddress = async () => {
-    this._submitAddress =
-      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
-      '/' +
-      this.LOCK
-  }
-
-  createPrevalidateAddress = async () => {
-    this._prevalidateAddress =
-      (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
-      '/' +
-      this.LOCK
-  }
-
-  handleError = message => {
-    console.warn(`Error from blockchain: ${message}`)
-    FlashNotification.showError(
-      `Problem occurred sending a ${this.LOCK} transaction for ${
-        this._account.addressData.nickname
-      }`
-    )
-    throw new Error(message)
+    this.transactionType = 'Lock'
   }
 
   addToJsonTransaction = () => {

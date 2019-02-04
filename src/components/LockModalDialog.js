@@ -41,10 +41,7 @@ class LockModalDialog extends Component {
           this._account,
           this.state.period
         )
-        await lockTransaction.create()
-        await lockTransaction.sign()
-        await lockTransaction.prevalidate()
-        await lockTransaction.submit()
+        await lockTransaction.createSignPrevalidateSubmit()
       }
     } catch (error) {
       console.warn(error)

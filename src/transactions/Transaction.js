@@ -49,10 +49,24 @@ export const Transaction = {
     }
   },
 
+  async createSubmissionAddress () {
+    this._submitAddress =
+      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
+      '/' +
+      this.transactionType
+  },
+
+  async createPrevalidateAddress () {
+    this._prevalidateAddress =
+      (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
+      '/' +
+      this.transactionType
+  },
+
   handleError (message) {
     console.warn(`Error from blockchain: ${message}`)
     FlashNotification.showError(
-      `Problem occurred sending a transaction for ${
+      `Problem occurred sending a ${this.transactionType} for ${
         this._account.addressData.nickname
       }`
     )
@@ -141,5 +155,12 @@ export const Transaction = {
     } catch (error) {
       this.handleError(error.message)
     }
+  },
+
+  async createSignPrevalidateSubmit () {
+    await this.create()
+    await this.sign()
+    await this.prevalidate()
+    await this.submit()
   }
 }

@@ -76,10 +76,7 @@ const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
     console.debug(`Sending claim transaction for ${addressData.nickname}`)
     Object.assign(ClaimTransaction.prototype, Transaction)
     const claimTransaction = new ClaimTransaction(wallet, account)
-    await claimTransaction.create()
-    await claimTransaction.sign()
-    await claimTransaction.prevalidate()
-    await claimTransaction.submit()
+    await claimTransaction.createSignPrevalidateSubmit()
   }
 }
 

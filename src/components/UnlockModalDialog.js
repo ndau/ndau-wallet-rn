@@ -27,10 +27,7 @@ class UnlockModalDialog extends Component {
           this._wallet,
           this._account
         )
-        await notifyTransaction.create()
-        await notifyTransaction.sign()
-        await notifyTransaction.prevalidate()
-        await notifyTransaction.submit()
+        await notifyTransaction.createSignPrevalidateSubmit()
       }
     } catch (error) {
       console.warn(error)

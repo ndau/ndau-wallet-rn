@@ -16,31 +16,7 @@ export class ClaimTransaction {
       throw new Error('You must pass wallet and account')
     }
 
-    this.CLAIM_ACCOUNT = 'ClaimAccount'
-  }
-
-  createSubmissionAddress = async () => {
-    this._submitAddress =
-      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
-      '/' +
-      this.CLAIM_ACCOUNT
-  }
-
-  createPrevalidateAddress = async () => {
-    this._prevalidateAddress =
-      (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
-      '/' +
-      this.CLAIM_ACCOUNT
-  }
-
-  handleError = message => {
-    console.warn(`Error from blockchain: ${message}`)
-    FlashNotification.showError(
-      `Problem occurred sending a ${this.CLAIM_ACCOUNT} transaction for ${
-        this._account.addressData.nickname
-      }`
-    )
-    throw new Error(message)
+    this.transactionType = 'ClaimAccount'
   }
 
   addToJsonTransaction = () => {
