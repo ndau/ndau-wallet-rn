@@ -56,6 +56,15 @@ const mockNotifyTx = () => {
     .reply(200, data.notifyTxRes)
 }
 
+const mockTransferTx = () => {
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/Transfer')
+    .reply(200, data.transferTxRes)
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/submit/Transfer')
+    .reply(200, data.transferTxRes)
+}
+
 export default {
   mockServiceDiscovery,
   mockAccountAPI,
@@ -63,5 +72,6 @@ export default {
   mockEaiRate,
   mockClaimAccountTx,
   mockLockTx,
-  mockNotifyTx
+  mockNotifyTx,
+  mockTransferTx
 }

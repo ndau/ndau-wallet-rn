@@ -378,6 +378,10 @@ const notifyTxRes = {
   fee_napu: 0
 }
 
+const transferTxRes = {
+  fee_napu: 0
+}
+
 export default {
   testAddressData,
   testMarketPrice,
@@ -386,5 +390,6 @@ export default {
   nodeStatus,
   claimAccountTxRes,
   lockTxRes,
-  notifyTxRes
+  notifyTxRes,
+  transferTxRes
 }
