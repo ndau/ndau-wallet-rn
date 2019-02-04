@@ -5,48 +5,15 @@ import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 
-class Transaction {
-  static CLAIM_ACCOUNT = 'ClaimAccount'
-  static LOCK = 'Lock'
-  static NOTIFY = 'Notify'
-
-  constructor (wallet, account, type, period) {
-    this._wallet = wallet
-    this._account = account
-    this._keys = wallet.keys
-    this._type = type
-    this._period = period
-    this._jsonTransaction = {}
-    this._submitAddress = ''
-    this._prevalidateAddress = ''
-
-    if (!this._wallet || !this._account || !this._type) {
-      throw new Error('You must pass wallet, account and type')
-    }
-  }
-
-  _createSubmissionAddress = async () => {
-    this._submitAddress =
-      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
-      '/' +
-      this._type
-  }
-
-  _createPrevalidateAddress = async () => {
-    this._prevalidateAddress =
-      (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
-      '/' +
-      this._type
-  }
-
+export const Transaction = {
   /**
    * Create a transaction and store information internally
    */
-  create = async () => {
+  async create () {
     try {
       // Create the prevalidate and submission addresses
-      await this._createPrevalidateAddress()
-      await this._createSubmissionAddress()
+      await this.createPrevalidateAddress()
+      await this.createSubmissionAddress()
 
       // ok...if we got here we can assume we do NOT have a validation
       // key, so we need that to call KeyaddrManager.sign...so create it
@@ -67,11 +34,6 @@ class Transaction {
         throw Error('No sequence found in addressData')
       }
 
-      const validationKeys = []
-      this._account.validationKeys.forEach(validationKeyHash => {
-        validationKeys.push(this._keys[validationKeyHash].publicKey)
-      })
-
       // SEQUENCE needs to be gotten from a utility/helper from
       // blockchain directly
       this._jsonTransaction = {
@@ -79,45 +41,49 @@ class Transaction {
         sequence: this._account.addressData.sequence + 1
       }
 
-      if (this._type === Transaction.CLAIM_ACCOUNT) {
-        this._jsonTransaction.ownership = this._keys[
-          this._account.ownershipKey
-        ].publicKey
-        this._jsonTransaction.validation_keys = validationKeys
-      }
-
-      if (this._period) {
-        this._jsonTransaction.period = this._period
-      }
+      this.addToJsonTransaction()
 
       return this._jsonTransaction
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred sending a ${this._type} transaction for ${
-          this._account.addressData.nickname
-        }`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
-  }
+  },
+
+  async createSubmissionAddress () {
+    this._submitAddress =
+      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
+      '/' +
+      this.transactionType
+  },
+
+  async createPrevalidateAddress () {
+    this._prevalidateAddress =
+      (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
+      '/' +
+      this.transactionType
+  },
+
+  handleError (message) {
+    console.warn(`Error from blockchain: ${message}`)
+    FlashNotification.showError(
+      `Problem occurred sending a ${this.transactionType} for ${
+        this._account.addressData.nickname
+      }`
+    )
+    throw new Error(message)
+  },
 
   /**
    * Sign the transaction for prevalidation and submission. You must
    * call `create` first before you call this method.
    */
-  sign = async () => {
+  async sign () {
     try {
       // Here we get the ownership key to sign for ClaimAccount. This is
       // the ONLY time we use the ownershipKey. Any subsequent/other
       // transactions use the validationKey within the account
       console.debug(`key to use for signature is ${this._keyToUse}`)
-      const privateKeyFromHash = KeyMaster.getPrivateKeyFromHash(
-        this._wallet,
-        this._type === Transaction.CLAIM_ACCOUNT
-          ? this._account.ownershipKey
-          : this._account.validationKeys[0]
-      )
+      const privateKeyFromHash = this.privateKeyForSigning()
 
       // Use the TxSignPrep to get it ready to send
       const preparedTransaction = new TxSignPrep().prepare(
@@ -132,87 +98,69 @@ class Transaction {
       )
 
       console.debug(`signature from KeyaddrManager.sign is ${signature}`)
-      if (this._type === Transaction.CLAIM_ACCOUNT) {
-        this._jsonTransaction.signature = signature
-      } else {
-        this._jsonTransaction.signatures = [signature]
-      }
+      this.addSignatureToJsonTransaction(signature)
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred signing a ${this._type} transaction for ${
-          this._account.addressData.nickname
-        }`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
-  }
+  },
+
+  privateKeyForSigning () {
+    return KeyMaster.getPrivateKeyFromHash(
+      this._wallet,
+      this._account.validationKeys[0]
+    )
+  },
+
+  addSignatureToJsonTransaction (signature) {
+    this._jsonTransaction.signatures = [signature]
+  },
 
   /**
    * Send this transaction to the blockchain to see if all is well.
    * You must first call `create` and `sign` before you call this. If all
    * is well you can then call `submit`.
    */
-  prevalidate = async () => {
+  async prevalidate () {
     try {
       const response = await TransactionAPI.prevalidate(
         this._prevalidateAddress,
         this._jsonTransaction
       )
       if (response.err) {
-        console.warn(`Error from blockchain: ${response.err}`)
-        FlashNotification.showError(
-          `Problem occurred sending prevalidate for a ${
-            this._type
-          } transaction for ${this._account.addressData.nickname}`
-        )
-        throw new Error(response.err)
+        this.handleError(response.err)
       } else {
         return response
       }
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred sending prevalidate for a ${
-          this._type
-        } transaction for ${this._account.addressData.nickname}`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
-  }
+  },
 
   /**
    * This is the last call that you should make. You must call
    * `create`, `sign` and `prevalidate` before you `submit` to
    * the blockchain.
    */
-  submit = async () => {
+  async submit () {
     try {
       const response = await TransactionAPI.submit(
         this._submitAddress,
         this._jsonTransaction
       )
       if (response.err) {
-        console.warn(`Error from blockchain: ${response.err}`)
-        FlashNotification.showError(
-          `Problem occurred sending submit for a ${
-            this._type
-          } transaction for ${this._account.addressData.nickname}`
-        )
-        throw new Error(response.err)
+        this.handleError(response.err)
       } else {
         return response
       }
     } catch (error) {
-      console.warn(`Error from blockchain: ${error.message}`)
-      FlashNotification.showError(
-        `Problem occurred sending submit for a ${this._type} transaction for ${
-          this._account.addressData.nickname
-        }`
-      )
-      throw new Error(error.message)
+      this.handleError(error.message)
     }
+  },
+
+  async createSignPrevalidateSubmit () {
+    await this.create()
+    await this.sign()
+    await this.prevalidate()
+    await this.submit()
   }
 }
-
-export default Transaction

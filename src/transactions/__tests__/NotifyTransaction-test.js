@@ -1,4 +1,5 @@
-import Transaction from '../Transaction'
+import { NotifyTransaction } from '../NotifyTransaction'
+import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
 import MockAsyncStorage from 'mock-async-storage'
@@ -7,7 +8,7 @@ MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-MockHelper.mockClaimAccountTx()
+MockHelper.mockNotifyTx()
 
 jest.mock('NativeModules', () => {
   return {
@@ -137,30 +138,25 @@ const user = {
   }
 }
 
-test('creation of a claim transaction', async () => {
-  const theClaimTransaction = {
+test('creation of a notify transaction', async () => {
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
-  const claimTransaction = new Transaction(
+  Object.assign(NotifyTransaction.prototype, Transaction)
+
+  const notifyTransaction = new NotifyTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-    ],
-    Transaction.CLAIM_ACCOUNT
+    ]
   )
-  const createdClaimTransaction = await claimTransaction.create()
-  expect(createdClaimTransaction).toEqual(theClaimTransaction)
+  const createdNotifyTransaction = await notifyTransaction.create()
+  expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
 })
 
-test('claim fails if no sequence', async () => {
+test('notify fails if no sequence', async () => {
   const userNoValidationKeys = {
     userId: 'fail',
     wallets: {
@@ -196,14 +192,15 @@ test('claim fails if no sequence', async () => {
   }
 
   try {
-    const claimTransaction = new Transaction(
+    Object.assign(NotifyTransaction.prototype, Transaction)
+
+    const notifyTransaction = new NotifyTransaction(
       userNoValidationKeys.wallets.c79af3b6,
       userNoValidationKeys.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      Transaction.CLAIM_ACCOUNT
+      ]
     )
-    await claimTransaction.create()
+    await notifyTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
     console.error(error)
@@ -212,28 +209,23 @@ test('claim fails if no sequence', async () => {
 })
 
 test('failure of any transaction around sign', async () => {
-  const theClaimTransaction = {
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
   try {
-    const claimTransaction = new Transaction(
+    Object.assign(NotifyTransaction.prototype, Transaction)
+
+    const notifyTransaction = new NotifyTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      Transaction.CLAIM_ACCOUNT
+      ]
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.sign()
+    const createdNotifyTransaction = await notifyTransaction.create()
+    expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
+    await notifyTransaction.sign()
   } catch (error) {
     console.error(error)
     expect(error.toString()).toEqual('Error: testing sign error')
@@ -241,28 +233,22 @@ test('failure of any transaction around sign', async () => {
 })
 
 test('failure of any transaction around prevalidate', async () => {
-  const theClaimTransaction = {
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
   try {
-    const claimTransaction = new Transaction(
+    Object.assign(NotifyTransaction.prototype, Transaction)
+    const notifyTransaction = new NotifyTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      Transaction.CLAIM_ACCOUNT
+      ]
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.prevalidate()
+    const createdNotifyTransaction = await notifyTransaction.create()
+    expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
+    await notifyTransaction.prevalidate()
   } catch (error) {
     console.error(error)
     expect(error.toString()).toEqual('Error: error being sent')
@@ -270,28 +256,22 @@ test('failure of any transaction around prevalidate', async () => {
 })
 
 test('failure of any transaction around submit', async () => {
-  const theClaimTransaction = {
+  const theNotifyTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
   try {
-    const claimTransaction = new Transaction(
+    Object.assign(NotifyTransaction.prototype, Transaction)
+    const notifyTransaction = new NotifyTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ],
-      Transaction.CLAIM_ACCOUNT
+      ]
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.submit()
+    const createdNotifyTransaction = await notifyTransaction.create()
+    expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
+    await notifyTransaction.submit()
   } catch (error) {
     console.error(error)
     expect(error.toString()).toEqual('Error: error being sent')

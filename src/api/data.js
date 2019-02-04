@@ -370,11 +370,21 @@ const claimAccountTxRes = {
   fee_napu: 0
 }
 
+const lockTxRes = {
+  fee_napu: 0
+}
+
+const notifyTxRes = {
+  fee_napu: 0
+}
+
 export default {
   testAddressData,
   testMarketPrice,
   testUser,
   eaiPercentageResponse,
   nodeStatus,
-  claimAccountTxRes
+  claimAccountTxRes,
+  lockTxRes,
+  notifyTxRes
 }

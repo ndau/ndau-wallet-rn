@@ -1,15 +1,33 @@
-import TransactionAPI from '../TransactionAPI'
-import data from '../data'
-import services from '../../api/services-dev.json'
+import { LockTransaction } from '../LockTransaction'
+import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
-import { ClaimTransaction } from '../../transactions/ClaimTransaction'
-import { Transaction } from '../../transactions/Transaction'
+import { NativeModules } from 'react-native'
+import MockAsyncStorage from 'mock-async-storage'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-MockHelper.mockClaimAccountTx()
+MockHelper.mockLockTx()
+
+jest.mock('NativeModules', () => {
+  return {
+    KeyaddrManager: {
+      sign: jest.fn().mockRejectedValue(new Error('testing sign error'))
+    }
+  }
+})
+
+const mock = () => {
+  const mockImpl = new MockAsyncStorage()
+  jest.mock('AsyncStorage', () => mockImpl)
+}
+
+mock()
+
+jest.mock('../../api/TransactionAPI', {
+  prevalidate: jest.fn().mockReturnValue({ err: 'error being sent' })
+})
 
 const user = {
   userId: 'TAC-3PY',
@@ -119,33 +137,152 @@ const user = {
     }
   }
 }
-fetch.resetMocks()
 
-test('prevalidate should return something back', async () => {
-  fetch.mockResponses([services], [data.claimAccountTxRes])
-
-  const theClaimTransaction = {
+test('creation of a lock transaction', async () => {
+  const theLockTransaction = {
+    period: '3m',
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
-  Object.assign(ClaimTransaction.prototype, Transaction)
-  const claimTransaction = new ClaimTransaction(
+  Object.assign(LockTransaction.prototype, Transaction)
+
+  const lockTransaction = new LockTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-    ]
+    ],
+    '3m'
   )
-  const claimTxToSend = await claimTransaction.create()
-  expect(claimTxToSend).toEqual(theClaimTransaction)
+  const createdLockTransaction = await lockTransaction.create()
+  expect(createdLockTransaction).toEqual(theLockTransaction)
+})
 
-  const ndau = await claimTransaction.prevalidate()
+test('lock fails if no sequence', async () => {
+  const userNoValidationKeys = {
+    userId: 'fail',
+    wallets: {
+      c79af3b6: {
+        accounts: {
+          tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb: {
+            address: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+            addressData: {},
+            ownershipKey: 'a0bb883b',
+            validationKeys: ['5a3b36e3', 'ea7ced47']
+          }
+        },
+        keys: {
+          '5a3b36e3': {
+            publicKey:
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
+            privateKey:
+              'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf5',
+            path: "/44'/20036'/2000/1",
+            derivedFromRoot: 'yes'
+          },
+          ea7ced47: {
+            publicKey:
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h',
+            privateKey:
+              'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf6',
+            path: "/44'/20036'/2000/2",
+            derivedFromRoot: 'yes'
+          }
+        }
+      }
+    }
+  }
 
-  expect(ndau).toBeDefined()
+  try {
+    Object.assign(LockTransaction.prototype, Transaction)
+
+    const lockTransaction = new LockTransaction(
+      userNoValidationKeys.wallets.c79af3b6,
+      userNoValidationKeys.wallets.c79af3b6.accounts[
+        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+      ],
+      '3m'
+    )
+    await lockTransaction.create()
+    expect(false).toBe(true)
+  } catch (error) {
+    console.error(error)
+    expect(error.toString()).toEqual('Error: No sequence found in addressData')
+  }
+})
+
+test('failure of any transaction around sign', async () => {
+  const theLockTransaction = {
+    period: '5m',
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    sequence: 3830689465
+  }
+
+  try {
+    Object.assign(LockTransaction.prototype, Transaction)
+
+    const lockTransaction = new LockTransaction(
+      user.wallets.c79af3b6,
+      user.wallets.c79af3b6.accounts[
+        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+      ],
+      '5m'
+    )
+    const createdLockTransaction = await lockTransaction.create()
+    expect(createdLockTransaction).toEqual(theLockTransaction)
+    await lockTransaction.sign()
+  } catch (error) {
+    console.error(error)
+    expect(error.toString()).toEqual('Error: testing sign error')
+  }
+})
+
+test('failure of any transaction around prevalidate', async () => {
+  const theLockTransaction = {
+    period: '12m',
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    sequence: 3830689465
+  }
+
+  try {
+    Object.assign(LockTransaction.prototype, Transaction)
+    const lockTransaction = new LockTransaction(
+      user.wallets.c79af3b6,
+      user.wallets.c79af3b6.accounts[
+        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+      ],
+      '12m'
+    )
+    const createdLockTransaction = await lockTransaction.create()
+    expect(createdLockTransaction).toEqual(theLockTransaction)
+    await lockTransaction.prevalidate()
+  } catch (error) {
+    console.error(error)
+    expect(error.toString()).toEqual('Error: error being sent')
+  }
+})
+
+test('failure of any transaction around submit', async () => {
+  const theLockTransaction = {
+    period: '2m',
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    sequence: 3830689465
+  }
+
+  try {
+    Object.assign(LockTransaction.prototype, Transaction)
+    const lockTransaction = new LockTransaction(
+      user.wallets.c79af3b6,
+      user.wallets.c79af3b6.accounts[
+        'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+      ],
+      '2m'
+    )
+    const createdLockTransaction = await lockTransaction.create()
+    expect(createdLockTransaction).toEqual(theLockTransaction)
+    await lockTransaction.submit()
+  } catch (error) {
+    console.error(error)
+    expect(error.toString()).toEqual('Error: error being sent')
+  }
 })

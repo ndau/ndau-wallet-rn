@@ -4,7 +4,8 @@ import AppConfig from '../AppConfig'
 import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
-import Transaction from '../transactions/Transaction'
+import { ClaimTransaction } from '../transactions/ClaimTransaction'
+import { Transaction } from '../transactions/Transaction'
 
 const populateWalletWithAddressData = async wallet => {
   const addressDataFromAPI = await AccountAPI.getAddressData(
@@ -73,15 +74,9 @@ const populateWalletWithAddressData = async wallet => {
 const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
     console.debug(`Sending claim transaction for ${addressData.nickname}`)
-    const transaction = new Transaction(
-      wallet,
-      account,
-      Transaction.CLAIM_ACCOUNT
-    )
-    await transaction.create()
-    await transaction.sign()
-    await transaction.prevalidate()
-    await transaction.submit()
+    Object.assign(ClaimTransaction.prototype, Transaction)
+    const claimTransaction = new ClaimTransaction(wallet, account)
+    await claimTransaction.createSignPrevalidateSubmit()
   }
 }
 
