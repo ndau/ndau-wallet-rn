@@ -21,7 +21,7 @@ const getServiceNodeURL = async () => {
     const apinodes = response.apinodes
 
     // return a random service for use
-    return apinodes[Math.floor(Math.random() * apinodes.length)]
+    return apinodes[0]
   } catch (error) {
     console.warn(error)
     throw new ServiceDiscoveryError()

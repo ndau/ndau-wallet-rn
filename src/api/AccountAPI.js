@@ -33,7 +33,20 @@ const getEaiRate = async addressData => {
   }
 }
 
+const accountHistory = async address => {
+  const accountHistoryAddress = await APIAddressHelper.getAccountHistoryAPIAddress(
+    address
+  )
+  try {
+    return await APICommunicationHelper.get(accountHistoryAddress)
+  } catch (error) {
+    console.warn(error)
+    throw new BlockchainAPIError()
+  }
+}
+
 export default {
   getAddressData,
-  getEaiRate
+  getEaiRate,
+  accountHistory
 }

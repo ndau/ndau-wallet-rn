@@ -149,3 +149,14 @@ test('prevalidate should return something back', async () => {
 
   expect(ndau).toBeDefined()
 })
+
+test('transactionByHash should return something back', async () => {
+  MockHelper.mockServiceDiscovery()
+  MockHelper.mockTransactionByHash('abc123def456')
+
+  const theTransactionHistory = await TransactionAPI.transactionByHash(
+    'abc123def456'
+  )
+
+  expect(theTransactionHistory).toBeDefined()
+})

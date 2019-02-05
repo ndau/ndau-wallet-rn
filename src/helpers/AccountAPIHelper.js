@@ -6,6 +6,7 @@ import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
 import { ClaimTransaction } from '../transactions/ClaimTransaction'
 import { Transaction } from '../transactions/Transaction'
+import UserData from '../model/UserData'
 
 const populateWalletWithAddressData = async wallet => {
   const addressDataFromAPI = await AccountAPI.getAddressData(

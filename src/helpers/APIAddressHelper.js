@@ -32,10 +32,20 @@ const getTransactionSubmitAPIAddress = async () => {
   return (await getNodeAddress()) + '/tx/submit'
 }
 
+const getAccountHistoryAPIAddress = async address => {
+  return (await getNodeAddress()) + `/account/history/${address}`
+}
+
+const getTransactionByHashAPIAddress = async transactionHash => {
+  return (await getNodeAddress()) + `/transaction/${transactionHash}`
+}
+
 export default {
   getAccountAPIAddress,
   getMarketPriceAPIAddress,
   getEaiRateAPIAddress,
   getTransactionPrevalidateAPIAddress,
-  getTransactionSubmitAPIAddress
+  getTransactionSubmitAPIAddress,
+  getAccountHistoryAPIAddress,
+  getTransactionByHashAPIAddress
 }
