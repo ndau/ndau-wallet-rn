@@ -21,10 +21,8 @@ class SetupEncryptionPassword extends Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      nameEntered: false
-    }
     this.walletCount = 1
+    this.defaultWalletId = 'Wallet 1'
   }
 
   componentWillMount = () => {
@@ -32,7 +30,8 @@ class SetupEncryptionPassword extends Component {
     if (user) {
       this.walletCount = Object.keys(user.wallets).length
     }
-    SetupStore.walletId = `Wallet ${this.walletCount}`
+    this.defaultWalletId = `Wallet ${this.walletCount}`
+    SetupStore.walletId = this.defaultWalletId
   }
 
   checkIfWalletAlreadyExists = user => {
@@ -110,8 +109,11 @@ class SetupEncryptionPassword extends Component {
               <TextInput
                 style={cssStyles.textInput}
                 onChangeText={value => {
-                  this.setState({ nameEntered: true })
-                  SetupStore.walletId = value
+                  if (value) {
+                    SetupStore.walletId = value
+                  } else {
+                    SetupStore.walletId = this.defaultWalletId
+                  }
                 }}
                 placeholder={`${SetupStore.walletId}`}
                 placeholderTextColor='#333'
@@ -120,11 +122,7 @@ class SetupEncryptionPassword extends Component {
             </Padding>
           </ScrollView>
           <View style={cssStyles.footer}>
-            <CommonButton
-              onPress={this.showNextSetup}
-              title='Next'
-              // disabled={!this.state.nameEntered}
-            />
+            <CommonButton onPress={this.showNextSetup} title='Next' />
           </View>
         </View>
       </SafeAreaView>
