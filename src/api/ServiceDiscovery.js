@@ -11,7 +11,7 @@ const AWS_S3_SERVICE_JSON_DEV =
 
 const getServiceNodeURL = async () => {
   let url = AWS_S3_SERVICE_JSON_PROD
-  if (await AsyncStorageHelper.isTestNet()) {
+  if ((await AsyncStorageHelper.isTestNet()) || __DEV__) {
     url = AWS_S3_SERVICE_JSON_TEST
   }
   console.debug(`Service Discovery URL: ${url}`)
@@ -21,7 +21,7 @@ const getServiceNodeURL = async () => {
     const apinodes = response.apinodes
 
     // return a random service for use
-    return apinodes[0]
+    return apinodes[Math.floor(Math.random() * apinodes.length)]
   } catch (error) {
     console.warn(error)
     throw new ServiceDiscoveryError()
