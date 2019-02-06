@@ -15,8 +15,6 @@ import { SafeAreaView } from 'react-navigation'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
-import PushNotification from 'react-native-push-notification'
-import NotificationService from '../services/NotificationService'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -26,20 +24,7 @@ class SetupWelcome extends Component {
       toggleCount: 1,
       maxToggle: 10
     }
-
-    this.notif = new NotificationService()
   }
-
-  // onRegister (token) {
-  //   Alert.alert('Registered !', JSON.stringify(token))
-  //   console.log(token)
-  //   this.setState({ registerToken: token.token, gcmRegistered: true })
-  // }
-
-  // onNotif (notif) {
-  //   console.log(notif)
-  //   Alert.alert(notif.title, notif.message)
-  // }
 
   componentWillUnmount () {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
@@ -55,8 +40,7 @@ class SetupWelcome extends Component {
   }
 
   showNextSetup = () => {
-    this.notif.localNotif()
-    // this.props.navigation.navigate('SetupNewOrRecovery')
+    this.props.navigation.navigate('SetupNewOrRecovery')
   }
 
   testNetToggler = async () => {

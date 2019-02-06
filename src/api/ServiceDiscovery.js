@@ -11,7 +11,7 @@ const AWS_S3_SERVICE_JSON_DEV =
 
 const getServiceNodeURL = async () => {
   let url = AWS_S3_SERVICE_JSON_PROD
-  if ((await AsyncStorageHelper.isTestNet()) || __DEV__) {
+  if (await AsyncStorageHelper.isTestNet()) {
     url = AWS_S3_SERVICE_JSON_TEST
   }
   console.debug(`Service Discovery URL: ${url}`)
