@@ -3,6 +3,10 @@ package com.ndauwalletrn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
+import io.realm.react.RealmReactPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
@@ -26,8 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(),
-            new RNCWebViewPackage(),
+            return Arrays.<ReactPackage>asList(new MainReactPackage(), new ReactNativePushNotificationPackage(),
+                    new BackgroundTaskPackage(), new RealmReactPackage(), new RNCWebViewPackage(),
                     new VectorIconsPackage(), new KeyaddrPackage(), new RNCameraPackage(), new RNExitAppPackage(),
                     new RNSecureRandomPackage());
         }
@@ -47,5 +51,6 @@ public class MainApplication extends Application implements ReactApplication {
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
+        BackgroundTaskPackage.useContext(this); // ADD ME HERE!
     }
 }
