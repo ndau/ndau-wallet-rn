@@ -30,43 +30,43 @@ BackgroundTask.define(async () => {
   BackgroundTask.finish()
 })
 
-PushNotification.configure({
-  // (optional) Called when Token is generated (iOS and Android)
-  onRegister: function (token) {
-    console.log('TOKEN:', token)
-  },
+// PushNotification.configure({
+//   // (optional) Called when Token is generated (iOS and Android)
+//   onRegister: function (token) {
+//     console.log('TOKEN:', token)
+//   },
 
-  // (required) Called when a remote or local notification is opened or received
-  onNotification: function (notification) {
-    console.log('NOTIFICATION:', notification)
+//   // (required) Called when a remote or local notification is opened or received
+//   onNotification: function (notification) {
+//     console.log('NOTIFICATION:', notification)
 
-    // process the notification
+//     // process the notification
 
-    // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
-    notification.finish(PushNotificationIOS.FetchResult.NoData)
-  },
+//     // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
+//     notification.finish(PushNotificationIOS.FetchResult.NoData)
+//   },
 
-  // ANDROID ONLY: GCM or FCM Sender ID (product_number) (optional - not required for local notifications, but is need to receive remote push notifications)
-  senderID: 'YOUR GCM (OR FCM) SENDER ID',
+//   // ANDROID ONLY: GCM or FCM Sender ID (product_number) (optional - not required for local notifications, but is need to receive remote push notifications)
+//   senderID: 'YOUR GCM (OR FCM) SENDER ID',
 
-  // IOS ONLY (optional): default: all - Permissions to register.
-  permissions: {
-    alert: true,
-    badge: true,
-    sound: true
-  },
+//   // IOS ONLY (optional): default: all - Permissions to register.
+//   permissions: {
+//     alert: true,
+//     badge: true,
+//     sound: true
+//   },
 
-  // Should the initial notification be popped automatically
-  // default: true
-  popInitialNotification: true,
+//   // Should the initial notification be popped automatically
+//   // default: true
+//   popInitialNotification: true,
 
-  /**
-   * (optional) default: true
-   * - Specified if permissions (ios) and token (android and ios) will requested or not,
-   * - if not, you must call PushNotificationsHandler.requestPermissions() later
-   */
-  requestPermissions: true
-})
+//   /**
+//    * (optional) default: true
+//    * - Specified if permissions (ios) and token (android and ios) will requested or not,
+//    * - if not, you must call PushNotificationsHandler.requestPermissions() later
+//    */
+//   requestPermissions: true
+// })
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
@@ -92,6 +92,18 @@ export default class App extends React.Component {
   }
 
   render () {
+    setInterval(() => {
+      console.log('Creating jobs...')
+      const notification = new NotificationService()
+      notification.localNotif()
+      this.state.queue.createJob(
+        'check-blockchain',
+        { itest: 'test' }, // Supply the image url we want prefetched in this job to the payload.
+        { attempts: 5, timeout: 15000 }, // Retry job on failure up to 5 times. Timeout job in 15 sec (prefetch is probably hanging if it takes that long).
+        false // Must pass false as the last param so the queue starts up in the background task instead of immediately.
+      )
+    }, 5000)
+
     return (
       <View style={{ flex: 1 }}>
         <AppNavigation />
