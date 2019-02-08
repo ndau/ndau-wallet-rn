@@ -62,8 +62,7 @@ export default class NotificationService {
 
     PushNotification.localNotification({
       message: this.message,
-      title: this.title,
-      number: 'none'
+      title: this.title
     })
   }
 
