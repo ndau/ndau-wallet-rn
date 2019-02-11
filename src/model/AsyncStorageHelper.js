@@ -8,6 +8,8 @@ const CURRENT_USER_KEY = '@CurrentUserKey'
 const APPLICATION_PASSWORD = '@ApplicationPassword'
 const APPLICATION_NETWORK = '@ApplicationNetwork'
 
+const LAST_ACCOUNT_DATA = '@LastAccountData'
+
 const TEST_NET = 'TestNet'
 const MAIN_NET = 'MainNet'
 
@@ -27,6 +29,24 @@ const setApplicationPassword = async password => {
 const getApplicationPassword = async () => {
   const password = await AsyncStorage.getItem(APPLICATION_PASSWORD)
   return password
+}
+
+/**
+ * Cache the last call to address data so we can check to see if we
+ * have gotten anything new
+ *
+ * @param {string} lastAccountData
+ */
+const setLastAccountData = async lastAccountData => {
+  await AsyncStorage.setItem(LAST_ACCOUNT_DATA, lastAccountData)
+}
+
+/**
+ * Get the cached last account data out of AsyncStorage
+ */
+const getLastAccountData = async () => {
+  const lastAccountData = await AsyncStorage.getItem(LAST_ACCOUNT_DATA)
+  return lastAccountData
 }
 
 /**
@@ -174,6 +194,8 @@ export default {
   getAllKeys,
   setApplicationPassword,
   getApplicationPassword,
+  setLastAccountData,
+  getLastAccountData,
   useMainNet,
   useTestNet,
   isMainNet,

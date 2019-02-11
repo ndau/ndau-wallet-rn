@@ -1,5 +1,15 @@
 import KeyPathHelper from '../helpers/KeyPathHelper'
 
+const addresses = [
+  'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+  'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz',
+  'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
+  'ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g',
+  'ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp5c',
+  'ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbfq',
+  'ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk98'
+]
+
 const testAddressData = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
     balance: 4200000000.23,
@@ -429,5 +439,6 @@ export default {
   notifyTxRes,
   transferTxRes,
   accountHistoryRes,
-  transactionByHashRes
+  transactionByHashRes,
+  addresses
 }

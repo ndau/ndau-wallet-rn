@@ -4,7 +4,8 @@ import {
   View,
   NetInfo,
   PushNotificationIOS,
-  Platform
+  Platform,
+  AppState
 } from 'react-native'
 import AppNavigation from './navigation/AppNavigation'
 import FlashMessage from 'react-native-flash-message'
@@ -18,8 +19,27 @@ YellowBox.ignoreWarnings([
 YellowBox.ignoreWarnings(['Class RCTCxxModule'])
 
 export default class App extends React.Component {
+  state = {
+    appState: AppState.currentState
+  }
+
+  componentWillUnmount () {
+    AppState.removeEventListener('change', this._handleAppStateChange)
+  }
+
   componentDidMount () {
+    AppState.addEventListener('change', this._handleAppStateChange)
     BackgroundTasks.initialize()
+  }
+
+  _handleAppStateChange = nextAppState => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      console.log('App has come to the foreground!')
+    }
+    this.setState({ appState: nextAppState })
   }
 
   render () {

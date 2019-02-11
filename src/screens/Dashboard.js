@@ -160,6 +160,7 @@ class Dashboard extends Component {
 
   render = () => {
     try {
+      console.log(`Rendering Dashboard...`)
       const user = this.state.user
       const wallet = Object.values(user.wallets)[0]
       const accounts = DataFormatHelper.getObjectWithAllAccounts(user)

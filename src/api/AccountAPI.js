@@ -2,14 +2,34 @@ import APIAddressHelper from '../helpers/APIAddressHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+
+var _ = require('lodash')
 
 const getAddressData = async addresses => {
   const accountAPI = await APIAddressHelper.getAccountAPIAddress()
   try {
-    return await APICommunicationHelper.post(
+    const accountData = await APICommunicationHelper.post(
       accountAPI,
       JSON.stringify(addresses)
     )
+    await AsyncStorageHelper.setLastAccountData(accountData)
+    return accountData
+  } catch (error) {
+    console.warn(error)
+    throw new BlockchainAPIError()
+  }
+}
+
+const isAddressDataNew = async addresses => {
+  const accountAPI = await APIAddressHelper.getAccountAPIAddress()
+  try {
+    const lastAccountData = await AsyncStorageHelper.getLastAccountData()
+    const accountData = await APICommunicationHelper.post(
+      accountAPI,
+      JSON.stringify(addresses)
+    )
+    return !_.isEqual(lastAccountData, accountData)
   } catch (error) {
     console.warn(error)
     throw new BlockchainAPIError()
@@ -48,5 +68,6 @@ const accountHistory = async address => {
 export default {
   getAddressData,
   getEaiRate,
-  accountHistory
+  accountHistory,
+  isAddressDataNew
 }
