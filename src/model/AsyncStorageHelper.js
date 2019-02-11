@@ -10,6 +10,8 @@ const APPLICATION_NETWORK = '@ApplicationNetwork'
 
 const LAST_ACCOUNT_DATA = '@LastAccountData'
 
+const NEEDS_REFRESH = '@NeedsRefresh'
+
 const TEST_NET = 'TestNet'
 const MAIN_NET = 'MainNet'
 
@@ -47,6 +49,24 @@ const setLastAccountData = async lastAccountData => {
 const getLastAccountData = async () => {
   const lastAccountData = await AsyncStorage.getItem(LAST_ACCOUNT_DATA)
   return lastAccountData
+}
+
+/**
+ * Cache this value which is set if it is detected that data is new
+ * and app needs a refresh
+ *
+ * @param {string} needsRefresh
+ */
+const setNeedsRefresh = async needsRefresh => {
+  await AsyncStorage.setItem(NEEDS_REFRESH, needsRefresh)
+}
+
+/**
+ * Get information on whether the app needs to be refreshed
+ */
+const getNeedsRefresh = async () => {
+  const needsRefresh = await AsyncStorage.getItem(NEEDS_REFRESH)
+  return needsRefresh
 }
 
 /**
@@ -196,6 +216,8 @@ export default {
   getApplicationPassword,
   setLastAccountData,
   getLastAccountData,
+  setNeedsRefresh,
+  getNeedsRefresh,
   useMainNet,
   useTestNet,
   isMainNet,

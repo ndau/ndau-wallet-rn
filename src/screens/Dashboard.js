@@ -7,7 +7,8 @@ import {
   StatusBar,
   Image,
   RefreshControl,
-  TouchableOpacity
+  TouchableOpacity,
+  AppState
 } from 'react-native'
 import cssStyles from '../css/styles'
 import DateHelper from '../helpers/DateHelper'
@@ -46,10 +47,26 @@ class Dashboard extends Component {
       user: {},
       refreshing: false,
       marketPrice: 0,
-      spinner: false
+      spinner: false,
+      appState: AppState.currentState
     }
 
     this.isTestNet = false
+  }
+
+  componentWillUnmount () {
+    AppState.removeEventListener('change', this._handleAppStateChange)
+  }
+
+  _handleAppStateChange = nextAppState => {
+    ß
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      this._onRefresh()
+    }
+    this.setState({ appState: nextAppState })
   }
 
   componentWillMount = async () => {
@@ -61,6 +78,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount = async () => {
+    AppState.addEventListener('change', this._handleAppStateChange)
     let user = this.props.navigation.getParam('user', null)
     if (!user) {
       const password = await AsyncStorageHelper.getApplicationPassword()
