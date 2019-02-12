@@ -3,7 +3,8 @@ package com.ndauwalletrn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.pilloxa.backgroundjob.BackgroundJobPackage;
+import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
+import io.realm.react.RealmReactPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,9 +29,10 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(), new ReactNativePushNotificationPackage(),
-                    new RNCWebViewPackage(), new VectorIconsPackage(), new KeyaddrPackage(), new RNCameraPackage(),
-                    new RNExitAppPackage(), new RNSecureRandomPackage(), new BackgroundJobPackage());
+            return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNBackgroundFetchPackage(),
+                    new RealmReactPackage(), new ReactNativePushNotificationPackage(), new RNCWebViewPackage(),
+                    new VectorIconsPackage(), new KeyaddrPackage(), new RNCameraPackage(), new RNExitAppPackage(),
+                    new RNSecureRandomPackage());
         }
 
         @Override

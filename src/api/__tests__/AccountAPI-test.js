@@ -177,7 +177,6 @@ test('isAddressDataNew should report correctly with minor change', async () => {
   })
 
   expect(await AccountAPI.isAddressDataNew(addresses)).toBeTruthy()
-  expect(await AsyncStorageHelper.getNeedsRefresh()).toBeTruthy()
 })
 
 test('isAddressDataNew should report correctly with no change', async () => {
@@ -189,7 +188,6 @@ test('isAddressDataNew should report correctly with no change', async () => {
   expect(ndau).toBeDefined()
 
   expect(await AccountAPI.isAddressDataNew(addresses)).toBeFalsy()
-  expect(await AsyncStorageHelper.getNeedsRefresh()).toBeFalsy()
 })
 
 test('isAddressDataNew should report correctly with large change', async () => {
@@ -344,5 +342,4 @@ test('isAddressDataNew should report correctly with large change', async () => {
   })
 
   expect(await AccountAPI.isAddressDataNew(addresses)).toBeTruthy()
-  expect(await AsyncStorageHelper.getNeedsRefresh()).toBeTruthy()
 })

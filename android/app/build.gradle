@@ -188,8 +188,9 @@ subprojects {
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 dependencies {
+    implementation project(':react-native-background-fetch')
+    implementation project(':realm')
     implementation project(':react-native-push-notification')
-    implementation project(':react-native-background-job')
     implementation project(':react-native-webview')
     implementation project(':react-native-exit-app')
     implementation project(':react-native-securerandom')

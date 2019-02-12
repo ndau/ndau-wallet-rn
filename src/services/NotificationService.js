@@ -4,9 +4,6 @@ import PushNotification from 'react-native-push-notification'
 export default class NotificationService {
   constructor (onRegister, onNotification) {
     this.configure()
-
-    this.message = ''
-    this.title = ''
   }
 
   configure () {
@@ -21,20 +18,13 @@ export default class NotificationService {
         console.log('NOTIFICATION:', notification)
 
         // process the notification
-        if (Platform.OS === 'ios') {
-          PushNotificationIOS.presentLocalNotification({
-            alertBody: this.message,
-            alertTitle: this.title,
-            applicationIconBadgeNumber: 0
-          })
-        }
 
         // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         notification.finish(PushNotificationIOS.FetchResult.NoData)
       },
 
       // ANDROID ONLY: GCM or FCM Sender ID (product_number) (optional - not required for local notifications, but is need to receive remote push notifications)
-      senderID: 'YOUR GCM (OR FCM) SENDER ID',
+      senderID: 'XXXXXX',
 
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
@@ -57,16 +47,47 @@ export default class NotificationService {
   }
 
   localNotification (title, message) {
-    this.title = title
-    this.message = message
-
-    PushNotification.localNotification({
-      message: this.message,
-      title: this.title
-    })
+    if (Platform.OS === 'android') {
+      PushNotification.localNotification({
+        message,
+        title,
+        number: 1
+      })
+    } else {
+      PushNotificationIOS.presentLocalNotification({
+        alertBody: message,
+        alertTitle: title,
+        applicationIconBadgeNumber: 1
+      })
+    }
   }
 
-  cancelAll () {
-    PushNotification.cancelAllLocalNotifications()
+  scheduleNotification (title, message) {
+    if (Platform.OS === 'android') {
+      PushNotification.localNotificationSchedule({
+        message,
+        title,
+        date: new Date(Date.now() + 60 * 1000),
+        repeatType: 'minute',
+        repeatTime: 60000,
+        number: 0
+      })
+    } else {
+      PushNotificationIOS.scheduleLocalNotification({
+        alertBody: message,
+        alertTitle: title,
+        fireDate: new Date(Date.now() + 60 * 1000),
+        repeatInterval: 'minute',
+        applicationIconBadgeNumber: 0
+      })
+    }
+  }
+
+  setApplicationIconBadgeNumber (number) {
+    if (Platform.OS === 'android') {
+      PushNotification.setApplicationIconBadgeNumber(number)
+    } else {
+      PushNotificationIOS.setApplicationIconBadgeNumber(number)
+    }
   }
 }

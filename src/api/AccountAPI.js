@@ -29,9 +29,7 @@ const isAddressDataNew = async addresses => {
       accountAPI,
       JSON.stringify(addresses)
     )
-    const doesAppHaveNewData = !_.isEqual(lastAccountData, accountData)
-    AsyncStorageHelper.setNeedsRefresh(doesAppHaveNewData)
-    return doesAppHaveNewData
+    return !_.isEqual(lastAccountData, accountData)
   } catch (error) {
     console.warn(error)
     throw new BlockchainAPIError()

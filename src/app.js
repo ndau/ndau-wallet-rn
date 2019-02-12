@@ -18,6 +18,12 @@ YellowBox.ignoreWarnings([
 YellowBox.ignoreWarnings(['Class RCTCxxModule'])
 
 export default class App extends React.Component {
+  constructor (props) {
+    super(props)
+
+    BackgroundTasks.initialize()
+  }
+
   render () {
     return (
       <View style={{ flex: 1 }}>

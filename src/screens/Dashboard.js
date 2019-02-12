@@ -8,7 +8,8 @@ import {
   Image,
   RefreshControl,
   TouchableOpacity,
-  AppState
+  AppState,
+  Platform
 } from 'react-native'
 import cssStyles from '../css/styles'
 import DateHelper from '../helpers/DateHelper'
@@ -48,7 +49,8 @@ class Dashboard extends Component {
       refreshing: false,
       marketPrice: 0,
       spinner: false,
-      appState: AppState.currentState
+      appState: AppState.currentState,
+      queue: null
     }
 
     this.isTestNet = false
@@ -58,8 +60,7 @@ class Dashboard extends Component {
     AppState.removeEventListener('change', this._handleAppStateChange)
   }
 
-  _handleAppStateChange = nextAppState => {
-    ß
+  _handleAppStateChange = async nextAppState => {
     if (
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
@@ -168,12 +169,6 @@ class Dashboard extends Component {
     }
 
     this.setState({ refreshing: false, user, marketPrice })
-  }
-
-  _handleFloatingButtonPress = async buttonName => {
-    if (buttonName === 'add_account') {
-      this.launchAddNewAccountDialog()
-    }
   }
 
   render = () => {

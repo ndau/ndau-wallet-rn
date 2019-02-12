@@ -40,7 +40,7 @@ const getApplicationPassword = async () => {
  * @param {string} lastAccountData
  */
 const setLastAccountData = async lastAccountData => {
-  await AsyncStorage.setItem(LAST_ACCOUNT_DATA, lastAccountData)
+  await AsyncStorage.setItem(LAST_ACCOUNT_DATA, JSON.stringify(lastAccountData))
 }
 
 /**
@@ -48,25 +48,7 @@ const setLastAccountData = async lastAccountData => {
  */
 const getLastAccountData = async () => {
   const lastAccountData = await AsyncStorage.getItem(LAST_ACCOUNT_DATA)
-  return lastAccountData
-}
-
-/**
- * Cache this value which is set if it is detected that data is new
- * and app needs a refresh
- *
- * @param {string} needsRefresh
- */
-const setNeedsRefresh = async needsRefresh => {
-  await AsyncStorage.setItem(NEEDS_REFRESH, needsRefresh)
-}
-
-/**
- * Get information on whether the app needs to be refreshed
- */
-const getNeedsRefresh = async () => {
-  const needsRefresh = await AsyncStorage.getItem(NEEDS_REFRESH)
-  return needsRefresh
+  return JSON.parse(lastAccountData)
 }
 
 /**
@@ -216,8 +198,6 @@ export default {
   getApplicationPassword,
   setLastAccountData,
   getLastAccountData,
-  setNeedsRefresh,
-  getNeedsRefresh,
   useMainNet,
   useTestNet,
   isMainNet,
