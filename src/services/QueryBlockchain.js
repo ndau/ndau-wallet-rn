@@ -2,13 +2,14 @@ import BackgroundFetch from 'react-native-background-fetch'
 import NotificationService from './NotificationService'
 import AccountAPI from '../api/AccountAPI'
 import FlashNotification from '../components/FlashNotification'
+import AppConfig from '../AppConfig'
 
 const notificationService = new NotificationService()
 
 const initialize = () => {
   BackgroundFetch.configure(
     {
-      minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
+      minimumFetchInterval: AppConfig.BACKGROUND_TASK_INTERVAL, // <-- minutes (15 is minimum allowed)
       stopOnTerminate: false, // <-- Android-only,
       startOnBoot: true // <-- Android-only
     },
