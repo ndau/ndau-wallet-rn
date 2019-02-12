@@ -26,6 +26,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import AppConstants from '../AppConstants'
+import LoggingService from '../services/LoggingService'
 
 var _ = require('lodash')
 
@@ -74,7 +75,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       )
     }
 
-    console.log(
+    LoggingService.debug(
       `user going into SetupWalletName: ${JSON.stringify(user, null, 2)}`
     )
 

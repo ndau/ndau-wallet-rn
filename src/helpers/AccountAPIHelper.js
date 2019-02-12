@@ -7,6 +7,7 @@ import AppConstants from '../AppConstants'
 import { ClaimTransaction } from '../transactions/ClaimTransaction'
 import { Transaction } from '../transactions/Transaction'
 import UserData from '../model/UserData'
+import LoggingService from '../services/LoggingService'
 
 const populateWalletWithAddressData = async wallet => {
   const addressDataFromAPI = await AccountAPI.getAddressData(
@@ -74,7 +75,7 @@ const populateWalletWithAddressData = async wallet => {
 
 const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
-    console.debug(`Sending claim transaction for ${addressData.nickname}`)
+    LoggingService.debug(`Sending claim transaction for ${addressData.nickname}`)
     Object.assign(ClaimTransaction.prototype, Transaction)
     const claimTransaction = new ClaimTransaction(wallet, account)
     await claimTransaction.createSignPrevalidateSubmit()
@@ -159,14 +160,16 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
 }
 
 const currentPrice = (marketPrice, totalNdau) => {
-  console.log(`marketPrice is ${marketPrice} totalNdau is ${totalNdau}`)
+  LoggingService.debug(
+    `marketPrice is ${marketPrice} totalNdau is ${totalNdau}`
+  )
 
   // why not use .toLocaleString you ask...here is why:
   // https://github.com/facebook/react-native/issues/15717
   const currentPrice = marketPrice
     ? '$' + DataFormatHelper.addCommas(parseFloat(totalNdau * marketPrice), 2)
     : '$0.00'
-  console.log(`currentPrice: ${currentPrice}`)
+  LoggingService.debug(`currentPrice: ${currentPrice}`)
 
   return currentPrice
 }

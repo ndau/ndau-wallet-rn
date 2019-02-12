@@ -76,6 +76,7 @@
     "react-native-button": "2.3.0",
     "react-native-camera": "1.1.4",
     "react-native-check-box": "2.1.7",
+    "react-native-device-log": "^1.0.2",
     "react-native-exit-app": "1.0.0",
     "react-native-flash-message": "0.1.10",
     "react-native-loading-spinner-overlay": "1.0.1",

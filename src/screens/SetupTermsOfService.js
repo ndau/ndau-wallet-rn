@@ -16,10 +16,11 @@ import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
-import AppConstants from '../AppConstants';
+import AppConstants from '../AppConstants'
+import LoggingService from '../services/LoggingService'
 
 class SetupTermsOfService extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -31,7 +32,7 @@ class SetupTermsOfService extends Component {
   finishSetup = async () => {
     this.setState({ spinner: true }, async () => {
       try {
-        console.debug('Finishing Setup...')
+        LoggingService.debug('Finishing Setup...')
 
         let user = this.props.navigation.getParam('user', null)
 
@@ -87,7 +88,7 @@ class SetupTermsOfService extends Component {
   }
 
   sendAddressesToOneiro = user => {
-    console.log(
+    LoggingService.debug(
       `sending the following to the accountAddresses DB: ${user.addresses}`
     )
     return this.sendAccountAddresses(
@@ -102,7 +103,7 @@ class SetupTermsOfService extends Component {
       ndauDashboardApi
         .sendAccountAddresses(userId, addresses, token)
         .then(whatPersisted => {
-          console.debug(`sendAccountAddresses persisted: ${whatPersisted}`)
+          LoggingService.debug(`sendAccountAddresses persisted: ${whatPersisted}`)
           resolve(whatPersisted)
         })
         .catch(error => {
@@ -112,15 +113,13 @@ class SetupTermsOfService extends Component {
     })
   }
 
-  sendingErrorOccured = () => { }
+  sendingErrorOccured = () => {}
 
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree })
   }
 
-  goBuyNdau = () => {
-
-  }
+  goBuyNdau = () => {}
 
   performFinishingAction = () => {
     let mode = this.props.navigation.getParam('mode', AppConstants.TOS_SETUP)
@@ -135,9 +134,8 @@ class SetupTermsOfService extends Component {
     }
   }
 
-  render() {
+  render () {
     SetupStore.printData()
-
 
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
@@ -329,9 +327,9 @@ class SetupTermsOfService extends Component {
                 strictly adhere to the respective Platform policies published by
                 us from time to time, such that you should not:
                 {'\n\t'} (a) Browse, surf, process, scan, or use the Platform
-            via operation of a computer program designed to gather
-            information or perform operations imitating a human user
-            (including, without limitation, Bots or Crawlers);
+                via operation of a computer program designed to gather
+                information or perform operations imitating a human user
+                (including, without limitation, Bots or Crawlers);
                 {'\n\t'}
                 (b) Manipulate the URL of the Website (or if applicable, the
                 Application), gain access to any internal pages to which we did

@@ -1,5 +1,6 @@
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import axios from 'axios'
+import LoggingService from '../services/LoggingService'
 
 /**
  * This method will post data to a specified URL.
@@ -10,12 +11,12 @@ import axios from 'axios'
  */
 const post = async (url, data, timeout = 10000) => {
   try {
-    console.log(`Sending ${data} to ${url}`)
+    LoggingService.debug(`Sending ${data} to ${url}`)
     const response = await axios.post(url, data, { timeout })
-    console.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
+    LoggingService.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
     return response.data
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }
@@ -28,12 +29,12 @@ const post = async (url, data, timeout = 10000) => {
  */
 const get = async (url, timeout = 10000) => {
   try {
-    console.log(`Performing GET on ${url}`)
+    LoggingService.debug(`Performing GET on ${url}`)
     const response = await axios.get(url, { timeout })
-    console.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
+    LoggingService.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
     return response.data
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }

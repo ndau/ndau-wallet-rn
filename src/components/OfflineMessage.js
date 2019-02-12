@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { NetInfo } from 'react-native'
 import FlashNotification from '../components/FlashNotification'
+import LoggingService from '../services/LoggingService'
 
 class OfflineMessage extends PureComponent {
   componentDidMount () {
@@ -21,7 +22,7 @@ class OfflineMessage extends PureComponent {
   }
 
   handleConnectivityChange = isConnected => {
-    console.log(`Connectivity changed: ${isConnected}`)
+    LoggingService.debug(`Connectivity changed: ${isConnected}`)
     if (isConnected) {
       FlashNotification.hideMessage()
     } else {

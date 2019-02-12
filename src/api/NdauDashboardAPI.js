@@ -1,3 +1,5 @@
+import LoggingService from '../services/LoggingService'
+
 const ndauDashboardApiHost = 'ndaudashboard.ndau.tech'
 const ndauDashboardApiProtocol = 'https'
 
@@ -18,7 +20,7 @@ getTargetPrice = () => {
 }
 
 getNumberOfAccounts = userId => {
-  console.log(
+  LoggingService.debug(
     `${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/ndau/account/${userId}/totalnumber`
   )
   return fetch(
@@ -27,7 +29,11 @@ getNumberOfAccounts = userId => {
     .then(response => response.json())
     .then(responseJson => {
       console.info(
-        `getNumberOfAccounts responseJson ${JSON.stringify(responseJson, null, 2)}`
+        `getNumberOfAccounts responseJson ${JSON.stringify(
+          responseJson,
+          null,
+          2
+        )}`
       )
       return responseJson
     })
@@ -47,7 +53,7 @@ getNdauNewsLinks = () => {
 }
 
 sendAccountAddresses = (userId, addresses, token) => {
-  console.log(`Sending ${userId}, ${addresses} and ${token} to Oneiro`)
+  LoggingService.debug(`Sending ${userId}, ${addresses} and ${token} to Oneiro`)
   return fetch(
     `${ndauDashboardApiProtocol}://${ndauDashboardApiHost}/api/ndau/accountAddress`,
     {
@@ -65,7 +71,11 @@ sendAccountAddresses = (userId, addresses, token) => {
     .then(response => response.json())
     .then(responseJson => {
       console.info(
-        `sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`
+        `sendAccountAddresses responseJson ${JSON.stringify(
+          responseJson,
+          null,
+          2
+        )}`
       )
       return responseJson
     })
@@ -87,7 +97,11 @@ triggerQRTEmail = userId => {
     .then(response => response.json())
     .then(responseJson => {
       console.info(
-        `sendAccountAddresses responseJson ${JSON.stringify(responseJson, null, 2)}`
+        `sendAccountAddresses responseJson ${JSON.stringify(
+          responseJson,
+          null,
+          2
+        )}`
       )
       return responseJson
     })
