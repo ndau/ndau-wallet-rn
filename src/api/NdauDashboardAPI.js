@@ -9,7 +9,7 @@ getTargetPrice = () => {
   )
     .then(response => response.json())
     .then(responseJson => {
-      console.info(
+      LoggingService.debug(
         `getTargetPrice responseJson ${JSON.stringify(responseJson, null, 2)}`
       )
       return responseJson
@@ -28,7 +28,7 @@ getNumberOfAccounts = userId => {
   )
     .then(response => response.json())
     .then(responseJson => {
-      console.info(
+      LoggingService.debug(
         `getNumberOfAccounts responseJson ${JSON.stringify(
           responseJson,
           null,
@@ -45,7 +45,7 @@ getNdauNewsLinks = () => {
   )
     .then(response => response.json())
     .then(responseJson => {
-      console.info(
+      LoggingService.debug(
         `getNdauNewsLinks responseJson ${JSON.stringify(responseJson, null, 2)}`
       )
       return responseJson
@@ -70,7 +70,7 @@ sendAccountAddresses = (userId, addresses, token) => {
   )
     .then(response => response.json())
     .then(responseJson => {
-      console.info(
+      LoggingService.debug(
         `sendAccountAddresses responseJson ${JSON.stringify(
           responseJson,
           null,
@@ -96,7 +96,7 @@ triggerQRTEmail = userId => {
   )
     .then(response => response.json())
     .then(responseJson => {
-      console.info(
+      LoggingService.debug(
         `sendAccountAddresses responseJson ${JSON.stringify(
           responseJson,
           null,

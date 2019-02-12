@@ -21,19 +21,15 @@ const mock = () => {
 
 mock()
 
-jest.mock('NativeModules', () => {
-  return {
-    KeyaddrManager: {
-      keyaddrWordsToBytes: jest.fn(),
-      newKey: jest.fn(),
-      child: jest.fn(),
-      hardenedChild: jest.fn(),
-      ndauAddress: jest.fn(),
-      deriveFrom: jest.fn(),
-      toPublic: jest.fn()
-    }
-  }
-})
+NativeModules.KeyaddrManager = {
+  keyaddrWordsToBytes: jest.fn(),
+  newKey: jest.fn(),
+  child: jest.fn(),
+  hardenedChild: jest.fn(),
+  ndauAddress: jest.fn(),
+  deriveFrom: jest.fn(),
+  toPublic: jest.fn()
+}
 
 let seedPhraseArray = [
   'goat',
@@ -235,7 +231,6 @@ test('createFirstTimeUser no bytes', async () => {
   try {
     await KeyMaster.createFirstTimeUser(null, userId, chainId)
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toBe(errorString)
   }
 })
@@ -268,7 +263,6 @@ test('createNewAccount has bogus user', async () => {
     user.wallets[user.userId] = wallet
     await KeyMaster.createNewAccount(user)
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toBe(errorNewAccountUser)
   }
 })
@@ -282,7 +276,6 @@ test('getRootAddresses has an error', async () => {
   try {
     await KeyMaster.getRootAddresses(null)
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toBe(errorGetRootAddresses)
   }
 })
@@ -296,7 +289,6 @@ test('getBIP44Addresses has an error', async () => {
   try {
     await KeyMaster.getBIP44Addresses(null)
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toBe(errorGetBIP44Addresses)
   }
 })

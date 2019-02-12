@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import CryptoJS from 'crypto-js'
 import FlashNotification from '../components/FlashNotification'
+import LoggingService from '../services/LoggingService'
 
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:'
 const CURRENT_USER_KEY = '@CurrentUserKey'
@@ -146,7 +147,9 @@ const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
     const userString = JSON.stringify(user)
     const storageKey = storageKeyOverride || STORAGE_KEY_PREFIX + user.userId
 
-    LoggingService.debug(`lockUser - user to encrypt to ${storageKey}: ${userString}`)
+    LoggingService.debug(
+      `lockUser - user to encrypt to ${storageKey}: ${userString}`
+    )
     const userStringEncrypted = CryptoJS.AES.encrypt(
       userString,
       encryptionPassword
