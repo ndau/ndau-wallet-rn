@@ -4,6 +4,7 @@ import AccountAPI from '../api/AccountAPI'
 import AppConfig from '../AppConfig'
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
+import LoggingService from '../services/LoggingService'
 
 /**
  * First we check to see if there are a variable number of accounts existent
@@ -39,7 +40,9 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   }
 
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
-  console.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`)
+  LoggingService.debug(
+    `BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`
+  )
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     await KeyMaster.addAccountsToUser(
       recoveryPhraseBytes,
@@ -48,11 +51,13 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
       undefined,
       userId
     )
-    console.log(`user with BIP44: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`user with BIP44: ${JSON.stringify(user, null, 2)}`)
   }
 
   const rootAccounts = await _checkRootAddresses(recoveryPhraseBytes)
-  console.log(`root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`)
+  LoggingService.debug(
+    `root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`
+  )
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     // Here again we are attempting to genereate at the very root of the tree
     await KeyMaster.addAccountsToUser(
@@ -62,7 +67,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
       '',
       userId
     )
-    console.log(`user with root: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`user with root: ${JSON.stringify(user, null, 2)}`)
   }
 
   return user
@@ -77,7 +82,7 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
 
 const _checkRootAddresses = async recoveryPhraseBytes => {
   const addresses = await KeyMaster.getRootAddresses(recoveryPhraseBytes)
-  console.log(`_checkRootAddresses found: ${addresses}`)
+  LoggingService.debug(`_checkRootAddresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
   const accountData = await AccountAPI.getAddressData(addresses)
   return accountData
@@ -85,7 +90,7 @@ const _checkRootAddresses = async recoveryPhraseBytes => {
 
 const _checkBIP44Addresses = async recoveryPhraseBytes => {
   const addresses = await KeyMaster.getBIP44Addresses(recoveryPhraseBytes)
-  console.log(`_checkBIP44Addresses found: ${addresses}`)
+  LoggingService.debug(`_checkBIP44Addresses found: ${addresses}`)
   // check the blockchain to see if any of these exist
   const accountData = await AccountAPI.getAddressData(addresses)
   return accountData

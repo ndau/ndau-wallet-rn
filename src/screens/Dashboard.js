@@ -7,7 +7,9 @@ import {
   StatusBar,
   Image,
   RefreshControl,
-  TouchableOpacity
+  TouchableOpacity,
+  AppState,
+  Platform
 } from 'react-native'
 import cssStyles from '../css/styles'
 import DateHelper from '../helpers/DateHelper'
@@ -33,6 +35,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import CommonButton from '../components/CommonButton'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import LoggingService from '../services/LoggingService'
 
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
@@ -46,10 +49,26 @@ class Dashboard extends Component {
       user: {},
       refreshing: false,
       marketPrice: 0,
-      spinner: false
+      spinner: false,
+      appState: AppState.currentState,
+      queue: null
     }
 
     this.isTestNet = false
+  }
+
+  componentWillUnmount () {
+    AppState.removeEventListener('change', this._handleAppStateChange)
+  }
+
+  _handleAppStateChange = async nextAppState => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      this._onRefresh()
+    }
+    this.setState({ appState: nextAppState })
   }
 
   componentWillMount = async () => {
@@ -61,12 +80,13 @@ class Dashboard extends Component {
   }
 
   componentDidMount = async () => {
+    AppState.addEventListener('change', this._handleAppStateChange)
     let user = this.props.navigation.getParam('user', null)
     if (!user) {
       const password = await AsyncStorageHelper.getApplicationPassword()
       user = await MultiSafeHelper.getDefaultUser(password)
     }
-    console.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
 
     this.setState({ user })
 
@@ -150,12 +170,6 @@ class Dashboard extends Component {
     }
 
     this.setState({ refreshing: false, user, marketPrice })
-  }
-
-  _handleFloatingButtonPress = async buttonName => {
-    if (buttonName === 'add_account') {
-      this.launchAddNewAccountDialog()
-    }
   }
 
   render = () => {
@@ -359,10 +373,6 @@ class Dashboard extends Component {
                         lock={this.lock}
                         unlock={this.unlock}
                         startTransaction={address => {
-                          console.log(
-                            'state before transaction started',
-                            this.state
-                          )
                           this.setState({
                             activeAddress: address
                           })
@@ -400,7 +410,7 @@ class Dashboard extends Component {
         </SafeAreaView>
       )
     } catch (error) {
-      console.warn(error)
+      LoggingService.debug(error)
       FlashNotification.showError(error.message, false, false)
     }
 

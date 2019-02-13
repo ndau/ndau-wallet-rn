@@ -16,6 +16,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import cssStyles from '../css/styles'
+import LoggingService from '../services/LoggingService'
 
 const GREEN_CARD = require('img/green-card.png')
 const BLUE_CARD = require('img/light-blue-card.png')
@@ -74,9 +75,6 @@ class CollapsiblePanel extends Component {
   setMaxHeight = event => {
     let adjustment = hp('1.2%')
     if (event.nativeEvent.layout.height > this.state.maxHeight) {
-      console.debug(
-        `setting maxHeight for first time: ${event.nativeEvent.layout.height}`
-      )
       this.setState({
         maxHeight: event.nativeEvent.layout.height + adjustment
       })

@@ -1,5 +1,15 @@
 import KeyPathHelper from '../helpers/KeyPathHelper'
 
+const addresses = [
+  'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+  'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz',
+  'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
+  'ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g',
+  'ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp5c',
+  'ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbfq',
+  'ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk98'
+]
+
 const testAddressData = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
     balance: 4200000000.23,
@@ -200,12 +210,13 @@ const eaiPercentageResponse = [
 ]
 
 const testMarketPrice = {
-  marketPrice: 16.34,
-  targetPrice: 17,
-  floorPrice: 2.57,
-  endowmentSold: 291900000000000,
-  totalNdau: 2000000,
-  USD: 'USD'
+  marketPrice: 16.92432746094448,
+  targetPrice: 16.92432746094448,
+  floorPrice: 2.587509238949236,
+  totalIssued: 291501922963188,
+  totalNdau: 316945773007461,
+  sib: 1,
+  priceUnit: 'USD'
 }
 
 const testUser = {
@@ -337,7 +348,7 @@ const testUser = {
           derivedFromRoot: 'yes'
         }
       },
-      marketPrice: 16.34
+      marketPrice: 16.92432746094448
     }
   }
 }
@@ -429,5 +440,6 @@ export default {
   notifyTxRes,
   transferTxRes,
   accountHistoryRes,
-  transactionByHashRes
+  transactionByHashRes,
+  addresses
 }

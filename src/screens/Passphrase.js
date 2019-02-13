@@ -33,6 +33,7 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import LoggingService from '../services/LoggingService'
 
 const NDAU = require('img/ndau_multi_large_1024.png')
 
@@ -58,8 +59,9 @@ class Passphrase extends Component {
         if (user) {
           FlashNotification.hideMessage()
 
-          console.log(
-            `user in Passphrase found is ${JSON.stringify(user, null, 2)}`
+          LoggingService.debug(
+            'user in Passphrase found is',
+            JSON.stringify(user)
           )
 
           // cache the password
@@ -71,7 +73,7 @@ class Passphrase extends Component {
             marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
             FlashNotification.showError(error.message, false, false)
-            console.warn(error)
+            LoggingService.debug(error)
             errorMessage = error.message
           }
 
@@ -88,7 +90,7 @@ class Passphrase extends Component {
           this.setState({ spinner: false })
         }
       } catch (error) {
-        console.log(error)
+        LoggingService.debug(error)
         this.showLoginError()
         this.setState({ spinner: false })
       }
@@ -157,7 +159,6 @@ class Passphrase extends Component {
   }
 
   render () {
-    console.log(`rendering Passphrase`)
     const { textInputColor } = this.state
     return (
       <SafeAreaView style={cssStyles.safeContainer}>

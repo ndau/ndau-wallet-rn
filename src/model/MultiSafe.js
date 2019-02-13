@@ -61,7 +61,7 @@ class MultiSafe {
       )
       return newKeys
     } catch (error) {
-      console.debug('GetAllKeys failed', error)
+      LoggingService.debug('GetAllKeys failed', error)
       return []
     }
   }
@@ -99,7 +99,7 @@ class MultiSafe {
       let item = await AsyncStorage.getItem(key)
       return item
     } catch (err) {
-      console.debug(key + ' was not a valid key in AsyncStorage')
+      LoggingService.debug(key + ' was not a valid key in AsyncStorage')
       throw err
     }
   }

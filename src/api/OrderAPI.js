@@ -1,6 +1,7 @@
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
+import LoggingService from '../services/LoggingService'
 
 const getMarketPrice = async () => {
   const marketPriceAPI = await APIAddressHelper.getMarketPriceAPIAddress()
@@ -8,7 +9,7 @@ const getMarketPrice = async () => {
     const data = await APICommunicationHelper.get(marketPriceAPI)
     return data.marketPrice
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }

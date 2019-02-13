@@ -5,6 +5,7 @@ import { View, Button } from 'react-native'
 import cssStyles from '../css/styles'
 import styleConstants from '../css/styleConstants'
 import AppConstants from '../AppConstants'
+import LoggingService from '../services/LoggingService'
 
 class IdentityMind extends Component {
   constructor (props) {
@@ -12,7 +13,7 @@ class IdentityMind extends Component {
   }
 
   handleMessage = event => {
-    console.log(
+    LoggingService.debug(
       `Message from webview: ${JSON.stringify(event.nativeEvent.data, null, 2)}`
     )
     if (event.nativeEvent.data === AppConstants.KYC_ACCEPTED) {
@@ -37,7 +38,7 @@ class IdentityMind extends Component {
     if (__DEV__) {
       kycUrl = 'https://staging.ntrd.io/kyc/'
     }
-    console.log(kycUrl)
+    LoggingService.debug(kycUrl)
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <View style={cssStyles.container}>
@@ -51,7 +52,7 @@ class IdentityMind extends Component {
               flex: 1,
               backgroundColor: styleConstants.APP_BACKGROUND_COLOR
             }}
-            onLoadProgress={e => console.log(e.nativeEvent.progress)}
+            onLoadProgress={e => LoggingService.debug(e.nativeEvent.progress)}
             onMessage={this.handleMessage}
             bounces={false}
             userAgent='Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'

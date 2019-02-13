@@ -11,10 +11,10 @@ const mockServiceDiscovery = () => {
     .reply(200, services)
 }
 
-const mockAccountAPI = () => {
+const mockAccountAPI = (testAddressData = data.testAddressData) => {
   mock
     .onPost('https://testnet-0.api.ndau.tech/account/accounts')
-    .reply(200, data.testAddressData)
+    .reply(200, testAddressData)
 }
 
 const mockMarketPriceAPI = () => {

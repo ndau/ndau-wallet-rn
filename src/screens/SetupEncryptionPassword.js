@@ -144,7 +144,7 @@ class SetupEncryptionPassword extends Component {
         marketPrice
       })
     } catch (error) {
-      console.error(error)
+      LoggingService.error(error)
       FlashNotification.showError(error.message, false, false)
     }
   }
