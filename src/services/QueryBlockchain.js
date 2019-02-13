@@ -32,13 +32,12 @@ const initialize = () => {
   BackgroundFetch.status(status => {
     switch (status) {
       case BackgroundFetch.STATUS_RESTRICTED:
-        FlashNotification.showError('BackgroundFetch restricted')
+        FlashNotification.showError('BackgroundFetch is restricted')
         break
       case BackgroundFetch.STATUS_DENIED:
-        FlashNotification.showError('BackgroundFetch restricted')
-        break
-      case BackgroundFetch.STATUS_AVAILABLE:
-        FlashNotification.showInformation('BackgroundFetch restricted')
+        FlashNotification.showError(
+          'BackgroundFetch is denied. Settings should be enabled to use BackgroundFetch within native code.'
+        )
         break
     }
   })

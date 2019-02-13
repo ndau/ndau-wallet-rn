@@ -34,10 +34,3 @@ global.fetch = require('jest-fetch-mock')
 var chai = require('chai')
 
 global.expect = chai.expect
-
-deviceLog.init(new InMemoryAdapter(), {
-  logToConsole: false, // Send logs to console as well as device-log
-  logRNErrors: false, // Will pick up RN-errors and send them to the device log
-  maxNumberToRender: 2000, // 0 or undefined == unlimited
-  maxNumberToPersist: 2000 // 0 or undefined == unlimited
-})
