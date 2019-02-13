@@ -65,6 +65,18 @@ const mockTransferTx = () => {
     .reply(200, data.transferTxRes)
 }
 
+const mockAccountHistory = address => {
+  mock
+    .onGet(`https://testnet-0.api.ndau.tech/account/history/${address}`)
+    .reply(200, data.accountHistoryRes)
+}
+
+const mockTransactionByHash = transactionHash => {
+  mock
+    .onGet(`https://testnet-0.api.ndau.tech/transaction/${transactionHash}`)
+    .reply(200, data.transactionByHashRes)
+}
+
 export default {
   mockServiceDiscovery,
   mockAccountAPI,
@@ -73,5 +85,7 @@ export default {
   mockClaimAccountTx,
   mockLockTx,
   mockNotifyTx,
-  mockTransferTx
+  mockTransferTx,
+  mockAccountHistory,
+  mockTransactionByHash
 }

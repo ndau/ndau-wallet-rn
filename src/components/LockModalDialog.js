@@ -48,7 +48,7 @@ class LockModalDialog extends Component {
     }
 
     this.props.stopSpinner()
-    this.props.refresh()
+    // this.props.refresh()
   }
 
   showModal = () => {

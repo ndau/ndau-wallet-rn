@@ -22,7 +22,20 @@ const submit = async (submitAddress, transaction) => {
   return await _postTransaction(submitAddress, transaction)
 }
 
+const transactionByHash = async transactionHash => {
+  try {
+    const transactionByHashAddress = await APIAddressHelper.getTransactionByHashAPIAddress(
+      transactionHash
+    )
+    return await APICommunicationHelper.get(transactionByHashAddress)
+  } catch (error) {
+    console.warn(error)
+    throw new BlockchainAPIError()
+  }
+}
+
 export default {
   prevalidate,
-  submit
+  submit,
+  transactionByHash
 }

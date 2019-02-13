@@ -22,3 +22,12 @@ test('getMarketPrice should return something back', async () => {
 
   expect(marketPrice).toBeDefined()
 })
+
+test('accountHistory should return something back', async () => {
+  MockHelper.mockServiceDiscovery()
+  MockHelper.mockAccountHistory('1234asdf')
+
+  const theAccountHistory = await AccountAPI.accountHistory('1234asdf')
+
+  expect(theAccountHistory).toBeDefined()
+})

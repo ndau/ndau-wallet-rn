@@ -40,3 +40,21 @@ test('getTransactionSubmitAPIAddress sends back the correct address', async () =
   const submitUrl = await APIAddressHelper.getTransactionSubmitAPIAddress()
   expect(submitUrl.indexOf('.api.ndau.tech/tx/submit') !== -1).toBe(true)
 })
+
+test('getAccountHistoryAPIAddress sends back the correct address', async () => {
+  const submitUrl = await APIAddressHelper.getAccountHistoryAPIAddress(
+    '1234asdf'
+  )
+  expect(
+    submitUrl.indexOf('.api.ndau.tech/account/history/1234asdf') !== -1
+  ).toBe(true)
+})
+
+test('getTransactionByHashAPIAddress sends back the correct address', async () => {
+  const submitUrl = await APIAddressHelper.getTransactionByHashAPIAddress(
+    '1234asdf'
+  )
+  expect(submitUrl.indexOf('.api.ndau.tech/transaction/1234asdf') !== -1).toBe(
+    true
+  )
+})
