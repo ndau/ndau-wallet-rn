@@ -10,6 +10,7 @@ import FlashNotification from '../components/FlashNotification'
 import Wallet from '../model/Wallet'
 import DataFormatHelper from './DataFormatHelper'
 import KeyPathHelper from './KeyPathHelper'
+import LoggingService from '../services/LoggingService'
 
 /**
  * This function will return an array of addresses that can be
@@ -39,11 +40,11 @@ const getRootAddresses = async recoveryBytes => {
         `/${i}`
       )
 
-      console.debug(`root derivedKey: ${derivedKey}`)
+      LoggingService.debug(`root derivedKey: ${derivedKey}`)
 
       const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
-      console.debug(`root address: ${address}`)
+      LoggingService.debug(`root address: ${address}`)
 
       addresses.push(address)
     }
@@ -81,11 +82,11 @@ const getBIP44Addresses = async recoveryBytes => {
         KeyPathHelper.accountCreationKeyPath() + `/${i}`
       )
 
-      console.debug(`BIP44 derivedKey: ${derivedKey}`)
+      LoggingService.debug(`BIP44 derivedKey: ${derivedKey}`)
 
       const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
-      console.debug(`BIP44 address: ${address}`)
+      LoggingService.debug(`BIP44 address: ${address}`)
       addresses.push(address)
     }
   } catch (error) {
@@ -134,7 +135,7 @@ const createFirstTimeUser = async (
       user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
-    console.log(`User created is: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`User created is: ${JSON.stringify(user, null, 2)}`)
     return user
   } catch (error) {
     FlashNotification.showError(error.message)
@@ -192,7 +193,9 @@ const createWallet = async (
     }
     _createInitialKeys(wallet, accountCreationKey)
 
-    console.log(`Wallet created is: ${JSON.stringify(wallet, null, 2)}`)
+    LoggingService.debug(
+      `Wallet created is: ${JSON.stringify(wallet, null, 2)}`
+    )
 
     return wallet
   } catch (error) {
@@ -424,7 +427,9 @@ const _createAccounts = async (
       chainId
     )
   }
-  console.log(`Accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`)
+  LoggingService.debug(
+    `Accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`
+  )
 }
 
 export default {

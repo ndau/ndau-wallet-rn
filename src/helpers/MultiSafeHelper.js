@@ -4,6 +4,7 @@ import AppConstants from '../AppConstants'
 import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
 import DataFormatHelper from './DataFormatHelper'
+import LoggingService from '../services/LoggingService'
 
 /**
  * This function will persist the user information after any setup is
@@ -26,13 +27,13 @@ const setupNewUser = async (
   addressType = AppConstants.MAINNET_ADDRESS
 ) => {
   if (!user) {
-    console.debug('Generating all keys from phrase given...')
-    console.debug(`recoveryPhraseString: ${recoveryPhraseString}`)
+    LoggingService.debug('Generating all keys from phrase given...')
+    LoggingService.debug(`recoveryPhraseString: ${recoveryPhraseString}`)
     const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
       AppConstants.APP_LANGUAGE,
       recoveryPhraseString
     )
-    console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
+    LoggingService.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
 
     user = await KeyMaster.createFirstTimeUser(
       recoveryPhraseAsBytes,
@@ -88,12 +89,12 @@ const addNewWallet = async (
   encryptionPassword,
   addressType = AppConstants.MAINNET_ADDRESS
 ) => {
-  console.debug(`recoveryPhraseString: ${recoveryPhraseString}`)
+  LoggingService.debug(`recoveryPhraseString: ${recoveryPhraseString}`)
   const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
     AppConstants.APP_LANGUAGE,
     recoveryPhraseString
   )
-  console.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
+  LoggingService.debug(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
 
   const wallet = await KeyMaster.createWallet(
     recoveryPhraseAsBytes,
@@ -119,7 +120,7 @@ const _internalSaveUser = async (
 ) => {
   const multiSafe = new MultiSafe()
 
-  console.log(
+  LoggingService.debug(
     `persisting key ${walletId} into MultiSafe: ${JSON.stringify(
       user,
       null,

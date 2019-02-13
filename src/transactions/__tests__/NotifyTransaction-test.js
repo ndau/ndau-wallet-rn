@@ -10,13 +10,16 @@ MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
 MockHelper.mockNotifyTx()
 
-jest.mock('NativeModules', () => {
-  return {
-    KeyaddrManager: {
-      sign: jest.fn().mockRejectedValue(new Error('testing sign error'))
-    }
-  }
-})
+NativeModules.KeyaddrManager = {
+  keyaddrWordsToBytes: jest.fn(),
+  newKey: jest.fn(),
+  child: jest.fn(),
+  hardenedChild: jest.fn(),
+  ndauAddress: jest.fn(),
+  deriveFrom: jest.fn(),
+  toPublic: jest.fn(),
+  sign: jest.fn().mockRejectedValue(new Error('testing sign error'))
+}
 
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
@@ -203,7 +206,6 @@ test('notify fails if no sequence', async () => {
     await notifyTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toEqual('Error: No sequence found in addressData')
   }
 })
@@ -227,7 +229,6 @@ test('failure of any transaction around sign', async () => {
     expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
     await notifyTransaction.sign()
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toEqual('Error: testing sign error')
   }
 })
@@ -250,7 +251,6 @@ test('failure of any transaction around prevalidate', async () => {
     expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
     await notifyTransaction.prevalidate()
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toEqual('Error: error being sent')
   }
 })
@@ -273,7 +273,6 @@ test('failure of any transaction around submit', async () => {
     expect(createdNotifyTransaction).toEqual(theNotifyTransaction)
     await notifyTransaction.submit()
   } catch (error) {
-    console.error(error)
     expect(error.toString()).toEqual('Error: error being sent')
   }
 })

@@ -10,6 +10,7 @@ import CommonButton from '../components/CommonButton'
 import cssStyles from '../css/styles'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
 import { Transaction } from '../transactions/Transaction'
+import LoggingService from '../services/LoggingService'
 
 class UnlockModalDialog extends Component {
   _unlock = async () => {
@@ -18,7 +19,7 @@ class UnlockModalDialog extends Component {
 
     try {
       if (!this._wallet && !this._account) {
-        console.warn(
+        LoggingService.debug(
           'wallet and account are falsey in unlock and should not be'
         )
       } else {
@@ -30,7 +31,7 @@ class UnlockModalDialog extends Component {
         await notifyTransaction.createSignPrevalidateSubmit()
       }
     } catch (error) {
-      console.warn(error)
+      LoggingService.debug(error)
     }
 
     this.props.stopSpinner()

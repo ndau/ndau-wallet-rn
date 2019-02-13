@@ -106,7 +106,7 @@ test('make sure we can get the current price of the users ndau', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
-    '$28,709.38'
+    '$29,736.04'
   )
 })
 

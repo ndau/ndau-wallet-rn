@@ -56,6 +56,11 @@ class DashboardDrawer extends React.Component {
     )
   }
 
+  logging = () => {
+    this.props.navigation.closeDrawer()
+    this.props.navigation.navigate('Logging')
+  }
+
   render () {
     return (
       <ScrollView>
@@ -99,6 +104,15 @@ class DashboardDrawer extends React.Component {
                 marginBottom: hp('1.5%')
               }}
             />
+          </Padding>
+
+          <Padding>
+            <TouchableOpacity onPress={() => this.logging()}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={cssStyles.drawerTextImage} source={LOGOUT} />
+                <Text style={cssStyles.drawerText}>Logging</Text>
+              </View>
+            </TouchableOpacity>
           </Padding>
 
           <Padding>

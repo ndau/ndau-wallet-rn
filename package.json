@@ -54,7 +54,7 @@
       "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message|react-native-loading-spinner-overlay)/)"
+      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message|react-native-loading-spinner-overlay|react-native-device-log|react-native-invertible-scroll-view|react-native-scrollable-mixin)/)"
     ]
   },
   "dependencies": {
@@ -76,6 +76,7 @@
     "react-native-button": "2.3.0",
     "react-native-camera": "1.1.4",
     "react-native-check-box": "2.1.7",
+    "react-native-device-log": "^1.0.2",
     "react-native-exit-app": "1.0.0",
     "react-native-flash-message": "0.1.10",
     "react-native-loading-spinner-overlay": "1.0.1",

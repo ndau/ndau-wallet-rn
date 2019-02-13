@@ -21,6 +21,7 @@ import {
 } from 'react-native-responsive-screen'
 import AppConstants from '../AppConstants'
 import Padding from '../components/Padding'
+import LoggingService from '../services/LoggingService'
 
 var _ = require('lodash')
 
@@ -37,12 +38,16 @@ class SetupRecoveryPhrase extends Component {
     this.boxHeight = '14%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
+    LoggingService.debug(
+      `PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`
+    )
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       this.boxWidth = '100%'
       this.boxHeight = '30%'
-      console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`)
+      LoggingService.debug(
+        `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
+      )
     }
   }
 
@@ -79,9 +84,9 @@ class SetupRecoveryPhrase extends Component {
     if (!_(seedBytes).isEqual(SetupStore.entropy)) {
       this.showExitApp()
     } else {
-      console.debug(`${seedBytes} and ${SetupStore.entropy} are equal.`)
+      LoggingService.debug(`${seedBytes} and ${SetupStore.entropy} are equal.`)
     }
-    console.debug(`keyaddr's seed words are: ${seeds}`)
+    LoggingService.debug(`keyaddr's seed words are: ${seeds}`)
     const recoveryPhrase = seeds.split(/\s+/g)
     this.setState({ recoveryPhrase: recoveryPhrase })
 

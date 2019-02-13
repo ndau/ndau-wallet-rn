@@ -1,6 +1,6 @@
-import { NativeModules } from 'react-native'
 import MockAsyncStorage from 'mock-async-storage'
 import sinon from 'sinon'
+import { NativeModules } from 'react-native'
 import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
 import data from '../../api/data'
 import services from '../../api/services-dev.json'
@@ -10,6 +10,16 @@ MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
+
+NativeModules.KeyaddrManager = {
+  keyaddrWordsToBytes: jest.fn(),
+  newKey: jest.fn(),
+  child: jest.fn(),
+  hardenedChild: jest.fn(),
+  ndauAddress: jest.fn(),
+  deriveFrom: jest.fn(),
+  toPublic: jest.fn()
+}
 
 const mock = () => {
   const mockImpl = new MockAsyncStorage()
@@ -24,20 +34,6 @@ jest.mock('../../api/AccountAPI', () => {
       .fn()
       .mockReturnValueOnce(data.testAddressData)
       .mockReturnValueOnce(data.testAddressData)
-  }
-})
-
-jest.mock('NativeModules', () => {
-  return {
-    KeyaddrManager: {
-      keyaddrWordsToBytes: jest.fn(),
-      newKey: jest.fn(),
-      child: jest.fn(),
-      hardenedChild: jest.fn(),
-      ndauAddress: jest.fn(),
-      deriveFrom: jest.fn(),
-      toPublic: jest.fn()
-    }
   }
 })
 

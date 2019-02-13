@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import DashboardNavigation from './DashboardNavigation'
+import LoggingNavigation from './LoggingNavigation'
 import SetupWelcome from '../screens/SetupWelcome'
 import SetupWalletName from '../screens/SetupWalletName'
 import SetupNewOrRecovery from '../screens/SetupNewOrRecovery'
@@ -15,7 +16,6 @@ import AuthLoading from './AuthLoading'
 import IdentityMind from '../screens/IdentityMind'
 import IdentityVerificationIntro from '../screens/IdentityVerificationIntro'
 import IdentityVerificationSuccess from '../screens/IdentityVerificationSuccess'
-
 
 const PassphraseScreen = ({ navigation }) => (
   <Passphrase navigation={navigation} />
@@ -115,6 +115,13 @@ DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
+const LoggingNavigationScreen = ({ navigation }) => (
+  <LoggingNavigation navigation={navigation} />
+)
+LoggingNavigationScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+})
+
 const AuthStack = createStackNavigator({
   Passphrase: { screen: PassphraseScreen }
 })
@@ -132,13 +139,13 @@ const SetupStack = createStackNavigator({
   IdentityMind: { screen: IdentityMindScreen },
   IdentityVerificationIntro: { screen: IdentityVerificationIntroScreen },
   IdentityVerificationSuccess: { screen: IdentityVerificationSuccessScreen }
-
 })
 
 export default createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
+    Logging: LoggingNavigation,
     Auth: AuthStack,
     Setup: SetupStack
   },

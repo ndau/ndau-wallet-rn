@@ -1,6 +1,7 @@
 import ServiceDiscoveryError from '../errors/ServiceDiscoveryError'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
+import LoggingService from '../services/LoggingService'
 
 const AWS_S3_SERVICE_JSON_PROD =
   'https://s3.us-east-2.amazonaws.com/ndau-json/services-prod.json'
@@ -14,7 +15,7 @@ const getServiceNodeURL = async () => {
   if ((await AsyncStorageHelper.isTestNet()) || __DEV__) {
     url = AWS_S3_SERVICE_JSON_TEST
   }
-  console.debug(`Service Discovery URL: ${url}`)
+  LoggingService.debug(`Service Discovery URL: ${url}`)
 
   try {
     const response = await APICommunicationHelper.get(url)
@@ -23,7 +24,7 @@ const getServiceNodeURL = async () => {
     // return a random service for use
     return apinodes[Math.floor(Math.random() * apinodes.length)]
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new ServiceDiscoveryError()
   }
 }

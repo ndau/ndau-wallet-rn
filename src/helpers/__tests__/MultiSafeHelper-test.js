@@ -13,19 +13,15 @@ const mock = () => {
 
 mock()
 
-jest.mock('NativeModules', () => {
-  return {
-    KeyaddrManager: {
-      keyaddrWordsToBytes: jest.fn(),
-      newKey: jest.fn(),
-      child: jest.fn(),
-      hardenedChild: jest.fn(),
-      ndauAddress: jest.fn(),
-      deriveFrom: jest.fn(),
-      toPublic: jest.fn()
-    }
-  }
-})
+NativeModules.KeyaddrManager = {
+  keyaddrWordsToBytes: jest.fn(),
+  newKey: jest.fn(),
+  child: jest.fn(),
+  hardenedChild: jest.fn(),
+  ndauAddress: jest.fn(),
+  deriveFrom: jest.fn(),
+  toPublic: jest.fn()
+}
 
 jest.mock('../../api/AccountAPI', () => {
   return {

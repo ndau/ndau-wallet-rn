@@ -9,6 +9,7 @@ import ModalDialog from './ModalDialog'
 import CommonButton from '../components/CommonButton'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
+import LoggingService from '../services/LoggingService'
 
 class LockModalDialog extends Component {
   constructor (props) {
@@ -33,7 +34,7 @@ class LockModalDialog extends Component {
 
     try {
       if (!this._wallet && !this._account) {
-        console.warn('wallet and account are falsey in lock and should not be')
+        LoggingService.debug('wallet and account are falsey in lock and should not be')
       } else {
         Object.assign(LockTransaction.prototype, Transaction)
         const lockTransaction = new LockTransaction(
@@ -44,7 +45,7 @@ class LockModalDialog extends Component {
         await lockTransaction.createSignPrevalidateSubmit()
       }
     } catch (error) {
-      console.warn(error)
+      LoggingService.debug(error)
     }
 
     this.props.stopSpinner()

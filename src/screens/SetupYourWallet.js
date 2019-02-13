@@ -12,6 +12,7 @@ import SetupProgressBar from '../components/SetupProgressBar'
 import cssStyles from '../css/styles'
 import { SafeAreaView } from 'react-navigation'
 import EntropyHelper from '../helpers/EntropyHelper'
+import LoggingService from '../services/LoggingService'
 
 class SetupYourWallet extends Component {
   showNextSetup = async () => {
@@ -33,7 +34,7 @@ class SetupYourWallet extends Component {
     } else {
       this.setState({ toggleCount: this.state.toggleCount + 1 })
     }
-    console.log(`this.state.toggleCount is ${this.state.toggleCount}`)
+    LoggingService.debug(`this.state.toggleCount is ${this.state.toggleCount}`)
   }
 
   render () {

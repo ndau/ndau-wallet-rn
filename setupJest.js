@@ -1,3 +1,5 @@
+import deviceLog, { InMemoryAdapter } from 'react-native-device-log'
+
 const { JSDOM } = require('jsdom')
 const jsdom = new JSDOM()
 const { window } = jsdom
@@ -27,13 +29,15 @@ console.error = message => {
   return message
 }
 
-require('react-native-mock-render/mock')
-
 global.fetch = require('jest-fetch-mock')
 
 var chai = require('chai')
 
 global.expect = chai.expect
 
-// This will mutate `react-native`'s require cache with `react-native-mock`'s.
-// require('react-native-mock/mock'); // <-- side-effects!!!
+deviceLog.init(new InMemoryAdapter(), {
+  logToConsole: false, // Send logs to console as well as device-log
+  logRNErrors: false, // Will pick up RN-errors and send them to the device log
+  maxNumberToRender: 2000, // 0 or undefined == unlimited
+  maxNumberToPersist: 2000 // 0 or undefined == unlimited
+})

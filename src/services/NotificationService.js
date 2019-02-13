@@ -1,5 +1,6 @@
 import { PushNotificationIOS, Platform } from 'react-native'
 import PushNotification from 'react-native-push-notification'
+import LoggingService from '../services/LoggingService'
 
 export default class NotificationService {
   constructor (onRegister, onNotification) {
@@ -9,13 +10,11 @@ export default class NotificationService {
   configure () {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
-      onRegister: function (token) {
-        console.log('TOKEN:', token)
-      },
+      onRegister: function (token) {},
 
       // (required) Called when a remote or local notification is opened or received
       onNotification: function (notification) {
-        console.log('NOTIFICATION:', notification)
+        LoggingService.debug('NOTIFICATION:', notification)
 
         // process the notification
 

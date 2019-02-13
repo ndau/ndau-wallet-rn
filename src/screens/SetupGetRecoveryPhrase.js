@@ -31,6 +31,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import LoggingService from '../services/LoggingService'
 
 const DEFAULT_ROW_LENGTH = 3 // 3 items per row
 const _ = require('lodash')
@@ -108,12 +109,16 @@ class SetupGetRecoveryPhrase extends Component {
     this.boxHeight = '13%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    console.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
+    LoggingService.debug(
+      `PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`
+    )
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       this.boxWidth = '100%'
       this.boxHeight = '30%'
-      console.log(`boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`)
+      LoggingService.debug(
+        `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
+      )
     }
     this.recoveryDropdownRef = null
   }
@@ -290,7 +295,7 @@ class SetupGetRecoveryPhrase extends Component {
           FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
         }
       } catch (error) {
-        console.warn(error)
+        LoggingService.debug(error)
         this.setState({
           textColor: '#f05123',
           confirmationError: true
@@ -318,7 +323,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   adjustStepNumber = pageIndex => {
     this.setState({ stepNumber: pageIndex })
-    console.log(`pageIndex: ${pageIndex}`)
+    LoggingService.debug(`pageIndex: ${pageIndex}`)
     if (pageIndex === this.recoveryPhrase.length) {
       this.setState({ recoverPhraseFull: true })
     }
@@ -537,7 +542,7 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   render () {
-    console.log(`recoverPhrase is now: ${this.recoveryPhrase}`)
+    LoggingService.debug(`recoverPhrase is now: ${this.recoveryPhrase}`)
 
     return !this.state.recoverPhraseFull
       ? this._renderAcquisition()
