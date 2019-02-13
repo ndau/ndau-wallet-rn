@@ -348,7 +348,7 @@ const testUser = {
           derivedFromRoot: 'yes'
         }
       },
-      marketPrice: 16.34
+      marketPrice: 16.92432746094448
     }
   }
 }
