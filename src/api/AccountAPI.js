@@ -3,6 +3,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import LoggingService from '../services/LoggingService'
 
 var _ = require('lodash')
 
@@ -16,7 +17,7 @@ const getAddressData = async addresses => {
     await AsyncStorageHelper.setLastAccountData(accountData)
     return accountData
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }
@@ -31,7 +32,7 @@ const isAddressDataNew = async addresses => {
     )
     return !_.isEqual(lastAccountData, accountData)
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }
@@ -48,7 +49,7 @@ const getEaiRate = async addressData => {
       JSON.stringify(accountEaiRateRequestData)
     )
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }
@@ -60,7 +61,7 @@ const accountHistory = async address => {
   try {
     return await APICommunicationHelper.get(accountHistoryAddress)
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }

@@ -15,6 +15,7 @@ import { SafeAreaView } from 'react-navigation'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
+import LoggingService from '../services/LoggingService'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -60,7 +61,7 @@ class SetupWelcome extends Component {
     } else {
       this.setState({ toggleCount: this.state.toggleCount + 1 })
     }
-    console.log(`this.state.toggleCount is ${this.state.toggleCount}`)
+    LoggingService.debug(`this.state.toggleCount is ${this.state.toggleCount}`)
   }
 
   render () {

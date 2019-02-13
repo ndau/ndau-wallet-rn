@@ -4,6 +4,7 @@ import TransactionAPI from '../api/TransactionAPI'
 import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
+import LoggingService from '../services/LoggingService'
 
 export const Transaction = {
   /**
@@ -63,7 +64,7 @@ export const Transaction = {
   },
 
   handleError (message) {
-    console.warn(`Error from blockchain: ${message}`)
+    LoggingService.debug(`Error from blockchain: ${message}`)
     FlashNotification.showError(
       `Problem occurred sending a ${this.transactionType} for ${
         this._account.addressData.nickname
@@ -81,7 +82,7 @@ export const Transaction = {
       // Here we get the ownership key to sign for ClaimAccount. This is
       // the ONLY time we use the ownershipKey. Any subsequent/other
       // transactions use the validationKey within the account
-      console.debug(`key to use for signature is ${this._keyToUse}`)
+      LoggingService.debug(`key to use for signature is ${this._keyToUse}`)
       const privateKeyFromHash = this.privateKeyForSigning()
 
       // Use the TxSignPrep to get it ready to send
@@ -96,7 +97,7 @@ export const Transaction = {
         base64EncodedPrepTx
       )
 
-      console.debug(`signature from KeyaddrManager.sign is ${signature}`)
+      LoggingService.debug(`signature from KeyaddrManager.sign is ${signature}`)
       this.addSignatureToJsonTransaction(signature)
     } catch (error) {
       this.handleError(error.message)

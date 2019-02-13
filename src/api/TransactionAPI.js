@@ -1,6 +1,7 @@
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
+import LoggingService from '../services/LoggingService'
 
 const _postTransaction = async (submitAddress, transaction) => {
   try {
@@ -9,7 +10,7 @@ const _postTransaction = async (submitAddress, transaction) => {
       JSON.stringify(transaction)
     )
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }
@@ -29,7 +30,7 @@ const transactionByHash = async transactionHash => {
     )
     return await APICommunicationHelper.get(transactionByHashAddress)
   } catch (error) {
-    console.warn(error)
+    LoggingService.debug(error)
     throw new BlockchainAPIError()
   }
 }

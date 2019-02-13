@@ -35,6 +35,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import CommonButton from '../components/CommonButton'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import LoggingService from '../services/LoggingService'
 
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
@@ -85,7 +86,7 @@ class Dashboard extends Component {
       const password = await AsyncStorageHelper.getApplicationPassword()
       user = await MultiSafeHelper.getDefaultUser(password)
     }
-    console.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
 
     this.setState({ user })
 
@@ -173,7 +174,6 @@ class Dashboard extends Component {
 
   render = () => {
     try {
-      console.log(`Rendering Dashboard...`)
       const user = this.state.user
       const wallet = Object.values(user.wallets)[0]
       const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
@@ -373,10 +373,6 @@ class Dashboard extends Component {
                         lock={this.lock}
                         unlock={this.unlock}
                         startTransaction={address => {
-                          console.log(
-                            'state before transaction started',
-                            this.state
-                          )
                           this.setState({
                             activeAddress: address
                           })
@@ -414,7 +410,7 @@ class Dashboard extends Component {
         </SafeAreaView>
       )
     } catch (error) {
-      console.warn(error)
+      LoggingService.debug(error)
       FlashNotification.showError(error.message, false, false)
     }
 

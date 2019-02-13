@@ -10,6 +10,7 @@ import AppNavigation from './navigation/AppNavigation'
 import FlashMessage from 'react-native-flash-message'
 import OfflineMessage from './components/OfflineMessage'
 import BackgroundTasks from './services/BackgroundTasks'
+import LoggingService from './services/LoggingService'
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
@@ -22,6 +23,7 @@ export default class App extends React.Component {
     super(props)
 
     BackgroundTasks.initialize()
+    LoggingService.initialize()
   }
 
   render () {
