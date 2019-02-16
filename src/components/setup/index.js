@@ -20,8 +20,8 @@ export function SetupWelcomeContainer ({ children }) {
       <LinearGradient
         start={{ x: 0.0, y: 0.2 }}
         end={{ x: 0.5, y: 1.0 }}
-        locations={[0, 0.3, 0.5, 1.0]}
-        colors={['#0F2748', '#4E957A', '#293E63', '#0F2748']}
+        locations={[0, 0.5037, 1.0]}
+        colors={['#0F2748', '#293E63', '#0F2748']}
         style={[componentStyles.opaqueOverlay]}
       >
         <View style={componentStyles.setupWelcomeContainer}>{children}</View>
