@@ -115,7 +115,7 @@ class RecoveryDropdown extends Component {
   render () {
     const { query } = this.state
     const mainStyle = {
-      backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
+      backgroundColor: '#293e63',
       color: this.state.textColor,
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
@@ -164,7 +164,7 @@ var styles = StyleSheet.create({
   autocompleteContainer: {
     ...Platform.select({
       ios: {
-        backgroundColor: styleConstants.APP_BACKGROUND_COLOR
+        backgroundColor: '#293e63'
       },
       android: {
         flex: 1,
@@ -176,14 +176,14 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular',
-    backgroundColor: styleConstants.APP_BACKGROUND_COLOR
+    backgroundColor: '#293e63'
   },
   containerStyle: {
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: 3,
     width: wp('53%'),
-    backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
+    backgroundColor: '#293e63',
     overflow: 'hidden',
     ...Platform.select({
       ios: {
@@ -202,7 +202,7 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Light',
-    backgroundColor: styleConstants.APP_BACKGROUND_COLOR,
+    backgroundColor: '#293e63',
     paddingLeft: wp('2%'),
     paddingTop: wp('2%'),
     paddingBottom: wp('2%')

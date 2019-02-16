@@ -5,12 +5,12 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafe from '../model/MultiSafe'
 import FlashNotification from '../components/FlashNotification'
 import AppConstants from '../AppConstants'
-import { RECOVERY_WALLET_SETUP_TYPE } from '../components/SetupProgressBar'
+import { RECOVERY_WALLET_SETUP_TYPE } from '../components/common'
 
 class AuthLoadingScreen extends React.Component {
   constructor (props) {
     super(props)
-    this._bootstrapAsync()
+    this.props.navigation.navigate('SetupWelcome')
   }
 
   // Fetch the token from storage then navigate to our appropriate place

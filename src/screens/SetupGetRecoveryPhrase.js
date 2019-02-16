@@ -32,8 +32,15 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
+import {
+  SetupContainer,
+  ParagraphText,
+  RecoveryPhraseConfirmation
+} from '../components/setup'
+import { LargeButtons } from '../components/common'
+import { BottomLinkText } from '../components/common'
 
-const DEFAULT_ROW_LENGTH = 3 // 3 items per row
+const DEFAULT_ROW_LENGTH = 4
 const _ = require('lodash')
 
 class SetupGetRecoveryPhrase extends Component {
@@ -331,123 +338,101 @@ class SetupGetRecoveryPhrase extends Component {
 
   _renderAcquisition = () => {
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <View style={cssStyles.container}>
-          <ScrollView
-            style={cssStyles.contentContainer}
-            keyboardShouldPersistTaps='always'
+      <SetupContainer {...this.props} pageNumber={2 + this.state.stepNumber}>
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <ParagraphText>{this.state.introductionText}</ParagraphText>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            height: hp('10%')
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           >
-            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-
-            <SetupProgressBar
-              stepNumber={this.state.stepNumber}
-              navigation={this.props.navigation}
-            />
-
-            <View style={{ marginBottom: wp('4%') }}>
-              <Text style={cssStyles.wizardText}>
-                {this.state.introductionText}
-              </Text>
-            </View>
+            <Text style={cssStyles.wizardText}>
+              {this.state.recoveryIndex + 1}
+            </Text>
+            <Text style={cssStyles.wizardText}>{' of '}</Text>
+            <Text style={cssStyles.wizardText}>
+              {this.recoveryPhrase.length}
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'flex-start'
+            }}
+          >
             <View
               style={{
-                flex: 1,
-                alignItems: 'center',
+                flexDirection: 'row',
                 justifyContent: 'center'
               }}
             >
-              <View
+              <TouchableOpacity
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center'
+                  marginLeft: wp('5%'),
+                  marginTop: hp('.8%'),
+                  ...Platform.select({
+                    ios: {
+                      marginRight: hp('1.6%')
+                    },
+                    android: {
+                      marginRight: hp('3%')
+                    }
+                  })
                 }}
+                onPress={this._moveBackAWord}
               >
-                <Text style={cssStyles.wizardText}>
-                  {this.state.recoveryIndex + 1}
-                </Text>
-                <Text style={cssStyles.wizardText}>{' of '}</Text>
-                <Text style={cssStyles.wizardText}>
-                  {this.recoveryPhrase.length}
-                </Text>
-              </View>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center'
-                }}
-              >
-                <TouchableOpacity
-                  style={{
-                    marginLeft: wp('5%'),
-                    marginTop: hp('.8%'),
-                    ...Platform.select({
-                      ios: {
-                        marginRight: hp('1.6%')
-                      },
-                      android: {
-                        marginRight: hp('3%')
-                      }
-                    })
-                  }}
-                  onPress={this._moveBackAWord}
-                >
-                  <FontAwesome5Pro
-                    name='arrow-circle-left'
-                    color={styleConstants.ICON_GRAY}
-                    size={32}
-                    light
-                  />
-                </TouchableOpacity>
-                <RecoveryDropdown
-                  addToRecoveryPhrase={this.addToRecoveryPhrase}
-                  setAcquisitionError={this.setAcquisitionError}
-                  recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
-                  setDisableArrows={this.setDisableArrows}
-                  onSubmitEditing={this._moveToNextWord}
-                  ref={input => {
-                    this.recoveryDropdownRef = input
-                  }}
+                <FontAwesome5Pro
+                  name='arrow-circle-left'
+                  color={styleConstants.ICON_GRAY}
+                  size={32}
+                  light
                 />
-                <TouchableOpacity
-                  style={{
-                    marginTop: hp('.5%'),
-                    marginLeft: wp('3%'),
-                    marginRight: wp('5%')
-                  }}
-                  onPress={this._moveToNextWord}
-                  disabled={this.state.disableArrows}
-                >
-                  <FontAwesome5Pro
-                    name='arrow-circle-right'
-                    color={styleConstants.ICON_GRAY}
-                    size={32}
-                    light
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ScrollView>
-
-          <View style={cssStyles.footer}>
-            <Padding bottom={2}>
-              <Text
-                onPress={this.noRecoveryPhrase}
-                style={[cssStyles.linkText, { textAlign: 'center' }]}
+              </TouchableOpacity>
+              <RecoveryDropdown
+                addToRecoveryPhrase={this.addToRecoveryPhrase}
+                setAcquisitionError={this.setAcquisitionError}
+                recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
+                setDisableArrows={this.setDisableArrows}
+                onSubmitEditing={this._moveToNextWord}
+                ref={input => {
+                  this.recoveryDropdownRef = input
+                }}
+              />
+              <TouchableOpacity
+                style={{
+                  marginTop: hp('.5%'),
+                  marginLeft: wp('3%'),
+                  marginRight: wp('5%')
+                }}
+                onPress={this._moveToNextWord}
+                disabled={this.state.disableArrows}
               >
-                I don't have my recovery phrase
-              </Text>
-            </Padding>
+                <FontAwesome5Pro
+                  name='arrow-circle-right'
+                  color={styleConstants.ICON_GRAY}
+                  size={32}
+                  light
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
+        <BottomLinkText left={wp('16%')} onPress={this.noRecoveryPhrase}>
+          I don't have my recovery phrase
+        </BottomLinkText>
         <Dialog
           style={{
             fontSize: 18,
@@ -468,7 +453,7 @@ class SetupGetRecoveryPhrase extends Component {
             </Text>
           </View>
         </Dialog>
-      </SafeAreaView>
+      </SetupContainer>
     )
   }
 
@@ -489,55 +474,19 @@ class SetupGetRecoveryPhrase extends Component {
     let count = 1
 
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <View style={cssStyles.container}>
-          <ScrollView
-            style={cssStyles.contentContainer}
-            keyboardShouldPersistTaps='always'
-          >
-            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-
-            <SetupProgressBar
-              stepNumber={this.state.stepNumber}
-              navigation={this.props.navigation}
-            />
-            <Padding top={0} bottom={0}>
-              <Text style={[cssStyles.wizardText, { alignSelf: 'center' }]}>
-                Is this the correct recovery phrase?{' '}
-              </Text>
-            </Padding>
-
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={cssStyles.rowView}>
-                  {row.map((item, index) => {
-                    return (
-                      <View key={index} style={styles.rowTextView}>
-                        <Text style={styles.textStyle}>
-                          {count++}.{'\n'}
-                          {item}
-                        </Text>
-                      </View>
-                    )
-                  })}
-                </View>
-              )
-            })}
-          </ScrollView>
-          <View style={cssStyles.footer}>
-            <View style={cssStyles.navButtonWrapper}>
-              <CommonButton
-                onPress={() => this.pushBack()}
-                title='Back'
-                bottomPadding={0}
-              />
-            </View>
-            <View style={cssStyles.navButtonWrapper}>
-              <CommonButton onPress={() => this.confirm()} title='Confirm' />
-            </View>
-          </View>
-        </View>
-      </SafeAreaView>
+      <SetupContainer pageNumber={15}>
+        <ParagraphText>Please verify your recovery phrase.</ParagraphText>
+        <RecoveryPhraseConfirmation
+          words={words}
+          rowTextView={styles.rowTextView}
+        />
+        <LargeButtons text='Is this correct?' onPress={() => this.confirm()}>
+          Confirm
+        </LargeButtons>
+        <LargeButtons bottom secondary onPress={() => this.pushBack()}>
+          Back
+        </LargeButtons>
+      </SetupContainer>
     )
   }
 

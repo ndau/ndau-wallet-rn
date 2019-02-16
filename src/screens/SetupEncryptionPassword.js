@@ -21,6 +21,8 @@ import UserData from '../model/UserData'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import { SetupContainer, ParagraphText } from '../components/setup'
+import { LargeButtons } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -176,79 +178,127 @@ class SetupEncryptionPassword extends Component {
     const { textInputColor, progress } = this.state
     // debugger
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar navigation={this.props.navigation} />
+      <SetupContainer {...this.props} pageNumber={17}>
+        <ParagraphText>{this.state.instructionText}</ParagraphText>
+        <Padding top={2}>
+          <TextInput
+            style={cssStyles.textInput}
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            placeholder='Enter a password'
+            placeholderTextColor='#333'
+            secureTextEntry={!this.state.showPasswords}
+            autoCapitalize='none'
+          />
+        </Padding>
 
-            <Padding top={0} bottom={0}>
-              <View style={styles.textContainer}>
-                <Text
-                  style={cssStyles.wizardText}
-                  onPress={this.showInformation}
-                >
-                  {this.state.instructionText}
-                  {'  '}
-                  <FontAwesome5Pro
-                    name='info'
-                    color='#ffffff'
-                    size={20}
-                    style={{ marginBottom: 3 }}
-                    light
-                  />
-                </Text>
-              </View>
-            </Padding>
+        <Padding>
+          <TextInput
+            style={cssStyles.textInput}
+            onChangeText={this.updateComfirmPassword}
+            value={this.state.confirmPassword}
+            placeholder='Confirm your password'
+            placeholderTextColor='#333'
+            secureTextEntry={!this.state.showPasswords}
+            autoCapitalize='none'
+          />
+        </Padding>
 
-            <Padding top={2}>
-              <TextInput
-                style={cssStyles.textInput}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
-                placeholder='Enter a password'
-                placeholderTextColor='#333'
-                secureTextEntry={!this.state.showPasswords}
-                autoCapitalize='none'
-              />
-            </Padding>
+        <Padding>
+          <CheckBox
+            style={cssStyles.checkbox}
+            onClick={this.checkedShowPasswords}
+            isChecked={this.state.showPasswords}
+            rightText='Show passwords'
+            rightTextStyle={{
+              color: '#ffffff',
+              fontSize: 20,
+              fontFamily: 'TitilliumWeb-Regular'
+            }}
+            checkBoxColor='#ffffff'
+          />
+        </Padding>
+        <LargeButtons
+          bottom
+          onPress={() => this.showNextSetup()}
+          disabled={!progress}
+        >
+          Next
+        </LargeButtons>
+      </SetupContainer>
+      // <SafeAreaView style={cssStyles.safeContainer}>
+      //   <View style={cssStyles.container}>
+      //     <ScrollView style={cssStyles.contentContainer}>
+      //       <SetupProgressBar navigation={this.props.navigation} />
 
-            <Padding>
-              <TextInput
-                style={cssStyles.textInput}
-                onChangeText={this.updateComfirmPassword}
-                value={this.state.confirmPassword}
-                placeholder='Confirm your password'
-                placeholderTextColor='#333'
-                secureTextEntry={!this.state.showPasswords}
-                autoCapitalize='none'
-              />
-            </Padding>
+    //       <Padding top={0} bottom={0}>
+    //         <View style={styles.textContainer}>
+    //           <Text
+    //             style={cssStyles.wizardText}
+    //             onPress={this.showInformation}
+    //           >
+    //             {this.state.instructionText}
+    //             {'  '}
+    //             <FontAwesome5Pro
+    //               name='info'
+    //               color='#ffffff'
+    //               size={20}
+    //               style={{ marginBottom: 3 }}
+    //               light
+    //             />
+    //           </Text>
+    //         </View>
+    //       </Padding>
 
-            <Padding>
-              <CheckBox
-                style={cssStyles.checkbox}
-                onClick={this.checkedShowPasswords}
-                isChecked={this.state.showPasswords}
-                rightText='Show passwords'
-                rightTextStyle={{
-                  color: '#ffffff',
-                  fontSize: 20,
-                  fontFamily: 'TitilliumWeb-Regular'
-                }}
-                checkBoxColor='#ffffff'
-              />
-            </Padding>
-          </ScrollView>
+    //       <Padding top={2}>
+    //         <TextInput
+    //           style={cssStyles.textInput}
+    //           onChangeText={password => this.setState({ password })}
+    //           value={this.state.password}
+    //           placeholder='Enter a password'
+    //           placeholderTextColor='#333'
+    //           secureTextEntry={!this.state.showPasswords}
+    //           autoCapitalize='none'
+    //         />
+    //       </Padding>
 
-          <View style={cssStyles.footer}>
-            <CommonButton
-              onPress={this.showNextSetup}
-              title='Next'
-              disabled={!progress}
-            />
-          </View>
-        </View>
-      </SafeAreaView>
+    //       <Padding>
+    //         <TextInput
+    //           style={cssStyles.textInput}
+    //           onChangeText={this.updateComfirmPassword}
+    //           value={this.state.confirmPassword}
+    //           placeholder='Confirm your password'
+    //           placeholderTextColor='#333'
+    //           secureTextEntry={!this.state.showPasswords}
+    //           autoCapitalize='none'
+    //         />
+    //       </Padding>
+
+    //       <Padding>
+    //         <CheckBox
+    //           style={cssStyles.checkbox}
+    //           onClick={this.checkedShowPasswords}
+    //           isChecked={this.state.showPasswords}
+    //           rightText='Show passwords'
+    //           rightTextStyle={{
+    //             color: '#ffffff',
+    //             fontSize: 20,
+    //             fontFamily: 'TitilliumWeb-Regular'
+    //           }}
+    //           checkBoxColor='#ffffff'
+    //         />
+    //       </Padding>
+    //     </ScrollView>
+
+    //     <View style={cssStyles.footer}>
+    //       <CommonButton
+    //         onPress={this.showNextSetup}
+    //         title='Next'
+    //         disabled={!progress}
+    //       />
+    //     </View>
+    //   </View>
+    // </SafeAreaView>
     )
   }
 }

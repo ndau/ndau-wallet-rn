@@ -25,7 +25,7 @@ import AppConstants from '../AppConstants'
 import {
   NEW_WALLET_SETUP_TYPE,
   RECOVERY_WALLET_SETUP_TYPE
-} from '../components/SetupProgressBar'
+} from '../components/common'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
 import OrderAPI from '../api/OrderAPI'

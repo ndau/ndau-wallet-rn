@@ -16,6 +16,8 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
+import { SetupContainer, ParagraphText } from '../components/setup'
+import { LargeButtons } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
@@ -95,37 +97,56 @@ class SetupEncryptionPassword extends Component {
 
   render () {
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar navigation={this.props.navigation} />
-            <Padding top={0}>
-              <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                Give this wallet a name.
-              </Text>
-            </Padding>
+      <SetupContainer {...this.props} pageNumber={16}>
+        <ParagraphText>Give this wallet a name.</ParagraphText>
+        <TextInput
+          style={cssStyles.textInput}
+          onChangeText={value => {
+            if (value) {
+              SetupStore.walletId = value
+            } else {
+              SetupStore.walletId = this.defaultWalletId
+            }
+          }}
+          placeholder={`${SetupStore.walletId}`}
+          placeholderTextColor='#333'
+          autoCapitalize='none'
+        />
+        <LargeButtons bottom onPress={() => this.showNextSetup()}>
+          Next
+        </LargeButtons>
+      </SetupContainer>
+      // <SafeAreaView style={cssStyles.safeContainer}>
+      //   <View style={cssStyles.container}>
+      //     <ScrollView style={cssStyles.contentContainer}>
+      //       <SetupProgressBar navigation={this.props.navigation} />
+      //       <Padding top={0}>
+      //         <Text style={cssStyles.wizardText} onPress={this.showInformation}>
+      //           Give this wallet a name.
+      //         </Text>
+      //       </Padding>
 
-            <Padding>
-              <TextInput
-                style={cssStyles.textInput}
-                onChangeText={value => {
-                  if (value) {
-                    SetupStore.walletId = value
-                  } else {
-                    SetupStore.walletId = this.defaultWalletId
-                  }
-                }}
-                placeholder={`${SetupStore.walletId}`}
-                placeholderTextColor='#333'
-                autoCapitalize='none'
-              />
-            </Padding>
-          </ScrollView>
-          <View style={cssStyles.footer}>
-            <CommonButton onPress={this.showNextSetup} title='Next' />
-          </View>
-        </View>
-      </SafeAreaView>
+    //       <Padding>
+    //         <TextInput
+    //           style={cssStyles.textInput}
+    //           onChangeText={value => {
+    //             if (value) {
+    //               SetupStore.walletId = value
+    //             } else {
+    //               SetupStore.walletId = this.defaultWalletId
+    //             }
+    //           }}
+    //           placeholder={`${SetupStore.walletId}`}
+    //           placeholderTextColor='#333'
+    //           autoCapitalize='none'
+    //         />
+    //       </Padding>
+    //     </ScrollView>
+    //     <View style={cssStyles.footer}>
+    //       <CommonButton onPress={this.showNextSetup} title='Next' />
+    //     </View>
+    //   </View>
+    // </SafeAreaView>
     )
   }
 }
