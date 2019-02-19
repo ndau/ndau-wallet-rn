@@ -22,10 +22,17 @@ import {
 import AppConstants from '../AppConstants'
 import Padding from '../components/Padding'
 import LoggingService from '../services/LoggingService'
+import {
+  SetupContainer,
+  ParagraphText,
+  RecoveryPhraseConfirmation,
+  RecoveryPhraseConfirmationTextOnly
+} from '../components/setup'
+import { LargeButtons } from '../components/common'
 
 var _ = require('lodash')
 
-const DEFAULT_ROW_LENGTH = 3 // 3 items per row
+const DEFAULT_ROW_LENGTH = 4
 
 class SetupRecoveryPhrase extends Component {
   constructor (props) {
@@ -134,53 +141,22 @@ class SetupRecoveryPhrase extends Component {
 
     let count = 1
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <View style={cssStyles.container}>
-          <ScrollView
-            style={cssStyles.contentContainer}
-            keyboardShouldPersistTaps='always'
-          >
-            <SetupProgressBar navigation={this.props.navigation} />
-
-            <Padding top={0} bottom={1}>
-              <Text style={cssStyles.wizardText}>
-                Write this 12-word phrase down and store it in a secure
-                location.
-              </Text>
-            </Padding>
-
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={cssStyles.rowView}>
-                  {row.map((item, index) => {
-                    return (
-                      <View key={index} style={styles.rowTextView}>
-                        <Text
-                          style={{
-                            color: '#ffffff',
-                            fontSize: 20,
-                            fontFamily: 'TitilliumWeb-Regular',
-                            textAlign: 'center'
-                          }}
-                        >
-                          {count++}.{'\n'}
-                          {item}
-                        </Text>
-                      </View>
-                    )
-                  })}
-                </View>
-              )
-            })}
-          </ScrollView>
-          <View style={cssStyles.footer}>
-            <CommonButton
-              onPress={this.showNextSetup}
-              title='I wrote it down'
-            />
-          </View>
-        </View>
-      </SafeAreaView>
+      <SetupContainer pageNumber={15}>
+        <ParagraphText>
+          Write this 12-word phrase down and store it in a secure.
+        </ParagraphText>
+        <RecoveryPhraseConfirmationTextOnly
+          words={words}
+          rowTextView={styles.rowTextView}
+        />
+        <LargeButtons
+          bottom
+          onPress={() => this.showNextSetup()}
+          text='We will confirm on the next screen.'
+        >
+          I wrote it down
+        </LargeButtons>
+      </SetupContainer>
     )
   }
 }

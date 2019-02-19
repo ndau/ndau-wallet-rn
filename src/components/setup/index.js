@@ -3,7 +3,7 @@ import { View, ScrollView, StatusBar, ImageBackground } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import componentStyles from '../../css/componentStyles'
 import LinearGradient from 'react-native-linear-gradient'
-import { H4, Progress, P } from 'nachos-ui'
+import { H4, Progress, P, Input } from 'nachos-ui'
 import { ProgressBar } from '../common'
 
 export function SetupWelcomeContainer ({ children }) {
@@ -53,6 +53,42 @@ export function SetupContainer (props) {
   )
 }
 
+export function SetupContainerWithScrollView (props) {
+  goBack = () => {
+    props.navigation.goBack()
+  }
+  return (
+    <SafeAreaView
+      style={[componentStyles.container, componentStyles.statusBarColor]}
+    >
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <View style={{ flex: 1 }}>
+        <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
+        <LinearGradient
+          locations={[0, 1.0]}
+          colors={['#0F2748', '#293E63']}
+          style={[componentStyles.setupContainerOverlay]}
+        >
+          <ScrollView style={componentStyles.setupContainerWithScrollView}>
+            {props.children}
+          </ScrollView>
+        </LinearGradient>
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export function SetupInput (props) {
+  return (
+    <Input
+      style={componentStyles.input}
+      placeholderTextColor='#858688'
+      autoCapitalize='none'
+      {...props}
+    />
+  )
+}
+
 export function LargeText ({ children }) {
   return <H4 style={[componentStyles.largeText]}>{children}</H4>
 }
@@ -85,6 +121,14 @@ export function RecoveryConfirmationText (props) {
   )
 }
 
+export function RecoveryConfirmationTextOnly (props) {
+  return (
+    <P style={[componentStyles.recoveryConfirmationTextOnly]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
 export function RecoveryPhraseConfirmation (props) {
   console.log(props.rowTextView)
   return (
@@ -103,6 +147,31 @@ export function RecoveryPhraseConfirmation (props) {
                 >
                   <RecoveryConfirmationText>{item}</RecoveryConfirmationText>
                 </View>
+              )
+            })}
+          </View>
+        )
+      })}
+    </View>
+  )
+}
+
+export function RecoveryPhraseConfirmationTextOnly (props) {
+  console.log(props.rowTextView)
+  return (
+    <View style={componentStyles.recoveryConfirmationContainer}>
+      {props.words.map((row, rowIndex) => {
+        return (
+          <View
+            key={rowIndex}
+            style={componentStyles.recoveryConfirmationRowViewTextOnly}
+          >
+            {row.map((item, index) => {
+              return (
+                <RecoveryConfirmationTextOnly key={index}>
+                  {' '}
+                  {item}{' '}
+                </RecoveryConfirmationTextOnly>
               )
             })}
           </View>

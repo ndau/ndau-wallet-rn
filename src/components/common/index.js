@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import componentStyles from '../../css/componentStyles'
-import { Button, Progress, H4 } from 'nachos-ui'
+import { Button, Progress, H4, P, Checkbox } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import { ParagraphText, SmallParagraphText } from '../setup'
@@ -46,7 +46,13 @@ export function LargeButtons (props) {
 
 export function LargeButton (props) {
   return (
-    <View style={componentStyles.setupButtonContainerBottomNoBorder}>
+    <View
+      style={
+        props.scroll
+          ? componentStyles.setupButtonContainerScrollView
+          : componentStyles.setupButtonContainerBottomNoBorder
+      }
+    >
       <Button
         style={componentStyles.largeButton}
         textStyle={componentStyles.largeButtonText}
@@ -94,5 +100,66 @@ export function ProgressBar (props) {
         %
       </H4>
     </View>
+  )
+}
+
+export function Label (props) {
+  return (
+    <P style={[componentStyles.labelText]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
+export function CheckBox (props) {
+  return (
+    <View style={{ flexDirection: 'row' }}>
+      <Checkbox
+        style={
+          props.scroll
+            ? componentStyles.checkboxInScrollView
+            : componentStyles.checkbox
+        }
+        iconColor='#FFFFFF'
+        {...props}
+      >
+        {props.children}
+      </Checkbox>
+      <P style={[componentStyles.checkboxLabel]} {...props}>
+        {props.label}
+      </P>
+    </View>
+  )
+}
+
+export function LegalText (props) {
+  return (
+    <P style={[componentStyles.legalText]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
+export function LegalTextHeading (props) {
+  return (
+    <P style={[componentStyles.legalTextHeading]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
+export function MainLegalTextHeading (props) {
+  return (
+    <P style={[componentStyles.mainLegalTextHeading]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
+export function LegalTextBold (props) {
+  return (
+    <P style={[componentStyles.legalTextBold]} {...props}>
+      {props.children}
+    </P>
   )
 }

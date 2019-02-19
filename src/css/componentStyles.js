@@ -47,7 +47,8 @@ export default StyleSheet.create({
     lineHeight: 27,
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
-    marginTop: hp('0.6%')
+    marginTop: hp('0.6%'),
+    marginRight: wp('4%')
   },
   paragraphText: {
     color: '#FFFFFF',
@@ -59,6 +60,43 @@ export default StyleSheet.create({
     paddingRight: wp('1%'),
     marginRight: wp('4%'),
     marginLeft: wp('4%')
+  },
+  labelText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingLeft: wp('1%'),
+    paddingRight: wp('1%'),
+    marginRight: wp('4%'),
+    marginLeft: wp('4%')
+  },
+  checkbox: {
+    backgroundColor: '#4E957A',
+    // color: '#FFFFFF',
+    // borderRadius: 1,
+    borderColor: '#4E957A',
+    marginTop: hp('3%'),
+    marginRight: wp('3%'),
+    marginLeft: wp('4%')
+  },
+  checkboxInScrollView: {
+    backgroundColor: '#4E957A',
+    // color: '#FFFFFF',
+    // borderRadius: 1,
+    borderColor: '#4E957A',
+    marginTop: hp('3%'),
+    marginRight: wp('3%')
+  },
+  checkboxLabel: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginTop: hp('1.6%'),
+    marginRight: wp('4%')
   },
   smallParagraphText: {
     color: '#ffffff',
@@ -85,6 +123,15 @@ export default StyleSheet.create({
     marginTop: hp('2%'),
     marginBottom: hp('2.5%')
   },
+  setupContainerWithScrollView: {
+    flex: 1,
+    width: wp('92%'),
+    height: hp('100%'),
+    marginTop: hp('2%'),
+    marginBottom: hp('2.5%'),
+    marginRight: wp('4%'),
+    marginLeft: wp('4%')
+  },
   setupButtonContainerTop: {
     // Due to how we have to fill the LinearGradient we
     // unfortunately lose flexbox, so we have to resort to
@@ -106,6 +153,9 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     marginLeft: wp('4%')
+  },
+  setupButtonContainerScrollView: {
+    marginTop: hp('1%')
   },
   underline: {
     width: wp('15%'),
@@ -147,11 +197,19 @@ export default StyleSheet.create({
     color: '#000000'
   },
   progressBar: {
-    marginTop: hp('3%'),
-    width: wp('70%')
+    marginTop: hp('2.8%'),
+    // borderRadius: 4,
+    paddingTop: 1,
+    paddingLeft: 2,
+    paddingRight: 4,
+    marginLeft: wp('3%'),
+    marginRight: wp('3%'),
+    width: 250,
+    height: 8
   },
   backArrow: {
-    marginTop: hp('1.6%')
+    marginTop: hp('1.6%'),
+    marginLeft: wp('4%')
   },
   centeredLinkText: {
     color: '#8CC74F',
@@ -183,6 +241,15 @@ export default StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center'
   },
+  recoveryConfirmationTextOnly: {
+    color: '#ffffff',
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    fontWeight: '700',
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    textAlign: 'center'
+  },
   recoveryConfirmationContainer: {
     position: 'absolute',
     top: hp('9%'),
@@ -197,5 +264,55 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  recoveryConfirmationRowViewTextOnly: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  input: {
+    borderRadius: 1,
+    borderStyle: 'solid',
+    borderColor: '#BDC1CC',
+    backgroundColor: '#EDEAEA',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginRight: wp('4%'),
+    marginLeft: wp('4%'),
+    marginBottom: hp('2%')
+  },
+  legalText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    letterSpacing: 0.39,
+    lineHeight: 27
+  },
+  legalTextHeading: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontWeight: 'bold',
+    textDecorationLine: 'underline'
+  },
+  legalTextBold: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontWeight: 'bold'
+  },
+  mainLegalTextHeading: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 20,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontWeight: 'bold'
   }
 })

@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  Alert
-} from 'react-native'
-import CheckBox from 'react-native-check-box'
+import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import CommonButton from '../components/CommonButton'
 import SetupProgressBar from '../components/SetupProgressBar'
 import cssStyles from '../css/styles'
@@ -21,8 +14,8 @@ import UserData from '../model/UserData'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import { SetupContainer, ParagraphText } from '../components/setup'
-import { LargeButtons } from '../components/common'
+import { SetupContainer, ParagraphText, SetupInput } from '../components/setup'
+import { LargeButtons, Label, CheckBox } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -180,44 +173,28 @@ class SetupEncryptionPassword extends Component {
     return (
       <SetupContainer {...this.props} pageNumber={17}>
         <ParagraphText>{this.state.instructionText}</ParagraphText>
-        <Padding top={2}>
-          <TextInput
-            style={cssStyles.textInput}
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholder='Enter a password'
-            placeholderTextColor='#333'
-            secureTextEntry={!this.state.showPasswords}
-            autoCapitalize='none'
-          />
-        </Padding>
+        <Label>Password</Label>
+        <SetupInput
+          onChangeText={password => this.setState({ password })}
+          value={this.state.password}
+          placeholder='Enter a password...'
+          secureTextEntry={!this.state.showPasswords}
+          autoCapitalize='none'
+        />
+        <Label>Confirm Password</Label>
+        <SetupInput
+          onChangeText={this.updateComfirmPassword}
+          value={this.state.confirmPassword}
+          placeholder='Confirm your password...'
+          secureTextEntry={!this.state.showPasswords}
+          autoCapitalize='none'
+        />
 
-        <Padding>
-          <TextInput
-            style={cssStyles.textInput}
-            onChangeText={this.updateComfirmPassword}
-            value={this.state.confirmPassword}
-            placeholder='Confirm your password'
-            placeholderTextColor='#333'
-            secureTextEntry={!this.state.showPasswords}
-            autoCapitalize='none'
-          />
-        </Padding>
-
-        <Padding>
-          <CheckBox
-            style={cssStyles.checkbox}
-            onClick={this.checkedShowPasswords}
-            isChecked={this.state.showPasswords}
-            rightText='Show passwords'
-            rightTextStyle={{
-              color: '#ffffff',
-              fontSize: 20,
-              fontFamily: 'TitilliumWeb-Regular'
-            }}
-            checkBoxColor='#ffffff'
-          />
-        </Padding>
+        <CheckBox
+          onValueChange={this.checkedShowPasswords}
+          checked={this.state.showPasswords}
+          label='Hide/show passwords'
+        />
         <LargeButtons
           bottom
           onPress={() => this.showNextSetup()}
@@ -252,11 +229,9 @@ class SetupEncryptionPassword extends Component {
 
     //       <Padding top={2}>
     //         <TextInput
-    //           style={cssStyles.textInput}
     //           onChangeText={password => this.setState({ password })}
     //           value={this.state.password}
     //           placeholder='Enter a password'
-    //           placeholderTextColor='#333'
     //           secureTextEntry={!this.state.showPasswords}
     //           autoCapitalize='none'
     //         />
@@ -264,11 +239,9 @@ class SetupEncryptionPassword extends Component {
 
     //       <Padding>
     //         <TextInput
-    //           style={cssStyles.textInput}
     //           onChangeText={this.updateComfirmPassword}
     //           value={this.state.confirmPassword}
     //           placeholder='Confirm your password'
-    //           placeholderTextColor='#333'
     //           secureTextEntry={!this.state.showPasswords}
     //           autoCapitalize='none'
     //         />
