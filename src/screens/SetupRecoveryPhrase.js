@@ -141,7 +141,7 @@ class SetupRecoveryPhrase extends Component {
 
     let count = 1
     return (
-      <SetupContainer pageNumber={15}>
+      <SetupContainer {...this.props} pageNumber={15}>
         <ParagraphText>
           Write this 12-word phrase down and store it in a secure.
         </ParagraphText>

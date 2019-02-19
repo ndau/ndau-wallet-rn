@@ -388,7 +388,7 @@ class SetupGetRecoveryPhrase extends Component {
                       marginRight: hp('1.6%')
                     },
                     android: {
-                      marginRight: hp('3%')
+                      marginRight: hp('6%')
                     }
                   })
                 }}
@@ -430,7 +430,10 @@ class SetupGetRecoveryPhrase extends Component {
             </View>
           </View>
         </View>
-        <BottomLinkText left={wp('16%')} onPress={this.noRecoveryPhrase}>
+        <BottomLinkText
+          left={Platform.OS === 'android' ? wp('19%') : wp('18%')}
+          onPress={this.noRecoveryPhrase}
+        >
           I don't have my recovery phrase
         </BottomLinkText>
         <Dialog
@@ -474,7 +477,7 @@ class SetupGetRecoveryPhrase extends Component {
     let count = 1
 
     return (
-      <SetupContainer pageNumber={15}>
+      <SetupContainer {...this.props} pageNumber={15}>
         <ParagraphText>Please verify your recovery phrase.</ParagraphText>
         <RecoveryPhraseConfirmation
           words={words}

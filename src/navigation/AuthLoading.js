@@ -10,7 +10,8 @@ import { RECOVERY_WALLET_SETUP_TYPE } from '../components/common'
 class AuthLoadingScreen extends React.Component {
   constructor (props) {
     super(props)
-    this.props.navigation.navigate('SetupWelcome')
+
+    this._bootstrapAsync()
   }
 
   // Fetch the token from storage then navigate to our appropriate place

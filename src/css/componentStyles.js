@@ -223,12 +223,20 @@ export default StyleSheet.create({
     bottom: 0
   },
   recoveryConfirmationBox: {
-    width: wp('20%'),
-    height: hp('6.2%'),
-    borderRadius: 2,
+    width: wp('21%'),
+    height: hp('5.5%'),
+    borderRadius: 4,
     borderColor: '#4e957a',
     borderStyle: 'solid',
     borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  recoveryConfirmationButtonBox: {
+    width: wp('21%'),
+    height: hp('5.5%'),
+    borderRadius: 4,
+    backgroundColor: '#4e957a',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -253,6 +261,25 @@ export default StyleSheet.create({
   recoveryConfirmationContainer: {
     position: 'absolute',
     top: hp('9%'),
+    left: 0,
+    right: 0,
+    width: wp('100%'),
+    height: hp('30%'),
+    backgroundColor: '#293e63',
+    paddingTop: hp('3%')
+  },
+  recoveryConfirmationButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: wp('100%'),
+    height: hp('30%'),
+    paddingTop: hp('3%')
+  },
+  recoveryConfirmationContainerTextOnly: {
+    position: 'absolute',
+    top: hp('12%'),
     left: 0,
     right: 0,
     width: wp('100%'),

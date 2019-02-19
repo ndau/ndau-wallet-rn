@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, ScrollView, StatusBar, ImageBackground } from 'react-native'
+import {
+  View,
+  ScrollView,
+  StatusBar,
+  ImageBackground,
+  TouchableOpacity
+} from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import componentStyles from '../../css/componentStyles'
 import LinearGradient from 'react-native-linear-gradient'
@@ -130,7 +136,6 @@ export function RecoveryConfirmationTextOnly (props) {
 }
 
 export function RecoveryPhraseConfirmation (props) {
-  console.log(props.rowTextView)
   return (
     <View style={componentStyles.recoveryConfirmationContainer}>
       {props.words.map((row, rowIndex) => {
@@ -156,10 +161,60 @@ export function RecoveryPhraseConfirmation (props) {
   )
 }
 
-export function RecoveryPhraseConfirmationTextOnly (props) {
-  console.log(props.rowTextView)
+export function RecoveryPhraseConfirmationButtons (props) {
   return (
-    <View style={componentStyles.recoveryConfirmationContainer}>
+    <View style={componentStyles.recoveryConfirmationButtonContainer}>
+      {props.words.map((row, rowIndex) => {
+        return (
+          <View
+            key={rowIndex}
+            style={componentStyles.recoveryConfirmationRowView}
+          >
+            {row.map((item, index) => {
+              const i = index + row.length * rowIndex
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={event => props.handleClick(i, event)}
+                >
+                  <RecoveryPhraseConfirmationButton
+                    error={props.errorWord == i}
+                    selected={props.selected[i]}
+                  >
+                    <RecoveryConfirmationText>{item}</RecoveryConfirmationText>
+                  </RecoveryPhraseConfirmationButton>
+                </TouchableOpacity>
+              )
+            })}
+          </View>
+        )
+      })}
+    </View>
+  )
+}
+
+export function RecoveryPhraseConfirmationButton (props) {
+  let bgColor = '#4e957a'
+  if (props.error) {
+    bgColor = '#f05123'
+  } else if (props.selected) {
+    bgColor = '#A0CFBD'
+  }
+  return (
+    <View
+      style={[
+        componentStyles.recoveryConfirmationButtonBox,
+        { backgroundColor: bgColor }
+      ]}
+    >
+      {props.children}
+    </View>
+  )
+}
+
+export function RecoveryPhraseConfirmationTextOnly (props) {
+  return (
+    <View style={componentStyles.recoveryConfirmationContainerTextOnly}>
       {props.words.map((row, rowIndex) => {
         return (
           <View

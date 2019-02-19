@@ -48,6 +48,7 @@ if [ "$1" ] && [ "$2" ]; then
         download_from_s3 $bucket TitilliumWeb-SemiBold.ttf $version
         download_from_s3 $bucket TitilliumWeb-SemiBoldItalic.ttf $version
         download_from_s3 $bucket icomoon.ttf $version
+        download_from_s3 $bucket MaterialIcons-Regular.ttf $version
 
         echo "copy all ndau-fonts content to assets folder"
         mkdir -p assets/fonts
