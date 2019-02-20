@@ -233,3 +233,43 @@ export function DrawerEntryItem (props) {
     </View>
   )
 }
+
+export const DrawerHeader = props => {
+  return (
+    <View style={componentStyles.drawerHeaderContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.openDrawer()
+        }}
+      >
+        <FontAwesome5Pro
+          name='bars'
+          size={32}
+          color='#fff'
+          style={componentStyles.drawerButton}
+          light
+        />
+      </TouchableOpacity>
+      <H4 style={componentStyles.drawerHeaderText}>{props.children}</H4>
+    </View>
+  )
+}
+
+export function AppContainer (props) {
+  return (
+    <SafeAreaView
+      style={[componentStyles.container, componentStyles.statusBarColor]}
+    >
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <View style={{ flex: 1 }}>
+        <LinearGradient
+          locations={[0, 1.0]}
+          colors={['#0F2748', '#293E63']}
+          style={[componentStyles.appContainerOverlay]}
+        >
+          <View style={componentStyles.appContainer}>{props.children}</View>
+        </LinearGradient>
+      </View>
+    </SafeAreaView>
+  )
+}

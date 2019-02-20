@@ -22,6 +22,13 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0
   },
+  appContainerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  },
   drawerContainerOverlay: {
     position: 'absolute',
     top: 0,
@@ -56,6 +63,18 @@ export default StyleSheet.create({
     marginLeft: wp('2%'),
     paddingTop: 0
   },
+  drawerHeaderText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    width: wp('76%'),
+    height: hp('5%'),
+    textAlign: 'center',
+    paddingBottom: 0
+  },
   drawerTextBottom: {
     color: '#FFFFFF',
     fontFamily: 'Open Sans',
@@ -84,6 +103,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginLeft: wp('4%'),
     marginBottom: hp('3%')
+  },
+  drawerButton: {
+    paddingLeft: wp('4%')
   },
   progressNumber: {
     color: '#FFFFFF',
@@ -181,6 +203,13 @@ export default StyleSheet.create({
     marginTop: hp('2%'),
     marginBottom: hp('2.5%')
   },
+  appContainer: {
+    flex: 1,
+    width: wp('100%'),
+    height: hp('100%'),
+    marginTop: hp('2%'),
+    marginBottom: hp('2.5%')
+  },
   outerDrawerContainer: {
     flex: 1,
     height: hp('100%')
@@ -256,6 +285,15 @@ export default StyleSheet.create({
     width: wp('100%'),
     height: hp('5%'),
     backgroundColor: '#0A1724',
+    color: '#000000'
+  },
+  drawerHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    width: wp('100%'),
+    height: hp('5%'),
     color: '#000000'
   },
   progressBar: {

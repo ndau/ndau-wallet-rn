@@ -36,6 +36,7 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import CommonButton from '../components/CommonButton'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
+import { DrawerHeader, AppContainer } from '../components/common'
 
 const NDAU_GREEN = require('img/ndau-icon-green.png')
 
@@ -194,220 +195,227 @@ class Dashboard extends Component {
       const numberOfAccounts = Object.keys(accounts).length
 
       return (
-        <SafeAreaView style={cssStyles.safeContainer}>
-          <UnlockModalDialog
-            ref={component => (this._unlockModalDialog = component)}
-            refresh={this._onRefresh}
-            stopSpinner={this.stopSpinner}
-            startSpinner={this.startSpinner}
-          />
-          <LockModalDialog
-            ref={component => (this._lockModalDialog = component)}
-            refresh={this._onRefresh}
-            stopSpinner={this.stopSpinner}
-            startSpinner={this.startSpinner}
-          />
-          <NewAccountModalDialog
-            number={this.state.number}
-            subtractNumber={this.subtractNumber}
-            addNumber={this.addNumber}
-            addNewAccount={this.addNewAccount}
-            ref={component => (this._newAccountModal = component)}
-          />
-          <TransactionModalDialog
-            address={this.state.activeAddress || this.props.activeAddress}
-            ref={component => (this._transactionModal = component)}
-          />
-          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <AppContainer>
+          <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
+        </AppContainer>
+        // <SafeAreaView style={cssStyles.safeContainer}>
+        //   <DrawerButton
+        //     {...this.props}
+        //     style={{ position: 'absolute', top: 0, right: 0 }}
+        //   />
+        //   <UnlockModalDialog
+        //     ref={component => (this._unlockModalDialog = component)}
+        //     refresh={this._onRefresh}
+        //     stopSpinner={this.stopSpinner}
+        //     startSpinner={this.startSpinner}
+        //   />
+        //   <LockModalDialog
+        //     ref={component => (this._lockModalDialog = component)}
+        //     refresh={this._onRefresh}
+        //     stopSpinner={this.stopSpinner}
+        //     startSpinner={this.startSpinner}
+        //   />
+        //   <NewAccountModalDialog
+        //     number={this.state.number}
+        //     subtractNumber={this.subtractNumber}
+        //     addNumber={this.addNumber}
+        //     addNewAccount={this.addNewAccount}
+        //     ref={component => (this._newAccountModal = component)}
+        //   />
+        //   <TransactionModalDialog
+        //     address={this.state.activeAddress || this.props.activeAddress}
+        //     ref={component => (this._transactionModal = component)}
+        //   />
+        //   <WaitingForBlockchainSpinner spinner={this.state.spinner} />
 
-          <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-          <View style={cssStyles.container}>
-            <ScrollView
-              style={cssStyles.contentContainer}
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh}
-                />
-              }
-            >
-              <View style={cssStyles.dashboardTextContainer}>
-                {this.isTestNet ? (
-                  <Text
-                    style={[
-                      cssStyles.dashboardTextSmallWhiteEnd,
-                      { color: styleConstants.LINK_ORANGE }
-                    ]}
-                  >
-                    TestNet
-                  </Text>
-                ) : null}
-                <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
-              </View>
+      //   <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
+      //   <View style={cssStyles.container}>
+      //     <ScrollView
+      //       style={cssStyles.contentContainer}
+      //       refreshControl={
+      //         <RefreshControl
+      //           refreshing={this.state.refreshing}
+      //           onRefresh={this._onRefresh}
+      //         />
+      //       }
+      //     >
+      //       <View style={cssStyles.dashboardTextContainer}>
+      //         {this.isTestNet ? (
+      //           <Text
+      //             style={[
+      //               cssStyles.dashboardTextSmallWhiteEnd,
+      //               { color: styleConstants.LINK_ORANGE }
+      //             ]}
+      //           >
+      //             TestNet
+      //           </Text>
+      //         ) : null}
+      //         <Text style={cssStyles.dashboardTextLarge}>Wallets</Text>
+      //       </View>
 
-              <View style={cssStyles.dashboardTextContainer}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <Image
-                    style={{
-                      width: wp('7%'),
-                      maxHeight: hp('5%'),
-                      marginRight: wp('1%')
-                    }}
-                    resizeMode='contain'
-                    source={NDAU_GREEN}
-                  />
-                  <Text style={cssStyles.dashboardTextVeryLarge}>
-                    {totalNdau}
-                  </Text>
-                </View>
-              </View>
+      //       <View style={cssStyles.dashboardTextContainer}>
+      //         <View
+      //           style={{
+      //             flexDirection: 'row',
+      //             alignItems: 'center',
+      //             justifyContent: 'center'
+      //           }}
+      //         >
+      //           <Image
+      //             style={{
+      //               width: wp('7%'),
+      //               maxHeight: hp('5%'),
+      //               marginRight: wp('1%')
+      //             }}
+      //             resizeMode='contain'
+      //             source={NDAU_GREEN}
+      //           />
+      //           <Text style={cssStyles.dashboardTextVeryLarge}>
+      //             {totalNdau}
+      //           </Text>
+      //         </View>
+      //       </View>
 
-              <View style={cssStyles.dashboardSmallTextContainer}>
-                <Text style={cssStyles.dashboardTextSmallGreen}>
-                  {currentPrice}
-                  <Text style={cssStyles.asterisks}>*</Text>
-                  <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
-                    {' '}
-                    at current price
-                  </Text>
-                </Text>
-                {/* <CommonButton top={0.8} onPress={this.buy} title={`Buy ndau`} /> */}
-                <View style={cssStyles.dashboardSmallTextContainer}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <Text style={cssStyles.dashboardTextSmallGreen}>
-                      {numberOfAccounts} account
-                      {numberOfAccounts !== 1 && 's'}
-                    </Text>
-                    <TouchableOpacity
-                      style={{ marginLeft: wp('1.5%') }}
-                      onPress={this.launchAddNewAccountDialog}
-                    >
-                      <FontAwesome5Pro
-                        name='plus-circle'
-                        color={styleConstants.ICON_GRAY}
-                        size={20}
-                        light
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
+      //       <View style={cssStyles.dashboardSmallTextContainer}>
+      //         <Text style={cssStyles.dashboardTextSmallGreen}>
+      //           {currentPrice}
+      //           <Text style={cssStyles.asterisks}>*</Text>
+      //           <Text style={cssStyles.dashboardTextSmallWhiteEnd}>
+      //             {' '}
+      //             at current price
+      //           </Text>
+      //         </Text>
+      //         {/* <CommonButton top={0.8} onPress={this.buy} title={`Buy ndau`} /> */}
+      //         <View style={cssStyles.dashboardSmallTextContainer}>
+      //           <View
+      //             style={{
+      //               flexDirection: 'row',
+      //               alignItems: 'center',
+      //               justifyContent: 'center'
+      //             }}
+      //           >
+      //             <Text style={cssStyles.dashboardTextSmallGreen}>
+      //               {numberOfAccounts} account
+      //               {numberOfAccounts !== 1 && 's'}
+      //             </Text>
+      //             <TouchableOpacity
+      //               style={{ marginLeft: wp('1.5%') }}
+      //               onPress={this.launchAddNewAccountDialog}
+      //             >
+      //               <FontAwesome5Pro
+      //                 name='plus-circle'
+      //                 color={styleConstants.ICON_GRAY}
+      //                 size={20}
+      //                 light
+      //               />
+      //             </TouchableOpacity>
+      //           </View>
+      //         </View>
+      //       </View>
 
-              {Object.keys(accounts)
-                .sort((a, b) => {
-                  if (
-                    !accounts[a].addressData.nickname ||
-                    !accounts[b].addressData.nickname
-                  ) {
-                    return 0
-                  }
+      //       {Object.keys(accounts)
+      //         .sort((a, b) => {
+      //           if (
+      //             !accounts[a].addressData.nickname ||
+      //             !accounts[b].addressData.nickname
+      //           ) {
+      //             return 0
+      //           }
 
-                  const accountNumberA = parseInt(
-                    accounts[a].addressData.nickname.split(' ')[1]
-                  )
-                  const accountNumberB = parseInt(
-                    accounts[b].addressData.nickname.split(' ')[1]
-                  )
-                  if (accountNumberA < accountNumberB) {
-                    return -1
-                  } else if (accountNumberA > accountNumberB) {
-                    return 1
-                  }
-                  return 0
-                })
-                .map((accountKey, index) => {
-                  const account = accounts[accountKey]
-                  const eaiPercentage = AccountAPIHelper.eaiPercentage(
-                    account.addressData
-                  )
-                  const sendingEAITo = AccountAPIHelper.sendingEAITo(
-                    account.addressData
-                  )
-                  const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
-                    account.addressData
-                  )
-                  const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-                    account.addressData
-                  )
-                  const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-                    account.addressData
-                  )
-                  const accountNotLocked = AccountAPIHelper.accountNotLocked(
-                    account.addressData
-                  )
-                  const nickname = AccountAPIHelper.accountNickname(
-                    account.addressData
-                  )
-                  const accountBalance = AccountAPIHelper.accountNdauAmount(
-                    account.addressData
-                  )
+      //           const accountNumberA = parseInt(
+      //             accounts[a].addressData.nickname.split(' ')[1]
+      //           )
+      //           const accountNumberB = parseInt(
+      //             accounts[b].addressData.nickname.split(' ')[1]
+      //           )
+      //           if (accountNumberA < accountNumberB) {
+      //             return -1
+      //           } else if (accountNumberA > accountNumberB) {
+      //             return 1
+      //           }
+      //           return 0
+      //         })
+      //         .map((accountKey, index) => {
+      //           const account = accounts[accountKey]
+      //           const eaiPercentage = AccountAPIHelper.eaiPercentage(
+      //             account.addressData
+      //           )
+      //           const sendingEAITo = AccountAPIHelper.sendingEAITo(
+      //             account.addressData
+      //           )
+      //           const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
+      //             account.addressData
+      //           )
+      //           const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
+      //             account.addressData
+      //           )
+      //           const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
+      //             account.addressData
+      //           )
+      //           const accountNotLocked = AccountAPIHelper.accountNotLocked(
+      //             account.addressData
+      //           )
+      //           const nickname = AccountAPIHelper.accountNickname(
+      //             account.addressData
+      //           )
+      //           const accountBalance = AccountAPIHelper.accountNdauAmount(
+      //             account.addressData
+      //           )
 
-                  return (
-                    <Padding key={index} top={0.5}>
-                      <AccountCard
-                        index={index}
-                        nickname={nickname}
-                        wallet={wallet}
-                        account={account}
-                        address={account.address}
-                        eaiPercentage={eaiPercentage}
-                        sendingEAITo={sendingEAITo}
-                        receivingEAIFrom={receivingEAIFrom}
-                        accountBalance={accountBalance}
-                        accountLockedUntil={accountLockedUntil}
-                        accountNoticePeriod={accountNoticePeriod}
-                        accountNotLocked={accountNotLocked}
-                        totalNdau={totalNdau}
-                        lock={this.lock}
-                        unlock={this.unlock}
-                        startTransaction={address => {
-                          this.setState({
-                            activeAddress: address
-                          })
-                          this._transactionModal.showModal()
-                        }}
-                        walletId={account.addressData.walletId}
-                        expanded={index === 0}
-                      />
-                    </Padding>
-                  )
-                })}
+      //           return (
+      //             <Padding key={index} top={0.5}>
+      //               <AccountCard
+      //                 index={index}
+      //                 nickname={nickname}
+      //                 wallet={wallet}
+      //                 account={account}
+      //                 address={account.address}
+      //                 eaiPercentage={eaiPercentage}
+      //                 sendingEAITo={sendingEAITo}
+      //                 receivingEAIFrom={receivingEAIFrom}
+      //                 accountBalance={accountBalance}
+      //                 accountLockedUntil={accountLockedUntil}
+      //                 accountNoticePeriod={accountNoticePeriod}
+      //                 accountNotLocked={accountNotLocked}
+      //                 totalNdau={totalNdau}
+      //                 lock={this.lock}
+      //                 unlock={this.unlock}
+      //                 startTransaction={address => {
+      //                   this.setState({
+      //                     activeAddress: address
+      //                   })
+      //                   this._transactionModal.showModal()
+      //                 }}
+      //                 walletId={account.addressData.walletId}
+      //                 expanded={index === 0}
+      //               />
+      //             </Padding>
+      //           )
+      //         })}
 
-              <Padding>
-                <View style={cssStyles.dashboardRowContainerCenter}>
-                  <Text style={cssStyles.asterisks}>*</Text>
-                  <Text
-                    style={[
-                      cssStyles.dashboardTextVerySmallWhite,
-                      { paddingLeft: wp('1%') }
-                    ]}
-                  >
-                    The estimated value of ndau in US dollars can be calculated
-                    using the Target Price at which new ndau have most recently
-                    been issued. The value shown here is calculated using that
-                    method as of the issue price on {DateHelper.getTodaysDate()}
-                    . The Axiom Foundation, creator and issuer of ndau, bears no
-                    responsibility or liability for the calculation of that
-                    estimated value, or for decisions based on that estimated
-                    value.
-                  </Text>
-                </View>
-              </Padding>
-            </ScrollView>
-          </View>
-        </SafeAreaView>
+      //       <Padding>
+      //         <View style={cssStyles.dashboardRowContainerCenter}>
+      //           <Text style={cssStyles.asterisks}>*</Text>
+      //           <Text
+      //             style={[
+      //               cssStyles.dashboardTextVerySmallWhite,
+      //               { paddingLeft: wp('1%') }
+      //             ]}
+      //           >
+      //             The estimated value of ndau in US dollars can be calculated
+      //             using the Target Price at which new ndau have most recently
+      //             been issued. The value shown here is calculated using that
+      //             method as of the issue price on {DateHelper.getTodaysDate()}
+      //             . The Axiom Foundation, creator and issuer of ndau, bears no
+      //             responsibility or liability for the calculation of that
+      //             estimated value, or for decisions based on that estimated
+      //             value.
+      //           </Text>
+      //         </View>
+      //       </Padding>
+      //     </ScrollView>
+      //   </View>
+      // </SafeAreaView>
       )
     } catch (error) {
       LoggingService.debug(error)

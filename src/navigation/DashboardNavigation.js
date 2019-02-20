@@ -1,15 +1,14 @@
 import React from 'react'
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
-import { DrawerButton } from '../components/DrawerButton'
 import Dashboard from '../screens/Dashboard'
-import DashboardDrawer from './DashboardDrawer'
+import AppDrawer from './AppDrawer'
 import StyleConstants from '../css/styleConstants'
 
 const DashboardScreen = ({ navigation }) => (
   <Dashboard navigation={navigation} />
 )
 DashboardScreen.navigationOptions = ({ navigation }) => ({
-  header: <DrawerButton navigation={navigation} />
+  header: null
 })
 
 const DashboardStack = createStackNavigator({
@@ -24,10 +23,7 @@ const DashboardNavigation = createDrawerNavigator(
     }
   },
   {
-    initialRouteName: 'Dashboard',
-    contentComponent: DashboardDrawer,
-    headerMode: 'node',
-    drawerBackgroundColor: StyleConstants.DRAWER_BACKGROUND_COLOR
+    contentComponent: AppDrawer
   }
 )
 

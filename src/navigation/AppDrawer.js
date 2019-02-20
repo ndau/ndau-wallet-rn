@@ -22,7 +22,7 @@ import {
   DrawerContainer
 } from '../components/common'
 
-class DashboardDrawer extends React.Component {
+class AppDrawer extends React.Component {
   constructor (props) {
     super(props)
   }
@@ -106,4 +106,4 @@ class DashboardDrawer extends React.Component {
   }
 }
 
-export default DashboardDrawer
+export default AppDrawer
