@@ -165,3 +165,71 @@ export function LegalTextBold (props) {
     </P>
   )
 }
+
+export function DrawerContainer (props) {
+  return (
+    <SafeAreaView
+      style={[componentStyles.container, componentStyles.statusBarColor]}
+    >
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <View style={componentStyles.outerDrawerContainer}>
+        <LinearGradient
+          locations={[0, 1.0]}
+          colors={['#0F2748', '#293E63']}
+          style={[componentStyles.drawerContainerOverlay]}
+        >
+          <View style={componentStyles.drawerContainer}>{props.children}</View>
+          <DrawerEntryItem
+            bottom
+            onPress={props.logoutHandler}
+            fontAwesomeIconName='user-circle'
+          >
+            Logout
+          </DrawerEntryItem>
+        </LinearGradient>
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export function DrawerExit (props) {
+  return (
+    <View style={componentStyles.drawerExit}>
+      <TouchableOpacity {...props}>
+        <FontAwesome5Pro size={36} name='times' color='#ffffff' light />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export function DrawerEntryItem (props) {
+  return (
+    <View
+      style={
+        props.bottom
+          ? componentStyles.drawerEntryBottom
+          : componentStyles.drawerEntry
+      }
+    >
+      <TouchableOpacity {...props}>
+        <FontAwesome5Pro
+          size={22}
+          name={props.fontAwesomeIconName}
+          color='#4B9176'
+          light
+        />
+      </TouchableOpacity>
+      <TouchableOpacity {...props}>
+        <H4
+          style={
+            props.bottom
+              ? componentStyles.drawerTextBottom
+              : componentStyles.drawerText
+          }
+        >
+          {props.children}
+        </H4>
+      </TouchableOpacity>
+    </View>
+  )
+}

@@ -9,7 +9,7 @@ export default StyleSheet.create({
   drawerText: {
     color: '#ffffff',
     fontSize: 18,
-    fontFamily: 'TitilliumWeb-Regular',
+    fontFamily: 'TitilliumWeb-Regular'
   },
   drawerTextImage: {
     width: 36,
@@ -31,15 +31,14 @@ export default StyleSheet.create({
     ...Platform.select({
       ios: {
         marginLeft: wp('3%'),
-        paddingRight: wp('3%'),
+        paddingRight: wp('3%')
       },
       android: {
         paddingRight: wp('3%'),
         paddingLeft: wp('3%')
       }
     }),
-    flex: 1,
-    backgroundColor: StyleConstants.DRAWER_BACKGROUND_COLOR
+    flex: 1
   },
   darkBackgroundColor: {
     backgroundColor: StyleConstants.APP_BACKGROUND_COLOR
@@ -91,8 +90,7 @@ export default StyleSheet.create({
     fontSize: 20,
     fontFamily: 'TitilliumWeb-Regular'
   },
-  progress: {
-  },
+  progress: {},
   dashboardTextContainer: {
     alignItems: 'center',
     justifyContent: 'center'
@@ -103,7 +101,7 @@ export default StyleSheet.create({
   },
   dashboardSmallTextContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   dashboardRowContainer: {
     alignSelf: 'stretch',
@@ -113,7 +111,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginRight: wp('1%'),
+    marginRight: wp('1%')
   },
   dashboardTextLarge: {
     justifyContent: 'center',
@@ -158,7 +156,7 @@ export default StyleSheet.create({
     fontSize: 12
   },
   checkbox: {
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
     ...Platform.select({
@@ -173,7 +171,7 @@ export default StyleSheet.create({
   footer: {
     justifyContent: 'flex-end',
     paddingLeft: wp('6%'),
-    paddingRight: wp('6%'),
+    paddingRight: wp('6%')
   },
   linkText: {
     color: StyleConstants.LINK_ORANGE,
@@ -197,8 +195,7 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Regular',
     fontSize: 20
   },
-  buttonContainer: {
-  },
+  buttonContainer: {},
   rowView: {
     flex: 1,
     flexDirection: 'row',
@@ -207,7 +204,7 @@ export default StyleSheet.create({
   carouselArrows: {
     color: '#ffffff',
     fontFamily: 'TitilliumWeb-Bold',
-    fontSize: 24,
+    fontSize: 24
   },
   recoveryPageView: {
     flexDirection: 'row',
@@ -215,7 +212,7 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   navButtonWrapper: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   accountCardImageView: {
     flexDirection: 'row',

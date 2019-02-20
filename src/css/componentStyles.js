@@ -22,6 +22,13 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0
   },
+  drawerContainerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  },
   setupContainerBackgroundImage: {
     height: '150%',
     width: '150%',
@@ -38,6 +45,45 @@ export default StyleSheet.create({
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
     marginLeft: wp('4%')
+  },
+  drawerText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginLeft: wp('2%'),
+    paddingTop: 0
+  },
+  drawerTextBottom: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginLeft: wp('2%'),
+    paddingBottom: 0
+  },
+  drawerEntry: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%')
+  },
+  drawerEntryBottom: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%')
+  },
+  drawerExit: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: wp('4%'),
+    marginBottom: hp('3%')
   },
   progressNumber: {
     color: '#FFFFFF',
@@ -126,6 +172,18 @@ export default StyleSheet.create({
     height: hp('100%'),
     marginTop: hp('2%'),
     marginBottom: hp('2.5%')
+  },
+  drawerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    width: wp('100%'),
+    height: hp('100%'),
+    marginTop: hp('2%'),
+    marginBottom: hp('2.5%')
+  },
+  outerDrawerContainer: {
+    flex: 1,
+    height: hp('100%')
   },
   setupContainerWithScrollView: {
     flex: 1,
