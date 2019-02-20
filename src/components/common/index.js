@@ -92,10 +92,12 @@ export function ProgressBar (props) {
         progress={props.pageNumber ? props.pageNumber / SETUP_SCREEN_TOTAL : 0}
         color='#4E957A'
         style={componentStyles.progressBar}
+        width={240}
+        height={8}
       />
       <H4 style={[componentStyles.progressNumber]}>
         {props.pageNumber
-          ? Math.round(props.pageNumber / SETUP_SCREEN_TOTAL / 0.01)
+          ? Math.round((props.pageNumber / SETUP_SCREEN_TOTAL) * 100)
           : '0'}
         %
       </H4>

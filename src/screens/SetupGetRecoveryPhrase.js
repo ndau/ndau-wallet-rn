@@ -431,7 +431,7 @@ class SetupGetRecoveryPhrase extends Component {
           </View>
         </View>
         <BottomLinkText
-          left={Platform.OS === 'android' ? wp('19%') : wp('18%')}
+          left={Platform.OS === 'android' ? wp('20%') : wp('18%')}
           onPress={this.noRecoveryPhrase}
         >
           I don't have my recovery phrase

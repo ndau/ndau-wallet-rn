@@ -47,7 +47,11 @@ export default StyleSheet.create({
     lineHeight: 27,
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
-    marginTop: hp('0.6%'),
+    ...Platform.select({
+      ios: {
+        marginTop: hp('.6%')
+      }
+    }),
     marginRight: wp('4%')
   },
   paragraphText: {
@@ -197,18 +201,19 @@ export default StyleSheet.create({
     color: '#000000'
   },
   progressBar: {
-    marginTop: hp('2.8%'),
-    // borderRadius: 4,
-    paddingTop: 1,
-    paddingLeft: 2,
-    paddingRight: 4,
+    marginTop: hp('2.9%'),
     marginLeft: wp('3%'),
-    marginRight: wp('3%'),
-    width: 250,
-    height: 8
+    marginRight: wp('3%')
   },
   backArrow: {
-    marginTop: hp('1.6%'),
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1.6%')
+      },
+      android: {
+        marginTop: hp('1.4%')
+      }
+    }),
     marginLeft: wp('4%')
   },
   centeredLinkText: {
