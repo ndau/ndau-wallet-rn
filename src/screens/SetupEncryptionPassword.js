@@ -14,8 +14,8 @@ import UserData from '../model/UserData'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import { SetupContainer, ParagraphText, SetupInput } from '../components/setup'
-import { LargeButtons, Label, CheckBox } from '../components/common'
+import { SetupContainer, ParagraphText } from '../components/setup'
+import { LargeButtons, Label, CheckBox, TextInput } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -174,7 +174,7 @@ class SetupEncryptionPassword extends Component {
       <SetupContainer {...this.props} pageNumber={17}>
         <ParagraphText>{this.state.instructionText}</ParagraphText>
         <Label>Password</Label>
-        <SetupInput
+        <TextInput
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
           placeholder='Enter a password...'
@@ -182,7 +182,7 @@ class SetupEncryptionPassword extends Component {
           autoCapitalize='none'
         />
         <Label>Confirm Password</Label>
-        <SetupInput
+        <TextInput
           onChangeText={this.updateComfirmPassword}
           value={this.state.confirmPassword}
           placeholder='Confirm your password...'

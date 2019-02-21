@@ -91,6 +91,14 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginBottom: hp('2.5%')
   },
+  labelEntry: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    height: hp('5%'),
+    marginLeft: wp('4%')
+  },
   drawerEntryBottom: {
     flex: 1,
     flexDirection: 'row',
@@ -139,15 +147,25 @@ export default StyleSheet.create({
     fontSize: 16,
     letterSpacing: 0.34,
     lineHeight: 24,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
-    marginRight: wp('4%'),
-    marginLeft: wp('4%')
+    marginRight: wp('2%'),
+    marginLeft: wp('4%'),
+    paddingTop: 0
+  },
+  labelWithIconContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    ...Platform.select({
+      ios: {
+        maxHeight: hp('4%')
+      },
+      android: {
+        maxHeight: hp('5%')
+      }
+    })
   },
   checkbox: {
     backgroundColor: '#4E957A',
-    // color: '#FFFFFF',
-    // borderRadius: 1,
     borderColor: '#4E957A',
     marginTop: hp('3%'),
     marginRight: wp('3%'),
@@ -155,8 +173,6 @@ export default StyleSheet.create({
   },
   checkboxInScrollView: {
     backgroundColor: '#4E957A',
-    // color: '#FFFFFF',
-    // borderRadius: 1,
     borderColor: '#4E957A',
     marginTop: hp('3%'),
     marginRight: wp('3%')
@@ -186,6 +202,16 @@ export default StyleSheet.create({
     height: hp('100%'),
     marginRight: wp('4%'),
     marginTop: hp('10%'),
+    marginBottom: hp('6%')
+  },
+  loginContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    width: wp('100%'),
+    height: hp('100%'),
+    marginRight: wp('4%'),
+    marginTop: hp('5%'),
     marginBottom: hp('6%')
   },
   setupContainer: {
@@ -313,15 +339,36 @@ export default StyleSheet.create({
     marginLeft: wp('4%')
   },
   centeredLinkText: {
-    color: '#8CC74F',
-    fontFamily: 'TitilliumWeb-Regular',
-    fontSize: 18,
-    textDecorationLine: 'underline',
+    color: '#8DC84F',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '600',
+    letterSpacing: 0.34,
+    lineHeight: 24,
     textAlign: 'center'
+  },
+  linkText: {
+    color: '#8DC84F',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '600',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    textAlign: 'center',
+    alignSelf: 'flex-start'
   },
   centeredLinkContainer: {
     position: 'absolute',
     bottom: 0
+  },
+  linkContainer: {
+    flex: 1
+  },
+  passwordLinkContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginRight: wp('4%')
   },
   recoveryConfirmationBox: {
     width: wp('21%'),
@@ -442,5 +489,13 @@ export default StyleSheet.create({
     letterSpacing: 0.39,
     lineHeight: 27,
     fontWeight: 'bold'
+  },
+  loginImageView: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loginImage: {
+    width: wp('40%'),
+    height: hp('35%')
   }
 })

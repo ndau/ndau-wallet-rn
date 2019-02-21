@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  TextInput,
   Alert,
   Image,
   TouchableOpacity,
@@ -22,10 +21,6 @@ import {
 } from 'react-native-responsive-screen'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
-import {
-  NEW_WALLET_SETUP_TYPE,
-  RECOVERY_WALLET_SETUP_TYPE
-} from '../components/common'
 import FlashNotification from '../components/FlashNotification'
 import Padding from '../components/Padding'
 import OrderAPI from '../api/OrderAPI'
@@ -34,8 +29,18 @@ import styleConstants from '../css/styleConstants'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
+import {
+  NEW_WALLET_SETUP_TYPE,
+  RECOVERY_WALLET_SETUP_TYPE,
+  LoginContainer,
+  LabelWithIcon,
+  TextInput,
+  PasswordLinkText,
+  LargeButton
+} from '../components/common'
+import componentStyles from '../css/componentStyles'
 
-const NDAU = require('img/ndau_multi_large_1024.png')
+const NDAU = require('img/ndau_orange_logo.png')
 
 class Passphrase extends Component {
   constructor (props) {
@@ -161,81 +166,108 @@ class Passphrase extends Component {
   render () {
     const { textInputColor } = this.state
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
+      <LoginContainer>
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-
-        <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-        <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
-            <Padding top={1}>
-              <View style={styles.imageView}>
-                <Image style={styles.image} source={NDAU} />
-              </View>
-            </Padding>
-
-            <Padding top={1}>
-              <View style={{ flexDirection: 'row' }}>
-                <TextInput
-                  style={{
-                    height: hp('7%'),
-                    width: wp('96%'),
-                    borderColor: 'gray',
-                    borderWidth: 1,
-                    borderRadius: 3,
-                    paddingLeft: wp('1%'),
-                    color: '#000000',
-                    backgroundColor: '#ffffff',
-                    fontSize: 18,
-                    fontFamily: 'TitilliumWeb-Regular'
-                  }}
-                  onChangeText={password => this.setState({ password })}
-                  value={this.state.password}
-                  placeholder='App Password'
-                  placeholderTextColor='#333'
-                  secureTextEntry={!this.state.showPasswords}
-                  autoCapitalize='none'
-                />
-              </View>
-            </Padding>
-
-            <Padding top={0}>
-              <Padding>
-                <View style={styles.centerTextView}>
-                  <Text
-                    onPress={this.showPasswordReset}
-                    style={cssStyles.linkText}
-                  >
-                    Forgot your password?
-                  </Text>
-                </View>
-              </Padding>
-              <Padding>
-                <View style={styles.imageView}>
-                  <TouchableOpacity onPress={this.showInformation}>
-                    <Image
-                      style={{ width: 35, height: 38 }}
-                      source={require('img/info_icon_gold.png')}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </Padding>
-
-              {this.state.showErrorText ? (
-                <Padding>
-                  <View style={styles.errorContainer}>
-                    <Text style={cssStyles.errorText}>
-                      Please enter the passphrase you chose to decrypt this app.{' '}
-                    </Text>
-                  </View>
-                </Padding>
-              ) : null}
-            </Padding>
-          </ScrollView>
-          <View style={cssStyles.footer}>
-            <CommonButton onPress={this.login} title='Login' />
-          </View>
+        <View style={componentStyles.loginImageView}>
+          <Image
+            style={componentStyles.loginImage}
+            resizeMode='contain'
+            source={NDAU}
+          />
         </View>
-      </SafeAreaView>
+        <LabelWithIcon
+          onPress={this.showInformation}
+          fontAwesomeIconName='info-circle'
+        >
+          Password
+        </LabelWithIcon>
+        <TextInput
+          onChangeText={password => this.setState({ password })}
+          value={this.state.password}
+          placeholder='Enter your password...'
+          secureTextEntry
+          autoCapitalize='none'
+        />
+        <PasswordLinkText onPress={this.showPasswordReset}>
+          Forgot your password?
+        </PasswordLinkText>
+        <LargeButton onPress={this.login}>Login</LargeButton>
+      </LoginContainer>
+      // <SafeAreaView style={cssStyles.safeContainer}>
+      //   <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+
+    //   <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
+    //   <View style={cssStyles.container}>
+    //     <ScrollView style={cssStyles.contentContainer}>
+    //       <Padding top={1}>
+    //         <View style={styles.imageView}>
+    //           <Image style={styles.image} source={NDAU} />
+    //         </View>
+    //       </Padding>
+
+    //       <Padding top={1}>
+    //         <View style={{ flexDirection: 'row' }}>
+    //           <TextInput
+    //             style={{
+    //               height: hp('7%'),
+    //               width: wp('96%'),
+    //               borderColor: 'gray',
+    //               borderWidth: 1,
+    //               borderRadius: 3,
+    //               paddingLeft: wp('1%'),
+    //               color: '#000000',
+    //               backgroundColor: '#ffffff',
+    //               fontSize: 18,
+    //               fontFamily: 'TitilliumWeb-Regular'
+    //             }}
+    //             onChangeText={password => this.setState({ password })}
+    //             value={this.state.password}
+    //             placeholder='App Password'
+    //             placeholderTextColor='#333'
+    //             secureTextEntry={!this.state.showPasswords}
+    //             autoCapitalize='none'
+    //           />
+    //         </View>
+    //       </Padding>
+
+    //       <Padding top={0}>
+    //         <Padding>
+    //           <View style={styles.centerTextView}>
+    //             <Text
+    //               onPress={this.showPasswordReset}
+    //               style={cssStyles.linkText}
+    //             >
+    //               Forgot your password?
+    //             </Text>
+    //           </View>
+    //         </Padding>
+    //         <Padding>
+    //           <View style={styles.imageView}>
+    //             <TouchableOpacity onPress={this.showInformation}>
+    //               <Image
+    //                 style={{ width: 35, height: 38 }}
+    //                 source={require('img/info_icon_gold.png')}
+    //               />
+    //             </TouchableOpacity>
+    //           </View>
+    //         </Padding>
+
+    //         {this.state.showErrorText ? (
+    //           <Padding>
+    //             <View style={styles.errorContainer}>
+    //               <Text style={cssStyles.errorText}>
+    //                 Please enter the passphrase you chose to decrypt this app.{' '}
+    //               </Text>
+    //             </View>
+    //           </Padding>
+    //         ) : null}
+    //       </Padding>
+    //     </ScrollView>
+    //     <View style={cssStyles.footer}>
+    //       <CommonButton onPress={this.login} title='Login' />
+    //     </View>
+    //   </View>
+    // </SafeAreaView>
     )
   }
 }

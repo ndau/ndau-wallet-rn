@@ -84,17 +84,6 @@ export function SetupContainerWithScrollView (props) {
   )
 }
 
-export function SetupInput (props) {
-  return (
-    <Input
-      style={componentStyles.input}
-      placeholderTextColor='#858688'
-      autoCapitalize='none'
-      {...props}
-    />
-  )
-}
-
 export function LargeText ({ children }) {
   return <H4 style={[componentStyles.largeText]}>{children}</H4>
 }

@@ -9,10 +9,35 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import componentStyles from '../../css/componentStyles'
-import { Button, Progress, H4, P, Checkbox } from 'nachos-ui'
+import { Button, Progress, H4, P, Checkbox, Input } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import { ParagraphText, SmallParagraphText } from '../setup'
+import { widthPercentageToDP } from 'react-native-responsive-screen'
+
+export function LoginContainer ({ children }) {
+  return (
+    <SafeAreaView
+      style={[componentStyles.container, componentStyles.statusBarColor]}
+    >
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <ImageBackground
+        source={require('img/bloom.jpg')}
+        style={componentStyles.setupContainerBackgroundImage}
+        resizeMode='contain'
+      />
+      <LinearGradient
+        start={{ x: 0.0, y: 0.2 }}
+        end={{ x: 0.5, y: 1.0 }}
+        locations={[0, 0.5037, 1.0]}
+        colors={['#0F2748', '#293E63', '#0F2748']}
+        style={[componentStyles.opaqueOverlay]}
+      >
+        <View style={componentStyles.loginContainer}>{children}</View>
+      </LinearGradient>
+    </SafeAreaView>
+  )
+}
 
 export function LargeButtons (props) {
   return (
@@ -75,6 +100,26 @@ export function BottomLinkText (props) {
   )
 }
 
+export function LinkText (props) {
+  return (
+    <View style={[componentStyles.linkContainer]}>
+      <Text {...props} style={[componentStyles.linkText]}>
+        {props.children}
+      </Text>
+    </View>
+  )
+}
+
+export function PasswordLinkText (props) {
+  return (
+    <View style={[componentStyles.passwordLinkContainer]}>
+      <Text {...props} style={[componentStyles.linkText]}>
+        {props.children}
+      </Text>
+    </View>
+  )
+}
+
 export const NEW_WALLET_SETUP_TYPE = 'new'
 export const RECOVERY_WALLET_SETUP_TYPE = 'recovery'
 
@@ -101,6 +146,22 @@ export function ProgressBar (props) {
           : '0'}
         %
       </H4>
+    </View>
+  )
+}
+
+export function LabelWithIcon (props) {
+  return (
+    <View style={componentStyles.labelWithIconContainer}>
+      <P style={[componentStyles.labelText]}>{props.children}</P>
+      <TouchableOpacity {...props}>
+        <FontAwesome5Pro
+          size={24}
+          name={props.fontAwesomeIconName}
+          color='#4B9176'
+          light
+        />
+      </TouchableOpacity>
     </View>
   )
 }
@@ -271,5 +332,16 @@ export function AppContainer (props) {
         </LinearGradient>
       </View>
     </SafeAreaView>
+  )
+}
+
+export function TextInput (props) {
+  return (
+    <Input
+      style={componentStyles.input}
+      placeholderTextColor='#858688'
+      autoCapitalize='none'
+      {...props}
+    />
   )
 }
