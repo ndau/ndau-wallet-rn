@@ -20,7 +20,7 @@ import {
   DrawerEntryItem,
   DrawerExit,
   DrawerContainer
-} from '../components/common'
+} from '../components/drawer'
 
 class AppDrawer extends React.Component {
   constructor (props) {

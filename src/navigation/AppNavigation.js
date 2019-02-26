@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import DashboardNavigation from './DashboardNavigation'
+import WalletOverviewNavigation from './WalletOverviewNavigation'
 import LoggingNavigation from './LoggingNavigation'
 import SetupWelcome from '../screens/SetupWelcome'
 import SetupWalletName from '../screens/SetupWalletName'
@@ -115,6 +116,13 @@ DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
+const WalletOverviewNavigationScreen = ({ navigation }) => (
+  <WalletOverviewNavigation navigation={navigation} />
+)
+WalletOverviewNavigationScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+})
+
 const LoggingNavigationScreen = ({ navigation }) => (
   <LoggingNavigation navigation={navigation} />
 )
@@ -146,6 +154,7 @@ export default createSwitchNavigator(
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
     Logging: LoggingNavigation,
+    WalletOverview: WalletOverviewNavigation,
     Auth: AuthStack,
     Setup: SetupStack
   },

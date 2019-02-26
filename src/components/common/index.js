@@ -4,8 +4,7 @@ import {
   ScrollView,
   StatusBar,
   ImageBackground,
-  TouchableOpacity,
-  Text
+  TouchableOpacity
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import componentStyles from '../../css/componentStyles'
@@ -13,7 +12,6 @@ import { Button, Progress, H4, P, Checkbox, Input } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import { ParagraphText, SmallParagraphText } from '../setup'
-import { widthPercentageToDP } from 'react-native-responsive-screen'
 
 export function LoginContainer ({ children }) {
   return (
@@ -93,9 +91,9 @@ export function LargeButton (props) {
 export function BottomLinkText (props) {
   return (
     <View style={[componentStyles.centeredLinkContainer, { left: props.left }]}>
-      <Text {...props} style={componentStyles.centeredLinkText}>
+      <H4 {...props} style={componentStyles.centeredLinkText}>
         {props.children}
-      </Text>
+      </H4>
     </View>
   )
 }
@@ -103,9 +101,9 @@ export function BottomLinkText (props) {
 export function LinkText (props) {
   return (
     <View style={[componentStyles.linkContainer]}>
-      <Text {...props} style={[componentStyles.linkText]}>
+      <H4 {...props} style={[componentStyles.linkText]}>
         {props.children}
-      </Text>
+      </H4>
     </View>
   )
 }
@@ -113,9 +111,19 @@ export function LinkText (props) {
 export function PasswordLinkText (props) {
   return (
     <View style={[componentStyles.passwordLinkContainer]}>
-      <Text {...props} style={[componentStyles.linkText]}>
+      <H4 {...props} style={[componentStyles.linkText]}>
         {props.children}
-      </Text>
+      </H4>
+    </View>
+  )
+}
+
+export function NdauTotal (props) {
+  return (
+    <View style={[componentStyles.ndauTotalContainer]}>
+      <H4 {...props} style={[componentStyles.ndauTotalText]}>
+        {props.children}
+      </H4>
     </View>
   )
 }
@@ -227,95 +235,6 @@ export function LegalTextBold (props) {
   )
 }
 
-export function DrawerContainer (props) {
-  return (
-    <SafeAreaView
-      style={[componentStyles.container, componentStyles.statusBarColor]}
-    >
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
-      <View style={componentStyles.outerDrawerContainer}>
-        <LinearGradient
-          locations={[0, 1.0]}
-          colors={['#0F2748', '#293E63']}
-          style={[componentStyles.drawerContainerOverlay]}
-        >
-          <View style={componentStyles.drawerContainer}>{props.children}</View>
-          <DrawerEntryItem
-            bottom
-            onPress={props.logoutHandler}
-            fontAwesomeIconName='user-circle'
-          >
-            Logout
-          </DrawerEntryItem>
-        </LinearGradient>
-      </View>
-    </SafeAreaView>
-  )
-}
-
-export function DrawerExit (props) {
-  return (
-    <View style={componentStyles.drawerExit}>
-      <TouchableOpacity {...props}>
-        <FontAwesome5Pro size={36} name='times' color='#ffffff' light />
-      </TouchableOpacity>
-    </View>
-  )
-}
-
-export function DrawerEntryItem (props) {
-  return (
-    <View
-      style={
-        props.bottom
-          ? componentStyles.drawerEntryBottom
-          : componentStyles.drawerEntry
-      }
-    >
-      <TouchableOpacity {...props}>
-        <FontAwesome5Pro
-          size={22}
-          name={props.fontAwesomeIconName}
-          color='#4B9176'
-          light
-        />
-      </TouchableOpacity>
-      <TouchableOpacity {...props}>
-        <H4
-          style={
-            props.bottom
-              ? componentStyles.drawerTextBottom
-              : componentStyles.drawerText
-          }
-        >
-          {props.children}
-        </H4>
-      </TouchableOpacity>
-    </View>
-  )
-}
-
-export const DrawerHeader = props => {
-  return (
-    <View style={componentStyles.drawerHeaderContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.openDrawer()
-        }}
-      >
-        <FontAwesome5Pro
-          name='bars'
-          size={32}
-          color='#fff'
-          style={componentStyles.drawerButton}
-          light
-        />
-      </TouchableOpacity>
-      <H4 style={componentStyles.drawerHeaderText}>{props.children}</H4>
-    </View>
-  )
-}
-
 export function AppContainer (props) {
   return (
     <SafeAreaView
@@ -324,8 +243,10 @@ export function AppContainer (props) {
       <StatusBar barStyle='light-content' backgroundColor='#000000' />
       <View style={{ flex: 1 }}>
         <LinearGradient
-          locations={[0, 1.0]}
-          colors={['#0F2748', '#293E63']}
+          start={{ x: 0.0, y: 0.1 }}
+          end={{ x: 0.0, y: 1.0 }}
+          locations={[0, 0.18]}
+          colors={['#0A1724', '#0F2748']}
           style={[componentStyles.appContainerOverlay]}
         >
           <View style={componentStyles.appContainer}>{props.children}</View>

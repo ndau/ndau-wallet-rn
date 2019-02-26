@@ -73,7 +73,20 @@ export default StyleSheet.create({
     width: wp('76%'),
     height: hp('5%'),
     textAlign: 'center',
-    paddingBottom: 0
+    paddingTop: 0
+  },
+  drawerHeaderTextForOverview: {
+    color: '#FFFFFF',
+    fontFamily: 'Titillium Web',
+    fontSize: 24,
+    fontWeight: '600',
+    letterSpacing: 0.51,
+    lineHeight: 36,
+    width: wp('86%'),
+    height: hp('5%'),
+    textAlign: 'right',
+    alignSelf: 'flex-end',
+    paddingTop: 0
   },
   drawerTextBottom: {
     color: '#FFFFFF',
@@ -115,6 +128,28 @@ export default StyleSheet.create({
   drawerButton: {
     paddingLeft: wp('4%')
   },
+  dashboardAngle: {
+    alignSelf: 'center',
+    ...Platform.select({
+      ios: {
+        paddingTop: hp('2.5%')
+      },
+      android: {
+        paddingTop: hp('2%')
+      }
+    })
+  },
+  accountAngle: {
+    ...Platform.select({
+      ios: {
+        paddingTop: hp('1%')
+      },
+      android: {
+        paddingTop: hp('.5%')
+      }
+    }),
+    paddingRight: wp('4%')
+  },
   progressNumber: {
     color: '#FFFFFF',
     fontFamily: 'Titillium Web',
@@ -129,6 +164,25 @@ export default StyleSheet.create({
       }
     }),
     marginRight: wp('4%')
+  },
+  accountDetailsBarText: {
+    width: wp('70%'),
+    height: hp('6%'),
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingLeft: wp('1%'),
+    paddingRight: wp('1%'),
+    ...Platform.select({
+      ios: {
+        marginTop: hp('.6%')
+      }
+    }),
+    marginRight: wp('4%'),
+    textAlign: 'center'
   },
   paragraphText: {
     color: '#FFFFFF',
@@ -151,6 +205,25 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     paddingTop: 0
   },
+  dashboardLabelTextWithIcon: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginRight: wp('2%'),
+    marginLeft: wp('4%')
+  },
+  dashboardLabelText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginTop: wp('2%'),
+    marginBottom: wp('2%'),
+    marginLeft: wp('4%')
+  },
   labelWithIconContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -163,6 +236,22 @@ export default StyleSheet.create({
         maxHeight: hp('5%')
       }
     })
+  },
+  dashboardLabelWithIconContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        maxHeight: hp('5%')
+      },
+      android: {
+        maxHeight: hp('5%')
+      }
+    }),
+    marginTop: wp('2%'),
+    marginBottom: wp('2%')
   },
   checkbox: {
     backgroundColor: '#4E957A',
@@ -233,8 +322,21 @@ export default StyleSheet.create({
     flex: 1,
     width: wp('100%'),
     height: hp('100%'),
-    marginTop: hp('2%'),
-    marginBottom: hp('2.5%')
+    marginTop: hp('1%')
+  },
+  dashboardContainer: {
+    flex: 1,
+    width: wp('100%'),
+    height: hp('100%'),
+    ...Platform.select({
+      ios: {
+        marginTop: hp('3%')
+      },
+      android: {
+        marginTop: hp('4%')
+      }
+    }),
+    backgroundColor: '#0A1724'
   },
   outerDrawerContainer: {
     flex: 1,
@@ -296,12 +398,41 @@ export default StyleSheet.create({
     borderRadius: 4,
     backgroundColor: 'transparent'
   },
+  accountButton: {
+    width: wp('30%'),
+    height: hp('5%'),
+    borderRadius: 4,
+    borderColor: '#4e957a',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    ...Platform.select({
+      android: {
+        marginTop: hp('1%')
+      }
+    })
+  },
   largeButtonText: {
     color: '#ffffff',
     fontFamily: 'Titillium Web',
     fontSize: 20,
     fontWeight: '600',
     letterSpacing: 0.43
+  },
+  accountButtonText: {
+    width: wp('30%'),
+    color: '#ffffff',
+    fontFamily: 'Titillium Web',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        marginBottom: -2,
+        marginTop: -5
+      }
+    })
   },
   progressBarContainer: {
     flex: 1,
@@ -313,13 +444,23 @@ export default StyleSheet.create({
     backgroundColor: '#0A1724',
     color: '#000000'
   },
+  accountDetailsBarContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'stretch',
+    width: wp('100%'),
+    height: hp('5%'),
+    backgroundColor: 'transparent',
+    color: '#000000'
+  },
   drawerHeaderContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     width: wp('100%'),
-    height: hp('5%'),
+    maxHeight: hp('5%'),
     color: '#000000'
   },
   progressBar: {
@@ -330,13 +471,24 @@ export default StyleSheet.create({
   backArrow: {
     ...Platform.select({
       ios: {
-        marginTop: hp('1.6%')
+        marginTop: hp('1.2%')
       },
       android: {
-        marginTop: hp('1.4%')
+        marginTop: hp('.8%')
       }
     }),
     marginLeft: wp('4%')
+  },
+  detailsBarCog: {
+    ...Platform.select({
+      ios: {
+        marginTop: hp('2%')
+      },
+      android: {
+        marginTop: hp('1.6%')
+      }
+    }),
+    marginRight: wp('4%')
   },
   centeredLinkText: {
     color: '#8DC84F',
@@ -355,7 +507,23 @@ export default StyleSheet.create({
     letterSpacing: 0.34,
     lineHeight: 24,
     textAlign: 'center',
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    paddingVertical: 0
+  },
+  ndauTotalText: {
+    color: '#8CC74F',
+    fontFamily: 'Titillium Web',
+    fontSize: 36,
+    fontWeight: '300',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78, 149, 122, 1)',
+    letterSpacing: 0.77,
+    lineHeight: 54,
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    paddingVertical: 0
   },
   centeredLinkContainer: {
     position: 'absolute',
@@ -368,7 +536,22 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginRight: wp('4%')
+    marginRight: wp('4%'),
+    paddingVertical: 0
+  },
+  ndauTotalContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1.5%')
+      },
+      android: {
+        marginTop: hp('2%')
+      }
+    })
   },
   recoveryConfirmationBox: {
     width: wp('21%'),
@@ -497,5 +680,291 @@ export default StyleSheet.create({
   loginImage: {
     width: wp('40%'),
     height: hp('35%')
+  },
+  collapsiblePanelContainer: {
+    backgroundColor: '#293E63',
+    overflow: 'hidden',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0,
+    shadowColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  collapsiblePanelTitleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  collapsiblePanelTitleLeft: {
+    marginTop: hp('1%'),
+    marginBottom: hp('1%'),
+    color: '#8CC74F',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)',
+    fontSize: 18,
+    fontWeight: '300',
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light',
+    textAlign: 'center'
+  },
+  collapsiblePanelTitleRight: {
+    marginTop: hp('1%'),
+    marginBottom: hp('1%'),
+    color: '#fff',
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
+  },
+  collapsiblePanelBody: {
+    padding: wp('2%')
+  },
+  collapsiblePanelBorder: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+    marginLeft: wp('2%'),
+    marginRight: wp('2%'),
+    opacity: 0.2
+  },
+  dashboardTextVerySmallWhite: {
+    color: '#ffffff',
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '300',
+    letterSpacing: 0.26,
+    lineHeight: 18
+  },
+  dashboardPanel: {
+    width: wp('100%'),
+    height: hp('9%'),
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0,
+    shadowColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  accountMainPanel: {
+    width: wp('100%'),
+    height: hp('23%'),
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0,
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    marginBottom: hp('3%')
+  },
+  dashboardActionPanels: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    overflow: 'hidden'
+  },
+  accountPanels: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start'
+    // overflow: 'hidden'
+  },
+  dashboardActionPanel: {
+    width: wp('18%'),
+    height: hp('10%'),
+    backgroundColor: '#0F2748',
+    alignSelf: 'flex-end'
+  },
+  accountTitlePanel: {
+    width: wp('100%'),
+    ...Platform.select({
+      ios: {
+        height: hp('8%')
+      },
+      android: {
+        height: hp('9%')
+      }
+    })
+
+    // alignSelf: 'flex-start'
+  },
+  accountButtonPanel: {
+    width: wp('94%'),
+    ...Platform.select({
+      ios: {
+        height: hp('8%')
+      },
+      android: {
+        height: hp('9%')
+      }
+    }),
+    marginLeft: wp('4%'),
+    marginTop: hp('1%')
+  },
+  accountActionPanel: {
+    width: wp('100%'),
+    ...Platform.select({
+      ios: {
+        height: hp('6%')
+      },
+      android: {
+        height: hp('7%')
+      }
+    }),
+
+    backgroundColor: '#0F2748'
+    // alignSelf: 'flex-end'
+  },
+  dashboardActionTextPanel: {
+    color: '#FFFFFF',
+    fontSize: 21,
+    fontFamily: 'Titillium Web',
+    fontWeight: '600',
+    letterSpacing: 0.45,
+    lineHeight: 32,
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1%')
+      },
+      android: {
+        marginTop: hp('.5%')
+      }
+    }),
+    marginLeft: wp('4%')
+  },
+  accountActionTextPanel: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontFamily: 'Titillium Web',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    textAlign: 'left',
+    // ...Platform.select({
+    //   ios: {
+    //     marginTop: hp('1%')
+    //   },
+    //   android: {
+    //     marginTop: hp('.5%')
+    //   }
+    // }),
+    marginLeft: wp('4%')
+  },
+  accountTitleTextPanel: {
+    color: '#FFFFFF',
+    fontSize: 21,
+    fontFamily: 'Titillium Web',
+    letterSpacing: 0.45,
+    lineHeight: 32,
+    textAlign: 'left',
+    // ...Platform.select({
+    //   ios: {
+    //     marginTop: hp('1%')
+    //   },
+    //   android: {
+    //     marginTop: hp('.5%')
+    //   }
+    // }),
+    marginLeft: wp('4%')
+  },
+  accountPanelBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountPanelTotal: {
+    marginRight: wp('4%'),
+    color: '#8CC74F',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)',
+    fontSize: 18,
+    fontWeight: '300',
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'Titillium Web',
+    textAlign: 'center'
+  },
+  accountTotalPanelText: {
+    color: '#8CC74F',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)',
+    fontSize: 18,
+    fontWeight: '300',
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'Titillium Web',
+    textAlign: 'center',
+    alignSelf: 'center',
+    paddingTop: 5
+  },
+  accountTotalPanel: {
+    width: wp('100%'),
+    height: hp('5%'),
+    backgroundColor: '#293E63',
+    overflow: 'hidden',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0,
+    shadowColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  accountDetailsPanel: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#0A1724'
+  },
+  accountTitlePanel: {
+    width: wp('100%'),
+    height: hp('5%')
+  },
+  accountDetailsTextPanel: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountDetailsTextPanelWithButton: {
+    margin: wp('4%'),
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  accountDetailsTextPanelWithSmallText: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  accountDetailsLargerText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24
+  },
+  accountDetailsSmallerText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '200',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
+  accountDetailsSmallerTextBold: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
+  accountDetailsPanelBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
   }
 })
