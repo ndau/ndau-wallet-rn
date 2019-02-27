@@ -355,6 +355,12 @@ export function AccountMediumButtonSecondary (props) {
 export function AccountLockButton (props) {
   return (
     <View style={componentStyles.accountLockButtonContainer}>
+      <View>
+        <H4 style={componentStyles.lockSmallerText}>
+          Note: You will not be able to spend, transfer or otherwise access the
+          principal in this account while it is locked
+        </H4>
+      </View>
       <Button
         style={componentStyles.largeButton}
         textStyle={componentStyles.largeButtonText}

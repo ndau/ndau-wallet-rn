@@ -83,7 +83,7 @@ export default StyleSheet.create({
     letterSpacing: 0.51,
     lineHeight: 36,
     width: wp('86%'),
-    height: hp('5%'),
+    height: hp('6%'),
     textAlign: 'right',
     alignSelf: 'flex-end',
     paddingTop: 0
@@ -964,7 +964,6 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   lockAccountDetailsTextPanel: {
-    marginTop: hp('2%'),
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
@@ -1042,9 +1041,7 @@ export default StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'Open Sans',
     fontSize: 12,
-    textAlign: 'left',
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
+    textAlign: 'left'
   },
   lockLargerText: {
     color: '#FFFFFF',

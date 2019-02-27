@@ -478,6 +478,7 @@ class SetupGetRecoveryPhrase extends Component {
 
     return (
       <SetupContainer {...this.props} pageNumber={15}>
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <ParagraphText>Please verify your recovery phrase.</ParagraphText>
         <RecoveryPhraseConfirmation
           words={words}

@@ -14,35 +14,11 @@ import SetupTermsOfService from '../screens/SetupTermsOfService'
 import SetupYourWallet from '../screens/SetupYourWallet'
 import Passphrase from '../screens/Passphrase'
 import AuthLoading from './AuthLoading'
-import IdentityMind from '../screens/IdentityMind'
-import IdentityVerificationIntro from '../screens/IdentityVerificationIntro'
-import IdentityVerificationSuccess from '../screens/IdentityVerificationSuccess'
 
 const PassphraseScreen = ({ navigation }) => (
   <Passphrase navigation={navigation} />
 )
 PassphraseScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityMindScreen = ({ navigation }) => (
-  <IdentityMind navigation={navigation} />
-)
-IdentityMindScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityVerificationIntroScreen = ({ navigation }) => (
-  <IdentityVerificationIntro navigation={navigation} />
-)
-IdentityVerificationIntroScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityVerificationSuccessScreen = ({ navigation }) => (
-  <IdentityVerificationSuccess navigation={navigation} />
-)
-IdentityVerificationSuccessScreen.navigationOptions = {
   header: null
 }
 
@@ -130,11 +106,8 @@ LoggingNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
-const AuthStack = createStackNavigator({
-  Passphrase: { screen: PassphraseScreen }
-})
-
 const SetupStack = createStackNavigator({
+  Passphrase: { screen: PassphraseScreen },
   SetupWelcome: { screen: SetupWelcomeScreen },
   SetupWalletName: { screen: SetupWalletNameScreen },
   SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },
@@ -143,10 +116,7 @@ const SetupStack = createStackNavigator({
   SetupRecoveryPhrase: { screen: SetupRecoveryPhraseScreen },
   SetupGetRecoveryPhrase: { screen: SetupGetRecoveryPhraseScreen },
   SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
-  SetupYourWallet: { screen: SetupYourWalletScreen },
-  IdentityMind: { screen: IdentityMindScreen },
-  IdentityVerificationIntro: { screen: IdentityVerificationIntroScreen },
-  IdentityVerificationSuccess: { screen: IdentityVerificationSuccessScreen }
+  SetupYourWallet: { screen: SetupYourWalletScreen }
 })
 
 export default createSwitchNavigator(
@@ -155,7 +125,6 @@ export default createSwitchNavigator(
     App: DashboardNavigation,
     Logging: LoggingNavigation,
     WalletOverview: WalletOverviewNavigation,
-    Auth: AuthStack,
     Setup: SetupStack
   },
   {

@@ -1,10 +1,10 @@
 import React from 'react'
 import {
   View,
-  ScrollView,
   StatusBar,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import componentStyles from '../../css/componentStyles'
@@ -264,5 +264,23 @@ export function TextInput (props) {
       autoCapitalize='none'
       {...props}
     />
+  )
+}
+
+export function Dropdown (props) {
+  // TODO: this is temporary but if you populate items this does
+  // get used
+  let items = props.items || {
+    '123456789': 'Account 1',
+    '12345678910': 'Account 2'
+  }
+  return (
+    <View style={props.containerStyle}>
+      <Picker {...props}>
+        {Object.keys(items).map((key, index) => {
+          return <Picker.Item key={index} label={items[key]} value={key} />
+        })}
+      </Picker>
+    </View>
   )
 }

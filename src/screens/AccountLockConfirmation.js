@@ -9,6 +9,8 @@ import { View } from 'react-native'
 import { H4 } from 'nachos-ui'
 import componentStyles from '../css/componentStyles'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import { LockTransaction } from '../transactions/LockTransaction'
+import { Transaction } from '../transactions/Transaction'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -31,7 +33,15 @@ class AccountLockConfirmation extends Component {
     this.setState({ account, wallet, lockPercentage, lockPeriod })
   }
 
-  _showLockConfirmation = () => {
+  _showLockConfirmation = async () => {
+    Object.assign(LockTransaction.prototype, Transaction)
+    const lockTransaction = new LockTransaction(
+      this.state.wallet,
+      this.state.account,
+      `${this.state.lockPeriod}m`
+    )
+    // await lockTransaction.createSignPrevalidateSubmit()
+
     this.props.navigation.navigate('WalletOverview', {
       wallet: this.state.wallet
     })

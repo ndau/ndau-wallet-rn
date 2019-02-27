@@ -9,6 +9,7 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { H4 } from 'nachos-ui'
 import { View, Picker, Slider } from 'react-native'
 import componentStyles from '../css/componentStyles'
+import { Dropdown } from '../components/common'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -108,25 +109,15 @@ class AccountLock extends Component {
               Where do you want to send the incentive (EAI) from this lock?
             </H4>
           </View>
-          <View style={componentStyles.accountDetailsTextPanel}>
-            <Picker
-              itemStyle={componentStyles.lockAccountPickerText}
-              style={componentStyles.lockAccountPicker}
-              selectedValue={this.state.language}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ language: itemValue })
-              }
-            >
-              <Picker.Item label='Java' value='java' />
-              <Picker.Item label='JavaScript' value='js' />
-            </Picker>
-          </View>
-          <View>
-            <H4 style={componentStyles.lockSmallerText}>
-              Note: You will not be able to spend, transfer or otherwise access
-              the principal in this account while it is locked
-            </H4>
-          </View>
+          <Dropdown
+            containerStyle={componentStyles.lockAccountDetailsTextPanel}
+            itemStyle={componentStyles.lockAccountPickerText}
+            style={componentStyles.lockAccountPicker}
+            selectedValue={this.state.language}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({ language: itemValue })
+            }
+          />
         </AccountLockDetailsPanel>
         <AccountLockButton onPress={this._showLockConfirmation}>
           Continue
