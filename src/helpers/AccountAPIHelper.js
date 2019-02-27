@@ -75,7 +75,9 @@ const populateWalletWithAddressData = async wallet => {
 
 const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
-    LoggingService.debug(`Sending claim transaction for ${addressData.nickname}`)
+    LoggingService.debug(
+      `Sending claim transaction for ${addressData.nickname}`
+    )
     Object.assign(ClaimTransaction.prototype, Transaction)
     const claimTransaction = new ClaimTransaction(wallet, account)
     await claimTransaction.createSignPrevalidateSubmit()

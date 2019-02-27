@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import LoggingService from '../services/LoggingService'
 import {
   AccountDetailsContainer,
   AccountTotalPanel,
@@ -12,12 +11,23 @@ class AccountDetails extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      account: {}
+      account: {},
+      wallet: {}
     }
   }
+
   componentWillMount = () => {
     const account = this.props.navigation.getParam('account', null)
-    this.setState({ account })
+    const wallet = this.props.navigation.getParam('wallet', null)
+
+    this.setState({ account, wallet })
+  }
+
+  _showLock = (account, wallet) => {
+    this.props.navigation.navigate('AccountLock', {
+      account: account,
+      wallet: wallet
+    })
   }
 
   render () {
@@ -46,6 +56,9 @@ class AccountDetails extends Component {
           accountLockedUntil={accountLockedUntil}
           accountNoticePeriod={accountNoticePeriod}
           accountNotLocked={accountNotLocked}
+          showLock={this._showLock}
+          account={this.state.account}
+          wallet={this.state.wallet}
         />
       </AccountDetailsContainer>
     )

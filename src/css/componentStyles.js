@@ -150,6 +150,9 @@ export default StyleSheet.create({
     }),
     paddingRight: wp('4%')
   },
+  accountNicknameIcon: {
+    paddingLeft: wp('3%')
+  },
   progressNumber: {
     color: '#FFFFFF',
     fontFamily: 'Titillium Web',
@@ -373,6 +376,27 @@ export default StyleSheet.create({
     bottom: 0,
     marginLeft: wp('4%')
   },
+  accountLockButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%')
+  },
+  accountMediumButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: wp('96%'),
+    marginBottom: hp('2.5%')
+  },
+  accountButtonLargeButton: {
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: '#4e957a',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    marginLeft: wp('4%')
+  },
   setupButtonContainerScrollView: {
     marginTop: hp('1%')
   },
@@ -391,6 +415,22 @@ export default StyleSheet.create({
     height: hp('6%'),
     borderRadius: 4,
     backgroundColor: '#4e957a'
+  },
+  mediumButton: {
+    width: wp('40%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: '#4e957a'
+  },
+  mediumButtonSecondary: {
+    width: wp('40%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    borderColor: '#4e957a',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    marginLeft: wp('4%')
   },
   largeButtonSecondary: {
     width: wp('91%'),
@@ -720,13 +760,15 @@ export default StyleSheet.create({
     fontFamily: 'TitilliumWeb-Light'
   },
   collapsiblePanelBody: {
-    padding: wp('2%')
+    padding: wp('2%'),
+    marginLeft: wp('2%'),
+    marginRight: wp('2%')
   },
   collapsiblePanelBorder: {
     borderBottomColor: 'white',
     borderBottomWidth: 1,
-    marginLeft: wp('2%'),
-    marginRight: wp('2%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
     opacity: 0.2
   },
   dashboardTextVerySmallWhite: {
@@ -856,14 +898,11 @@ export default StyleSheet.create({
     letterSpacing: 0.45,
     lineHeight: 32,
     textAlign: 'left',
-    // ...Platform.select({
-    //   ios: {
-    //     marginTop: hp('1%')
-    //   },
-    //   android: {
-    //     marginTop: hp('.5%')
-    //   }
-    // }),
+    ...Platform.select({
+      ios: {
+        paddingTop: 5
+      }
+    }),
     marginLeft: wp('4%')
   },
   accountPanelBorder: {
@@ -924,6 +963,11 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
+  lockAccountDetailsTextPanel: {
+    marginTop: hp('2%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
   accountDetailsTextPanelWithButton: {
     margin: wp('4%'),
     flexDirection: 'row',
@@ -934,6 +978,16 @@ export default StyleSheet.create({
     marginRight: wp('4%'),
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  lockAccountDetailsTextPanelWithSmallText: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  lockAccountCheckmark: {
+    marginTop: hp('1.4%'),
+    marginRight: wp('3%')
   },
   accountDetailsLargerText: {
     color: '#FFFFFF',
@@ -966,5 +1020,53 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginLeft: wp('4%'),
     marginRight: wp('4%')
+  },
+  lockSliderContainer: {
+    margin: wp('4%'),
+    marginBottom: hp('7%')
+  },
+  lockSlider: {
+    width: wp('92%'),
+    height: hp('1%'),
+    color: '#0A1724'
+  },
+  lockSmallerTextBold: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '400',
+    marginTop: hp('2%'),
+    textAlign: 'center'
+  },
+  lockSmallerText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    textAlign: 'left',
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  lockLargerText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24
+  },
+  lockAccountPicker: {
+    marginTop: 0,
+    paddingTop: 0,
+    color: '#FFFFFF'
+  },
+  lockAccountPickerText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    textAlign: 'left',
+    paddingLeft: wp('4%')
   }
 })

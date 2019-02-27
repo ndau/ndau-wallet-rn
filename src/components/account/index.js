@@ -33,12 +33,31 @@ export function AccountPanel (props) {
                 alignItems: 'center'
               }}
             >
-              <H4 style={componentStyles.accountTitleTextPanel}>
-                {AccountAPIHelper.accountNickname(props.account.addressData)}
-              </H4>
-              <H4 style={componentStyles.accountPanelTotal}>
-                {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
-              </H4>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center'
+                }}
+              >
+                <H4 style={componentStyles.accountTitleTextPanel}>
+                  {AccountAPIHelper.accountNickname(props.account.addressData)}
+                </H4>
+                <FontAwesome5Pro
+                  name={props.icon}
+                  size={18}
+                  color='#4B9176'
+                  style={componentStyles.accountNicknameIcon}
+                  light
+                />
+              </View>
+              <View>
+                <H4 style={componentStyles.accountPanelTotal}>
+                  {AccountAPIHelper.accountNdauAmount(
+                    props.account.addressData
+                  )}
+                </H4>
+              </View>
             </View>
             <View style={componentStyles.accountPanelBorder} />
           </View>
@@ -92,14 +111,41 @@ export function AccountDetailsContainer (props) {
       <StatusBar barStyle='light-content' backgroundColor='#000000' />
       <View style={{ flex: 1 }}>
         <LinearGradient
-          start={{ x: 0.0, y: 0.05 }}
+          start={{ x: 0.0, y: 0.02 }}
           end={{ x: 0.0, y: 1.0 }}
-          locations={[0, 0.2]}
+          locations={[0, 0.05]}
           colors={['#0A1724', '#0F2748']}
           style={[componentStyles.appContainerOverlay]}
         >
           <View style={componentStyles.accountTitlePanel}>
             <AccountDetailsBar goBack={() => goBack()} {...props} />
+          </View>
+          <View style={componentStyles.appContainer}>{props.children}</View>
+        </LinearGradient>
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export function AccountLockContainer (props) {
+  goBack = wallet => {
+    props.navigation.navigate('WalletOverview', { wallet })
+  }
+  return (
+    <SafeAreaView
+      style={[componentStyles.container, componentStyles.statusBarColor]}
+    >
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <View style={{ flex: 1 }}>
+        <LinearGradient
+          start={{ x: 0.0, y: 0.02 }}
+          end={{ x: 0.0, y: 1.0 }}
+          locations={[0, 0.05]}
+          colors={['#0A1724', '#0F2748']}
+          style={[componentStyles.appContainerOverlay]}
+        >
+          <View style={componentStyles.accountTitlePanel}>
+            <AccountClosingBar goBack={this.goBack} {...props} />
           </View>
           <View style={componentStyles.appContainer}>{props.children}</View>
         </LinearGradient>
@@ -114,6 +160,7 @@ export function AccountButton (props) {
       style={componentStyles.accountButton}
       textStyle={componentStyles.accountButtonText}
       uppercase={false}
+      {...props}
     >
       {props.children}{' '}
       <FontAwesome5Pro
@@ -137,6 +184,14 @@ export function AccountTotalPanel (props) {
   )
 }
 
+export function AccountLockDetailsPanel (props) {
+  return (
+    <View style={componentStyles.accountDetailsPanel}>
+      <View>{props.children}</View>
+    </View>
+  )
+}
+
 export function AccountDetailsPanel (props) {
   return (
     <View style={componentStyles.accountDetailsPanel}>
@@ -145,12 +200,19 @@ export function AccountDetailsPanel (props) {
           {props.accountNotLocked ? (
             <H4 style={componentStyles.accountDetailsLargerText}>Unlocked</H4>
           ) : (
-            <H4 style={componentStyles.accountDetailsLargerText}>Locked</H4>
+            <H4 style={componentStyles.accountDetailsLargerText}>
+              Locked ({props.accountNoticePeriod} day countdown)
+            </H4>
           )}
         </View>
         <View>
           {props.accountNotLocked ? (
-            <AccountButton icon='lock'>Lock</AccountButton>
+            <AccountButton
+              onPress={() => props.showLock(props.account, props.wallet)}
+              icon='lock'
+            >
+              Lock
+            </AccountButton>
           ) : (
             <AccountButton icon='lock-open'>Unlock</AccountButton>
           )}
@@ -186,6 +248,20 @@ export function AccountDetailsPanel (props) {
           </H4>
         </View>
       </View>
+      {props.sendingEAITo ? (
+        <View style={componentStyles.accountDetailsTextPanelWithSmallText}>
+          <View>
+            <H4 style={componentStyles.accountDetailsSmallerText}>
+              EAI being sent to:
+            </H4>
+          </View>
+          <View>
+            <H4 style={componentStyles.accountDetailsSmallerTextBold}>
+              {props.sendingEAITo}
+            </H4>
+          </View>
+        </View>
+      ) : null}
     </View>
   )
 }
@@ -207,6 +283,86 @@ export function AccountDetailsBar (props) {
       <View style={componentStyles.detailsBarCog}>
         <FontAwesome5Pro size={18} name='cog' color='#FFFFFF' light />
       </View>
+    </View>
+  )
+}
+
+export function AccountClosingBar (props) {
+  return (
+    <View style={componentStyles.accountDetailsBarContainer}>
+      <View style={componentStyles.backArrow} />
+      <H4 style={[componentStyles.accountDetailsBarText]}>{props.title}</H4>
+      <View style={componentStyles.detailsBarCog}>
+        <TouchableOpacity onPress={() => props.goBack(props.wallet)}>
+          <FontAwesome5Pro size={18} name='times' color='#4B9176' light />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+export function AccountMediumButtons (props) {
+  return (
+    <View style={componentStyles.accountMediumButtonContainer}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}
+      >
+        <View>
+          <AccountMediumButtonSecondary onPress={props.onPressSecondary}>
+            {props.secondary}
+          </AccountMediumButtonSecondary>
+        </View>
+        <View>
+          <AccountMediumButton onPress={props.onPressPrimary}>
+            {props.primary}
+          </AccountMediumButton>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+export function AccountMediumButton (props) {
+  return (
+    <Button
+      style={componentStyles.mediumButton}
+      textStyle={componentStyles.largeButtonText}
+      uppercase={false}
+      {...props}
+    >
+      {props.children}
+    </Button>
+  )
+}
+
+export function AccountMediumButtonSecondary (props) {
+  return (
+    <Button
+      style={componentStyles.mediumButtonSecondary}
+      textStyle={componentStyles.largeButtonText}
+      uppercase={false}
+      {...props}
+    >
+      {props.children}
+    </Button>
+  )
+}
+
+export function AccountLockButton (props) {
+  return (
+    <View style={componentStyles.accountLockButtonContainer}>
+      <Button
+        style={componentStyles.largeButton}
+        textStyle={componentStyles.largeButtonText}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
     </View>
   )
 }

@@ -73,7 +73,7 @@ class SetupTermsOfService extends Component {
           )
         }
 
-        await UserData.loadData(user)
+        await UserData.loadUserData(user)
         const marketPrice = await OrderAPI.getMarketPrice()
 
         await AsyncStorageHelper.setApplicationPassword(

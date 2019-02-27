@@ -254,7 +254,7 @@ class SetupGetRecoveryPhrase extends Component {
           // so we fixed it up...now save it...and go back to Dashboard
           if (encryptionPassword) {
             try {
-              await UserData.loadData(user)
+              await UserData.loadUserData(user)
               marketPrice = await OrderAPI.getMarketPrice()
             } catch (error) {
               FlashNotification.showError(error.message)

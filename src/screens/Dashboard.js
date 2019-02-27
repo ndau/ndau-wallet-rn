@@ -1,40 +1,13 @@
 import React, { Component } from 'react'
-import { SafeAreaView } from 'react-navigation'
-import {
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Image,
-  RefreshControl,
-  TouchableOpacity,
-  AppState,
-  Platform
-} from 'react-native'
-import cssStyles from '../css/styles'
+import { ScrollView, Text, RefreshControl, AppState } from 'react-native'
 import DateHelper from '../helpers/DateHelper'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
-import AccountCard from '../components/AccountCard'
-import UnlockModalDialog from '../components/UnlockModalDialog'
-import LockModalDialog from '../components/LockModalDialog'
-import NewAccountModalDialog from '../components/NewAccountModalDialog'
-import TransactionModalDialog from '../components/TransactionModalDialog'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
-import styleConstants from '../css/styleConstants'
-import KeyMaster from '../helpers/KeyMaster'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding'
 import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import CommonButton from '../components/CommonButton'
-import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import LoggingService from '../services/LoggingService'
 import CollapsiblePanel from '../components/CollapsiblePanel'
 import { AppContainer, NdauTotal, Label } from '../components/common'
@@ -46,24 +19,17 @@ import {
 } from '../components/dashboard'
 import componentStyles from '../css/componentStyles'
 
-const NDAU_GREEN = require('img/ndau-icon-green.png')
-
 class Dashboard extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      number: 1,
-      activeAddress: null,
       user: {},
       refreshing: false,
       marketPrice: 0,
       spinner: false,
-      appState: AppState.currentState,
-      queue: null
+      appState: AppState.currentState
     }
-
-    this.isTestNet = false
   }
 
   componentWillUnmount () {
@@ -81,50 +47,29 @@ class Dashboard extends Component {
   }
 
   componentWillMount = async () => {
-    const user = this.props.navigation.getParam('user', {})
-
-    const marketPrice = this.props.navigation.getParam('marketPrice', 0)
-    this.setState({ user, marketPrice })
-    this.isTestNet = await AsyncStorageHelper.isTestNet()
-  }
-
-  componentDidMount = async () => {
     AppState.addEventListener('change', this._handleAppStateChange)
     let user = this.props.navigation.getParam('user', null)
     if (!user) {
       const password = await AsyncStorageHelper.getApplicationPassword()
       user = await MultiSafeHelper.getDefaultUser(password)
     }
+
+    let marketPrice = this.state.marketPrice
+    try {
+      await UserData.loadUserData(user)
+      marketPrice = await OrderAPI.getMarketPrice()
+    } catch (error) {
+      FlashNotification.showError(error.message, false, false)
+    }
+
     LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
 
-    this.setState({ user })
+    this.setState({ user, marketPrice })
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
       FlashNotification.showError(error, false, true)
     }
-  }
-
-  subtractNumber = () => {
-    if (this.state.number > 1) {
-      this.setState({ number: (this.state.number -= 1) })
-    }
-  }
-
-  addNumber = () => {
-    this.setState({ number: (this.state.number += 1) })
-  }
-
-  unlock = (wallet, account) => {
-    this._unlockModalDialog.setWallet(wallet)
-    this._unlockModalDialog.setAccount(account)
-    this._unlockModalDialog.showModal()
-  }
-
-  lock = (wallet, account) => {
-    this._lockModalDialog.setWallet(wallet)
-    this._lockModalDialog.setAccount(account)
-    this._lockModalDialog.showModal()
   }
 
   stopSpinner = () => {
@@ -135,36 +80,6 @@ class Dashboard extends Component {
     this.setState({ spinner: true })
   }
 
-  buy = () => {
-    // TODO: if no code exists we have to verify identity
-    this.props.navigation.navigate('IdentityVerificationIntro')
-    // TODO: otherwise we can continue in the purchase of ndau
-  }
-
-  launchAddNewAccountDialog = () => {
-    this._newAccountModal.showModal()
-  }
-
-  addNewAccount = async () => {
-    try {
-      const user = await KeyMaster.createNewAccount(
-        this.state.user,
-        this.state.number
-      )
-
-      await MultiSafeHelper.saveUser(
-        user,
-        this.props.navigation.getParam('encryptionPassword', null)
-      )
-
-      this.setState({ user })
-    } catch (error) {
-      FlashNotification.showError(
-        `Problem adding new account: ${error.message}`
-      )
-    }
-  }
-
   _onRefresh = async () => {
     FlashNotification.hideMessage()
     this.setState({ refreshing: true })
@@ -172,7 +87,7 @@ class Dashboard extends Component {
     const user = this.state.user
     let marketPrice = this.state.marketPrice
     try {
-      await UserData.loadData(user)
+      await UserData.loadUserData(user)
       marketPrice = await OrderAPI.getMarketPrice()
     } catch (error) {
       FlashNotification.showError(error.message, false, false)
@@ -182,12 +97,23 @@ class Dashboard extends Component {
   }
 
   _showWalletOverview = wallet => {
-    this.props.navigation.push('WalletOverview', { wallet })
+    this.props.navigation.push('WalletOverview', {
+      wallet,
+      marketPrice: this.state.marketPrice
+    })
   }
 
   render = () => {
     try {
       const user = this.state.user
+      if (!user.wallets) {
+        return (
+          <AppContainer>
+            <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
+          </AppContainer>
+        )
+      }
+
       const wallets = Object.values(user.wallets)
       const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
 
@@ -200,8 +126,6 @@ class Dashboard extends Component {
         this.state.marketPrice,
         totalNdauNumber
       )
-
-      // const numberOfAccounts = Object.keys(accounts).length
 
       return (
         <AppContainer>

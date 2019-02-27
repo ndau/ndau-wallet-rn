@@ -129,7 +129,7 @@ class SetupEncryptionPassword extends Component {
       const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
       await AsyncStorageHelper.setApplicationPassword(this.state.password)
 
-      await UserData.loadData(user)
+      await UserData.loadUserData(user)
       const marketPrice = await OrderAPI.getMarketPrice()
 
       this.props.navigation.navigate('Dashboard', {
