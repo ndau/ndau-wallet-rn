@@ -47,13 +47,13 @@ var styles = StyleSheet.create({
     borderRadius: 3,
     height: hp('7%'),
     width: wp('96%'),
-    backgroundColor: '#ffffff',
+    backgroundColor: '#293e63',
     paddingLeft: wp('1%')
   },
   dropdownContainerStyle: {
     borderRadius: 3,
     width: wp('94%'),
-    backgroundColor: '#ffffff',
+    backgroundColor: '#293e63',
     marginTop: wp('3%')
   }
 })

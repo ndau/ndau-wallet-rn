@@ -11,6 +11,7 @@ import FlashMessage from 'react-native-flash-message'
 import OfflineMessage from './components/OfflineMessage'
 import BackgroundTasks from './services/BackgroundTasks'
 import LoggingService from './services/LoggingService'
+import { ThemeProvider } from 'nachos-ui'
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
@@ -29,9 +30,11 @@ export default class App extends React.Component {
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <AppNavigation />
-        <FlashMessage position='top' />
-        <OfflineMessage />
+        <ThemeProvider>
+          <AppNavigation />
+          <FlashMessage position='top' />
+          <OfflineMessage />
+        </ThemeProvider>
       </View>
     )
   }

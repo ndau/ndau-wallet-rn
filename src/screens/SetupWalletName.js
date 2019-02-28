@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  Alert
-} from 'react-native'
+import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native'
 import CommonButton from '../components/CommonButton'
 import SetupProgressBar from '../components/SetupProgressBar'
 import cssStyles from '../css/styles'
@@ -16,10 +9,14 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
+import { SetupContainer, ParagraphText, SetupInput } from '../components/setup'
+import { LargeButtons } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
     super(props)
+
+    this.state = { value: null }
 
     this.walletCount = 1
     this.defaultWalletId = 'Wallet 1'
@@ -95,48 +92,26 @@ class SetupEncryptionPassword extends Component {
 
   render () {
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar navigation={this.props.navigation} />
-            <Padding top={0}>
-              <Text style={cssStyles.wizardText} onPress={this.showInformation}>
-                Give this wallet a name.
-              </Text>
-            </Padding>
-
-            <Padding>
-              <TextInput
-                style={cssStyles.textInput}
-                onChangeText={value => {
-                  if (value) {
-                    SetupStore.walletId = value
-                  } else {
-                    SetupStore.walletId = this.defaultWalletId
-                  }
-                }}
-                placeholder={`${SetupStore.walletId}`}
-                placeholderTextColor='#333'
-                autoCapitalize='none'
-              />
-            </Padding>
-          </ScrollView>
-          <View style={cssStyles.footer}>
-            <CommonButton onPress={this.showNextSetup} title='Next' />
-          </View>
-        </View>
-      </SafeAreaView>
+      <SetupContainer {...this.props} pageNumber={16}>
+        <ParagraphText>Give this wallet a name.</ParagraphText>
+        <SetupInput
+          value={this.state.value}
+          onChangeText={value => {
+            if (value) {
+              SetupStore.walletId = value
+            } else {
+              SetupStore.walletId = this.defaultWalletId
+            }
+            this.setState({ value })
+          }}
+          placeholder={`${SetupStore.walletId}`}
+        />
+        <LargeButtons bottom onPress={() => this.showNextSetup()}>
+          Next
+        </LargeButtons>
+      </SetupContainer>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  textContainer: {
-    marginBottom: 8
-  },
-  infoParagraph: {
-    flexDirection: 'row'
-  }
-})
 
 export default SetupEncryptionPassword

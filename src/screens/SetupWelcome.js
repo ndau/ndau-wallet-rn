@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
-import {
-  View,
-  ScrollView,
-  Text,
-  Platform,
-  TouchableWithoutFeedback,
-  BackHandler,
-  StatusBar,
-  Alert
-} from 'react-native'
-import CommonButton from '../components/CommonButton'
-import cssStyles from '../css/styles'
-import { SafeAreaView } from 'react-navigation'
+import { BackHandler } from 'react-native'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding'
 import LoggingService from '../services/LoggingService'
+import {
+  SetupWelcomeContainer,
+  LargeText,
+  UnderlineDivider,
+  ParagraphText
+} from '../components/setup'
+import { LargeButton } from '../components/common'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -66,36 +60,20 @@ class SetupWelcome extends Component {
 
   render () {
     return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-        <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
-            <Padding>
-              <TouchableWithoutFeedback onPress={this.testNetToggler}>
-                <View>
-                  <Text style={cssStyles.wizardText}>
-                    Welcome to ndau, a cryptocurrency designed to be a buoyant
-                    long-term store of value.{' '}
-                    {Platform.OS === 'android' ? '\n' : ''}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <Padding bottom={1}>
-                <Text style={cssStyles.wizardText}>
-                  To get started securely, you will create a new wallet, protect
-                  it with a password, and create a recovery phrase which you
-                  will need in order to restore your wallet if you lose access
-                  to it.
-                  {Platform.OS === 'android' ? '\n' : ''}
-                </Text>
-              </Padding>
-            </Padding>
-          </ScrollView>
-          <View style={cssStyles.footer}>
-            <CommonButton onPress={this.showNextSetup} title='Start' />
-          </View>
-        </View>
-      </SafeAreaView>
+      <SetupWelcomeContainer>
+        <LargeText>Welcome to ndau</LargeText>
+        <UnderlineDivider />
+        <ParagraphText onPress={this.testNetToggler}>
+          ndau is a cryptocurrency designed to be a buoyant long-term store of
+          value.
+        </ParagraphText>
+        <ParagraphText>
+          To get you started securely, you will create a new wallet, protect it
+          with a password, and create a recovery phrase which you will need in
+          order to restore your wallet if you lose access to it.
+        </ParagraphText>
+        <LargeButton onPress={this.showNextSetup}>Get started</LargeButton>
+      </SetupWelcomeContainer>
     )
   }
 }

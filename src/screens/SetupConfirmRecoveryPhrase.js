@@ -27,11 +27,19 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import AppConstants from '../AppConstants'
 import LoggingService from '../services/LoggingService'
+import {
+  SetupContainer,
+  ParagraphText,
+  RecoveryPhraseConfirmation,
+  RecoveryPhraseConfirmationButtons
+} from '../components/setup'
+import { LargeButtons } from '../components/common'
 
 var _ = require('lodash')
 
 const MAX_ERRORS = 4 // 4 strikes and you're out
-const DEFAULT_ROW_LENGTH = 3 // 3 items per row
+const DEFAULT_ROW_LENGTH = 4 // 3 items per row
+const TOTAL_RECOVERY_WORDS = 12
 
 let boxWidth = '25%'
 let boxHeight = '10%'
@@ -94,63 +102,104 @@ class SetupConfirmRecoveryPhrase extends Component {
     const shuffledWords = SetupStore.shuffledWords
     const words = groupIntoRows(shuffledWords, this.rowLength)
 
+    const selectedWords = this.state.selected.map(selectedIndex => {
+      return shuffledWords[selectedIndex]
+    })
+    const formattedSelectedWords = groupIntoRows(selectedWords, this.rowLength)
+
     // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => {
       arr[cur] = true
       return arr
     }, {})
 
-    return (
-      <SafeAreaView style={cssStyles.safeContainer}>
-        <View style={cssStyles.container}>
-          <ScrollView style={cssStyles.contentContainer}>
-            <SetupProgressBar navigation={this.props.navigation} />
-            <Padding top={0} bottom={1}>
-              <Text style={cssStyles.wizardText}>
-                To confirm that you recorded the phrase, tap the words below in
-                order.{' '}
-              </Text>
-            </Padding>
+    if (this.state.selected.length === TOTAL_RECOVERY_WORDS) {
+      return (
+        <SetupContainer {...this.props} pageNumber={15}>
+          <ParagraphText>Please verify your recovery phrase.</ParagraphText>
+          <RecoveryPhraseConfirmation
+            words={formattedSelectedWords || []}
+            rowTextView={styles.rowTextView}
+          />
+          <LargeButtons
+            text='Is this correct?'
+            onPress={() => this.showNextSetup()}
+          >
+            Confirm
+          </LargeButtons>
+          <LargeButtons bottom secondary onPress={() => this.pushBack()}>
+            Back
+          </LargeButtons>
+        </SetupContainer>
+      )
+    } else {
+      return (
+        <SetupContainer {...this.props} pageNumber={15}>
+          <ParagraphText>Please verify your recovery phrase.</ParagraphText>
+          <RecoveryPhraseConfirmation
+            words={formattedSelectedWords || []}
+            rowTextView={styles.rowTextView}
+          />
+          <RecoveryPhraseConfirmationButtons
+            words={words}
+            errorWord={this.state.errorWord}
+            selected={selected}
+            rowTextView={styles.rowTextView}
+            handleClick={this.handleClick}
+          />
+        </SetupContainer>
+      )
+    }
 
-            {words.map((row, rowIndex) => {
-              return (
-                <View key={rowIndex} style={styles.rowView}>
-                  {row.map((item, index) => {
-                    const i = index + row.length * rowIndex
-                    return (
-                      <Word
-                        key={index}
-                        error={this.state.errorWord == i}
-                        selected={selected[i]}
-                        onPress={event => this.handleClick(i, event)}
-                      >
-                        {item}
-                      </Word>
-                    )
-                  })}
-                </View>
-              )
-            })}
-          </ScrollView>
-          <View style={cssStyles.footer}>
-            <View style={cssStyles.navButtonWrapper}>
-              <CommonButton
-                onPress={() => this.pushBack()}
-                title='Back (resets phrase)'
-                bottomPadding={0}
-              />
-            </View>
-            <View style={cssStyles.navButtonWrapper}>
-              <CommonButton
-                onPress={() => this.showNextSetup()}
-                title='Next'
-                disabled={!this.state.match}
-              />
-            </View>
-          </View>
-        </View>
-      </SafeAreaView>
-    )
+    // <SafeAreaView style={cssStyles.safeContainer}>
+    //   <View style={cssStyles.container}>
+    //     <ScrollView style={cssStyles.contentContainer}>
+    //       <SetupProgressBar navigation={this.props.navigation} />
+    //       <Padding top={0} bottom={1}>
+    //         <Text style={cssStyles.wizardText}>
+    //           To confirm that you recorded the phrase, tap the words below in
+    //           order.{' '}
+    //         </Text>
+    //       </Padding>
+
+    //       {words.map((row, rowIndex) => {
+    //         return (
+    //           <View key={rowIndex} style={styles.rowView}>
+    //             {row.map((item, index) => {
+    //               const i = index + row.length * rowIndex
+    //               return (
+    //                 <Word
+    //                   key={index}
+    //                   error={this.state.errorWord == i}
+    //                   selected={selected[i]}
+    //                   onPress={event => this.handleClick(i, event)}
+    //                 >
+    //                   {item}
+    //                 </Word>
+    //               )
+    //             })}
+    //           </View>
+    //         )
+    //       })}
+    //     </ScrollView>
+    //     <View style={cssStyles.footer}>
+    //       <View style={cssStyles.navButtonWrapper}>
+    //         <CommonButton
+    //           onPress={() => this.pushBack()}
+    //           title='Back (resets phrase)'
+    //           bottomPadding={0}
+    //         />
+    //       </View>
+    //       <View style={cssStyles.navButtonWrapper}>
+    //         <CommonButton
+    //           onPress={() => this.showNextSetup()}
+    //           title='Next'
+    //           disabled={!this.state.match}
+    //         />
+    //       </View>
+    //     </View>
+    //   </View>
+    // </SafeAreaView>
   }
 
   compare (correctSoFar, selected) {
@@ -208,7 +257,7 @@ class SetupConfirmRecoveryPhrase extends Component {
     }
   }
 
-  handleClick (index) {
+  handleClick = index => {
     const selected = this.state.selected.slice()
     const foundIndex = selected.indexOf(index)
     if (foundIndex !== -1) {

@@ -54,7 +54,7 @@
       "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message|react-native-loading-spinner-overlay|react-native-device-log|react-native-invertible-scroll-view|react-native-scrollable-mixin)/)"
+      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message|react-native-loading-spinner-overlay|react-native-device-log|react-native-invertible-scroll-view|react-native-scrollable-mixin|react-native-linear-gradient|nachos-ui)/)"
     ]
   },
   "dependencies": {
@@ -68,6 +68,7 @@
     "lodash": "^4.17.11",
     "metro-react-native-babel-preset": "0.50.0",
     "moment": "2.23.0",
+    "nachos-ui": "^0.2.0-beta.1",
     "prop-types": "15.6.2",
     "react": "16.6.3",
     "react-native": "0.57.8",
@@ -79,6 +80,7 @@
     "react-native-device-log": "^1.0.2",
     "react-native-exit-app": "1.0.0",
     "react-native-flash-message": "0.1.10",
+    "react-native-linear-gradient": "^2.5.3",
     "react-native-loading-spinner-overlay": "1.0.1",
     "react-native-modal-dropdown": "0.6.2",
     "react-native-permissions": "^1.1.1",
