@@ -246,7 +246,7 @@ test('createNewAccount test', async () => {
   expect(firstTimeUser).toBeDefined()
   expect(Object.keys(firstTimeUser.wallets['c79af3b6'].accounts).length).toBe(5)
 
-  await KeyMaster.createNewAccount(firstTimeUser)
+  await KeyMaster.createNewAccount(firstTimeUser.wallets['c79af3b6'])
   expect(Object.keys(firstTimeUser.wallets['c79af3b6'].accounts).length).toBe(6)
   expect(
     firstTimeUser.wallets['c79af3b6'].accounts[
@@ -261,7 +261,7 @@ test('createNewAccount has bogus user', async () => {
     user.userId = 'blahblah'
     const wallet = new Wallet()
     user.wallets[user.userId] = wallet
-    await KeyMaster.createNewAccount(user)
+    await KeyMaster.createNewAccount(user.wallets[user.userId])
   } catch (error) {
     expect(error.toString()).toBe(errorNewAccountUser)
   }

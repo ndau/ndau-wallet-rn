@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import DashboardNavigation from './DashboardNavigation'
+import WalletOverviewNavigation from './WalletOverviewNavigation'
 import LoggingNavigation from './LoggingNavigation'
 import SetupWelcome from '../screens/SetupWelcome'
 import SetupWalletName from '../screens/SetupWalletName'
@@ -11,37 +12,13 @@ import SetupRecoveryPhrase from '../screens/SetupRecoveryPhrase'
 import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase'
 import SetupTermsOfService from '../screens/SetupTermsOfService'
 import SetupYourWallet from '../screens/SetupYourWallet'
-import Passphrase from '../screens/Passphrase'
+import Authentication from '../screens/Authentication'
 import AuthLoading from './AuthLoading'
-import IdentityMind from '../screens/IdentityMind'
-import IdentityVerificationIntro from '../screens/IdentityVerificationIntro'
-import IdentityVerificationSuccess from '../screens/IdentityVerificationSuccess'
 
-const PassphraseScreen = ({ navigation }) => (
-  <Passphrase navigation={navigation} />
+const AuthenticationScreen = ({ navigation }) => (
+  <Authentication navigation={navigation} />
 )
-PassphraseScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityMindScreen = ({ navigation }) => (
-  <IdentityMind navigation={navigation} />
-)
-IdentityMindScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityVerificationIntroScreen = ({ navigation }) => (
-  <IdentityVerificationIntro navigation={navigation} />
-)
-IdentityVerificationIntroScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityVerificationSuccessScreen = ({ navigation }) => (
-  <IdentityVerificationSuccess navigation={navigation} />
-)
-IdentityVerificationSuccessScreen.navigationOptions = {
+AuthenticationScreen.navigationOptions = {
   header: null
 }
 
@@ -115,6 +92,13 @@ DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
+const WalletOverviewNavigationScreen = ({ navigation }) => (
+  <WalletOverviewNavigation navigation={navigation} />
+)
+WalletOverviewNavigationScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+})
+
 const LoggingNavigationScreen = ({ navigation }) => (
   <LoggingNavigation navigation={navigation} />
 )
@@ -122,11 +106,8 @@ LoggingNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
-const AuthStack = createStackNavigator({
-  Passphrase: { screen: PassphraseScreen }
-})
-
 const SetupStack = createStackNavigator({
+  Authentication: { screen: AuthenticationScreen },
   SetupWelcome: { screen: SetupWelcomeScreen },
   SetupWalletName: { screen: SetupWalletNameScreen },
   SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },
@@ -135,10 +116,7 @@ const SetupStack = createStackNavigator({
   SetupRecoveryPhrase: { screen: SetupRecoveryPhraseScreen },
   SetupGetRecoveryPhrase: { screen: SetupGetRecoveryPhraseScreen },
   SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
-  SetupYourWallet: { screen: SetupYourWalletScreen },
-  IdentityMind: { screen: IdentityMindScreen },
-  IdentityVerificationIntro: { screen: IdentityVerificationIntroScreen },
-  IdentityVerificationSuccess: { screen: IdentityVerificationSuccessScreen }
+  SetupYourWallet: { screen: SetupYourWalletScreen }
 })
 
 export default createSwitchNavigator(
@@ -146,7 +124,7 @@ export default createSwitchNavigator(
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
     Logging: LoggingNavigation,
-    Auth: AuthStack,
+    WalletOverview: WalletOverviewNavigation,
     Setup: SetupStack
   },
   {

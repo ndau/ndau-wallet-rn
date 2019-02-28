@@ -9,8 +9,8 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import Padding from '../components/Padding'
 import FlashNotification from '../components/FlashNotification'
-import { SetupContainer, ParagraphText, SetupInput } from '../components/setup'
-import { LargeButtons } from '../components/common'
+import { SetupContainer, ParagraphText } from '../components/setup'
+import { LargeButtons, TextInput } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {
@@ -94,7 +94,7 @@ class SetupEncryptionPassword extends Component {
     return (
       <SetupContainer {...this.props} pageNumber={16}>
         <ParagraphText>Give this wallet a name.</ParagraphText>
-        <SetupInput
+        <TextInput
           value={this.state.value}
           onChangeText={value => {
             if (value) {

@@ -2,11 +2,12 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import AsyncStorageHelper from './AsyncStorageHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 
-const loadData = async user => {
+const loadUserData = async user => {
   const walletKeys = Object.keys(user.wallets)
   for (const walletKey of walletKeys) {
     const wallet = user.wallets[walletKey]
     await AccountAPIHelper.populateWalletWithAddressData(wallet)
+    console.log('walet to check', wallet)
   }
 
   // after the data is loaded successfully then save the user
@@ -20,5 +21,5 @@ const loadData = async user => {
 }
 
 export default {
-  loadData
+  loadUserData: loadUserData
 }

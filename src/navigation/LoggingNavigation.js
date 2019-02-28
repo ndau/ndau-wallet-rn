@@ -1,13 +1,13 @@
 import React from 'react'
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
-import { DrawerButton } from '../components/DrawerButton'
+import { DrawerHeader } from '../components/common'
 import Logging from '../screens/Logging'
-import DashboardDrawer from './DashboardDrawer'
+import AppDrawer from './AppDrawer'
 import StyleConstants from '../css/styleConstants'
 
 const LoggingScreen = ({ navigation }) => <Logging navigation={navigation} />
 LoggingScreen.navigationOptions = ({ navigation }) => ({
-  header: <DrawerButton navigation={navigation} />
+  header: null
 })
 
 const LoggingStack = createStackNavigator({
@@ -22,10 +22,7 @@ const LoggingNavigation = createDrawerNavigator(
     }
   },
   {
-    initialRouteName: 'Logging',
-    contentComponent: DashboardDrawer,
-    headerMode: 'node',
-    drawerBackgroundColor: StyleConstants.DRAWER_BACKGROUND_COLOR
+    contentComponent: AppDrawer
   }
 )
 
