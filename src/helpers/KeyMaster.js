@@ -228,6 +228,16 @@ const addAccountsToUser = async (
   )
 }
 
+const getWalletFromUser = (user, walletId) => {
+  return user.wallets[DataFormatHelper.create8CharHash(walletId)]
+}
+
+const setWalletInUser = (user, wallet) => {
+  return (user.wallets[
+    DataFormatHelper.create8CharHash(wallet.walletId)
+  ] = wallet)
+}
+
 /**
  * Add accounts to the wallet passed in.
  *
@@ -259,15 +269,10 @@ const addAccounts = async (
  * MultiSafeHelper. Ideally this should be coming from the a
  * navigation property passed around.
  *
- * @param  {User} user
+ * @param  {Wallet} wallet
  * @param  {number} numberOfAccounts=1
  */
-const createNewAccount = async (user, numberOfAccounts = 1) => {
-  // TODO: FOR NOW WE HARDCODE to the first wallet
-  // I have done this as this will all change in MVP where
-  // we will have the ability to add accounts to specific
-  // wallets. This meets the need for the Genesis release
-  const wallet = user.wallets[Object.keys(user.wallets)[0]]
+const createNewAccount = async (wallet, numberOfAccounts = 1) => {
   if (!wallet.accountCreationKeyHash) {
     throw new Error(`The user's wallet passed in has no accountCreationKeyHash`)
   }
@@ -286,7 +291,7 @@ const createNewAccount = async (user, numberOfAccounts = 1) => {
 
   await AccountAPIHelper.populateWalletWithAddressData(wallet)
 
-  return user
+  return wallet
 }
 
 /**
@@ -442,5 +447,7 @@ export default {
   addAccounts,
   addValidationKey,
   getPublicKeyFromHash,
-  getPrivateKeyFromHash
+  getPrivateKeyFromHash,
+  getWalletFromUser,
+  setWalletInUser
 }

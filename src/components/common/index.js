@@ -1,18 +1,41 @@
 import React from 'react'
 import {
   View,
-  ScrollView,
   StatusBar,
   ImageBackground,
   TouchableOpacity,
-  Text
+  Picker
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import componentStyles from '../../css/componentStyles'
-import { Button, Progress, H4, P, Checkbox } from 'nachos-ui'
+import { Button, Progress, H4, P, Checkbox, Input } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import { ParagraphText, SmallParagraphText } from '../setup'
+
+export function LoginContainer ({ children }) {
+  return (
+    <SafeAreaView
+      style={[componentStyles.container, componentStyles.statusBarColor]}
+    >
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <ImageBackground
+        source={require('img/bloom.jpg')}
+        style={componentStyles.setupContainerBackgroundImage}
+        resizeMode='contain'
+      />
+      <LinearGradient
+        start={{ x: 0.0, y: 0.2 }}
+        end={{ x: 0.5, y: 1.0 }}
+        locations={[0, 0.5037, 1.0]}
+        colors={['#0F2748', '#293E63', '#0F2748']}
+        style={[componentStyles.opaqueOverlay]}
+      >
+        <View style={componentStyles.loginContainer}>{children}</View>
+      </LinearGradient>
+    </SafeAreaView>
+  )
+}
 
 export function LargeButtons (props) {
   return (
@@ -68,9 +91,39 @@ export function LargeButton (props) {
 export function BottomLinkText (props) {
   return (
     <View style={[componentStyles.centeredLinkContainer, { left: props.left }]}>
-      <Text {...props} style={componentStyles.centeredLinkText}>
+      <H4 {...props} style={componentStyles.centeredLinkText}>
         {props.children}
-      </Text>
+      </H4>
+    </View>
+  )
+}
+
+export function LinkText (props) {
+  return (
+    <View style={[componentStyles.linkContainer]}>
+      <H4 {...props} style={[componentStyles.linkText]}>
+        {props.children}
+      </H4>
+    </View>
+  )
+}
+
+export function PasswordLinkText (props) {
+  return (
+    <View style={[componentStyles.passwordLinkContainer]}>
+      <H4 {...props} style={[componentStyles.linkText]}>
+        {props.children}
+      </H4>
+    </View>
+  )
+}
+
+export function NdauTotal (props) {
+  return (
+    <View style={[componentStyles.ndauTotalContainer]}>
+      <H4 {...props} style={[componentStyles.ndauTotalText]}>
+        {props.children}
+      </H4>
     </View>
   )
 }
@@ -101,6 +154,22 @@ export function ProgressBar (props) {
           : '0'}
         %
       </H4>
+    </View>
+  )
+}
+
+export function LabelWithIcon (props) {
+  return (
+    <View style={componentStyles.labelWithIconContainer}>
+      <P style={[componentStyles.labelText]}>{props.children}</P>
+      <TouchableOpacity {...props}>
+        <FontAwesome5Pro
+          size={24}
+          name={props.fontAwesomeIconName}
+          color='#4B9176'
+          light
+        />
+      </TouchableOpacity>
     </View>
   )
 }
@@ -163,5 +232,55 @@ export function LegalTextBold (props) {
     <P style={[componentStyles.legalTextBold]} {...props}>
       {props.children}
     </P>
+  )
+}
+
+export function AppContainer (props) {
+  return (
+    <SafeAreaView
+      style={[componentStyles.container, componentStyles.statusBarColor]}
+    >
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <View style={{ flex: 1 }}>
+        <LinearGradient
+          start={{ x: 0.0, y: 0.1 }}
+          end={{ x: 0.0, y: 1.0 }}
+          locations={[0, 0.18]}
+          colors={['#0A1724', '#0F2748']}
+          style={[componentStyles.appContainerOverlay]}
+        >
+          <View style={componentStyles.appContainer}>{props.children}</View>
+        </LinearGradient>
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export function TextInput (props) {
+  return (
+    <Input
+      style={componentStyles.input}
+      placeholderTextColor='#858688'
+      autoCapitalize='none'
+      {...props}
+    />
+  )
+}
+
+export function Dropdown (props) {
+  // TODO: this is temporary but if you populate items this does
+  // get used
+  let items = props.items || {
+    '123456789': 'Account 1',
+    '12345678910': 'Account 2'
+  }
+  return (
+    <View style={props.containerStyle}>
+      <Picker {...props}>
+        {Object.keys(items).map((key, index) => {
+          return <Picker.Item key={index} label={items[key]} value={key} />
+        })}
+      </Picker>
+    </View>
   )
 }
