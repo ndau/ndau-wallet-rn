@@ -66,7 +66,7 @@ export function DashboardLabelWithIcon (props) {
       </P>
       <TouchableOpacity {...props}>
         <FontAwesome5Pro
-          size={18}
+          size={24}
           name={props.fontAwesomeIconName}
           color='#4B9176'
           light

@@ -1,20 +1,7 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Alert,
-  Image,
-  TouchableOpacity,
-  Text,
-  StatusBar,
-  Platform
-} from 'react-native'
-import CommonButton from '../components/CommonButton'
-import cssStyles from '../css/styles'
+import { StyleSheet, View, Alert, Image, Platform } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import RNExitApp from 'react-native-exit-app'
-import { SafeAreaView } from 'react-navigation'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -22,11 +9,8 @@ import {
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding'
 import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import styleConstants from '../css/styleConstants'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
 import {
@@ -42,7 +26,7 @@ import componentStyles from '../css/componentStyles'
 
 const NDAU = require('img/ndau_orange_logo.png')
 
-class Passphrase extends Component {
+class Authentication extends Component {
   constructor (props) {
     super(props)
 
@@ -65,7 +49,7 @@ class Passphrase extends Component {
           FlashNotification.hideMessage()
 
           LoggingService.debug(
-            'user in Passphrase found is',
+            'user in Authentication found is',
             JSON.stringify(user)
           )
 
@@ -193,113 +177,8 @@ class Passphrase extends Component {
         </PasswordLinkText>
         <LargeButton onPress={this.login}>Login</LargeButton>
       </LoginContainer>
-      // <SafeAreaView style={cssStyles.safeContainer}>
-      //   <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-
-    //   <StatusBar barStyle='light-content' backgroundColor='#1c2227' />
-    //   <View style={cssStyles.container}>
-    //     <ScrollView style={cssStyles.contentContainer}>
-    //       <Padding top={1}>
-    //         <View style={styles.imageView}>
-    //           <Image style={styles.image} source={NDAU} />
-    //         </View>
-    //       </Padding>
-
-    //       <Padding top={1}>
-    //         <View style={{ flexDirection: 'row' }}>
-    //           <TextInput
-    //             style={{
-    //               height: hp('7%'),
-    //               width: wp('96%'),
-    //               borderColor: 'gray',
-    //               borderWidth: 1,
-    //               borderRadius: 3,
-    //               paddingLeft: wp('1%'),
-    //               color: '#000000',
-    //               backgroundColor: '#ffffff',
-    //               fontSize: 18,
-    //               fontFamily: 'TitilliumWeb-Regular'
-    //             }}
-    //             onChangeText={password => this.setState({ password })}
-    //             value={this.state.password}
-    //             placeholder='App Password'
-    //             placeholderTextColor='#333'
-    //             secureTextEntry={!this.state.showPasswords}
-    //             autoCapitalize='none'
-    //           />
-    //         </View>
-    //       </Padding>
-
-    //       <Padding top={0}>
-    //         <Padding>
-    //           <View style={styles.centerTextView}>
-    //             <Text
-    //               onPress={this.showPasswordReset}
-    //               style={cssStyles.linkText}
-    //             >
-    //               Forgot your password?
-    //             </Text>
-    //           </View>
-    //         </Padding>
-    //         <Padding>
-    //           <View style={styles.imageView}>
-    //             <TouchableOpacity onPress={this.showInformation}>
-    //               <Image
-    //                 style={{ width: 35, height: 38 }}
-    //                 source={require('img/info_icon_gold.png')}
-    //               />
-    //             </TouchableOpacity>
-    //           </View>
-    //         </Padding>
-
-    //         {this.state.showErrorText ? (
-    //           <Padding>
-    //             <View style={styles.errorContainer}>
-    //               <Text style={cssStyles.errorText}>
-    //                 Please enter the passphrase you chose to decrypt this app.{' '}
-    //               </Text>
-    //             </View>
-    //           </Padding>
-    //         ) : null}
-    //       </Padding>
-    //     </ScrollView>
-    //     <View style={cssStyles.footer}>
-    //       <CommonButton onPress={this.login} title='Login' />
-    //     </View>
-    //   </View>
-    // </SafeAreaView>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  button: {},
-  textContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  imageView: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  centerTextView: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  image: {
-    width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('20%')
-      },
-      android: {
-        height: hp('30%')
-      }
-    })
-  },
-  infoIcon: {
-    marginLeft: 12
-  }
-})
-
-export default Passphrase
+export default Authentication

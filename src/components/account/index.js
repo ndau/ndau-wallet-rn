@@ -50,6 +50,25 @@ export function AccountPanel (props) {
                   style={componentStyles.accountNicknameIcon}
                   light
                 />
+                {props.accountNoticePeriod ? (
+                  props.accountLockedUntil ? (
+                    <FontAwesome5Pro
+                      name='clock'
+                      size={18}
+                      color='#4B9176'
+                      style={componentStyles.accountNicknameIcon}
+                      light
+                    />
+                  ) : (
+                    <FontAwesome5Pro
+                      name='clock'
+                      size={18}
+                      color='#CC8727'
+                      style={componentStyles.accountNicknameIcon}
+                      light
+                    />
+                  )
+                ) : null}
               </View>
               <View>
                 <H4 style={componentStyles.accountPanelTotal}>
@@ -59,7 +78,9 @@ export function AccountPanel (props) {
                 </H4>
               </View>
             </View>
-            <View style={componentStyles.accountPanelBorder} />
+            <View>
+              <View style={componentStyles.accountPanelBorder} />
+            </View>
           </View>
           <View style={componentStyles.accountButtonPanel}>
             <View
@@ -81,15 +102,15 @@ export function AccountPanel (props) {
               }}
             >
               <H4 style={componentStyles.accountActionTextPanel}>
-                View account details
+                View account details {'&'} settings
               </H4>
               <TouchableOpacity {...props}>
                 <FontAwesome5Pro
                   name='chevron-circle-right'
-                  size={18}
+                  size={24}
                   color='#4B9176'
                   style={componentStyles.accountAngle}
-                  light
+                  solid
                 />
               </TouchableOpacity>
             </View>

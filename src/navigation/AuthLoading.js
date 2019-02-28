@@ -30,7 +30,7 @@ class AuthLoadingScreen extends React.Component {
           walletSetupType: RECOVERY_WALLET_SETUP_TYPE
         })
       } else if (multiSafes) {
-        this.props.navigation.navigate('Passphrase')
+        this.props.navigation.navigate('Authentication')
       } else {
         this.props.navigation.navigate('SetupWelcome')
       }

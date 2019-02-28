@@ -12,13 +12,13 @@ import SetupRecoveryPhrase from '../screens/SetupRecoveryPhrase'
 import SetupGetRecoveryPhrase from '../screens/SetupGetRecoveryPhrase'
 import SetupTermsOfService from '../screens/SetupTermsOfService'
 import SetupYourWallet from '../screens/SetupYourWallet'
-import Passphrase from '../screens/Passphrase'
+import Authentication from '../screens/Authentication'
 import AuthLoading from './AuthLoading'
 
-const PassphraseScreen = ({ navigation }) => (
-  <Passphrase navigation={navigation} />
+const AuthenticationScreen = ({ navigation }) => (
+  <Authentication navigation={navigation} />
 )
-PassphraseScreen.navigationOptions = {
+AuthenticationScreen.navigationOptions = {
   header: null
 }
 
@@ -107,7 +107,7 @@ LoggingNavigationScreen.navigationOptions = ({ navigation }) => ({
 })
 
 const SetupStack = createStackNavigator({
-  Passphrase: { screen: PassphraseScreen },
+  Authentication: { screen: AuthenticationScreen },
   SetupWelcome: { screen: SetupWelcomeScreen },
   SetupWalletName: { screen: SetupWalletNameScreen },
   SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },

@@ -391,7 +391,7 @@ export default StyleSheet.create({
   accountButtonLargeButton: {
     width: wp('92%'),
     height: hp('6%'),
-    borderRadius: 4,
+    borderRadius: 22,
     backgroundColor: '#4e957a',
     flexDirection: 'column',
     justifyContent: 'flex-end',
@@ -419,13 +419,13 @@ export default StyleSheet.create({
   mediumButton: {
     width: wp('40%'),
     height: hp('6%'),
-    borderRadius: 4,
+    borderRadius: 22,
     backgroundColor: '#4e957a'
   },
   mediumButtonSecondary: {
     width: wp('40%'),
     height: hp('6%'),
-    borderRadius: 4,
+    borderRadius: 22,
     borderColor: '#4e957a',
     borderStyle: 'solid',
     borderWidth: 2,
@@ -439,9 +439,9 @@ export default StyleSheet.create({
     backgroundColor: 'transparent'
   },
   accountButton: {
-    width: wp('30%'),
+    width: wp('42%'),
     height: hp('5%'),
-    borderRadius: 4,
+    borderRadius: 22,
     borderColor: '#4e957a',
     borderStyle: 'solid',
     borderWidth: 2,
@@ -650,7 +650,7 @@ export default StyleSheet.create({
   },
   recoveryConfirmationContainerTextOnly: {
     position: 'absolute',
-    top: hp('12%'),
+    top: hp('15%'),
     left: 0,
     right: 0,
     width: wp('100%'),

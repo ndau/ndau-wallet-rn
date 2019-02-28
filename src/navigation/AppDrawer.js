@@ -38,6 +38,11 @@ class AppDrawer extends React.Component {
 
   recoverWallet = async () => {
     this.closeDrawer()
+    this.props.navigation.navigate('SetupGetRecoveryPhrase')
+  }
+
+  addWallet = async () => {
+    this.closeDrawer()
     this.props.navigation.navigate('SetupWelcome')
   }
 
@@ -55,7 +60,7 @@ class AppDrawer extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.navigation.navigate('Auth')
+            this.props.navigation.navigate('Authentication')
           }
         }
       ],
@@ -81,7 +86,7 @@ class AppDrawer extends React.Component {
           </DrawerEntryItem>
 
           <DrawerEntryItem
-            onPress={() => this.dashboard()}
+            onPress={() => this.addWallet()}
             fontAwesomeIconName='plus-square'
           >
             Add wallet

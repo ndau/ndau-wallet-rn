@@ -75,25 +75,6 @@ class WalletOverview extends Component {
     this.setState({ number: (this.state.number += 1) })
   }
 
-  unlock = (wallet, account) => {
-    this._unlockModalDialog.setWallet(wallet)
-    this._unlockModalDialog.setAccount(account)
-    this._unlockModalDialog.showModal()
-  }
-
-  lock = (wallet, account) => {
-    this._lockModalDialog.setWallet(wallet)
-    this._lockModalDialog.setAccount(account)
-    this._lockModalDialog.showModal()
-  }
-
-  _showLock = (account, wallet) => {
-    this.props.navigation.navigate('AccountLock', {
-      account: account,
-      wallet: wallet
-    })
-  }
-
   stopSpinner = () => {
     this.setState({ spinner: false })
   }
@@ -243,6 +224,12 @@ class WalletOverview extends Component {
                     const accountNotLocked = AccountAPIHelper.accountNotLocked(
                       wallet.accounts[accountKey].addressData
                     )
+                    const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
+                      wallet.accounts[accountKey].addressData
+                    )
+                    const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
+                      wallet.accounts[accountKey].addressData
+                    )
                     return (
                       <AccountPanel
                         key={index}
@@ -252,30 +239,23 @@ class WalletOverview extends Component {
                           )
                         }
                         account={wallet.accounts[accountKey]}
-                        icon={accountNotLocked ? 'lock-open' : 'lock'}
+                        icon={
+                          accountLockedUntil || accountNoticePeriod
+                            ? 'lock'
+                            : 'lock-open'
+                        }
+                        accountLockedUntil={accountLockedUntil}
+                        accountNoticePeriod={accountNoticePeriod}
                         {...this.props}
                       >
-                        {accountNotLocked ? (
-                          <AccountButton
-                            onPress={() =>
-                              this._showLock(
-                                wallet.accounts[accountKey],
-                                wallet
-                              )
-                            }
-                            icon='lock'
-                          >
-                              Lock
-                          </AccountButton>
+                        {accountLockedUntil || accountNoticePeriod ? (
+                          <AccountButton>Send disabled</AccountButton>
                         ) : (
-                          <AccountButton icon='lock-open'>
-                              Unlock
+                          <AccountButton icon='arrow-alt-up'>
+                              Send
                           </AccountButton>
                         )}
 
-                        <AccountButton icon='arrow-alt-up'>
-                            Send
-                        </AccountButton>
                         <AccountButton icon='arrow-alt-down'>
                             Receive
                         </AccountButton>
