@@ -301,7 +301,7 @@ export function ContentContainer (props) {
 export function CloseForBar (props) {
   return (
     <View style={styles.closeForBar}>
-      <TouchableOpacity onPress={() => props.close(props.wallet)}>
+      <TouchableOpacity onPress={props.close}>
         <FontAwesome5Pro
           size={28}
           name='times'

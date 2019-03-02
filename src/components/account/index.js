@@ -140,8 +140,8 @@ export function AccountDetailsContainer (props) {
 }
 
 export function AccountLockContainer (props) {
-  close = wallet => {
-    props.navigation.navigate('WalletOverview', { wallet })
+  close = () => {
+    props.navigation.navigate('WalletOverview', { wallet: props.wallet })
   }
   goBack = () => {
     props.navigation.goBack()

@@ -71,6 +71,7 @@ class AccountLockConfirmation extends Component {
       <AccountLockContainer
         title='Lock account step 2'
         account={this.state.account}
+        wallet={this.state.wallet}
         {...this.props}
       >
         <AccountLockDetailsPanel
