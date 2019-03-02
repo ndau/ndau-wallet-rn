@@ -3,12 +3,12 @@ import React, { Component } from 'react'
 import {
   AccountLockDetailsPanel,
   AccountLockContainer,
-  AccountLockButton
+  AccountLockButton,
+  AccountLockLargerText,
+  AccountLockSmallerText,
+  AccountLockSlider
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import { H4 } from 'nachos-ui'
-import { View, Picker, Slider } from 'react-native'
-import componentStyles from '../css/componentStyles'
 import { Dropdown } from '../components/common'
 
 class AccountLock extends Component {
@@ -40,7 +40,6 @@ class AccountLock extends Component {
   }
 
   handleSliderChange = sliderValue => {
-    console.log(sliderValue.toFixed(1))
     let lockPeriod = 3
     if (sliderValue.toFixed(1) == 0.0) {
       lockPercentage = 1
@@ -58,7 +57,6 @@ class AccountLock extends Component {
       lockPercentage = 5
       lockPeriod = 36
     }
-    console.log(lockPeriod)
     this.setState({ sliderValue, lockPercentage, lockPeriod })
   }
 
@@ -68,58 +66,42 @@ class AccountLock extends Component {
         title='Lock account step 1'
         account={this.state.account}
         wallet={this.state.wallet}
+        navigation={this.props.nav}
         {...this.props}
       >
         <AccountLockDetailsPanel account={this.state.account}>
-          <View style={componentStyles.accountDetailsTextPanel}>
-            <H4 style={componentStyles.accountDetailsLargerText}>
-              Locking your ndau with a withdrawel countdown period accrues bonus
-              EAI.
-            </H4>
-          </View>
-          <View style={componentStyles.accountDetailsTextPanel}>
-            <H4 style={componentStyles.accountDetailsLargerText}>
-              Lock the{' '}
-              {AccountAPIHelper.accountNdauAmount(
-                this.state.account.addressData
-              )}{' '}
-              ndau in{' '}
-              {AccountAPIHelper.accountNickname(this.state.account.addressData)}{' '}
-              for a bonus incentive of:
-            </H4>
-          </View>
-          <View>
-            <H4 style={componentStyles.lockSmallerTextBold}>
-              {this.state.lockPercentage}% ({this.state.lockPeriod} months to
-              unlock)
-            </H4>
-          </View>
-          <View style={componentStyles.lockSliderContainer}>
-            <Slider
-              maximumTrackTintColor='#4E957A'
-              minimumTrackTintColor='#4E957A'
-              step={0.25}
-              style={componentStyles.lockSlider}
-              value={this.state.sliderValue}
-              onValueChange={this.handleSliderChange}
-            />
-          </View>
-          <View style={componentStyles.accountDetailsTextPanel}>
-            <H4 style={componentStyles.accountDetailsLargerText}>
-              Where do you want to send the incentive (EAI) from this lock?
-            </H4>
-          </View>
+          <AccountLockLargerText>
+            Locking your ndau with a withdrawel countdown period accrues bonus
+            EAI.
+          </AccountLockLargerText>
+          <AccountLockLargerText>
+            Lock the{' '}
+            {AccountAPIHelper.accountNdauAmount(this.state.account.addressData)}{' '}
+            ndau in{' '}
+            {AccountAPIHelper.accountNickname(this.state.account.addressData)}{' '}
+            for a bonus incentive of:
+          </AccountLockLargerText>
+          <AccountLockSmallerText>
+            {this.state.lockPercentage}% ({this.state.lockPeriod} months to
+            unlock)
+          </AccountLockSmallerText>
+          <AccountLockSlider
+            value={this.state.sliderValue}
+            onValueChange={this.handleSliderChange}
+          />
+          <AccountLockLargerText>
+            Where do you want to send the incentive (EAI) from this lock?
+          </AccountLockLargerText>
           <Dropdown
-            containerStyle={componentStyles.lockAccountDetailsTextPanel}
-            itemStyle={componentStyles.lockAccountPickerText}
-            style={componentStyles.lockAccountPicker}
             selectedValue={this.state.language}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ language: itemValue })
-            }
+            onValueChange={itemValue => this.setState({ language: itemValue })}
           />
         </AccountLockDetailsPanel>
-        <AccountLockButton onPress={this._showLockConfirmation}>
+        <AccountLockButton
+          smallText='Note: You will not be able to spend, transfer or otherwise access the
+          principal in this account while it is locked'
+          onPress={this._showLockConfirmation}
+        >
           Continue
         </AccountLockButton>
       </AccountLockContainer>

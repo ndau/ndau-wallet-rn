@@ -4,21 +4,25 @@ import DateHelper from '../helpers/DateHelper'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
-import CollapsiblePanel from '../components/CollapsiblePanel'
-import { AppContainer, NdauTotal, Label } from '../components/common'
+import CollapsiblePanel from '../components/common/CollapsiblePanel'
+import {
+  AppContainer,
+  NdauTotal,
+  Label,
+  CollapsablePanelText
+} from '../components/common'
 import { AccountButton, AccountPanel } from '../components/account'
 import {
   DashboardContainer,
   DashboardLabelWithIcon
 } from '../components/dashboard'
 import { DrawerHeaderForOverview, DrawerHeader } from '../components/drawer'
-import componentStyles from '../css/componentStyles'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import NewAccountModalDialog from '../components/NewAccountModalDialog'
+import NewAccountModalDialog from '../components/common/NewAccountModalDialog'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -125,9 +129,7 @@ class WalletOverview extends Component {
     try {
       await UserData.loadUserData(user)
 
-      console.log(user)
       wallet = KeyMaster.getWalletFromUser(user, this.state.wallet.walletId)
-      console.log(wallet)
       marketPrice = await OrderAPI.getMarketPrice()
     } catch (error) {
       FlashNotification.showError(error.message, false)
@@ -180,7 +182,7 @@ class WalletOverview extends Component {
                 title={currentPrice}
                 titleRight='* at current price'
               >
-                <Text style={componentStyles.dashboardTextVerySmallWhite}>
+                <CollapsablePanelText>
                   * The estimated value of ndau in US dollars can be calculated
                   using the Target Price at which new ndau have most recently
                   been issued. The value shown here is calculated using that
@@ -189,7 +191,7 @@ class WalletOverview extends Component {
                   responsibility or liability for the calculation of that
                   estimated value, or for decisions based on that estimated
                   value.
-                </Text>
+                </CollapsablePanelText>
               </CollapsiblePanel>
               <DashboardLabelWithIcon
                 onPress={() => this.launchAddNewAccountDialog()}
@@ -235,7 +237,8 @@ class WalletOverview extends Component {
                         key={index}
                         onPress={() =>
                           this._showAccountDetails(
-                            wallet.accounts[accountKey]
+                            wallet.accounts[accountKey],
+                            wallet
                           )
                         }
                         account={wallet.accounts[accountKey]}

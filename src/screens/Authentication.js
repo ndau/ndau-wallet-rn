@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Alert, Image, Platform } from 'react-native'
+import { View, Alert, Image } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import RNExitApp from 'react-native-exit-app'
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
 import {
   NEW_WALLET_SETUP_TYPE,
@@ -20,11 +16,9 @@ import {
   LabelWithIcon,
   TextInput,
   PasswordLinkText,
-  LargeButton
+  LargeButton,
+  LoginImage
 } from '../components/common'
-import componentStyles from '../css/componentStyles'
-
-const NDAU = require('img/ndau_orange_logo.png')
 
 class Authentication extends Component {
   constructor (props) {
@@ -152,13 +146,7 @@ class Authentication extends Component {
     return (
       <LoginContainer>
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <View style={componentStyles.loginImageView}>
-          <Image
-            style={componentStyles.loginImage}
-            resizeMode='contain'
-            source={NDAU}
-          />
-        </View>
+        <LoginImage />
         <LabelWithIcon
           onPress={this.showInformation}
           fontAwesomeIconName='info-circle'

@@ -12,9 +12,9 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import Autocomplete from 'react-native-autocomplete-input'
-import styleConstants from '../css/styleConstants'
-import AppConstants from '../AppConstants'
-import LoggingService from '../services/LoggingService'
+import styleConstants from '../../css/styleConstants'
+import AppConstants from '../../AppConstants'
+import LoggingService from '../../services/LoggingService'
 
 class RecoveryDropdown extends Component {
   constructor (props) {

@@ -1,7 +1,3 @@
-import FlashNotification from '../components/FlashNotification'
-import APIAddressHelper from '../helpers/APIAddressHelper'
-import KeyMaster from '../helpers/KeyMaster'
-
 export class TransferTransaction {
   constructor (wallet, account, destination, quantity) {
     this._wallet = wallet

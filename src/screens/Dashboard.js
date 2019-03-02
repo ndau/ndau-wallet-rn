@@ -3,21 +3,25 @@ import { ScrollView, Text, RefreshControl, AppState } from 'react-native'
 import DateHelper from '../helpers/DateHelper'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import LoggingService from '../services/LoggingService'
-import CollapsiblePanel from '../components/CollapsiblePanel'
-import { AppContainer, NdauTotal, Label } from '../components/common'
+import CollapsiblePanel from '../components/common/CollapsiblePanel'
+import {
+  AppContainer,
+  NdauTotal,
+  Label,
+  CollapsablePanelText
+} from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardContainer,
   DashboardLabel,
   DashboardPanel
 } from '../components/dashboard'
-import componentStyles from '../css/componentStyles'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -144,7 +148,7 @@ class Dashboard extends Component {
                 title={currentPrice}
                 titleRight='* at current price'
               >
-                <Text style={componentStyles.dashboardTextVerySmallWhite}>
+                <CollapsablePanelText>
                   * The estimated value of ndau in US dollars can be calculated
                   using the Target Price at which new ndau have most recently
                   been issued. The value shown here is calculated using that
@@ -153,7 +157,7 @@ class Dashboard extends Component {
                   responsibility or liability for the calculation of that
                   estimated value, or for decisions based on that estimated
                   value.
-                </Text>
+                </CollapsablePanelText>
               </CollapsiblePanel>
               <DashboardLabel>Your wallets</DashboardLabel>
               {wallets.map((wallet, index) => {

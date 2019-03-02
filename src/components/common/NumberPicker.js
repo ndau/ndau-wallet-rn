@@ -5,11 +5,10 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import cssStyles from '../css/styles'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
-import styleConstants from '../css/styleConstants'
+import AppConstants from '../../AppConstants'
 
-class UnlockModalDialog extends Component {
+class NumberPicker extends Component {
   render () {
     return (
       <View style={styles.container}>
@@ -23,7 +22,7 @@ class UnlockModalDialog extends Component {
           <TouchableOpacity onPress={this.props.subtractNumber}>
             <FontAwesome5Pro
               name='minus-circle'
-              color={styleConstants.ICON_GRAY}
+              color={AppConstants.NUMBER_PICKER_COLOR}
               size={32}
               light
             />
@@ -32,7 +31,7 @@ class UnlockModalDialog extends Component {
           <TouchableOpacity onPress={this.props.addNumber}>
             <FontAwesome5Pro
               name='plus-circle'
-              color={styleConstants.ICON_GRAY}
+              color={AppConstants.NUMBER_PICKER_COLOR}
               size={32}
               light
             />
@@ -58,4 +57,4 @@ var styles = StyleSheet.create({
   }
 })
 
-export default UnlockModalDialog
+export default NumberPicker

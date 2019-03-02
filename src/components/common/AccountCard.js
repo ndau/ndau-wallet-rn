@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import CollapsiblePanel from '../components/CollapsiblePanel'
-import cssStyles from '../css/styles'
+import cssStyles from '../../css/styles'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp

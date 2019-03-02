@@ -6,8 +6,8 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import ModalDialog from './ModalDialog'
-import CommonButton from '../components/CommonButton'
-import cssStyles from '../css/styles'
+import CommonButton from './CommonButton'
+import cssStyles from '../../css/styles'
 import NumberPicker from './NumberPicker'
 
 class NewAccountModalDialog extends Component {

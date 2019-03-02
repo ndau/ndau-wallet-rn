@@ -1,7 +1,7 @@
 import BackgroundFetch from 'react-native-background-fetch'
 import NotificationService from './NotificationService'
 import AccountAPI from '../api/AccountAPI'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import AppConfig from '../AppConfig'
 
 const notificationService = new NotificationService()

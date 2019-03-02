@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { NetInfo } from 'react-native'
-import FlashNotification from '../components/FlashNotification'
-import LoggingService from '../services/LoggingService'
+import FlashNotification from './FlashNotification'
+import LoggingService from '../../services/LoggingService'
 
 class OfflineMessage extends PureComponent {
   componentDidMount () {

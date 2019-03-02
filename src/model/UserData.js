@@ -7,7 +7,6 @@ const loadUserData = async user => {
   for (const walletKey of walletKeys) {
     const wallet = user.wallets[walletKey]
     await AccountAPIHelper.populateWalletWithAddressData(wallet)
-    console.log('walet to check', wallet)
   }
 
   // after the data is loaded successfully then save the user

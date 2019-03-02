@@ -1,21 +1,5 @@
 import React from 'react'
-import {
-  Alert,
-  ScrollView,
-  SafeAreaView,
-  Text,
-  View,
-  TouchableOpacity,
-  Image
-} from 'react-native'
-import cssStyles from '../css/styles'
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
-import Padding from '../components/Padding'
-import LinearGradient from 'react-native-linear-gradient'
-import componentStyles from '../css/componentStyles'
+import { Alert, ScrollView } from 'react-native'
 import {
   DrawerEntryItem,
   DrawerExit,

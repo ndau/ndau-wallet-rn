@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import CryptoJS from 'crypto-js'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
 
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:'
