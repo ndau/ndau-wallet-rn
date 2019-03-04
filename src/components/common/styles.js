@@ -222,6 +222,13 @@ export default StyleSheet.create({
     lineHeight: 27,
     fontWeight: 'bold'
   },
+  legalTextHeading: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 22,
+    letterSpacing: 0.39,
+    lineHeight: 27
+  },
   legalTextBold: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -365,5 +372,63 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%'),
     opacity: 0.2
+  },
+  bar: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    height: hp('8%'),
+    backgroundColor: '#0A1724',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0,
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    overflow: 'hidden'
+  },
+
+  barWrapper: {
+    alignSelf: 'stretch'
+  },
+
+  icon: {
+    padding: 5,
+    width: 40
+  },
+  barTextTitleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  title: {
+    color: AppConstants.TEXT_COLOR,
+    flex: 1,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingLeft: wp('4%')
+  },
+  titleLeft: {
+    color: AppConstants.TEXT_COLOR,
+    flex: 1,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingRight: wp('1%')
+  },
+  barBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  barTitleRight: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
   }
 })

@@ -45,9 +45,23 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginTop: hp('1%')
   },
+  largeAccountButton: {
+    height: hp('4.95%'),
+    width: wp('43.86%'),
+    borderRadius: 22,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    ...Platform.select({
+      android: {
+        marginTop: hp('1%')
+      }
+    })
+  },
   accountButton: {
-    width: wp('42%'),
-    height: hp('5%'),
+    width: wp('28.97%'),
+    height: hp('4.95%'),
     borderRadius: 22,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
@@ -121,16 +135,32 @@ export default StyleSheet.create({
     textShadowRadius: 5,
     shadowOpacity: 0,
     textShadowColor: 'rgba(78,149,122,1)',
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: '300',
-    letterSpacing: 0.39,
+    letterSpacing: 0.51,
     lineHeight: 27,
+    fontFamily: 'Titillium Web',
+    textAlign: 'center',
+    alignSelf: 'center'
+  },
+  historyAccountPanelText: {
+    color: AppConstants.TEXT_COLOR,
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)',
+    fontSize: 16,
+    fontWeight: '300',
+    letterSpacing: 0.34,
+    lineHeight: 24,
     fontFamily: 'Titillium Web',
     textAlign: 'center',
     alignSelf: 'center',
     paddingTop: 5
   },
   accountTotalPanel: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: wp('100%'),
     height: hp('5%'),
     backgroundColor: '#293E63',
@@ -138,7 +168,9 @@ export default StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.5)'
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    paddingLeft: wp('4%'),
+    paddingRight: wp('4%')
   },
   accountDetailsPanel: {
     width: wp('100%'),
@@ -163,6 +195,16 @@ export default StyleSheet.create({
       }
     }),
     paddingRight: wp('4%')
+  },
+  viewHistoryAngle: {
+    ...Platform.select({
+      ios: {
+        paddingTop: hp('1%')
+      },
+      android: {
+        paddingTop: hp('.5%')
+      }
+    })
   },
   accountNicknameIcon: {
     paddingLeft: wp('3%')
@@ -370,5 +412,65 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 12,
     textAlign: 'left'
+  },
+  accountHistoryMainPanel: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#0A1724'
+  },
+  accountHistoryTextPanelWithSmallText: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    marginBottom: hp('3%'),
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  accountHistorySmallerText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '200',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
+  accountHistorySmallerTextBold: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
+  dashboardTotalPanel: {
+    backgroundColor: '#293E63',
+    height: hp('5%'),
+    justifyContent: 'center'
+  },
+  dashboardTotalTitleLeft: {
+    color: '#8CC74F',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)',
+    fontSize: 18,
+    fontWeight: '300',
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
+  },
+  totalAsterickTextVerySmallWhite: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '300',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  dashboardTotalPanelTextContainer: {
+    backgroundColor: '#293E63'
   }
 })

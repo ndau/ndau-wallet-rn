@@ -1,11 +1,13 @@
 import React from 'react'
 import { View, TouchableOpacity, Slider } from 'react-native'
-import { H4, Button } from 'nachos-ui'
+import { H4, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
 import { MainContainer, ContentContainer, CloseForBar } from '../common'
+import CollapsibleBar from '../common/CollapsibleBar'
 import styles from './styles'
+import DateHelper from '../../helpers/DateHelper'
 
 export function AccountPanel (props) {
   return (
@@ -157,6 +159,34 @@ export function AccountLockContainer (props) {
           style={[styles.appContainerOverlay]}
         >
           <View style={styles.accountTitlePanel}>
+            <AccountClosingBar
+              closeBar
+              close={this.close}
+              goBack={this.goBack}
+            />
+          </View>
+          <ContentContainer>{props.children}</ContentContainer>
+        </LinearGradient>
+      </View>
+    </MainContainer>
+  )
+}
+
+export function AccountHistoryContainer (props) {
+  goBack = () => {
+    props.navigation.goBack()
+  }
+  return (
+    <MainContainer>
+      <View style={{ flex: 1 }}>
+        <LinearGradient
+          start={{ x: 0.0, y: 0.02 }}
+          end={{ x: 0.0, y: 1.0 }}
+          locations={[0, 0.05]}
+          colors={['#0A1724', '#0F2748']}
+          style={[styles.appContainerOverlay]}
+        >
+          <View style={styles.accountTitlePanel}>
             <AccountClosingBar close={this.close} goBack={this.goBack} />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
@@ -186,12 +216,48 @@ export function AccountButton (props) {
   )
 }
 
+export function LargeAccountButton (props) {
+  return (
+    <Button
+      style={styles.largeAccountButton}
+      textStyle={styles.accountButtonText}
+      uppercase={false}
+      {...props}
+    >
+      {props.children}{' '}
+      <FontAwesome5Pro
+        name={props.icon}
+        size={18}
+        color='#4B9176'
+        style={styles.accountAngle}
+        light
+      />
+    </Button>
+  )
+}
+
 export function AccountTotalPanel (props) {
   return (
     <View style={styles.accountTotalPanel}>
-      <H4 style={styles.accountTotalPanelText}>
-        {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
-      </H4>
+      <View>
+        <H4 style={styles.accountTotalPanelText}>
+          {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
+        </H4>
+      </View>
+      <View>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+          <H4 style={styles.historyAccountPanelText}>View history</H4>
+          <TouchableOpacity {...props}>
+            <FontAwesome5Pro
+              name='chevron-circle-right'
+              size={24}
+              color='#4B9176'
+              style={styles.viewHistoryAngle}
+              solid
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   )
 }
@@ -306,7 +372,7 @@ export function AccountClosingBar (props) {
         </TouchableOpacity>
       </View>
       <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
-      <CloseForBar {...props} />
+      {props.closeBar ? <CloseForBar {...props} /> : null}
     </View>
   )
 }
@@ -373,5 +439,62 @@ export function AccountLockSlider (props) {
         {...props}
       />
     </View>
+  )
+}
+
+export function AccountHistoryMainPanel (props) {
+  return <View style={styles.accountHistoryMainPanel}>{props.children}</View>
+}
+
+export function AccountHistoryPanels (props) {
+  return (
+    <CollapsibleBar
+      title='My title'
+      collapsible
+      showOnStart={false}
+      iconCollapsed='angle-down'
+      iconActive='angle-down'
+      iconOpened='angle-up'
+      tintColor='#4B9176'
+      lowerBorder
+    >
+      <View style={styles.accountHistoryTextPanelWithSmallText}>
+        <View>
+          <H4 style={styles.accountHistorySmallerTextBold}>Sent to:</H4>
+        </View>
+        <View>
+          <H4 style={styles.accountHistorySmallerText}>testing1234</H4>
+        </View>
+      </View>
+    </CollapsibleBar>
+  )
+}
+
+export function DashboardTotalPanel (props) {
+  return (
+    <CollapsibleBar
+      {...props}
+      style={styles.dashboardTotalPanel}
+      titleStyle={styles.dashboardTotalTitleLeft}
+      collapsible
+      showOnStart={false}
+      iconCollapsed='angle-down'
+      iconActive='angle-down'
+      iconOpened='angle-up'
+      tintColor='#4B9176'
+      upperBorder
+    >
+      <View style={styles.dashboardTotalPanelTextContainer}>
+        <P style={styles.totalAsterickTextVerySmallWhite}>
+          * The estimated value of ndau in US dollars can be calculated using
+          the Target Price at which new ndau have most recently been issued. The
+          value shown here is calculated using that method as of the issue price
+          on {DateHelper.getTodaysDate()}. The Axiom Foundation, creator and
+          issuer of ndau, bears no responsibility or liability for the
+          calculation of that estimated value, or for decisions based on that
+          estimated value.
+        </P>
+      </View>
+    </CollapsibleBar>
   )
 }

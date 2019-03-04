@@ -12,22 +12,34 @@ class AccountDetails extends Component {
     super(props)
     this.state = {
       account: {},
-      wallet: {}
+      wallet: {},
+      allAccountNicknames: {}
     }
   }
 
   componentWillMount = () => {
     const account = this.props.navigation.getParam('account', null)
     const wallet = this.props.navigation.getParam('wallet', null)
+    const allAccountNicknames = this.props.navigation.getParam(
+      'allAccountNicknames',
+      null
+    )
 
-    this.setState({ account, wallet })
+    this.setState({ account, wallet, allAccountNicknames })
   }
 
   _showLock = (account, wallet) => {
     this.props.navigation.navigate('AccountLock', {
       account: account,
       wallet: wallet,
-      nav: this.props.navigation
+      nav: this.props.navigation,
+      allAccountNicknames: this.state.allAccountNicknames
+    })
+  }
+
+  _showHistory = account => {
+    this.props.navigation.navigate('AccountHistory', {
+      account: account
     })
   }
 
@@ -57,7 +69,11 @@ class AccountDetails extends Component {
         account={this.state.account}
         {...this.props}
       >
-        <AccountTotalPanel account={this.state.account} {...this.props} />
+        <AccountTotalPanel
+          account={this.state.account}
+          onPress={() => this._showHistory(this.state.account)}
+          {...this.props}
+        />
         <AccountDetailsPanel
           eaiPercentage={eaiPercentage}
           sendingEAITo={sendingEAITo}

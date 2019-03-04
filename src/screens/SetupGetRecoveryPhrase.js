@@ -33,6 +33,7 @@ import {
 } from '../components/setup'
 import { LargeButtons } from '../components/common'
 import { BottomLinkText } from '../components/common'
+import cssStyles from '../css/styles'
 
 const DEFAULT_ROW_LENGTH = 4
 const _ = require('lodash')
