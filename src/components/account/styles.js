@@ -156,7 +156,8 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     textAlign: 'center',
     alignSelf: 'center',
-    paddingTop: 5
+    paddingTop: 5,
+    marginRight: wp('2%')
   },
   accountTotalPanel: {
     flexDirection: 'row',
@@ -369,7 +370,18 @@ export default StyleSheet.create({
         marginTop: hp('.8%')
       }
     }),
-    marginLeft: wp('4%')
+    marginLeft: wp('3%')
+  },
+  backArrowForHistory: {
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1.2%')
+      },
+      android: {
+        marginTop: hp('.8%')
+      }
+    }),
+    marginLeft: 0
   },
   detailsBarCog: {
     ...Platform.select({

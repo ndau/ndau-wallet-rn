@@ -179,7 +179,7 @@ class WalletOverview extends Component {
             }
           >
             <DrawerHeaderForOverview {...this.props}>
-              Wallet name
+              {this.state.wallet ? this.state.wallet.walletId : ''}
             </DrawerHeaderForOverview>
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardContainer>

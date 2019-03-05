@@ -385,11 +385,9 @@ export default StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 0.5)',
     overflow: 'hidden'
   },
-
   barWrapper: {
     alignSelf: 'stretch'
   },
-
   icon: {
     padding: 5,
     width: 40

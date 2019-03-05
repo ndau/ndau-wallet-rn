@@ -8,6 +8,7 @@ import { MainContainer, ContentContainer, CloseForBar } from '../common'
 import CollapsibleBar from '../common/CollapsibleBar'
 import styles from './styles'
 import DateHelper from '../../helpers/DateHelper'
+import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 
 export function AccountPanel (props) {
   return (
@@ -187,7 +188,11 @@ export function AccountHistoryContainer (props) {
           style={[styles.appContainerOverlay]}
         >
           <View style={styles.accountTitlePanel}>
-            <AccountClosingBar close={this.close} goBack={this.goBack} />
+            <AccountClosingBar
+              backArrowStyle={styles.backArrowForHistory}
+              goBack={this.goBack}
+              {...props}
+            />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
         </LinearGradient>
@@ -366,7 +371,7 @@ export function AccountDetailsBar (props) {
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountDetailsBarContainer}>
-      <View style={styles.backArrow}>
+      <View style={[styles.backArrow, props.backArrowStyle]}>
         <TouchableOpacity onPress={props.goBack}>
           <FontAwesome5Pro size={28} name='arrow-left' color='#4B9176' light />
         </TouchableOpacity>
@@ -447,27 +452,38 @@ export function AccountHistoryMainPanel (props) {
 }
 
 export function AccountHistoryPanels (props) {
-  return (
-    <CollapsibleBar
-      title='My title'
-      collapsible
-      showOnStart={false}
-      iconCollapsed='angle-down'
-      iconActive='angle-down'
-      iconOpened='angle-up'
-      tintColor='#4B9176'
-      lowerBorder
-    >
-      <View style={styles.accountHistoryTextPanelWithSmallText}>
-        <View>
-          <H4 style={styles.accountHistorySmallerTextBold}>Sent to:</H4>
+  if (!AccountHistoryHelper.hasItems(props.accountHistory)) {
+    return null
+  }
+
+  return props.accountHistory.Items.map((item, index) => {
+    return (
+      <CollapsibleBar
+        key={index}
+        title={AccountHistoryHelper.getTransactionDate(item)}
+        collapsible
+        showOnStart={false}
+        iconCollapsed='angle-down'
+        iconActive='angle-down'
+        iconOpened='angle-up'
+        tintColor='#4B9176'
+        lowerBorder
+      >
+        <View style={styles.accountHistoryTextPanelWithSmallText}>
+          <View>
+            <H4 style={styles.accountHistorySmallerTextBold}>
+              Transaction ID:
+            </H4>
+          </View>
+          <View>
+            <H4 style={styles.accountHistorySmallerText}>
+              {AccountHistoryHelper.getTransactionId(item)}
+            </H4>
+          </View>
         </View>
-        <View>
-          <H4 style={styles.accountHistorySmallerText}>testing1234</H4>
-        </View>
-      </View>
-    </CollapsibleBar>
-  )
+      </CollapsibleBar>
+    )
+  })
 }
 
 export function DashboardTotalPanel (props) {

@@ -1,40 +1,46 @@
 import React, { Component } from 'react'
 
-import { Text } from 'react-native'
 import {
-  AccountLockContainer,
+  AccountHistoryContainer,
   AccountHistoryMainPanel,
   AccountHistoryPanels
 } from '../components/account'
-import CollapsibleBar from '../components/common/CollapsibleBar'
+
+import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
 
 class AccountHistory extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      accountHistory: {},
       account: {}
     }
   }
 
-  componentWillMount = () => {
+  componentWillMount = async () => {
     const account = this.props.navigation.getParam('account', null)
 
-    this.setState({ account })
+    const accountHistory = await AccountHistoryHelper.getAccountHistory(
+      account.address
+    )
+
+    this.setState({ accountHistory, account })
   }
 
   render () {
+    const title = this.state.account.addressData
+      ? this.state.account.addressData.nickname + ' history'
+      : 'Account history'
     return (
-      <AccountLockContainer
-        title='Lock account step 1'
-        account={this.state.account}
-        wallet={this.state.wallet}
+      <AccountHistoryContainer
+        title={title}
         navigation={this.props.nav}
         {...this.props}
       >
         <AccountHistoryMainPanel>
-          <AccountHistoryPanels />
+          <AccountHistoryPanels accountHistory={this.state.accountHistory} />
         </AccountHistoryMainPanel>
-      </AccountLockContainer>
+      </AccountHistoryContainer>
     )
   }
 }
