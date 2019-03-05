@@ -33,6 +33,29 @@ const SQUARE_BUTTON_COLOR = '#4e957a'
 const PROGRESS_BAR_COLOR = '#4e957a'
 const ICON_BUTTON_COLOR = '#4B9176'
 
+const TRANSACTION_TYPES = {
+  1: 'Transfer',
+  2: 'ChangeValidation',
+  3: 'ReleaseFromEndowment',
+  4: 'ChangeSettlementPeriod',
+  5: 'Delegate',
+  6: 'CreditEAI',
+  7: 'Lock',
+  8: 'Notify',
+  9: 'SetRewardsDestination',
+  10: 'ClaimAccount',
+  11: 'Stake',
+  12: 'RegisterNode',
+  13: 'NominateNodeReward',
+  14: 'ClaimNodeReward',
+  15: 'TransferAndLock',
+  16: 'CommandValidatorChange',
+  17: 'SidechainTx',
+  18: 'UnregisterNode',
+  19: 'Unstake',
+  20: 'Issue'
+}
+
 export default {
   HARDENED_CHILD_BIP_44,
   ACCOUNT_CREATION_KEY_CHILD,
@@ -61,5 +84,6 @@ export default {
   TEXT_COLOR,
   SQUARE_BUTTON_COLOR,
   PROGRESS_BAR_COLOR,
-  ICON_BUTTON_COLOR
+  ICON_BUTTON_COLOR,
+  TRANSACTION_TYPES
 }

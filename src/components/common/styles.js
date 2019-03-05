@@ -397,6 +397,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center'
   },
+  barTextTitleContainerWithMiddle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
   title: {
     color: AppConstants.TEXT_COLOR,
     flex: 1,
@@ -421,10 +428,27 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
+  barTitleLeft: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
+  },
+  barTitleMiddle: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
+  },
   barTitleRight: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 18,
+    fontSize: 16,
     letterSpacing: 0.39,
     lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'

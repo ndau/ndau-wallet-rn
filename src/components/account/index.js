@@ -461,6 +461,8 @@ export function AccountHistoryPanels (props) {
       <CollapsibleBar
         key={index}
         title={AccountHistoryHelper.getTransactionDate(item)}
+        titleMiddle={AccountHistoryHelper.getTransactionType(item)}
+        titleRight={AccountHistoryHelper.getTransactionBalance(item)}
         collapsible
         showOnStart={false}
         iconCollapsed='angle-down'

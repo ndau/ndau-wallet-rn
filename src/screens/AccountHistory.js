@@ -7,24 +7,38 @@ import {
 } from '../components/account'
 
 import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
+import LoggingService from '../services/LoggingService'
+import FlashNotification from '../components/common/FlashNotification'
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 
 class AccountHistory extends Component {
   constructor (props) {
     super(props)
     this.state = {
       accountHistory: {},
-      account: {}
+      account: {},
+      spinner: false
     }
   }
 
   componentWillMount = async () => {
-    const account = this.props.navigation.getParam('account', null)
+    this.setState({ spinner: true }, async () => {
+      const account = this.props.navigation.getParam('account', null)
 
-    const accountHistory = await AccountHistoryHelper.getAccountHistory(
-      account.address
-    )
+      try {
+        const accountHistory = await AccountHistoryHelper.getAccountHistory(
+          account.address
+        )
+        this.setState({ accountHistory })
+      } catch (error) {
+        LoggingService.debug(error)
+        FlashNotification.showError(
+          'Problem occured while getting account history from the blockchain.'
+        )
+      }
 
-    this.setState({ accountHistory, account })
+      this.setState({ account, spinner: false })
+    })
   }
 
   render () {
@@ -37,6 +51,7 @@ class AccountHistory extends Component {
         navigation={this.props.nav}
         {...this.props}
       >
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountHistoryMainPanel>
           <AccountHistoryPanels accountHistory={this.state.accountHistory} />
         </AccountHistoryMainPanel>

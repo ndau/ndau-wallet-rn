@@ -1,6 +1,8 @@
 import AccountAPI from '../api/AccountAPI'
 import TransactionAPI from '../api/TransactionAPI'
 import DateHelper from './DateHelper'
+import AppConstants from '../AppConstants'
+import DataFormatHelper from './DataFormatHelper'
 
 const getAccountHistory = async address => {
   const accountHistory = await AccountAPI.accountHistory(address)
@@ -9,7 +11,7 @@ const getAccountHistory = async address => {
       const txHistory = await TransactionAPI.transactionByHash(
         accountHistory.Items[i].TxHash
       )
-      accountHistory.Items[i].txDetail = txHistory
+      accountHistory.Items[i].txDetail = txHistory.Tx
     }
   }
 
@@ -28,9 +30,21 @@ const getTransactionId = item => {
   return item.TxHash
 }
 
+const getTransactionType = accountHistory => {
+  return AppConstants.TRANSACTION_TYPES[accountHistory.txDetail.TransactableID]
+}
+
+const getTransactionBalance = accountHistory => {
+  return DataFormatHelper.addCommas(
+    DataFormatHelper.getNdauFromNapu(accountHistory.Balance)
+  )
+}
+
 export default {
   getAccountHistory,
   hasItems,
   getTransactionDate,
-  getTransactionId
+  getTransactionId,
+  getTransactionType,
+  getTransactionBalance
 }

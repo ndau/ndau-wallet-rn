@@ -87,6 +87,9 @@ class BarCollapsible extends Component {
       style,
       iconStyle,
       titleStyle,
+      titleStyleLeft,
+      titleStyleMiddle,
+      titleStyleRight,
       children,
       lowerBorder,
       upperBorder
@@ -102,17 +105,37 @@ class BarCollapsible extends Component {
         >
           <View style={[styles.bar, style]}>
             {this.props.titleRight !== undefined ? (
-              <View style={styles.barTextTitleContainer}>
-                <View>
-                  <Text style={[styles.titleLeft, titleStyle]}>{title}</Text>
+              this.props.titleMiddle ? (
+                <View style={styles.barTextTitleContainerWithMiddle}>
+                  <View>
+                    <Text style={[styles.barTitleLeft, titleStyleLeft]}>
+                      {title}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={[styles.barTitleMiddle, titleStyleMiddle]}>
+                      {this.props.titleMiddle}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={[styles.barTitleRight, titleStyleRight]}>
+                      {this.props.titleRight}
+                    </Text>
+                  </View>
                 </View>
+              ) : (
+                <View style={styles.barTextTitleContainer}>
+                  <View>
+                    <Text style={[styles.titleLeft, titleStyle]}>{title}</Text>
+                  </View>
 
-                <View>
-                  <Text style={styles.barTitleRight}>
-                    {this.props.titleRight}
-                  </Text>
+                  <View>
+                    <Text style={styles.barTitleRight}>
+                      {this.props.titleRight}
+                    </Text>
+                  </View>
                 </View>
-              </View>
+              )
             ) : (
               <Text style={[styles.title, titleStyle]}>{title}</Text>
             )}
