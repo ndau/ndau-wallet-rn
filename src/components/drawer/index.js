@@ -1,30 +1,22 @@
 import React from 'react'
-import {
-  View,
-  ScrollView,
-  StatusBar,
-  ImageBackground,
-  TouchableOpacity
-} from 'react-native'
-import { SafeAreaView } from 'react-navigation'
-import componentStyles from '../../css/componentStyles'
+import { View, TouchableOpacity } from 'react-native'
+import styles from './styles'
 import { H4 } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
+import { MainContainer } from '../common'
+import AppConstants from '../../AppConstants'
 
 export function DrawerContainer (props) {
   return (
-    <SafeAreaView
-      style={[componentStyles.container, componentStyles.statusBarColor]}
-    >
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
-      <View style={componentStyles.outerDrawerContainer}>
+    <MainContainer>
+      <View style={styles.outerDrawerContainer}>
         <LinearGradient
           locations={[0, 1.0]}
           colors={['#0F2748', '#293E63']}
-          style={[componentStyles.drawerContainerOverlay]}
+          style={[styles.drawerContainerOverlay]}
         >
-          <View style={componentStyles.drawerContainer}>{props.children}</View>
+          <View style={styles.drawerContainer}>{props.children}</View>
           <DrawerEntryItem
             bottom
             onPress={props.logoutHandler}
@@ -34,13 +26,13 @@ export function DrawerContainer (props) {
           </DrawerEntryItem>
         </LinearGradient>
       </View>
-    </SafeAreaView>
+    </MainContainer>
   )
 }
 
 export function DrawerExit (props) {
   return (
-    <View style={componentStyles.drawerExit}>
+    <View style={styles.drawerExit}>
       <TouchableOpacity {...props}>
         <FontAwesome5Pro size={36} name='times' color='#ffffff' light />
       </TouchableOpacity>
@@ -50,29 +42,17 @@ export function DrawerExit (props) {
 
 export function DrawerEntryItem (props) {
   return (
-    <View
-      style={
-        props.bottom
-          ? componentStyles.drawerEntryBottom
-          : componentStyles.drawerEntry
-      }
-    >
+    <View style={props.bottom ? styles.drawerEntryBottom : styles.drawerEntry}>
       <TouchableOpacity {...props}>
         <FontAwesome5Pro
           size={22}
           name={props.fontAwesomeIconName}
-          color='#4B9176'
+          color={AppConstants.ICON_BUTTON_COLOR}
           light
         />
       </TouchableOpacity>
       <TouchableOpacity {...props}>
-        <H4
-          style={
-            props.bottom
-              ? componentStyles.drawerTextBottom
-              : componentStyles.drawerText
-          }
-        >
+        <H4 style={props.bottom ? styles.drawerTextBottom : styles.drawerText}>
           {props.children}
         </H4>
       </TouchableOpacity>
@@ -82,7 +62,7 @@ export function DrawerEntryItem (props) {
 
 export const DrawerHeader = props => {
   return (
-    <View style={componentStyles.drawerHeaderContainer}>
+    <View style={styles.drawerHeaderContainer}>
       <TouchableOpacity
         onPress={() => {
           props.navigation.openDrawer()
@@ -92,18 +72,18 @@ export const DrawerHeader = props => {
           name='bars'
           size={32}
           color='#fff'
-          style={componentStyles.drawerButton}
+          style={styles.drawerButton}
           light
         />
       </TouchableOpacity>
-      <H4 style={componentStyles.drawerHeaderText}>{props.children}</H4>
+      <H4 style={styles.drawerHeaderText}>{props.children}</H4>
     </View>
   )
 }
 
 export const DrawerHeaderForOverview = props => {
   return (
-    <View style={componentStyles.drawerHeaderContainer}>
+    <View style={styles.drawerHeaderContainer}>
       <TouchableOpacity
         onPress={() => {
           props.navigation.openDrawer()
@@ -113,13 +93,11 @@ export const DrawerHeaderForOverview = props => {
           name='bars'
           size={32}
           color='#fff'
-          style={componentStyles.drawerButton}
+          style={styles.drawerButton}
           light
         />
       </TouchableOpacity>
-      <H4 style={componentStyles.drawerHeaderTextForOverview}>
-        {props.children}
-      </H4>
+      <H4 style={styles.drawerHeaderTextForOverview}>{props.children}</H4>
     </View>
   )
 }

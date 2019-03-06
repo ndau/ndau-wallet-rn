@@ -3,7 +3,7 @@ import { ActivityIndicator, Alert, View } from 'react-native'
 import cssStyles from '../css/styles'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafe from '../model/MultiSafe'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import AppConstants from '../AppConstants'
 import { RECOVERY_WALLET_SETUP_TYPE } from '../components/common'
 

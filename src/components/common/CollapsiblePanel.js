@@ -1,20 +1,10 @@
 import React, { Component } from 'react'
-import {
-  Text,
-  View,
-  TouchableHighlight,
-  Animated,
-  Image,
-  Platform,
-  PixelRatio
-} from 'react-native'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import { Text, View, TouchableHighlight, Animated } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import LoggingService from '../services/LoggingService'
-import componentStyles from '../css/componentStyles'
+import styles from './styles'
 
 class CollapsiblePanel extends Component {
   constructor (props) {
@@ -89,7 +79,7 @@ class CollapsiblePanel extends Component {
     return (
       <Animated.View
         style={[
-          componentStyles.collapsiblePanelContainer,
+          styles.collapsiblePanelContainer,
           { height: this.state.animation }
         ]}
       >
@@ -98,28 +88,25 @@ class CollapsiblePanel extends Component {
           underlayColor='transparent'
         >
           <View
-            style={componentStyles.collapsiblePanelTitleContainer}
+            style={styles.collapsiblePanelTitleContainer}
             onLayout={this.setMinHeight}
           >
             <View>
-              <Text style={componentStyles.collapsiblePanelTitleLeft}>
+              <Text style={styles.collapsiblePanelTitleLeft}>
                 {this.props.title}
               </Text>
             </View>
             <View>
               {this.props.titleRight !== undefined ? (
-                <Text style={componentStyles.collapsiblePanelTitleRight}>
+                <Text style={styles.collapsiblePanelTitleRight}>
                   {this.props.titleRight}
                 </Text>
               ) : null}
             </View>
           </View>
         </TouchableHighlight>
-        <View style={componentStyles.collapsiblePanelBorder} />
-        <View
-          style={componentStyles.collapsiblePanelBody}
-          onLayout={this.setMaxHeight}
-        >
+        <View style={styles.collapsiblePanelBorder} />
+        <View style={styles.collapsiblePanelBody} onLayout={this.setMaxHeight}>
           {this.state.bodyData}
         </View>
       </Animated.View>

@@ -7,13 +7,13 @@ import {
   BackHandler,
   StatusBar
 } from 'react-native'
-import CommonButton from '../components/CommonButton'
+import CommonButton from '../components/common/CommonButton'
 import cssStyles from '../css/styles'
 import { SafeAreaView } from 'react-navigation'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class IdentityVerificationInfo extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -22,11 +22,11 @@ class IdentityVerificationInfo extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }
 
-  handleBackButton() {
+  handleBackButton () {
     return true
   }
 
@@ -39,7 +39,7 @@ class IdentityVerificationInfo extends Component {
     this.props.navigation.navigate('IdentityMind')
   }
 
-  render() {
+  render () {
     return (
       <SafeAreaView style={cssStyles.safeContainer}>
         <StatusBar barStyle='light-content' backgroundColor='#1c2227' />

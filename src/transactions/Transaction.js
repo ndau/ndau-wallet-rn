@@ -2,7 +2,7 @@ import { NativeModules } from 'react-native'
 import KeyMaster from '../helpers/KeyMaster'
 import TransactionAPI from '../api/TransactionAPI'
 import TxSignPrep from '../model/TxSignPrep'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import LoggingService from '../services/LoggingService'
 

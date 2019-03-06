@@ -6,11 +6,11 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import ModalDialog from './ModalDialog'
-import CommonButton from '../components/CommonButton'
-import cssStyles from '../css/styles'
-import { NotifyTransaction } from '../transactions/NotifyTransaction'
-import { Transaction } from '../transactions/Transaction'
-import LoggingService from '../services/LoggingService'
+import CommonButton from './CommonButton'
+import cssStyles from '../../css/styles'
+import { NotifyTransaction } from '../../transactions/NotifyTransaction'
+import { Transaction } from '../../transactions/Transaction'
+import LoggingService from '../../services/LoggingService'
 
 class UnlockModalDialog extends Component {
   _unlock = async () => {

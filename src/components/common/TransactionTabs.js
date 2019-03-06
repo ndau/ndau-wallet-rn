@@ -6,7 +6,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import CommonButton from '../components/CommonButton'
+import CommonButton from './CommonButton'
 import Padding from './Padding'
 
 class TransactionTabs extends Component {

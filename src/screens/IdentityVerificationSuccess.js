@@ -7,14 +7,14 @@ import {
   BackHandler,
   StatusBar
 } from 'react-native'
-import CommonButton from '../components/CommonButton'
+import CommonButton from '../components/common/CommonButton'
 import cssStyles from '../css/styles'
 import { SafeAreaView } from 'react-navigation'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import FlashNotification from '../components/FlashNotification';
+import FlashNotification from '../components/common/FlashNotification'
 
 class IdentityVerificationSuccess extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -23,11 +23,11 @@ class IdentityVerificationSuccess extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }
 
-  handleBackButton() {
+  handleBackButton () {
     return true
   }
 
@@ -40,7 +40,7 @@ class IdentityVerificationSuccess extends Component {
     this.props.navigation.navigate('SetupTermsOfService')
   }
 
-  render() {
+  render () {
     const error = this.props.navigation.getParam('error', null)
     if (error) {
       FlashNotification.showError(error)

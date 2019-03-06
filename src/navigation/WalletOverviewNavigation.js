@@ -2,9 +2,9 @@ import React from 'react'
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
 import WalletOverview from '../screens/WalletOverview'
 import AppDrawer from './AppDrawer'
-import StyleConstants from '../css/styleConstants'
 import AccountDetails from '../screens/AccountDetails'
 import AccountLock from '../screens/AccountLock'
+import AccountHistory from '../screens/AccountHistory'
 import AccountLockConfirmation from '../screens/AccountLockConfirmation'
 import IdentityMind from '../screens/IdentityMind'
 import IdentityVerificationIntro from '../screens/IdentityVerificationIntro'
@@ -28,6 +28,13 @@ const AccountLockScreen = ({ navigation }) => (
   <AccountLock navigation={navigation} />
 )
 AccountLockScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+})
+
+const AccountHistoryScreen = ({ navigation }) => (
+  <AccountHistory navigation={navigation} />
+)
+AccountHistoryScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
@@ -63,6 +70,7 @@ const WalletOverviewStack = createStackNavigator({
   WalletOverview: { screen: WalletOverviewScreen },
   AccountDetails: { screen: AccountDetailsScreen },
   AccountLock: { screen: AccountLockScreen },
+  AccountHistory: { screen: AccountHistoryScreen },
   AccountLockConfirmation: { screen: AccountLockConfirmationScreen },
   IdentityMind: { screen: IdentityMindScreen },
   IdentityVerificationIntro: { screen: IdentityVerificationIntroScreen },

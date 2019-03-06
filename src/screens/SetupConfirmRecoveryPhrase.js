@@ -3,25 +3,17 @@ import {
   PixelRatio,
   StyleSheet,
   View,
-  ScrollView,
   Text,
-  TextInput,
   TouchableHighlight
 } from 'react-native'
-import { SafeAreaView } from 'react-navigation'
 import groupIntoRows from '../helpers/groupIntoRows'
-import CommonButton from '../components/CommonButton'
-import SetupProgressBar from '../components/SetupProgressBar'
-import cssStyles from '../css/styles'
 import SetupStore from '../model/SetupStore'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import EntropyHelper from '../helpers/EntropyHelper'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding'
+import FlashNotification from '../components/common/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
@@ -150,56 +142,6 @@ class SetupConfirmRecoveryPhrase extends Component {
         </SetupContainer>
       )
     }
-
-    // <SafeAreaView style={cssStyles.safeContainer}>
-    //   <View style={cssStyles.container}>
-    //     <ScrollView style={cssStyles.contentContainer}>
-    //       <SetupProgressBar navigation={this.props.navigation} />
-    //       <Padding top={0} bottom={1}>
-    //         <Text style={cssStyles.wizardText}>
-    //           To confirm that you recorded the phrase, tap the words below in
-    //           order.{' '}
-    //         </Text>
-    //       </Padding>
-
-    //       {words.map((row, rowIndex) => {
-    //         return (
-    //           <View key={rowIndex} style={styles.rowView}>
-    //             {row.map((item, index) => {
-    //               const i = index + row.length * rowIndex
-    //               return (
-    //                 <Word
-    //                   key={index}
-    //                   error={this.state.errorWord == i}
-    //                   selected={selected[i]}
-    //                   onPress={event => this.handleClick(i, event)}
-    //                 >
-    //                   {item}
-    //                 </Word>
-    //               )
-    //             })}
-    //           </View>
-    //         )
-    //       })}
-    //     </ScrollView>
-    //     <View style={cssStyles.footer}>
-    //       <View style={cssStyles.navButtonWrapper}>
-    //         <CommonButton
-    //           onPress={() => this.pushBack()}
-    //           title='Back (resets phrase)'
-    //           bottomPadding={0}
-    //         />
-    //       </View>
-    //       <View style={cssStyles.navButtonWrapper}>
-    //         <CommonButton
-    //           onPress={() => this.showNextSetup()}
-    //           title='Next'
-    //           disabled={!this.state.match}
-    //         />
-    //       </View>
-    //     </View>
-    //   </View>
-    // </SafeAreaView>
   }
 
   compare (correctSoFar, selected) {
@@ -280,7 +222,7 @@ function Word (props) {
   if (props.error) {
     bgColor = '#f05123'
   } else if (props.selected) {
-    bgColor = '#4e957a'
+    bgColor = AppConstants.SQUARE_BUTTON_COLOR
   }
 
   return (

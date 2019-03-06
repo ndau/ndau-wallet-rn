@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import {
   AccountLockContainer,
   AccountLockDetailsPanel,
-  AccountMediumButtons
+  AccountLockButton,
+  AccountLockLargerText,
+  AccountBorder,
+  AccountCheckmarkText
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import { View } from 'react-native'
-import { H4 } from 'nachos-ui'
-import componentStyles from '../css/componentStyles'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
 
@@ -24,6 +23,7 @@ class AccountLockConfirmation extends Component {
   componentWillMount = () => {
     const account = this.props.navigation.getParam('account', null)
     const wallet = this.props.navigation.getParam('wallet', null)
+
     const lockPercentage = this.props.navigation.getParam(
       'lockPercentage',
       null
@@ -33,14 +33,14 @@ class AccountLockConfirmation extends Component {
     this.setState({ account, wallet, lockPercentage, lockPeriod })
   }
 
-  _showLockConfirmation = async () => {
+  _lock = async () => {
     Object.assign(LockTransaction.prototype, Transaction)
     const lockTransaction = new LockTransaction(
       this.state.wallet,
       this.state.account,
       `${this.state.lockPeriod}m`
     )
-    // await lockTransaction.createSignPrevalidateSubmit()
+    await lockTransaction.createSignPrevalidateSubmit()
 
     this.props.navigation.navigate('WalletOverview', {
       wallet: this.state.wallet
@@ -71,6 +71,7 @@ class AccountLockConfirmation extends Component {
       <AccountLockContainer
         title='Lock account step 2'
         account={this.state.account}
+        wallet={this.state.wallet}
         {...this.props}
       >
         <AccountLockDetailsPanel
@@ -81,55 +82,19 @@ class AccountLockConfirmation extends Component {
           accountNoticePeriod={accountNoticePeriod}
           accountNotLocked={accountNotLocked}
         >
-          <View style={componentStyles.lockAccountDetailsTextPanel}>
-            <H4 style={componentStyles.accountDetailsLargerText}>
-              Confirmation
-            </H4>
-          </View>
-          <View style={componentStyles.accountDetailsPanelBorder} />
-          <View
-            style={componentStyles.lockAccountDetailsTextPanelWithSmallText}
-          >
-            <View style={componentStyles.lockAccountCheckmark}>
-              <FontAwesome5Pro size={18} name='check' color='#85BE4D' light />
-            </View>
-            <View>
-              <H4 style={componentStyles.accountDetailsSmallerText}>
-                Lock {this.state.account.addressData.nickname}
-              </H4>
-            </View>
-          </View>
-          <View
-            style={componentStyles.lockAccountDetailsTextPanelWithSmallText}
-          >
-            <View style={componentStyles.lockAccountCheckmark}>
-              <FontAwesome5Pro size={18} name='check' color='#85BE4D' light />
-            </View>
-            <View>
-              <H4 style={componentStyles.accountDetailsSmallerText}>
-                Earn {this.state.lockPercentage}% EAI Incentive
-              </H4>
-            </View>
-          </View>
-          <View
-            style={componentStyles.lockAccountDetailsTextPanelWithSmallText}
-          >
-            <View style={componentStyles.lockAccountCheckmark}>
-              <FontAwesome5Pro size={18} name='check' color='#85BE4D' light />
-            </View>
-            <View>
-              <H4 style={componentStyles.accountDetailsSmallerText}>
-                Account will unlock in {this.state.lockPeriod} months
-              </H4>
-            </View>
-          </View>
+          <AccountLockLargerText>Confirmation</AccountLockLargerText>
+          <AccountBorder />
+          <AccountCheckmarkText>
+            Lock {this.state.account.addressData.nickname}
+          </AccountCheckmarkText>
+          <AccountCheckmarkText>
+            Earn {this.state.lockPercentage}% EAI Incentive
+          </AccountCheckmarkText>
+          <AccountCheckmarkText>
+            Account will unlock in {this.state.lockPeriod} months
+          </AccountCheckmarkText>
         </AccountLockDetailsPanel>
-        <AccountMediumButtons
-          onPressSecondary={() => this._goBack()}
-          onPressPrimary={() => this._showLockConfirmation()}
-          primary='Lock'
-          secondary='Back'
-        />
+        <AccountLockButton onPress={this._lock}>Confirm</AccountLockButton>
       </AccountLockContainer>
     )
   }

@@ -2,25 +2,21 @@ import React from 'react'
 import {
   View,
   ScrollView,
-  StatusBar,
   ImageBackground,
   TouchableOpacity
 } from 'react-native'
-import { SafeAreaView } from 'react-navigation'
-import componentStyles from '../../css/componentStyles'
 import LinearGradient from 'react-native-linear-gradient'
 import { H4, Progress, P, Input } from 'nachos-ui'
-import { ProgressBar } from '../common'
+import { ProgressBar, MainContainer } from '../common'
+import styles from './styles'
+import AppConstants from '../../AppConstants'
 
 export function SetupWelcomeContainer ({ children }) {
   return (
-    <SafeAreaView
-      style={[componentStyles.container, componentStyles.statusBarColor]}
-    >
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+    <MainContainer>
       <ImageBackground
         source={require('img/bloom.jpg')}
-        style={componentStyles.setupContainerBackgroundImage}
+        style={styles.setupContainerBackgroundImage}
         resizeMode='contain'
       />
       <LinearGradient
@@ -28,11 +24,11 @@ export function SetupWelcomeContainer ({ children }) {
         end={{ x: 0.5, y: 1.0 }}
         locations={[0, 0.5037, 1.0]}
         colors={['#0F2748', '#293E63', '#0F2748']}
-        style={[componentStyles.opaqueOverlay]}
+        style={[styles.opaqueOverlay]}
       >
-        <View style={componentStyles.setupWelcomeContainer}>{children}</View>
+        <View style={styles.setupWelcomeContainer}>{children}</View>
       </LinearGradient>
-    </SafeAreaView>
+    </MainContainer>
   )
 }
 
@@ -41,21 +37,18 @@ export function SetupContainer (props) {
     props.navigation.goBack()
   }
   return (
-    <SafeAreaView
-      style={[componentStyles.container, componentStyles.statusBarColor]}
-    >
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+    <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
         <LinearGradient
           locations={[0, 1.0]}
           colors={['#0F2748', '#293E63']}
-          style={[componentStyles.setupContainerOverlay]}
+          style={[styles.setupContainerOverlay]}
         >
-          <View style={componentStyles.setupContainer}>{props.children}</View>
+          <View style={styles.setupContainer}>{props.children}</View>
         </LinearGradient>
       </View>
-    </SafeAreaView>
+    </MainContainer>
   )
 }
 
@@ -64,37 +57,34 @@ export function SetupContainerWithScrollView (props) {
     props.navigation.goBack()
   }
   return (
-    <SafeAreaView
-      style={[componentStyles.container, componentStyles.statusBarColor]}
-    >
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+    <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
         <LinearGradient
           locations={[0, 1.0]}
           colors={['#0F2748', '#293E63']}
-          style={[componentStyles.setupContainerOverlay]}
+          style={[styles.setupContainerOverlay]}
         >
-          <ScrollView style={componentStyles.setupContainerWithScrollView}>
+          <ScrollView style={styles.setupContainerWithScrollView}>
             {props.children}
           </ScrollView>
         </LinearGradient>
       </View>
-    </SafeAreaView>
+    </MainContainer>
   )
 }
 
 export function LargeText ({ children }) {
-  return <H4 style={[componentStyles.largeText]}>{children}</H4>
+  return <H4 style={[styles.largeText]}>{children}</H4>
 }
 
 export function UnderlineDivider ({ children }) {
-  return <Progress style={componentStyles.underline} />
+  return <Progress style={styles.underline} />
 }
 
 export function ParagraphText (props) {
   return (
-    <P style={[componentStyles.paragraphText]} {...props}>
+    <P style={[styles.paragraphText]} {...props}>
       {props.children}
     </P>
   )
@@ -102,7 +92,7 @@ export function ParagraphText (props) {
 
 export function SmallParagraphText (props) {
   return (
-    <P style={[componentStyles.smallParagraphText]} {...props}>
+    <P style={[styles.smallParagraphText]} {...props}>
       {props.children}
     </P>
   )
@@ -110,7 +100,7 @@ export function SmallParagraphText (props) {
 
 export function RecoveryConfirmationText (props) {
   return (
-    <P style={[componentStyles.recoveryConfirmationText]} {...props}>
+    <P style={[styles.recoveryConfirmationText]} {...props}>
       {props.children}
     </P>
   )
@@ -118,7 +108,7 @@ export function RecoveryConfirmationText (props) {
 
 export function RecoveryConfirmationTextOnly (props) {
   return (
-    <P style={[componentStyles.recoveryConfirmationTextOnly]} {...props}>
+    <P style={[styles.recoveryConfirmationTextOnly]} {...props}>
       {props.children}
     </P>
   )
@@ -126,19 +116,13 @@ export function RecoveryConfirmationTextOnly (props) {
 
 export function RecoveryPhraseConfirmation (props) {
   return (
-    <View style={componentStyles.recoveryConfirmationContainer}>
+    <View style={styles.recoveryConfirmationContainer}>
       {props.words.map((row, rowIndex) => {
         return (
-          <View
-            key={rowIndex}
-            style={componentStyles.recoveryConfirmationRowView}
-          >
+          <View key={rowIndex} style={styles.recoveryConfirmationRowView}>
             {row.map((item, index) => {
               return (
-                <View
-                  key={index}
-                  style={[componentStyles.recoveryConfirmationBox]}
-                >
+                <View key={index} style={[styles.recoveryConfirmationBox]}>
                   <RecoveryConfirmationText>{item}</RecoveryConfirmationText>
                 </View>
               )
@@ -152,13 +136,10 @@ export function RecoveryPhraseConfirmation (props) {
 
 export function RecoveryPhraseConfirmationButtons (props) {
   return (
-    <View style={componentStyles.recoveryConfirmationButtonContainer}>
+    <View style={styles.recoveryConfirmationButtonContainer}>
       {props.words.map((row, rowIndex) => {
         return (
-          <View
-            key={rowIndex}
-            style={componentStyles.recoveryConfirmationRowView}
-          >
+          <View key={rowIndex} style={styles.recoveryConfirmationRowView}>
             {row.map((item, index) => {
               const i = index + row.length * rowIndex
               return (
@@ -183,7 +164,7 @@ export function RecoveryPhraseConfirmationButtons (props) {
 }
 
 export function RecoveryPhraseConfirmationButton (props) {
-  let bgColor = '#4e957a'
+  let bgColor = AppConstants.SQUARE_BUTTON_COLOR
   if (props.error) {
     bgColor = '#f05123'
   } else if (props.selected) {
@@ -192,7 +173,7 @@ export function RecoveryPhraseConfirmationButton (props) {
   return (
     <View
       style={[
-        componentStyles.recoveryConfirmationButtonBox,
+        styles.recoveryConfirmationButtonBox,
         { backgroundColor: bgColor }
       ]}
     >
@@ -203,12 +184,12 @@ export function RecoveryPhraseConfirmationButton (props) {
 
 export function RecoveryPhraseConfirmationTextOnly (props) {
   return (
-    <View style={componentStyles.recoveryConfirmationContainerTextOnly}>
+    <View style={styles.recoveryConfirmationContainerTextOnly}>
       {props.words.map((row, rowIndex) => {
         return (
           <View
             key={rowIndex}
-            style={componentStyles.recoveryConfirmationRowViewTextOnly}
+            style={styles.recoveryConfirmationRowViewTextOnly}
           >
             {row.map((item, index) => {
               return (

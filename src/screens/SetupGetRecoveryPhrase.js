@@ -9,28 +9,22 @@ import {
   TouchableOpacity
 } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
-import CommonButton from '../components/CommonButton'
-import cssStyles from '../css/styles'
-import { SafeAreaView } from 'react-navigation'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import RecoveryDropdown from '../components/RecoveryDropdown'
+import RecoveryDropdown from '../components/common/RecoveryDropdown'
 import { Dialog } from 'react-native-simple-dialogs'
-import SetupProgressBar from '../components/SetupProgressBar'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../model/SetupStore'
-import FlashNotification from '../components/FlashNotification'
-import Padding from '../components/Padding'
+import FlashNotification from '../components/common/FlashNotification'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import styleConstants from '../css/styleConstants'
-import WaitingForBlockchainSpinner from '../components/WaitingForBlockchainSpinner'
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
 import {
   SetupContainer,
@@ -39,6 +33,7 @@ import {
 } from '../components/setup'
 import { LargeButtons } from '../components/common'
 import { BottomLinkText } from '../components/common'
+import cssStyles from '../css/styles'
 
 const DEFAULT_ROW_LENGTH = 4
 const _ = require('lodash')

@@ -1,18 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import CommonButton from '../components/CommonButton'
-import SetupProgressBar from '../components/SetupProgressBar'
-import cssStyles from '../css/styles'
+import { Alert } from 'react-native'
 import SetupStore from '../model/SetupStore'
-import { SafeAreaView } from 'react-navigation'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
-import Padding from '../components/Padding'
-import FlashNotification from '../components/FlashNotification'
+import FlashNotification from '../components/common/FlashNotification'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import { SetupContainer, ParagraphText } from '../components/setup'
 import { LargeButtons, Label, CheckBox, TextInput } from '../components/common'
@@ -203,83 +196,8 @@ class SetupEncryptionPassword extends Component {
           Next
         </LargeButtons>
       </SetupContainer>
-      // <SafeAreaView style={cssStyles.safeContainer}>
-      //   <View style={cssStyles.container}>
-      //     <ScrollView style={cssStyles.contentContainer}>
-      //       <SetupProgressBar navigation={this.props.navigation} />
-
-    //       <Padding top={0} bottom={0}>
-    //         <View style={styles.textContainer}>
-    //           <Text
-    //             style={cssStyles.wizardText}
-    //             onPress={this.showInformation}
-    //           >
-    //             {this.state.instructionText}
-    //             {'  '}
-    //             <FontAwesome5Pro
-    //               name='info'
-    //               color='#ffffff'
-    //               size={20}
-    //               style={{ marginBottom: 3 }}
-    //               light
-    //             />
-    //           </Text>
-    //         </View>
-    //       </Padding>
-
-    //       <Padding top={2}>
-    //         <TextInput
-    //           onChangeText={password => this.setState({ password })}
-    //           value={this.state.password}
-    //           placeholder='Enter a password'
-    //           secureTextEntry={!this.state.showPasswords}
-    //           autoCapitalize='none'
-    //         />
-    //       </Padding>
-
-    //       <Padding>
-    //         <TextInput
-    //           onChangeText={this.updateComfirmPassword}
-    //           value={this.state.confirmPassword}
-    //           placeholder='Confirm your password'
-    //           secureTextEntry={!this.state.showPasswords}
-    //           autoCapitalize='none'
-    //         />
-    //       </Padding>
-
-    //       <Padding>
-    //         <CheckBox
-    //           style={cssStyles.checkbox}
-    //           onClick={this.checkedShowPasswords}
-    //           isChecked={this.state.showPasswords}
-    //           rightText='Show passwords'
-    //           rightTextStyle={{
-    //             color: '#ffffff',
-    //             fontSize: 20,
-    //             fontFamily: 'TitilliumWeb-Regular'
-    //           }}
-    //           checkBoxColor='#ffffff'
-    //         />
-    //       </Padding>
-    //     </ScrollView>
-
-    //     <View style={cssStyles.footer}>
-    //       <CommonButton
-    //         onPress={this.showNextSetup}
-    //         title='Next'
-    //         disabled={!progress}
-    //       />
-    //     </View>
-    //   </View>
-    // </SafeAreaView>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  infoParagraph: {
-    flexDirection: 'row'
-  }
-})
 
 export default SetupEncryptionPassword

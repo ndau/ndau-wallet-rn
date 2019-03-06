@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import Padding from './Padding'
-import styleConstants from '../css/styleConstants'
+import styleConstants from '../../css/styleConstants'
 
 class ModalDialog extends Component {
   constructor (props) {

@@ -4,24 +4,24 @@ import {
   StatusBar,
   ImageBackground,
   TouchableOpacity,
-  Picker
+  Picker,
+  Text,
+  Image
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
-import componentStyles from '../../css/componentStyles'
 import { Button, Progress, H4, P, Checkbox, Input } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
-import { ParagraphText, SmallParagraphText } from '../setup'
+import { SmallParagraphText } from '../setup'
+import styles from './styles'
+import AppConstants from '../../AppConstants'
 
 export function LoginContainer ({ children }) {
   return (
-    <SafeAreaView
-      style={[componentStyles.container, componentStyles.statusBarColor]}
-    >
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+    <MainContainer>
       <ImageBackground
         source={require('img/bloom.jpg')}
-        style={componentStyles.setupContainerBackgroundImage}
+        style={styles.setupContainerBackgroundImage}
         resizeMode='contain'
       />
       <LinearGradient
@@ -29,11 +29,11 @@ export function LoginContainer ({ children }) {
         end={{ x: 0.5, y: 1.0 }}
         locations={[0, 0.5037, 1.0]}
         colors={['#0F2748', '#293E63', '#0F2748']}
-        style={[componentStyles.opaqueOverlay]}
+        style={[styles.opaqueOverlay]}
       >
-        <View style={componentStyles.loginContainer}>{children}</View>
+        <View style={styles.loginContainer}>{children}</View>
       </LinearGradient>
-    </SafeAreaView>
+    </MainContainer>
   )
 }
 
@@ -43,9 +43,9 @@ export function LargeButtons (props) {
       style={
         props.bottom
           ? props.secondary
-            ? componentStyles.setupButtonContainerBottom
-            : componentStyles.setupButtonContainerBottomNoBorder
-          : componentStyles.setupButtonContainerTop
+            ? styles.setupButtonContainerBottom
+            : styles.setupButtonContainerBottomNoBorder
+          : styles.setupButtonContainerTop
       }
     >
       {props.text ? (
@@ -53,11 +53,9 @@ export function LargeButtons (props) {
       ) : null}
       <Button
         style={
-          props.secondary
-            ? componentStyles.largeButtonSecondary
-            : componentStyles.largeButton
+          props.secondary ? styles.largeButtonSecondary : styles.largeButton
         }
-        textStyle={componentStyles.largeButtonText}
+        textStyle={styles.largeButtonText}
         uppercase={false}
         {...props}
       >
@@ -72,13 +70,13 @@ export function LargeButton (props) {
     <View
       style={
         props.scroll
-          ? componentStyles.setupButtonContainerScrollView
-          : componentStyles.setupButtonContainerBottomNoBorder
+          ? styles.setupButtonContainerScrollView
+          : styles.setupButtonContainerBottomNoBorder
       }
     >
       <Button
-        style={componentStyles.largeButton}
-        textStyle={componentStyles.largeButtonText}
+        style={styles.largeButton}
+        textStyle={styles.largeButtonText}
         uppercase={false}
         {...props}
       >
@@ -90,8 +88,8 @@ export function LargeButton (props) {
 
 export function BottomLinkText (props) {
   return (
-    <View style={[componentStyles.centeredLinkContainer, { left: props.left }]}>
-      <H4 {...props} style={componentStyles.centeredLinkText}>
+    <View style={[styles.centeredLinkContainer, { left: props.left }]}>
+      <H4 {...props} style={styles.centeredLinkText}>
         {props.children}
       </H4>
     </View>
@@ -100,8 +98,8 @@ export function BottomLinkText (props) {
 
 export function LinkText (props) {
   return (
-    <View style={[componentStyles.linkContainer]}>
-      <H4 {...props} style={[componentStyles.linkText]}>
+    <View style={[styles.linkContainer]}>
+      <H4 {...props} style={[styles.linkText]}>
         {props.children}
       </H4>
     </View>
@@ -110,8 +108,8 @@ export function LinkText (props) {
 
 export function PasswordLinkText (props) {
   return (
-    <View style={[componentStyles.passwordLinkContainer]}>
-      <H4 {...props} style={[componentStyles.linkText]}>
+    <View style={[styles.passwordLinkContainer]}>
+      <H4 {...props} style={[styles.linkText]}>
         {props.children}
       </H4>
     </View>
@@ -120,8 +118,8 @@ export function PasswordLinkText (props) {
 
 export function NdauTotal (props) {
   return (
-    <View style={[componentStyles.ndauTotalContainer]}>
-      <H4 {...props} style={[componentStyles.ndauTotalText]}>
+    <View style={[styles.ndauTotalContainer]}>
+      <H4 {...props} style={[styles.ndauTotalText]}>
         {props.children}
       </H4>
     </View>
@@ -135,20 +133,25 @@ const SETUP_SCREEN_TOTAL = 19
 
 export function ProgressBar (props) {
   return (
-    <View style={componentStyles.progressBarContainer}>
-      <View style={componentStyles.backArrow}>
+    <View style={styles.progressBarContainer}>
+      <View style={styles.backArrow}>
         <TouchableOpacity onPress={props.goBack}>
-          <FontAwesome5Pro size={28} name='arrow-left' color='#4B9176' light />
+          <FontAwesome5Pro
+            size={28}
+            name='arrow-left'
+            color={AppConstants.ICON_BUTTON_COLOR}
+            light
+          />
         </TouchableOpacity>
       </View>
       <Progress
         progress={props.pageNumber ? props.pageNumber / SETUP_SCREEN_TOTAL : 0}
-        color='#4E957A'
-        style={componentStyles.progressBar}
+        color={AppConstants.PROGRESS_BAR_COLOR}
+        style={styles.progressBar}
         width={240}
         height={8}
       />
-      <H4 style={[componentStyles.progressNumber]}>
+      <H4 style={[styles.progressNumber]}>
         {props.pageNumber
           ? Math.round((props.pageNumber / SETUP_SCREEN_TOTAL) * 100)
           : '0'}
@@ -160,13 +163,13 @@ export function ProgressBar (props) {
 
 export function LabelWithIcon (props) {
   return (
-    <View style={componentStyles.labelWithIconContainer}>
-      <P style={[componentStyles.labelText]}>{props.children}</P>
+    <View style={styles.labelWithIconContainer}>
+      <P style={[styles.labelText]}>{props.children}</P>
       <TouchableOpacity {...props}>
         <FontAwesome5Pro
           size={24}
           name={props.fontAwesomeIconName}
-          color='#4B9176'
+          color={AppConstants.ICON_BUTTON_COLOR}
           light
         />
       </TouchableOpacity>
@@ -176,7 +179,7 @@ export function LabelWithIcon (props) {
 
 export function Label (props) {
   return (
-    <P style={[componentStyles.labelText]} {...props}>
+    <P style={[styles.labelText]} {...props}>
       {props.children}
     </P>
   )
@@ -186,17 +189,13 @@ export function CheckBox (props) {
   return (
     <View style={{ flexDirection: 'row' }}>
       <Checkbox
-        style={
-          props.scroll
-            ? componentStyles.checkboxInScrollView
-            : componentStyles.checkbox
-        }
-        iconColor='#FFFFFF'
+        style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
+        iconColor={AppConstants.TEXT_COLOR}
         {...props}
       >
         {props.children}
       </Checkbox>
-      <P style={[componentStyles.checkboxLabel]} {...props}>
+      <P style={[styles.checkboxLabel]} {...props}>
         {props.label}
       </P>
     </View>
@@ -205,7 +204,7 @@ export function CheckBox (props) {
 
 export function LegalText (props) {
   return (
-    <P style={[componentStyles.legalText]} {...props}>
+    <P style={[styles.legalText]} {...props}>
       {props.children}
     </P>
   )
@@ -213,7 +212,7 @@ export function LegalText (props) {
 
 export function LegalTextHeading (props) {
   return (
-    <P style={[componentStyles.legalTextHeading]} {...props}>
+    <P style={[styles.legalTextHeading]} {...props}>
       {props.children}
     </P>
   )
@@ -221,7 +220,7 @@ export function LegalTextHeading (props) {
 
 export function MainLegalTextHeading (props) {
   return (
-    <P style={[componentStyles.mainLegalTextHeading]} {...props}>
+    <P style={[styles.mainLegalTextHeading]} {...props}>
       {props.children}
     </P>
   )
@@ -229,7 +228,7 @@ export function MainLegalTextHeading (props) {
 
 export function LegalTextBold (props) {
   return (
-    <P style={[componentStyles.legalTextBold]} {...props}>
+    <P style={[styles.legalTextBold]} {...props}>
       {props.children}
     </P>
   )
@@ -237,29 +236,26 @@ export function LegalTextBold (props) {
 
 export function AppContainer (props) {
   return (
-    <SafeAreaView
-      style={[componentStyles.container, componentStyles.statusBarColor]}
-    >
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+    <MainContainer>
       <View style={{ flex: 1 }}>
         <LinearGradient
           start={{ x: 0.0, y: 0.1 }}
           end={{ x: 0.0, y: 1.0 }}
           locations={[0, 0.18]}
           colors={['#0A1724', '#0F2748']}
-          style={[componentStyles.appContainerOverlay]}
+          style={[styles.appContainerOverlay]}
         >
-          <View style={componentStyles.appContainer}>{props.children}</View>
+          <View style={styles.appContainer}>{props.children}</View>
         </LinearGradient>
       </View>
-    </SafeAreaView>
+    </MainContainer>
   )
 }
 
 export function TextInput (props) {
   return (
     <Input
-      style={componentStyles.input}
+      style={styles.input}
       placeholderTextColor='#858688'
       autoCapitalize='none'
       {...props}
@@ -268,19 +264,65 @@ export function TextInput (props) {
 }
 
 export function Dropdown (props) {
-  // TODO: this is temporary but if you populate items this does
-  // get used
-  let items = props.items || {
-    '123456789': 'Account 1',
-    '12345678910': 'Account 2'
-  }
   return (
-    <View style={props.containerStyle}>
-      <Picker {...props}>
-        {Object.keys(items).map((key, index) => {
-          return <Picker.Item key={index} label={items[key]} value={key} />
-        })}
+    <View style={styles.dropdownDetailsTextPanel}>
+      <Picker
+        itemStyle={styles.dropdownPickerText}
+        style={styles.dropdownPicker}
+        {...props}
+      >
+        {Object.keys(props.items)
+          .filter(key => key !== props.nickname)
+          .map((key, index) => {
+            return (
+              <Picker.Item key={index} label={key} value={props.items[key]} />
+            )
+          })}
       </Picker>
+    </View>
+  )
+}
+
+export function MainContainer (props) {
+  return (
+    <SafeAreaView style={[styles.container, styles.statusBarColor]}>
+      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      {props.children}
+    </SafeAreaView>
+  )
+}
+
+export function ContentContainer (props) {
+  return <View style={styles.appContainer}>{props.children}</View>
+}
+
+export function CloseForBar (props) {
+  return (
+    <View style={styles.closeForBar}>
+      <TouchableOpacity onPress={props.close}>
+        <FontAwesome5Pro
+          size={28}
+          name='times'
+          color={AppConstants.ICON_BUTTON_COLOR}
+          light
+        />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export function CollapsablePanelText (props) {
+  return (
+    <Text style={styles.collapsibleTextVerySmallWhite}>{props.children}</Text>
+  )
+}
+
+const NDAU = require('img/ndau_orange_logo.png')
+
+export function LoginImage (props) {
+  return (
+    <View style={styles.loginImageView}>
+      <Image style={styles.loginImage} resizeMode='contain' source={NDAU} />
     </View>
   )
 }

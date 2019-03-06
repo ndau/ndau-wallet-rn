@@ -1,20 +1,8 @@
 import React, { Component } from 'react'
 
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  TouchableWithoutFeedback
-} from 'react-native'
-import CommonButton from '../components/CommonButton'
-import SetupProgressBar from '../components/SetupProgressBar'
-import cssStyles from '../css/styles'
-import { SafeAreaView } from 'react-navigation'
 import EntropyHelper from '../helpers/EntropyHelper'
-import LoggingService from '../services/LoggingService'
 import { SetupContainer, ParagraphText } from '../components/setup'
-import { ProgressBar, LargeButtons } from '../components/common'
+import { LargeButtons } from '../components/common'
 
 class SetupYourWallet extends Component {
   showNextSetup = async () => {
