@@ -33,7 +33,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     borderRadius: 4,
-    borderColor: '#4e957a',
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
     marginLeft: wp('4%')
@@ -71,7 +71,7 @@ export default StyleSheet.create({
     width: wp('92%'),
     height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: '#4e957a'
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
   },
   centeredLinkContainer: {
     position: 'absolute',
@@ -186,8 +186,8 @@ export default StyleSheet.create({
     paddingTop: 0
   },
   checkboxInScrollView: {
-    backgroundColor: '#4E957A',
-    borderColor: '#4E957A',
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%')
   },
@@ -201,8 +201,8 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   checkbox: {
-    backgroundColor: '#4E957A',
-    borderColor: '#4E957A',
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
     marginLeft: wp('4%')

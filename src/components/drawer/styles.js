@@ -103,6 +103,6 @@ export default StyleSheet.create({
     height: hp('6%'),
     textAlign: 'right',
     alignSelf: 'flex-end',
-    paddingTop: 0
+    paddingTop: hp('.5%')
   }
 })
