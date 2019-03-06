@@ -377,7 +377,7 @@ export function AccountClosingBar (props) {
         </TouchableOpacity>
       </View>
       <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
-      {props.closeBar ? <CloseForBar {...props} /> : null}
+      {props.closeBar ? <CloseForBar {...props} /> : <View />}
     </View>
   )
 }

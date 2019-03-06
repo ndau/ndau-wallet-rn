@@ -314,7 +314,7 @@ export default StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'stretch',
     width: wp('100%'),
-    height: hp('5%'),
+    height: hp('6%'),
     backgroundColor: 'transparent',
     color: '#000000'
   },
