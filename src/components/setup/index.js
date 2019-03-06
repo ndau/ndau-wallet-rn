@@ -9,6 +9,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { H4, Progress, P, Input } from 'nachos-ui'
 import { ProgressBar, MainContainer } from '../common'
 import styles from './styles'
+import AppConstants from '../../AppConstants'
 
 export function SetupWelcomeContainer ({ children }) {
   return (
@@ -163,7 +164,7 @@ export function RecoveryPhraseConfirmationButtons (props) {
 }
 
 export function RecoveryPhraseConfirmationButton (props) {
-  let bgColor = '#4e957a'
+  let bgColor = AppConstants.SQUARE_BUTTON_COLOR
   if (props.error) {
     bgColor = '#f05123'
   } else if (props.selected) {

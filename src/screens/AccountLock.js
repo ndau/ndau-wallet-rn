@@ -19,15 +19,20 @@ class AccountLock extends Component {
       wallet: {},
       sliderValue: 0.5,
       lockPercentage: 3,
-      lockPeriod: 12
+      lockPeriod: 12,
+      allAccountNicknames: {}
     }
   }
 
   componentWillMount = () => {
     const account = this.props.navigation.getParam('account', null)
     const wallet = this.props.navigation.getParam('wallet', null)
+    const allAccountNicknames = this.props.navigation.getParam(
+      'allAccountNicknames',
+      null
+    )
 
-    this.setState({ account, wallet })
+    this.setState({ account, wallet, allAccountNicknames })
   }
 
   _showLockConfirmation = () => {
@@ -95,6 +100,8 @@ class AccountLock extends Component {
           <Dropdown
             selectedValue={this.state.language}
             onValueChange={itemValue => this.setState({ language: itemValue })}
+            items={this.state.allAccountNicknames}
+            nickname={this.state.account.addressData.nickname}
           />
         </AccountLockDetailsPanel>
         <AccountLockButton

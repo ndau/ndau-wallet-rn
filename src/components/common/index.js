@@ -264,12 +264,6 @@ export function TextInput (props) {
 }
 
 export function Dropdown (props) {
-  // TODO: this is temporary but if you populate items this does
-  // get used
-  let items = props.items || {
-    '123456789': 'Account 1',
-    '12345678910': 'Account 2'
-  }
   return (
     <View style={styles.dropdownDetailsTextPanel}>
       <Picker
@@ -277,9 +271,13 @@ export function Dropdown (props) {
         style={styles.dropdownPicker}
         {...props}
       >
-        {Object.keys(items).map((key, index) => {
-          return <Picker.Item key={index} label={items[key]} value={key} />
-        })}
+        {Object.keys(props.items)
+          .filter(key => key !== props.nickname)
+          .map((key, index) => {
+            return (
+              <Picker.Item key={index} label={key} value={props.items[key]} />
+            )
+          })}
       </Picker>
     </View>
   )

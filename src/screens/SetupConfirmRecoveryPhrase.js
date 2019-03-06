@@ -222,7 +222,7 @@ function Word (props) {
   if (props.error) {
     bgColor = '#f05123'
   } else if (props.selected) {
-    bgColor = '#4e957a'
+    bgColor = AppConstants.SQUARE_BUTTON_COLOR
   }
 
   return (

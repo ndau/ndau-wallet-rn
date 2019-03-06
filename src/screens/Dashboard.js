@@ -22,6 +22,8 @@ import {
   DashboardLabel,
   DashboardPanel
 } from '../components/dashboard'
+import CollapsibleBar from '../components/common/CollapsibleBar'
+import { DashboardTotalPanel } from '../components/account'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -144,21 +146,10 @@ class Dashboard extends Component {
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardContainer>
-              <CollapsiblePanel
+              <DashboardTotalPanel
                 title={currentPrice}
                 titleRight='* at current price'
-              >
-                <CollapsablePanelText>
-                  * The estimated value of ndau in US dollars can be calculated
-                  using the Target Price at which new ndau have most recently
-                  been issued. The value shown here is calculated using that
-                  method as of the issue price on {DateHelper.getTodaysDate()}.
-                  The Axiom Foundation, creator and issuer of ndau, bears no
-                  responsibility or liability for the calculation of that
-                  estimated value, or for decisions based on that estimated
-                  value.
-                </CollapsablePanelText>
-              </CollapsiblePanel>
+              />
               <DashboardLabel>Your wallets</DashboardLabel>
               {wallets.map((wallet, index) => {
                 return (

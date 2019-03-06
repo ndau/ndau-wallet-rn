@@ -33,7 +33,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     borderRadius: 4,
-    borderColor: '#4e957a',
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
     marginLeft: wp('4%')
@@ -71,7 +71,7 @@ export default StyleSheet.create({
     width: wp('92%'),
     height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: '#4e957a'
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
   },
   centeredLinkContainer: {
     position: 'absolute',
@@ -186,8 +186,8 @@ export default StyleSheet.create({
     paddingTop: 0
   },
   checkboxInScrollView: {
-    backgroundColor: '#4E957A',
-    borderColor: '#4E957A',
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%')
   },
@@ -201,8 +201,8 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   checkbox: {
-    backgroundColor: '#4E957A',
-    borderColor: '#4E957A',
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
     marginLeft: wp('4%')
@@ -221,6 +221,13 @@ export default StyleSheet.create({
     letterSpacing: 0.39,
     lineHeight: 27,
     fontWeight: 'bold'
+  },
+  legalTextHeading: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 22,
+    letterSpacing: 0.39,
+    lineHeight: 27
   },
   legalTextBold: {
     color: AppConstants.TEXT_COLOR,
@@ -365,5 +372,85 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%'),
     opacity: 0.2
+  },
+  bar: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    height: hp('8%'),
+    backgroundColor: '#0A1724',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0,
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    overflow: 'hidden'
+  },
+  barWrapper: {
+    alignSelf: 'stretch'
+  },
+  icon: {
+    padding: 5,
+    width: 40
+  },
+  barTextTitleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  barTextTitleContainerWithMiddle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  title: {
+    color: AppConstants.TEXT_COLOR,
+    flex: 1,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingLeft: wp('4%')
+  },
+  titleLeft: {
+    color: AppConstants.TEXT_COLOR,
+    flex: 1,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingRight: wp('1%')
+  },
+  barBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  barTitleLeft: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
+  },
+  barTitleMiddle: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
+  },
+  barTitleRight: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    fontFamily: 'TitilliumWeb-Light'
   }
 })

@@ -6,19 +6,18 @@ import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
-import CollapsiblePanel from '../components/common/CollapsiblePanel'
 import {
   AppContainer,
   NdauTotal,
-  Label,
   CollapsablePanelText
 } from '../components/common'
-import { AccountButton, AccountPanel } from '../components/account'
+import { LargeAccountButton, AccountPanel } from '../components/account'
 import {
   DashboardContainer,
   DashboardLabelWithIcon
 } from '../components/dashboard'
 import { DrawerHeaderForOverview, DrawerHeader } from '../components/drawer'
+import { DashboardTotalPanel } from '../components/account'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
@@ -39,6 +38,7 @@ class WalletOverview extends Component {
     }
 
     this.isTestNet = false
+    this.allAccountNicknames = []
   }
 
   componentWillUnmount () {
@@ -139,7 +139,11 @@ class WalletOverview extends Component {
   }
 
   _showAccountDetails = (account, wallet) => {
-    this.props.navigation.navigate('AccountDetails', { account, wallet })
+    this.props.navigation.navigate('AccountDetails', {
+      account,
+      wallet,
+      allAccountNicknames: this.allAccountNicknames
+    })
   }
 
   render = () => {
@@ -155,6 +159,7 @@ class WalletOverview extends Component {
         this.state.marketPrice,
         totalNdau
       )
+      this.allAccountNicknames = {}
 
       return (
         <AppContainer>
@@ -174,25 +179,14 @@ class WalletOverview extends Component {
             }
           >
             <DrawerHeaderForOverview {...this.props}>
-              Wallet name
+              {this.state.wallet ? this.state.wallet.walletId : ''}
             </DrawerHeaderForOverview>
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardContainer>
-              <CollapsiblePanel
+              <DashboardTotalPanel
                 title={currentPrice}
                 titleRight='* at current price'
-              >
-                <CollapsablePanelText>
-                  * The estimated value of ndau in US dollars can be calculated
-                  using the Target Price at which new ndau have most recently
-                  been issued. The value shown here is calculated using that
-                  method as of the issue price on {DateHelper.getTodaysDate()}.
-                  The Axiom Foundation, creator and issuer of ndau, bears no
-                  responsibility or liability for the calculation of that
-                  estimated value, or for decisions based on that estimated
-                  value.
-                </CollapsablePanelText>
-              </CollapsiblePanel>
+              />
               <DashboardLabelWithIcon
                 onPress={() => this.launchAddNewAccountDialog()}
                 fontAwesomeIconName='plus-circle'
@@ -232,6 +226,12 @@ class WalletOverview extends Component {
                     const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
                       wallet.accounts[accountKey].addressData
                     )
+                    const address = wallet.accounts[accountKey].address
+                    const nickname =
+                        wallet.accounts[accountKey].addressData.nickname
+                    Object.assign(this.allAccountNicknames, {
+                      [nickname]: address
+                    })
                     return (
                       <AccountPanel
                         key={index}
@@ -252,16 +252,18 @@ class WalletOverview extends Component {
                         {...this.props}
                       >
                         {accountLockedUntil || accountNoticePeriod ? (
-                          <AccountButton>Send disabled</AccountButton>
+                          <LargeAccountButton>
+                              Send disabled
+                          </LargeAccountButton>
                         ) : (
-                          <AccountButton icon='arrow-alt-up'>
+                          <LargeAccountButton icon='arrow-alt-up'>
                               Send
-                          </AccountButton>
+                          </LargeAccountButton>
                         )}
 
-                        <AccountButton icon='arrow-alt-down'>
+                        <LargeAccountButton icon='arrow-alt-down'>
                             Receive
-                        </AccountButton>
+                        </LargeAccountButton>
                       </AccountPanel>
                     )
                   })
