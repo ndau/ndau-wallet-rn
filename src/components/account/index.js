@@ -9,6 +9,7 @@ import CollapsibleBar from '../common/CollapsibleBar'
 import styles from './styles'
 import DateHelper from '../../helpers/DateHelper'
 import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
+import AppConstants from '../../AppConstants'
 
 export function AccountPanel (props) {
   return (
@@ -43,7 +44,7 @@ export function AccountPanel (props) {
                 <FontAwesome5Pro
                   name={props.icon}
                   size={18}
-                  color='#4B9176'
+                  color={AppConstants.ICON_BUTTON_COLOR}
                   style={styles.accountNicknameIcon}
                   light
                 />
@@ -52,7 +53,7 @@ export function AccountPanel (props) {
                     <FontAwesome5Pro
                       name='clock'
                       size={18}
-                      color='#4B9176'
+                      color={AppConstants.ICON_BUTTON_COLOR}
                       style={styles.accountNicknameIcon}
                       light
                     />
@@ -105,7 +106,7 @@ export function AccountPanel (props) {
                 <FontAwesome5Pro
                   name='chevron-circle-right'
                   size={24}
-                  color='#4B9176'
+                  color={AppConstants.ICON_BUTTON_COLOR}
                   style={styles.accountAngle}
                   solid
                 />
@@ -213,7 +214,7 @@ export function AccountButton (props) {
       <FontAwesome5Pro
         name={props.icon}
         size={18}
-        color='#4B9176'
+        color={AppConstants.ICON_BUTTON_COLOR}
         style={styles.accountAngle}
         light
       />
@@ -233,7 +234,7 @@ export function LargeAccountButton (props) {
       <FontAwesome5Pro
         name={props.icon}
         size={18}
-        color='#4B9176'
+        color={AppConstants.ICON_BUTTON_COLOR}
         style={styles.accountAngle}
         light
       />
@@ -256,7 +257,7 @@ export function AccountTotalPanel (props) {
             <FontAwesome5Pro
               name='chevron-circle-right'
               size={24}
-              color='#4B9176'
+              color={AppConstants.ICON_BUTTON_COLOR}
               style={styles.viewHistoryAngle}
               solid
             />
@@ -352,7 +353,12 @@ export function AccountDetailsBar (props) {
     <View style={styles.accountDetailsBarContainer}>
       <View style={styles.backArrow}>
         <TouchableOpacity onPress={props.goBack}>
-          <FontAwesome5Pro size={28} name='arrow-left' color='#4B9176' light />
+          <FontAwesome5Pro
+            size={28}
+            name='arrow-left'
+            color={AppConstants.ICON_BUTTON_COLOR}
+            light
+          />
         </TouchableOpacity>
       </View>
       <H4 style={[styles.accountDetailsBarText]}>
@@ -373,7 +379,12 @@ export function AccountClosingBar (props) {
     <View style={styles.accountDetailsBarContainer}>
       <View style={[styles.backArrow, props.backArrowStyle]}>
         <TouchableOpacity onPress={props.goBack}>
-          <FontAwesome5Pro size={28} name='arrow-left' color='#4B9176' light />
+          <FontAwesome5Pro
+            size={28}
+            name='arrow-left'
+            color={AppConstants.ICON_BUTTON_COLOR}
+            light
+          />
         </TouchableOpacity>
       </View>
       <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
@@ -468,7 +479,7 @@ export function AccountHistoryPanels (props) {
         iconCollapsed='angle-down'
         iconActive='angle-down'
         iconOpened='angle-up'
-        tintColor='#4B9176'
+        tintColor={AppConstants.ICON_BUTTON_COLOR}
         lowerBorder
       >
         <View style={styles.accountHistoryTextPanelWithSmallText}>
@@ -499,7 +510,7 @@ export function DashboardTotalPanel (props) {
       iconCollapsed='angle-down'
       iconActive='angle-down'
       iconOpened='angle-up'
-      tintColor='#4B9176'
+      tintColor={AppConstants.ICON_BUTTON_COLOR}
       upperBorder
     >
       <View style={styles.dashboardTotalPanelTextContainer}>

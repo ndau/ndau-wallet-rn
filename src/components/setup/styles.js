@@ -134,7 +134,7 @@ export default StyleSheet.create({
     width: wp('21%'),
     height: hp('5.5%'),
     borderRadius: 4,
-    borderColor: '#4e957a',
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
     justifyContent: 'center',
@@ -144,7 +144,7 @@ export default StyleSheet.create({
     width: wp('21%'),
     height: hp('5.5%'),
     borderRadius: 4,
-    backgroundColor: '#4e957a',
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
     justifyContent: 'center',
     alignItems: 'center'
   },

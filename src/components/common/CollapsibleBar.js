@@ -90,6 +90,8 @@ class BarCollapsible extends Component {
       titleStyleLeft,
       titleStyleMiddle,
       titleStyleRight,
+      titleMiddle,
+      titleRight,
       children,
       lowerBorder,
       upperBorder
@@ -114,12 +116,12 @@ class BarCollapsible extends Component {
                   </View>
                   <View>
                     <Text style={[styles.barTitleMiddle, titleStyleMiddle]}>
-                      {this.props.titleMiddle}
+                      {titleMiddle}
                     </Text>
                   </View>
                   <View>
                     <Text style={[styles.barTitleRight, titleStyleRight]}>
-                      {this.props.titleRight}
+                      {titleRight}
                     </Text>
                   </View>
                 </View>
@@ -130,9 +132,7 @@ class BarCollapsible extends Component {
                   </View>
 
                   <View>
-                    <Text style={styles.barTitleRight}>
-                      {this.props.titleRight}
-                    </Text>
+                    <Text style={styles.barTitleRight}>{titleRight}</Text>
                   </View>
                 </View>
               )
