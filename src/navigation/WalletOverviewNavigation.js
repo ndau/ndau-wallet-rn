@@ -4,6 +4,7 @@ import WalletOverview from '../screens/WalletOverview'
 import AppDrawer from './AppDrawer'
 import AccountDetails from '../screens/AccountDetails'
 import AccountLock from '../screens/AccountLock'
+import AccountUnlock from '../screens/AccountUnlock'
 import AccountHistory from '../screens/AccountHistory'
 import AccountLockConfirmation from '../screens/AccountLockConfirmation'
 import IdentityMind from '../screens/IdentityMind'
@@ -28,6 +29,13 @@ const AccountLockScreen = ({ navigation }) => (
   <AccountLock navigation={navigation} />
 )
 AccountLockScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+})
+
+const AccountUnlockScreen = ({ navigation }) => (
+  <AccountUnlock navigation={navigation} />
+)
+AccountUnlockScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
@@ -70,6 +78,7 @@ const WalletOverviewStack = createStackNavigator({
   WalletOverview: { screen: WalletOverviewScreen },
   AccountDetails: { screen: AccountDetailsScreen },
   AccountLock: { screen: AccountLockScreen },
+  AccountUnlock: { screen: AccountUnlockScreen },
   AccountHistory: { screen: AccountHistoryScreen },
   AccountLockConfirmation: { screen: AccountLockConfirmationScreen },
   IdentityMind: { screen: IdentityMindScreen },

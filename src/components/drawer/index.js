@@ -4,18 +4,14 @@ import styles from './styles'
 import { H4 } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
-import { MainContainer } from '../common'
+import { MainContainer, FullScreenDualColorGradient } from '../common'
 import AppConstants from '../../AppConstants'
 
 export function DrawerContainer (props) {
   return (
     <MainContainer>
       <View style={styles.outerDrawerContainer}>
-        <LinearGradient
-          locations={[0, 1.0]}
-          colors={['#0F2748', '#293E63']}
-          style={[styles.drawerContainerOverlay]}
-        >
+        <FullScreenDualColorGradient>
           <View style={styles.drawerContainer}>{props.children}</View>
           <DrawerEntryItem
             bottom
@@ -24,7 +20,7 @@ export function DrawerContainer (props) {
           >
             Logout
           </DrawerEntryItem>
-        </LinearGradient>
+        </FullScreenDualColorGradient>
       </View>
     </MainContainer>
   )

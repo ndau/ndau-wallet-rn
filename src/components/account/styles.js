@@ -182,6 +182,9 @@ export default StyleSheet.create({
     width: wp('100%'),
     height: hp('5%')
   },
+  accountContentPanel: {
+    marginBottom: wp('2.5%')
+  },
   accountDetailsTextPanel: {
     marginLeft: wp('4%'),
     marginRight: wp('4%')
@@ -282,7 +285,9 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '200',
     letterSpacing: 0.34,
-    lineHeight: 24
+    lineHeight: 24,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
   },
   accountDetailsSmallerText: {
     color: AppConstants.TEXT_COLOR,
@@ -424,11 +429,6 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 12,
     textAlign: 'left'
-  },
-  accountHistoryMainPanel: {
-    width: wp('100%'),
-    height: hp('100%'),
-    backgroundColor: '#0A1724'
   },
   accountHistoryTextPanelWithSmallText: {
     marginLeft: wp('4%'),

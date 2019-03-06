@@ -28,7 +28,7 @@ class AccountDetails extends Component {
     this.setState({ account, wallet, allAccountNicknames })
   }
 
-  _showLock = (account, wallet) => {
+  showLock = (account, wallet) => {
     this.props.navigation.navigate('AccountLock', {
       account: account,
       wallet: wallet,
@@ -37,7 +37,15 @@ class AccountDetails extends Component {
     })
   }
 
-  _showHistory = account => {
+  showUnlock = (account, wallet) => {
+    this.props.navigation.navigate('AccountUnlock', {
+      account: account,
+      wallet: wallet,
+      nav: this.props.navigation
+    })
+  }
+
+  showHistory = account => {
     this.props.navigation.navigate('AccountHistory', {
       account: account
     })
@@ -71,7 +79,7 @@ class AccountDetails extends Component {
       >
         <AccountTotalPanel
           account={this.state.account}
-          onPress={() => this._showHistory(this.state.account)}
+          onPress={() => this.showHistory(this.state.account)}
           {...this.props}
         />
         <AccountDetailsPanel
@@ -81,7 +89,8 @@ class AccountDetails extends Component {
           accountLockedUntil={accountLockedUntil}
           accountNoticePeriod={accountNoticePeriod}
           accountNotLocked={accountNotLocked}
-          showLock={this._showLock}
+          showLock={this.showLock}
+          showUnlock={this.showUnlock}
           account={this.state.account}
           wallet={this.state.wallet}
         />

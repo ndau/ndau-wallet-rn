@@ -24,16 +24,43 @@ export function LoginContainer ({ children }) {
         style={styles.setupContainerBackgroundImage}
         resizeMode='contain'
       />
-      <LinearGradient
-        start={{ x: 0.0, y: 0.2 }}
-        end={{ x: 0.5, y: 1.0 }}
-        locations={[0, 0.5037, 1.0]}
-        colors={['#0F2748', '#293E63', '#0F2748']}
-        style={[styles.opaqueOverlay]}
-      >
+      <FullScreenTripColorGradient>
         <View style={styles.loginContainer}>{children}</View>
-      </LinearGradient>
+      </FullScreenTripColorGradient>
     </MainContainer>
+  )
+}
+
+export function FullScreenTripColorGradient (props) {
+  return (
+    <LinearGradient
+      start={{ x: 0.0, y: 0.2 }}
+      end={{ x: 0.5, y: 1.0 }}
+      locations={[0, 0.5037, 1.0]}
+      colors={[
+        AppConstants.FULL_SCREEN_GRADIENT_START_COLOR,
+        AppConstants.FULL_SCREEN_GRADIENT_MID_COLOR,
+        AppConstants.FULL_SCREEN_GRADIENT_END_COLOR
+      ]}
+      style={[styles.opaqueOverlay]}
+    >
+      {props.children}
+    </LinearGradient>
+  )
+}
+
+export function FullScreenDualColorGradient (props) {
+  return (
+    <LinearGradient
+      locations={[0, 1.0]}
+      colors={[
+        AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR,
+        AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR
+      ]}
+      style={[styles.setupContainerOverlay]}
+    >
+      {props.children}
+    </LinearGradient>
   )
 }
 
@@ -293,7 +320,9 @@ export function MainContainer (props) {
 }
 
 export function ContentContainer (props) {
-  return <View style={styles.appContainer}>{props.children}</View>
+  return (
+    <View style={[styles.appContainer, props.style]}>{props.children}</View>
+  )
 }
 
 export function CloseForBar (props) {
@@ -324,5 +353,22 @@ export function LoginImage (props) {
     <View style={styles.loginImageView}>
       <Image style={styles.loginImage} resizeMode='contain' source={NDAU} />
     </View>
+  )
+}
+
+export function TitleBarGradient (props) {
+  return (
+    <LinearGradient
+      start={{ x: 0.0, y: 0.02 }}
+      end={{ x: 0.0, y: 1.0 }}
+      locations={[0, 0.05]}
+      colors={[
+        AppConstants.TITLE_BAR_GRADIENT_START_COLOR,
+        AppConstants.TITLE_BAR_GRADIENT_END_COLOR
+      ]}
+      style={[styles.appContainerOverlay]}
+    >
+      {props.children}
+    </LinearGradient>
   )
 }

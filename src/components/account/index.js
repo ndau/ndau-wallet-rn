@@ -4,7 +4,12 @@ import { H4, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
-import { MainContainer, ContentContainer, CloseForBar } from '../common'
+import {
+  MainContainer,
+  ContentContainer,
+  CloseForBar,
+  TitleBarGradient
+} from '../common'
 import CollapsibleBar from '../common/CollapsibleBar'
 import styles from './styles'
 import DateHelper from '../../helpers/DateHelper'
@@ -126,18 +131,12 @@ export function AccountDetailsContainer (props) {
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
-        <LinearGradient
-          start={{ x: 0.0, y: 0.02 }}
-          end={{ x: 0.0, y: 1.0 }}
-          locations={[0, 0.05]}
-          colors={['#0A1724', '#0F2748']}
-          style={[styles.appContainerOverlay]}
-        >
+        <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountDetailsBar goBack={() => goBack()} {...props} />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
-        </LinearGradient>
+        </TitleBarGradient>
       </View>
     </MainContainer>
   )
@@ -153,22 +152,41 @@ export function AccountLockContainer (props) {
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
-        <LinearGradient
-          start={{ x: 0.0, y: 0.02 }}
-          end={{ x: 0.0, y: 1.0 }}
-          locations={[0, 0.05]}
-          colors={['#0A1724', '#0F2748']}
-          style={[styles.appContainerOverlay]}
-        >
+        <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
               closeBar
               close={this.close}
+              backBar
               goBack={this.goBack}
             />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
-        </LinearGradient>
+        </TitleBarGradient>
+      </View>
+    </MainContainer>
+  )
+}
+
+export function AccountUnlockContainer (props) {
+  close = () => {
+    props.navigation.navigate('AccountDetails', { account: props.account })
+  }
+  return (
+    <MainContainer>
+      <View style={{ flex: 1 }}>
+        <TitleBarGradient>
+          <View style={styles.accountTitlePanel}>
+            <AccountClosingBar
+              title={props.title}
+              closeBar
+              close={this.close}
+            />
+          </View>
+          <ContentContainer style={styles.accountContentPanel}>
+            {props.children}
+          </ContentContainer>
+        </TitleBarGradient>
       </View>
     </MainContainer>
   )
@@ -181,22 +199,17 @@ export function AccountHistoryContainer (props) {
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
-        <LinearGradient
-          start={{ x: 0.0, y: 0.02 }}
-          end={{ x: 0.0, y: 1.0 }}
-          locations={[0, 0.05]}
-          colors={['#0A1724', '#0F2748']}
-          style={[styles.appContainerOverlay]}
-        >
+        <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
               backArrowStyle={styles.backArrowForHistory}
+              backBar
               goBack={this.goBack}
               {...props}
             />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
-        </LinearGradient>
+        </TitleBarGradient>
       </View>
     </MainContainer>
   )
@@ -276,6 +289,10 @@ export function AccountLockDetailsPanel (props) {
   )
 }
 
+export function AccountLargeText (props) {
+  return <P style={styles.accountDetailsLargerText}>{props.children}</P>
+}
+
 export function AccountDetailsPanel (props) {
   return (
     <View style={styles.accountDetailsPanel}>
@@ -298,7 +315,12 @@ export function AccountDetailsPanel (props) {
               Lock
             </AccountButton>
           ) : (
-            <AccountButton icon='lock-open'>Unlock</AccountButton>
+            <AccountButton
+              icon='lock-open'
+              onPress={() => props.showUnlock(props.account, props.wallet)}
+            >
+              Unlock
+            </AccountButton>
           )}
         </View>
       </View>
@@ -377,16 +399,21 @@ export function AccountDetailsBar (props) {
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountDetailsBarContainer}>
-      <View style={[styles.backArrow, props.backArrowStyle]}>
-        <TouchableOpacity onPress={props.goBack}>
-          <FontAwesome5Pro
-            size={28}
-            name='arrow-left'
-            color={AppConstants.ICON_BUTTON_COLOR}
-            light
-          />
-        </TouchableOpacity>
-      </View>
+      {props.backBar ? (
+        <View style={[styles.backArrow, props.backArrowStyle]}>
+          <TouchableOpacity onPress={props.goBack}>
+            <FontAwesome5Pro
+              size={28}
+              name='arrow-left'
+              color={AppConstants.ICON_BUTTON_COLOR}
+              light
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View />
+      )}
+
       <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
       {props.closeBar ? <CloseForBar {...props} /> : <View />}
     </View>
@@ -459,7 +486,11 @@ export function AccountLockSlider (props) {
 }
 
 export function AccountHistoryMainPanel (props) {
-  return <View style={styles.accountHistoryMainPanel}>{props.children}</View>
+  return <View style={styles.accountDetailsPanel}>{props.children}</View>
+}
+
+export function AccountUnlockMainPanel (props) {
+  return <View style={styles.accountDetailsPanel}>{props.children}</View>
 }
 
 export function AccountHistoryPanels (props) {
