@@ -86,7 +86,7 @@ const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
 
 const eaiPercentage = account => {
   return account && account.eaiPercentage
-    ? account.eaiPercentage / AppConstants.RATE_DENOMINATOR
+    ? Math.round((account.eaiPercentage / AppConstants.RATE_DENOMINATOR) * 100)
     : null
 }
 

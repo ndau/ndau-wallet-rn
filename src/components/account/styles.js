@@ -261,13 +261,23 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
-  accountDetailsLargerText: {
+  accountDetailsParagraphText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '200',
     letterSpacing: 0.34,
     lineHeight: 24,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountDetailsLargerText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 21,
+    fontWeight: '600',
+    letterSpacing: 0.45,
+    lineHeight: 32,
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },

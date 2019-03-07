@@ -310,6 +310,10 @@ export function Dropdown (props) {
   )
 }
 
+export function OrBorder (props) {
+  
+}
+
 export function MainContainer (props) {
   return (
     <SafeAreaView style={[styles.container, styles.statusBarColor]}>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Slider } from 'react-native'
-import { H4, P, Button } from 'nachos-ui'
+import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
@@ -313,8 +313,12 @@ export function AccountLockDetailsPanel (props) {
   )
 }
 
-export function AccountLargeText (props) {
-  return <P style={styles.accountDetailsLargerText}>{props.children}</P>
+export function AccountParagraphText (props) {
+  return <P style={styles.accountDetailsParagraphText}>{props.children}</P>
+}
+
+export function AccountHeaderText (props) {
+  return <H3 style={styles.accountDetailsLargerText}>{props.children}</H3>
 }
 
 export function AccountDetailsPanel (props) {
@@ -323,9 +327,9 @@ export function AccountDetailsPanel (props) {
       <View style={styles.accountDetailsTextPanelWithButton}>
         <View>
           {props.accountNotLocked ? (
-            <H4 style={styles.accountDetailsLargerText}>Unlocked</H4>
+            <H4 style={styles.accountDetailsParagraphText}>Unlocked</H4>
           ) : (
-            <H4 style={styles.accountDetailsLargerText}>
+            <H4 style={styles.accountDetailsParagraphText}>
               Locked ({props.accountNoticePeriod} day countdown)
             </H4>
           )}
@@ -349,7 +353,7 @@ export function AccountDetailsPanel (props) {
         </View>
       </View>
       <View style={styles.accountDetailsTextPanel}>
-        <H4 style={styles.accountDetailsLargerText}>
+        <H4 style={styles.accountDetailsParagraphText}>
           {props.eaiPercentage}% annualized incentive (EAI)
         </H4>
       </View>
@@ -465,7 +469,7 @@ export function AccountLockButton (props) {
 export function AccountLockLargerText (props) {
   return (
     <View style={styles.accountLockDetailsTextPanel}>
-      <H4 style={styles.accountDetailsLargerText}>{props.children}</H4>
+      <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
     </View>
   )
 }

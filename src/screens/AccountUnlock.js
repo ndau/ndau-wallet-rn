@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {
   AccountUnlockContainer,
   AccountDetailPanel,
-  AccountLargeText
+  AccountParagraphText
 } from '../components/account'
 import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
 import LoggingService from '../services/LoggingService'
@@ -63,17 +63,17 @@ class AccountUnlock extends Component {
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountDetailPanel>
-          <AccountLargeText>
+          <AccountParagraphText>
             Unlocking this account means you will be able to spend from it, but
             it will no longer accrue bonus inscentive (EAI). Are you sure you
             want to unlock?
-          </AccountLargeText>
-          <AccountLargeText>
+          </AccountParagraphText>
+          <AccountParagraphText>
             Funds from this account will be available to you in{' '}
             {accountNoticePeriod} days, on{' '}
             {DateHelper.addDaysToToday(accountNoticePeriod)}. Until then, you
             will not be able to add new ndau to this account.
-          </AccountLargeText>
+          </AccountParagraphText>
         </AccountDetailPanel>
         <LargeButton onPress={() => _initiateUnlock()}>
           Start unlock countdown

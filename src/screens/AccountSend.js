@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 
-import { AccountSendContainer, AccountDetailPanel } from '../components/account'
-import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
-import LoggingService from '../services/LoggingService'
-import FlashNotification from '../components/common/FlashNotification'
+import {
+  AccountSendContainer,
+  AccountDetailPanel,
+  AccountHeaderText
+} from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { LargeButton } from '../components/common'
+import { LargeButton, TextInput, Label } from '../components/common'
 
 class AccountSend extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      accountHistory: {},
+      address: {},
       account: {},
       wallet: {},
       spinner: false
@@ -29,6 +30,12 @@ class AccountSend extends Component {
 
   _next = async () => {}
 
+  _setAddress = address => {
+    this.setState({
+      address
+    })
+  }
+
   render () {
     return (
       <AccountSendContainer
@@ -39,7 +46,16 @@ class AccountSend extends Component {
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <AccountDetailPanel />
+        <AccountDetailPanel>
+          <AccountHeaderText>Who are you sending to?</AccountHeaderText>
+          <Label>Address</Label>
+          <TextInput
+            onChangeText={this._setAddress}
+            value={this.state.address}
+            placeholder='ndau address...'
+            autoCapitalize='none'
+          />
+        </AccountDetailPanel>
         <LargeButton onPress={() => _next()}>Next</LargeButton>
       </AccountSendContainer>
     )
