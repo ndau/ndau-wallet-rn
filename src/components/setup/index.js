@@ -39,7 +39,7 @@ export function SetupContainer (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
-        <FullScreenDualColorGradient>
+        <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
           <View style={styles.setupContainer}>{props.children}</View>
         </FullScreenDualColorGradient>
       </View>
@@ -55,7 +55,7 @@ export function SetupContainerWithScrollView (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
-        <FullScreenDualColorGradient>
+        <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
           <ScrollView style={styles.setupContainerWithScrollView}>
             {props.children}
           </ScrollView>

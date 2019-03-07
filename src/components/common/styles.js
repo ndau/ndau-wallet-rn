@@ -149,7 +149,7 @@ export default StyleSheet.create({
   backArrow: {
     ...Platform.select({
       ios: {
-        marginTop: hp('1.2%')
+        marginTop: hp('1.6%')
       },
       android: {
         marginTop: hp('.8%')
@@ -452,5 +452,20 @@ export default StyleSheet.create({
     letterSpacing: 0.39,
     lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'
+  },
+  progressNumber: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 22,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    paddingLeft: wp('1%'),
+    paddingRight: wp('1%'),
+    ...Platform.select({
+      ios: {
+        marginTop: hp('.6%')
+      }
+    }),
+    marginRight: wp('4%')
   }
 })

@@ -180,7 +180,7 @@ export default StyleSheet.create({
   },
   accountTitlePanel: {
     width: wp('100%'),
-    height: hp('5%')
+    height: hp('6%')
   },
   accountContentPanel: {
     marginBottom: wp('2.5%')
@@ -213,21 +213,6 @@ export default StyleSheet.create({
   accountNicknameIcon: {
     paddingLeft: wp('3%')
   },
-  progressNumber: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Titillium Web',
-    fontSize: 22,
-    letterSpacing: 0.39,
-    lineHeight: 27,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
-    ...Platform.select({
-      ios: {
-        marginTop: hp('.6%')
-      }
-    }),
-    marginRight: wp('4%')
-  },
   accountDetailsBarText: {
     width: wp('70%'),
     height: hp('6%'),
@@ -237,14 +222,11 @@ export default StyleSheet.create({
     fontWeight: '200',
     letterSpacing: 0.34,
     lineHeight: 24,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
     ...Platform.select({
       ios: {
         marginTop: hp('.6%')
       }
     }),
-    marginRight: wp('4%'),
     textAlign: 'center'
   },
   accountButtonText: {

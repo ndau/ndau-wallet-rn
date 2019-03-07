@@ -146,6 +146,13 @@ class WalletOverview extends Component {
     })
   }
 
+  _send = (account, wallet) => {
+    this.props.navigation.navigate('AccountSend', {
+      account,
+      wallet
+    })
+  }
+
   render = () => {
     try {
       let { wallet } = this.state
@@ -256,7 +263,12 @@ class WalletOverview extends Component {
                               Send disabled
                           </LargeAccountButton>
                         ) : (
-                          <LargeAccountButton icon='arrow-alt-up'>
+                          <LargeAccountButton
+                            icon='arrow-alt-up'
+                            onPress={() =>
+                              this._send(wallet.accounts[accountKey], wallet)
+                            }
+                          >
                               Send
                           </LargeAccountButton>
                         )}

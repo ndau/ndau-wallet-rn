@@ -192,6 +192,30 @@ export function AccountUnlockContainer (props) {
   )
 }
 
+export function AccountSendContainer (props) {
+  close = () => {
+    props.navigation.navigate('WalletOverview', { wallet: props.wallet })
+  }
+  return (
+    <MainContainer>
+      <View style={{ flex: 1 }}>
+        <TitleBarGradient>
+          <View style={styles.accountTitlePanel}>
+            <AccountClosingBar
+              title={props.title}
+              closeBar
+              close={this.close}
+            />
+          </View>
+          <ContentContainer style={styles.accountContentPanel}>
+            {props.children}
+          </ContentContainer>
+        </TitleBarGradient>
+      </View>
+    </MainContainer>
+  )
+}
+
 export function AccountHistoryContainer (props) {
   goBack = () => {
     props.navigation.goBack()
@@ -376,7 +400,7 @@ export function AccountDetailsBar (props) {
       <View style={styles.backArrow}>
         <TouchableOpacity onPress={props.goBack}>
           <FontAwesome5Pro
-            size={28}
+            size={32}
             name='arrow-left'
             color={AppConstants.ICON_BUTTON_COLOR}
             light
@@ -403,7 +427,7 @@ export function AccountClosingBar (props) {
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <TouchableOpacity onPress={props.goBack}>
             <FontAwesome5Pro
-              size={28}
+              size={32}
               name='arrow-left'
               color={AppConstants.ICON_BUTTON_COLOR}
               light
@@ -485,11 +509,7 @@ export function AccountLockSlider (props) {
   )
 }
 
-export function AccountHistoryMainPanel (props) {
-  return <View style={styles.accountDetailsPanel}>{props.children}</View>
-}
-
-export function AccountUnlockMainPanel (props) {
+export function AccountDetailPanel (props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
 }
 

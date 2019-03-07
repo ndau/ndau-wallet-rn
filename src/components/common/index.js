@@ -57,7 +57,7 @@ export function FullScreenDualColorGradient (props) {
         AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR,
         AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR
       ]}
-      style={[styles.setupContainerOverlay]}
+      style={[styles.appContainerOverlay, props.style]}
     >
       {props.children}
     </LinearGradient>
@@ -164,7 +164,7 @@ export function ProgressBar (props) {
       <View style={styles.backArrow}>
         <TouchableOpacity onPress={props.goBack}>
           <FontAwesome5Pro
-            size={28}
+            size={32}
             name='arrow-left'
             color={AppConstants.ICON_BUTTON_COLOR}
             light
@@ -330,7 +330,7 @@ export function CloseForBar (props) {
     <View style={styles.closeForBar}>
       <TouchableOpacity onPress={props.close}>
         <FontAwesome5Pro
-          size={28}
+          size={36}
           name='times'
           color={AppConstants.ICON_BUTTON_COLOR}
           light
