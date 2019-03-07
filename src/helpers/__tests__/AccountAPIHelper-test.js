@@ -150,10 +150,24 @@ test('make sure receiving EAI has the nickname set correctly', async () => {
   ).toBe('Account 4')
 })
 
-test('if we can get the correct EAI rate from what comes back', async () => {
+test('if we can get the correct EAI rate from what comes back, make sure we round it', async () => {
   const account = {
-    eaiPercentage: 70000000000
+    eaiPercentage: 74200000000
   }
 
-  expect(AccountAPIHelper.eaiPercentage(account)).toBe(0.07)
+  expect(AccountAPIHelper.eaiPercentage(account)).toBe(7)
+})
+
+test('if we can get the correct EAI rate from what comes back, rate a bit higher and rounds up', async () => {
+  const account = {
+    eaiPercentage: 126460000000
+  }
+
+  expect(AccountAPIHelper.eaiPercentage(account)).toBe(13)
+})
+
+test('if we can get a null if not present', async () => {
+  const account = {}
+
+  expect(AccountAPIHelper.eaiPercentage(account)).toBeFalsy()
 })

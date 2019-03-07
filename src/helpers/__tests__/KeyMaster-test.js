@@ -8,6 +8,7 @@ import services from '../../api/services-dev.json'
 import data from '../../api/data'
 import MockAsyncStorage from 'mock-async-storage'
 import MockHelper from '../MockHelper'
+import AppConstants from '../../AppConstants'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
@@ -396,4 +397,28 @@ test('getPrivateKeyFromHash test', async () => {
   expect(
     'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf0'
   ).toBe(privateKey)
+})
+
+test('_createAccount test when empty string called will use root key', async () => {
+  const firstTimeUser = await KeyMaster.createFirstTimeUser(
+    bytes,
+    userId,
+    chainId,
+    numberOfAccounts
+  )
+
+  expect(firstTimeUser).toBeDefined()
+
+  const countBeforeCall = newKey.callCount
+  const wallet = firstTimeUser.wallets['c79af3b6']
+  await KeyMaster.addAccounts(
+    wallet,
+    initialPrivateKey,
+    1,
+    '',
+    AppConstants.MAINNET_ADDRESS,
+    bytes
+  )
+
+  expect(newKey.callCount).toBe(countBeforeCall + 1)
 })
