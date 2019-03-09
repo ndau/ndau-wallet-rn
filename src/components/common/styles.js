@@ -467,5 +467,52 @@ export default StyleSheet.create({
       }
     }),
     marginRight: wp('4%')
-  }
+  },
+  orBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    width: wp('37%'),
+    height: hp('3%')
+  },
+  orBorderText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 20,
+    letterSpacing: 0.43
+  },
+  largeBorderButton: {
+    width: wp('92%'),
+    height: hp('7%'),
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderRadius: 4,
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    marginLeft: wp('4%')
+  },
+  largeBorderButtonText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 20,
+    fontWeight: '600',
+    letterSpacing: 0.43
+  },
+  orBorderPanel: {
+    width: wp('100%'),
+    height: hp('8%')
+  },
+  paragraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    paddingLeft: wp('1%'),
+    paddingRight: wp('1%'),
+    marginRight: wp('4%'),
+    marginLeft: wp('4%')
+  },
+  fullWidthAndHeight: { width: wp('100%'), height: hp('100%') }
 })

@@ -21,11 +21,10 @@ import AppConstants from '../AppConstants'
 import LoggingService from '../services/LoggingService'
 import {
   SetupContainer,
-  ParagraphText,
   RecoveryPhraseConfirmation,
   RecoveryPhraseConfirmationButtons
 } from '../components/setup'
-import { LargeButtons } from '../components/common'
+import { LargeButtons, ParagraphText } from '../components/common'
 
 var _ = require('lodash')
 

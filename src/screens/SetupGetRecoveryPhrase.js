@@ -26,13 +26,12 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
+import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
 import {
-  SetupContainer,
+  LargeButtons,
   ParagraphText,
-  RecoveryPhraseConfirmation
-} from '../components/setup'
-import { LargeButtons } from '../components/common'
-import { BottomLinkText } from '../components/common'
+  BottomLinkText
+} from '../components/common'
 import cssStyles from '../css/styles'
 
 const DEFAULT_ROW_LENGTH = 4

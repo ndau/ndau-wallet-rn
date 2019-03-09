@@ -6,10 +6,9 @@ import LoggingService from '../services/LoggingService'
 import {
   SetupWelcomeContainer,
   LargeText,
-  UnderlineDivider,
-  ParagraphText
+  UnderlineDivider
 } from '../components/setup'
-import { LargeButton } from '../components/common'
+import { LargeButton, ParagraphText } from '../components/common'
 
 class SetupWelcome extends Component {
   constructor (props) {

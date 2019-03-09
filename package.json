@@ -86,6 +86,7 @@
     "react-native-permissions": "^1.1.1",
     "react-native-push-notification": "^3.1.2",
     "react-native-qrcode": "0.2.7",
+    "react-native-qrcode-scanner": "^1.1.2",
     "react-native-remote-svg": "1.4.0",
     "react-native-responsive-screen": "1.2.0",
     "react-native-securerandom": "0.3.0",

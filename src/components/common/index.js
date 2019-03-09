@@ -15,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
+import RNQRCodeScanner from 'react-native-qrcode-scanner'
 
 export function LoginContainer ({ children }) {
   return (
@@ -102,8 +103,23 @@ export function LargeButton (props) {
       }
     >
       <Button
-        style={styles.largeButton}
-        textStyle={styles.largeButtonText}
+        style={[styles.largeButton, props.style]}
+        textStyle={[styles.largeButtonText, props.style]}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
+export function LargeBorderButton (props) {
+  return (
+    <View>
+      <Button
+        style={[styles.largeBorderButton, props.style]}
+        textStyle={[styles.largeButtonText, props.style]}
         uppercase={false}
         {...props}
       >
@@ -290,6 +306,10 @@ export function TextInput (props) {
   )
 }
 
+export function BarBorder (props) {
+  return <View style={styles.barBorder} />
+}
+
 export function Dropdown (props) {
   return (
     <View style={styles.dropdownDetailsTextPanel}>
@@ -311,7 +331,17 @@ export function Dropdown (props) {
 }
 
 export function OrBorder (props) {
-  
+  return (
+    <View style={styles.orBorderPanel}>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={styles.orBorder} />
+        <View>
+          <H4 style={styles.orBorderText}>OR</H4>
+        </View>
+        <View style={styles.orBorder} />
+      </View>
+    </View>
+  )
 }
 
 export function MainContainer (props) {
@@ -375,4 +405,16 @@ export function TitleBarGradient (props) {
       {props.children}
     </LinearGradient>
   )
+}
+
+export function ParagraphText (props) {
+  return (
+    <P style={[styles.paragraphText]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
+export function QRCodeScanner (props) {
+  return <RNQRCodeScanner {...props} cameraStyle={styles.fullWidthAndHeight} />
 }

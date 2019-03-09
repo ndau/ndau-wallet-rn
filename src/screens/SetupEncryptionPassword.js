@@ -7,8 +7,14 @@ import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import { SetupContainer, ParagraphText } from '../components/setup'
-import { LargeButtons, Label, CheckBox, TextInput } from '../components/common'
+import { SetupContainer } from '../components/setup'
+import {
+  LargeButtons,
+  Label,
+  CheckBox,
+  TextInput,
+  ParagraphText
+} from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8

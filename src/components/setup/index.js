@@ -73,14 +73,6 @@ export function UnderlineDivider ({ children }) {
   return <Progress style={styles.underline} />
 }
 
-export function ParagraphText (props) {
-  return (
-    <P style={[styles.paragraphText]} {...props}>
-      {props.children}
-    </P>
-  )
-}
-
 export function SmallParagraphText (props) {
   return (
     <P style={[styles.smallParagraphText]} {...props}>

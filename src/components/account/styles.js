@@ -429,6 +429,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  accountSendTextPanelWithSmallText: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    marginBottom: hp('3%'),
+    marginTop: hp('2%'),
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   accountHistorySmallerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -443,6 +451,15 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 12,
     fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
+  accountHistoryLargerTextBold: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    fontWeight: 'bold',
     letterSpacing: 0.26,
     lineHeight: 18,
     paddingBottom: 0

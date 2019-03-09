@@ -144,7 +144,8 @@ export function AccountDetailsContainer (props) {
 
 export function AccountLockContainer (props) {
   close = () => {
-    props.navigation.navigate('WalletOverview', { wallet: props.wallet })
+    ok
+    props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
   goBack = () => {
     props.navigation.goBack()
@@ -170,7 +171,7 @@ export function AccountLockContainer (props) {
 
 export function AccountUnlockContainer (props) {
   close = () => {
-    props.navigation.navigate('AccountDetails', { account: props.account })
+    props.navigation.push('AccountDetails', { account: props.account })
   }
   return (
     <MainContainer>
@@ -194,7 +195,7 @@ export function AccountUnlockContainer (props) {
 
 export function AccountSendContainer (props) {
   close = () => {
-    props.navigation.navigate('WalletOverview', { wallet: props.wallet })
+    props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
   return (
     <MainContainer>
@@ -580,5 +581,34 @@ export function DashboardTotalPanel (props) {
         </P>
       </View>
     </CollapsibleBar>
+  )
+}
+
+export function AccountSendConfirmationItem (props) {
+  return (
+    <View style={styles.accountSendTextPanelWithSmallText}>
+      <View>
+        <H4
+          style={
+            props.largerText
+              ? styles.accountHistoryLargerTextBold
+              : styles.accountHistorySmallerTextBold
+          }
+        >
+          {props.title}
+        </H4>
+      </View>
+      <View>
+        <H4
+          style={
+            props.largerText
+              ? styles.accountHistoryLargerTextBold
+              : styles.accountHistorySmallerText
+          }
+        >
+          {props.value}
+        </H4>
+      </View>
+    </View>
   )
 }

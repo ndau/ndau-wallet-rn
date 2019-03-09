@@ -41,10 +41,6 @@ class WalletOverview extends Component {
     this.allAccountNicknames = []
   }
 
-  componentWillUnmount () {
-    AppState.removeEventListener('change', this._handleAppStateChange)
-  }
-
   _handleAppStateChange = async nextAppState => {
     if (
       this.state.appState.match(/inactive|background/) &&
@@ -139,7 +135,7 @@ class WalletOverview extends Component {
   }
 
   _showAccountDetails = (account, wallet) => {
-    this.props.navigation.navigate('AccountDetails', {
+    this.props.navigation.push('AccountDetails', {
       account,
       wallet,
       allAccountNicknames: this.allAccountNicknames
@@ -147,7 +143,7 @@ class WalletOverview extends Component {
   }
 
   _send = (account, wallet) => {
-    this.props.navigation.navigate('AccountSend', {
+    this.props.navigation.push('AccountSend', {
       account,
       wallet
     })
