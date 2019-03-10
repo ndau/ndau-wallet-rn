@@ -612,3 +612,41 @@ export function AccountSendConfirmationItem (props) {
     </View>
   )
 }
+
+export function AddressCopyPanel (props) {
+  const address = props.address ? props.address.substr(0, 28) + '...' : ''
+  return (
+    <View
+      style={
+        props.scroll
+          ? styles.addressCopyPanelContainerScrollView
+          : styles.addressCopyPanelContainerBottomNoBorder
+      }
+    >
+      <View style={[styles.addressCopyPanel, props.style]} {...props}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+          }}
+        >
+          <View>
+            <P style={styles.addressCopyPanelText}>{address}</P>
+          </View>
+          <View>
+            <Button
+              style={styles.addressCopyButton}
+              textStyle={styles.addressButtonText}
+              uppercase={false}
+              onPress={() => this.copyAddressToClipboard()}
+              {...props}
+            >
+              Copy
+            </Button>
+          </View>
+        </View>
+      </View>
+    </View>
+  )
+}

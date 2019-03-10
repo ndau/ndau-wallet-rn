@@ -514,5 +514,9 @@ export default StyleSheet.create({
     marginRight: wp('4%'),
     marginLeft: wp('4%')
   },
-  fullWidthAndHeight: { width: wp('100%'), height: hp('100%') }
+  fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
+  qrCode: {
+    marginTop: hp('15%'),
+    alignSelf: 'center'
+  }
 })

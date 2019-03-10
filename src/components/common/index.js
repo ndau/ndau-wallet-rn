@@ -16,6 +16,11 @@ import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
 import RNQRCodeScanner from 'react-native-qrcode-scanner'
+import RNQRCode from 'react-native-qrcode'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 
 export function LoginContainer ({ children }) {
   return (
@@ -417,4 +422,17 @@ export function ParagraphText (props) {
 
 export function QRCodeScanner (props) {
   return <RNQRCodeScanner {...props} cameraStyle={styles.fullWidthAndHeight} />
+}
+
+export function QRCode (props) {
+  return (
+    <View style={styles.qrCode}>
+      <RNQRCode
+        value={props.value}
+        size={wp('65%')}
+        color='black'
+        backgroundColor='white'
+      />
+    </View>
+  )
 }

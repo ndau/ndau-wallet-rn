@@ -493,5 +493,52 @@ export default StyleSheet.create({
   },
   dashboardTotalPanelTextContainer: {
     backgroundColor: '#293E63'
+  },
+  addressCopyPanelContainerBottomNoBorder: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%')
+  },
+  addressCopyPanelContainerScrollView: {
+    marginTop: hp('1%')
+  },
+  addressCopyPanel: {
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: '#293E63'
+  },
+  addressCopyPanelText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  addressCopyButton: {
+    alignSelf: 'center',
+    width: wp('15%'),
+    height: hp('4%'),
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    marginRight: wp('4%'),
+    marginTop: hp('1%'),
+    padding: 0
+  },
+  addressButtonText: {
+    width: wp('8%'),
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingHorizontal: 0
   }
 })

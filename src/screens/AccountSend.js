@@ -142,7 +142,7 @@ class AccountSend extends Component {
         title='Send'
         navigation={this.props.nav}
         wallet={this.state.wallet}
-        account={this.state.wallet}
+        account={this.state.account}
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
@@ -173,7 +173,7 @@ class AccountSend extends Component {
         title='Send'
         navigation={this.props.nav}
         wallet={this.state.wallet}
-        account={this.state.wallet}
+        account={this.state.account}
         {...this.props}
       >
         <AccountDetailPanel>
@@ -195,7 +195,7 @@ class AccountSend extends Component {
         title='Send'
         navigation={this.props.nav}
         wallet={this.state.wallet}
-        account={this.state.wallet}
+        account={this.state.account}
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />

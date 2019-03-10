@@ -58,7 +58,7 @@ class AccountUnlock extends Component {
         title='Unlock account'
         navigation={this.props.nav}
         wallet={this.state.wallet}
-        account={this.state.wallet}
+        account={this.state.account}
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
