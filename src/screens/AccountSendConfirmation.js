@@ -21,10 +21,9 @@ class AccountSendConfirmation extends Component {
       account: {},
       wallet: {},
       spinner: false,
-      amount: 0
+      amount: 0,
+      transactionFee: 0
     }
-
-    this.transactionFee = 0
     this.sibBurn = 0
   }
 
@@ -34,8 +33,19 @@ class AccountSendConfirmation extends Component {
       const wallet = this.props.navigation.getParam('wallet', null)
       const address = this.props.navigation.getParam('address', null)
       const amount = this.props.navigation.getParam('amount', null)
+      const transactionFee = this.props.navigation.getParam(
+        'transactionFee',
+        null
+      )
 
-      this.setState({ account, wallet, address, amount, spinner: false })
+      this.setState({
+        account,
+        wallet,
+        address,
+        amount,
+        transactionFee,
+        spinner: false
+      })
     })
   }
 
@@ -49,7 +59,7 @@ class AccountSendConfirmation extends Component {
           this.state.address,
           this.state.amount
         )
-        // await transferTransaction.createSignPrevalidateSubmit()
+        await transferTransaction.createSignPrevalidateSubmit()
 
         this.props.navigation.push('WalletOverview', {
           wallet: this.state.wallet
@@ -85,7 +95,7 @@ class AccountSendConfirmation extends Component {
           <BarBorder />
           <AccountSendConfirmationItem
             title={'Transaction fee:'}
-            value={this.transactionFee}
+            value={this.state.transactionFee}
           />
           <BarBorder />
           <AccountSendConfirmationItem
@@ -101,7 +111,7 @@ class AccountSendConfirmation extends Component {
           <AccountSendConfirmationItem
             largerText
             title={'TOTAL'}
-            value={this.transactionFee + this.sibBurn + this.state.amount}
+            value={this.state.transactionFee + this.sibBurn + this.state.amount}
           />
           <BarBorder />
           <AccountSendConfirmationItem
