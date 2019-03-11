@@ -18,6 +18,7 @@ import FlashNotification from '../components/common/FlashNotification'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 class AccountSend extends Component {
   constructor (props) {
@@ -51,13 +52,15 @@ class AccountSend extends Component {
       account: this.state.account,
       wallet: this.state.wallet,
       address: this.state.address,
-      amount: this.state.amount
+      amount: this.state.amount,
+      transactionFee: this.state.transactionFee
     })
   }
 
   _haveAddress = () => {
     if (this.state.address.substr(0, 2) === 'nd') {
       this.setState({ spinner: true }, async () => {
+        let transactionFee = 0
         try {
           Object.assign(TransferTransaction.prototype, Transaction)
           const transferTransaction = new TransferTransaction(
@@ -70,14 +73,18 @@ class AccountSend extends Component {
           await transferTransaction.create()
           await transferTransaction.sign()
           const prevalidateData = await transferTransaction.prevalidate()
-          console.log(prevalidateData)
+          if (prevalidateData.fee_napu) {
+            transactionFee = DataFormatHelper.getNdauFromNapu(
+              prevalidateData.fee_napu
+            )
+          }
         } catch (error) {
           FlashNotification.showError(
             `Error occured while sending ndau: ${error.message}`
           )
         }
 
-        this.setState({ spinner: false })
+        this.setState({ spinner: false, transactionFee })
       })
     }
     this.setState({ requestingAmount: true })
@@ -99,12 +106,13 @@ class AccountSend extends Component {
   }
 
   _setAmount = amount => {
-    let { validAmount } = this.state
+    let { validAmount, transactionFee } = this.state
     const totalNdauForAccount = parseFloat(
       AccountAPIHelper.accountNdauAmount(this.state.account.addressData)
     )
     const amountFloat = parseFloat(amount)
-    const balance = totalNdauForAccount - amountFloat
+    const transactionFeeFloat = parseFloat(transactionFee)
+    const balance = totalNdauForAccount - amountFloat - transactionFeeFloat
     if (balance > 0) {
       validAmount = true
     } else {
