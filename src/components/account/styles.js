@@ -267,9 +267,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '200',
     letterSpacing: 0.34,
-    lineHeight: 24,
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
+    lineHeight: 24
   },
   accountDetailsLargerText: {
     color: AppConstants.TEXT_COLOR,
