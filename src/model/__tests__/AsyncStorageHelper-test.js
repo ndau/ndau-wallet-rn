@@ -160,8 +160,9 @@ describe('AsyncStorageHelper tests...', () => {
 
   it('should set MainNet and validate that is being used', async () => {
     await AsyncStorageHelper.useMainNet()
-    expect(await AsyncStorageHelper.isMainNet()).toBe(true)
-    expect(await AsyncStorageHelper.isTestNet()).toBe(false)
+    // TODO: MainNet is hardcoded off right now
+    expect(await AsyncStorageHelper.isMainNet()).toBe(false)
+    expect(await AsyncStorageHelper.isTestNet()).toBe(true)
   })
 
   it('should set TestNet and validate that is being used', async () => {
