@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Animated, View, Text, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5Pro'
 import styles from './styles'
+import { BarBorder } from '.'
 
 class BarCollapsible extends Component {
   constructor (props) {
@@ -150,11 +151,11 @@ class BarCollapsible extends Component {
 
         {this.state.show && (
           <Animated.View style={{ opacity: fadeAnim }}>
-            {upperBorder ? <View style={styles.barBorder} /> : null}
+            {upperBorder ? <BarBorder /> : null}
             {children}
           </Animated.View>
         )}
-        {lowerBorder ? <View style={styles.barBorder} /> : null}
+        {lowerBorder ? <BarBorder /> : null}
       </View>
     )
   }

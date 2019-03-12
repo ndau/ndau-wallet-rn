@@ -41,10 +41,6 @@ class WalletOverview extends Component {
     this.allAccountNicknames = []
   }
 
-  componentWillUnmount () {
-    AppState.removeEventListener('change', this._handleAppStateChange)
-  }
-
   _handleAppStateChange = async nextAppState => {
     if (
       this.state.appState.match(/inactive|background/) &&
@@ -139,10 +135,24 @@ class WalletOverview extends Component {
   }
 
   _showAccountDetails = (account, wallet) => {
-    this.props.navigation.navigate('AccountDetails', {
+    this.props.navigation.push('AccountDetails', {
       account,
       wallet,
       allAccountNicknames: this.allAccountNicknames
+    })
+  }
+
+  _send = (account, wallet) => {
+    this.props.navigation.push('AccountSend', {
+      account,
+      wallet
+    })
+  }
+
+  _receive = (account, wallet) => {
+    this.props.navigation.push('AccountReceive', {
+      account,
+      wallet
     })
   }
 
@@ -256,12 +266,22 @@ class WalletOverview extends Component {
                               Send disabled
                           </LargeAccountButton>
                         ) : (
-                          <LargeAccountButton icon='arrow-alt-up'>
+                          <LargeAccountButton
+                            icon='arrow-alt-up'
+                            onPress={() =>
+                              this._send(wallet.accounts[accountKey], wallet)
+                            }
+                          >
                               Send
                           </LargeAccountButton>
                         )}
 
-                        <LargeAccountButton icon='arrow-alt-down'>
+                        <LargeAccountButton
+                          icon='arrow-alt-down'
+                          onPress={() =>
+                            this._receive(wallet.accounts[accountKey], wallet)
+                          }
+                        >
                             Receive
                         </LargeAccountButton>
                       </AccountPanel>

@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 
 import {
   AccountUnlockContainer,
-  AccountUnlockMainPanel,
-  AccountLargeText
+  AccountDetailPanel,
+  AccountParagraphText
 } from '../components/account'
-import { P } from 'nachos-ui'
 import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
 import LoggingService from '../services/LoggingService'
 import FlashNotification from '../components/common/FlashNotification'
@@ -22,6 +21,7 @@ class AccountUnlock extends Component {
     this.state = {
       accountHistory: {},
       account: {},
+      wallet: {},
       spinner: false
     }
   }
@@ -29,20 +29,9 @@ class AccountUnlock extends Component {
   componentWillMount = async () => {
     this.setState({ spinner: true }, async () => {
       const account = this.props.navigation.getParam('account', null)
+      const wallet = this.props.navigation.getParam('wallet', null)
 
-      try {
-        const accountHistory = await AccountHistoryHelper.getAccountHistory(
-          account.address
-        )
-        this.setState({ accountHistory })
-      } catch (error) {
-        LoggingService.debug(error)
-        FlashNotification.showError(
-          'Problem occured while getting account history from the blockchain.'
-        )
-      }
-
-      this.setState({ account, spinner: false })
+      this.setState({ account, wallet, spinner: false })
     })
   }
 
@@ -68,22 +57,24 @@ class AccountUnlock extends Component {
       <AccountUnlockContainer
         title='Unlock account'
         navigation={this.props.nav}
+        wallet={this.state.wallet}
+        account={this.state.account}
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <AccountUnlockMainPanel>
-          <AccountLargeText>
+        <AccountDetailPanel>
+          <AccountParagraphText>
             Unlocking this account means you will be able to spend from it, but
-            it will no longer accrue bonus inscentive (EAI). Are you sure you
+            it will no longer accrue bonus incentive (EAI). Are you sure you
             want to unlock?
-          </AccountLargeText>
-          <AccountLargeText>
+          </AccountParagraphText>
+          <AccountParagraphText>
             Funds from this account will be available to you in{' '}
             {accountNoticePeriod} days, on{' '}
             {DateHelper.addDaysToToday(accountNoticePeriod)}. Until then, you
             will not be able to add new ndau to this account.
-          </AccountLargeText>
-        </AccountUnlockMainPanel>
+          </AccountParagraphText>
+        </AccountDetailPanel>
         <LargeButton onPress={() => _initiateUnlock()}>
           Start unlock countdown
         </LargeButton>

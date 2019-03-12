@@ -71,16 +71,20 @@ const useTestNet = async () => {
  * Is the application using MainNet
  */
 const isMainNet = async () => {
-  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork === MAIN_NET
+  // TODO: temporarily returning false so we hardcode to testnet
+  return false
+  // const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  // return applicationNetwork === MAIN_NET
 }
 
 /**
  * Is the application using TestNet
  */
 const isTestNet = async () => {
-  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork === TEST_NET
+  // TODO: temporarily returning true so we hardcode to testnet
+  return true
+  // const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  // return applicationNetwork === TEST_NET
 }
 
 /**

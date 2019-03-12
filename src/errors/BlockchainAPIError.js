@@ -1,5 +1,6 @@
 class BlockchainAPIError extends Error {
   constructor (...args) {
+    console.log(args)
     if (args) {
       super(...args)
       this.message = args[0]

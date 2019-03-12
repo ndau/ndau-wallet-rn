@@ -11,7 +11,11 @@ export function DrawerContainer (props) {
   return (
     <MainContainer>
       <View style={styles.outerDrawerContainer}>
-        <FullScreenDualColorGradient>
+        <LinearGradient
+          locations={[0, 1.0]}
+          colors={['#0F2748', '#293E63']}
+          style={[styles.drawerContainerOverlay]}
+        >
           <View style={styles.drawerContainer}>{props.children}</View>
           <DrawerEntryItem
             bottom
@@ -20,7 +24,7 @@ export function DrawerContainer (props) {
           >
             Logout
           </DrawerEntryItem>
-        </FullScreenDualColorGradient>
+        </LinearGradient>
       </View>
     </MainContainer>
   )

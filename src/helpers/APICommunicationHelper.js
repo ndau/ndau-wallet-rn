@@ -13,11 +13,17 @@ const post = async (url, data, timeout = 10000) => {
   try {
     LoggingService.debug(`Sending ${data} to ${url}`)
     const response = await axios.post(url, data, { timeout })
-    LoggingService.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
+    LoggingService.debug(
+      `${url} response: ${JSON.stringify(response.data, null, 2)}`
+    )
     return response.data
   } catch (error) {
-    LoggingService.debug(error)
-    throw new BlockchainAPIError()
+    LoggingService.debug(
+      `Error from ${url} ${JSON.stringify(error.response.data)}`
+    )
+    throw new BlockchainAPIError(
+      error.response.data.err || error.response.data.msg || null
+    )
   }
 }
 
@@ -31,7 +37,9 @@ const get = async (url, timeout = 10000) => {
   try {
     LoggingService.debug(`Performing GET on ${url}`)
     const response = await axios.get(url, { timeout })
-    LoggingService.debug(`${url} response: ${JSON.stringify(response.data, null, 2)}`)
+    LoggingService.debug(
+      `${url} response: ${JSON.stringify(response.data, null, 2)}`
+    )
     return response.data
   } catch (error) {
     LoggingService.debug(error)

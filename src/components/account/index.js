@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Slider } from 'react-native'
-import { H4, P, Button } from 'nachos-ui'
+import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
@@ -15,6 +15,7 @@ import styles from './styles'
 import DateHelper from '../../helpers/DateHelper'
 import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
+import ndaujs from 'ndaujs'
 
 export function AccountPanel (props) {
   return (
@@ -144,7 +145,8 @@ export function AccountDetailsContainer (props) {
 
 export function AccountLockContainer (props) {
   close = () => {
-    props.navigation.navigate('WalletOverview', { wallet: props.wallet })
+    ok
+    props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
   goBack = () => {
     props.navigation.goBack()
@@ -170,7 +172,31 @@ export function AccountLockContainer (props) {
 
 export function AccountUnlockContainer (props) {
   close = () => {
-    props.navigation.navigate('AccountDetails', { account: props.account })
+    props.navigation.push('AccountDetails', { account: props.account })
+  }
+  return (
+    <MainContainer>
+      <View style={{ flex: 1 }}>
+        <TitleBarGradient>
+          <View style={styles.accountTitlePanel}>
+            <AccountClosingBar
+              title={props.title}
+              closeBar
+              close={this.close}
+            />
+          </View>
+          <ContentContainer style={styles.accountContentPanel}>
+            {props.children}
+          </ContentContainer>
+        </TitleBarGradient>
+      </View>
+    </MainContainer>
+  )
+}
+
+export function AccountSendContainer (props) {
+  close = () => {
+    props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
   return (
     <MainContainer>
@@ -289,8 +315,16 @@ export function AccountLockDetailsPanel (props) {
   )
 }
 
-export function AccountLargeText (props) {
-  return <P style={styles.accountDetailsLargerText}>{props.children}</P>
+export function AccountReceiveParagraphText (props) {
+  return <P style={styles.accountReceiveParagraphText}>{props.children}</P>
+}
+
+export function AccountParagraphText (props) {
+  return <P style={styles.accountDetailsParagraphText}>{props.children}</P>
+}
+
+export function AccountHeaderText (props) {
+  return <H3 style={styles.accountDetailsLargerText}>{props.children}</H3>
 }
 
 export function AccountDetailsPanel (props) {
@@ -299,9 +333,9 @@ export function AccountDetailsPanel (props) {
       <View style={styles.accountDetailsTextPanelWithButton}>
         <View>
           {props.accountNotLocked ? (
-            <H4 style={styles.accountDetailsLargerText}>Unlocked</H4>
+            <H4 style={styles.accountDetailsParagraphText}>Unlocked</H4>
           ) : (
-            <H4 style={styles.accountDetailsLargerText}>
+            <H4 style={styles.accountDetailsParagraphText}>
               Locked ({props.accountNoticePeriod} day countdown)
             </H4>
           )}
@@ -324,12 +358,15 @@ export function AccountDetailsPanel (props) {
           )}
         </View>
       </View>
-      <View style={styles.accountDetailsTextPanel}>
-        <H4 style={styles.accountDetailsLargerText}>
-          {props.eaiPercentage}% annualized incentive (EAI)
-        </H4>
-      </View>
+      {props.eaiValueForDisplay ? (
+        <View style={styles.accountDetailsTextPanel}>
+          <H4 style={styles.accountDetailsParagraphText}>
+            {props.eaiValueForDisplay}% annualized incentive (EAI)
+          </H4>
+        </View>
+      ) : null}
       <View style={styles.accountDetailsPanelBorder} />
+
       <View style={styles.accountDetailsTextPanelWithSmallText}>
         <View>
           <H4 style={styles.accountDetailsSmallerText}>
@@ -342,18 +379,21 @@ export function AccountDetailsPanel (props) {
           </H4>
         </View>
       </View>
-      <View style={styles.accountDetailsTextPanelWithSmallText}>
-        <View>
-          <H4 style={styles.accountDetailsSmallerText}>
-            Current EAI based on WAA:
-          </H4>
+      {props.eaiValueForDisplay ? (
+        <View style={styles.accountDetailsTextPanelWithSmallText}>
+          <View>
+            <H4 style={styles.accountDetailsSmallerText}>
+              Current EAI based on WAA:
+            </H4>
+          </View>
+          <View>
+            <H4 style={styles.accountDetailsSmallerTextBold}>
+              {props.eaiValueForDisplay}%
+            </H4>
+          </View>
         </View>
-        <View>
-          <H4 style={styles.accountDetailsSmallerTextBold}>
-            {props.eaiPercentage}%
-          </H4>
-        </View>
-      </View>
+      ) : null}
+
       {props.sendingEAITo ? (
         <View style={styles.accountDetailsTextPanelWithSmallText}>
           <View>
@@ -376,7 +416,7 @@ export function AccountDetailsBar (props) {
       <View style={styles.backArrow}>
         <TouchableOpacity onPress={props.goBack}>
           <FontAwesome5Pro
-            size={28}
+            size={32}
             name='arrow-left'
             color={AppConstants.ICON_BUTTON_COLOR}
             light
@@ -403,7 +443,7 @@ export function AccountClosingBar (props) {
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <TouchableOpacity onPress={props.goBack}>
             <FontAwesome5Pro
-              size={28}
+              size={32}
               name='arrow-left'
               color={AppConstants.ICON_BUTTON_COLOR}
               light
@@ -441,7 +481,7 @@ export function AccountLockButton (props) {
 export function AccountLockLargerText (props) {
   return (
     <View style={styles.accountLockDetailsTextPanel}>
-      <H4 style={styles.accountDetailsLargerText}>{props.children}</H4>
+      <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
     </View>
   )
 }
@@ -485,11 +525,7 @@ export function AccountLockSlider (props) {
   )
 }
 
-export function AccountHistoryMainPanel (props) {
-  return <View style={styles.accountDetailsPanel}>{props.children}</View>
-}
-
-export function AccountUnlockMainPanel (props) {
+export function AccountDetailPanel (props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
 }
 
@@ -556,5 +592,72 @@ export function DashboardTotalPanel (props) {
         </P>
       </View>
     </CollapsibleBar>
+  )
+}
+
+export function AccountSendConfirmationItem (props) {
+  return (
+    <View style={styles.accountSendTextPanelWithSmallText}>
+      <View>
+        <H4
+          style={
+            props.largerText
+              ? styles.accountHistoryLargerTextBold
+              : styles.accountHistorySmallerTextBold
+          }
+        >
+          {props.title}
+        </H4>
+      </View>
+      <View>
+        <H4
+          style={
+            props.largerText
+              ? styles.accountHistoryLargerTextBold
+              : styles.accountHistorySmallerText
+          }
+        >
+          {props.value}
+        </H4>
+      </View>
+    </View>
+  )
+}
+
+export function AddressCopyPanel (props) {
+  const address = ndaujs.truncateAddress(props.address)
+  return (
+    <View
+      style={
+        props.scroll
+          ? styles.addressCopyPanelContainerScrollView
+          : styles.addressCopyPanelContainerBottomNoBorder
+      }
+    >
+      <View style={[styles.addressCopyPanel, props.style]} {...props}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+          }}
+        >
+          <View>
+            <P style={styles.addressCopyPanelText}>{address}</P>
+          </View>
+          <View>
+            <Button
+              style={styles.addressCopyButton}
+              textStyle={styles.addressButtonText}
+              uppercase={false}
+              onPress={() => this.copyAddressToClipboard()}
+              {...props}
+            >
+              Copy
+            </Button>
+          </View>
+        </View>
+      </View>
+    </View>
   )
 }

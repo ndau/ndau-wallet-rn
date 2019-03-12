@@ -15,6 +15,12 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
+import RNQRCodeScanner from 'react-native-qrcode-scanner'
+import RNQRCode from 'react-native-qrcode'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 
 export function LoginContainer ({ children }) {
   return (
@@ -57,7 +63,7 @@ export function FullScreenDualColorGradient (props) {
         AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR,
         AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR
       ]}
-      style={[styles.setupContainerOverlay]}
+      style={[styles.appContainerOverlay, props.style]}
     >
       {props.children}
     </LinearGradient>
@@ -102,8 +108,23 @@ export function LargeButton (props) {
       }
     >
       <Button
-        style={styles.largeButton}
-        textStyle={styles.largeButtonText}
+        style={[styles.largeButton, props.style]}
+        textStyle={[styles.largeButtonText, props.style]}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
+export function LargeBorderButton (props) {
+  return (
+    <View>
+      <Button
+        style={[styles.largeBorderButton, props.style]}
+        textStyle={[styles.largeButtonText, props.style]}
         uppercase={false}
         {...props}
       >
@@ -164,7 +185,7 @@ export function ProgressBar (props) {
       <View style={styles.backArrow}>
         <TouchableOpacity onPress={props.goBack}>
           <FontAwesome5Pro
-            size={28}
+            size={32}
             name='arrow-left'
             color={AppConstants.ICON_BUTTON_COLOR}
             light
@@ -290,6 +311,10 @@ export function TextInput (props) {
   )
 }
 
+export function BarBorder (props) {
+  return <View style={styles.barBorder} />
+}
+
 export function Dropdown (props) {
   return (
     <View style={styles.dropdownDetailsTextPanel}>
@@ -306,6 +331,20 @@ export function Dropdown (props) {
             )
           })}
       </Picker>
+    </View>
+  )
+}
+
+export function OrBorder (props) {
+  return (
+    <View style={styles.orBorderPanel}>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={styles.orBorder} />
+        <View>
+          <H4 style={styles.orBorderText}>OR</H4>
+        </View>
+        <View style={styles.orBorder} />
+      </View>
     </View>
   )
 }
@@ -330,7 +369,7 @@ export function CloseForBar (props) {
     <View style={styles.closeForBar}>
       <TouchableOpacity onPress={props.close}>
         <FontAwesome5Pro
-          size={28}
+          size={36}
           name='times'
           color={AppConstants.ICON_BUTTON_COLOR}
           light
@@ -370,5 +409,30 @@ export function TitleBarGradient (props) {
     >
       {props.children}
     </LinearGradient>
+  )
+}
+
+export function ParagraphText (props) {
+  return (
+    <P style={[styles.paragraphText]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
+export function QRCodeScanner (props) {
+  return <RNQRCodeScanner {...props} cameraStyle={styles.fullWidthAndHeight} />
+}
+
+export function QRCode (props) {
+  return (
+    <View style={styles.qrCode}>
+      <RNQRCode
+        value={props.value}
+        size={wp('65%')}
+        color='black'
+        backgroundColor='white'
+      />
+    </View>
   )
 }

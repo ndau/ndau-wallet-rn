@@ -180,7 +180,7 @@ export default StyleSheet.create({
   },
   accountTitlePanel: {
     width: wp('100%'),
-    height: hp('5%')
+    height: hp('6%')
   },
   accountContentPanel: {
     marginBottom: wp('2.5%')
@@ -213,21 +213,6 @@ export default StyleSheet.create({
   accountNicknameIcon: {
     paddingLeft: wp('3%')
   },
-  progressNumber: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Titillium Web',
-    fontSize: 22,
-    letterSpacing: 0.39,
-    lineHeight: 27,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
-    ...Platform.select({
-      ios: {
-        marginTop: hp('.6%')
-      }
-    }),
-    marginRight: wp('4%')
-  },
   accountDetailsBarText: {
     width: wp('70%'),
     height: hp('6%'),
@@ -237,14 +222,11 @@ export default StyleSheet.create({
     fontWeight: '200',
     letterSpacing: 0.34,
     lineHeight: 24,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
     ...Platform.select({
       ios: {
         marginTop: hp('.6%')
       }
     }),
-    marginRight: wp('4%'),
     textAlign: 'center'
   },
   accountButtonText: {
@@ -279,13 +261,30 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
-  accountDetailsLargerText: {
+  accountDetailsParagraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24
+  },
+  accountReceiveParagraphText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '200',
     letterSpacing: 0.34,
     lineHeight: 24,
+    marginLeft: wp('4%')
+  },
+  accountDetailsLargerText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 21,
+    fontWeight: '600',
+    letterSpacing: 0.45,
+    lineHeight: 32,
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
@@ -437,6 +436,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  accountSendTextPanelWithSmallText: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    marginBottom: hp('3%'),
+    marginTop: hp('2%'),
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   accountHistorySmallerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -451,6 +458,15 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 12,
     fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
+  accountHistoryLargerTextBold: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    fontWeight: 'bold',
     letterSpacing: 0.26,
     lineHeight: 18,
     paddingBottom: 0
@@ -484,5 +500,52 @@ export default StyleSheet.create({
   },
   dashboardTotalPanelTextContainer: {
     backgroundColor: '#293E63'
+  },
+  addressCopyPanelContainerBottomNoBorder: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%')
+  },
+  addressCopyPanelContainerScrollView: {
+    marginTop: hp('1%')
+  },
+  addressCopyPanel: {
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: '#293E63'
+  },
+  addressCopyPanelText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  addressCopyButton: {
+    alignSelf: 'center',
+    width: wp('15%'),
+    height: hp('4%'),
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    marginRight: wp('4%'),
+    marginTop: hp('1%'),
+    padding: 0
+  },
+  addressButtonText: {
+    width: wp('8%'),
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingHorizontal: 0
   }
 })

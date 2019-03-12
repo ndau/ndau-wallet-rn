@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
 import EntropyHelper from '../helpers/EntropyHelper'
-import { SetupContainer, ParagraphText } from '../components/setup'
-import { LargeButtons } from '../components/common'
+import { SetupContainer } from '../components/setup'
+import { LargeButtons, ParagraphText } from '../components/common'
 
 class SetupYourWallet extends Component {
   showNextSetup = async () => {

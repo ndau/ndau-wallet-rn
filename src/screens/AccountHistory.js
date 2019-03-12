@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import {
   AccountHistoryContainer,
-  AccountHistoryMainPanel,
+  AccountDetailPanel,
   AccountHistoryPanels
 } from '../components/account'
 
@@ -52,9 +52,9 @@ class AccountHistory extends Component {
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <AccountHistoryMainPanel>
+        <AccountDetailPanel>
           <AccountHistoryPanels accountHistory={this.state.accountHistory} />
-        </AccountHistoryMainPanel>
+        </AccountDetailPanel>
       </AccountHistoryContainer>
     )
   }

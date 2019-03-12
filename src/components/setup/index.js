@@ -39,7 +39,7 @@ export function SetupContainer (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
-        <FullScreenDualColorGradient>
+        <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
           <View style={styles.setupContainer}>{props.children}</View>
         </FullScreenDualColorGradient>
       </View>
@@ -55,7 +55,7 @@ export function SetupContainerWithScrollView (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
-        <FullScreenDualColorGradient>
+        <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
           <ScrollView style={styles.setupContainerWithScrollView}>
             {props.children}
           </ScrollView>
@@ -71,14 +71,6 @@ export function LargeText ({ children }) {
 
 export function UnderlineDivider ({ children }) {
   return <Progress style={styles.underline} />
-}
-
-export function ParagraphText (props) {
-  return (
-    <P style={[styles.paragraphText]} {...props}>
-      {props.children}
-    </P>
-  )
 }
 
 export function SmallParagraphText (props) {

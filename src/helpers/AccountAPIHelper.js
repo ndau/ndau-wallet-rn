@@ -31,7 +31,7 @@ const populateWalletWithAddressData = async wallet => {
     const account = addressData[accountKey]
     account.nickname = `Account ${index + 1}`
     account.walletId = wallet.walletId
-    account.eaiPercentage = eaiRateMap.get(accountKey)
+    account.eaiValueForDisplay = eaiRateMap.get(accountKey)
     addressNicknameMap.set(accountKey, account.nickname)
 
     for (const walletAccountKey of walletAccountKeys) {
@@ -84,9 +84,11 @@ const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
   }
 }
 
-const eaiPercentage = account => {
-  return account && account.eaiPercentage
-    ? account.eaiPercentage / AppConstants.RATE_DENOMINATOR
+const getEaiValueForDisplay = account => {
+  return account && account.eaiValueForDisplay
+    ? Math.round(
+      (account.eaiValueForDisplay / AppConstants.RATE_DENOMINATOR) * 100
+    )
     : null
 }
 
@@ -187,5 +189,5 @@ export default {
   accountNickname,
   receivingEAIFrom,
   sendingEAITo,
-  eaiPercentage
+  eaiValueForDisplay: getEaiValueForDisplay
 }
