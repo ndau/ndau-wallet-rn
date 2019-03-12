@@ -15,7 +15,7 @@ import styles from './styles'
 import DateHelper from '../../helpers/DateHelper'
 import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
-import truncateAddress from 'ndaujs'
+import ndaujs from 'ndaujs'
 
 export function AccountPanel (props) {
   return (
@@ -313,6 +313,10 @@ export function AccountLockDetailsPanel (props) {
       <View>{props.children}</View>
     </View>
   )
+}
+
+export function AccountReceiveParagraphText (props) {
+  return <P style={styles.accountReceiveParagraphText}>{props.children}</P>
 }
 
 export function AccountParagraphText (props) {
@@ -621,7 +625,7 @@ export function AccountSendConfirmationItem (props) {
 }
 
 export function AddressCopyPanel (props) {
-  const address = truncateAddress(address)
+  const address = ndaujs.truncateAddress(props.address)
   return (
     <View
       style={
