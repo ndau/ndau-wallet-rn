@@ -28,7 +28,7 @@ class AccountDetails extends Component {
     this.setState({ account, wallet, allAccountNicknames })
   }
 
-  _showLock = (account, wallet) => {
+  showLock = (account, wallet) => {
     this.props.navigation.navigate('AccountLock', {
       account: account,
       wallet: wallet,
@@ -37,7 +37,15 @@ class AccountDetails extends Component {
     })
   }
 
-  _showHistory = account => {
+  showUnlock = (account, wallet) => {
+    this.props.navigation.navigate('AccountUnlock', {
+      account: account,
+      wallet: wallet,
+      nav: this.props.navigation
+    })
+  }
+
+  showHistory = account => {
     this.props.navigation.navigate('AccountHistory', {
       account: account
     })
@@ -49,7 +57,7 @@ class AccountDetails extends Component {
 
   render () {
     const { account } = this.state
-    const eaiPercentage = AccountAPIHelper.eaiPercentage(account.addressData)
+    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(account.addressData)
     const sendingEAITo = AccountAPIHelper.sendingEAITo(account.addressData)
     const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
       account.addressData
@@ -71,17 +79,18 @@ class AccountDetails extends Component {
       >
         <AccountTotalPanel
           account={this.state.account}
-          onPress={() => this._showHistory(this.state.account)}
+          onPress={() => this.showHistory(this.state.account)}
           {...this.props}
         />
         <AccountDetailsPanel
-          eaiPercentage={eaiPercentage}
+          eaiValueForDisplay={eaiValueForDisplay}
           sendingEAITo={sendingEAITo}
           receivingEAIFrom={receivingEAIFrom}
           accountLockedUntil={accountLockedUntil}
           accountNoticePeriod={accountNoticePeriod}
           accountNotLocked={accountNotLocked}
-          showLock={this._showLock}
+          showLock={this.showLock}
+          showUnlock={this.showUnlock}
           account={this.state.account}
           wallet={this.state.wallet}
         />

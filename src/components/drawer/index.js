@@ -4,7 +4,7 @@ import styles from './styles'
 import { H4 } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
-import { MainContainer } from '../common'
+import { MainContainer, FullScreenDualColorGradient } from '../common'
 import AppConstants from '../../AppConstants'
 
 export function DrawerContainer (props) {

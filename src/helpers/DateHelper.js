@@ -2,6 +2,7 @@ import moment from 'moment'
 import AppConstants from '../AppConstants'
 
 const DATE_FORMAT = 'DD MMM YYYY'
+const DATE_FORMAT_LONG = 'MMMM DD, YYYY'
 
 const getTodaysDate = () => {
   return moment().format(DATE_FORMAT)
@@ -13,6 +14,11 @@ const getDate = date => {
 
 const getMicrosecondsSinceNdauEpoch = () => {
   return moment().diff(AppConstants.NDAU_EPOCH, 'milliseconds') * 1000
+}
+
+const addDaysToToday = (days, longFormat = true) => {
+  const date = moment().add(days, 'day')
+  return longFormat ? date.format(DATE_FORMAT_LONG) : date.format(DATE_FORMAT)
 }
 
 const getDateFromMilliseconds = date => {
@@ -86,5 +92,6 @@ export default {
   getDateFromMilliseconds,
   getDaysFromMicroseconds,
   getMicrosecondsSinceNdauEpoch,
-  parseDurationToMicroseconds
+  parseDurationToMicroseconds,
+  addDaysToToday
 }

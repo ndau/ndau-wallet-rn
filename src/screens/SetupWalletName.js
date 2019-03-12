@@ -3,8 +3,8 @@ import SetupStore from '../model/SetupStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import FlashNotification from '../components/common/FlashNotification'
-import { SetupContainer, ParagraphText } from '../components/setup'
-import { LargeButtons, TextInput } from '../components/common'
+import { SetupContainer } from '../components/setup'
+import { LargeButtons, TextInput, ParagraphText } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
   constructor (props) {

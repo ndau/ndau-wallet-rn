@@ -76,17 +76,6 @@ export default StyleSheet.create({
     marginRight: wp('1%'),
     marginBottom: wp('5%')
   },
-  paragraphText: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 18,
-    letterSpacing: 0.39,
-    lineHeight: 27,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
-    marginRight: wp('4%'),
-    marginLeft: wp('4%')
-  },
   smallParagraphText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',

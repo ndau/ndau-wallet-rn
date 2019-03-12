@@ -23,15 +23,15 @@ test('getMarketPriceAPIAddress sends back the correct address', async () => {
 })
 
 test('getEaiRateAPIAddress sends back the correct address', async () => {
-  const eaiPercentageUrl = await APIAddressHelper.getEaiRateAPIAddress()
+  const eaiValueForDisplayUrl = await APIAddressHelper.getEaiRateAPIAddress()
   expect(
-    eaiPercentageUrl.indexOf('.api.ndau.tech/account/eai/rate') !== -1
+    eaiValueForDisplayUrl.indexOf('.api.ndau.tech/account/eai/rate') !== -1
   ).toBe(true)
 })
 
 test('getTransactionPrevalidateAPIAddress sends back the correct address', async () => {
-  const eaiPercentageUrl = await APIAddressHelper.getTransactionPrevalidateAPIAddress()
-  expect(eaiPercentageUrl.indexOf('.api.ndau.tech/tx/prevalidate') !== -1).toBe(
+  const eaiValueForDisplayUrl = await APIAddressHelper.getTransactionPrevalidateAPIAddress()
+  expect(eaiValueForDisplayUrl.indexOf('.api.ndau.tech/tx/prevalidate') !== -1).toBe(
     true
   )
 })

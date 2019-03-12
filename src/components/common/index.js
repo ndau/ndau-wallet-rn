@@ -15,6 +15,12 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
+import RNQRCodeScanner from 'react-native-qrcode-scanner'
+import RNQRCode from 'react-native-qrcode'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 
 export function LoginContainer ({ children }) {
   return (
@@ -24,16 +30,43 @@ export function LoginContainer ({ children }) {
         style={styles.setupContainerBackgroundImage}
         resizeMode='contain'
       />
-      <LinearGradient
-        start={{ x: 0.0, y: 0.2 }}
-        end={{ x: 0.5, y: 1.0 }}
-        locations={[0, 0.5037, 1.0]}
-        colors={['#0F2748', '#293E63', '#0F2748']}
-        style={[styles.opaqueOverlay]}
-      >
+      <FullScreenTripColorGradient>
         <View style={styles.loginContainer}>{children}</View>
-      </LinearGradient>
+      </FullScreenTripColorGradient>
     </MainContainer>
+  )
+}
+
+export function FullScreenTripColorGradient (props) {
+  return (
+    <LinearGradient
+      start={{ x: 0.0, y: 0.2 }}
+      end={{ x: 0.5, y: 1.0 }}
+      locations={[0, 0.5037, 1.0]}
+      colors={[
+        AppConstants.FULL_SCREEN_GRADIENT_START_COLOR,
+        AppConstants.FULL_SCREEN_GRADIENT_MID_COLOR,
+        AppConstants.FULL_SCREEN_GRADIENT_END_COLOR
+      ]}
+      style={[styles.opaqueOverlay]}
+    >
+      {props.children}
+    </LinearGradient>
+  )
+}
+
+export function FullScreenDualColorGradient (props) {
+  return (
+    <LinearGradient
+      locations={[0, 1.0]}
+      colors={[
+        AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR,
+        AppConstants.FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR
+      ]}
+      style={[styles.appContainerOverlay, props.style]}
+    >
+      {props.children}
+    </LinearGradient>
   )
 }
 
@@ -75,8 +108,23 @@ export function LargeButton (props) {
       }
     >
       <Button
-        style={styles.largeButton}
-        textStyle={styles.largeButtonText}
+        style={[styles.largeButton, props.style]}
+        textStyle={[styles.largeButtonText, props.style]}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
+export function LargeBorderButton (props) {
+  return (
+    <View>
+      <Button
+        style={[styles.largeBorderButton, props.style]}
+        textStyle={[styles.largeButtonText, props.style]}
         uppercase={false}
         {...props}
       >
@@ -137,7 +185,7 @@ export function ProgressBar (props) {
       <View style={styles.backArrow}>
         <TouchableOpacity onPress={props.goBack}>
           <FontAwesome5Pro
-            size={28}
+            size={32}
             name='arrow-left'
             color={AppConstants.ICON_BUTTON_COLOR}
             light
@@ -263,6 +311,10 @@ export function TextInput (props) {
   )
 }
 
+export function BarBorder (props) {
+  return <View style={styles.barBorder} />
+}
+
 export function Dropdown (props) {
   return (
     <View style={styles.dropdownDetailsTextPanel}>
@@ -283,6 +335,20 @@ export function Dropdown (props) {
   )
 }
 
+export function OrBorder (props) {
+  return (
+    <View style={styles.orBorderPanel}>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={styles.orBorder} />
+        <View>
+          <H4 style={styles.orBorderText}>OR</H4>
+        </View>
+        <View style={styles.orBorder} />
+      </View>
+    </View>
+  )
+}
+
 export function MainContainer (props) {
   return (
     <SafeAreaView style={[styles.container, styles.statusBarColor]}>
@@ -293,7 +359,9 @@ export function MainContainer (props) {
 }
 
 export function ContentContainer (props) {
-  return <View style={styles.appContainer}>{props.children}</View>
+  return (
+    <View style={[styles.appContainer, props.style]}>{props.children}</View>
+  )
 }
 
 export function CloseForBar (props) {
@@ -301,7 +369,7 @@ export function CloseForBar (props) {
     <View style={styles.closeForBar}>
       <TouchableOpacity onPress={props.close}>
         <FontAwesome5Pro
-          size={28}
+          size={36}
           name='times'
           color={AppConstants.ICON_BUTTON_COLOR}
           light
@@ -323,6 +391,48 @@ export function LoginImage (props) {
   return (
     <View style={styles.loginImageView}>
       <Image style={styles.loginImage} resizeMode='contain' source={NDAU} />
+    </View>
+  )
+}
+
+export function TitleBarGradient (props) {
+  return (
+    <LinearGradient
+      start={{ x: 0.0, y: 0.02 }}
+      end={{ x: 0.0, y: 1.0 }}
+      locations={[0, 0.05]}
+      colors={[
+        AppConstants.TITLE_BAR_GRADIENT_START_COLOR,
+        AppConstants.TITLE_BAR_GRADIENT_END_COLOR
+      ]}
+      style={[styles.appContainerOverlay]}
+    >
+      {props.children}
+    </LinearGradient>
+  )
+}
+
+export function ParagraphText (props) {
+  return (
+    <P style={[styles.paragraphText]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
+export function QRCodeScanner (props) {
+  return <RNQRCodeScanner {...props} cameraStyle={styles.fullWidthAndHeight} />
+}
+
+export function QRCode (props) {
+  return (
+    <View style={styles.qrCode}>
+      <RNQRCode
+        value={props.value}
+        size={wp('65%')}
+        color='black'
+        backgroundColor='white'
+      />
     </View>
   )
 }

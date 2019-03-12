@@ -149,7 +149,7 @@ export default StyleSheet.create({
   backArrow: {
     ...Platform.select({
       ios: {
-        marginTop: hp('1.2%')
+        marginTop: hp('1.6%')
       },
       android: {
         marginTop: hp('.8%')
@@ -452,5 +452,71 @@ export default StyleSheet.create({
     letterSpacing: 0.39,
     lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'
+  },
+  progressNumber: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 22,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    paddingLeft: wp('1%'),
+    paddingRight: wp('1%'),
+    ...Platform.select({
+      ios: {
+        marginTop: hp('.6%')
+      }
+    }),
+    marginRight: wp('4%')
+  },
+  orBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    width: wp('37%'),
+    height: hp('3%')
+  },
+  orBorderText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 20,
+    letterSpacing: 0.43
+  },
+  largeBorderButton: {
+    width: wp('92%'),
+    height: hp('7%'),
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderRadius: 4,
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    marginLeft: wp('4%')
+  },
+  largeBorderButtonText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 20,
+    fontWeight: '600',
+    letterSpacing: 0.43
+  },
+  orBorderPanel: {
+    width: wp('100%'),
+    height: hp('8%')
+  },
+  paragraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    paddingLeft: wp('1%'),
+    paddingRight: wp('1%'),
+    marginRight: wp('4%'),
+    marginLeft: wp('4%')
+  },
+  fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
+  qrCode: {
+    marginTop: hp('15%'),
+    alignSelf: 'center'
   }
 })

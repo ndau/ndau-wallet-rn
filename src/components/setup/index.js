@@ -7,7 +7,12 @@ import {
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { H4, Progress, P, Input } from 'nachos-ui'
-import { ProgressBar, MainContainer } from '../common'
+import {
+  ProgressBar,
+  MainContainer,
+  FullScreenTripColorGradient,
+  FullScreenDualColorGradient
+} from '../common'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
 
@@ -19,15 +24,9 @@ export function SetupWelcomeContainer ({ children }) {
         style={styles.setupContainerBackgroundImage}
         resizeMode='contain'
       />
-      <LinearGradient
-        start={{ x: 0.0, y: 0.2 }}
-        end={{ x: 0.5, y: 1.0 }}
-        locations={[0, 0.5037, 1.0]}
-        colors={['#0F2748', '#293E63', '#0F2748']}
-        style={[styles.opaqueOverlay]}
-      >
+      <FullScreenTripColorGradient>
         <View style={styles.setupWelcomeContainer}>{children}</View>
-      </LinearGradient>
+      </FullScreenTripColorGradient>
     </MainContainer>
   )
 }
@@ -40,13 +39,9 @@ export function SetupContainer (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
-        <LinearGradient
-          locations={[0, 1.0]}
-          colors={['#0F2748', '#293E63']}
-          style={[styles.setupContainerOverlay]}
-        >
+        <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
           <View style={styles.setupContainer}>{props.children}</View>
-        </LinearGradient>
+        </FullScreenDualColorGradient>
       </View>
     </MainContainer>
   )
@@ -60,15 +55,11 @@ export function SetupContainerWithScrollView (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
-        <LinearGradient
-          locations={[0, 1.0]}
-          colors={['#0F2748', '#293E63']}
-          style={[styles.setupContainerOverlay]}
-        >
+        <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
           <ScrollView style={styles.setupContainerWithScrollView}>
             {props.children}
           </ScrollView>
-        </LinearGradient>
+        </FullScreenDualColorGradient>
       </View>
     </MainContainer>
   )
@@ -80,14 +71,6 @@ export function LargeText ({ children }) {
 
 export function UnderlineDivider ({ children }) {
   return <Progress style={styles.underline} />
-}
-
-export function ParagraphText (props) {
-  return (
-    <P style={[styles.paragraphText]} {...props}>
-      {props.children}
-    </P>
-  )
 }
 
 export function SmallParagraphText (props) {

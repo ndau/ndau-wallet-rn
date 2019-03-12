@@ -41,7 +41,6 @@ const getRootAddresses = async recoveryBytes => {
       )
 
       LoggingService.debug(`root derivedKey: ${derivedKey}`)
-
       const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
       LoggingService.debug(`root address: ${address}`)
@@ -158,7 +157,8 @@ const createWallet = async (
   accountCreationKey,
   walletId,
   chainId = AppConstants.MAINNET_ADDRESS,
-  numberOfAccounts = 0
+  numberOfAccounts = 0,
+  rootDerivedPath
 ) => {
   if (!accountCreationKey && !recoveryBytes) {
     throw new Error(
@@ -182,13 +182,24 @@ const createWallet = async (
       accountCreationKey
     )
 
+    // This function is used in many ways across the application
+    // We want the ability to use this to generate an wallet based on
+    // the accountCreateKeyPath. HOWEVER, if we have the scenario where
+    // we have the keys for genesis generated at root we have to make
+    // sure we genereate addresses and keys accordingly. What this does
+    // is creates BIP44 addresses for the amount of root accounts found
+    // on the blockchain. The recovery process will create the accounts.
+    // This method is to merely create the initial wallet with accountCreateKey
     if (numberOfAccounts > 0) {
       await addAccounts(
         wallet,
         accountCreationKey,
         numberOfAccounts,
-        KeyPathHelper.accountCreationKeyPath(),
-        chainId
+        rootDerivedPath === ''
+          ? rootDerivedPath
+          : KeyPathHelper.accountCreationKeyPath(),
+        chainId,
+        recoveryBytes
       )
     }
     _createInitialKeys(wallet, accountCreationKey)
@@ -215,17 +226,10 @@ const addAccountsToUser = async (
     null,
     walletId,
     AppConstants.MAINNET_ADDRESS,
-    numberOfAccounts
+    numberOfAccounts,
+    rootDerivedPath
   )
   user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
-
-  await addAccounts(
-    wallet,
-    wallet.keys[wallet.accountCreationKeyHash].privateKey,
-    numberOfAccounts,
-    rootDerivedPath,
-    AppConstants.MAINNET_ADDRESS
-  )
 }
 
 const getWalletFromUser = (user, walletId) => {
@@ -237,7 +241,6 @@ const setWalletInUser = (user, wallet) => {
     DataFormatHelper.create8CharHash(wallet.walletId)
   ] = wallet)
 }
-
 /**
  * Add accounts to the wallet passed in.
  *
@@ -246,20 +249,23 @@ const setWalletInUser = (user, wallet) => {
  * @param  {number} numberOfAccounts to be added
  * @param  {string} rootDerivedPath=_generatedRootPth()
  * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
+ * @param  {string} recoveryPhraseBytes
  */
 const addAccounts = async (
   wallet,
   accountCreationKey,
   numberOfAccounts,
   rootDerivedPath,
-  chainId = AppConstants.MAINNET_ADDRESS
+  chainId = AppConstants.MAINNET_ADDRESS,
+  recoveryPhraseBytes
 ) => {
   await _createAccounts(
     numberOfAccounts,
     accountCreationKey,
     wallet,
     rootDerivedPath,
-    chainId
+    chainId,
+    recoveryPhraseBytes
   )
 }
 
@@ -388,16 +394,31 @@ const _createAccount = async (
   childIndex,
   wallet,
   rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
-  chainId = AppConstants.MAINNET_ADDRESS
+  chainId = AppConstants.MAINNET_ADDRESS,
+  recoveryPhraseBytes
 ) => {
   if (childIndex < 0) {
     throw new Error('You cannot create an index less than zero')
   }
   const account = new Account()
 
+  let correctAccountCreationKey = accountCreationKey
+  // So if rootDerivedPath is the empty string ('') then
+  // we need to generate accounts at the root of the tree.
+  // This was because in version 1.6 we genereated keys at root
+  // and not at BIP44. This was fixed in 1.7 and most of our users
+  // will have BIP44 addresses. However, there are about 40 or so
+  // out there that do have their genesis accounts generated at root
+  if (rootDerivedPath === '') {
+    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
+      recoveryPhraseBytes
+    )
+    correctAccountCreationKey = rootPrivateKey
+  }
+
   const childPath = rootDerivedPath + '/' + childIndex
   const privateKeyForAddress = await NativeModules.KeyaddrManager.child(
-    accountCreationKey,
+    correctAccountCreationKey,
     childIndex
   )
   account.ownershipKey = DataFormatHelper.create8CharHash(privateKeyForAddress)
@@ -421,7 +442,8 @@ const _createAccounts = async (
   accountCreationKey,
   wallet,
   rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
-  chainId = AppConstants.MAINNET_ADDRESS
+  chainId = AppConstants.MAINNET_ADDRESS,
+  recoveryPhraseBytes
 ) => {
   for (let i = 1; i <= numberOfAccounts; i++) {
     await _createAccount(
@@ -429,7 +451,8 @@ const _createAccounts = async (
       i,
       wallet,
       rootDerivedPath,
-      chainId
+      chainId,
+      recoveryPhraseBytes
     )
   }
   LoggingService.debug(

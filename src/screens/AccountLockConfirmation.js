@@ -53,7 +53,7 @@ class AccountLockConfirmation extends Component {
 
   render () {
     const { account } = this.state
-    const eaiPercentage = AccountAPIHelper.eaiPercentage(account.addressData)
+    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(account.addressData)
     const sendingEAITo = AccountAPIHelper.sendingEAITo(account.addressData)
     const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
       account.addressData
@@ -75,7 +75,7 @@ class AccountLockConfirmation extends Component {
         {...this.props}
       >
         <AccountLockDetailsPanel
-          eaiPercentage={eaiPercentage}
+          eaiValueForDisplay={eaiValueForDisplay}
           sendingEAITo={sendingEAITo}
           receivingEAIFrom={receivingEAIFrom}
           accountLockedUntil={accountLockedUntil}
