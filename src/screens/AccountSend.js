@@ -47,6 +47,16 @@ class AccountSend extends Component {
     })
   }
 
+  // TODO: we will be getting a better version of this that
+  // TODO: we will have to get out of keyaddr (oneiro-ndev/ndaumath#71)
+  _validAddress = address => {
+    if (address.substr(0, 2) === 'nd') {
+      return true
+    } else {
+      return false
+    }
+  }
+
   _next = () => {
     this.props.navigation.navigate('AccountSendConfirmation', {
       account: this.state.account,
@@ -67,7 +77,7 @@ class AccountSend extends Component {
             this.state.wallet,
             this.state.account,
             this.state.address,
-            !this.state.amount ? 1 : this.state.amount
+            !this.state.amount ? 0 : this.state.amount
           )
 
           await transferTransaction.create()
@@ -95,12 +105,7 @@ class AccountSend extends Component {
   }
 
   _setAddress = async address => {
-    let { validAddress } = this.state
-    if (address.substr(0, 2) === 'nd') {
-      validAddress = true
-    } else {
-      validAddress = false
-    }
+    const validAddress = this._validAddress(this.state.address)
 
     this.setState({ address, validAddress })
   }

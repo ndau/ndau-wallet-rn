@@ -137,7 +137,7 @@ const testAddressData = {
   }
 }
 
-const eaiPercentageRequest = [
+const eaiValueForDisplayRequest = [
   {
     lock: null,
     weightedAverageAge: 0,
@@ -182,29 +182,29 @@ const eaiPercentageRequest = [
   }
 ]
 
-const eaiPercentageResponse = [
+const eaiValueForDisplayResponse = [
   {
-    eaiPercentage: null,
+    eaiValueForDisplay: null,
     address: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun'
   },
   {
-    eaiPercentage: 14,
+    eaiValueForDisplay: 14,
     address: 'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'
   },
   {
-    eaiPercentage: 20,
+    eaiValueForDisplay: 20,
     address: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55'
   },
   {
-    eaiPercentage: 30,
+    eaiValueForDisplay: 30,
     address: 'ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'
   },
   {
-    eaiPercentage: null,
+    eaiValueForDisplay: null,
     address: 'ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp5c'
   },
   {
-    eaiPercentage: 14,
+    eaiValueForDisplay: 14,
     address: 'ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbfq'
   }
 ]
@@ -433,7 +433,7 @@ export default {
   testAddressData,
   testMarketPrice,
   testUser,
-  eaiPercentageResponse,
+  eaiValueForDisplayResponse,
   nodeStatus,
   claimAccountTxRes,
   lockTxRes,

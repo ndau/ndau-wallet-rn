@@ -358,10 +358,10 @@ export function AccountDetailsPanel (props) {
           )}
         </View>
       </View>
-      {props.eaiPercentage ? (
+      {props.eaiValueForDisplay ? (
         <View style={styles.accountDetailsTextPanel}>
           <H4 style={styles.accountDetailsParagraphText}>
-            {props.eaiPercentage}% annualized incentive (EAI)
+            {props.eaiValueForDisplay}% annualized incentive (EAI)
           </H4>
         </View>
       ) : null}
@@ -379,7 +379,7 @@ export function AccountDetailsPanel (props) {
           </H4>
         </View>
       </View>
-      {props.eaiPercentage ? (
+      {props.eaiValueForDisplay ? (
         <View style={styles.accountDetailsTextPanelWithSmallText}>
           <View>
             <H4 style={styles.accountDetailsSmallerText}>
@@ -388,7 +388,7 @@ export function AccountDetailsPanel (props) {
           </View>
           <View>
             <H4 style={styles.accountDetailsSmallerTextBold}>
-              {props.eaiPercentage}%
+              {props.eaiValueForDisplay}%
             </H4>
           </View>
         </View>

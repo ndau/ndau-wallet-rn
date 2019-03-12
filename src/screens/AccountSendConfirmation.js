@@ -67,7 +67,7 @@ class AccountSendConfirmation extends Component {
         })
       } catch (error) {
         FlashNotification.showError(
-          'An error occured while attempting to send ndau'
+          `An error occurred while attempting to send ndau ${error.message}`
         )
       }
 
@@ -99,10 +99,7 @@ class AccountSendConfirmation extends Component {
             value={this.state.transactionFee}
           />
           <BarBorder />
-          <AccountSendConfirmationItem
-            title={'SIB burn:'}
-            value={this.sibBurn}
-          />
+          <AccountSendConfirmationItem title={'SIB:'} value={this.sibBurn} />
           <BarBorder />
           <AccountSendConfirmationItem
             title={'Amount to be sent:'}

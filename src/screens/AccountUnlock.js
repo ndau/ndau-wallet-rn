@@ -65,7 +65,7 @@ class AccountUnlock extends Component {
         <AccountDetailPanel>
           <AccountParagraphText>
             Unlocking this account means you will be able to spend from it, but
-            it will no longer accrue bonus inscentive (EAI). Are you sure you
+            it will no longer accrue bonus incentive (EAI). Are you sure you
             want to unlock?
           </AccountParagraphText>
           <AccountParagraphText>

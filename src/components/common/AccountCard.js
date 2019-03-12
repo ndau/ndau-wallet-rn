@@ -20,7 +20,7 @@ class AccountCard extends Component {
       wallet,
       account,
       address,
-      eaiPercentage,
+      eaiValueForDisplay,
       sendingEAITo,
       receivingEAIFrom,
       accountBalance,
@@ -48,9 +48,9 @@ class AccountCard extends Component {
         onNotice={!!accountLockedUntil}
         expanded={expanded}
       >
-        {eaiPercentage ? (
+        {eaiValueForDisplay ? (
           <Text style={cssStyles.text}>
-            {eaiPercentage}
+            {eaiValueForDisplay}
             {'%'} annualized EAI
           </Text>
         ) : null}
