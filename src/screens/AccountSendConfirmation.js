@@ -12,6 +12,7 @@ import FlashNotification from '../components/common/FlashNotification'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
+import ndaujs from 'ndaujs'
 
 class AccountSendConfirmation extends Component {
   constructor (props) {
@@ -80,7 +81,7 @@ class AccountSendConfirmation extends Component {
         title='Send'
         navigation={this.props.nav}
         wallet={this.state.wallet}
-        account={this.state.wallet}
+        account={this.state.account}
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
@@ -90,7 +91,7 @@ class AccountSendConfirmation extends Component {
           </AccountHeaderText>
           <AccountSendConfirmationItem
             title={'To:'}
-            value={this.state.address}
+            value={ndaujs.truncateAddress(this.state.address)}
           />
           <BarBorder />
           <AccountSendConfirmationItem

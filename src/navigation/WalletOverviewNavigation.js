@@ -6,6 +6,7 @@ import AccountDetails from '../screens/AccountDetails'
 import AccountLock from '../screens/AccountLock'
 import AccountUnlock from '../screens/AccountUnlock'
 import AccountSend from '../screens/AccountSend'
+import AccountReceive from '../screens/AccountReceive'
 import AccountSendConfirmation from '../screens/AccountSendConfirmation'
 import AccountHistory from '../screens/AccountHistory'
 import AccountLockConfirmation from '../screens/AccountLockConfirmation'
@@ -45,6 +46,13 @@ const AccountSendScreen = ({ navigation }) => (
   <AccountSend navigation={navigation} />
 )
 AccountSendScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+})
+
+const AccountReceiveScreen = ({ navigation }) => (
+  <AccountReceive navigation={navigation} />
+)
+AccountReceiveScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
@@ -96,6 +104,7 @@ const WalletOverviewStack = createStackNavigator({
   AccountLock: { screen: AccountLockScreen },
   AccountUnlock: { screen: AccountUnlockScreen },
   AccountSend: { screen: AccountSendScreen },
+  AccountReceive: { screen: AccountReceiveScreen },
   AccountSendConfirmation: { screen: AccountSendConfirmationScreen },
   AccountHistory: { screen: AccountHistoryScreen },
   AccountLockConfirmation: { screen: AccountLockConfirmationScreen },

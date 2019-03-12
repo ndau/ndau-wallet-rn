@@ -149,6 +149,13 @@ class WalletOverview extends Component {
     })
   }
 
+  _receive = (account, wallet) => {
+    this.props.navigation.push('AccountReceive', {
+      account,
+      wallet
+    })
+  }
+
   render = () => {
     try {
       let { wallet } = this.state
@@ -269,7 +276,12 @@ class WalletOverview extends Component {
                           </LargeAccountButton>
                         )}
 
-                        <LargeAccountButton icon='arrow-alt-down'>
+                        <LargeAccountButton
+                          icon='arrow-alt-down'
+                          onPress={() =>
+                            this._receive(wallet.accounts[accountKey], wallet)
+                          }
+                        >
                             Receive
                         </LargeAccountButton>
                       </AccountPanel>

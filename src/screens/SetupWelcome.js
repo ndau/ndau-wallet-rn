@@ -37,32 +37,12 @@ class SetupWelcome extends Component {
     this.props.navigation.navigate('SetupNewOrRecovery')
   }
 
-  testNetToggler = async () => {
-    if (this.state.maxToggle === this.state.toggleCount) {
-      if (await AsyncStorageHelper.isMainNet()) {
-        await AsyncStorageHelper.useTestNet()
-        FlashNotification.showInformation(
-          'You have successfully switched to TestNet!'
-        )
-      } else {
-        await AsyncStorageHelper.useMainNet()
-        FlashNotification.showInformation(
-          'You have successfully switched to MainNet!'
-        )
-      }
-      this.setState({ toggleCount: 1 })
-    } else {
-      this.setState({ toggleCount: this.state.toggleCount + 1 })
-    }
-    LoggingService.debug(`this.state.toggleCount is ${this.state.toggleCount}`)
-  }
-
   render () {
     return (
       <SetupWelcomeContainer>
         <LargeText>Welcome to ndau</LargeText>
         <UnderlineDivider />
-        <ParagraphText onPress={this.testNetToggler}>
+        <ParagraphText>
           ndau is a cryptocurrency designed to be a buoyant long-term store of
           value.
         </ParagraphText>
