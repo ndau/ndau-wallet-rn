@@ -15,6 +15,7 @@ import styles from './styles'
 import DateHelper from '../../helpers/DateHelper'
 import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
+import ndaujs from 'ndaujs'
 
 export function AccountPanel (props) {
   return (
@@ -314,6 +315,10 @@ export function AccountLockDetailsPanel (props) {
   )
 }
 
+export function AccountReceiveParagraphText (props) {
+  return <P style={styles.accountReceiveParagraphText}>{props.children}</P>
+}
+
 export function AccountParagraphText (props) {
   return <P style={styles.accountDetailsParagraphText}>{props.children}</P>
 }
@@ -353,12 +358,15 @@ export function AccountDetailsPanel (props) {
           )}
         </View>
       </View>
-      <View style={styles.accountDetailsTextPanel}>
-        <H4 style={styles.accountDetailsParagraphText}>
-          {props.eaiPercentage}% annualized incentive (EAI)
-        </H4>
-      </View>
+      {props.eaiPercentage ? (
+        <View style={styles.accountDetailsTextPanel}>
+          <H4 style={styles.accountDetailsParagraphText}>
+            {props.eaiPercentage}% annualized incentive (EAI)
+          </H4>
+        </View>
+      ) : null}
       <View style={styles.accountDetailsPanelBorder} />
+
       <View style={styles.accountDetailsTextPanelWithSmallText}>
         <View>
           <H4 style={styles.accountDetailsSmallerText}>
@@ -371,18 +379,21 @@ export function AccountDetailsPanel (props) {
           </H4>
         </View>
       </View>
-      <View style={styles.accountDetailsTextPanelWithSmallText}>
-        <View>
-          <H4 style={styles.accountDetailsSmallerText}>
-            Current EAI based on WAA:
-          </H4>
+      {props.eaiPercentage ? (
+        <View style={styles.accountDetailsTextPanelWithSmallText}>
+          <View>
+            <H4 style={styles.accountDetailsSmallerText}>
+              Current EAI based on WAA:
+            </H4>
+          </View>
+          <View>
+            <H4 style={styles.accountDetailsSmallerTextBold}>
+              {props.eaiPercentage}%
+            </H4>
+          </View>
         </View>
-        <View>
-          <H4 style={styles.accountDetailsSmallerTextBold}>
-            {props.eaiPercentage}%
-          </H4>
-        </View>
-      </View>
+      ) : null}
+
       {props.sendingEAITo ? (
         <View style={styles.accountDetailsTextPanelWithSmallText}>
           <View>
@@ -614,7 +625,7 @@ export function AccountSendConfirmationItem (props) {
 }
 
 export function AddressCopyPanel (props) {
-  const address = props.address ? props.address.substr(0, 28) + '...' : ''
+  const address = ndaujs.truncateAddress(props.address)
   return (
     <View
       style={

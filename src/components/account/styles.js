@@ -267,9 +267,16 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '200',
     letterSpacing: 0.34,
+    lineHeight: 24
+  },
+  accountReceiveParagraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
     lineHeight: 24,
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
+    marginLeft: wp('4%')
   },
   accountDetailsLargerText: {
     color: AppConstants.TEXT_COLOR,
