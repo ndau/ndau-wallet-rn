@@ -4886,9 +4886,9 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-"ndaujs@github:oneiro-ndev/ndaujs#kp-truncate":
+"ndaujs@github:oneiro-ndev/ndaujs#master":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/oneiro-ndev/ndaujs.git#ab0c5a6b683ba6e705622443a10273cb37884744"
+  resolved "git+ssh://git@github.com/oneiro-ndev/ndaujs.git#b47c1f7da2dd384e44a6e47b6dd77599ee671b95"
   dependencies:
     chai "^4.2.0"
     mocha "^6.0.2"
