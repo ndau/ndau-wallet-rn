@@ -6,7 +6,7 @@ import AppConstants from '../AppConstants'
 import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import { SetupContainer } from '../components/setup'
 import {
   LargeButtons,
@@ -126,7 +126,7 @@ class SetupEncryptionPassword extends Component {
         this.state.password
       )
       const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
-      await AsyncStorageHelper.setApplicationPassword(this.state.password)
+      await UserStore.setPassword(this.state.password)
 
       await UserData.loadUserData(user)
       const marketPrice = await OrderAPI.getMarketPrice()

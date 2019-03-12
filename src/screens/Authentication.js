@@ -19,6 +19,8 @@ import {
   LargeButton,
   LoginImage
 } from '../components/common'
+import UserStore from '../stores/UserStore'
+import NdauStore from '../stores/NdauStore'
 
 class Authentication extends Component {
   constructor (props) {
@@ -48,7 +50,7 @@ class Authentication extends Component {
           )
 
           // cache the password
-          await AsyncStorageHelper.setApplicationPassword(this.state.password)
+          await UserStore.setPassword(this.state.password)
           let errorMessage = null
 
           try {
@@ -60,11 +62,11 @@ class Authentication extends Component {
             errorMessage = error.message
           }
 
+          UserStore.setUser(user)
+          NdauStore.setMarketPrice(marketPrice)
+
           this.setState({ spinner: false }, () => {
             this.props.navigation.navigate('Dashboard', {
-              user,
-              encryptionPassword: this.state.password,
-              marketPrice,
               error: errorMessage
             })
           })

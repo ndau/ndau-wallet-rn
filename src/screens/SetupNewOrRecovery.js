@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BackHandler } from 'react-native'
 import AppConstants from '../AppConstants'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import { SetupContainer } from '../components/setup'
 import {
@@ -26,7 +26,7 @@ class SetupNewOrRecovery extends Component {
   }
 
   showNewWallet = async () => {
-    const password = await AsyncStorageHelper.getApplicationPassword()
+    const password = await UserStore.getPassword()
     const user = await MultiSafeHelper.getDefaultUser(password)
 
     this.props.navigation.navigate('SetupYourWallet', {
@@ -36,7 +36,7 @@ class SetupNewOrRecovery extends Component {
   }
 
   showUseExistingRecovery = async () => {
-    const password = await AsyncStorageHelper.getApplicationPassword()
+    const password = await UserStore.getPassword()
     const user = await MultiSafeHelper.getDefaultUser(password)
 
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {

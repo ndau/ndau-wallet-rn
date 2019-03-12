@@ -18,24 +18,6 @@ const TEST_NET = 'TestNet'
 const MAIN_NET = 'MainNet'
 
 /**
- * This is a place to cache the application password to be
- * used by other sections of the ndau wallet code
- *
- * @param {string} password
- */
-const setApplicationPassword = async password => {
-  await AsyncStorage.setItem(APPLICATION_PASSWORD, password)
-}
-
-/**
- * Get the cached application password out of AsyncStorage
- */
-const getApplicationPassword = async () => {
-  const password = await AsyncStorage.getItem(APPLICATION_PASSWORD)
-  return password
-}
-
-/**
  * Cache the last call to address data so we can check to see if we
  * have gotten anything new
  *
@@ -203,8 +185,6 @@ export default {
   unlockUser,
   lockUser,
   getAllKeys,
-  setApplicationPassword,
-  getApplicationPassword,
   setLastAccountData,
   getLastAccountData,
   useMainNet,

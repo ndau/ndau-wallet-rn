@@ -6,7 +6,7 @@ import FlashNotification from '../components/common/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import AppConstants from '../AppConstants'
@@ -43,7 +43,7 @@ class SetupTermsOfService extends Component {
           SetupStore.encryptionPassword
         )
         if (user) {
-          let password = await AsyncStorageHelper.getApplicationPassword()
+          let password = await UserStore.getPassword()
           if (!password) {
             password = SetupStore.encryptionPassword
           }
@@ -70,7 +70,7 @@ class SetupTermsOfService extends Component {
         await UserData.loadUserData(user)
         const marketPrice = await OrderAPI.getMarketPrice()
 
-        await AsyncStorageHelper.setApplicationPassword(
+        await UserStore.setPassword(
           SetupStore.encryptionPassword
         )
 

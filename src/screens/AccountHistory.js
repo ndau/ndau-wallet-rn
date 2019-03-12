@@ -10,6 +10,7 @@ import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
 import LoggingService from '../services/LoggingService'
 import FlashNotification from '../components/common/FlashNotification'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+import AccountStore from '../stores/AccountStore'
 
 class AccountHistory extends Component {
   constructor (props) {
@@ -23,7 +24,7 @@ class AccountHistory extends Component {
 
   componentWillMount = async () => {
     this.setState({ spinner: true }, async () => {
-      const account = this.props.navigation.getParam('account', null)
+      const account = AccountStore.getAccount()
 
       try {
         const accountHistory = await AccountHistoryHelper.getAccountHistory(

@@ -7,6 +7,8 @@ import {
   AddressCopyPanel
 } from '../components/account'
 import { QRCode } from '../components/common'
+import AccountStore from '../stores/AccountStore'
+import WalletStore from '../stores/WalletStore'
 
 class AccountReceive extends Component {
   constructor (props) {
@@ -19,12 +21,9 @@ class AccountReceive extends Component {
   }
 
   componentWillMount = async () => {
-    this.setState({ spinner: true }, async () => {
-      const account = this.props.navigation.getParam('account', null)
-      const wallet = this.props.navigation.getParam('wallet', null)
-
-      this.setState({ account, wallet })
-    })
+    const account = AccountStore.getAccount()
+    const wallet = WalletStore.getWallet()
+    this.setState({ account, wallet })
   }
 
   copyAddressToClipboard = () => {

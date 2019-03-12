@@ -1,6 +1,6 @@
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import AsyncStorageHelper from './AsyncStorageHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
+import UserStore from '../stores/UserStore'
 
 const loadUserData = async user => {
   const walletKeys = Object.keys(user.wallets)
@@ -10,7 +10,7 @@ const loadUserData = async user => {
   }
 
   // after the data is loaded successfully then save the user
-  const password = await AsyncStorageHelper.getApplicationPassword()
+  const password = await UserStore.getPassword()
   // double check that both are truthy, user should be if password is
   // so we could just check for password, but if they are not we might
   // have other problems.

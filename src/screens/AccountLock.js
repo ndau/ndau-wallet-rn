@@ -10,6 +10,8 @@ import {
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { Dropdown } from '../components/common'
+import AccountStore from '../stores/AccountStore'
+import WalletStore from '../stores/WalletStore'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -25,8 +27,8 @@ class AccountLock extends Component {
   }
 
   componentWillMount = () => {
-    const account = this.props.navigation.getParam('account', null)
-    const wallet = this.props.navigation.getParam('wallet', null)
+    const account = AccountStore.getAccount()
+    const wallet = WalletStore.getWallet()
     const allAccountNicknames = this.props.navigation.getParam(
       'allAccountNicknames',
       null

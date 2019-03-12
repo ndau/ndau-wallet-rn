@@ -13,6 +13,8 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
 import ndaujs from 'ndaujs'
+import AccountStore from '../stores/AccountStore'
+import WalletStore from '../stores/WalletStore'
 
 class AccountSendConfirmation extends Component {
   constructor (props) {
@@ -29,24 +31,22 @@ class AccountSendConfirmation extends Component {
   }
 
   componentWillMount = async () => {
-    this.setState({ spinner: true }, async () => {
-      const account = this.props.navigation.getParam('account', null)
-      const wallet = this.props.navigation.getParam('wallet', null)
-      const address = this.props.navigation.getParam('address', null)
-      const amount = this.props.navigation.getParam('amount', null)
-      const transactionFee = this.props.navigation.getParam(
-        'transactionFee',
-        null
-      )
+    const account = AccountStore.getAccount()
+    const wallet = WalletStore.getWallet()
+    const address = this.props.navigation.getParam('address', null)
+    const amount = this.props.navigation.getParam('amount', null)
+    const transactionFee = this.props.navigation.getParam(
+      'transactionFee',
+      null
+    )
 
-      this.setState({
-        account,
-        wallet,
-        address,
-        amount,
-        transactionFee,
-        spinner: false
-      })
+    this.setState({
+      account,
+      wallet,
+      address,
+      amount,
+      transactionFee,
+      spinner: false
     })
   }
 

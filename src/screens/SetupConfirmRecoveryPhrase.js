@@ -16,7 +16,7 @@ import EntropyHelper from '../helpers/EntropyHelper'
 import FlashNotification from '../components/common/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import AppConstants from '../AppConstants'
 import LoggingService from '../services/LoggingService'
 import {
@@ -61,7 +61,7 @@ class SetupConfirmRecoveryPhrase extends Component {
     if (user) {
       // if a user is present then we have wallets and can assume
       // they are logged in, so we get the password setup
-      const password = await AsyncStorageHelper.getApplicationPassword()
+      const password = await UserStore.getPassword()
       user = await MultiSafeHelper.addNewWallet(
         user,
         DataFormatHelper.convertRecoveryArrayToString(

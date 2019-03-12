@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, RefreshControl, AppState } from 'react-native'
-import DateHelper from '../helpers/DateHelper'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
-import {
-  AppContainer,
-  NdauTotal,
-  CollapsablePanelText
-} from '../components/common'
+import { AppContainer, NdauTotal } from '../components/common'
 import { LargeAccountButton, AccountPanel } from '../components/account'
 import {
   DashboardContainer,
@@ -20,8 +15,11 @@ import { DrawerHeaderForOverview, DrawerHeader } from '../components/drawer'
 import { DashboardTotalPanel } from '../components/account'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import NewAccountModalDialog from '../components/common/NewAccountModalDialog'
+import WalletStore from '../stores/WalletStore'
+import AccountStore from '../stores/AccountStore'
+import NdauStore from '../stores/NdauStore'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -54,8 +52,8 @@ class WalletOverview extends Component {
   componentWillMount = async () => {
     AppState.addEventListener('change', this._handleAppStateChange)
 
-    const wallet = this.props.navigation.getParam('wallet', null)
-    const marketPrice = this.props.navigation.getParam('marketPrice', null)
+    const wallet = WalletStore.getWallet()
+    const marketPrice = NdauStore.getMarketPrice()
 
     this.setState({ wallet, marketPrice })
 
@@ -95,7 +93,7 @@ class WalletOverview extends Component {
 
   addNewAccount = async () => {
     try {
-      const password = await AsyncStorageHelper.getApplicationPassword()
+      const password = await UserStore.getPassword()
       const user = await MultiSafeHelper.getDefaultUser(password)
       const wallet = await KeyMaster.createNewAccount(
         this.state.wallet,
@@ -117,7 +115,7 @@ class WalletOverview extends Component {
   _onRefresh = async () => {
     FlashNotification.hideMessage()
     this.setState({ refreshing: true })
-    const password = await AsyncStorageHelper.getApplicationPassword()
+    const password = await UserStore.getPassword()
     const user = await MultiSafeHelper.getDefaultUser(password)
 
     let wallet = this.state.wallet
@@ -135,32 +133,30 @@ class WalletOverview extends Component {
   }
 
   _showAccountDetails = (account, wallet) => {
+    AccountStore.setAccount(account)
+    WalletStore.setWallet(wallet)
     this.props.navigation.push('AccountDetails', {
-      account,
-      wallet,
       allAccountNicknames: this.allAccountNicknames
     })
   }
 
   _send = (account, wallet) => {
-    this.props.navigation.push('AccountSend', {
-      account,
-      wallet
-    })
+    AccountStore.setAccount(account)
+    WalletStore.setWallet(wallet)
+    this.props.navigation.push('AccountSend')
   }
 
   _receive = (account, wallet) => {
-    this.props.navigation.push('AccountReceive', {
-      account,
-      wallet
-    })
+    AccountStore.setAccount(account)
+    WalletStore.setWallet(wallet)
+    this.props.navigation.push('AccountReceive')
   }
 
   render = () => {
     try {
       let { wallet } = this.state
       if (!wallet) {
-        wallet = this.props.navigation.getParam('wallet', null)
+        wallet = WalletStore.getWallet()
       }
       const totalNdau = wallet
         ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)

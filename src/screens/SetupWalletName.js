@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SetupStore from '../model/SetupStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import FlashNotification from '../components/common/FlashNotification'
 import { SetupContainer } from '../components/setup'
 import { LargeButtons, TextInput, ParagraphText } from '../components/common'
@@ -57,7 +57,7 @@ class SetupEncryptionPassword extends Component {
     // if we have an application password in
     // AsyncStorage then there is no need to show
     // this screen, so go to terms & conditions
-    const password = await AsyncStorageHelper.getApplicationPassword()
+    const password = await UserStore.getPassword()
     if (password) {
       SetupStore.encryptionPassword = password
       this.props.navigation.navigate('SetupTermsOfService', {
