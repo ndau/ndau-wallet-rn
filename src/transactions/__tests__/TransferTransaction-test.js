@@ -145,7 +145,7 @@ test('creation of a transfer transaction', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: 10000000000,
     sequence: 3830689465
   }
 
@@ -220,7 +220,7 @@ test('failure of any transaction around sign', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: 10000000000,
     sequence: 3830689465
   }
 
@@ -247,7 +247,7 @@ test('failure of any transaction around prevalidate', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: 10000000000,
     sequence: 3830689465
   }
 
@@ -273,7 +273,7 @@ test('failure of any transaction around submit', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: 10000000000,
     sequence: 3830689465
   }
 
