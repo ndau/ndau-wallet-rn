@@ -78,6 +78,15 @@ const getNdauFromNapu = napu => {
 }
 
 /**
+ * Convert ndau to napu
+ *
+ * @param {number} napu
+ */
+const getNapuFromNdau = ndau => {
+  return ndau * 100000000
+}
+
+/**
  * Given a user return back all the accounts within
  * a single object.
  *
@@ -166,5 +175,6 @@ export default {
   convertRecoveryArrayToString,
   addCommas,
   checkIfWalletAlreadyExists,
-  create8CharHash
+  create8CharHash,
+  getNapuFromNdau
 }

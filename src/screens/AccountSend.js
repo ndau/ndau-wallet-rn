@@ -88,7 +88,7 @@ class AccountSend extends Component {
           }
         } catch (error) {
           FlashNotification.showError(
-            `Error occured while sending ndau: ${error.message}`
+            `Error occurred while sending ndau: ${error.message}`
           )
         }
 

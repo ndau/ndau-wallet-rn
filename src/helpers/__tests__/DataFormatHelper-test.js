@@ -451,6 +451,11 @@ test('getNdauFromNapu converts napu correctly', async () => {
   expect(ndau).toEqual(10)
 })
 
+test('getNapuFromNdau converts ndau correctly', async () => {
+  const ndau = DataFormatHelper.getNapuFromNdau(10)
+  expect(ndau).toEqual(1000000000)
+})
+
 test('getObjectWithAllAccounts sends back the correct amount of accounts', async () => {
   const user = {
     userId: 'Kris',
