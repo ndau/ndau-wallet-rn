@@ -129,6 +129,9 @@ class WalletOverview extends Component {
       FlashNotification.showError(error.message, false)
     }
 
+    WalletStore.setWallet(wallet)
+    NdauStore.setMarketPrice(marketPrice)
+
     this.setState({ refreshing: false, marketPrice, wallet })
   }
 
