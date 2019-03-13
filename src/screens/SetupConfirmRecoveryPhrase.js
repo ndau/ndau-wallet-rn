@@ -7,7 +7,7 @@ import {
   TouchableHighlight
 } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -57,7 +57,7 @@ class SetupConfirmRecoveryPhrase extends Component {
   }
 
   showNextSetup = async () => {
-    let user = this.props.navigation.getParam('user', {})
+    let user = UserStore.getUser()
     if (user) {
       // if a user is present then we have wallets and can assume
       // they are logged in, so we get the password setup
@@ -78,14 +78,14 @@ class SetupConfirmRecoveryPhrase extends Component {
       `user going into SetupWalletName: ${JSON.stringify(user, null, 2)}`
     )
 
-    this.props.navigation.navigate('SetupWalletName', { user })
+    this.props.navigation.navigate('SetupWalletName')
   }
 
   pushBack = async () => {
-    const user = this.props.navigation.getParam('user', {})
+    const user = UserStore.getUser()
 
     await EntropyHelper.generateEntropy()
-    this.props.navigation.navigate('SetupYourWallet', { user })
+    this.props.navigation.navigate('SetupYourWallet')
     FlashNotification.hideMessage()
   }
 

@@ -1,4 +1,4 @@
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import Base64 from 'base-64'
 import { generateSecureRandom } from 'react-native-securerandom'
 

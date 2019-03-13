@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Alert } from 'react-native'
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import OrderAPI from '../api/OrderAPI'
@@ -105,9 +105,7 @@ class SetupEncryptionPassword extends Component {
 
   finishSetup = () => {
     SetupStore.encryptionPassword = this.state.password
-    const user = this.props.navigation.getParam('user', null)
     this.props.navigation.navigate('SetupTermsOfService', {
-      user,
       walletSetupType:
         this.props.navigation.state.params &&
         this.props.navigation.state.params.walletSetupType

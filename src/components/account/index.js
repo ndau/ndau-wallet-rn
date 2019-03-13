@@ -650,7 +650,6 @@ export function AddressCopyPanel (props) {
               style={styles.addressCopyButton}
               textStyle={styles.addressButtonText}
               uppercase={false}
-              onPress={() => this.copyAddressToClipboard()}
               {...props}
             >
               Copy

@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Picker,
   Text,
-  Image
+  Image,
+  ScrollView
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { Button, Progress, H4, P, Checkbox, Input } from 'nachos-ui'
@@ -31,7 +32,9 @@ export function LoginContainer ({ children }) {
         resizeMode='contain'
       />
       <FullScreenTripColorGradient>
-        <View style={styles.loginContainer}>{children}</View>
+        <ScrollView>
+          <View style={styles.loginContainer}>{children}</View>
+        </ScrollView>
       </FullScreenTripColorGradient>
     </MainContainer>
   )

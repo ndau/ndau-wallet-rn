@@ -14,7 +14,6 @@ class AccountReceive extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      address: '',
       account: {},
       wallet: {}
     }
@@ -26,8 +25,9 @@ class AccountReceive extends Component {
     this.setState({ account, wallet })
   }
 
-  copyAddressToClipboard = () => {
-    Clipboard.setString(this.state.account.address)
+  copyAddressToClipboard = address => {
+    console.log(`pasting ${address}`)
+    Clipboard.setString(address)
   }
 
   render () {
@@ -47,7 +47,9 @@ class AccountReceive extends Component {
           <QRCode value={this.state.account.address} />
         </AccountDetailPanel>
         <AddressCopyPanel
-          onPress={this.copyAddressToClipboard}
+          onPress={() =>
+            this.copyAddressToClipboard(this.state.account.address)
+          }
           address={this.state.account.address}
         />
       </AccountSendContainer>

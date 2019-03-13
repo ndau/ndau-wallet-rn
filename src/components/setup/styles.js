@@ -42,7 +42,14 @@ export default StyleSheet.create({
   setupContainer: {
     flex: 1,
     width: wp('100%'),
-    height: hp('100%'),
+    ...Platform.select({
+      ios: {
+        height: hp('79%')
+      },
+      android: {
+        height: hp('84%')
+      }
+    }),
     marginTop: hp('2%'),
     marginBottom: hp('2.5%')
   },

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PixelRatio, NativeModules, Alert } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
 import RNExitApp from 'react-native-exit-app'
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -101,7 +101,6 @@ class SetupRecoveryPhrase extends Component {
   }
 
   showNextSetup = () => {
-    const user = this.props.navigation.getParam('user', {})
     SetupStore.recoveryPhrase = this.state.recoveryPhrase
     SetupStore.shuffledMap = this.shuffleMap
     SetupStore.shuffledWords = this.shuffledWords
@@ -109,8 +108,7 @@ class SetupRecoveryPhrase extends Component {
     const { navigation } = this.props
     navigation.navigate('SetupConfirmRecoveryPhrase', {
       walletSetupType:
-        navigation.state.params && navigation.state.params.walletSetupType,
-      user
+        navigation.state.params && navigation.state.params.walletSetupType
     })
   }
 

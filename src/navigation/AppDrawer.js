@@ -82,13 +82,13 @@ class AppDrawer extends React.Component {
           >
             Recover wallet
           </DrawerEntryItem>
-
+          {/*
           <DrawerEntryItem
             onPress={() => this.logging()}
             fontAwesomeIconName='exclamation-triangle'
           >
             Logging
-          </DrawerEntryItem>
+          </DrawerEntryItem> */}
         </ScrollView>
       </DrawerContainer>
     )

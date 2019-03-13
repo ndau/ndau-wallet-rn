@@ -5,7 +5,6 @@ import {
   ImageBackground,
   TouchableOpacity
 } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
 import { H4, Progress, P, Input } from 'nachos-ui'
 import {
   ProgressBar,
@@ -40,7 +39,9 @@ export function SetupContainer (props) {
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
         <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
-          <View style={styles.setupContainer}>{props.children}</View>
+          <ScrollView>
+            <View style={styles.setupContainer}>{props.children}</View>
+          </ScrollView>
         </FullScreenDualColorGradient>
       </View>
     </MainContainer>

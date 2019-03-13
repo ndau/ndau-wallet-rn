@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, RefreshControl, AppState } from 'react-native'
+import { ScrollView, View, RefreshControl, AppState } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
@@ -199,91 +199,99 @@ class WalletOverview extends Component {
               >
                 Add an account
               </DashboardLabelWithIcon>
-              {wallet
-                ? Object.keys(wallet.accounts)
-                  .sort((a, b) => {
-                    if (
-                      !wallet.accounts[a].addressData.nickname ||
-                        !wallet.accounts[b].addressData.nickname
-                    ) {
-                      return 0
-                    }
+              <View>
+                {wallet
+                  ? Object.keys(wallet.accounts)
+                    .sort((a, b) => {
+                      if (
+                        !wallet.accounts[a].addressData.nickname ||
+                          !wallet.accounts[b].addressData.nickname
+                      ) {
+                        return 0
+                      }
 
-                    const accountNumberA = parseInt(
-                      wallet.accounts[a].addressData.nickname.split(' ')[1]
-                    )
-                    const accountNumberB = parseInt(
-                      wallet.accounts[b].addressData.nickname.split(' ')[1]
-                    )
-                    if (accountNumberA < accountNumberB) {
-                      return -1
-                    } else if (accountNumberA > accountNumberB) {
-                      return 1
-                    }
-                    return 0
-                  })
-                  .map((accountKey, index) => {
-                    const accountNotLocked = AccountAPIHelper.accountNotLocked(
-                      wallet.accounts[accountKey].addressData
-                    )
-                    const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-                      wallet.accounts[accountKey].addressData
-                    )
-                    const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-                      wallet.accounts[accountKey].addressData
-                    )
-                    const address = wallet.accounts[accountKey].address
-                    const nickname =
-                        wallet.accounts[accountKey].addressData.nickname
-                    Object.assign(this.allAccountNicknames, {
-                      [nickname]: address
+                      const accountNumberA = parseInt(
+                        wallet.accounts[a].addressData.nickname.split(' ')[1]
+                      )
+                      const accountNumberB = parseInt(
+                        wallet.accounts[b].addressData.nickname.split(' ')[1]
+                      )
+                      if (accountNumberA < accountNumberB) {
+                        return -1
+                      } else if (accountNumberA > accountNumberB) {
+                        return 1
+                      }
+                      return 0
                     })
-                    return (
-                      <AccountPanel
-                        key={index}
-                        onPress={() =>
-                          this._showAccountDetails(
-                            wallet.accounts[accountKey],
-                            wallet
-                          )
-                        }
-                        account={wallet.accounts[accountKey]}
-                        icon={
-                          accountLockedUntil || accountNoticePeriod
-                            ? 'lock'
-                            : 'lock-open'
-                        }
-                        accountLockedUntil={accountLockedUntil}
-                        accountNoticePeriod={accountNoticePeriod}
-                        {...this.props}
-                      >
-                        {accountLockedUntil || accountNoticePeriod ? (
-                          <LargeAccountButton>
-                              Send disabled
-                          </LargeAccountButton>
-                        ) : (
+                    .map((accountKey, index) => {
+                      const accountNotLocked = AccountAPIHelper.accountNotLocked(
+                        wallet.accounts[accountKey].addressData
+                      )
+                      const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
+                        wallet.accounts[accountKey].addressData
+                      )
+                      const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
+                        wallet.accounts[accountKey].addressData
+                      )
+                      const address = wallet.accounts[accountKey].address
+                      const nickname =
+                          wallet.accounts[accountKey].addressData.nickname
+                      Object.assign(this.allAccountNicknames, {
+                        [nickname]: address
+                      })
+                      return (
+                        <AccountPanel
+                          key={index}
+                          onPress={() =>
+                            this._showAccountDetails(
+                              wallet.accounts[accountKey],
+                              wallet
+                            )
+                          }
+                          account={wallet.accounts[accountKey]}
+                          icon={
+                            accountLockedUntil || accountNoticePeriod
+                              ? 'lock'
+                              : 'lock-open'
+                          }
+                          accountLockedUntil={accountLockedUntil}
+                          accountNoticePeriod={accountNoticePeriod}
+                          {...this.props}
+                        >
+                          {accountLockedUntil || accountNoticePeriod ? (
+                            <LargeAccountButton>
+                                Send disabled
+                            </LargeAccountButton>
+                          ) : (
+                            <LargeAccountButton
+                              icon='arrow-alt-up'
+                              onPress={() =>
+                                this._send(
+                                  wallet.accounts[accountKey],
+                                  wallet
+                                )
+                              }
+                            >
+                                Send
+                            </LargeAccountButton>
+                          )}
+
                           <LargeAccountButton
-                            icon='arrow-alt-up'
+                            icon='arrow-alt-down'
                             onPress={() =>
-                              this._send(wallet.accounts[accountKey], wallet)
+                              this._receive(
+                                wallet.accounts[accountKey],
+                                wallet
+                              )
                             }
                           >
-                              Send
+                              Receive
                           </LargeAccountButton>
-                        )}
-
-                        <LargeAccountButton
-                          icon='arrow-alt-down'
-                          onPress={() =>
-                            this._receive(wallet.accounts[accountKey], wallet)
-                          }
-                        >
-                            Receive
-                        </LargeAccountButton>
-                      </AccountPanel>
-                    )
-                  })
-                : null}
+                        </AccountPanel>
+                      )
+                    })
+                  : null}
+              </View>
             </DashboardContainer>
           </ScrollView>
         </AppContainer>

@@ -75,7 +75,7 @@ class AccountSend extends Component {
             this.state.wallet,
             this.state.account,
             this.state.address,
-            !this.state.amount ? 0 : this.state.amount
+            !this.state.amount ? 1 : this.state.amount
           )
 
           await transferTransaction.create()
@@ -103,7 +103,7 @@ class AccountSend extends Component {
   }
 
   _setAddress = async address => {
-    const validAddress = this._validAddress(this.state.address)
+    const validAddress = this._validAddress(address)
 
     this.setState({ address, validAddress })
   }
