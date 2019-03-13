@@ -141,7 +141,7 @@ class Dashboard extends Component {
                 return (
                   <DashboardPanel
                     key={index}
-                    walletName={wallet.walletId}
+                    walletName={wallet.walletName}
                     onPress={() => this._showWalletOverview(wallet)}
                   />
                 )

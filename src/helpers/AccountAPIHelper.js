@@ -6,10 +6,11 @@ import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
 import { ClaimTransaction } from '../transactions/ClaimTransaction'
 import { Transaction } from '../transactions/Transaction'
-import UserData from '../model/UserData'
 import LoggingService from '../services/LoggingService'
 
 const populateWalletWithAddressData = async wallet => {
+  _repairWalletObject(wallet)
+
   const addressDataFromAPI = await AccountAPI.getAddressData(
     Object.keys(wallet.accounts)
   )
@@ -71,6 +72,17 @@ const populateWalletWithAddressData = async wallet => {
       account.addressData.walletId = wallet.walletId
     }
   })
+}
+
+/**
+ * This method will repair the wallet in terms of missing data
+ *
+ * @param {Wallet} wallet
+ */
+const _repairWalletObject = wallet => {
+  if (!wallet.walletName && wallet.walletId) {
+    wallet.walletName = wallet.walletId
+  }
 }
 
 const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {

@@ -7,6 +7,7 @@ import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
 import UserStore from '../stores/UserStore'
+import NdauStore from '../stores/NdauStore'
 import { SetupContainer } from '../components/setup'
 import {
   LargeButtons,
@@ -105,6 +106,7 @@ class SetupEncryptionPassword extends Component {
 
   finishSetup = () => {
     SetupStore.encryptionPassword = this.state.password
+    UserStore.setPassword(this.state.password)
     this.props.navigation.navigate('SetupTermsOfService', {
       walletSetupType:
         this.props.navigation.state.params &&
@@ -129,11 +131,11 @@ class SetupEncryptionPassword extends Component {
       await UserData.loadUserData(user)
       const marketPrice = await OrderAPI.getMarketPrice()
 
+      UserStore.setUser(user)
+      NdauStore.setMarketPrice(marketPrice)
+
       this.props.navigation.navigate('Dashboard', {
-        user,
-        encryptionPassword: this.state.password,
-        walletSetupType: null,
-        marketPrice
+        walletSetupType: null
       })
     } catch (error) {
       LoggingService.error(error)
