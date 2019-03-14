@@ -21,11 +21,7 @@ const post = async (url, data, timeout = 10000) => {
     LoggingService.debug(
       `Error from ${url} ${JSON.stringify(error.response.data)}`
     )
-    let message = error.response.data.err ? error.response.data.err : null
-    if (!message && error.response.data.msg) {
-      message = error.response.data.msg
-    }
-    throw new BlockchainAPIError(message)
+    throw new BlockchainAPIError(_getErrorMessage(error.response.data))
   }
 }
 
@@ -47,12 +43,12 @@ const get = async (url, timeout = 10000) => {
     LoggingService.debug(
       `Error from ${url} ${JSON.stringify(error.response.data)}`
     )
-    let message = error.response.data.err ? error.response.data.err : null
-    if (!message && error.response.data.msg) {
-      message = error.response.data.msg
-    }
-    throw new BlockchainAPIError(message)
+    throw new BlockchainAPIError(_getErrorMessage(error.response.data))
   }
+}
+
+const _getErrorMessage = data => {
+  return data.err || data.msg || null
 }
 
 export default {

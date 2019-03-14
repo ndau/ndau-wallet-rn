@@ -1,4 +1,5 @@
 import KeyPathHelper from '../helpers/KeyPathHelper'
+import AppConstants from '../AppConstants'
 
 const addresses = [
   'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
@@ -396,7 +397,7 @@ const transferTxRes = {
 const accountHistoryRes = {
   Items: [
     {
-      Balance: 100000000000,
+      Balance: AppConstants.QUANTA_PER_UNIT * 1000,
       Timestamp: '2019-02-05T03:42:39Z',
       TxHash: 'luWjXZZAITZOrtwfPW0dIA'
     }
