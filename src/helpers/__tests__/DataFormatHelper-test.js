@@ -62,6 +62,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
+        walletName: 'Kris',
         accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {

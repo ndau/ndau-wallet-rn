@@ -177,6 +177,7 @@ const createWallet = async (
   try {
     let wallet = new Wallet()
     wallet.walletId = walletId
+    wallet.walletName = walletId
 
     wallet.accountCreationKeyHash = DataFormatHelper.create8CharHash(
       accountCreationKey
