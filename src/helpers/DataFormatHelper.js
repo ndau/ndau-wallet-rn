@@ -76,7 +76,7 @@ const getNextPathIndex = (wallet, path) => {
  * @param {number} napu
  */
 const getNdauFromNapu = napu => {
-  return napu / 100000000
+  return napu / AppConstants.QUANTA_PER_UNIT
 }
 
 /**
@@ -85,7 +85,7 @@ const getNdauFromNapu = napu => {
  * @param {number} napu
  */
 const getNapuFromNdau = ndau => {
-  return ndau * 100000000
+  return ndau * AppConstants.QUANTA_PER_UNIT
 }
 
 /**
