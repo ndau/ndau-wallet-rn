@@ -49,7 +49,7 @@ export default StyleSheet.create({
   dashboardContainer: {
     flex: 1,
     width: wp('100%'),
-    height: hp('100%'),
+    height: hp('120%'),
     ...Platform.select({
       ios: {
         marginTop: hp('3%')

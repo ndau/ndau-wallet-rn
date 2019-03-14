@@ -6,14 +6,11 @@ import { LargeButtons, ParagraphText } from '../components/common'
 
 class SetupYourWallet extends Component {
   showNextSetup = async () => {
-    const user = this.props.navigation.getParam('user', {})
-
     await EntropyHelper.generateEntropy()
     this.props.navigation.navigate('SetupRecoveryPhrase', {
       walletSetupType:
         this.props.navigation.state.params &&
-        this.props.navigation.state.params.walletSetupType,
-      user
+        this.props.navigation.state.params.walletSetupType
     })
   }
 

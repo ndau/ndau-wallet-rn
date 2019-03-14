@@ -1,10 +1,15 @@
+import DataFormatHelper from '../helpers/DataFormatHelper'
+
 export class TransferTransaction {
   constructor (wallet, account, destination, quantity) {
     this._wallet = wallet
     this._account = account
 
     this._destination = destination
-    this._quantity = quantity
+    // The assumption here is that we get ndau sent to this
+    // quantity. The API must have napu so we perform the
+    // conversion here
+    this._quantity = DataFormatHelper.getNapuFromNdau(quantity)
     this._keys = wallet.keys
     this._jsonTransaction = {}
     this._submitAddress = ''

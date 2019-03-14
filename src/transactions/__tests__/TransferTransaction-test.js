@@ -3,6 +3,7 @@ import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
 import MockAsyncStorage from 'mock-async-storage'
+import AppConstants from '../../AppConstants'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountAPI()
@@ -145,7 +146,7 @@ test('creation of a transfer transaction', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: AppConstants.QUANTA_PER_UNIT * 100,
     sequence: 3830689465
   }
 
@@ -220,7 +221,7 @@ test('failure of any transaction around sign', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: AppConstants.QUANTA_PER_UNIT * 100,
     sequence: 3830689465
   }
 
@@ -247,7 +248,7 @@ test('failure of any transaction around prevalidate', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: AppConstants.QUANTA_PER_UNIT * 100,
     sequence: 3830689465
   }
 
@@ -273,7 +274,7 @@ test('failure of any transaction around submit', async () => {
   const theTransferTransaction = {
     source: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     destination: 'abcdefghijklmnopqrstuvwxyz123456789',
-    qty: 100,
+    qty: AppConstants.QUANTA_PER_UNIT * 100,
     sequence: 3830689465
   }
 

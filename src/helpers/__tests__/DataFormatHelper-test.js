@@ -62,6 +62,7 @@ test('moveTempUserToWalletName must do the needful', async () => {
     wallets: {
       '61d9b642': {
         walletId: 'Kris',
+        walletName: 'Kris',
         accountCreationKeyHash: '1e48ba8c',
         accounts: {
           tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6: {
@@ -447,8 +448,15 @@ test('getNextPathIndex gets me the correct next root path with others', async ()
 })
 
 test('getNdauFromNapu converts napu correctly', async () => {
-  const ndau = DataFormatHelper.getNdauFromNapu(1000000000)
+  const ndau = DataFormatHelper.getNdauFromNapu(
+    AppConstants.QUANTA_PER_UNIT * 10
+  )
   expect(ndau).toEqual(10)
+})
+
+test('getNapuFromNdau converts ndau correctly', async () => {
+  const ndau = DataFormatHelper.getNapuFromNdau(10)
+  expect(ndau).toEqual(AppConstants.QUANTA_PER_UNIT * 10)
 })
 
 test('getObjectWithAllAccounts sends back the correct amount of accounts', async () => {

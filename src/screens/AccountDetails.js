@@ -6,6 +6,8 @@ import {
   AccountDetailsPanel
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import WalletStore from '../stores/WalletStore'
+import AccountStore from '../stores/AccountStore'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -18,8 +20,8 @@ class AccountDetails extends Component {
   }
 
   componentWillMount = () => {
-    const account = this.props.navigation.getParam('account', null)
-    const wallet = this.props.navigation.getParam('wallet', null)
+    const account = AccountStore.getAccount()
+    const wallet = WalletStore.getWallet()
     const allAccountNicknames = this.props.navigation.getParam(
       'allAccountNicknames',
       null
@@ -29,26 +31,25 @@ class AccountDetails extends Component {
   }
 
   showLock = (account, wallet) => {
+    AccountStore.setAccount(account)
+    WalletStore.setWallet(wallet)
     this.props.navigation.navigate('AccountLock', {
-      account: account,
-      wallet: wallet,
       nav: this.props.navigation,
       allAccountNicknames: this.state.allAccountNicknames
     })
   }
 
   showUnlock = (account, wallet) => {
+    AccountStore.setAccount(account)
+    WalletStore.setWallet(wallet)
     this.props.navigation.navigate('AccountUnlock', {
-      account: account,
-      wallet: wallet,
       nav: this.props.navigation
     })
   }
 
   showHistory = account => {
-    this.props.navigation.navigate('AccountHistory', {
-      account: account
-    })
+    AccountStore.setAccount(account)
+    this.props.navigation.navigate('AccountHistory')
   }
 
   goBack = () => {
@@ -57,7 +58,9 @@ class AccountDetails extends Component {
 
   render () {
     const { account } = this.state
-    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(account.addressData)
+    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(
+      account.addressData
+    )
     const sendingEAITo = AccountAPIHelper.sendingEAITo(account.addressData)
     const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
       account.addressData

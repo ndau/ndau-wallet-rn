@@ -30,6 +30,10 @@ const getTransactionId = item => {
   return item.TxHash
 }
 
+const getTransactionDestination = item => {
+  return item.txDetail.Transactable.dst
+}
+
 const getTransactionType = accountHistory => {
   return AppConstants.TRANSACTION_TYPES[accountHistory.txDetail.TransactableID]
 }
@@ -46,5 +50,6 @@ export default {
   getTransactionDate,
   getTransactionId,
   getTransactionType,
-  getTransactionBalance
+  getTransactionBalance,
+  getTransactionDestination
 }

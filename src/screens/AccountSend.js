@@ -19,6 +19,8 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import AccountStore from '../stores/AccountStore'
+import WalletStore from '../stores/WalletStore'
 
 class AccountSend extends Component {
   constructor (props) {
@@ -39,12 +41,10 @@ class AccountSend extends Component {
   }
 
   componentWillMount = async () => {
-    this.setState({ spinner: true }, async () => {
-      const account = this.props.navigation.getParam('account', null)
-      const wallet = this.props.navigation.getParam('wallet', null)
+    const account = AccountStore.getAccount()
+    const wallet = WalletStore.getWallet()
 
-      this.setState({ account, wallet, spinner: false })
-    })
+    this.setState({ account, wallet })
   }
 
   // TODO: we will be getting a better version of this that
@@ -59,8 +59,6 @@ class AccountSend extends Component {
 
   _next = () => {
     this.props.navigation.navigate('AccountSendConfirmation', {
-      account: this.state.account,
-      wallet: this.state.wallet,
       address: this.state.address,
       amount: this.state.amount,
       transactionFee: this.state.transactionFee
@@ -77,7 +75,7 @@ class AccountSend extends Component {
             this.state.wallet,
             this.state.account,
             this.state.address,
-            !this.state.amount ? 0 : this.state.amount
+            !this.state.amount ? 1 : this.state.amount
           )
 
           await transferTransaction.create()
@@ -90,7 +88,7 @@ class AccountSend extends Component {
           }
         } catch (error) {
           FlashNotification.showError(
-            `Error occured while sending ndau: ${error.message}`
+            `Error occurred while sending ndau: ${error.message}`
           )
         }
 
@@ -105,7 +103,7 @@ class AccountSend extends Component {
   }
 
   _setAddress = async address => {
-    const validAddress = this._validAddress(this.state.address)
+    const validAddress = this._validAddress(address)
 
     this.setState({ address, validAddress })
   }

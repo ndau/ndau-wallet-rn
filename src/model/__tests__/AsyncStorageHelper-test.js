@@ -151,13 +151,6 @@ describe('AsyncStorageHelper tests...', () => {
     })
   })
 
-  it('should store and retrieve the password correctly', async () => {
-    const password = '123adsf'
-    await AsyncStorageHelper.setApplicationPassword(password)
-    const retrievedPassword = await AsyncStorageHelper.getApplicationPassword()
-    expect(password).toEqual(retrievedPassword)
-  })
-
   it('should set MainNet and validate that is being used', async () => {
     await AsyncStorageHelper.useMainNet()
     // TODO: MainNet is hardcoded off right now

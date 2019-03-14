@@ -18,11 +18,13 @@ const moveTempUserToWalletName = (user, walletId) => {
     user.userId = walletId
     const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
+    wallet.walletName = walletId
     user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
     delete user.wallets[hashedTempKey]
   } else if (user.wallets[create8CharHash(AppConstants.TEMP_ID)]) {
     const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
+    wallet.walletName = walletId
     user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
     delete user.wallets[hashedTempKey]
   }
@@ -74,7 +76,16 @@ const getNextPathIndex = (wallet, path) => {
  * @param {number} napu
  */
 const getNdauFromNapu = napu => {
-  return napu / 100000000
+  return napu / AppConstants.QUANTA_PER_UNIT
+}
+
+/**
+ * Convert ndau to napu
+ *
+ * @param {number} napu
+ */
+const getNapuFromNdau = ndau => {
+  return ndau * AppConstants.QUANTA_PER_UNIT
 }
 
 /**
@@ -166,5 +177,6 @@ export default {
   convertRecoveryArrayToString,
   addCommas,
   checkIfWalletAlreadyExists,
-  create8CharHash
+  create8CharHash,
+  getNapuFromNdau
 }

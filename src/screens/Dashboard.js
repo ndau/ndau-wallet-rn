@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, RefreshControl, AppState } from 'react-native'
-import DateHelper from '../helpers/DateHelper'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
@@ -9,21 +8,17 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import LoggingService from '../services/LoggingService'
-import CollapsiblePanel from '../components/common/CollapsiblePanel'
-import {
-  AppContainer,
-  NdauTotal,
-  Label,
-  CollapsablePanelText
-} from '../components/common'
+import { AppContainer, NdauTotal } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardContainer,
   DashboardLabel,
   DashboardPanel
 } from '../components/dashboard'
-import CollapsibleBar from '../components/common/CollapsibleBar'
 import { DashboardTotalPanel } from '../components/account'
+import UserStore from '../stores/UserStore'
+import NdauStore from '../stores/NdauStore'
+import WalletStore from '../stores/WalletStore'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -54,19 +49,9 @@ class Dashboard extends Component {
 
   componentWillMount = async () => {
     AppState.addEventListener('change', this._handleAppStateChange)
-    let user = this.props.navigation.getParam('user', null)
-    if (!user) {
-      const password = await AsyncStorageHelper.getApplicationPassword()
-      user = await MultiSafeHelper.getDefaultUser(password)
-    }
 
-    let marketPrice = this.state.marketPrice
-    try {
-      await UserData.loadUserData(user)
-      marketPrice = await OrderAPI.getMarketPrice()
-    } catch (error) {
-      FlashNotification.showError(error.message, false, false)
-    }
+    const user = UserStore.getUser()
+    const marketPrice = NdauStore.getMarketPrice()
 
     LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
 
@@ -99,14 +84,15 @@ class Dashboard extends Component {
       FlashNotification.showError(error.message, false, false)
     }
 
+    UserStore.setUser(user)
+    NdauStore.setMarketPrice(marketPrice)
+
     this.setState({ refreshing: false, user, marketPrice })
   }
 
   _showWalletOverview = wallet => {
-    this.props.navigation.push('WalletOverview', {
-      wallet,
-      marketPrice: this.state.marketPrice
-    })
+    WalletStore.setWallet(wallet)
+    this.props.navigation.push('WalletOverview', {})
   }
 
   render = () => {
@@ -155,7 +141,7 @@ class Dashboard extends Component {
                 return (
                   <DashboardPanel
                     key={index}
-                    walletName={wallet.walletId}
+                    walletName={wallet.walletName}
                     onPress={() => this._showWalletOverview(wallet)}
                   />
                 )

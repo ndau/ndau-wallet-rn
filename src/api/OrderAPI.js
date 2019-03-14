@@ -10,7 +10,7 @@ const getMarketPrice = async () => {
     return data.marketPrice
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError()
+    throw new BlockchainAPIError(error.message)
   }
 }
 

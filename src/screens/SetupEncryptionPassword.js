@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Alert } from 'react-native'
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
+import NdauStore from '../stores/NdauStore'
 import { SetupContainer } from '../components/setup'
 import {
   LargeButtons,
@@ -105,9 +106,8 @@ class SetupEncryptionPassword extends Component {
 
   finishSetup = () => {
     SetupStore.encryptionPassword = this.state.password
-    const user = this.props.navigation.getParam('user', null)
+    UserStore.setPassword(this.state.password)
     this.props.navigation.navigate('SetupTermsOfService', {
-      user,
       walletSetupType:
         this.props.navigation.state.params &&
         this.props.navigation.state.params.walletSetupType
@@ -126,16 +126,16 @@ class SetupEncryptionPassword extends Component {
         this.state.password
       )
       const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
-      await AsyncStorageHelper.setApplicationPassword(this.state.password)
+      await UserStore.setPassword(this.state.password)
 
       await UserData.loadUserData(user)
       const marketPrice = await OrderAPI.getMarketPrice()
 
+      UserStore.setUser(user)
+      NdauStore.setMarketPrice(marketPrice)
+
       this.props.navigation.navigate('Dashboard', {
-        user,
-        encryptionPassword: this.state.password,
-        walletSetupType: null,
-        marketPrice
+        walletSetupType: null
       })
     } catch (error) {
       LoggingService.error(error)

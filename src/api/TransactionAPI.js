@@ -11,7 +11,7 @@ const _postTransaction = async (submitAddress, transaction) => {
     )
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError()
+    throw new BlockchainAPIError(error.message)
   }
 }
 
@@ -31,7 +31,7 @@ const transactionByHash = async transactionHash => {
     return await APICommunicationHelper.get(transactionByHashAddress)
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError()
+    throw new BlockchainAPIError(error.message)
   }
 }
 

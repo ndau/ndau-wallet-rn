@@ -561,6 +561,20 @@ export function AccountHistoryPanels (props) {
             </H4>
           </View>
         </View>
+        {AccountHistoryHelper.getTransactionDestination(item) ? (
+          <View style={styles.accountHistoryTextPanelWithSmallText}>
+            <View>
+              <H4 style={styles.accountHistorySmallerTextBold}>Sent to:</H4>
+            </View>
+            <View>
+              <H4 style={styles.accountHistorySmallerText}>
+                {ndaujs.truncateAddress(
+                  AccountHistoryHelper.getTransactionDestination(item)
+                )}
+              </H4>
+            </View>
+          </View>
+        ) : null}
       </CollapsibleBar>
     )
   })
@@ -650,7 +664,6 @@ export function AddressCopyPanel (props) {
               style={styles.addressCopyButton}
               textStyle={styles.addressButtonText}
               uppercase={false}
-              onPress={() => this.copyAddressToClipboard()}
               {...props}
             >
               Copy

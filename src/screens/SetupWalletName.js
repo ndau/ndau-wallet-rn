@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import FlashNotification from '../components/common/FlashNotification'
 import { SetupContainer } from '../components/setup'
 import { LargeButtons, TextInput, ParagraphText } from '../components/common'
 
-class SetupEncryptionPassword extends Component {
+class SetupWalletName extends Component {
   constructor (props) {
     super(props)
 
@@ -17,7 +17,7 @@ class SetupEncryptionPassword extends Component {
   }
 
   componentWillMount = () => {
-    const user = this.props.navigation.getParam('user', null)
+    const user = UserStore.getUser()
     if (user) {
       this.walletCount = Object.keys(user.wallets).length
     }
@@ -42,7 +42,7 @@ class SetupEncryptionPassword extends Component {
 
   showNextSetup = async () => {
     const { navigation } = this.props
-    const user = navigation.getParam('user', null)
+    const user = UserStore.getUser()
 
     if (this.checkIfWalletAlreadyExists(user)) {
       return
@@ -54,10 +54,11 @@ class SetupEncryptionPassword extends Component {
       DataFormatHelper.moveTempUserToWalletName(user, SetupStore.walletId)
     }
 
+    UserStore.setUser(user)
     // if we have an application password in
-    // AsyncStorage then there is no need to show
+    // cache then there is no need to show
     // this screen, so go to terms & conditions
-    const password = await AsyncStorageHelper.getApplicationPassword()
+    const password = await UserStore.getPassword()
     if (password) {
       SetupStore.encryptionPassword = password
       this.props.navigation.navigate('SetupTermsOfService', {
@@ -108,4 +109,4 @@ class SetupEncryptionPassword extends Component {
   }
 }
 
-export default SetupEncryptionPassword
+export default SetupWalletName

@@ -14,6 +14,8 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import DateHelper from '../helpers/DateHelper'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
 import { Transaction } from '../transactions/Transaction'
+import AccountStore from '../stores/AccountStore'
+import WalletStore from '../stores/WalletStore'
 
 class AccountUnlock extends Component {
   constructor (props) {
@@ -27,12 +29,10 @@ class AccountUnlock extends Component {
   }
 
   componentWillMount = async () => {
-    this.setState({ spinner: true }, async () => {
-      const account = this.props.navigation.getParam('account', null)
-      const wallet = this.props.navigation.getParam('wallet', null)
+    const account = AccountStore.getAccount()
+    const wallet = WalletStore.getWallet()
 
-      this.setState({ account, wallet, spinner: false })
-    })
+    this.setState({ account, wallet })
   }
 
   _initiateUnlock = async () => {

@@ -37,7 +37,10 @@ const getAccountHistoryAPIAddress = async address => {
 }
 
 const getTransactionByHashAPIAddress = async transactionHash => {
-  return (await getNodeAddress()) + `/transaction/${transactionHash}`
+  // transaction hash's can contain characters that must be encoded
+  // for a URI
+  const urlEncodedTransactionHash = encodeURIComponent(transactionHash)
+  return (await getNodeAddress()) + `/transaction/${urlEncodedTransactionHash}`
 }
 
 export default {

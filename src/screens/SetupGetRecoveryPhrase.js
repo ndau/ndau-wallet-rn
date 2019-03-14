@@ -19,7 +19,7 @@ import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import FlashNotification from '../components/common/FlashNotification'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
@@ -33,6 +33,8 @@ import {
   BottomLinkText
 } from '../components/common'
 import cssStyles from '../css/styles'
+import UserStore from '../stores/UserStore'
+import NdauStore from '../stores/NdauStore'
 
 const DEFAULT_ROW_LENGTH = 4
 const _ = require('lodash')
@@ -199,7 +201,7 @@ class SetupGetRecoveryPhrase extends Component {
   _checkRecoveryPhrase = async () => {
     return await RecoveryPhaseHelper.checkRecoveryPhrase(
       DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase),
-      this.props.navigation.getParam('user', null)
+      UserStore.getUser()
     )
   }
 
@@ -239,10 +241,7 @@ class SetupGetRecoveryPhrase extends Component {
 
         const user = await this._checkRecoveryPhrase()
         if (user) {
-          const encryptionPassword = navigation.getParam(
-            'encryptionPassword',
-            null
-          )
+          const encryptionPassword = UserStore.getPassword()
           let marketPrice = 0
           // IF we have a password we are fixing up an account from a 1.6 user here
           // so we fixed it up...now save it...and go back to Dashboard
@@ -260,13 +259,13 @@ class SetupGetRecoveryPhrase extends Component {
               DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase)
             )
 
-            this.props.navigation.navigate('Dashboard', {
-              user,
-              encryptionPassword,
+            UserStore.setUser(user)
+            NdauStore.setMarketPrice(marketPrice)
+
+            this.props.navigation.push('Dashboard', {
               walletSetupType:
                 navigation.state.params &&
-                navigation.state.params.walletSetupType,
-              marketPrice
+                navigation.state.params.walletSetupType
             })
           } else {
             if (
@@ -280,9 +279,11 @@ class SetupGetRecoveryPhrase extends Component {
               )
               return
             }
+
+            UserStore.setUser(user)
+
             SetupStore.recoveryPhrase = this.recoveryPhrase
             navigation.navigate('SetupWalletName', {
-              user,
               walletSetupType:
                 navigation.state.params &&
                 navigation.state.params.walletSetupType

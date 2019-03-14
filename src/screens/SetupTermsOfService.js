@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import SetupStore from '../model/SetupStore'
+import SetupStore from '../stores/SetupStore'
 import ndauDashboardApi from '../api/NdauDashboardAPI'
 import FlashNotification from '../components/common/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import UserStore from '../stores/UserStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import AppConstants from '../AppConstants'
@@ -20,6 +20,7 @@ import {
   MainLegalTextHeading,
   LegalTextBold
 } from '../components/common'
+import NdauStore from '../stores/NdauStore'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -36,14 +37,10 @@ class SetupTermsOfService extends Component {
       try {
         LoggingService.debug('Finishing Setup...')
 
-        let user = this.props.navigation.getParam('user', null)
+        let user = UserStore.getUser()
 
-        // check if there is already a safe for this user
-        const existingUser = await MultiSafeHelper.getDefaultUser(
-          SetupStore.encryptionPassword
-        )
         if (user) {
-          let password = await AsyncStorageHelper.getApplicationPassword()
+          let password = await UserStore.getPassword()
           if (!password) {
             password = SetupStore.encryptionPassword
           }
@@ -70,17 +67,12 @@ class SetupTermsOfService extends Component {
         await UserData.loadUserData(user)
         const marketPrice = await OrderAPI.getMarketPrice()
 
-        await AsyncStorageHelper.setApplicationPassword(
-          SetupStore.encryptionPassword
-        )
+        UserStore.setPassword(SetupStore.encryptionPassword)
+        UserStore.setUser(user)
+        NdauStore.setMarketPrice(marketPrice)
 
         this.setState({ spinner: false }, () => {
-          this.props.navigation.navigate('Dashboard', {
-            user,
-            encryptionPassword: SetupStore.encryptionPassword,
-            walletSetupType: null,
-            marketPrice
-          })
+          this.props.navigation.navigate('Dashboard')
         })
       } catch (error) {
         FlashNotification.showError(error.message)

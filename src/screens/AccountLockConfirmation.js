@@ -10,6 +10,8 @@ import {
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
+import AccountStore from '../stores/AccountStore'
+import WalletStore from '../stores/WalletStore'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -21,8 +23,8 @@ class AccountLockConfirmation extends Component {
   }
 
   componentWillMount = () => {
-    const account = this.props.navigation.getParam('account', null)
-    const wallet = this.props.navigation.getParam('wallet', null)
+    const account = AccountStore.getAccount()
+    const wallet = WalletStore.getWallet()
 
     const lockPercentage = this.props.navigation.getParam(
       'lockPercentage',
@@ -53,7 +55,9 @@ class AccountLockConfirmation extends Component {
 
   render () {
     const { account } = this.state
-    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(account.addressData)
+    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(
+      account.addressData
+    )
     const sendingEAITo = AccountAPIHelper.sendingEAITo(account.addressData)
     const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
       account.addressData
