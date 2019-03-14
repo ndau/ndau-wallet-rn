@@ -1,7 +1,6 @@
 import { NativeModules } from 'react-native'
 import KeyMaster from './KeyMaster'
 import AccountAPI from '../api/AccountAPI'
-import AppConfig from '../AppConfig'
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
 import LoggingService from '../services/LoggingService'
@@ -39,12 +38,13 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
     user = await KeyMaster.createFirstTimeUser(recoveryPhraseBytes, userId)
   }
 
+  let wallet
   const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
   LoggingService.debug(
     `BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`
   )
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
-    await KeyMaster.addAccountsToUser(
+    wallet = await KeyMaster.addAccountsToUser(
       recoveryPhraseBytes,
       user,
       Object.keys(bip44Accounts).length,
@@ -60,12 +60,15 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   )
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     // Here again we are attempting to genereate at the very root of the tree
+    // Notice we pass wallet in here. This is so we do not create
+    // a new wallet as it was just created when we did BIP44 above.
     await KeyMaster.addAccountsToUser(
       recoveryPhraseBytes,
       user,
       Object.keys(rootAccounts).length,
       '',
-      userId
+      userId,
+      wallet
     )
     LoggingService.debug(`user with root: ${JSON.stringify(user, null, 2)}`)
   }
