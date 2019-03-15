@@ -92,7 +92,7 @@ class Dashboard extends Component {
 
   _showWalletOverview = wallet => {
     WalletStore.setWallet(wallet)
-    this.props.navigation.push('WalletOverview', {})
+    this.props.navigation.navigate('WalletOverview')
   }
 
   render = () => {
