@@ -112,7 +112,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: hp('10%'),
+    maxHeight: hp('6.5%'),
     ...Platform.select({
       ios: {
         marginTop: hp('1.5%')

@@ -29,16 +29,22 @@ const populateWalletWithAddressData = async wallet => {
   // when iterating the address data we can check it to see
   // if a claim transaction must be done
   addressDataKeys.forEach(async (accountKey, index) => {
-    const account = addressData[accountKey]
-    account.nickname = `Account ${index + 1}`
-    account.walletId = wallet.walletId
-    account.eaiValueForDisplay = eaiRateMap.get(accountKey)
-    addressNicknameMap.set(accountKey, account.nickname)
+    // this is the addressData item that came from API
+    const addressDataItem = addressData[accountKey]
+    // this is the account that is already present
+    const account = wallet.accounts[accountKey]
+    // If we have not added it to the account already, add it
+    addressDataItem.nickname = account.addressData.nickname
+    // same with walletId, not there in the account, add it
+    addressDataItem.walletId = account.addressData.walletId
+
+    addressDataItem.eaiValueForDisplay = eaiRateMap.get(accountKey)
+    addressNicknameMap.set(accountKey, addressDataItem.nickname)
 
     for (const walletAccountKey of walletAccountKeys) {
       const walletAccount = wallet.accounts[walletAccountKey]
       if (walletAccountKey === accountKey) {
-        walletAccount.addressData = account
+        walletAccount.addressData = addressDataItem
 
         await sendClaimTransactionIfNeeded(wallet, walletAccount, account)
 
@@ -63,11 +69,12 @@ const populateWalletWithAddressData = async wallet => {
       )
     }
 
+    // If we have a new account this will not be set yet, this will not every be reset
+    // notice above if we find it in the account we use it.
     if (!account.addressData.nickname) {
-      // TODO: This may not work under all circumstances, instead
-      // we may need to find out what the last account index is
       account.addressData.nickname = `Account ${index + 1}`
     }
+    // Same explanation as nickname for walletId
     if (!account.addressData.walletId) {
       account.addressData.walletId = wallet.walletId
     }
