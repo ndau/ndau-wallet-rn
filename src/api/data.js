@@ -11,6 +11,28 @@ const addresses = [
   'ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk98'
 ]
 
+const testSingleAddressData = {
+  balance: 20000000000.2,
+  validationKeys: [
+    'npuba8jadtbbedhhdcad42tysymzpi5ec77vpi4exabh3unu2yem8wn4wv22kvvt24kpm3ghikst'
+  ],
+  rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+  incomingRewardsFrom: null,
+  delegationNode: null,
+  lock: {
+    noticePeriod: 2592000000000,
+    unlocksOn: null
+  },
+  stake: null,
+  lastEAIUpdate: 589991567000000,
+  lastWAAUpdate: 589991567000000,
+  weightedAverageAge: 0,
+  sequence: 3830689464,
+  settlements: null,
+  settlementSettings: { period: 0, changesAt: null, next: null },
+  validationScript: null
+}
+
 const testAddressData = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
     balance: 4200000000.23,
@@ -447,5 +469,6 @@ export default {
   accountHistoryRes,
   transactionByHashRes,
   addresses,
-  delegateTxRes
+  delegateTxRes,
+  testSingleAddressData
 }

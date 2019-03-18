@@ -9,6 +9,7 @@ import MockHelper from '../MockHelper'
 import AppConstants from '../../AppConstants'
 
 MockHelper.mockServiceDiscovery()
+MockHelper.mockAccountsAPI()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()

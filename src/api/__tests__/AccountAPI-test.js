@@ -16,7 +16,7 @@ const addresses = data.addresses
 
 test('getAddressData should return something back', async () => {
   MockHelper.mockServiceDiscovery()
-  MockHelper.mockAccountAPI()
+  MockHelper.mockAccountsAPI()
 
   const ndau = await AccountAPI.getAddressData(addresses)
 
@@ -43,13 +43,13 @@ test('accountHistory should return something back', async () => {
 
 test('isAddressDataNew should report correctly with minor change', async () => {
   MockHelper.mockServiceDiscovery()
-  MockHelper.mockAccountAPI()
+  MockHelper.mockAccountsAPI()
 
   const ndau = await AccountAPI.getAddressData(addresses)
 
   expect(ndau).toBeDefined()
 
-  MockHelper.mockAccountAPI({
+  MockHelper.mockAccountsAPI({
     ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
       balance: 4200000001.23,
       validationKeys: null,
@@ -181,7 +181,7 @@ test('isAddressDataNew should report correctly with minor change', async () => {
 
 test('isAddressDataNew should report correctly with no change', async () => {
   MockHelper.mockServiceDiscovery()
-  MockHelper.mockAccountAPI()
+  MockHelper.mockAccountsAPI()
 
   const ndau = await AccountAPI.getAddressData(addresses)
 
@@ -192,13 +192,13 @@ test('isAddressDataNew should report correctly with no change', async () => {
 
 test('isAddressDataNew should report correctly with large change', async () => {
   MockHelper.mockServiceDiscovery()
-  MockHelper.mockAccountAPI()
+  MockHelper.mockAccountsAPI()
 
   const ndau = await AccountAPI.getAddressData(addresses)
 
   expect(ndau).toBeDefined()
 
-  MockHelper.mockAccountAPI({
+  MockHelper.mockAccountsAPI({
     ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
       balance: 4200000001.23,
       validationKeys: null,
@@ -342,4 +342,13 @@ test('isAddressDataNew should report correctly with large change', async () => {
   })
 
   expect(await AccountAPI.isAddressDataNew(addresses)).toBeTruthy()
+})
+
+test('getNextSequence should get the correct next sequence', async () => {
+  MockHelper.mockServiceDiscovery()
+  MockHelper.mockAccountAPI()
+
+  const nextSequence = await AccountAPI.getNextSequence('12345')
+
+  expect(nextSequence).toBe(3830689465)
 })
