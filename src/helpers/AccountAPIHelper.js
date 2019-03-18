@@ -1,12 +1,12 @@
 import AccountAPI from '../api/AccountAPI'
 import DateHelper from './DateHelper'
-import AppConfig from '../AppConfig'
-import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
 import { ClaimTransaction } from '../transactions/ClaimTransaction'
+import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
 import LoggingService from '../services/LoggingService'
+import NodeAddressHelper from './NodeAddressHelper'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -40,13 +40,20 @@ const populateWalletWithAddressData = async wallet => {
 
     addressDataItem.eaiValueForDisplay = eaiRateMap.get(accountKey)
     addressNicknameMap.set(accountKey, addressDataItem.nickname)
-
     for (const walletAccountKey of walletAccountKeys) {
       const walletAccount = wallet.accounts[walletAccountKey]
       if (walletAccountKey === accountKey) {
         walletAccount.addressData = addressDataItem
-
-        await sendClaimTransactionIfNeeded(wallet, walletAccount, account)
+        await sendClaimTransactionIfNeeded(
+          wallet,
+          walletAccount,
+          addressDataItem
+        )
+        await sendDelegateTransactionIfNeeded(
+          wallet,
+          walletAccount,
+          addressDataItem
+        )
 
         break
       }
@@ -95,11 +102,30 @@ const _repairWalletObject = wallet => {
 const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
     LoggingService.debug(
-      `Sending claim transaction for ${addressData.nickname}`
+      `Sending ClaimAccount transaction for ${addressData.nickname}`
     )
     Object.assign(ClaimTransaction.prototype, Transaction)
     const claimTransaction = new ClaimTransaction(wallet, account)
     await claimTransaction.createSignPrevalidateSubmit()
+  }
+}
+
+const sendDelegateTransactionIfNeeded = async (
+  wallet,
+  account,
+  addressData
+) => {
+  if (!addressData.delegationNode) {
+    LoggingService.debug(
+      `Sending Delegate transaction for ${addressData.nickname}`
+    )
+    Object.assign(DelegateTransaction.prototype, Transaction)
+    const delegateTransaction = new DelegateTransaction(
+      wallet,
+      account,
+      NodeAddressHelper.getNodeAddress()
+    )
+    await delegateTransaction.createSignPrevalidateSubmit()
   }
 }
 
@@ -208,5 +234,6 @@ export default {
   accountNickname,
   receivingEAIFrom,
   sendingEAITo,
-  eaiValueForDisplay: getEaiValueForDisplay
+  eaiValueForDisplay: getEaiValueForDisplay,
+  sendDelegateTransactionIfNeeded
 }

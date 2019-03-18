@@ -394,6 +394,10 @@ const transferTxRes = {
   fee_napu: 0
 }
 
+const delegateTxRes = {
+  fee_napu: 0
+}
+
 const accountHistoryRes = {
   Items: [
     {
@@ -442,5 +446,6 @@ export default {
   transferTxRes,
   accountHistoryRes,
   transactionByHashRes,
-  addresses
+  addresses,
+  delegateTxRes
 }

@@ -65,6 +65,15 @@ const mockTransferTx = () => {
     .reply(200, data.transferTxRes)
 }
 
+const mockDelegateTx = () => {
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/Delegate')
+    .reply(200, data.delegateTxRes)
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/submit/Delegate')
+    .reply(200, data.delegateTxRes)
+}
+
 const mockAccountHistory = address => {
   mock
     .onGet(`https://testnet-0.api.ndau.tech/account/history/${address}`)
@@ -87,5 +96,6 @@ export default {
   mockNotifyTx,
   mockTransferTx,
   mockAccountHistory,
-  mockTransactionByHash
+  mockTransactionByHash,
+  mockDelegateTx
 }

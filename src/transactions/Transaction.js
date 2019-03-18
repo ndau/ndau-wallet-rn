@@ -150,6 +150,10 @@ export const Transaction = {
       if (response.err) {
         this.handleError(response.err)
       } else {
+        // Successful transaction so update
+        // the account with the new sequence
+        this._account.addressData.sequence = this._jsonTransaction.sequence
+
         return response
       }
     } catch (error) {
