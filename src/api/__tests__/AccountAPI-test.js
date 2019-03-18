@@ -348,7 +348,9 @@ test('getNextSequence should get the correct next sequence', async () => {
   MockHelper.mockServiceDiscovery()
   MockHelper.mockAccountAPI()
 
-  const nextSequence = await AccountAPI.getNextSequence('12345')
+  const nextSequence = await AccountAPI.getNextSequence(
+    'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+  )
 
   expect(nextSequence).toBe(3830689465)
 })

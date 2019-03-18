@@ -19,7 +19,7 @@ const mockAccountsAPI = (testAddressData = data.testAddressData) => {
 
 const mockAccountAPI = (
   testSingleAddressData = data.testSingleAddressData,
-  address = '12345'
+  address = 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
 ) => {
   mock
     .onGet('https://testnet-0.api.ndau.tech/account/account/' + address)
