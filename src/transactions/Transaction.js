@@ -4,9 +4,11 @@ import TransactionAPI from '../api/TransactionAPI'
 import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
+import NodeAddressHelper from '../helpers/NodeAddressHelper'
 
 class Transaction {
   static CLAIM_ACCOUNT = 'ClaimAccount'
+  static DELEGATE = 'Delegate'
   static LOCK = 'Lock'
   static NOTIFY = 'Notify'
 
@@ -84,6 +86,8 @@ class Transaction {
           this._account.ownershipKey
         ].publicKey
         this._jsonTransaction.validation_keys = validationKeys
+      } else if (this._type === Transaction.DELEGATE) {
+        this._jsonTransaction.node = NodeAddressHelper.getNodeAddress()
       }
 
       if (this._period) {
@@ -201,6 +205,9 @@ class Transaction {
         )
         throw new Error(response.err)
       } else {
+        // Successful transaction so update
+        // the account with the new sequence
+        this._account.addressData.sequence = this._jsonTransaction.sequence
         return response
       }
     } catch (error) {

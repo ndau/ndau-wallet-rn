@@ -37,6 +37,7 @@ const populateWalletWithAddressData = async wallet => {
         walletAccount.addressData = account
 
         await sendClaimTransactionIfNeeded(wallet, walletAccount, account)
+        await sendDelegateTransactionIfNeeded(wallet, walletAccount, account)
 
         break
       }
@@ -72,12 +73,29 @@ const populateWalletWithAddressData = async wallet => {
 
 const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
-    console.debug(`Sending claim transaction for ${addressData.nickname}`)
+    console.debug(
+      `Sending ClaimAccount transaction for ${addressData.nickname}`
+    )
     const transaction = new Transaction(
       wallet,
       account,
       Transaction.CLAIM_ACCOUNT
     )
+    await transaction.create()
+    await transaction.sign()
+    await transaction.prevalidate()
+    await transaction.submit()
+  }
+}
+
+const sendDelegateTransactionIfNeeded = async (
+  wallet,
+  account,
+  addressData
+) => {
+  if (!addressData.delegationNode) {
+    console.debug(`Sending Delegate transaction for ${addressData.nickname}`)
+    const transaction = new Transaction(wallet, account, Transaction.DELEGATE)
     await transaction.create()
     await transaction.sign()
     await transaction.prevalidate()
