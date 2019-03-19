@@ -8,7 +8,7 @@ import LoggingService from '../services/LoggingService'
 var _ = require('lodash')
 
 const getAddressData = async addresses => {
-  const accountAPI = await APIAddressHelper.getAccountAPIAddress()
+  const accountAPI = await APIAddressHelper.getAccountsAPIAddress()
   try {
     const accountData = await APICommunicationHelper.post(
       accountAPI,
@@ -23,7 +23,7 @@ const getAddressData = async addresses => {
 }
 
 const isAddressDataNew = async addresses => {
-  const accountAPI = await APIAddressHelper.getAccountAPIAddress()
+  const accountAPI = await APIAddressHelper.getAccountsAPIAddress()
   try {
     const lastAccountData = await AsyncStorageHelper.getLastAccountData()
     const accountData = await APICommunicationHelper.post(
@@ -31,6 +31,19 @@ const isAddressDataNew = async addresses => {
       JSON.stringify(addresses)
     )
     return !_.isEqual(lastAccountData, accountData)
+  } catch (error) {
+    LoggingService.debug(error)
+    throw new BlockchainAPIError(error.message)
+  }
+}
+
+const getNextSequence = async address => {
+  const accountAPI = await APIAddressHelper.getAccountAPIAddress()
+  try {
+    const accountData = await APICommunicationHelper.get(
+      accountAPI + '/' + address
+    )
+    return accountData[address].sequence + 1
   } catch (error) {
     LoggingService.debug(error)
     throw new BlockchainAPIError(error.message)
@@ -70,5 +83,6 @@ export default {
   getAddressData,
   getEaiRate,
   accountHistory,
-  isAddressDataNew
+  isAddressDataNew,
+  getNextSequence
 }

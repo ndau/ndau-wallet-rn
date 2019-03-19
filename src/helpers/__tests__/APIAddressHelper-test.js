@@ -4,13 +4,21 @@ import services from '../../api/services-dev.json'
 import MockHelper from '../MockHelper'
 
 MockHelper.mockServiceDiscovery()
+MockHelper.mockAccountsAPI()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
 
+test('getAccountsAPIAddress sends back the correct address', async () => {
+  const accountsUrl = await APIAddressHelper.getAccountsAPIAddress()
+  expect(accountsUrl.indexOf('.api.ndau.tech/account/accounts') !== -1).toBe(
+    true
+  )
+})
+
 test('getAccountAPIAddress sends back the correct address', async () => {
   const accountsUrl = await APIAddressHelper.getAccountAPIAddress()
-  expect(accountsUrl.indexOf('.api.ndau.tech/account/accounts') !== -1).toBe(
+  expect(accountsUrl.indexOf('.api.ndau.tech/account/account') !== -1).toBe(
     true
   )
 })
@@ -31,9 +39,9 @@ test('getEaiRateAPIAddress sends back the correct address', async () => {
 
 test('getTransactionPrevalidateAPIAddress sends back the correct address', async () => {
   const eaiValueForDisplayUrl = await APIAddressHelper.getTransactionPrevalidateAPIAddress()
-  expect(eaiValueForDisplayUrl.indexOf('.api.ndau.tech/tx/prevalidate') !== -1).toBe(
-    true
-  )
+  expect(
+    eaiValueForDisplayUrl.indexOf('.api.ndau.tech/tx/prevalidate') !== -1
+  ).toBe(true)
 })
 
 test('getTransactionSubmitAPIAddress sends back the correct address', async () => {

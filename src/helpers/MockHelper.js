@@ -11,10 +11,19 @@ const mockServiceDiscovery = () => {
     .reply(200, services)
 }
 
-const mockAccountAPI = (testAddressData = data.testAddressData) => {
+const mockAccountsAPI = (testAddressData = data.testAddressData) => {
   mock
     .onPost('https://testnet-0.api.ndau.tech/account/accounts')
     .reply(200, testAddressData)
+}
+
+const mockAccountAPI = (
+  testSingleAddressData = data.testSingleAddressData,
+  address = 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+) => {
+  mock
+    .onGet('https://testnet-0.api.ndau.tech/account/account/' + address)
+    .reply(200, testSingleAddressData)
 }
 
 const mockMarketPriceAPI = () => {
@@ -65,6 +74,15 @@ const mockTransferTx = () => {
     .reply(200, data.transferTxRes)
 }
 
+const mockDelegateTx = () => {
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/Delegate')
+    .reply(200, data.delegateTxRes)
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/tx/submit/Delegate')
+    .reply(200, data.delegateTxRes)
+}
+
 const mockAccountHistory = address => {
   mock
     .onGet(`https://testnet-0.api.ndau.tech/account/history/${address}`)
@@ -79,7 +97,7 @@ const mockTransactionByHash = transactionHash => {
 
 export default {
   mockServiceDiscovery,
-  mockAccountAPI,
+  mockAccountsAPI,
   mockMarketPriceAPI,
   mockEaiRate,
   mockClaimAccountTx,
@@ -87,5 +105,7 @@ export default {
   mockNotifyTx,
   mockTransferTx,
   mockAccountHistory,
-  mockTransactionByHash
+  mockTransactionByHash,
+  mockDelegateTx,
+  mockAccountAPI
 }

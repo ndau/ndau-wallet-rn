@@ -12,8 +12,12 @@ const getNodeAddress = async () => {
   return PROTOCOL + '://' + node
 }
 
-const getAccountAPIAddress = async () => {
+const getAccountsAPIAddress = async () => {
   return (await getNodeAddress()) + '/account/accounts'
+}
+
+const getAccountAPIAddress = async () => {
+  return (await getNodeAddress()) + '/account/account'
 }
 
 const getEaiRateAPIAddress = async () => {
@@ -45,6 +49,7 @@ const getTransactionByHashAPIAddress = async transactionHash => {
 
 export default {
   getAccountAPIAddress,
+  getAccountsAPIAddress,
   getMarketPriceAPIAddress,
   getEaiRateAPIAddress,
   getTransactionPrevalidateAPIAddress,
