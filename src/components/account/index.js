@@ -332,13 +332,7 @@ export function AccountDetailsPanel (props) {
     <View style={styles.accountDetailsPanel}>
       <View style={styles.accountDetailsTextPanelWithButton}>
         <View>
-          {props.accountNotLocked ? (
-            <H4 style={styles.accountDetailsParagraphText}>Unlocked</H4>
-          ) : (
-            <H4 style={styles.accountDetailsParagraphText}>
-              Locked ({props.accountNoticePeriod} day countdown)
-            </H4>
-          )}
+          <H4 style={styles.accountStatusTitle}>Account status</H4>
         </View>
         <View>
           {props.accountNotLocked ? (
@@ -358,9 +352,22 @@ export function AccountDetailsPanel (props) {
           )}
         </View>
       </View>
+      <View style={styles.accountDetailsPanelBorder} />
+      <View style={styles.accountDetailsTextPanelWithSmallText}>
+        <View>
+          {props.accountNotLocked ? (
+            <H4 style={styles.accountDetailsParagraphText}>Unlocked</H4>
+          ) : (
+            <H4 style={styles.accountDetailsParagraphText}>
+              Locked ({props.accountNoticePeriod} day countdown)
+            </H4>
+          )}
+        </View>
+      </View>
+
       {props.eaiValueForDisplay ? (
         <View style={styles.accountDetailsTextPanel}>
-          <H4 style={styles.accountDetailsParagraphText}>
+          <H4 style={styles.accountStatusTitle}>
             {props.eaiValueForDisplay}% annualized incentive (EAI)
           </H4>
         </View>

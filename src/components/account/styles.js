@@ -261,6 +261,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
+  accountStatusTitle: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 21,
+    fontWeight: '600',
+    letterSpacing: 0.45,
+    lineHeight: 32
+  },
   accountDetailsParagraphText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
