@@ -5,6 +5,7 @@ import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/common/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import LoggingService from '../services/LoggingService'
+import AccountAPI from '../api/AccountAPI'
 
 export const Transaction = {
   /**
@@ -35,10 +36,9 @@ export const Transaction = {
         throw Error('No sequence found in addressData')
       }
 
-      // SEQUENCE needs to be gotten from a utility/helper from
-      // blockchain directly
+      const sequence = await AccountAPI.getNextSequence(this._account.address)
       this._jsonTransaction = {
-        sequence: this._account.addressData.sequence + 1
+        sequence
       }
 
       this.addToJsonTransaction()
@@ -150,6 +150,10 @@ export const Transaction = {
       if (response.err) {
         this.handleError(response.err)
       } else {
+        // Successful transaction so update
+        // the account with the new sequence
+        this._account.addressData.sequence = this._jsonTransaction.sequence
+
         return response
       }
     } catch (error) {

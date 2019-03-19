@@ -1,12 +1,12 @@
 import AccountAPI from '../api/AccountAPI'
 import DateHelper from './DateHelper'
-import AppConfig from '../AppConfig'
-import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
 import { ClaimTransaction } from '../transactions/ClaimTransaction'
+import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
 import LoggingService from '../services/LoggingService'
+import NodeAddressHelper from './NodeAddressHelper'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -29,18 +29,31 @@ const populateWalletWithAddressData = async wallet => {
   // when iterating the address data we can check it to see
   // if a claim transaction must be done
   addressDataKeys.forEach(async (accountKey, index) => {
-    const account = addressData[accountKey]
-    account.nickname = `Account ${index + 1}`
-    account.walletId = wallet.walletId
-    account.eaiValueForDisplay = eaiRateMap.get(accountKey)
-    addressNicknameMap.set(accountKey, account.nickname)
+    // this is the addressData item that came from API
+    const addressDataItem = addressData[accountKey]
+    // this is the account that is already present
+    const account = wallet.accounts[accountKey]
+    // If we have not added it to the account already, add it
+    addressDataItem.nickname = account.addressData.nickname
+    // same with walletId, not there in the account, add it
+    addressDataItem.walletId = account.addressData.walletId
 
+    addressDataItem.eaiValueForDisplay = eaiRateMap.get(accountKey)
+    addressNicknameMap.set(accountKey, addressDataItem.nickname)
     for (const walletAccountKey of walletAccountKeys) {
       const walletAccount = wallet.accounts[walletAccountKey]
       if (walletAccountKey === accountKey) {
-        walletAccount.addressData = account
-
-        await sendClaimTransactionIfNeeded(wallet, walletAccount, account)
+        walletAccount.addressData = addressDataItem
+        await sendClaimTransactionIfNeeded(
+          wallet,
+          walletAccount,
+          addressDataItem
+        )
+        await sendDelegateTransactionIfNeeded(
+          wallet,
+          walletAccount,
+          addressDataItem
+        )
 
         break
       }
@@ -63,11 +76,12 @@ const populateWalletWithAddressData = async wallet => {
       )
     }
 
+    // If we have a new account this will not be set yet, this will not every be reset
+    // notice above if we find it in the account we use it.
     if (!account.addressData.nickname) {
-      // TODO: This may not work under all circumstances, instead
-      // we may need to find out what the last account index is
       account.addressData.nickname = `Account ${index + 1}`
     }
+    // Same explanation as nickname for walletId
     if (!account.addressData.walletId) {
       account.addressData.walletId = wallet.walletId
     }
@@ -88,11 +102,30 @@ const _repairWalletObject = wallet => {
 const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
     LoggingService.debug(
-      `Sending claim transaction for ${addressData.nickname}`
+      `Sending ClaimAccount transaction for ${addressData.nickname}`
     )
     Object.assign(ClaimTransaction.prototype, Transaction)
     const claimTransaction = new ClaimTransaction(wallet, account)
     await claimTransaction.createSignPrevalidateSubmit()
+  }
+}
+
+const sendDelegateTransactionIfNeeded = async (
+  wallet,
+  account,
+  addressData
+) => {
+  if (!addressData.delegationNode) {
+    LoggingService.debug(
+      `Sending Delegate transaction for ${addressData.nickname}`
+    )
+    Object.assign(DelegateTransaction.prototype, Transaction)
+    const delegateTransaction = new DelegateTransaction(
+      wallet,
+      account,
+      NodeAddressHelper.getNodeAddress()
+    )
+    await delegateTransaction.createSignPrevalidateSubmit()
   }
 }
 
@@ -201,5 +234,6 @@ export default {
   accountNickname,
   receivingEAIFrom,
   sendingEAITo,
-  eaiValueForDisplay: getEaiValueForDisplay
+  eaiValueForDisplay: getEaiValueForDisplay,
+  sendDelegateTransactionIfNeeded
 }
