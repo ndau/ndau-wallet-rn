@@ -535,6 +535,11 @@ export function AccountHistoryPanels (props) {
   }
 
   return props.accountHistory.Items.map((item, index) => {
+    const transactionDestination = AccountHistoryHelper.getTransactionDestination(
+      item
+    )
+    const transactionSource = AccountHistoryHelper.getTransactionSource(item)
+
     return (
       <CollapsibleBar
         key={index}
@@ -561,16 +566,28 @@ export function AccountHistoryPanels (props) {
             </H4>
           </View>
         </View>
-        {AccountHistoryHelper.getTransactionDestination(item) ? (
+        {transactionDestination && props.address !== transactionDestination ? (
           <View style={styles.accountHistoryTextPanelWithSmallText}>
             <View>
               <H4 style={styles.accountHistorySmallerTextBold}>Sent to:</H4>
             </View>
             <View>
               <H4 style={styles.accountHistorySmallerText}>
-                {ndaujs.truncateAddress(
-                  AccountHistoryHelper.getTransactionDestination(item)
-                )}
+                {ndaujs.truncateAddress(transactionDestination)}
+              </H4>
+            </View>
+          </View>
+        ) : null}
+        {transactionSource && props.address !== transactionSource ? (
+          <View style={styles.accountHistoryTextPanelWithSmallText}>
+            <View>
+              <H4 style={styles.accountHistorySmallerTextBold}>
+                Received from:
+              </H4>
+            </View>
+            <View>
+              <H4 style={styles.accountHistorySmallerText}>
+                {ndaujs.truncateAddress(transactionSource)}
               </H4>
             </View>
           </View>

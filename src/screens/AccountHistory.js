@@ -54,7 +54,10 @@ class AccountHistory extends Component {
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountDetailPanel>
-          <AccountHistoryPanels accountHistory={this.state.accountHistory} />
+          <AccountHistoryPanels
+            address={this.state.account.address}
+            accountHistory={this.state.accountHistory}
+          />
         </AccountDetailPanel>
       </AccountHistoryContainer>
     )
