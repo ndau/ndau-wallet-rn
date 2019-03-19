@@ -35,21 +35,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        maxHeight: hp('5%')
-      },
-      android: {
-        maxHeight: hp('5%')
-      }
-    }),
+    height: hp('5%'),
     marginTop: wp('2%'),
     marginBottom: wp('2%')
   },
   dashboardContainer: {
     flex: 1,
     width: wp('100%'),
-    height: hp('120%'),
+    height: hp('100%'),
     ...Platform.select({
       ios: {
         marginTop: hp('3%')
@@ -85,6 +78,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    height: hp('7%'),
     overflow: 'hidden'
   },
   dashboardActionTextPanel: {

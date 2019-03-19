@@ -179,23 +179,25 @@ class WalletOverview extends Component {
             addNewAccount={this.addNewAccount}
             ref={component => (this._newAccountModal = component)}
           />
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
-              />
-            }
-          >
-            <DrawerHeaderForOverview {...this.props}>
-              {this.state.wallet ? this.state.wallet.walletName : ''}
-            </DrawerHeaderForOverview>
-            <NdauTotal>{totalNdau}</NdauTotal>
-            <DashboardContainer>
-              <DashboardTotalPanel
-                title={currentPrice}
-                titleRight='* at current price'
-              />
+
+          <DrawerHeaderForOverview {...this.props}>
+            {this.state.wallet ? this.state.wallet.walletName : ''}
+          </DrawerHeaderForOverview>
+          <NdauTotal>{totalNdau}</NdauTotal>
+          <DashboardContainer>
+            <DashboardTotalPanel
+              title={currentPrice}
+              titleRight='* at current price'
+            />
+
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
+                />
+              }
+            >
               <DashboardLabelWithIcon
                 onPress={() => this.launchAddNewAccountDialog()}
                 fontAwesomeIconName='plus-circle'
@@ -295,8 +297,8 @@ class WalletOverview extends Component {
                     })
                   : null}
               </View>
-            </DashboardContainer>
-          </ScrollView>
+            </ScrollView>
+          </DashboardContainer>
         </AppContainer>
       )
     } catch (error) {

@@ -3,9 +3,14 @@ import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
 import MockAsyncStorage from 'mock-async-storage'
+import data from '../../api/data'
 
 MockHelper.mockServiceDiscovery()
-MockHelper.mockAccountAPI()
+MockHelper.mockAccountsAPI()
+MockHelper.mockAccountAPI(
+  data.testSingleAddressData,
+  'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+)
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
 MockHelper.mockNotifyTx()

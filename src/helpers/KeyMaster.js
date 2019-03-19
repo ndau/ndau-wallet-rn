@@ -5,7 +5,6 @@ import { NativeModules } from 'react-native'
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import AccountAPIHelper from './AccountAPIHelper'
-import sha256 from 'crypto-js/sha256'
 import FlashNotification from '../components/common/FlashNotification'
 import Wallet from '../model/Wallet'
 import DataFormatHelper from './DataFormatHelper'
@@ -150,6 +149,7 @@ const createFirstTimeUser = async (
  * @param  {string} walletId
  * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
  * @param  {number} numberOfAccounts=0
+ * @param  {Wallet} wallet if a wallet is passed then update the wallet
  * @returns {User} an initial user object
  */
 const createWallet = async (
@@ -158,7 +158,8 @@ const createWallet = async (
   walletId,
   chainId = AppConstants.MAINNET_ADDRESS,
   numberOfAccounts = 0,
-  rootDerivedPath
+  rootDerivedPath,
+  wallet
 ) => {
   if (!accountCreationKey && !recoveryBytes) {
     throw new Error(
@@ -175,13 +176,17 @@ const createWallet = async (
   }
 
   try {
-    let wallet = new Wallet()
-    wallet.walletId = walletId
-    wallet.walletName = walletId
+    if (!wallet) {
+      wallet = new Wallet()
+      wallet.walletId = walletId
+      wallet.walletName = walletId
 
-    wallet.accountCreationKeyHash = DataFormatHelper.create8CharHash(
-      accountCreationKey
-    )
+      wallet.accountCreationKeyHash = DataFormatHelper.create8CharHash(
+        accountCreationKey
+      )
+
+      _createInitialKeys(wallet, accountCreationKey)
+    }
 
     // This function is used in many ways across the application
     // We want the ability to use this to generate an wallet based on
@@ -203,7 +208,6 @@ const createWallet = async (
         recoveryBytes
       )
     }
-    _createInitialKeys(wallet, accountCreationKey)
 
     LoggingService.debug(
       `Wallet created is: ${JSON.stringify(wallet, null, 2)}`
@@ -220,17 +224,22 @@ const addAccountsToUser = async (
   user,
   numberOfAccounts,
   rootDerivedPath,
-  walletId
+  walletId,
+  wallet
 ) => {
-  const wallet = await createWallet(
+  wallet = await createWallet(
     recoveryPhraseBytes,
     null,
     walletId,
     AppConstants.MAINNET_ADDRESS,
     numberOfAccounts,
-    rootDerivedPath
+    rootDerivedPath,
+    wallet
   )
+
   user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
+
+  return wallet
 }
 
 const getWalletFromUser = (user, walletId) => {

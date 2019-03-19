@@ -6,7 +6,11 @@ import { ClaimTransaction } from '../../transactions/ClaimTransaction'
 import { Transaction } from '../../transactions/Transaction'
 
 MockHelper.mockServiceDiscovery()
-MockHelper.mockAccountAPI()
+MockHelper.mockAccountsAPI()
+MockHelper.mockAccountAPI(
+  data.testSingleAddressData,
+  'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+)
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
 MockHelper.mockClaimAccountTx()

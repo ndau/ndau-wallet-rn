@@ -3,6 +3,7 @@ import data from '../../api/data'
 import MockHelper from '../MockHelper'
 
 MockHelper.mockServiceDiscovery()
+MockHelper.mockAccountsAPI()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()

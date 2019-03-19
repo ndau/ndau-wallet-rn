@@ -26,7 +26,6 @@ class AccountReceive extends Component {
   }
 
   copyAddressToClipboard = address => {
-    console.log(`pasting ${address}`)
     Clipboard.setString(address)
   }
 

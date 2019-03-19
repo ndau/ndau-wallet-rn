@@ -1,4 +1,4 @@
-import { ClaimTransaction } from '../ClaimTransaction'
+import { DelegateTransaction } from '../DelegateTransaction'
 import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
@@ -13,7 +13,7 @@ MockHelper.mockAccountAPI(
 )
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-MockHelper.mockClaimAccountTx()
+MockHelper.mockDelegateTx()
 
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),
@@ -146,31 +146,27 @@ const user = {
   }
 }
 
-test('creation of a claim transaction', async () => {
-  const theClaimTransaction = {
+test('creation of a delegate transaction', async () => {
+  const theDelegateTransaction = {
+    node: 'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7',
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
-  Object.assign(ClaimTransaction.prototype, Transaction)
+  Object.assign(DelegateTransaction.prototype, Transaction)
 
-  const claimTransaction = new ClaimTransaction(
+  const delegateTransaction = new DelegateTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-    ]
+    ],
+    'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7'
   )
-  const createdClaimTransaction = await claimTransaction.create()
-  expect(createdClaimTransaction).toEqual(theClaimTransaction)
+  const createdDelegateTransaction = await delegateTransaction.create()
+  expect(createdDelegateTransaction).toEqual(theDelegateTransaction)
 })
 
-test('claim fails if no sequence', async () => {
+test('delegate fails if no sequence', async () => {
   const userNoValidationKeys = {
     userId: 'fail',
     wallets: {
@@ -206,15 +202,16 @@ test('claim fails if no sequence', async () => {
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
+    Object.assign(DelegateTransaction.prototype, Transaction)
 
-    const claimTransaction = new ClaimTransaction(
+    const delegateTransaction = new DelegateTransaction(
       userNoValidationKeys.wallets.c79af3b6,
       userNoValidationKeys.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ]
+      ],
+      'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7'
     )
-    await claimTransaction.create()
+    await delegateTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
     expect(error.toString()).toEqual('Error: No sequence found in addressData')
@@ -222,87 +219,73 @@ test('claim fails if no sequence', async () => {
 })
 
 test('failure of any transaction around sign', async () => {
-  const theClaimTransaction = {
+  const theDelegateTransaction = {
+    node: 'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7',
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
+    Object.assign(DelegateTransaction.prototype, Transaction)
 
-    const claimTransaction = new ClaimTransaction(
+    const delegateTransaction = new DelegateTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ]
+      ],
+      'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7'
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.sign()
+    const createdDelegateTransaction = await delegateTransaction.create()
+    expect(createdDelegateTransaction).toEqual(theDelegateTransaction)
+    await delegateTransaction.sign()
   } catch (error) {
     expect(error.toString()).toEqual('Error: testing sign error')
   }
 })
 
 test('failure of any transaction around prevalidate', async () => {
-  const theClaimTransaction = {
+  const theDelegateTransaction = {
+    node: 'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7',
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
-
-    const claimTransaction = new ClaimTransaction(
+    Object.assign(DelegateTransaction.prototype, Transaction)
+    const delegateTransaction = new DelegateTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ]
+      ],
+      'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7'
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.prevalidate()
+    const createdDelegateTransaction = await delegateTransaction.create()
+    expect(createdDelegateTransaction).toEqual(theDelegateTransaction)
+    await delegateTransaction.prevalidate()
   } catch (error) {
     expect(error.toString()).toEqual('Error: error being sent')
   }
 })
 
 test('failure of any transaction around submit', async () => {
-  const theClaimTransaction = {
+  const theDelegateTransaction = {
+    node: 'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7',
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
-    ownership:
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
-    validation_keys: [
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
-      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
-    ],
     sequence: 3830689465
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
-
-    const claimTransaction = new ClaimTransaction(
+    Object.assign(DelegateTransaction.prototype, Transaction)
+    const delegateTransaction = new DelegateTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
-      ]
+      ],
+      'ndarw5i7rmqtqstw4mtnchmfvxnrq4k3e2ytsyvsc7nxt2y7'
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.submit()
+    const createdDelegateTransaction = await delegateTransaction.create()
+    expect(createdDelegateTransaction).toEqual(theDelegateTransaction)
+    await delegateTransaction.submit()
   } catch (error) {
     expect(error.toString()).toEqual('Error: error being sent')
   }
