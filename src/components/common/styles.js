@@ -137,6 +137,24 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     paddingVertical: 0
   },
+  ndauLarge: {
+    color: '#FFFFFF',
+    fontFamily: 'untitled-font-1',
+    fontSize: 26,
+    letterSpacing: 0.77,
+    lineHeight: 56,
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    paddingVertical: 0
+  },
+  ndauSmall: {
+    color: '#FFFFFF',
+    fontFamily: 'untitled-font-1',
+    fontSize: 12,
+    letterSpacing: 0.9,
+    lineHeight: 24,
+    textAlign: 'center'
+  },
   progressBarContainer: {
     flex: 1,
     flexDirection: 'row',

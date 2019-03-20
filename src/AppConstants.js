@@ -43,8 +43,8 @@ const FULL_SCREEN_DUAL_COLOR_GRADIENT_END_COLOR = '#293E63'
 const TRANSACTION_TYPES = {
   1: 'Transfer',
   2: 'ChangeValidation',
-  3: 'ReleaseFromEndowment',
-  4: 'ChangeSettlementPeriod',
+  3: 'RFE',
+  4: 'CSP',
   5: 'Delegate',
   6: 'CreditEAI',
   7: 'Lock',

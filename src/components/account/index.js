@@ -74,12 +74,17 @@ export function AccountPanel (props) {
                   )
                 ) : null}
               </View>
-              <View>
-                <H4 style={styles.accountPanelTotal}>
-                  {AccountAPIHelper.accountNdauAmount(
-                    props.account.addressData
-                  )}
-                </H4>
+              <View style={styles.ndauTotalContainer}>
+                <View>
+                  <P style={styles.ndauSmall}>a</P>
+                </View>
+                <View>
+                  <H4 style={styles.accountPanelTotal}>
+                    {AccountAPIHelper.accountNdauAmount(
+                      props.account.addressData
+                    )}
+                  </H4>
+                </View>
               </View>
             </View>
             <View>
@@ -283,7 +288,8 @@ export function LargeAccountButton (props) {
 export function AccountTotalPanel (props) {
   return (
     <View style={styles.accountTotalPanel}>
-      <View>
+      <View style={styles.ndauTotalContainerMedium}>
+        <P style={styles.ndauMedium}>a</P>
         <H4 style={styles.accountTotalPanelText}>
           {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
         </H4>

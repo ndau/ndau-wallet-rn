@@ -129,6 +129,34 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     textAlign: 'center'
   },
+  ndauTotalContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  ndauTotalContainerMedium: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  ndauSmall: {
+    color: '#FFFFFF',
+    fontFamily: 'untitled-font-1',
+    fontSize: 12,
+    letterSpacing: 0.9,
+    lineHeight: 30,
+    textAlign: 'center'
+  },
+  ndauMedium: {
+    color: '#FFFFFF',
+    fontFamily: 'untitled-font-1',
+    fontSize: 18,
+    letterSpacing: 0.9,
+    lineHeight: 18,
+    textAlign: 'center'
+  },
   accountTotalPanelText: {
     color: '#8CC74F',
     textShadowOffset: { width: 0, height: 0 },
@@ -140,8 +168,7 @@ export default StyleSheet.create({
     letterSpacing: 0.51,
     lineHeight: 27,
     fontFamily: 'Titillium Web',
-    textAlign: 'center',
-    alignSelf: 'center'
+    textAlign: 'center'
   },
   historyAccountPanelText: {
     color: AppConstants.TEXT_COLOR,
