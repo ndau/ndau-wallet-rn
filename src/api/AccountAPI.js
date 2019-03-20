@@ -4,6 +4,7 @@ import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import LoggingService from '../services/LoggingService'
+import WalletStore from '../stores/WalletStore'
 
 var _ = require('lodash')
 
@@ -23,9 +24,25 @@ const getAddressData = async addresses => {
 }
 
 const isAddressDataNew = async addresses => {
+  // If there are no addresses passed then try to get it
+  // out of the store
+  if (!addresses) {
+    const wallet = WalletStore.getWallet()
+    if (wallet) {
+      addresses = Object.keys(wallet.accounts)
+    }
+  }
+
+  // If not in the store then we shortcut false
+  if (!addresses) return false
+
   const accountAPI = await APIAddressHelper.getAccountsAPIAddress()
   try {
     const lastAccountData = await AsyncStorageHelper.getLastAccountData()
+
+    // If we do not have any data yet, shortcircuit
+    if (!lastAccountData) return false
+
     const accountData = await APICommunicationHelper.post(
       accountAPI,
       JSON.stringify(addresses)

@@ -47,16 +47,26 @@ export default class NotificationService {
 
   localNotification (title, message) {
     if (Platform.OS === 'android') {
-      PushNotification.localNotification({
-        message,
-        title,
-        number: 1
-      })
+      const test = PushNotification.getApplicationIconBadgeNumber(
+        badgeCount => {
+          if (badgeCount < 1) {
+            PushNotification.localNotification({
+              message,
+              title,
+              number: 1
+            })
+          }
+        }
+      )
     } else {
-      PushNotificationIOS.presentLocalNotification({
-        alertBody: message,
-        alertTitle: title,
-        applicationIconBadgeNumber: 1
+      PushNotificationIOS.getApplicationIconBadgeNumber(badgeCount => {
+        if (badgeCount < 1) {
+          PushNotificationIOS.presentLocalNotification({
+            alertBody: message,
+            alertTitle: title,
+            applicationIconBadgeNumber: 1
+          })
+        }
       })
     }
   }

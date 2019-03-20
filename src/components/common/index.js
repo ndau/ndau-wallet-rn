@@ -434,7 +434,7 @@ export function QRCode (props) {
         value={props.value}
         size={wp('65%')}
         color='black'
-        backgroundColor='white'
+        backgroundColor='transparent'
       />
     </View>
   )
