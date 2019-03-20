@@ -68,6 +68,7 @@
 		9E6DA47120F053B400B347DE /* Keyaddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6DA47020F053B400B347DE /* Keyaddr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9E6DA47420F2E15800B347DE /* KeyaddrManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DA47320F2E15800B347DE /* KeyaddrManager.m */; };
 		9E6F8157221BA49F0035920F /* MaterialIcons-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E6F8124221BA49F0035920F /* MaterialIcons-Regular.ttf */; };
+		9EA463B822429D3000839F9F /* ndau.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EA4638522429D3000839F9F /* ndau.ttf */; };
 		9EAA41232211F5CD00529729 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAA411C2211F5B600529729 /* libRealmReact.a */; };
 		9EAA412B2211F5E900529729 /* libRNBackgroundFetch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAA412A2211F5DF00529729 /* libRNBackgroundFetch.a */; };
 		9EAA412C2211FB9D00529729 /* TSBackgroundFetch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */; };
@@ -515,6 +516,7 @@
 		9E6DA47320F2E15800B347DE /* KeyaddrManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyaddrManager.m; sourceTree = "<group>"; };
 		9E6F8124221BA49F0035920F /* MaterialIcons-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MaterialIcons-Regular.ttf"; path = "../assets/fonts/MaterialIcons-Regular.ttf"; sourceTree = "<group>"; };
 		9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/TSBackgroundFetch.framework"; sourceTree = "<group>"; };
+		9EA4638522429D3000839F9F /* ndau.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ndau.ttf; path = ../assets/fonts/ndau.ttf; sourceTree = "<group>"; };
 		9EAA40EE2211F5B600529729 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
 		9EAA41242211F5DE00529729 /* RNBackgroundFetch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundFetch.xcodeproj; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch.xcodeproj"; sourceTree = "<group>"; };
 		9EAA412D2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
@@ -934,6 +936,7 @@
 			children = (
 				9E6F8124221BA49F0035920F /* MaterialIcons-Regular.ttf */,
 				9E255BBC22152295004B2CFC /* FontAwesome5_Pro_Light.ttf */,
+				9EA4638522429D3000839F9F /* ndau.ttf */,
 				9E255BB522152295004B2CFC /* icomoon.ttf */,
 				9E255BAF22152294004B2CFC /* OpenSans-Bold.ttf */,
 				9E255BAA22152294004B2CFC /* OpenSans-BoldItalic.ttf */,
@@ -1557,6 +1560,7 @@
 				9E6F8157221BA49F0035920F /* MaterialIcons-Regular.ttf in Resources */,
 				9E255BCB22152295004B2CFC /* TitilliumWeb-ExtraLightItalic.ttf in Resources */,
 				9E255BD222152295004B2CFC /* OpenSans-SemiBoldItalic.ttf in Resources */,
+				9EA463B822429D3000839F9F /* ndau.ttf in Resources */,
 				9E255BCA22152295004B2CFC /* OpenSans-Regular.ttf in Resources */,
 				9E255BD022152295004B2CFC /* OpenSans-ItalicLight.ttf in Resources */,
 				9E255BC822152295004B2CFC /* TitilliumWeb-LightItalic.ttf in Resources */,

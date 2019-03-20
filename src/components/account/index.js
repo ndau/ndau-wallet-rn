@@ -145,7 +145,6 @@ export function AccountDetailsContainer (props) {
 
 export function AccountLockContainer (props) {
   close = () => {
-    ok
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
   goBack = () => {

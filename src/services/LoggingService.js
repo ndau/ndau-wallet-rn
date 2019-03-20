@@ -8,7 +8,7 @@ const initialize = () => {
   // explicitly set the log to use the persistent AsyncStorage instead:
   deviceLog
     .init(AsyncStorage, {
-      logToConsole: true, // Send logs to console as well as device-log
+      logToConsole: __DEV__, // Send logs to console as well as device-log
       logRNErrors: true, // Will pick up RN-errors and send them to the device log
       maxNumberToRender: 2000, // 0 or undefined == unlimited
       maxNumberToPersist: 2000 // 0 or undefined == unlimited

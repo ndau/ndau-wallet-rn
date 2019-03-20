@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>58</string>
+	<string>61</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -69,6 +69,7 @@
 		<string>OpenSans-Italic.ttf</string>
 		<string>OpenSans-LightItalic.ttf</string>
 		<string>MaterialIcons-Regular.ttf</string>
+		<string>ndau.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
