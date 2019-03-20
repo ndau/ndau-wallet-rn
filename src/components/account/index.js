@@ -271,7 +271,7 @@ export function LargeAccountButton (props) {
     >
       {props.children}{' '}
       <FontAwesome5Pro
-        name='angle-up'
+        name={props.customIconName}
         size={18}
         color={AppConstants.ICON_BUTTON_COLOR}
         style={styles.accountAngle}
