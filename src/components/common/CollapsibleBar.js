@@ -145,6 +145,7 @@ class BarCollapsible extends Component {
               size={this.props.iconSize || iconSize}
               color={this.props.tintColor || tintColor}
               style={[styles.icon, iconStyle]}
+              light
             />
           </View>
         </TouchableHighlight>
@@ -177,6 +178,7 @@ class BarCollapsible extends Component {
             size={this.props.iconSize || iconSize}
             color={this.props.tintColor || tintColor}
             style={[styles.icon, iconStyle]}
+            light
           />
         </View>
       </TouchableHighlight>

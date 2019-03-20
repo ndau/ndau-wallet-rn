@@ -114,7 +114,7 @@ export function AccountPanel (props) {
                   size={24}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   style={styles.accountAngle}
-                  solid
+                  light
                 />
               </TouchableOpacity>
             </View>
@@ -251,7 +251,7 @@ export function AccountButton (props) {
     >
       {props.children}{' '}
       <FontAwesome5Pro
-        name={props.icon}
+        name={props.customIconName}
         size={18}
         color={AppConstants.ICON_BUTTON_COLOR}
         style={styles.accountAngle}
@@ -271,7 +271,7 @@ export function LargeAccountButton (props) {
     >
       {props.children}{' '}
       <FontAwesome5Pro
-        name={props.icon}
+        name='angle-up'
         size={18}
         color={AppConstants.ICON_BUTTON_COLOR}
         style={styles.accountAngle}
@@ -298,7 +298,7 @@ export function AccountTotalPanel (props) {
               size={24}
               color={AppConstants.ICON_BUTTON_COLOR}
               style={styles.viewHistoryAngle}
-              solid
+              light
             />
           </TouchableOpacity>
         </View>

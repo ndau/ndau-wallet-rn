@@ -242,6 +242,7 @@ export function CheckBox (props) {
       <Checkbox
         style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
         iconColor={AppConstants.TEXT_COLOR}
+        iconName={'check'}
         {...props}
       >
         {props.children}
