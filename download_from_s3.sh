@@ -27,27 +27,15 @@ if [ "$1" ] && [ "$2" ]; then
 
         download_from_s3 $bucket FontAwesome5_Pro_Light.ttf $version
         download_from_s3 $bucket OpenSans-Bold.ttf $version
-        download_from_s3 $bucket OpenSans-BoldItalic.ttf $version
-        download_from_s3 $bucket OpenSans-ExtraBold.ttf $version
-        download_from_s3 $bucket OpenSans-ExtraBoldItalic.ttf $version
         download_from_s3 $bucket OpenSans-Italic.ttf $version
         download_from_s3 $bucket OpenSans-Light.ttf $version
-        download_from_s3 $bucket OpenSans-ItalicLight.ttf $version
         download_from_s3 $bucket OpenSans-Regular.ttf $version
-        download_from_s3 $bucket OpenSans-SemiBold.ttf $version
-        download_from_s3 $bucket OpenSans-SemiBoldItalic.ttf $version
-        download_from_s3 $bucket TitilliumWeb-Black.ttf $version
         download_from_s3 $bucket TitilliumWeb-Bold.ttf $version
-        download_from_s3 $bucket TitilliumWeb-BoldItalic.ttf $version
-        download_from_s3 $bucket TitilliumWeb-ExtraLight.ttf $version
-        download_from_s3 $bucket TitilliumWeb-ExtraLightItalic.ttf $version
         download_from_s3 $bucket TitilliumWeb-Italic.ttf $version
         download_from_s3 $bucket TitilliumWeb-Light.ttf $version
-        download_from_s3 $bucket TitilliumWeb-LightItalic.ttf $version
         download_from_s3 $bucket TitilliumWeb-Regular.ttf $version
-        download_from_s3 $bucket TitilliumWeb-SemiBold.ttf $version
-        download_from_s3 $bucket TitilliumWeb-SemiBoldItalic.ttf $version
         download_from_s3 $bucket MaterialIcons-Regular.ttf $version
+        download_from_s3 $bucket untitled-font-1.ttf $version
 
         echo "copy all ndau-fonts content to assets folder"
         mkdir -p assets/fonts
