@@ -539,6 +539,9 @@ export function AccountHistoryPanels (props) {
       item
     )
     const transactionSource = AccountHistoryHelper.getTransactionSource(item)
+    const destinationUsed =
+      transactionDestination && props.address !== transactionDestination
+    const sourceUsed = transactionSource && props.address !== transactionSource
 
     return (
       <CollapsibleBar
@@ -566,7 +569,7 @@ export function AccountHistoryPanels (props) {
             </H4>
           </View>
         </View>
-        {transactionDestination && props.address !== transactionDestination ? (
+        {destinationUsed ? (
           <View style={styles.accountHistoryTextPanelWithSmallText}>
             <View>
               <H4 style={styles.accountHistorySmallerTextBold}>Sent to:</H4>
@@ -578,7 +581,7 @@ export function AccountHistoryPanels (props) {
             </View>
           </View>
         ) : null}
-        {transactionSource && props.address !== transactionSource ? (
+        {sourceUsed ? (
           <View style={styles.accountHistoryTextPanelWithSmallText}>
             <View>
               <H4 style={styles.accountHistorySmallerTextBold}>
