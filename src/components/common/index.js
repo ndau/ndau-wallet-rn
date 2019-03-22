@@ -306,9 +306,16 @@ export function AppContainer (props) {
 }
 
 export function TextInput (props) {
+  const stylesArray = [styles.input]
+  if (!props.noBottomMargin) {
+    stylesArray.push(styles.inputBottomMargin)
+  }
+  if (props.error) {
+    stylesArray.push(styles.inputErrorBorder)
+  }
   return (
     <Input
-      style={styles.input}
+      style={stylesArray}
       placeholderTextColor='#858688'
       autoCapitalize='none'
       {...props}

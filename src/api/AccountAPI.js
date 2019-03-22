@@ -6,7 +6,7 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import LoggingService from '../services/LoggingService'
 import WalletStore from '../stores/WalletStore'
 
-var _ = require('lodash')
+const _ = require('lodash')
 
 const getAddressData = async addresses => {
   const accountAPI = await APIAddressHelper.getAccountsAPIAddress()

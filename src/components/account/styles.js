@@ -467,14 +467,17 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%'),
     marginBottom: hp('3%'),
-    marginTop: hp('2%'),
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  accountSendErrorSmallText: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
   },
   accountHistorySmallerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '200',
     letterSpacing: 0.26,
     lineHeight: 18,
@@ -483,11 +486,14 @@ export default StyleSheet.create({
   accountHistorySmallerTextBold: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '400',
     letterSpacing: 0.26,
     lineHeight: 18,
     paddingBottom: 0
+  },
+  accountSendErrorColor: {
+    color: AppConstants.ERROR_COLOR
   },
   accountHistoryLargerTextBold: {
     color: AppConstants.TEXT_COLOR,

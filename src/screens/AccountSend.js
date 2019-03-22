@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 import {
   AccountSendContainer,
   AccountDetailPanel,
-  AccountHeaderText
+  AccountHeaderText,
+  AccountSendConfirmationItem,
+  AccountSendErrorText
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import {
@@ -12,7 +14,8 @@ import {
   Label,
   OrBorder,
   LargeBorderButton,
-  QRCodeScanner
+  QRCodeScanner,
+  BarBorder
 } from '../components/common'
 import FlashNotification from '../components/common/FlashNotification'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
@@ -21,6 +24,8 @@ import { Transaction } from '../transactions/Transaction'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+
+const _ = require('lodash')
 
 class AccountSend extends Component {
   constructor (props) {
@@ -36,8 +41,15 @@ class AccountSend extends Component {
       amount: '',
       validAmount: false,
       validAddress: false,
-      transactionFee: 0
+      transactionFee: 0,
+      sib: 0,
+      total: 0
     }
+
+    this.debounceRequestTransactionFee = _.debounce(
+      this._requestTransactionFee,
+      500
+    )
   }
 
   componentWillMount = async () => {
@@ -61,45 +73,51 @@ class AccountSend extends Component {
     this.props.navigation.navigate('AccountSendConfirmation', {
       address: this.state.address,
       amount: this.state.amount,
-      transactionFee: this.state.transactionFee
+      transactionFee: this.state.transactionFee,
+      sib: this.state.sib,
+      total: this.state.total
     })
   }
 
   _haveAddress = () => {
-    if (this.state.address.substr(0, 2) === 'nd') {
-      this.setState({ spinner: true }, async () => {
-        let transactionFee = 0
-        try {
-          Object.assign(TransferTransaction.prototype, Transaction)
-          const transferTransaction = new TransferTransaction(
-            this.state.wallet,
-            this.state.account,
-            this.state.address,
-            !this.state.amount ? 1 : this.state.amount
-          )
-
-          await transferTransaction.create()
-          await transferTransaction.sign()
-          const prevalidateData = await transferTransaction.prevalidate()
-          if (prevalidateData.fee_napu) {
-            transactionFee = DataFormatHelper.getNdauFromNapu(
-              prevalidateData.fee_napu
-            )
-          }
-        } catch (error) {
-          FlashNotification.showError(
-            `Error occurred while sending ndau: ${error.message}`
-          )
-        }
-
-        this.setState({ spinner: false, transactionFee })
-      })
-    }
     this.setState({ requestingAmount: true })
   }
 
-  _haveAmount = () => {
+  _haveAmount = async () => {
     this.setState({ requestingAmount: false })
+  }
+
+  _requestTransactionFee = () => {
+    // if (!this.state.amount) return
+    console.log('this is getting called')
+
+    this.setState({ spinner: true }, async () => {
+      let transactionFee = 0
+      try {
+        Object.assign(TransferTransaction.prototype, Transaction)
+        const transferTransaction = new TransferTransaction(
+          this.state.wallet,
+          this.state.account,
+          this.state.address,
+          this.state.amount
+        )
+
+        await transferTransaction.create()
+        await transferTransaction.sign()
+        const prevalidateData = await transferTransaction.prevalidate()
+        if (prevalidateData.fee_napu) {
+          transactionFee = DataFormatHelper.getNdauFromNapu(
+            prevalidateData.fee_napu
+          )
+        }
+      } catch (error) {
+        FlashNotification.showError(
+          `Error occurred while sending ndau: ${error.message}`
+        )
+      }
+
+      this.setState({ spinner: false, transactionFee })
+    })
   }
 
   _setAddress = async address => {
@@ -115,16 +133,20 @@ class AccountSend extends Component {
     )
     const amountFloat = parseFloat(amount)
     const transactionFeeFloat = parseFloat(transactionFee)
-    const balance = totalNdauForAccount - amountFloat - transactionFeeFloat
-    if (balance > 0) {
+    const total = totalNdauForAccount - amountFloat - transactionFeeFloat
+    if (total > 0) {
       validAmount = true
     } else {
       validAmount = false
     }
-    this.setState({
-      amount,
-      validAmount
-    })
+    this.setState(
+      {
+        amount,
+        validAmount,
+        total
+      },
+      this.debounceRequestTransactionFee
+    )
   }
 
   _scan = () => {
@@ -166,6 +188,35 @@ class AccountSend extends Component {
             name='amount'
             placeholder='Enter amount...'
             autoCapitalize='none'
+            noBottomMargin
+            error={!this.state.validAmount && this.state.amount}
+          />
+          {!this.state.validAmount && this.state.amount ? (
+            <AccountSendErrorText>
+              You do not have the much ndau to send.
+            </AccountSendErrorText>
+          ) : null}
+          <AccountSendConfirmationItem
+            title='Remaining balance:'
+            value={
+              AccountAPIHelper.accountNdauAmount(
+                this.state.account.addressData
+              ) - this.state.amount
+            }
+          />
+          <AccountHeaderText>Fees</AccountHeaderText>
+          <BarBorder />
+          <AccountSendConfirmationItem
+            title={'Transaction fee:'}
+            value={this.state.transactionFee}
+          />
+          <BarBorder />
+          <AccountSendConfirmationItem title={'SIB:'} value={this.state.sib} />
+          <BarBorder />
+          <AccountSendConfirmationItem
+            largerText
+            title={'Total'}
+            value={this.state.total}
           />
         </AccountDetailPanel>
         <LargeButton

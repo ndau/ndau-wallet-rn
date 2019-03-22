@@ -266,8 +266,15 @@ export default StyleSheet.create({
     letterSpacing: 0.34,
     lineHeight: 24,
     marginRight: wp('4%'),
-    marginLeft: wp('4%'),
+    marginLeft: wp('4%')
+  },
+  inputBottomMargin: {
     marginBottom: hp('2%')
+  },
+  inputErrorBorder: {
+    borderStyle: 'solid',
+    borderColor: AppConstants.ERROR_COLOR,
+    borderWidth: 1
   },
   setupContainerBackgroundImage: {
     height: '150%',
@@ -445,7 +452,8 @@ export default StyleSheet.create({
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
     marginLeft: wp('4%'),
-    marginRight: wp('4%')
+    marginRight: wp('4%'),
+    marginBottom: hp('2%')
   },
   barTitleLeft: {
     color: AppConstants.TEXT_COLOR,
