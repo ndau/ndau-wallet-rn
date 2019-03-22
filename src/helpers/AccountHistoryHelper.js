@@ -31,7 +31,21 @@ const getTransactionId = item => {
 }
 
 const getTransactionDestination = item => {
+  // TODO: THIS MAY NOT BE GOOD! My assumption is
+  // that this is an array for a reason but there is currently
+  // only one in here
   return item.txDetail.Transactable.dst
+    ? item.txDetail.Transactable.dst[0]
+    : null
+}
+
+const getTransactionSource = item => {
+  // TODO: THIS MAY NOT BE GOOD! My assumption is
+  // that this is an array for a reason but there is currently
+  // only one in here
+  return item.txDetail.Transactable.src
+    ? item.txDetail.Transactable.src[0]
+    : null
 }
 
 const getTransactionType = accountHistory => {
@@ -51,5 +65,6 @@ export default {
   getTransactionId,
   getTransactionType,
   getTransactionBalance,
-  getTransactionDestination
+  getTransactionDestination,
+  getTransactionSource
 }
