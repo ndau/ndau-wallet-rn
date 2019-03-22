@@ -88,9 +88,6 @@ class AccountSend extends Component {
   }
 
   _requestTransactionFee = () => {
-    // if (!this.state.amount) return
-    console.log('this is getting called')
-
     this.setState({ spinner: true }, async () => {
       let transactionFee = 0
       try {
