@@ -82,7 +82,6 @@ export const Transaction = {
       // Here we get the ownership key to sign for ClaimAccount. This is
       // the ONLY time we use the ownershipKey. Any subsequent/other
       // transactions use the validationKey within the account
-      LoggingService.debug(`key to use for signature is ${this._keyToUse}`)
       const privateKeyFromHash = this.privateKeyForSigning()
 
       // Use the TxSignPrep to get it ready to send
