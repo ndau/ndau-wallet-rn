@@ -558,9 +558,9 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
-  addressCopyButton: {
+  addressShareButton: {
     alignSelf: 'center',
-    width: wp('15%'),
+    width: wp('20%'),
     height: hp('4%'),
     borderRadius: 4,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
@@ -572,7 +572,7 @@ export default StyleSheet.create({
     padding: 0
   },
   addressButtonText: {
-    width: wp('8%'),
+    width: wp('10%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 14,
