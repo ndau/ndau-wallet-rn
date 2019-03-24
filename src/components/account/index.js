@@ -660,7 +660,7 @@ export function AccountSendErrorText (props) {
   )
 }
 
-export function AddressCopyPanel (props) {
+export function AddressSharePanel (props) {
   const address = ndaujs.truncateAddress(props.address)
   return (
     <View
@@ -683,12 +683,12 @@ export function AddressCopyPanel (props) {
           </View>
           <View>
             <Button
-              style={styles.addressCopyButton}
+              style={styles.addressShareButton}
               textStyle={styles.addressButtonText}
               uppercase={false}
               {...props}
             >
-              Copy
+              Share
             </Button>
           </View>
         </View>

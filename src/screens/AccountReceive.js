@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Clipboard } from 'react-native'
+import { Share } from 'react-native'
 import {
   AccountSendContainer,
   AccountDetailPanel,
   AccountReceiveParagraphText,
-  AddressCopyPanel
+  AddressSharePanel
 } from '../components/account'
 import { QRCode } from '../components/common'
 import AccountStore from '../stores/AccountStore'
@@ -25,8 +25,17 @@ class AccountReceive extends Component {
     this.setState({ account, wallet })
   }
 
-  copyAddressToClipboard = address => {
-    Clipboard.setString(address)
+  share = address => {
+    Share.share(
+      {
+        message: address,
+        title: 'Share public ndau address',
+        url: '/'
+      },
+      {
+        dialogTitle: 'Share public ndau address'
+      }
+    )
   }
 
   render () {
@@ -45,10 +54,8 @@ class AccountReceive extends Component {
           </AccountReceiveParagraphText>
           <QRCode value={this.state.account.address} />
         </AccountDetailPanel>
-        <AddressCopyPanel
-          onPress={() =>
-            this.copyAddressToClipboard(this.state.account.address)
-          }
+        <AddressSharePanel
+          onPress={() => this.share(this.state.account.address)}
           address={this.state.account.address}
         />
       </AccountSendContainer>
