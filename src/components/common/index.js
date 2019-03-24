@@ -170,6 +170,7 @@ export function PasswordLinkText (props) {
 export function NdauTotal (props) {
   return (
     <View style={[styles.ndauTotalContainer]}>
+      <P style={styles.ndauLarge}>n</P>
       <H4 {...props} style={[styles.ndauTotalText]}>
         {props.children}
       </H4>
@@ -242,7 +243,7 @@ export function CheckBox (props) {
       <Checkbox
         style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
         iconColor={AppConstants.TEXT_COLOR}
-        iconName={'check'}
+        iconName='check'
         {...props}
       >
         {props.children}
@@ -305,9 +306,16 @@ export function AppContainer (props) {
 }
 
 export function TextInput (props) {
+  const stylesArray = [styles.input]
+  if (!props.noBottomMargin) {
+    stylesArray.push(styles.inputBottomMargin)
+  }
+  if (props.error) {
+    stylesArray.push(styles.inputErrorBorder)
+  }
   return (
     <Input
-      style={styles.input}
+      style={stylesArray}
       placeholderTextColor='#858688'
       autoCapitalize='none'
       {...props}
