@@ -39,7 +39,14 @@ The best place to start is the [Getting Started](https://facebook.github.io/reac
 
 You must run the following scripts before you can begin using this application.
 
-First we npm/yarn install:
+We installed node...but that gets the latest we want verison 10. First navigate to the [nvm](https://github.com/creationix/nvm) site to install nvm. Then execuite the commands below after a successful installation.
+
+```
+nvm install v10
+nvm use v10
+```
+
+Next we npm/yarn install:
 
 `npm install`
 `yarn install` (just incase you use yarn)

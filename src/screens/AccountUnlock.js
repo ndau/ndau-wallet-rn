@@ -75,7 +75,7 @@ class AccountUnlock extends Component {
             will not be able to add new ndau to this account.
           </AccountParagraphText>
         </AccountDetailPanel>
-        <LargeButton onPress={() => _initiateUnlock()}>
+        <LargeButton onPress={() => this._initiateUnlock()}>
           Start unlock countdown
         </LargeButton>
       </AccountUnlockContainer>

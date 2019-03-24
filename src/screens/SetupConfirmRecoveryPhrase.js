@@ -26,7 +26,7 @@ import {
 } from '../components/setup'
 import { LargeButtons, ParagraphText } from '../components/common'
 
-var _ = require('lodash')
+const _ = require('lodash')
 
 const MAX_ERRORS = 4 // 4 strikes and you're out
 const DEFAULT_ROW_LENGTH = 4 // 3 items per row

@@ -269,7 +269,7 @@ class WalletOverview extends Component {
                             </LargeAccountButton>
                           ) : (
                             <LargeAccountButton
-                              icon='arrow-alt-up'
+                              customIconName='arrow-alt-up'
                               onPress={() =>
                                 this._send(
                                   wallet.accounts[accountKey],
@@ -282,7 +282,7 @@ class WalletOverview extends Component {
                           )}
 
                           <LargeAccountButton
-                            icon='arrow-alt-down'
+                            customIconName='arrow-alt-down'
                             onPress={() =>
                               this._receive(
                                 wallet.accounts[accountKey],

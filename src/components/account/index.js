@@ -74,12 +74,17 @@ export function AccountPanel (props) {
                   )
                 ) : null}
               </View>
-              <View>
-                <H4 style={styles.accountPanelTotal}>
-                  {AccountAPIHelper.accountNdauAmount(
-                    props.account.addressData
-                  )}
-                </H4>
+              <View style={styles.ndauTotalContainer}>
+                <View>
+                  <P style={styles.ndauSmall}>n</P>
+                </View>
+                <View>
+                  <H4 style={styles.accountPanelTotal}>
+                    {AccountAPIHelper.accountNdauAmount(
+                      props.account.addressData
+                    )}
+                  </H4>
+                </View>
               </View>
             </View>
             <View>
@@ -114,7 +119,7 @@ export function AccountPanel (props) {
                   size={24}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   style={styles.accountAngle}
-                  solid
+                  light
                 />
               </TouchableOpacity>
             </View>
@@ -145,7 +150,6 @@ export function AccountDetailsContainer (props) {
 
 export function AccountLockContainer (props) {
   close = () => {
-    ok
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
   goBack = () => {
@@ -251,7 +255,7 @@ export function AccountButton (props) {
     >
       {props.children}{' '}
       <FontAwesome5Pro
-        name={props.icon}
+        name={props.customIconName}
         size={18}
         color={AppConstants.ICON_BUTTON_COLOR}
         style={styles.accountAngle}
@@ -271,7 +275,7 @@ export function LargeAccountButton (props) {
     >
       {props.children}{' '}
       <FontAwesome5Pro
-        name={props.icon}
+        name={props.customIconName}
         size={18}
         color={AppConstants.ICON_BUTTON_COLOR}
         style={styles.accountAngle}
@@ -284,7 +288,8 @@ export function LargeAccountButton (props) {
 export function AccountTotalPanel (props) {
   return (
     <View style={styles.accountTotalPanel}>
-      <View>
+      <View style={styles.ndauTotalContainerMedium}>
+        <P style={styles.ndauMedium}>n</P>
         <H4 style={styles.accountTotalPanelText}>
           {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
         </H4>
@@ -298,7 +303,7 @@ export function AccountTotalPanel (props) {
               size={24}
               color={AppConstants.ICON_BUTTON_COLOR}
               style={styles.viewHistoryAngle}
-              solid
+              light
             />
           </TouchableOpacity>
         </View>
@@ -539,6 +544,9 @@ export function AccountHistoryPanels (props) {
       item
     )
     const transactionSource = AccountHistoryHelper.getTransactionSource(item)
+    const destinationUsed =
+      transactionDestination && props.address !== transactionDestination
+    const sourceUsed = transactionSource && props.address !== transactionSource
 
     return (
       <CollapsibleBar
@@ -566,7 +574,7 @@ export function AccountHistoryPanels (props) {
             </H4>
           </View>
         </View>
-        {transactionDestination && props.address !== transactionDestination ? (
+        {destinationUsed ? (
           <View style={styles.accountHistoryTextPanelWithSmallText}>
             <View>
               <H4 style={styles.accountHistorySmallerTextBold}>Sent to:</H4>
@@ -578,7 +586,7 @@ export function AccountHistoryPanels (props) {
             </View>
           </View>
         ) : null}
-        {transactionSource && props.address !== transactionSource ? (
+        {sourceUsed ? (
           <View style={styles.accountHistoryTextPanelWithSmallText}>
             <View>
               <H4 style={styles.accountHistorySmallerTextBold}>
@@ -655,7 +663,24 @@ export function AccountSendConfirmationItem (props) {
   )
 }
 
-export function AddressCopyPanel (props) {
+export function AccountSendErrorText (props) {
+  return (
+    <View style={styles.accountSendErrorSmallText}>
+      <View>
+        <H4
+          style={[
+            styles.accountHistorySmallerText,
+            styles.accountSendErrorColor
+          ]}
+        >
+          {props.children}
+        </H4>
+      </View>
+    </View>
+  )
+}
+
+export function AddressSharePanel (props) {
   const address = ndaujs.truncateAddress(props.address)
   return (
     <View
@@ -678,12 +703,12 @@ export function AddressCopyPanel (props) {
           </View>
           <View>
             <Button
-              style={styles.addressCopyButton}
+              style={styles.addressShareButton}
               textStyle={styles.addressButtonText}
               uppercase={false}
               {...props}
             >
-              Copy
+              Share
             </Button>
           </View>
         </View>

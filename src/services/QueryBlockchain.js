@@ -13,11 +13,17 @@ const initialize = () => {
       stopOnTerminate: false, // <-- Android-only,
       startOnBoot: true // <-- Android-only
     },
-    () => {
-      if (AccountAPI.isAddressDataNew()) {
-        notificationService.localNotification(
-          'Blockchain Update',
-          'You have new data on the blockchain'
+    async () => {
+      try {
+        if (await AccountAPI.isAddressDataNew()) {
+          notificationService.localNotification(
+            'Blockchain Update',
+            'You have new data on the blockchain'
+          )
+        }
+      } catch (error) {
+        FlashNotification.showError(
+          'Issue encountered querying the blockchain in the background'
         )
       }
       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA)

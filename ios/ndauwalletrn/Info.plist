@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>50</string>
+	<string>84</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -54,20 +54,15 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>TitilliumWeb-Bold.ttf</string>
-		<string>TitilliumWeb-BoldItalic.ttf</string>
 		<string>TitilliumWeb-Italic.ttf</string>
 		<string>TitilliumWeb-Light.ttf</string>
-		<string>TitilliumWeb-LightItalic.ttf</string>
 		<string>TitilliumWeb-Regular.ttf</string>
-		<string>icomoon.ttf</string>
 		<string>FontAwesome5_Pro_Light.ttf</string>
 		<string>OpenSans-Bold.ttf</string>
-		<string>OpenSans-BoldItalic.ttf</string>
-		<string>OpenSans-ExtraBold.ttf</string>
-		<string>OpenSans-ExtraBoldItalic.ttf</string>
 		<string>OpenSans-Light.ttf</string>
 		<string>OpenSans-Italic.ttf</string>
-		<string>OpenSans-LightItalic.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>ndau-0.ttf</string>
 		<string>MaterialIcons-Regular.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>

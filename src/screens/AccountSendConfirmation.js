@@ -39,6 +39,8 @@ class AccountSendConfirmation extends Component {
       'transactionFee',
       null
     )
+    const sib = this.props.navigation.getParam('sib', null)
+    const total = this.props.navigation.getParam('total', null)
 
     this.setState({
       account,
@@ -46,6 +48,8 @@ class AccountSendConfirmation extends Component {
       address,
       amount,
       transactionFee,
+      sib,
+      total,
       spinner: false
     })
   }
@@ -95,21 +99,8 @@ class AccountSendConfirmation extends Component {
           />
           <BarBorder />
           <AccountSendConfirmationItem
-            title={'Transaction fee:'}
-            value={this.state.transactionFee}
-          />
-          <BarBorder />
-          <AccountSendConfirmationItem title={'SIB:'} value={this.sibBurn} />
-          <BarBorder />
-          <AccountSendConfirmationItem
             title={'Amount to be sent:'}
             value={this.state.amount}
-          />
-          <BarBorder />
-          <AccountSendConfirmationItem
-            largerText
-            title={'TOTAL'}
-            value={this.state.transactionFee + this.sibBurn + this.state.amount}
           />
           <BarBorder />
           <AccountSendConfirmationItem
@@ -120,8 +111,24 @@ class AccountSendConfirmation extends Component {
               ) - this.state.amount
             }
           />
+          <AccountHeaderText>Fees</AccountHeaderText>
+          <BarBorder />
+          <AccountSendConfirmationItem
+            title={'Transaction fee:'}
+            value={this.state.transactionFee}
+          />
+          <BarBorder />
+          <AccountSendConfirmationItem title={'SIB:'} value={this.state.sib} />
+          <BarBorder />
+          <AccountSendConfirmationItem
+            largerText
+            title={'Total'}
+            value={this.state.total}
+          />
         </AccountDetailPanel>
-        <LargeButton onPress={() => this._confirm()}>Confirm</LargeButton>
+        <LargeButton onPress={() => this._confirm()}>
+          Confirm {'&'} send
+        </LargeButton>
       </AccountSendContainer>
     )
   }
