@@ -76,7 +76,7 @@ export function AccountPanel (props) {
               </View>
               <View style={styles.ndauTotalContainer}>
                 <View>
-                  <P style={styles.ndauSmall}>a</P>
+                  <P style={styles.ndauSmall}>n</P>
                 </View>
                 <View>
                   <H4 style={styles.accountPanelTotal}>
@@ -289,7 +289,7 @@ export function AccountTotalPanel (props) {
   return (
     <View style={styles.accountTotalPanel}>
       <View style={styles.ndauTotalContainerMedium}>
-        <P style={styles.ndauMedium}>a</P>
+        <P style={styles.ndauMedium}>n</P>
         <H4 style={styles.accountTotalPanelText}>
           {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
         </H4>

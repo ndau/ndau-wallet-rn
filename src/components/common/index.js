@@ -170,7 +170,7 @@ export function PasswordLinkText (props) {
 export function NdauTotal (props) {
   return (
     <View style={[styles.ndauTotalContainer]}>
-      <P style={styles.ndauLarge}>a</P>
+      <P style={styles.ndauLarge}>n</P>
       <H4 {...props} style={[styles.ndauTotalText]}>
         {props.children}
       </H4>

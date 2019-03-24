@@ -143,19 +143,17 @@ export default StyleSheet.create({
   },
   ndauSmall: {
     color: '#FFFFFF',
-    fontFamily: 'untitled-font-1',
+    fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 12,
-    letterSpacing: 0.9,
-    lineHeight: 30,
-    textAlign: 'center'
+    letterSpacing: 0.51,
+    lineHeight: 36
   },
   ndauMedium: {
     color: '#FFFFFF',
-    fontFamily: 'untitled-font-1',
+    fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 18,
-    letterSpacing: 0.9,
-    lineHeight: 18,
-    textAlign: 'center'
+    letterSpacing: 0.51,
+    lineHeight: 27
   },
   accountTotalPanelText: {
     color: '#8CC74F',

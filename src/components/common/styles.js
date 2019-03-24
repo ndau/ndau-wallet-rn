@@ -139,21 +139,19 @@ export default StyleSheet.create({
   },
   ndauLarge: {
     color: '#FFFFFF',
-    fontFamily: 'untitled-font-1',
-    fontSize: 26,
+    fontFamily: AppConstants.NDAU_ICON_FONT,
+    fontSize: 28,
     letterSpacing: 0.77,
-    lineHeight: 56,
-    textAlign: 'center',
+    lineHeight: 68,
     alignSelf: 'flex-start',
     paddingVertical: 0
   },
   ndauSmall: {
     color: '#FFFFFF',
-    fontFamily: 'untitled-font-1',
+    fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 12,
-    letterSpacing: 0.9,
-    lineHeight: 24,
-    textAlign: 'center'
+    letterSpacing: 0.51,
+    lineHeight: 36
   },
   progressBarContainer: {
     flex: 1,
