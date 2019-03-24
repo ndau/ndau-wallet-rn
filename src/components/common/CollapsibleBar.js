@@ -122,6 +122,7 @@ class BarCollapsible extends Component {
                   </View>
                   <View>
                     <Text style={[styles.barTitleRight, titleStyleRight]}>
+                      <Text style={styles.ndauSmall}>n</Text>
                       {titleRight}
                     </Text>
                   </View>
@@ -145,6 +146,7 @@ class BarCollapsible extends Component {
               size={this.props.iconSize || iconSize}
               color={this.props.tintColor || tintColor}
               style={[styles.icon, iconStyle]}
+              light
             />
           </View>
         </TouchableHighlight>
@@ -177,6 +179,7 @@ class BarCollapsible extends Component {
             size={this.props.iconSize || iconSize}
             color={this.props.tintColor || tintColor}
             style={[styles.icon, iconStyle]}
+            light
           />
         </View>
       </TouchableHighlight>
