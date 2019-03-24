@@ -643,7 +643,24 @@ export function AccountSendConfirmationItem (props) {
   )
 }
 
-export function AddressCopyPanel (props) {
+export function AccountSendErrorText (props) {
+  return (
+    <View style={styles.accountSendErrorSmallText}>
+      <View>
+        <H4
+          style={[
+            styles.accountHistorySmallerText,
+            styles.accountSendErrorColor
+          ]}
+        >
+          {props.children}
+        </H4>
+      </View>
+    </View>
+  )
+}
+
+export function AddressSharePanel (props) {
   const address = ndaujs.truncateAddress(props.address)
   return (
     <View
@@ -666,12 +683,12 @@ export function AddressCopyPanel (props) {
           </View>
           <View>
             <Button
-              style={styles.addressCopyButton}
+              style={styles.addressShareButton}
               textStyle={styles.addressButtonText}
               uppercase={false}
               {...props}
             >
-              Copy
+              Share
             </Button>
           </View>
         </View>

@@ -465,14 +465,17 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%'),
     marginBottom: hp('3%'),
-    marginTop: hp('2%'),
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  accountSendErrorSmallText: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
   },
   accountHistorySmallerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '200',
     letterSpacing: 0.26,
     lineHeight: 18,
@@ -481,11 +484,14 @@ export default StyleSheet.create({
   accountHistorySmallerTextBold: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '400',
     letterSpacing: 0.26,
     lineHeight: 18,
     paddingBottom: 0
+  },
+  accountSendErrorColor: {
+    color: AppConstants.ERROR_COLOR
   },
   accountHistoryLargerTextBold: {
     color: AppConstants.TEXT_COLOR,
@@ -550,9 +556,9 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
-  addressCopyButton: {
+  addressShareButton: {
     alignSelf: 'center',
-    width: wp('15%'),
+    width: wp('20%'),
     height: hp('4%'),
     borderRadius: 4,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
@@ -564,7 +570,7 @@ export default StyleSheet.create({
     padding: 0
   },
   addressButtonText: {
-    width: wp('8%'),
+    width: wp('10%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 14,
