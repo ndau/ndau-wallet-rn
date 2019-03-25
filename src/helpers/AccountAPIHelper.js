@@ -146,12 +146,9 @@ const addPrivateValidationKeyIfNotPresent = async (
       `Attempting to find the private key for the public validation key we have...`
     )
     for (const validationKey of addressData.validationKeys) {
-      console.log(`VALIDATION KEY ${validationKey}`)
       const validationKeys = await KeyMaster.getValidationKeys(wallet, account)
-      console.log(`VALKEYS: ${JSON.stringify(validationKeys, null, 2)}`)
       const validationPublicKeys = Object.keys(validationKeys)
       for (const validationPublicKey of validationPublicKeys) {
-        console.log(`VALIDATION PUB KEY ${validationPublicKey}`)
         if (validationKey === validationPublicKey) {
           LoggingService.debug(
             'Found a match, adding a the validation keys to the wallet'
