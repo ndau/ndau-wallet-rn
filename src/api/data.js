@@ -35,6 +35,167 @@ const testSingleAddressData = {
   }
 }
 
+const test7MP4FVUserData = {
+  userId: 'Wallet 1',
+  wallets: {
+    '2c963f83': {
+      walletId: 'Wallet 1',
+      accountCreationKeyHash: '308c3bc3',
+      accounts: {
+        ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4: {
+          address: 'ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4',
+          addressData: {
+            balance: 100000000,
+            validationKeys: null,
+            validationScript: null,
+            rewardsTarget: 'ndac6k7vxp5majxe8ed2wagp2dw8ip8ce3mwxeuttym9c9ze',
+            incomingRewardsFrom: null,
+            delegationNode: 'ndam75fnjn7cdues7ivi7ccfq8f534quieaccqibrvuzhqxa',
+            lock: {
+              noticePeriod: '1y25d',
+              unlocksOn: '2019-06-26T00:00:00Z',
+              bonus: 30000000000
+            },
+            stake: null,
+            lastEAIUpdate: '2019-03-11T19:48:25Z',
+            lastWAAUpdate: '2018-06-01T00:00:00Z',
+            weightedAverageAge: '9m26dt23h54m21s889673us',
+            sequence: 0,
+            settlements: null,
+            settlementSettings: {
+              period: '1dt23h59m',
+              changesAt: null,
+              next: null
+            },
+            currencySeatDate: null,
+            parent: null,
+            progenitor: null,
+            nickname: 'Account 1',
+            walletId: 'Wallet 1',
+            eaiValueForDisplay: 130000000000
+          },
+          ownershipKey: 'f5b17631',
+          validationKeys: []
+        },
+        ndac6k7vxp5majxe8ed2wagp2dw8ip8ce3mwxeuttym9c9ze: {
+          address: 'ndac6k7vxp5majxe8ed2wagp2dw8ip8ce3mwxeuttym9c9ze',
+          addressData: {
+            balance: 16422859,
+            validationKeys: null,
+            validationScript: null,
+            rewardsTarget: null,
+            incomingRewardsFrom: [
+              'ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4'
+            ],
+            delegationNode: 'ndam75fnjn7cdues7ivi7ccfq8f534quieaccqibrvuzhqxa',
+            lock: null,
+            stake: null,
+            lastEAIUpdate: '2019-03-11T19:48:25Z',
+            lastWAAUpdate: '2019-03-11T19:48:25Z',
+            weightedAverageAge: '4m19dt15h3m40s193716us',
+            sequence: 0,
+            settlements: null,
+            settlementSettings: {
+              period: '1dt23h59m',
+              changesAt: null,
+              next: null
+            },
+            currencySeatDate: null,
+            parent: null,
+            progenitor: null,
+            nickname: 'Account 2',
+            walletId: 'Wallet 1',
+            eaiValueForDisplay: 50000000000
+          },
+          ownershipKey: 'ddb5fb2c',
+          validationKeys: []
+        }
+      },
+      keys: {
+        '308c3bc3': {
+          publicKey: '',
+          privateKey:
+            'npvta8jaftcjea446vn5snnzfcf8qvvj9cp6tyv6s4bja6xg8zm2h2vtsj9hu9ghga9ifmrsaaaantpt9panczx3iyct5k4zwg7iw3jfizuqs8j9wkrphg3qkxr7gjbgkf9weizd7f8h',
+          path: "/44'/20036'/100",
+          derivedFromRoot: 'yes'
+        },
+        f5b17631: {
+          publicKey:
+            'npuba4jaftckeebetgbepdnd9i99mwmtj8cjphfwnec3z2shy6dyu6t2mt8zkxg86i2ebgfnuaaaaaax7xqpbtrwsj896d6izqqw4nbzw3gde4ygc58rfzzwcxxrxrgvdhcrf7izg49q',
+          privateKey:
+            'npvta8jaftcjedk7pfu7nk5ekdu9gwwqztrmryqcf39tv2djhgkcgwzsv9ebzdmb2bajtmesaaaaafrpmvinm7ecrz9a9cf5vxgvap7gjs3gxtsy9v3p77axpm7m3w232pduuiibs8qp',
+          path: "/44'/20036'/100/1",
+          derivedFromRoot: 'yes'
+        },
+        ddb5fb2c: {
+          publicKey:
+            'npuba4jaftckeebgxwhzw2mir4czjkuwyp7g9vpsh4bx9t5dym87h8gbkbqinmjqdjaebgfnuaaaaabciwbqfusup9mpmwwi95p9diatshqegkq4j8jwyd7qayid9tvy64uig6he34ei',
+          privateKey:
+            'npvta8jaftcjedzdyjeqdrxh5k9dmdr5xqxjy6q6tp34hgj4sppn386yzrvmk4ke2bajtmesaaaaaiufamtnwevr45k7fch85r24aenb5tbuvyurupfs9msfua96n7zgwp92tjxzekmv',
+          path: "/44'/20036'/100/2",
+          derivedFromRoot: 'yes'
+        }
+      },
+      walletName: 'Wallet 1'
+    }
+  }
+}
+
+const test7MP4FVAddressData = {
+  ndac6k7vxp5majxe8ed2wagp2dw8ip8ce3mwxeuttym9c9ze: {
+    balance: 16422859,
+    validationKeys: null,
+    validationScript: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4'],
+    delegationNode: 'ndam75fnjn7cdues7ivi7ccfq8f534quieaccqibrvuzhqxa',
+    lock: null,
+    stake: null,
+    lastEAIUpdate: '2019-03-11T19:48:25Z',
+    lastWAAUpdate: '2019-03-11T19:48:25Z',
+    weightedAverageAge: '4m19dt15h8m41s509064us',
+    sequence: 0,
+    settlements: null,
+    settlementSettings: {
+      period: '1dt23h59m',
+      changesAt: null,
+      next: null
+    },
+    currencySeatDate: null,
+    parent: null,
+    progenitor: null
+  },
+  ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4: {
+    balance: 100000000,
+    validationKeys: [
+      'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi'
+    ],
+    validationScript: null,
+    rewardsTarget: 'ndac6k7vxp5majxe8ed2wagp2dw8ip8ce3mwxeuttym9c9ze',
+    incomingRewardsFrom: null,
+    delegationNode: 'ndam75fnjn7cdues7ivi7ccfq8f534quieaccqibrvuzhqxa',
+    lock: {
+      noticePeriod: '1y25d',
+      unlocksOn: '2019-06-26T00:00:00Z',
+      bonus: 30000000000
+    },
+    stake: null,
+    lastEAIUpdate: '2019-03-24T23:59:23Z',
+    lastWAAUpdate: '2018-06-01T00:00:00Z',
+    weightedAverageAge: '9m26dt23h59m23s205021us',
+    sequence: 1,
+    settlements: null,
+    settlementSettings: {
+      period: '1dt23h59m',
+      changesAt: null,
+      next: null
+    },
+    currencySeatDate: null,
+    parent: null,
+    progenitor: null
+  }
+}
+
 const testAddressData = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
     balance: 4200000000.23,
@@ -472,5 +633,7 @@ export default {
   transactionByHashRes,
   addresses,
   delegateTxRes,
-  testSingleAddressData
+  testSingleAddressData,
+  test7MP4FVUserData,
+  test7MP4FVAddressData
 }

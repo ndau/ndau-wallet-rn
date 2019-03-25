@@ -98,6 +98,42 @@ const getBIP44Addresses = async recoveryBytes => {
 }
 
 /**
+ * This function will return possible validation keys based on the
+ * NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY. Send back object
+ * containing publicKey: privateKey properties.
+ *
+ * @param {Wallet} wallet
+ * @param {Account} account
+ */
+const getValidationKeys = async (wallet, account) => {
+  const addresses = {}
+
+  try {
+    for (let i = 1; i <= AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY; i++) {
+      const validatePrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
+        wallet.keys[account.ownershipKey].privateKey,
+        '/',
+        KeyPathHelper.validationKeyPath() + `/${i}`
+      )
+      const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
+        validatePrivateKey
+      )
+
+      addresses[validationPublicKey] = validatePrivateKey
+    }
+  } catch (error) {
+    FlashNotification.showError(
+      `problem encountered creating object of validation public and private keys: ${
+        error.message
+      }`
+    )
+    throw error
+  }
+
+  return addresses
+}
+
+/**
  * This function will create the initial User. If no userId is passed
  * in then you do not get any wallets created.
  *
@@ -335,6 +371,29 @@ const addValidationKey = async (wallet, account) => {
     validationPrivateKey
   )
 
+  addThisValidationKey(
+    account,
+    wallet,
+    validationPrivateKey,
+    validationPublicKey,
+    keyPath
+  )
+}
+
+const addThisValidationKey = (
+  account,
+  wallet,
+  validationPrivateKey,
+  validationPublicKey,
+  keyPath
+) => {
+  if (!keyPath) {
+    const nextIndex = DataFormatHelper.getNextPathIndex(
+      wallet,
+      KeyPathHelper.validationKeyPath()
+    )
+    keyPath = KeyPathHelper.validationKeyPath() + `/${nextIndex}`
+  }
   const validationKeyHash = DataFormatHelper.create8CharHash(
     validationPrivateKey
   )
@@ -482,5 +541,7 @@ export default {
   getPublicKeyFromHash,
   getPrivateKeyFromHash,
   getWalletFromUser,
-  setWalletInUser
+  setWalletInUser,
+  getValidationKeys,
+  addThisValidationKey
 }
