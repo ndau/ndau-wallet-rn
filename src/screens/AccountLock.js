@@ -78,7 +78,7 @@ class AccountLock extends Component {
       >
         <AccountLockDetailsPanel account={this.state.account}>
           <AccountLockLargerText>
-            Locking your ndau with a withdrawel countdown period accrues bonus
+            Locking your ndau with a withdrawal countdown period accrues bonus
             EAI.
           </AccountLockLargerText>
           <AccountLockLargerText>
