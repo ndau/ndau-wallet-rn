@@ -289,21 +289,15 @@ const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
   if (!accounts) return totalNdau
 
   Object.keys(accounts).forEach(accountKey => {
-    console.log(`ACCOUNT ${accountKey}`)
-    console.log(
-      `SETTLEMENTS: ${JSON.stringify(accounts[accountKey].addressData)}`
-    )
     if (
       accounts[accountKey].addressData &&
       accounts[accountKey].addressData.settlements
     ) {
       const settlements = accounts[accountKey].addressData.settlements
-      console.log(`SETTLEMENTS: ${settlements}`)
       for (const settlement of settlements) {
         const ndau = parseFloat(
           DataFormatHelper.getNdauFromNapu(settlement.Qty)
         )
-        console.log(`TEST ${ndau}`)
         totalNdau -= ndau
       }
     }
