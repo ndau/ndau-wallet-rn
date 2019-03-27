@@ -4,7 +4,7 @@ import {
   AccountSendContainer,
   AccountDetailPanel,
   AccountHeaderText,
-  AccountSendConfirmationItem
+  AccountConfirmationItem
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import { LargeButton, BarBorder } from '../components/common'
@@ -93,17 +93,17 @@ class AccountSendConfirmation extends Component {
           <AccountHeaderText>
             Please confirm the details below
           </AccountHeaderText>
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             title={'To:'}
             value={ndaujs.truncateAddress(this.state.address)}
           />
           <BarBorder />
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             title={'Amount to be sent:'}
             value={this.state.amount}
           />
           <BarBorder />
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             title={'Remaining balance:'}
             value={
               AccountAPIHelper.accountNdauAmount(
@@ -113,14 +113,14 @@ class AccountSendConfirmation extends Component {
           />
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             title={'Transaction fee:'}
             value={this.state.transactionFee}
           />
           <BarBorder />
-          <AccountSendConfirmationItem title={'SIB:'} value={this.state.sib} />
+          <AccountConfirmationItem title={'SIB:'} value={this.state.sib} />
           <BarBorder />
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             largerText
             title={'Total'}
             value={this.state.total}

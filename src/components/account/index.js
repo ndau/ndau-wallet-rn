@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Slider } from 'react-native'
+import { View, TouchableOpacity, Slider, Share } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -8,7 +8,9 @@ import {
   MainContainer,
   ContentContainer,
   CloseForBar,
-  TitleBarGradient
+  TitleBarGradient,
+  AccountDetailsTitleBarGradient,
+  FullBarBorder
 } from '../common'
 import CollapsibleBar from '../common/CollapsibleBar'
 import styles from './styles'
@@ -87,20 +89,6 @@ export function AccountPanel (props) {
                 </View>
               </View>
             </View>
-            <View>
-              <View style={styles.accountPanelBorder} />
-            </View>
-          </View>
-          <View style={styles.accountButtonPanel}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}
-            >
-              {props.children}
-            </View>
           </View>
           <View style={styles.accountActionPanel}>
             <View
@@ -119,7 +107,7 @@ export function AccountPanel (props) {
                   size={24}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   style={styles.accountAngle}
-                  light
+                  solid
                 />
               </TouchableOpacity>
             </View>
@@ -137,12 +125,13 @@ export function AccountDetailsContainer (props) {
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
-        <TitleBarGradient>
-          <View style={styles.accountTitlePanel}>
+        <AccountDetailsTitleBarGradient>
+          <View style={styles.accountDetailsTitlePanel}>
             <AccountDetailsBar goBack={() => goBack()} {...props} />
+            <FullBarBorder />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
-        </TitleBarGradient>
+        </AccountDetailsTitleBarGradient>
       </View>
     </MainContainer>
   )
@@ -312,6 +301,37 @@ export function AccountTotalPanel (props) {
   )
 }
 
+export function AccountDetailsButtonPanel (props) {
+  return (
+    <View style={styles.accountDetailsButtonPanel}>
+      <View>
+        <AccountButton
+          onPress={() => props.send(props.account, props.wallet)}
+          customIconName='arrow-alt-up'
+        >
+          Send
+        </AccountButton>
+      </View>
+      <View>
+        <AccountButton
+          onPress={() => props.receive(props.account, props.wallet)}
+          customIconName='arrow-alt-down'
+        >
+          Receive
+        </AccountButton>
+      </View>
+      <View>
+        <AccountButton
+          onPress={() => props.showLock(props.account, props.wallet)}
+          customIconName='lock'
+        >
+          Lock
+        </AccountButton>
+      </View>
+    </View>
+  )
+}
+
 export function AccountLockDetailsPanel (props) {
   return (
     <View style={styles.accountDetailsPanel}>
@@ -325,7 +345,24 @@ export function AccountReceiveParagraphText (props) {
 }
 
 export function AccountParagraphText (props) {
-  return <P style={styles.accountDetailsParagraphText}>{props.children}</P>
+  return (
+    <View style={styles.accountDetailsItemPanel}>
+      {props.customIconName ? (
+        <View>
+          <FontAwesome5Pro
+            name={props.customIconName}
+            size={18}
+            color={props.customIconColor || AppConstants.ICON_BUTTON_COLOR}
+            style={styles.accountDetailsIcons}
+            solid
+          />
+        </View>
+      ) : null}
+      <View>
+        <P style={styles.accountDetailsParagraphText}>{props.children}</P>
+      </View>
+    </View>
+  )
 }
 
 export function AccountHeaderText (props) {
@@ -333,84 +370,13 @@ export function AccountHeaderText (props) {
 }
 
 export function AccountDetailsPanel (props) {
+  let firstPanel = {}
+  if (props.firstPanel) {
+    firstPanel = styles.firstAccountDetailsPanel
+  }
   return (
-    <View style={styles.accountDetailsPanel}>
-      <View style={styles.accountDetailsTextPanelWithButton}>
-        <View>
-          {props.accountNotLocked ? (
-            <H4 style={styles.accountDetailsParagraphText}>Unlocked</H4>
-          ) : (
-            <H4 style={styles.accountDetailsParagraphText}>
-              Locked ({props.accountNoticePeriod} day countdown)
-            </H4>
-          )}
-        </View>
-        <View>
-          {props.accountNotLocked ? (
-            <AccountButton
-              onPress={() => props.showLock(props.account, props.wallet)}
-              icon='lock'
-            >
-              Lock
-            </AccountButton>
-          ) : (
-            <AccountButton
-              icon='lock-open'
-              onPress={() => props.showUnlock(props.account, props.wallet)}
-            >
-              Unlock
-            </AccountButton>
-          )}
-        </View>
-      </View>
-      {props.eaiValueForDisplay ? (
-        <View style={styles.accountDetailsTextPanel}>
-          <H4 style={styles.accountDetailsParagraphText}>
-            {props.eaiValueForDisplay}% annualized incentive (EAI)
-          </H4>
-        </View>
-      ) : null}
-      <View style={styles.accountDetailsPanelBorder} />
-
-      <View style={styles.accountDetailsTextPanelWithSmallText}>
-        <View>
-          <H4 style={styles.accountDetailsSmallerText}>
-            Weighted average age (WAA):
-          </H4>
-        </View>
-        <View>
-          <H4 style={styles.accountDetailsSmallerTextBold}>
-            {props.weightedAverageAge}
-          </H4>
-        </View>
-      </View>
-      {props.eaiValueForDisplay ? (
-        <View style={styles.accountDetailsTextPanelWithSmallText}>
-          <View>
-            <H4 style={styles.accountDetailsSmallerText}>
-              Current EAI based on WAA:
-            </H4>
-          </View>
-          <View>
-            <H4 style={styles.accountDetailsSmallerTextBold}>
-              {props.eaiValueForDisplay}%
-            </H4>
-          </View>
-        </View>
-      ) : null}
-
-      {props.sendingEAITo ? (
-        <View style={styles.accountDetailsTextPanelWithSmallText}>
-          <View>
-            <H4 style={styles.accountDetailsSmallerText}>EAI being sent to:</H4>
-          </View>
-          <View>
-            <H4 style={styles.accountDetailsSmallerTextBold}>
-              {props.sendingEAITo}
-            </H4>
-          </View>
-        </View>
-      ) : null}
+    <View style={[styles.accountDetailsPanel, firstPanel]}>
+      {props.children}
     </View>
   )
 }
@@ -424,6 +390,7 @@ export function AccountDetailsBar (props) {
             size={32}
             name='arrow-left'
             color={AppConstants.ICON_BUTTON_COLOR}
+            style={styles.accountAngle}
             light
           />
         </TouchableOpacity>
@@ -434,16 +401,14 @@ export function AccountDetailsBar (props) {
           : 'Account'}{' '}
         details
       </H4>
-      <View style={styles.detailsBarCog}>
-        <FontAwesome5Pro size={18} name='cog' color='#FFFFFF' light />
-      </View>
+      <View style={styles.detailsBarCog} />
     </View>
   )
 }
 
 export function AccountClosingBar (props) {
   return (
-    <View style={styles.accountDetailsBarContainer}>
+    <View style={styles.accountClosingBarContainer}>
       {props.backBar ? (
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <TouchableOpacity onPress={props.goBack}>
@@ -456,11 +421,15 @@ export function AccountClosingBar (props) {
           </TouchableOpacity>
         </View>
       ) : (
-        <View />
+        <View style={styles.backArrow} />
       )}
 
       <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
-      {props.closeBar ? <CloseForBar {...props} /> : <View />}
+      {props.closeBar ? (
+        <CloseForBar style={styles.closeIcon} {...props} />
+      ) : (
+        <View />
+      )}
     </View>
   )
 }
@@ -487,6 +456,14 @@ export function AccountLockLargerText (props) {
   return (
     <View style={styles.accountLockDetailsTextPanel}>
       <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
+    </View>
+  )
+}
+
+export function AccountDetailsLargerText (props) {
+  return (
+    <View style={[styles.accountDetailsTextPanelTopMargin]}>
+      <H4 style={styles.accountDetailsLargerText}>{props.children}</H4>
     </View>
   )
 }
@@ -530,8 +507,16 @@ export function AccountLockSlider (props) {
   )
 }
 
+export function AccountHistoryPanel (props) {
+  return <View style={styles.accountHistoryPanel}>{props.children}</View>
+}
+
 export function AccountDetailPanel (props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
+}
+
+export function AccountScanPanel (props) {
+  return <View style={styles.accountScan}>{props.children}</View>
 }
 
 export function AccountHistoryPanels (props) {
@@ -634,7 +619,7 @@ export function DashboardTotalPanel (props) {
   )
 }
 
-export function AccountSendConfirmationItem (props) {
+export function AccountConfirmationItem (props) {
   return (
     <View style={styles.accountSendTextPanelWithSmallText}>
       <View>
@@ -682,6 +667,32 @@ export function AccountSendErrorText (props) {
 
 export function AddressSharePanel (props) {
   const address = ndaujs.truncateAddress(props.address)
+
+  share = address => {
+    Share.share(
+      {
+        message: address,
+        title: 'Share public ndau address',
+        url: '/'
+      },
+      {
+        dialogTitle: 'Share public ndau address'
+      }
+    )
+  }
+
+  let transparentBackground = {}
+  if (props.transparent) {
+    transparentBackground = {
+      backgroundColor: 'transparent'
+    }
+  }
+
+  let noPadding = {}
+  if (props.noPadding) {
+    noPadding = { paddingHorizontal: 0 }
+  }
+
   return (
     <View
       style={
@@ -690,7 +701,15 @@ export function AddressSharePanel (props) {
           : styles.addressCopyPanelContainerBottomNoBorder
       }
     >
-      <View style={[styles.addressCopyPanel, props.style]} {...props}>
+      <View
+        style={[
+          styles.addressCopyPanel,
+          transparentBackground,
+          noPadding,
+          props.style
+        ]}
+        {...props}
+      >
         <View
           style={{
             flex: 1,
@@ -706,6 +725,7 @@ export function AddressSharePanel (props) {
               style={styles.addressShareButton}
               textStyle={styles.addressButtonText}
               uppercase={false}
+              onPress={() => this.share(props.address)}
               {...props}
             >
               Share

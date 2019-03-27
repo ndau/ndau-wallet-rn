@@ -143,18 +143,6 @@ class WalletOverview extends Component {
     })
   }
 
-  _send = (account, wallet) => {
-    AccountStore.setAccount(account)
-    WalletStore.setWallet(wallet)
-    this.props.navigation.push('AccountSend')
-  }
-
-  _receive = (account, wallet) => {
-    AccountStore.setAccount(account)
-    WalletStore.setWallet(wallet)
-    this.props.navigation.push('AccountReceive')
-  }
-
   render = () => {
     try {
       let { wallet } = this.state
@@ -262,37 +250,7 @@ class WalletOverview extends Component {
                           accountLockedUntil={accountLockedUntil}
                           accountNoticePeriod={accountNoticePeriod}
                           {...this.props}
-                        >
-                          {accountLockedUntil || accountNoticePeriod ? (
-                            <LargeAccountButton>
-                                Send disabled
-                            </LargeAccountButton>
-                          ) : (
-                            <LargeAccountButton
-                              customIconName='arrow-alt-up'
-                              onPress={() =>
-                                this._send(
-                                  wallet.accounts[accountKey],
-                                  wallet
-                                )
-                              }
-                            >
-                                Send
-                            </LargeAccountButton>
-                          )}
-
-                          <LargeAccountButton
-                            customIconName='arrow-alt-down'
-                            onPress={() =>
-                              this._receive(
-                                wallet.accounts[accountKey],
-                                wallet
-                              )
-                            }
-                          >
-                              Receive
-                          </LargeAccountButton>
-                        </AccountPanel>
+                        />
                       )
                     })
                   : null}

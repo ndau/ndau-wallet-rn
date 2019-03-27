@@ -3,6 +3,7 @@ import AppConfig from '../AppConfig'
 import sha256 from 'crypto-js/sha256'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import DateHelper from './DateHelper'
+import AccountAPIHelper from './AccountAPIHelper'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_ID
@@ -76,7 +77,7 @@ const getNextPathIndex = (wallet, path) => {
  * @param {number} napu
  */
 const getNdauFromNapu = napu => {
-  return napu / AppConstants.QUANTA_PER_UNIT
+  return napu ? napu / AppConstants.QUANTA_PER_UNIT : 0
 }
 
 /**
@@ -112,11 +113,22 @@ const getObjectWithAllAccounts = user => {
 const getAccountEaiRateRequest = addressData => {
   return Object.keys(addressData).map(accountKey => {
     const account = addressData[accountKey]
-    let weightedAverageAge = account.weightedAverageAge
+    const weightedAverageAge = account.weightedAverageAge
+    const lock = account.lock
+
+    if (lock) {
+      const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
+        addressData
+      )
+      const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
+        weightedAverageAgeInDays
+      )
+      lock.bonus = theLockEAIBonus * 10000000000
+    }
     return {
       address: accountKey,
       weightedAverageAge,
-      lock: account.lock
+      lock
     }
   })
 }

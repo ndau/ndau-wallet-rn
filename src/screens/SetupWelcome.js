@@ -51,7 +51,9 @@ class SetupWelcome extends Component {
           with a password, and create a recovery phrase which you will need in
           order to restore your wallet if you lose access to it.
         </ParagraphText>
-        <LargeButton onPress={this.showNextSetup}>Get started</LargeButton>
+        <LargeButton sideMargins onPress={this.showNextSetup}>
+          Get started
+        </LargeButton>
       </SetupWelcomeContainer>
     )
   }

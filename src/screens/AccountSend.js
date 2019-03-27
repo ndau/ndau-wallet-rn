@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import {
   AccountSendContainer,
   AccountDetailPanel,
+  AccountScanPanel,
   AccountHeaderText,
-  AccountSendConfirmationItem,
+  AccountConfirmationItem,
   AccountSendErrorText
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
@@ -48,7 +49,7 @@ class AccountSend extends Component {
 
     this.debounceRequestTransactionFee = _.debounce(
       this._requestTransactionFee,
-      500
+      2000
     )
   }
 
@@ -178,7 +179,7 @@ class AccountSend extends Component {
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountDetailPanel>
           <AccountHeaderText>How much are you sending?</AccountHeaderText>
-          <Label>ndau amount</Label>
+          <Label noMargin>ndau amount</Label>
           <TextInput
             onChangeText={this._setAmount}
             value={this.state.amount}
@@ -186,6 +187,7 @@ class AccountSend extends Component {
             placeholder='Enter amount...'
             autoCapitalize='none'
             noBottomMargin
+            noSideMargins
             error={!this.state.validAmount && this.state.amount}
           />
           {!this.state.validAmount && this.state.amount ? (
@@ -193,7 +195,7 @@ class AccountSend extends Component {
               You do not have the much ndau to send.
             </AccountSendErrorText>
           ) : null}
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             title='Remaining balance:'
             value={
               AccountAPIHelper.accountNdauAmount(
@@ -203,20 +205,21 @@ class AccountSend extends Component {
           />
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             title={'Transaction fee:'}
             value={this.state.transactionFee}
           />
           <BarBorder />
-          <AccountSendConfirmationItem title={'SIB:'} value={this.state.sib} />
+          <AccountConfirmationItem title={'SIB:'} value={this.state.sib} />
           <BarBorder />
-          <AccountSendConfirmationItem
+          <AccountConfirmationItem
             largerText
             title={'Total'}
             value={this.state.total}
           />
         </AccountDetailPanel>
         <LargeButton
+          sideMargins
           disabled={!this.state.validAmount}
           onPress={() => this._next()}
         >
@@ -235,13 +238,13 @@ class AccountSend extends Component {
         account={this.state.account}
         {...this.props}
       >
-        <AccountDetailPanel>
+        <AccountScanPanel>
           <QRCodeScanner
             onRead={e => this._scannedSuccessfully(e)}
             cameraType={this.state.cameraType}
           />
-        </AccountDetailPanel>
-        <LargeButton onPress={() => this._flipCamera()}>
+        </AccountScanPanel>
+        <LargeButton sideMargins onPress={() => this._flipCamera()}>
           Flip camera
         </LargeButton>
       </AccountSendContainer>
@@ -260,13 +263,14 @@ class AccountSend extends Component {
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountDetailPanel>
           <AccountHeaderText>Who are you sending to?</AccountHeaderText>
-          <Label>Address</Label>
+          <Label noMargin>Address</Label>
           <TextInput
             onChangeText={this._setAddress}
             value={this.state.address}
             name='address'
             placeholder='ndau address...'
             autoCapitalize='none'
+            noSideMargins
           />
           <OrBorder />
           <LargeBorderButton onPress={this._scan}>
@@ -274,6 +278,7 @@ class AccountSend extends Component {
           </LargeBorderButton>
         </AccountDetailPanel>
         <LargeButton
+          sideMargins
           disabled={!this.state.validAddress}
           onPress={() => this._haveAddress()}
         >

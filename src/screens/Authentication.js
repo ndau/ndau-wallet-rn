@@ -165,7 +165,9 @@ class Authentication extends Component {
         <PasswordLinkText onPress={this.showPasswordReset}>
           Forgot your password?
         </PasswordLinkText>
-        <LargeButton onPress={this.login}>Login</LargeButton>
+        <LargeButton sideMargins onPress={this.login}>
+          Login
+        </LargeButton>
       </LoginContainer>
     )
   }

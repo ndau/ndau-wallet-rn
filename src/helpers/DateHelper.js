@@ -34,6 +34,15 @@ const getDaysFromMicroseconds = microseconds => {
   return Math.round(moment.duration(microseconds * 0.001, 'ms').asDays())
 }
 
+const getDaysFromISODate = isoDate => {
+  if (!isoDate) {
+    return 0
+  }
+  return Math.round(
+    moment.duration(parseDurationToMicroseconds(isoDate) / 1000).asDays()
+  )
+}
+
 // useful constants for the parseDuration function
 // they're not exported.
 const sec = 1000000
@@ -93,5 +102,6 @@ export default {
   getDaysFromMicroseconds,
   getMicrosecondsSinceNdauEpoch,
   parseDurationToMicroseconds,
-  addDaysToToday
+  addDaysToToday,
+  getDaysFromISODate
 }

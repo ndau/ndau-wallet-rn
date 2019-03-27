@@ -78,9 +78,10 @@ const populateWalletWithAddressData = async wallet => {
     }
 
     if (account.addressData.incomingRewardsFrom) {
-      account.addressData.incomingRewardsFromNickname = addressNicknameMap.get(
-        account.addressData.incomingRewardsFrom
-      )
+      for (const incomingReward of account.addressData.incomingRewardsFrom) {
+        account.addressData.incomingRewardsFromNickname =
+          addressNicknameMap.get(incomingReward) + ' '
+      }
     }
 
     // If we have a new account this will not be set yet, this will not every be reset
@@ -141,7 +142,11 @@ const addPrivateValidationKeyIfNotPresent = async (
   account,
   addressData
 ) => {
-  if (addressData.validationKeys.length !== account.validationKeys.length) {
+  if (
+    addressData.validationKeys &&
+    account.validationKeys &&
+    addressData.validationKeys.length !== account.validationKeys.length
+  ) {
     LoggingService.debug(
       `Attempting to find the private key for the public validation key we have...`
     )
@@ -170,7 +175,7 @@ const getEaiValueForDisplay = account => {
     ? Math.round(
       (account.eaiValueForDisplay / AppConstants.RATE_DENOMINATOR) * 100
     )
-    : null
+    : 0
 }
 
 const receivingEAIFrom = account => {
@@ -224,6 +229,42 @@ const accountNdauAmount = account => {
     : 0.0
 }
 
+const weightedAverageAgeInDays = account => {
+  return account ? DateHelper.getDaysFromISODate(account.weightedAverageAge) : 0
+}
+
+const spendableNdau = addressData => {
+  const totalNdau = accountNdauAmount(addressData)
+  const settlements = addressData.settlements
+  if (!settlements) return totalNdau
+
+  for (const settlement of settlements) {
+    const ndau = DataFormatHelper.getNdauFromNapu(settlement.Qty)
+    totalNdau -= ndau
+  }
+  return totalNdau
+}
+
+const lockBonusEAI = weightedAverageAgeInDays => {
+  if (!weightedAverageAgeInDays) return 0
+
+  if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('3y')) {
+    return 5
+  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('2y')) {
+    return 4
+  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('1y')) {
+    return 3
+  } else if (
+    weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('180d')
+  ) {
+    return 2
+  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('90d')) {
+    return 1
+  }
+
+  return 0
+}
+
 const accountTotalNdauAmount = (accounts, localizedText = true) => {
   let total = 0.0
 
@@ -272,5 +313,8 @@ export default {
   sendingEAITo,
   eaiValueForDisplay: getEaiValueForDisplay,
   sendDelegateTransactionIfNeeded,
-  addPrivateValidationKeyIfNotPresent
+  addPrivateValidationKeyIfNotPresent,
+  weightedAverageAgeInDays,
+  lockBonusEAI,
+  spendableNdau
 }

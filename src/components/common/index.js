@@ -102,6 +102,10 @@ export function LargeButtons (props) {
 }
 
 export function LargeButton (props) {
+  let sideMargins = {}
+  if (props.sideMargins) {
+    sideMargins = styles.largeButtonMargin
+  }
   return (
     <View
       style={
@@ -111,7 +115,7 @@ export function LargeButton (props) {
       }
     >
       <Button
-        style={[styles.largeButton, props.style]}
+        style={[styles.largeButton, sideMargins, props.style]}
         textStyle={[styles.largeButtonText, props.style]}
         uppercase={false}
         {...props}
@@ -214,9 +218,13 @@ export function ProgressBar (props) {
 }
 
 export function LabelWithIcon (props) {
+  let margin = {}
+  if (!props.noMargin) {
+    margin = styles.labelTextMarginRight
+  }
   return (
     <View style={styles.labelWithIconContainer}>
-      <P style={[styles.labelText]}>{props.children}</P>
+      <P style={[styles.labelText, margin]}>{props.children}</P>
       <TouchableOpacity {...props}>
         <FontAwesome5Pro
           size={24}
@@ -230,8 +238,12 @@ export function LabelWithIcon (props) {
 }
 
 export function Label (props) {
+  let margin = {}
+  if (!props.noMargin) {
+    margin = styles.labelTextMarginRight
+  }
   return (
-    <P style={[styles.labelText]} {...props}>
+    <P style={[styles.labelText, margin]} {...props}>
       {props.children}
     </P>
   )
@@ -310,6 +322,9 @@ export function TextInput (props) {
   if (!props.noBottomMargin) {
     stylesArray.push(styles.inputBottomMargin)
   }
+  if (!props.noSideMargins) {
+    stylesArray.push(styles.inputSideMargins)
+  }
   if (props.error) {
     stylesArray.push(styles.inputErrorBorder)
   }
@@ -325,6 +340,10 @@ export function TextInput (props) {
 
 export function BarBorder (props) {
   return <View style={styles.barBorder} />
+}
+
+export function FullBarBorder (props) {
+  return <View style={styles.fullBarBorder} />
 }
 
 export function Dropdown (props) {
@@ -413,6 +432,23 @@ export function TitleBarGradient (props) {
       start={{ x: 0.0, y: 0.02 }}
       end={{ x: 0.0, y: 1.0 }}
       locations={[0, 0.05]}
+      colors={[
+        AppConstants.TITLE_BAR_GRADIENT_START_COLOR,
+        AppConstants.TITLE_BAR_GRADIENT_END_COLOR
+      ]}
+      style={[styles.appContainerOverlay]}
+    >
+      {props.children}
+    </LinearGradient>
+  )
+}
+
+export function AccountDetailsTitleBarGradient (props) {
+  return (
+    <LinearGradient
+      start={{ x: 0.0, y: 0.05 }}
+      end={{ x: 0.0, y: 1.0 }}
+      locations={[0, 0.08]}
       colors={[
         AppConstants.TITLE_BAR_GRADIENT_START_COLOR,
         AppConstants.TITLE_BAR_GRADIENT_END_COLOR
