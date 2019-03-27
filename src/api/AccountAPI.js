@@ -63,7 +63,7 @@ const getNextSequence = async address => {
     return accountData[address].sequence ? accountData[address].sequence + 1 : 1
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError(error.message)
+    return 1
   }
 }
 

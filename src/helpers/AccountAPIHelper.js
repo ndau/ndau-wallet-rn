@@ -7,6 +7,7 @@ import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
 import LoggingService from '../services/LoggingService'
 import NodeAddressHelper from './NodeAddressHelper'
+import KeyMaster from './KeyMaster'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -44,6 +45,12 @@ const populateWalletWithAddressData = async wallet => {
       const walletAccount = wallet.accounts[walletAccountKey]
       if (walletAccountKey === accountKey) {
         walletAccount.addressData = addressDataItem
+        await addPrivateValidationKeyIfNotPresent(
+          wallet,
+          walletAccount,
+          addressDataItem
+        )
+
         await sendClaimTransactionIfNeeded(
           wallet,
           walletAccount,
@@ -126,6 +133,35 @@ const sendDelegateTransactionIfNeeded = async (
       NodeAddressHelper.getNodeAddress()
     )
     await delegateTransaction.createSignPrevalidateSubmit()
+  }
+}
+
+const addPrivateValidationKeyIfNotPresent = async (
+  wallet,
+  account,
+  addressData
+) => {
+  if (addressData.validationKeys.length !== account.validationKeys.length) {
+    LoggingService.debug(
+      `Attempting to find the private key for the public validation key we have...`
+    )
+    for (const validationKey of addressData.validationKeys) {
+      const validationKeys = await KeyMaster.getValidationKeys(wallet, account)
+      const validationPublicKeys = Object.keys(validationKeys)
+      for (const validationPublicKey of validationPublicKeys) {
+        if (validationKey === validationPublicKey) {
+          LoggingService.debug(
+            'Found a match, adding validation keys to the wallet'
+          )
+          KeyMaster.addThisValidationKey(
+            account,
+            wallet,
+            validationKeys[validationPublicKey],
+            validationPublicKey
+          )
+        }
+      }
+    }
   }
 }
 
@@ -235,5 +271,6 @@ export default {
   receivingEAIFrom,
   sendingEAITo,
   eaiValueForDisplay: getEaiValueForDisplay,
-  sendDelegateTransactionIfNeeded
+  sendDelegateTransactionIfNeeded,
+  addPrivateValidationKeyIfNotPresent
 }

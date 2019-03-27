@@ -1,12 +1,53 @@
 import AccountAPIHelper from '../AccountAPIHelper'
 import data from '../../api/data'
 import MockHelper from '../MockHelper'
+import { NativeModules } from 'react-native'
+import KeyMaster from '../KeyMaster'
+import sinon from 'sinon'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
+
+NativeModules.KeyaddrManager = {
+  keyaddrWordsToBytes: jest.fn(),
+  newKey: jest.fn(),
+  child: jest.fn(),
+  hardenedChild: jest.fn(),
+  ndauAddress: jest.fn(),
+  deriveFrom: jest.fn(),
+  toPublic: jest.fn()
+}
+
+const deriveFromKey =
+  'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf'
+
+const deriveFrom = sinon.spy(NativeModules.KeyaddrManager, 'deriveFrom')
+for (let i = 0; i < 30; i++) {
+  deriveFrom
+    .mockReturnValueOnce(deriveFromKey + 1)
+    .mockReturnValueOnce(deriveFromKey + 2)
+    .mockReturnValueOnce(deriveFromKey + 3)
+    .mockReturnValueOnce(deriveFromKey + 4)
+    .mockReturnValueOnce(deriveFromKey + 5)
+    .mockReturnValueOnce(deriveFromKey + 6)
+    .mockReturnValueOnce(deriveFromKey + 7)
+    .mockReturnValueOnce(deriveFromKey + 8)
+    .mockReturnValueOnce(deriveFromKey + 9)
+    .mockReturnValueOnce(deriveFromKey + 0)
+    .mockReturnValueOnce(deriveFromKey + 'a')
+    .mockReturnValueOnce(deriveFromKey + 'b')
+    .mockReturnValueOnce(deriveFromKey + 'c')
+    .mockReturnValueOnce(deriveFromKey + 'd')
+    .mockReturnValueOnce(deriveFromKey + 'e')
+    .mockReturnValueOnce(deriveFromKey + 'f')
+    .mockReturnValueOnce(deriveFromKey + 'g')
+    .mockReturnValueOnce(deriveFromKey + 'h')
+    .mockReturnValueOnce(deriveFromKey + 'i')
+    .mockReturnValueOnce(deriveFromKey + 'h')
+}
 
 test('populateWalletWithAddressData populates wallet with data from the API', async () => {
   const wallet = data.testUser.wallets['7MP-4FV']
@@ -171,4 +212,29 @@ test('if we can get a null if not present', async () => {
   const account = {}
 
   expect(AccountAPIHelper.eaiValueForDisplay(account)).toBeFalsy()
+})
+
+test('make sure we can populate validation keys if not present', async () => {
+  const keyMaster = jest.spyOn(KeyMaster, 'getValidationKeys')
+  keyMaster.mockReturnValue({
+    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi:
+      'pvtblah',
+    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry123:
+      'pvtnope'
+  })
+  MockHelper.mockAccountsAPI(data.test7MP4FVAddressData)
+  MockHelper.mockAccountAPI()
+  const wallet = data.test7MP4FVUserData.wallets['2c963f83']
+
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
+
+  const validationKeys =
+    wallet.accounts['ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4']
+      .validationKeys
+  expect(wallet).toBeDefined()
+  expect(validationKeys.length).toBe(1)
+  expect(wallet.keys[validationKeys[0]].publicKey).toBe(
+    'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi'
+  )
+  expect(wallet.keys[validationKeys[0]].privateKey).toBe('pvtblah')
 })
