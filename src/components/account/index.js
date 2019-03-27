@@ -118,6 +118,12 @@ export function AccountPanel (props) {
   )
 }
 
+export function WalletOverviewHeaderActions (props) {
+  return (
+    <View style={styles.walletOverviewHeaderActions}>{props.children}</View>
+  )
+}
+
 export function AccountDetailsContainer (props) {
   goBack = () => {
     props.navigation.goBack()

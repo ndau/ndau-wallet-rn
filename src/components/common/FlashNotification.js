@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { showMessage, hideMessage } from 'react-native-flash-message'
 
 class FlashNotification extends Component {
-  static showError (message, autoHide = false, hideOnPress = true) {
+  static showError (message, autoHide = true, hideOnPress = true) {
     showMessage({
       message: message,
       autoHide,
@@ -11,7 +11,6 @@ class FlashNotification extends Component {
       color: '#f75f4b',
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      // icon: 'danger',
       duration: 10000,
       hideOnPress
     })
@@ -25,7 +24,6 @@ class FlashNotification extends Component {
       color: '#4e957a',
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      // icon: 'info',
       duration: 10000,
       hideOnPress
     })

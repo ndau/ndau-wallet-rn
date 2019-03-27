@@ -94,7 +94,16 @@ const test7MP4FVUserData = {
             lastWAAUpdate: '2019-03-11T19:48:25Z',
             weightedAverageAge: '4m19dt15h3m40s193716us',
             sequence: 0,
-            settlements: null,
+            settlements: [
+              {
+                Qty: 1000000,
+                Expiry: '2019-03-28T20:50:59Z'
+              },
+              {
+                Qty: 1000000,
+                Expiry: '2019-03-26T20:52:54Z'
+              }
+            ],
             settlementSettings: {
               period: '1dt23h59m',
               changesAt: null,
@@ -184,7 +193,16 @@ const test7MP4FVAddressData = {
     lastWAAUpdate: '2018-06-01T00:00:00Z',
     weightedAverageAge: '9m26dt23h59m23s205021us',
     sequence: 1,
-    settlements: null,
+    settlements: [
+      {
+        Qty: 1000000,
+        Expiry: '2019-03-28T20:50:59Z'
+      },
+      {
+        Qty: 1000000,
+        Expiry: '2019-03-26T20:52:54Z'
+      }
+    ],
     settlementSettings: {
       period: '1dt23h59m',
       changesAt: null,

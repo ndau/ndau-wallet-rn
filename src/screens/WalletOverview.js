@@ -6,13 +6,16 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
 import { AppContainer, NdauTotal } from '../components/common'
-import { LargeAccountButton, AccountPanel } from '../components/account'
+import { AccountPanel } from '../components/account'
 import {
   DashboardContainer,
   DashboardLabelWithIcon
 } from '../components/dashboard'
 import { DrawerHeaderForOverview, DrawerHeader } from '../components/drawer'
-import { DashboardTotalPanel } from '../components/account'
+import {
+  DashboardTotalPanel,
+  WalletOverviewHeaderActions
+} from '../components/account'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
 import UserStore from '../stores/UserStore'
@@ -59,7 +62,7 @@ class WalletOverview extends Component {
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
-      FlashNotification.showError(error, false, true)
+      FlashNotification.showError(error)
     }
   }
 
@@ -126,7 +129,7 @@ class WalletOverview extends Component {
       wallet = KeyMaster.getWalletFromUser(user, this.state.wallet.walletId)
       marketPrice = await OrderAPI.getMarketPrice()
     } catch (error) {
-      FlashNotification.showError(error.message, false)
+      FlashNotification.showError(error.message)
     }
 
     WalletStore.setWallet(wallet)
@@ -152,6 +155,9 @@ class WalletOverview extends Component {
       const totalNdau = wallet
         ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
         : 0
+      const totalSpendable = wallet
+        ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdau)
+        : 0
       const currentPrice = AccountAPIHelper.currentPrice(
         this.state.marketPrice,
         totalNdau
@@ -172,6 +178,21 @@ class WalletOverview extends Component {
             {this.state.wallet ? this.state.wallet.walletName : ''}
           </DrawerHeaderForOverview>
           <NdauTotal>{totalNdau}</NdauTotal>
+          <WalletOverviewHeaderActions>
+            <DashboardLabelWithIcon
+              greenFont
+              style={{ justifyContent: 'flex-start' }}
+            >
+              {totalSpendable} spendable
+            </DashboardLabelWithIcon>
+            <DashboardLabelWithIcon
+              onPress={() => this.launchAddNewAccountDialog()}
+              fontAwesomeIconName='plus-circle'
+              style={{ justifyContent: 'flex-end' }}
+            >
+              Add account
+            </DashboardLabelWithIcon>
+          </WalletOverviewHeaderActions>
           <DashboardContainer>
             <DashboardTotalPanel
               title={currentPrice}
@@ -186,12 +207,6 @@ class WalletOverview extends Component {
                 />
               }
             >
-              <DashboardLabelWithIcon
-                onPress={() => this.launchAddNewAccountDialog()}
-                fontAwesomeIconName='plus-circle'
-              >
-                Add an account
-              </DashboardLabelWithIcon>
               <View>
                 {wallet
                   ? Object.keys(wallet.accounts)
@@ -261,7 +276,7 @@ class WalletOverview extends Component {
       )
     } catch (error) {
       LoggingService.debug(error)
-      FlashNotification.showError(error.message, false)
+      FlashNotification.showError(error.message)
     }
 
     return (
