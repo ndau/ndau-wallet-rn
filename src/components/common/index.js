@@ -74,6 +74,10 @@ export function FullScreenDualColorGradient (props) {
 }
 
 export function LargeButtons (props) {
+  let sideMargins = {}
+  if (props.sideMargins) {
+    sideMargins = styles.largeButtonMargin
+  }
   return (
     <View
       style={
@@ -89,7 +93,9 @@ export function LargeButtons (props) {
       ) : null}
       <Button
         style={
-          props.secondary ? styles.largeButtonSecondary : styles.largeButton
+          props.secondary
+            ? [styles.largeButtonSecondary, sideMargins]
+            : [styles.largeButton, sideMargins]
         }
         textStyle={styles.largeButtonText}
         uppercase={false}

@@ -17,6 +17,7 @@ class SetupYourWallet extends Component {
   render () {
     return (
       <SetupContainer {...this.props} pageNumber={2}>
+        xx
         <ParagraphText>
           Next we will give you a recovery phrase. This is critical to restoring
           your wallet. You risk losing access to your funds if you do not WRITE
@@ -24,7 +25,7 @@ class SetupYourWallet extends Component {
           your device or in the cloud. Do not do this step in a public place
           where someone looking over your shoulder could see this phrase.
         </ParagraphText>
-        <LargeButtons bottom onPress={() => this.showNextSetup()}>
+        <LargeButtons sideMargins bottom onPress={() => this.showNextSetup()}>
           Get my recovery phrase
         </LargeButtons>
       </SetupContainer>

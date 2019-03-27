@@ -84,18 +84,38 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
 }
 
 const _checkRootAddresses = async recoveryPhraseBytes => {
-  const addresses = await KeyMaster.getRootAddresses(recoveryPhraseBytes)
-  LoggingService.debug(`_checkRootAddresses found: ${addresses}`)
-  // check the blockchain to see if any of these exist
-  const accountData = await AccountAPI.getAddressData(addresses)
+  let accountData = {}
+  let accountDataFromBlockchain = {}
+  let addresses = []
+
+  do {
+    addresses = await KeyMaster.getRootAddresses(recoveryPhraseBytes)
+    LoggingService.debug(`_checkRootAddresses found: ${addresses}`)
+    // check the blockchain to see if any of these exist
+    accountDataFromBlockchain = await AccountAPI.getAddressData(addresses)
+    accountData = Object.assign(accountData, accountDataFromBlockchain)
+    console.log(
+      `ADDRESSES ${addresses.length} and ACCOUNT ${
+        Object.keys(accountData).length
+      }`
+    )
+  } while (addresses.length === Object.keys(accountDataFromBlockchain).length)
+
   return accountData
 }
 
 const _checkBIP44Addresses = async recoveryPhraseBytes => {
-  const addresses = await KeyMaster.getBIP44Addresses(recoveryPhraseBytes)
-  LoggingService.debug(`_checkBIP44Addresses found: ${addresses}`)
-  // check the blockchain to see if any of these exist
-  const accountData = await AccountAPI.getAddressData(addresses)
+  let accountData = {}
+  let accountDataFromBlockchain = {}
+  let addresses = []
+
+  do {
+    addresses = await KeyMaster.getBIP44Addresses(recoveryPhraseBytes)
+    LoggingService.debug(`_checkBIP44Addresses found: ${addresses}`)
+    // check the blockchain to see if any of these exist
+    accountDataFromBlockchain = await AccountAPI.getAddressData(addresses)
+    accountData = Object.assign(accountData, accountDataFromBlockchain)
+  } while (addresses.length === Object.keys(accountDataFromBlockchain).length)
   return accountData
 }
 

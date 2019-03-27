@@ -106,6 +106,13 @@ class Dashboard extends Component {
         )
       }
 
+      if (Object.keys(user.wallets).length <= 1) {
+        WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
+        this.setState({ spinner: false }, () => {
+          this.props.navigation.navigate('WalletOverview')
+        })
+      }
+
       const wallets = Object.values(user.wallets)
       const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
 
