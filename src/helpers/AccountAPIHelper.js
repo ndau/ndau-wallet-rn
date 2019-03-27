@@ -151,7 +151,7 @@ const addPrivateValidationKeyIfNotPresent = async (
       for (const validationPublicKey of validationPublicKeys) {
         if (validationKey === validationPublicKey) {
           LoggingService.debug(
-            'Found a match, adding a the validation keys to the wallet'
+            'Found a match, adding validation keys to the wallet'
           )
           KeyMaster.addThisValidationKey(
             account,
