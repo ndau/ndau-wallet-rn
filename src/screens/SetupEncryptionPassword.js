@@ -195,6 +195,7 @@ class SetupEncryptionPassword extends Component {
           label='Hide/show passwords'
         />
         <LargeButtons
+          sideMargins
           bottom
           onPress={() => this.showNextSetup()}
           disabled={!progress}

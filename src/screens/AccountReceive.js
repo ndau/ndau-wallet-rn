@@ -25,19 +25,6 @@ class AccountReceive extends Component {
     this.setState({ account, wallet })
   }
 
-  share = address => {
-    Share.share(
-      {
-        message: address,
-        title: 'Share public ndau address',
-        url: '/'
-      },
-      {
-        dialogTitle: 'Share public ndau address'
-      }
-    )
-  }
-
   render () {
     return (
       <AccountSendContainer
@@ -54,10 +41,7 @@ class AccountReceive extends Component {
           </AccountReceiveParagraphText>
           <QRCode value={this.state.account.address} />
         </AccountDetailPanel>
-        <AddressSharePanel
-          onPress={() => this.share(this.state.account.address)}
-          address={this.state.account.address}
-        />
+        <AddressSharePanel address={this.state.account.address} />
       </AccountSendContainer>
     )
   }

@@ -33,3 +33,9 @@ test('parseDurationToMicroseconds does the right thing', async () => {
     expect(DateHelper.parseDurationToMicroseconds(d.in)).toBe(d.out)
   })
 })
+
+test('getDaysFromISODate returns days from an ISO8601 duration', async () => {
+  expect(DateHelper.getDaysFromISODate('3dt18h57m7s726133us')).toBe(4)
+  expect(DateHelper.getDaysFromISODate('1y3dt18h57m7s726133us')).toBe(369)
+  expect(DateHelper.getDaysFromISODate('3y')).toBe(1095)
+})

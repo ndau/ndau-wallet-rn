@@ -40,8 +40,7 @@ export default StyleSheet.create({
   },
   setupButtonContainerBottomNoBorder: {
     position: 'absolute',
-    bottom: 0,
-    marginLeft: wp('4%')
+    bottom: hp('2%')
   },
   setupButtonContainerScrollView: {
     marginTop: hp('1%')
@@ -72,6 +71,10 @@ export default StyleSheet.create({
     height: hp('6%'),
     borderRadius: 4,
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
+  },
+  largeButtonMargin: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
   },
   centeredLinkContainer: {
     position: 'absolute',
@@ -199,8 +202,10 @@ export default StyleSheet.create({
     letterSpacing: 0.34,
     lineHeight: 24,
     marginRight: wp('2%'),
-    marginLeft: wp('4%'),
     paddingTop: 0
+  },
+  labelTextMarginRight: {
+    marginLeft: wp('4%')
   },
   checkboxInScrollView: {
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
@@ -262,12 +267,14 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 16,
     letterSpacing: 0.34,
-    lineHeight: 24,
-    marginRight: wp('4%'),
-    marginLeft: wp('4%')
+    lineHeight: 24
   },
   inputBottomMargin: {
     marginBottom: hp('2%')
+  },
+  inputSideMargins: {
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
   },
   inputErrorBorder: {
     borderStyle: 'solid',
@@ -449,9 +456,12 @@ export default StyleSheet.create({
   barBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
-    marginLeft: wp('4%'),
-    marginRight: wp('4%'),
     marginBottom: hp('2%')
+  },
+  fullBarBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginTop: hp('2%')
   },
   barTitleLeft: {
     color: AppConstants.TEXT_COLOR,
@@ -496,16 +506,16 @@ export default StyleSheet.create({
   orBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
-    marginLeft: wp('4%'),
-    marginRight: wp('4%'),
-    width: wp('37%'),
+    width: wp('40%'),
     height: hp('3%')
   },
   orBorderText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 20,
-    letterSpacing: 0.43
+    letterSpacing: 0.43,
+    marginLeft: wp('2%'),
+    marginRight: wp('2%')
   },
   largeBorderButton: {
     width: wp('92%'),
@@ -514,8 +524,7 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderRadius: 4,
     borderWidth: 2,
-    backgroundColor: 'transparent',
-    marginLeft: wp('4%')
+    backgroundColor: 'transparent'
   },
   largeBorderButtonText: {
     color: AppConstants.TEXT_COLOR,
@@ -525,7 +534,7 @@ export default StyleSheet.create({
     letterSpacing: 0.43
   },
   orBorderPanel: {
-    width: wp('100%'),
+    width: wp('92%'),
     height: hp('8%')
   },
   paragraphText: {

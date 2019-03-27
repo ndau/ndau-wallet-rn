@@ -201,7 +201,7 @@ const testAddressData = {
     balance: 4200000000.23,
     validationKeys: null,
     rewardsTarget: null,
-    incomingRewardsFrom: 'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz',
+    incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
     delegationNode: null,
     lock: null,
     stake: null,
@@ -236,7 +236,7 @@ const testAddressData = {
     balance: 40000000000.54,
     validationKeys: null,
     rewardsTarget: null,
-    incomingRewardsFrom: 'ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g',
+    incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
     delegationNode: null,
     lock: {
       noticePeriod: null,

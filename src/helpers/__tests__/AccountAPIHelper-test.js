@@ -83,7 +83,7 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
   expect(
     wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
       .addressData.incomingRewardsFrom
-  ).toBe('ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz')
+  ).toEqual(['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'])
 })
 
 test('make sure we can get the amount of ndau per account', async () => {
@@ -183,13 +183,13 @@ test('make sure receiving EAI has the nickname set correctly', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe('Account 2')
+  ).toBe('Account 2 ')
   expect(
     AccountAPIHelper.receivingEAIFrom(
       wallet.accounts['ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55']
         .addressData
     )
-  ).toBe('Account 4')
+  ).toBe('Account 4 ')
 })
 
 test('if we can get the correct EAI rate from what comes back, make sure we round it', async () => {
@@ -237,4 +237,13 @@ test('make sure we can populate validation keys if not present', async () => {
     'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi'
   )
   expect(wallet.keys[validationKeys[0]].privateKey).toBe('pvtblah')
+})
+
+test('make sure that lockBonusEAI sends back the correct percentage', async () => {
+  expect(AccountAPIHelper.lockBonusEAI(45)).toBe(0)
+  expect(AccountAPIHelper.lockBonusEAI(91)).toBe(1)
+  expect(AccountAPIHelper.lockBonusEAI(199)).toBe(2)
+  expect(AccountAPIHelper.lockBonusEAI(390)).toBe(3)
+  expect(AccountAPIHelper.lockBonusEAI(734)).toBe(4)
+  expect(AccountAPIHelper.lockBonusEAI(1098)).toBe(5)
 })
