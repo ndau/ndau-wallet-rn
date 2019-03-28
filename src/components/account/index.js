@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Slider, Share } from 'react-native'
+import { View, TouchableOpacity, Share } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -147,19 +147,15 @@ export function AccountLockContainer (props) {
   close = () => {
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
-  goBack = () => {
-    props.navigation.goBack()
-  }
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
+              title={props.title}
               closeBar
               close={this.close}
-              backBar
-              goBack={this.goBack}
             />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
@@ -340,7 +336,7 @@ export function AccountDetailsButtonPanel (props) {
 
 export function AccountLockDetailsPanel (props) {
   return (
-    <View style={styles.accountDetailsPanel}>
+    <View style={styles.accountLockPanel}>
       <View>{props.children}</View>
     </View>
   )
@@ -495,20 +491,6 @@ export function AccountLockSmallerText (props) {
   return (
     <View>
       <H4 style={styles.lockSmallerTextBold}>{props.children}</H4>
-    </View>
-  )
-}
-
-export function AccountLockSlider (props) {
-  return (
-    <View style={styles.lockSliderContainer}>
-      <Slider
-        maximumTrackTintColor='#4E957A'
-        minimumTrackTintColor='#4E957A'
-        step={0.25}
-        style={styles.lockSlider}
-        {...props}
-      />
     </View>
   )
 }

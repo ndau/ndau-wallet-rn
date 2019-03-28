@@ -323,21 +323,6 @@ export default StyleSheet.create({
     marginTop: hp('1.4%'),
     marginRight: wp('3%')
   },
-  dropdownPicker: {
-    marginTop: 0,
-    paddingTop: 0,
-    color: AppConstants.TEXT_COLOR
-  },
-  dropdownPickerText: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 16,
-    fontWeight: '200',
-    letterSpacing: 0.34,
-    lineHeight: 24,
-    textAlign: 'left',
-    paddingLeft: wp('4%')
-  },
   loginImageView: {
     justifyContent: 'center',
     alignItems: 'center'

@@ -4,7 +4,6 @@ import {
   StatusBar,
   ImageBackground,
   TouchableOpacity,
-  Picker,
   Text,
   Image,
   ScrollView
@@ -350,26 +349,6 @@ export function BarBorder (props) {
 
 export function FullBarBorder (props) {
   return <View style={styles.fullBarBorder} />
-}
-
-export function Dropdown (props) {
-  return (
-    <View style={styles.dropdownDetailsTextPanel}>
-      <Picker
-        itemStyle={styles.dropdownPickerText}
-        style={styles.dropdownPicker}
-        {...props}
-      >
-        {Object.keys(props.items)
-          .filter(key => key !== props.nickname)
-          .map((key, index) => {
-            return (
-              <Picker.Item key={index} label={key} value={props.items[key]} />
-            )
-          })}
-      </Picker>
-    </View>
-  )
 }
 
 export function OrBorder (props) {

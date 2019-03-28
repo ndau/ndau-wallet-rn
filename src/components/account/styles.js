@@ -251,6 +251,12 @@ export default StyleSheet.create({
     paddingHorizontal: wp('4%'),
     paddingTop: 0
   },
+  accountLockPanel: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#0A1724',
+    paddingTop: 0
+  },
   accountScan: {
     width: wp('100%'),
     height: hp('26%'),
@@ -543,15 +549,6 @@ export default StyleSheet.create({
     fontWeight: '400',
     marginTop: hp('2%'),
     textAlign: 'center'
-  },
-  lockSliderContainer: {
-    margin: wp('4%'),
-    marginBottom: hp('7%')
-  },
-  lockSlider: {
-    width: wp('92%'),
-    height: hp('1%'),
-    color: '#0A1724'
   },
   lockSmallerText: {
     color: AppConstants.TEXT_COLOR,
