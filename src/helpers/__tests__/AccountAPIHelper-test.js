@@ -251,11 +251,35 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
 test('make sure totalSpendableNdau subtracks the settlements correctly', async () => {
   const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
   const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
-  expect(totalNdau).toBe(1.16422859)
+  expect(totalNdau).toBe(1.21422859)
   const totalSpendable = AccountAPIHelper.totalSpendableNdau(
     accounts,
     totalNdau,
     false
   )
-  expect(totalSpendable).toBe(1.14422859)
+  expect(totalSpendable).toBe(0.12422859)
+})
+
+test('make sure we get the correct total for send with all values', async () => {
+  const amount = 23
+  const addressData = { balance: 30000000000 }
+  const transactionFee = 10000000000
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    addressData,
+    transactionFee
+  )
+  expect(totalNdau).toEqual('177.000')
+})
+
+test('make sure we get the correct total for send with no tx fees', async () => {
+  const amount = 23
+  const addressData = { balance: 30000000000 }
+  const transactionFee = 0
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    addressData,
+    transactionFee
+  )
+  expect(totalNdau).toEqual('277.000')
 })

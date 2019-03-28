@@ -118,6 +118,52 @@ const test7MP4FVUserData = {
           },
           ownershipKey: 'ddb5fb2c',
           validationKeys: []
+        },
+        ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3: {
+          address: 'ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3',
+          addressData: {
+            balance: 5000000,
+            validationKeys: [
+              'npuba4jaftckeeb8jb8gzn7n9v7sw82yyhhekvvg4f8at9zrzxads6hf9tya8bfnxbiipfnqqaaaaabw4wez2ritu7za8fep9ajxqy8x4j6bkpdyruwb8fqzk2s6rt2qr5cbwkkmjpa3'
+            ],
+            validationScript: null,
+            rewardsTarget: null,
+            incomingRewardsFrom: null,
+            delegationNode: 'ndaekyty73hd56gynsswuj5q9em68tp6ed5v7tpft872hvuc',
+            lock: {
+              noticePeriod: '1y25d',
+              unlocksOn: '2019-06-26T00:00:00Z',
+              bonus: 30000000000
+            },
+            stake: null,
+            lastEAIUpdate: '2019-03-27T00:02:37Z',
+            lastWAAUpdate: '2019-03-26T23:57:31Z',
+            weightedAverageAge: 't22h48m29s528919us',
+            sequence: 2,
+            settlements: [
+              {
+                Qty: 1000000,
+                Expiry: '2019-03-28T20:50:59Z'
+              },
+              {
+                Qty: 1000000,
+                Expiry: '2019-03-26T20:52:54Z'
+              }
+            ],
+            settlementSettings: {
+              period: '2d',
+              changesAt: null,
+              next: null
+            },
+            currencySeatDate: null,
+            parent: null,
+            progenitor: null,
+            nickname: 'Account 3',
+            walletId: 'Wallet 1',
+            eaiValueForDisplay: 0
+          },
+          ownershipKey: 'f2fb495a',
+          validationKeys: ['71e9485e']
         }
       },
       keys: {
@@ -142,6 +188,38 @@ const test7MP4FVUserData = {
           privateKey:
             'npvta8jaftcjedzdyjeqdrxh5k9dmdr5xqxjy6q6tp34hgj4sppn386yzrvmk4ke2bajtmesaaaaaiufamtnwevr45k7fch85r24aenb5tbuvyurupfs9msfua96n7zgwp92tjxzekmv',
           path: "/44'/20036'/100/2",
+          derivedFromRoot: 'yes'
+        },
+        f2fb495a: {
+          publicKey:
+            'npuba4jaftckeeb6kcdj4hngiv8b4is4z2h3hwzypq9etkvnpjn8483uq43i99rsf82ebgfnuaaaaabs4jwv9k8dnth46qyzjsmw6cfqgy6ipvqb4hky8gwtg9tpe22yijbdg4sw4i5u',
+          privateKey:
+            'npvta8jaftcjed3nca6nhrzikygcsmyxh6yxjwxxh5m2tbhvb5is32zkubawiemmibajtmesaaaaangupe94zs5ej8zdxx4nc7hatmtxzcdn5sqt4xztxejz6mjggfucjiby2vqhikk9',
+          path: "/44'/20036'/100/3",
+          derivedFromRoot: 'yes'
+        },
+        '227f6338': {
+          publicKey:
+            'npuba4jaftckeeba47fzizq3gs2vnnawj329tkiuh4xi2u8gurh3y2vu8jgbvndeh9sieut3eaaaaaaxrtumjidjk2y6fcdsb6rdy5gc9yfptsexhan92ch373d52z7y8izmz8j7rddg',
+          privateKey:
+            'npvta8jaftcjedxhayq87234me66xt657hca8jxsrikmtxmeypbcv253u63zkty4ycbewqjaaaaaafm6nu4ka4kyfzbis6ard27y3sz7tmnnbfj2dh8at8rqi88f9pzufg4nc6x56bqu',
+          path: "/44'/20036'/2000/1",
+          derivedFromRoot: 'yes'
+        },
+        d6762b70: {
+          publicKey:
+            'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi',
+          privateKey:
+            'npvta8jaftcjebyviquy2y3h5njiyvez2xwqyy324b6nzj73z2pa5p4bgh7eha2skca35wfsaaaaaibjrzr4wqr3n4i9mdemwwix76yb49ezn59qnwwpgjvupjdw3xup3zxpkms67qb7',
+          path: "/44'/20036'/2000/2",
+          derivedFromRoot: 'yes'
+        },
+        '71e9485e': {
+          publicKey:
+            'npuba4jaftckeeb8jb8gzn7n9v7sw82yyhhekvvg4f8at9zrzxads6hf9tya8bfnxbiipfnqqaaaaabw4wez2ritu7za8fep9ajxqy8x4j6bkpdyruwb8fqzk2s6rt2qr5cbwkkmjpa3',
+          privateKey:
+            'npvta8jaftcjeckpeyamu5n437syv9jvdu2u2mae5q6jiareyuj9hhbr3bn8m8bg4cdjmdvsaaaaapgxbf8d4enzp2htjdr2cpmxzxqurakvi7v6xartmx4yehd6qdv82vh9jyzbtdzc',
+          path: "/44'/20036'/2000/3",
           derivedFromRoot: 'yes'
         }
       },
