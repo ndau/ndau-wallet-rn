@@ -257,7 +257,7 @@ test('make sure totalSpendableNdau subtracks the settlements correctly', async (
     totalNdau,
     false
   )
-  expect(totalSpendable).toBe(0.12422859)
+  expect(totalSpendable).toBe(0.14422859)
 })
 
 test('make sure we get the correct total for send with all values', async () => {

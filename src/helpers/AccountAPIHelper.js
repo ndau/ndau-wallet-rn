@@ -295,19 +295,15 @@ const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
 
   Object.keys(accounts).forEach(accountKey => {
-    // subtract settlements
-    if (
-      accounts[accountKey].addressData &&
-      accounts[accountKey].addressData.settlements
-    ) {
+    if (accounts[accountKey].addressData.lock) {
+      // subtract locked account value
+      totalNapu -= accounts[accountKey].addressData.balance
+    } else if (accounts[accountKey].addressData.settlements) {
+      // subtract settlements if there are any and the account is unlocked
       const settlements = accounts[accountKey].addressData.settlements
       for (const settlement of settlements) {
         totalNapu -= settlement.Qty
       }
-    }
-    // subtract locked account value
-    if (accounts[accountKey].addressData.lock) {
-      totalNapu -= accounts[accountKey].addressData.balance
     }
   })
 
