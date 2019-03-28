@@ -126,13 +126,14 @@ class AccountSend extends Component {
 
   _setAmount = amount => {
     let { validAmount, transactionFee } = this.state
-    const totalNdauForAccount = parseFloat(
-      AccountAPIHelper.accountNdauAmount(this.state.account.addressData)
+
+    const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+      amount,
+      this.state.account.addressData,
+      transactionFee
     )
-    const amountFloat = parseFloat(amount)
-    const transactionFeeFloat = parseFloat(transactionFee)
-    const total = totalNdauForAccount - amountFloat - transactionFeeFloat
-    if (total > 0) {
+
+    if (totalNdau > 0) {
       validAmount = true
     } else {
       validAmount = false
@@ -141,7 +142,7 @@ class AccountSend extends Component {
       {
         amount,
         validAmount,
-        total
+        total: totalNdau
       },
       this.debounceRequestTransactionFee
     )

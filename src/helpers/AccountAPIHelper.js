@@ -233,16 +233,20 @@ const weightedAverageAgeInDays = account => {
   return account ? DateHelper.getDaysFromISODate(account.weightedAverageAge) : 0
 }
 
-const spendableNdau = addressData => {
+const spendableNapu = addressData => {
   const totalNdau = accountNdauAmount(addressData)
   const totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
   const settlements = addressData.settlements
-  if (!settlements) return totalNdau
+  if (!settlements) return totalNapu
 
   for (const settlement of settlements) {
     totalNapu -= settlement.Qty
   }
   return DataFormatHelper.getNdauFromNapu(totalNapu)
+}
+
+const spendableNdau = addressData => {
+  return DataFormatHelper.getNdauFromNapu(spendableNapu(addressData))
 }
 
 const lockBonusEAI = weightedAverageAgeInDays => {
@@ -314,6 +318,15 @@ const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
     : totalNdau
 }
 
+const getTotalNdauForSend = (amount, addressData, transactionFee) => {
+  const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
+  const totalNapuForAccount = spendableNapu(addressData)
+  const totalNapu = totalNapuForAccount - amountNapu - transactionFee
+  return DataFormatHelper.addCommas(
+    parseFloat(DataFormatHelper.getNdauFromNapu(totalNapu))
+  )
+}
+
 const currentPrice = (marketPrice, totalNdau) => {
   LoggingService.debug(
     `marketPrice is ${marketPrice} totalNdau is ${totalNdau}`
@@ -346,5 +359,7 @@ export default {
   weightedAverageAgeInDays,
   lockBonusEAI,
   spendableNdau,
-  totalSpendableNdau
+  spendableNapu,
+  totalSpendableNdau,
+  getTotalNdauForSend
 }
