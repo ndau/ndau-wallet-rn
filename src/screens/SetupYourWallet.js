@@ -17,7 +17,6 @@ class SetupYourWallet extends Component {
   render () {
     return (
       <SetupContainer {...this.props} pageNumber={2}>
-        xx
         <ParagraphText>
           Next we will give you a recovery phrase. This is critical to restoring
           your wallet. You risk losing access to your funds if you do not WRITE
