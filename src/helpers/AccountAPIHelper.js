@@ -235,14 +235,14 @@ const weightedAverageAgeInDays = account => {
 
 const spendableNdau = addressData => {
   const totalNdau = accountNdauAmount(addressData)
+  const totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
   const settlements = addressData.settlements
   if (!settlements) return totalNdau
 
   for (const settlement of settlements) {
-    const ndau = DataFormatHelper.getNdauFromNapu(settlement.Qty)
-    totalNdau -= ndau
+    totalNapu -= settlement.Qty
   }
-  return totalNdau
+  return DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
 const lockBonusEAI = weightedAverageAgeInDays => {
@@ -270,38 +270,44 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
 
   if (!accounts) return total
 
+  let totalNapu = DataFormatHelper.getNapuFromNdau(total)
+
   Object.keys(accounts).forEach(accountKey => {
     if (
       accounts[accountKey].addressData &&
       accounts[accountKey].addressData.balance
     ) {
-      total += parseFloat(
-        DataFormatHelper.getNdauFromNapu(
-          accounts[accountKey].addressData.balance
-        )
-      )
+      totalNapu += accounts[accountKey].addressData.balance
     }
   })
+
+  total = DataFormatHelper.getNdauFromNapu(totalNapu)
   return localizedText ? DataFormatHelper.addCommas(total) : total
 }
 
 const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
   if (!accounts) return totalNdau
 
+  let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
+
   Object.keys(accounts).forEach(accountKey => {
+    // subtract settlements
     if (
       accounts[accountKey].addressData &&
       accounts[accountKey].addressData.settlements
     ) {
       const settlements = accounts[accountKey].addressData.settlements
       for (const settlement of settlements) {
-        const ndau = parseFloat(
-          DataFormatHelper.getNdauFromNapu(settlement.Qty)
-        )
-        totalNdau -= ndau
+        totalNapu -= settlement.Qty
       }
     }
+    // subtract locked account value
+    if (accounts[accountKey].addressData.lock) {
+      totalNapu -= accounts[accountKey].addressData.balance
+    }
   })
+
+  totalNdau = DataFormatHelper.getNdauFromNapu(totalNapu)
 
   return localizedText
     ? DataFormatHelper.addCommas(parseFloat(totalNdau))

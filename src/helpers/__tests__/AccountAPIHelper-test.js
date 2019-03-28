@@ -251,11 +251,11 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
 test('make sure totalSpendableNdau subtracks the settlements correctly', async () => {
   const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
   const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
-  expect(totalNdau).toBe(1.16422859)
+  expect(totalNdau).toBe(1.21422859)
   const totalSpendable = AccountAPIHelper.totalSpendableNdau(
     accounts,
     totalNdau,
     false
   )
-  expect(totalSpendable).toBe(1.14422859)
+  expect(totalSpendable).toBe(0.12422859)
 })
