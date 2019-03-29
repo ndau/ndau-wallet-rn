@@ -50,7 +50,7 @@ var styles = StyleSheet.create({
   text: {
     color: '#ffffff',
     fontSize: 20,
-    fontFamily: 'TitilliumWeb-Regular',
+    fontFamily: 'OpenSans-Regular', 
     marginTop: hp('1%'),
     marginBottom: hp('1%'),
     marginLeft: wp('1%'),
