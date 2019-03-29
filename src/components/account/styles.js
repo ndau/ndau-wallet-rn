@@ -647,6 +647,48 @@ export default StyleSheet.create({
     backgroundColor: '#293E63',
     paddingHorizontal: wp('4%')
   },
+  accountLockOption: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: '#0F2748',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountLockOptionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: 'transparent',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountLockOptionHeaderText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    // paddingHorizontal: 0,
+    width: wp('16%')
+  },
+  accountLockOptionText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    // paddingHorizontal: 0,
+    width: wp('8%')
+  },
   addressCopyPanelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',

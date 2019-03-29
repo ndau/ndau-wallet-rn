@@ -6,7 +6,9 @@ import {
   AccountLockButton,
   AccountLockLargerText,
   AccountLockSmallerText,
-  AccountLockSlider
+  AccountLockSlider,
+  AccountLockOption,
+  AccountLockOptionHeader
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import AccountStore from '../stores/AccountStore'
@@ -60,6 +62,8 @@ class AccountLock extends Component {
           <AccountLockLargerText>
             Please choose your bonus and hold period:
           </AccountLockLargerText>
+          <AccountLockOptionHeader />
+          <AccountLockOption />
         </AccountLockDetailsPanel>
         <AccountLockButton
           smallText={

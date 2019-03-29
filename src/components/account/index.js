@@ -653,6 +653,33 @@ export function AccountSendErrorText (props) {
   )
 }
 
+export function AccountLockOption (props) {
+  return (
+    <View style={styles.accountLockOption}>
+      <P style={styles.accountLockOptionText}>10%</P>
+      <P style={styles.accountLockOptionText}>+</P>
+      <P style={styles.accountLockOptionText}>1%</P>
+      <P style={styles.accountLockOptionText}>=</P>
+      <P style={styles.accountLockOptionText}>11%</P>
+      <P style={styles.accountLockOptionText} />
+      <P style={styles.accountLockOptionHeaderText} />
+      <P style={styles.accountLockOptionHeaderText}>3 months</P>
+    </View>
+  )
+}
+
+export function AccountLockOptionHeader (props) {
+  return (
+    <View style={styles.accountLockOptionHeader}>
+      <P style={styles.accountLockOptionHeaderText}>Base</P>
+      <P style={styles.accountLockOptionHeaderText}>Bonus</P>
+      <P style={styles.accountLockOptionHeaderText} />
+      <P style={styles.accountLockOptionHeaderText} />
+      <P style={styles.accountLockOptionHeaderText}>Lock</P>
+    </View>
+  )
+}
+
 export function AddressSharePanel (props) {
   const address = ndaujs.truncateAddress(props.address)
 
