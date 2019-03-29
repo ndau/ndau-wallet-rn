@@ -654,17 +654,36 @@ export function AccountSendErrorText (props) {
 }
 
 export function AccountLockOption (props) {
+  let selectedStyle = {}
+  if (props.selected) {
+    selectedStyle = styles.accountLockOptionSelected
+  }
   return (
-    <View style={styles.accountLockOption}>
-      <P style={styles.accountLockOptionText}>10%</P>
-      <P style={styles.accountLockOptionText}>+</P>
-      <P style={styles.accountLockOptionText}>1%</P>
-      <P style={styles.accountLockOptionText}>=</P>
-      <P style={styles.accountLockOptionText}>11%</P>
-      <P style={styles.accountLockOptionText} />
-      <P style={styles.accountLockOptionHeaderText} />
-      <P style={styles.accountLockOptionHeaderText}>3 months</P>
-    </View>
+    <TouchableOpacity {...props}>
+      <View style={[styles.accountLockOption, selectedStyle]}>
+        <P style={styles.accountLockOptionText}>{`${props.base}%`}</P>
+        <P style={styles.accountLockOptionText}>+</P>
+        <P style={styles.accountLockOptionText}>{`${props.bonus}%`}</P>
+        <P style={styles.accountLockOptionText}>=</P>
+        <P style={styles.accountLockOptionTextWithBorder}>{`${
+          props.total
+        }%`}</P>
+        <P style={styles.accountLockOptionText} />
+        <P style={styles.accountLockOptionText} />
+        <P style={styles.accountLockOptionHeaderText}>{`${
+          props.lock
+        } months`}</P>
+        {props.selected ? (
+          <FontAwesome5Pro
+            style={styles.accountLockCheckbox}
+            size={18}
+            name='check'
+            color='#85BE4D'
+            light
+          />
+        ) : null}
+      </View>
+    </TouchableOpacity>
   )
 }
 

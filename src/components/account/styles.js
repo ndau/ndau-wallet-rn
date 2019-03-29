@@ -656,7 +656,15 @@ export default StyleSheet.create({
     backgroundColor: '#0F2748',
     paddingHorizontal: wp('4%'),
     marginLeft: wp('4%'),
-    marginRight: wp('4%')
+    marginRight: wp('4%'),
+    marginBottom: hp('2%')
+  },
+  accountLockOptionSelected: {
+    backgroundColor: '#293E63',
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2
   },
   accountLockOptionHeader: {
     flexDirection: 'row',
@@ -676,8 +684,11 @@ export default StyleSheet.create({
     fontWeight: '400',
     letterSpacing: 0.34,
     lineHeight: 24,
-    // paddingHorizontal: 0,
     width: wp('16%')
+  },
+  accountLockCheckbox: {
+    paddingTop: hp('1.5%'),
+    paddingLeft: wp('1$')
   },
   accountLockOptionText: {
     color: AppConstants.TEXT_COLOR,
@@ -686,8 +697,24 @@ export default StyleSheet.create({
     fontWeight: '400',
     letterSpacing: 0.34,
     lineHeight: 24,
-    // paddingHorizontal: 0,
     width: wp('8%')
+  },
+  accountLockOptionTextWithBorder: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    width: wp('16%'),
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    textAlign: 'center',
+    paddingTop: 0,
+    marginTop: hp('1%'),
+    marginBottom: hp('1%')
   },
   addressCopyPanelText: {
     color: AppConstants.TEXT_COLOR,

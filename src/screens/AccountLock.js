@@ -13,6 +13,9 @@ import {
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import AccountAPI from '../api/AccountAPI'
+import DataFormatHelper from '../helpers/DataFormatHelper'
+import AppConstants from '../AppConstants'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -23,19 +26,38 @@ class AccountLock extends Component {
       sliderValue: 0.5,
       lockPercentage: 3,
       lockPeriod: 12,
-      allAccountNicknames: {}
+      possibleLocks: [
+        { base: 10, bonus: 1, lock: 3 },
+        { base: 10, bonus: 2, lock: 6 },
+        { base: 10, bonus: 3, lock: 12 }
+      ],
+      selectedIndex: null
     }
   }
 
-  componentWillMount = () => {
+  componentWillMount = async () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-    const allAccountNicknames = this.props.navigation.getParam(
-      'allAccountNicknames',
-      null
-    )
 
-    this.setState({ account, wallet, allAccountNicknames })
+    const lockData = await AccountAPI.getLockRates(account)
+
+    possibleLocks = lockData.map((data, index) => {
+      const total = AccountAPIHelper.eaiValueForDisplay({
+        eaiValueForDisplay: data.eairate
+      })
+      const bonus = index + 1
+      const base = total - bonus
+      return {
+        bonus,
+        total,
+        base,
+        lock: AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS[index]
+      }
+    })
+
+    console.log(`TESTING ${JSON.stringify(possibleLocks)}`)
+
+    this.setState({ account, wallet, possibleLocks })
   }
 
   _showLockConfirmation = () => {
@@ -46,6 +68,11 @@ class AccountLock extends Component {
       lockPeriod: this.state.lockPeriod
     })
   }
+
+  handleLockSelection = index => {
+    this.setState({ selectedIndex: index })
+  }
+
   render () {
     return (
       <AccountLockContainer
@@ -63,7 +90,19 @@ class AccountLock extends Component {
             Please choose your bonus and hold period:
           </AccountLockLargerText>
           <AccountLockOptionHeader />
-          <AccountLockOption />
+          {this.state.possibleLocks.map((possibleLock, index) => {
+            return (
+              <AccountLockOption
+                key={index}
+                base={possibleLock.base}
+                bonus={possibleLock.bonus}
+                lock={possibleLock.lock}
+                total={possibleLock.total}
+                onPress={() => this.handleLockSelection(index)}
+                selected={index === this.state.selectedIndex}
+              />
+            )
+          })}
         </AccountLockDetailsPanel>
         <AccountLockButton
           smallText={

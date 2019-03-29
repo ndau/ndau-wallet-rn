@@ -133,6 +133,32 @@ const getAccountEaiRateRequest = addressData => {
   })
 }
 
+/**
+ * Given a wallet send back the a custom
+ * version of this call to get possible lock rates
+ *
+ * @param {string} account
+ */
+const getAccountEaiRateRequestForLock = account => {
+  return AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS.map(months => {
+    const weightedAverageAge = account.addressData.weightedAverageAge
+    const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
+      account.addressData
+    )
+    const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
+      weightedAverageAgeInDays
+    )
+    const lock = {}
+    lock.noticePeriod = `${months}m`
+    lock.bonus = theLockEAIBonus * 10000000000
+
+    return {
+      address: account.address,
+      weightedAverageAge,
+      lock
+    }
+  })
+}
 const convertRecoveryArrayToString = recoveryPhrase => {
   return recoveryPhrase
     .join()
@@ -190,5 +216,6 @@ export default {
   addCommas,
   checkIfWalletAlreadyExists,
   create8CharHash,
-  getNapuFromNdau
+  getNapuFromNdau,
+  getAccountEaiRateRequestForLock
 }
