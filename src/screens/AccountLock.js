@@ -5,16 +5,14 @@ import {
   AccountLockContainer,
   AccountLockButton,
   AccountLockLargerText,
-  AccountLockSmallerText,
-  AccountLockSlider,
   AccountLockOption,
-  AccountLockOptionHeader
+  AccountLockOptionHeader,
+  AccountDetailPanel
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import AccountAPI from '../api/AccountAPI'
-import DataFormatHelper from '../helpers/DataFormatHelper'
 import AppConstants from '../AppConstants'
 
 class AccountLock extends Component {
@@ -26,12 +24,9 @@ class AccountLock extends Component {
       sliderValue: 0.5,
       lockPercentage: 3,
       lockPeriod: 12,
-      possibleLocks: [
-        { base: 10, bonus: 1, lock: 3 },
-        { base: 10, bonus: 2, lock: 6 },
-        { base: 10, bonus: 3, lock: 12 }
-      ],
-      selectedIndex: null
+      possibleLocks: [],
+      selectedIndex: null,
+      whereToSendEAI: null
     }
   }
 
@@ -55,9 +50,11 @@ class AccountLock extends Component {
       }
     })
 
-    console.log(`TESTING ${JSON.stringify(possibleLocks)}`)
-
     this.setState({ account, wallet, possibleLocks })
+  }
+
+  _selectAccountToSendEAI = () => {
+    this.setState({ whereToSendEAI: true })
   }
 
   _showLockConfirmation = () => {
@@ -74,6 +71,41 @@ class AccountLock extends Component {
   }
 
   render () {
+    if (this.state.whereToSendEAI) {
+      return this._renderWhereToSendEAI()
+    } else {
+      return this._rednerGetPeriod()
+    }
+  }
+
+  _renderWhereToSendEAI () {
+    return (
+      <AccountLockContainer
+        title='Lock account'
+        account={this.state.account}
+        wallet={this.state.wallet}
+        navigation={this.props.nav}
+        {...this.props}
+      >
+        <AccountLockDetailsPanel account={this.state.account}>
+          <AccountLockLargerText>
+            Where do you want to send the EAI from this account?
+          </AccountLockLargerText>
+        </AccountLockDetailsPanel>
+
+        <AccountLockButton
+          smallText={
+            'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
+          }
+          onPress={this._selectAccountToSendEAI}
+        >
+          Continue
+        </AccountLockButton>
+      </AccountLockContainer>
+    )
+  }
+
+  _rednerGetPeriod () {
     return (
       <AccountLockContainer
         title='Lock account'
@@ -108,7 +140,7 @@ class AccountLock extends Component {
           smallText={
             'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
           }
-          onPress={this._showLockConfirmation}
+          onPress={this._selectAccountToSendEAI}
         >
           Continue
         </AccountLockButton>
