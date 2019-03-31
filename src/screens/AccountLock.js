@@ -6,14 +6,14 @@ import {
   AccountLockButton,
   AccountLockLargerText,
   AccountLockOption,
-  AccountLockOptionHeader,
-  AccountDetailPanel
+  AccountLockOptionHeader
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
+import { RadioButton } from '../components/common'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -74,7 +74,7 @@ class AccountLock extends Component {
     if (this.state.whereToSendEAI) {
       return this._renderWhereToSendEAI()
     } else {
-      return this._rednerGetPeriod()
+      return this._renderGetPeriod()
     }
   }
 
@@ -91,6 +91,14 @@ class AccountLock extends Component {
           <AccountLockLargerText>
             Where do you want to send the EAI from this account?
           </AccountLockLargerText>
+          <RadioButton
+            options={['Red', 'Green', 'Blue']}
+            values={['r', 'g', 'b']}
+            defaultSelected='g'
+            onChange={value => {
+              console.log(`THIs is ${value}`)
+            }}
+          />
         </AccountLockDetailsPanel>
 
         <AccountLockButton
@@ -105,7 +113,7 @@ class AccountLock extends Component {
     )
   }
 
-  _rednerGetPeriod () {
+  _renderGetPeriod () {
     return (
       <AccountLockContainer
         title='Lock account'

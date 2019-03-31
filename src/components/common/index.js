@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
-import { Button, Progress, H4, P, Checkbox, Input } from 'nachos-ui'
+import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import { SmallParagraphText } from '../setup'
@@ -21,6 +21,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import { Switcher, Radio, B } from 'nachos-ui'
 
 export function LoginContainer ({ children }) {
   return (
@@ -269,6 +270,42 @@ export function CheckBox (props) {
         {props.label}
       </P>
     </View>
+  )
+}
+
+export function RadioButton (props) {
+  return (
+    <Switcher
+      onChange={props.onChange}
+      defaultSelected={props.defaultSelected}
+      direction={props.direction ? props.direction : 'column'}
+    >
+      {props.options.map((text, index) => {
+        const value = props.values ? props.values[index] : props.text
+
+        return (
+          <TouchableOpacity
+            onPressOut={() => props.onChange(value)}
+            activeOpacity={0.8}
+            key={index}
+          >
+            <View>
+              <Radio
+                onChange={props.onChange}
+                value={value}
+                selected={props.selected}
+                style={[styles.radioButton, props.style]}
+                iconColor={AppConstants.TEXT_COLOR}
+                iconName='check'
+              />
+              <B style={[styles.accountDetailsParagraphText, props.textStyle]}>
+                {text}
+              </B>
+            </View>
+          </TouchableOpacity>
+        )
+      })}
+    </Switcher>
   )
 }
 
