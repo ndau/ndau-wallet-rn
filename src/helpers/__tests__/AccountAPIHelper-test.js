@@ -97,13 +97,13 @@ test('make sure we can get the amount of ndau per account', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe('42.000')
+  ).toBe('42.073')
   expect(
     AccountAPIHelper.accountNdauAmount(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe('200.000')
+  ).toBe('200.939')
 })
 
 test('make sure we can get the locked until date of ndau per account', async () => {
@@ -133,7 +133,7 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
-    '1,757.000'
+    '1,757.559'
   )
 })
 
@@ -148,7 +148,7 @@ test('make sure we can get the current price of the users ndau', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
-    '$29,736.04'
+    '$29,745.50'
   )
 })
 
@@ -251,13 +251,13 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
 test('make sure totalSpendableNdau subtracks the settlements correctly', async () => {
   const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
   const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
-  expect(totalNdau).toBe(1.21422859)
+  expect(totalNdau).toEqual('1.214')
   const totalSpendable = AccountAPIHelper.totalSpendableNdau(
     accounts,
     totalNdau,
     false
   )
-  expect(totalSpendable).toBe(0.14422859)
+  expect(totalSpendable).toEqual('0.144')
 })
 
 test('make sure we get the correct total for send with all values', async () => {
