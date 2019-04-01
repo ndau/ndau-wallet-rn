@@ -74,15 +74,17 @@ export default StyleSheet.create({
   dashboardContainer: {
     flex: 1,
     width: wp('100%'),
+    height: hp('100%'),
     backgroundColor: '#0A1724'
   },
   dashboardPanel: {
     width: wp('100%'),
-    height: hp('9%'),
+    height: hp('8.5%'),
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.5)'
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    marginBottom: hp('3%')
   },
   opaqueOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -96,7 +98,15 @@ export default StyleSheet.create({
     letterSpacing: 0.26,
     lineHeight: 18
   },
-
+  dashboardWalletName: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: hp('7%'),
+    width: hp('30%'),
+    overflow: 'hidden'
+  },
   dashboardActionPanels: {
     flex: 1,
     flexDirection: 'row',
@@ -112,7 +122,6 @@ export default StyleSheet.create({
     letterSpacing: 0.45,
     lineHeight: 32,
     textAlign: 'center',
-    alignSelf: 'flex-start',
     ...Platform.select({
       ios: {
         marginTop: hp('1%')
@@ -139,6 +148,11 @@ export default StyleSheet.create({
         paddingTop: hp('2%')
       }
     })
+  },
+  dashboardWallet: {
+    alignSelf: 'center',
+    paddingTop: hp('1%'),
+    marginLeft: wp('4%')
   },
   outerDrawerContainer: {
     flex: 1,

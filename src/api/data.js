@@ -765,6 +765,365 @@ const transactionByHashRes = {
   }
 }
 
+const testAddressData20Items = {
+  ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcu1: {
+    balance: 4200000000.23,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38v2: {
+    balance: 20000000000.2,
+    validationKeys: null,
+    rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: 2592000000000,
+      unlocksOn: null
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf53: {
+    balance: 40000000000.54,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
+    delegationNode: null,
+    lock: {
+      noticePeriod: null,
+      unlocksOn: 1585886400000
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f674: {
+    balance: 7600000000.03,
+    validationKeys: null,
+    rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: null,
+      unlocksOn: 1585886400000
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp55: {
+    balance: 40000000000.87,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbf6: {
+    balance: 12400000000.23,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: 7776000000000,
+      unlocksOn: null
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk97: {
+    balance: 51500000000.0,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcu8: {
+    balance: 4200000000.23,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38v9: {
+    balance: 20000000000.2,
+    validationKeys: null,
+    rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: 2592000000000,
+      unlocksOn: null
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf10: {
+    balance: 40000000000.54,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
+    delegationNode: null,
+    lock: {
+      noticePeriod: null,
+      unlocksOn: 1585886400000
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f611: {
+    balance: 7600000000.03,
+    validationKeys: null,
+    rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: null,
+      unlocksOn: 1585886400000
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp12: {
+    balance: 40000000000.87,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb13: {
+    balance: 12400000000.23,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: 7776000000000,
+      unlocksOn: null
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk14: {
+    balance: 51500000000.0,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zc15: {
+    balance: 4200000000.23,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm3816: {
+    balance: 20000000000.2,
+    validationKeys: null,
+    rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: 2592000000000,
+      unlocksOn: null
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf17: {
+    balance: 40000000000.54,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
+    delegationNode: null,
+    lock: {
+      noticePeriod: null,
+      unlocksOn: 1585886400000
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f618: {
+    balance: 7600000000.03,
+    validationKeys: null,
+    rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: null,
+      unlocksOn: 1585886400000
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp519: {
+    balance: 40000000000.87,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: null,
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  },
+  ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb20: {
+    balance: 12400000000.23,
+    validationKeys: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: null,
+    lock: {
+      noticePeriod: 7776000000000,
+      unlocksOn: null
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    settlements: null,
+    settlementSettings: { period: 0, changesAt: null, next: null },
+    validationScript: null
+  }
+}
+
 export default {
   testAddressData,
   testMarketPrice,
@@ -781,5 +1140,6 @@ export default {
   delegateTxRes,
   testSingleAddressData,
   test7MP4FVUserData,
-  test7MP4FVAddressData
+  test7MP4FVAddressData,
+  testAddressData20Items
 }

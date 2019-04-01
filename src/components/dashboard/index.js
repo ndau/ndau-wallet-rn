@@ -30,7 +30,16 @@ export function DashboardPanel (props) {
         style={[styles.opaqueOverlay]}
       >
         <View style={styles.dashboardActionPanels}>
-          <H4 style={styles.dashboardActionTextPanel}>{props.walletName}</H4>
+          <View style={styles.dashboardWalletName}>
+            <FontAwesome5Pro
+              name='wallet'
+              size={36}
+              color={AppConstants.ICON_BUTTON_COLOR}
+              style={styles.dashboardWallet}
+              light
+            />
+            <H4 style={styles.dashboardActionTextPanel}>{props.walletName}</H4>
+          </View>
           <View style={styles.dashboardActionPanel}>
             <TouchableOpacity {...props}>
               <FontAwesome5Pro

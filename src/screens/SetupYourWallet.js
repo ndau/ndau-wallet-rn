@@ -24,7 +24,7 @@ class SetupYourWallet extends Component {
           your device or in the cloud. Do not do this step in a public place
           where someone looking over your shoulder could see this phrase.
         </ParagraphText>
-        <LargeButtons bottom onPress={() => this.showNextSetup()}>
+        <LargeButtons sideMargins bottom onPress={() => this.showNextSetup()}>
           Get my recovery phrase
         </LargeButtons>
       </SetupContainer>

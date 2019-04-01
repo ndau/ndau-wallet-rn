@@ -65,20 +65,11 @@ class Authentication extends Component {
           UserStore.setUser(user)
           NdauStore.setMarketPrice(marketPrice)
 
-          if (Object.keys(user.wallets).length > 1) {
-            this.setState({ spinner: false }, () => {
-              this.props.navigation.navigate('Dashboard', {
-                error: errorMessage
-              })
+          this.setState({ spinner: false }, () => {
+            this.props.navigation.navigate('Dashboard', {
+              error: errorMessage
             })
-          } else {
-            WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
-            this.setState({ spinner: false }, () => {
-              this.props.navigation.navigate('WalletOverview', {
-                error: errorMessage
-              })
-            })
-          }
+          })
         } else {
           this.showLoginError()
           this.setState({ spinner: false })

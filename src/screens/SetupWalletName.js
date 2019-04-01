@@ -101,7 +101,7 @@ class SetupWalletName extends Component {
           }}
           placeholder={`${SetupStore.walletId}`}
         />
-        <LargeButtons bottom onPress={() => this.showNextSetup()}>
+        <LargeButtons sideMargins bottom onPress={() => this.showNextSetup()}>
           Next
         </LargeButtons>
       </SetupContainer>
