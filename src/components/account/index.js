@@ -147,15 +147,21 @@ export function AccountLockContainer (props) {
   close = () => {
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
+  goBack = () => {
+    props.navigation.goBack()
+  }
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
+              backArrowStyle={styles.backArrowForLock}
               title={props.title}
               closeBar
               close={this.close}
+              backBar
+              goBack={this.goBack}
             />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
@@ -457,7 +463,9 @@ export function AccountLockButton (props) {
 export function AccountLockNoteText (props) {
   return (
     <View>
-      <H4 style={styles.lockSmallerText}>{props.children}</H4>
+      <H4 style={[styles.lockSmallerText, styles.accountSideMargins]}>
+        {props.children}
+      </H4>
     </View>
   )
 }
@@ -646,7 +654,7 @@ export function AccountConfirmationItem (props) {
 
 export function AccountSendErrorText (props) {
   return (
-    <View style={styles.accountSendErrorSmallText}>
+    <View style={styles.accountSideMargins}>
       <View>
         <H4
           style={[

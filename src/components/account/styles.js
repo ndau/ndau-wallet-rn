@@ -522,6 +522,17 @@ export default StyleSheet.create({
     }),
     marginLeft: 0
   },
+  backArrowForLock: {
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1.2%')
+      },
+      android: {
+        marginTop: hp('.8%')
+      }
+    }),
+    marginLeft: wp('4%')
+  },
   detailsBarCog: {
     ...Platform.select({
       ios: {
@@ -554,7 +565,8 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 12,
-    textAlign: 'left'
+    textAlign: 'left',
+    marginTop: hp('2%')
   },
   accountHistoryTextPanelWithSmallText: {
     marginLeft: wp('4%'),
@@ -568,7 +580,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  accountSendErrorSmallText: {
+  accountSideMargins: {
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },

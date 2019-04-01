@@ -21,7 +21,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import { Switcher, Radio, B, withTheme } from 'nachos-ui'
 
 export function LoginContainer ({ children }) {
   return (

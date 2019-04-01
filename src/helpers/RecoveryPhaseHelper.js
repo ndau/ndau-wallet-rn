@@ -94,11 +94,6 @@ const _checkRootAddresses = async recoveryPhraseBytes => {
     // check the blockchain to see if any of these exist
     accountDataFromBlockchain = await AccountAPI.getAddressData(addresses)
     accountData = Object.assign(accountData, accountDataFromBlockchain)
-    console.log(
-      `ADDRESSES ${addresses.length} and ACCOUNT ${
-        Object.keys(accountData).length
-      }`
-    )
   } while (addresses.length === Object.keys(accountDataFromBlockchain).length)
 
   return accountData
