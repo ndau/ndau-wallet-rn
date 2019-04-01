@@ -451,7 +451,7 @@ test('getNdauFromNapu converts napu correctly', async () => {
   const ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 10
   )
-  expect(ndau).toEqual(10)
+  expect(ndau).toEqual('10.000')
 })
 
 test('getNapuFromNdau converts ndau correctly', async () => {
