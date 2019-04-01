@@ -242,7 +242,16 @@ const test7MP4FVAddressData = {
     lastWAAUpdate: '2019-03-11T19:48:25Z',
     weightedAverageAge: '4m19dt15h8m41s509064us',
     sequence: 0,
-    settlements: null,
+    settlements: [
+      {
+        Qty: 1000000,
+        Expiry: '2019-03-28T20:50:59Z'
+      },
+      {
+        Qty: 1000000,
+        Expiry: '2019-03-26T20:52:54Z'
+      }
+    ],
     settlementSettings: {
       period: '1dt23h59m',
       changesAt: null,
@@ -289,6 +298,47 @@ const test7MP4FVAddressData = {
     currencySeatDate: null,
     parent: null,
     progenitor: null
+  },
+  ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3: {
+    balance: 5000000,
+    validationKeys: [
+      'npuba4jaftckeeb8jb8gzn7n9v7sw82yyhhekvvg4f8at9zrzxads6hf9tya8bfnxbiipfnqqaaaaabw4wez2ritu7za8fep9ajxqy8x4j6bkpdyruwb8fqzk2s6rt2qr5cbwkkmjpa3'
+    ],
+    validationScript: null,
+    rewardsTarget: null,
+    incomingRewardsFrom: null,
+    delegationNode: 'ndaekyty73hd56gynsswuj5q9em68tp6ed5v7tpft872hvuc',
+    lock: {
+      noticePeriod: '1y25d',
+      unlocksOn: '2019-06-26T00:00:00Z',
+      bonus: 30000000000
+    },
+    stake: null,
+    lastEAIUpdate: '2019-03-27T00:02:37Z',
+    lastWAAUpdate: '2019-03-26T23:57:31Z',
+    weightedAverageAge: 't22h48m29s528919us',
+    sequence: 2,
+    settlements: [
+      {
+        Qty: 1000000,
+        Expiry: '2019-03-28T20:50:59Z'
+      },
+      {
+        Qty: 1000000,
+        Expiry: '2019-03-26T20:52:54Z'
+      }
+    ],
+    settlementSettings: {
+      period: '2d',
+      changesAt: null,
+      next: null
+    },
+    currencySeatDate: null,
+    parent: null,
+    progenitor: null,
+    nickname: 'Account 3',
+    walletId: 'Wallet 1',
+    eaiValueForDisplay: 0
   }
 }
 

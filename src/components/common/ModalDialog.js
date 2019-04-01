@@ -63,7 +63,7 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   innerView: {
-    backgroundColor: '#333333',
+    backgroundColor: '#0F2748',
     borderRadius: 3,
     width: wp('90%'),
     height: hp('60%'),
