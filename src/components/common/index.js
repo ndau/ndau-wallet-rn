@@ -21,7 +21,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import { Switcher, Radio, B } from 'nachos-ui'
+import { Switcher, Radio, B, withTheme } from 'nachos-ui'
 
 export function LoginContainer ({ children }) {
   return (
@@ -275,37 +275,12 @@ export function CheckBox (props) {
 
 export function RadioButton (props) {
   return (
-    <Switcher
-      onChange={props.onChange}
-      defaultSelected={props.defaultSelected}
-      direction={props.direction ? props.direction : 'column'}
-    >
-      {props.options.map((text, index) => {
-        const value = props.values ? props.values[index] : props.text
-
-        return (
-          <TouchableOpacity
-            onPressOut={() => props.onChange(value)}
-            activeOpacity={0.8}
-            key={index}
-          >
-            <View>
-              <Radio
-                onChange={props.onChange}
-                value={value}
-                selected={props.selected}
-                style={[styles.radioButton, props.style]}
-                iconColor={AppConstants.TEXT_COLOR}
-                iconName='check'
-              />
-              <B style={[styles.accountDetailsParagraphText, props.textStyle]}>
-                {text}
-              </B>
-            </View>
-          </TouchableOpacity>
-        )
-      })}
-    </Switcher>
+    <RadioGroup
+      style={styles.radioButton}
+      textStyle={styles.checkboxLabel}
+      direction='column'
+      {...props}
+    />
   )
 }
 

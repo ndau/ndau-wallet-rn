@@ -206,10 +206,20 @@ export default StyleSheet.create({
     marginRight: wp('3%')
   },
   radioButton: {
-    color: AppConstants.SQUARE_BUTTON_COLOR,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
-    marginTop: hp('3%'),
-    marginRight: wp('3%')
+    color: AppConstants.TEXT_COLOR,
+    marginRight: wp('4%'),
+    marginLeft: wp('4%'),
+    paddingTop: hp('1%')
+  },
+  radioButtonText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    paddingTop: 0
   },
   checkboxLabel: {
     color: AppConstants.TEXT_COLOR,
@@ -223,14 +233,6 @@ export default StyleSheet.create({
   checkbox: {
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
-    marginTop: hp('3%'),
-    marginRight: wp('3%'),
-    marginLeft: wp('4%')
-  },
-  radio: {
-    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
-    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
-    color: AppConstants.TEXT_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
     marginLeft: wp('4%')

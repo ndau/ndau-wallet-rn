@@ -14,6 +14,11 @@ import WalletStore from '../stores/WalletStore'
 import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
 import { RadioButton } from '../components/common'
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+
+const COMPOUND_TO_THIS_ACCOUNT = '1'
+const COMPOUNT_TO_NEW_ACCOUNT = '2'
+const CHOOSE_ON_NEXT_SCREEN = '3'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -21,48 +26,76 @@ class AccountLock extends Component {
     this.state = {
       account: {},
       wallet: {},
-      sliderValue: 0.5,
-      lockPercentage: 3,
-      lockPeriod: 12,
       possibleLocks: [],
       selectedIndex: null,
-      whereToSendEAI: null
+      whereToSendEAI: null,
+      lockType: null,
+      chooseAccounts: false,
+      spinner: false,
+      accountsCanRxEAI: {},
+      accountAddressForEAI: null,
+      accountNicknameForEAI: null
     }
   }
 
   componentWillMount = async () => {
-    const account = AccountStore.getAccount()
-    const wallet = WalletStore.getWallet()
+    this.setState({ spinner: true }, async () => {
+      const accountsCanRxEAI = this.props.navigation.getParam(
+        'accountsCanRxEAI',
+        null
+      )
+      const account = AccountStore.getAccount()
+      const wallet = WalletStore.getWallet()
 
-    const lockData = await AccountAPI.getLockRates(account)
+      const lockData = await AccountAPI.getLockRates(account)
 
-    possibleLocks = lockData.map((data, index) => {
-      const total = AccountAPIHelper.eaiValueForDisplay({
-        eaiValueForDisplay: data.eairate
+      possibleLocks = lockData.map((data, index) => {
+        const total = AccountAPIHelper.eaiValueForDisplay({
+          eaiValueForDisplay: data.eairate
+        })
+        const bonus = index + 1
+        const base = total - bonus
+        return {
+          bonus,
+          total,
+          base,
+          lock: AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS[index]
+        }
       })
-      const bonus = index + 1
-      const base = total - bonus
-      return {
-        bonus,
-        total,
-        base,
-        lock: AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS[index]
-      }
-    })
 
-    this.setState({ account, wallet, possibleLocks })
+      this.setState({
+        spinner: false,
+        account,
+        wallet,
+        possibleLocks,
+        accountsCanRxEAI
+      })
+    })
   }
 
   _selectAccountToSendEAI = () => {
     this.setState({ whereToSendEAI: true })
   }
 
+  _handleAccountSelection = () => {
+    if (this.state.lockType === CHOOSE_ON_NEXT_SCREEN) {
+      this.setState({ chooseAccounts: true })
+    } else if (this.state.lockType === COMPOUNT_TO_NEW_ACCOUNT) {
+      this._createNewAccount()
+    }
+  }
+
+  _createNewAccount = async () => {
+    this._showLockConfirmation()
+  }
+
   _showLockConfirmation = () => {
     this.props.navigation.navigate('AccountLockConfirmation', {
       account: this.state.account,
       wallet: this.state.wallet,
-      lockPercentage: this.state.lockPercentage,
-      lockPeriod: this.state.lockPeriod
+      lockInformation: this.state.possibleLocks[this.state.selectedIndex],
+      accountAddressForEAI: this.state.accountAddressForEAI,
+      accountNicknameForEAI: this.state.accountNicknameForEAI
     })
   }
 
@@ -70,9 +103,56 @@ class AccountLock extends Component {
     this.setState({ selectedIndex: index })
   }
 
+  _renderGetAccount () {
+    return (
+      <AccountLockContainer
+        title='Lock account'
+        account={this.state.account}
+        wallet={this.state.wallet}
+        navigation={this.props.nav}
+        {...this.props}
+      >
+        <AccountLockDetailsPanel account={this.state.account}>
+          <AccountLockLargerText>
+            Your available accounts:
+          </AccountLockLargerText>
+          <RadioButton
+            options={Object.keys(this.state.accountsCanRxEAI)}
+            values={Object.values(this.state.accountsCanRxEAI)}
+            defaultSelected={Object.keys(this.state.accountsCanRxEAI)[0]}
+            onChange={value => {
+              let accountNicknameForEAI
+              for (const key in this.state.accountsCanRxEAI) {
+                if (this.state.accountsCanRxEAI[key] === value) {
+                  accountNicknameForEAI = key
+                  break
+                }
+              }
+              this.setState({
+                accountAddressForEAI: value,
+                accountNicknameForEAI
+              })
+            }}
+          />
+        </AccountLockDetailsPanel>
+
+        <AccountLockButton
+          smallText={
+            'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
+          }
+          onPress={this._showLockConfirmation}
+        >
+          Continue
+        </AccountLockButton>
+      </AccountLockContainer>
+    )
+  }
+
   render () {
     if (this.state.whereToSendEAI) {
-      return this._renderWhereToSendEAI()
+      return this.state.chooseAccounts
+        ? this._renderGetAccount()
+        : this._renderWhereToSendEAI()
     } else {
       return this._renderGetPeriod()
     }
@@ -92,11 +172,21 @@ class AccountLock extends Component {
             Where do you want to send the EAI from this account?
           </AccountLockLargerText>
           <RadioButton
-            options={['Red', 'Green', 'Blue']}
-            values={['r', 'g', 'b']}
-            defaultSelected='g'
+            options={[
+              `Compound to this account (${
+                this.state.account.addressData.nickname
+              })`,
+              `Create new account`,
+              `Choose account on the next screen`
+            ]}
+            values={[
+              COMPOUND_TO_THIS_ACCOUNT,
+              COMPOUNT_TO_NEW_ACCOUNT,
+              CHOOSE_ON_NEXT_SCREEN
+            ]}
+            defaultSelected={COMPOUND_TO_THIS_ACCOUNT}
             onChange={value => {
-              console.log(`THIs is ${value}`)
+              this.setState({ lockType: value })
             }}
           />
         </AccountLockDetailsPanel>
@@ -105,7 +195,7 @@ class AccountLock extends Component {
           smallText={
             'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
           }
-          onPress={this._selectAccountToSendEAI}
+          onPress={this._handleAccountSelection}
         >
           Continue
         </AccountLockButton>
@@ -122,6 +212,7 @@ class AccountLock extends Component {
         navigation={this.props.nav}
         {...this.props}
       >
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountLockDetailsPanel account={this.state.account}>
           <AccountLockLargerText>
             Locking your ndau accrues EAI at a higher rate.

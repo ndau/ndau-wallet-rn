@@ -22,27 +22,27 @@ class AccountDetails extends Component {
     this.state = {
       account: {},
       wallet: {},
-      allAccountNicknames: {}
+      accountsCanRxEAI: {}
     }
   }
 
   componentWillMount = () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-    const allAccountNicknames = this.props.navigation.getParam(
-      'allAccountNicknames',
+    const accountsCanRxEAI = this.props.navigation.getParam(
+      'accountsCanRxEAI',
       null
     )
 
-    this.setState({ account, wallet, allAccountNicknames })
+    this.setState({ account, wallet, accountsCanRxEAI })
   }
 
   showLock = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
-    this.props.navigation.navigate('AccountLock', {
+    this.props.navigation.push('AccountLock', {
       nav: this.props.navigation,
-      allAccountNicknames: this.state.allAccountNicknames
+      accountsCanRxEAI: this.state.accountsCanRxEAI
     })
   }
 

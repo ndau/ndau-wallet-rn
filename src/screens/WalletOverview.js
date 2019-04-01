@@ -39,7 +39,7 @@ class WalletOverview extends Component {
     }
 
     this.isTestNet = false
-    this.allAccountNicknames = []
+    this.accountsCanRxEAI = []
   }
 
   _handleAppStateChange = async nextAppState => {
@@ -142,7 +142,7 @@ class WalletOverview extends Component {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
     this.props.navigation.push('AccountDetails', {
-      allAccountNicknames: this.allAccountNicknames
+      accountsCanRxEAI: this.accountsCanRxEAI
     })
   }
 
@@ -162,7 +162,7 @@ class WalletOverview extends Component {
         this.state.marketPrice,
         totalNdau
       )
-      this.allAccountNicknames = {}
+      this.accountsCanRxEAI = {}
 
       return (
         <AppContainer>
@@ -241,12 +241,14 @@ class WalletOverview extends Component {
                       const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
                         wallet.accounts[accountKey].addressData
                       )
-                      const address = wallet.accounts[accountKey].address
-                      const nickname =
-                          wallet.accounts[accountKey].addressData.nickname
-                      Object.assign(this.allAccountNicknames, {
-                        [nickname]: address
-                      })
+                      if (!wallet.accounts[accountKey].addressData.lock) {
+                        const address = wallet.accounts[accountKey].address
+                        const nickname =
+                            wallet.accounts[accountKey].addressData.nickname
+                        Object.assign(this.accountsCanRxEAI, {
+                          [nickname]: address
+                        })
+                      }
                       return (
                         <AccountPanel
                           key={index}

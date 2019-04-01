@@ -454,6 +454,14 @@ export function AccountLockButton (props) {
   )
 }
 
+export function AccountLockNoteText (props) {
+  return (
+    <View>
+      <H4 style={styles.lockSmallerText}>{props.children}</H4>
+    </View>
+  )
+}
+
 export function AccountLockLargerText (props) {
   return (
     <View style={styles.accountLockDetailsTextPanel}>

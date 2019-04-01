@@ -5,34 +5,52 @@ import {
   AccountLockButton,
   AccountLockLargerText,
   AccountBorder,
-  AccountCheckmarkText
+  AccountCheckmarkText,
+  AccountLockNoteText
 } from '../components/account'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import { H4 } from 'nachos-ui'
+import { View } from 'react-native'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
     super(props)
     this.state = {
       account: {},
-      wallet: {}
+      wallet: {},
+      lockInformation: {},
+      accountAddressForEAI: null,
+      accountNicknameForEAI: null
     }
   }
 
   componentWillMount = () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-
-    const lockPercentage = this.props.navigation.getParam(
-      'lockPercentage',
+    const lockInformation = this.props.navigation.getParam(
+      'lockInformation',
       null
     )
-    const lockPeriod = this.props.navigation.getParam('lockPeriod', null)
+    const accountAddressForEAI = this.props.navigation.getParam(
+      'accountAddressForEAI',
+      null
+    )
+    const accountNicknameForEAI = this.props.navigation.getParam(
+      'accountNicknameForEAI',
+      null
+    )
 
-    this.setState({ account, wallet, lockPercentage, lockPeriod })
+    this.setState({
+      account,
+      wallet,
+      lockInformation,
+      accountAddressForEAI,
+      accountNicknameForEAI
+    })
   }
 
   _lock = async () => {
@@ -54,49 +72,35 @@ class AccountLockConfirmation extends Component {
   }
 
   render () {
-    const { account } = this.state
-    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(
-      account.addressData
-    )
-    const sendingEAITo = AccountAPIHelper.sendingEAITo(account.addressData)
-    const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
-      account.addressData
-    )
-    const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-      account.addressData
-    )
-    const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-      account.addressData
-    )
-    const accountNotLocked = AccountAPIHelper.accountNotLocked(
-      account.addressData
-    )
     return (
       <AccountLockContainer
-        title='Lock account step 2'
+        title='Lock account'
         account={this.state.account}
         wallet={this.state.wallet}
+        navigation={this.props.nav}
         {...this.props}
       >
-        <AccountLockDetailsPanel
-          eaiValueForDisplay={eaiValueForDisplay}
-          sendingEAITo={sendingEAITo}
-          receivingEAIFrom={receivingEAIFrom}
-          accountLockedUntil={accountLockedUntil}
-          accountNoticePeriod={accountNoticePeriod}
-          accountNotLocked={accountNotLocked}
-        >
+        <AccountLockDetailsPanel account={this.state.account}>
           <AccountLockLargerText>Confirmation</AccountLockLargerText>
           <AccountBorder />
           <AccountCheckmarkText>
             Lock {this.state.account.addressData.nickname}
           </AccountCheckmarkText>
           <AccountCheckmarkText>
-            Earn {this.state.lockPercentage}% EAI Incentive
+            Earn {this.state.lockInformation.bonus}% EAI bonus +{' '}
+            {this.state.lockInformation.base}% base ={' '}
+            {this.state.lockInformation.total}% total
+          </AccountCheckmarkText>
+          <AccountCheckmarkText>
+            Sending EAI to {this.state.accountNicknameForEAI}
           </AccountCheckmarkText>
           <AccountCheckmarkText>
             Account will unlock in {this.state.lockPeriod} months
           </AccountCheckmarkText>
+          <AccountLockNoteText>
+            Note: You will not be able to deposit into, spend, transfer, or
+            otherwise access the principal inthis account while it is locked
+          </AccountLockNoteText>
         </AccountLockDetailsPanel>
         <AccountLockButton onPress={this._lock}>Confirm</AccountLockButton>
       </AccountLockContainer>
