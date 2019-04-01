@@ -233,16 +233,20 @@ const weightedAverageAgeInDays = account => {
   return account ? DateHelper.getDaysFromISODate(account.weightedAverageAge) : 0
 }
 
-const spendableNdau = addressData => {
+const spendableNapu = addressData => {
   const totalNdau = accountNdauAmount(addressData)
+  const totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
   const settlements = addressData.settlements
-  if (!settlements) return totalNdau
+  if (!settlements) return totalNapu
 
   for (const settlement of settlements) {
-    const ndau = DataFormatHelper.getNdauFromNapu(settlement.Qty)
-    totalNdau -= ndau
+    totalNapu -= settlement.Qty
   }
-  return totalNdau
+  return DataFormatHelper.getNdauFromNapu(totalNapu)
+}
+
+const spendableNdau = addressData => {
+  return DataFormatHelper.getNdauFromNapu(spendableNapu(addressData))
 }
 
 const lockBonusEAI = weightedAverageAgeInDays => {
@@ -270,19 +274,53 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
 
   if (!accounts) return total
 
+  let totalNapu = DataFormatHelper.getNapuFromNdau(total)
+
   Object.keys(accounts).forEach(accountKey => {
     if (
       accounts[accountKey].addressData &&
       accounts[accountKey].addressData.balance
     ) {
-      total += parseFloat(
-        DataFormatHelper.getNdauFromNapu(
-          accounts[accountKey].addressData.balance
-        )
-      )
+      totalNapu += accounts[accountKey].addressData.balance
     }
   })
+
+  total = DataFormatHelper.getNdauFromNapu(totalNapu)
   return localizedText ? DataFormatHelper.addCommas(total) : total
+}
+
+const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
+  if (!accounts) return totalNdau
+
+  let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
+
+  Object.keys(accounts).forEach(accountKey => {
+    if (accounts[accountKey].addressData.lock) {
+      // subtract locked account value
+      totalNapu -= accounts[accountKey].addressData.balance
+    } else if (accounts[accountKey].addressData.settlements) {
+      // subtract settlements if there are any and the account is unlocked
+      const settlements = accounts[accountKey].addressData.settlements
+      for (const settlement of settlements) {
+        totalNapu -= settlement.Qty
+      }
+    }
+  })
+
+  totalNdau = DataFormatHelper.getNdauFromNapu(totalNapu)
+
+  return localizedText
+    ? DataFormatHelper.addCommas(parseFloat(totalNdau))
+    : totalNdau
+}
+
+const getTotalNdauForSend = (amount, addressData, transactionFee) => {
+  const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
+  const totalNapuForAccount = spendableNapu(addressData)
+  const totalNapu = totalNapuForAccount - amountNapu - transactionFee
+  return DataFormatHelper.addCommas(
+    parseFloat(DataFormatHelper.getNdauFromNapu(totalNapu))
+  )
 }
 
 const currentPrice = (marketPrice, totalNdau) => {
@@ -316,5 +354,8 @@ export default {
   addPrivateValidationKeyIfNotPresent,
   weightedAverageAgeInDays,
   lockBonusEAI,
-  spendableNdau
+  spendableNdau,
+  spendableNapu,
+  totalSpendableNdau,
+  getTotalNdauForSend
 }

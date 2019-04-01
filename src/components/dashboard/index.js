@@ -49,13 +49,35 @@ export function DashboardPanel (props) {
 }
 
 export function DashboardLabelWithIcon (props) {
+  let greenFont = {}
+  if (props.greenFont) {
+    greenFont = styles.walletOverviewGreenFont
+  }
   return (
-    <View style={styles.dashboardLabelWithIconContainer}>
-      <P style={[styles.dashboardLabelTextWithIcon]}>{props.children}</P>
+    <View style={[styles.dashboardLabelWithIconContainer, props.style]}>
+      <P style={[styles.dashboardLabelTextWithIcon, greenFont]}>
+        {props.children}
+      </P>
       <TouchableOpacity {...props}>
         <FontAwesome5Pro
           size={24}
           name={props.fontAwesomeIconName}
+          color={AppConstants.ICON_BUTTON_COLOR}
+          light
+        />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export function WalletOverviewSpendable (props) {
+  return (
+    <View style={[styles.walletOverviewLabelWithIconContainer, props.style]}>
+      <P style={[styles.dashboardLabelTextWithIcon]}>{props.children}</P>
+      <TouchableOpacity {...props}>
+        <FontAwesome5Pro
+          size={24}
+          name='info-circle'
           color={AppConstants.ICON_BUTTON_COLOR}
           light
         />

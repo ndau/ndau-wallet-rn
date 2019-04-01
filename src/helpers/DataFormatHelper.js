@@ -2,8 +2,8 @@ import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import sha256 from 'crypto-js/sha256'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import DateHelper from './DateHelper'
 import AccountAPIHelper from './AccountAPIHelper'
+import ndaujs from 'ndaujs'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_ID
@@ -77,7 +77,7 @@ const getNextPathIndex = (wallet, path) => {
  * @param {number} napu
  */
 const getNdauFromNapu = napu => {
-  return napu ? napu / AppConstants.QUANTA_PER_UNIT : 0
+  return ndaujs.formatNapuForDisplay(napu)
 }
 
 /**
@@ -86,7 +86,7 @@ const getNdauFromNapu = napu => {
  * @param {number} napu
  */
 const getNapuFromNdau = ndau => {
-  return ndau * AppConstants.QUANTA_PER_UNIT
+  return ndau ? ndaujs.parseNdau(ndau) : null
 }
 
 /**
@@ -142,7 +142,8 @@ const convertRecoveryArrayToString = recoveryPhrase => {
 }
 
 /**
- * Add commas into the number given.
+ * Add commas into the number given. The number can be a string. If it is a string
+ * then this method cannot fix the precision.
  *
  * why not use .toLocaleString you ask...here is why:
  *
@@ -155,10 +156,14 @@ const convertRecoveryArrayToString = recoveryPhrase => {
  * of the number
  */
 const addCommas = (number, precision = AppConfig.NDAU_SUMMARY_PRECISION) => {
-  return number
-    .toFixed(precision)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  let numberToAddCommas = number
+  try {
+    numberToAddCommas = number.toFixed(precision)
+  } catch (error) {
+    // we swallow this up, if we can't do this then we assume you have passed in a string
+  }
+
+  return numberToAddCommas.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 /**

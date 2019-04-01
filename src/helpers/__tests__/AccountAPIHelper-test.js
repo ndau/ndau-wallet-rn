@@ -97,13 +97,13 @@ test('make sure we can get the amount of ndau per account', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe('42.000')
+  ).toBe('42.073')
   expect(
     AccountAPIHelper.accountNdauAmount(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe('200.000')
+  ).toBe('200.939')
 })
 
 test('make sure we can get the locked until date of ndau per account', async () => {
@@ -133,7 +133,7 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
-    '1,757.000'
+    '1,757.559'
   )
 })
 
@@ -148,7 +148,7 @@ test('make sure we can get the current price of the users ndau', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
-    '$29,736.04'
+    '$29,745.50'
   )
 })
 
@@ -246,4 +246,40 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
   expect(AccountAPIHelper.lockBonusEAI(390)).toBe(3)
   expect(AccountAPIHelper.lockBonusEAI(734)).toBe(4)
   expect(AccountAPIHelper.lockBonusEAI(1098)).toBe(5)
+})
+
+test('make sure totalSpendableNdau subtracks the settlements correctly', async () => {
+  const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
+  const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
+  expect(totalNdau).toEqual('1.214')
+  const totalSpendable = AccountAPIHelper.totalSpendableNdau(
+    accounts,
+    totalNdau,
+    false
+  )
+  expect(totalSpendable).toEqual('0.144')
+})
+
+test('make sure we get the correct total for send with all values', async () => {
+  const amount = 23
+  const addressData = { balance: 30000000000 }
+  const transactionFee = 10000000000
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    addressData,
+    transactionFee
+  )
+  expect(totalNdau).toEqual('177.000')
+})
+
+test('make sure we get the correct total for send with no tx fees', async () => {
+  const amount = 23
+  const addressData = { balance: 30000000000 }
+  const transactionFee = 0
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    addressData,
+    transactionFee
+  )
+  expect(totalNdau).toEqual('277.000')
 })

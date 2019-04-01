@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { View, Alert, Image } from 'react-native'
+import { Alert } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import RNExitApp from 'react-native-exit-app'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import FlashNotification from '../components/common/FlashNotification'
 import OrderAPI from '../api/OrderAPI'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
 import {
@@ -21,6 +20,7 @@ import {
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
+import WalletStore from '../stores/WalletStore'
 
 class Authentication extends Component {
   constructor (props) {
@@ -57,7 +57,7 @@ class Authentication extends Component {
             await UserData.loadUserData(user)
             marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
-            FlashNotification.showError(error.message, false, false)
+            FlashNotification.showError(error.message)
             LoggingService.debug(error)
             errorMessage = error.message
           }
@@ -65,11 +65,20 @@ class Authentication extends Component {
           UserStore.setUser(user)
           NdauStore.setMarketPrice(marketPrice)
 
-          this.setState({ spinner: false }, () => {
-            this.props.navigation.navigate('Dashboard', {
-              error: errorMessage
+          if (Object.keys(user.wallets).length > 1) {
+            this.setState({ spinner: false }, () => {
+              this.props.navigation.navigate('Dashboard', {
+                error: errorMessage
+              })
             })
-          })
+          } else {
+            WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
+            this.setState({ spinner: false }, () => {
+              this.props.navigation.navigate('WalletOverview', {
+                error: errorMessage
+              })
+            })
+          }
         } else {
           this.showLoginError()
           this.setState({ spinner: false })

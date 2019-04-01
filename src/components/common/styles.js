@@ -115,15 +115,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    maxHeight: hp('6.5%'),
-    ...Platform.select({
-      ios: {
-        marginTop: hp('1.5%')
-      },
-      android: {
-        marginTop: hp('2%')
-      }
-    })
+    maxHeight: hp('6.5%')
   },
   ndauTotalText: {
     color: '#8CC74F',

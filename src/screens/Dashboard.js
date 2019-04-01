@@ -59,7 +59,7 @@ class Dashboard extends Component {
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
-      FlashNotification.showError(error, false, true)
+      FlashNotification.showError(error)
     }
   }
 
@@ -81,7 +81,7 @@ class Dashboard extends Component {
       await UserData.loadUserData(user)
       marketPrice = await OrderAPI.getMarketPrice()
     } catch (error) {
-      FlashNotification.showError(error.message, false, false)
+      FlashNotification.showError(error.message)
     }
 
     UserStore.setUser(user)
@@ -152,7 +152,7 @@ class Dashboard extends Component {
       )
     } catch (error) {
       LoggingService.debug(error)
-      FlashNotification.showError(error.message, false)
+      FlashNotification.showError(error.message)
     }
 
     return (

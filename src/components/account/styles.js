@@ -13,7 +13,7 @@ export default StyleSheet.create({
     shadowRadius: 4,
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
-    marginBottom: hp('3%')
+    marginTop: hp('3%')
   },
   accountPanels: {
     flex: 1,
@@ -96,6 +96,11 @@ export default StyleSheet.create({
     }),
 
     backgroundColor: '#0F2748'
+  },
+  walletOverviewHeaderActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: wp('4%')
   },
   accountActionTextPanel: {
     color: AppConstants.TEXT_COLOR,

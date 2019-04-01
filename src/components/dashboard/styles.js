@@ -19,6 +19,27 @@ export default StyleSheet.create({
     marginRight: wp('2%'),
     marginLeft: wp('4%')
   },
+  walletOverviewGreenFont: {
+    color: '#8CC74F',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)'
+  },
+  walletOverviewSpendable: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    marginRight: wp('2%'),
+    marginLeft: wp('4%'),
+    color: '#8CC74F',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)'
+  },
   dashboardLabelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -35,22 +56,24 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: hp('5%'),
+    height: hp('6.5%'),
+    maxHeight: hp('6.5%'),
+    marginTop: wp('2%'),
+    marginBottom: wp('2%')
+  },
+  walletOverviewLabelWithIconContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: hp('6.5%'),
+    maxHeight: hp('6.5%'),
     marginTop: wp('2%'),
     marginBottom: wp('2%')
   },
   dashboardContainer: {
     flex: 1,
     width: wp('100%'),
-    height: hp('100%'),
-    ...Platform.select({
-      ios: {
-        marginTop: hp('3%')
-      },
-      android: {
-        marginTop: hp('4%')
-      }
-    }),
     backgroundColor: '#0A1724'
   },
   dashboardPanel: {
