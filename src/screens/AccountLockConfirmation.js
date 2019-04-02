@@ -9,6 +9,7 @@ import {
 } from '../components/account'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
+import { NotifyTransaction } from '../transactions/NotifyTransaction'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import AppConstants from '../AppConstants'
@@ -63,8 +64,18 @@ class AccountLockConfirmation extends Component {
       )
       await lockTransaction.createSignPrevalidateSubmit()
 
+      // Alright, we are locked...now send a Notify
+      // This was done in version 2.0 to simplify the lock
+      // process.
+      const notifyTransaction = new NotifyTransaction(
+        this.state.wallet,
+        this.state.account
+      )
+      await notifyTransaction.createSignPrevalidateSubmit()
+
       this.props.navigation.navigate('WalletOverview', {
-        wallet: this.state.wallet
+        wallet: this.state.wallet,
+        refresh
       })
       this.setState({ spinner: true })
     })
