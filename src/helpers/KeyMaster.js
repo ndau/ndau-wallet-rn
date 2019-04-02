@@ -20,8 +20,12 @@ import LoggingService from '../services/LoggingService'
  * that is checking fot the older existence of keys
  * @returns {(string|Array)} of addresses
  * @param {string} recoveryBytes string of bytes
+ * @param {number} startIndex what idex in the derivation path to
+ * start searching for addresses
+ * @param {number} endIndex what idex in the derivation path to
+ * start searching for addresses
  */
-const getRootAddresses = async recoveryBytes => {
+const getRootAddresses = async (recoveryBytes, startIndex, endIndex) => {
   if (!recoveryBytes) {
     throw new Error('you MUST pass recoveryBytes')
   }
@@ -32,7 +36,7 @@ const getRootAddresses = async recoveryBytes => {
       recoveryBytes
     )
 
-    for (let i = 1; i <= AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY; i++) {
+    for (let i = startIndex; i <= endIndex; i++) {
       const derivedKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
         '/',
@@ -62,8 +66,12 @@ const getRootAddresses = async recoveryBytes => {
  * for the existence of an address on the blockchain.
  *
  * @param {string} recoveryBytes string of bytes
+ * @param {number} startIndex what idex in the derivation path to
+ * start searching for addresses
+ * @param {number} endIndex what idex in the derivation path to
+ * start searching for addresses
  */
-const getBIP44Addresses = async recoveryBytes => {
+const getBIP44Addresses = async (recoveryBytes, startIndex, endIndex) => {
   if (!recoveryBytes) {
     throw new Error('you MUST pass recoveryBytes')
   }
@@ -73,7 +81,7 @@ const getBIP44Addresses = async recoveryBytes => {
     const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
       recoveryBytes
     )
-    for (let i = 1; i <= AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY; i++) {
+    for (let i = startIndex; i <= endIndex; i++) {
       const derivedKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
         '/',
