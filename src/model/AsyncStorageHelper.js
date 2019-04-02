@@ -12,8 +12,6 @@ const DEBUG_ROWS = 'debug-rows'
 
 const LAST_ACCOUNT_DATA = '@LastAccountData'
 
-const NEEDS_REFRESH = '@NeedsRefresh'
-
 const TEST_NET = 'TestNet'
 const MAIN_NET = 'MainNet'
 
@@ -172,7 +170,8 @@ const getAllKeys = async () => {
           key !== CURRENT_USER_KEY &&
           key !== APPLICATION_NETWORK &&
           key !== APPLICATION_PASSWORD &&
-          key !== DEBUG_ROWS
+          key !== DEBUG_ROWS &&
+          key !== LAST_ACCOUNT_DATA
       )
     LoggingService.debug(`keys found in getAllKeys are ${newKeys}`)
     return newKeys
