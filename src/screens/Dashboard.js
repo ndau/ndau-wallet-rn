@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, RefreshControl, AppState } from 'react-native'
+import { ScrollView, RefreshControl, AppState } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
 import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import LoggingService from '../services/LoggingService'
 import { AppContainer, NdauTotal } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardContainer,
   DashboardLabel,
-  DashboardPanel
+  DashboardPanel,
+  DashboardLabelWithIcon
 } from '../components/dashboard'
 import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
@@ -106,13 +105,23 @@ class Dashboard extends Component {
         )
       }
 
+      if (Object.keys(user.wallets).length <= 1) {
+        WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
+        this.setState({ spinner: false }, () => {
+          this.props.navigation.navigate('WalletOverview')
+        })
+      }
+
       const wallets = Object.values(user.wallets)
       const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
-
       const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
       const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
         accounts,
         false
+      )
+      const totalSpendableNdau = AccountAPIHelper.totalSpendableNdau(
+        accounts,
+        totalNdauNumber
       )
       const currentPrice = AccountAPIHelper.currentPrice(
         this.state.marketPrice,
@@ -131,6 +140,12 @@ class Dashboard extends Component {
           >
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
+            <DashboardLabelWithIcon
+              greenFont
+              style={{ justifyContent: 'center' }}
+            >
+              {totalSpendableNdau} spendable
+            </DashboardLabelWithIcon>
             <DashboardContainer>
               <DashboardTotalPanel
                 title={currentPrice}

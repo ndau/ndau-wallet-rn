@@ -5,6 +5,10 @@ import data from '../api/data'
 
 const mock = new MockAdapter(axios)
 
+const mockReset = () => {
+  mock.reset()
+}
+
 const mockServiceDiscovery = () => {
   mock
     .onGet('https://s3.us-east-2.amazonaws.com/ndau-json/services-test.json')
@@ -15,6 +19,12 @@ const mockAccountsAPI = (testAddressData = data.testAddressData) => {
   mock
     .onPost('https://testnet-0.api.ndau.tech/account/accounts')
     .reply(200, testAddressData)
+}
+
+const mockAccountsAPIReplyOnce = (testAddressData = data.testAddressData) => {
+  mock
+    .onPost('https://testnet-0.api.ndau.tech/account/accounts')
+    .replyOnce(200, testAddressData)
 }
 
 const mockAccountAPI = (
@@ -107,5 +117,7 @@ export default {
   mockAccountHistory,
   mockTransactionByHash,
   mockDelegateTx,
-  mockAccountAPI
+  mockAccountAPI,
+  mockReset,
+  mockAccountsAPIReplyOnce
 }

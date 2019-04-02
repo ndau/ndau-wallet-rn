@@ -162,7 +162,7 @@
     <orderEntry type="module" module-name="react-native-exit-app" />
     <orderEntry type="module" module-name="android-react-native-securerandom" />
     <orderEntry type="module" module-name="android-react-native-linear-gradient" />
-    <orderEntry type="module" module-name="android-react-native-webview" />
+    <orderEntry type="module" module-name="react-native-webview" />
     <orderEntry type="module" module-name="android-react-native-camera" />
     <orderEntry type="module" module-name="android-react-native-vector-icons" />
     <orderEntry type="module" module-name="android-realm" />

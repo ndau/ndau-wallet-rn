@@ -134,6 +134,7 @@ class SetupRecoveryPhrase extends Component {
           rowTextView={styles.rowTextView}
         />
         <LargeButtons
+          sideMargins
           bottom
           onPress={() => this.showNextSetup()}
           text='We will confirm on the next screen.'

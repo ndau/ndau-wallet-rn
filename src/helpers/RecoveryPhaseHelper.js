@@ -4,6 +4,7 @@ import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
 import LoggingService from '../services/LoggingService'
+import AppConfig from '../AppConfig'
 
 /**
  * First we check to see if there are a variable number of accounts existent
@@ -39,7 +40,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
   }
 
   let wallet
-  const bip44Accounts = await _checkBIP44Addresses(recoveryPhraseBytes)
+  const bip44Accounts = await _checkAddresses(recoveryPhraseBytes)
   LoggingService.debug(
     `BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`
   )
@@ -54,7 +55,7 @@ const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
     LoggingService.debug(`user with BIP44: ${JSON.stringify(user, null, 2)}`)
   }
 
-  const rootAccounts = await _checkRootAddresses(recoveryPhraseBytes)
+  const rootAccounts = await _checkAddresses(recoveryPhraseBytes, true)
   LoggingService.debug(
     `root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`
   )
@@ -83,19 +84,43 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
   )
 }
 
-const _checkRootAddresses = async recoveryPhraseBytes => {
-  const addresses = await KeyMaster.getRootAddresses(recoveryPhraseBytes)
-  LoggingService.debug(`_checkRootAddresses found: ${addresses}`)
-  // check the blockchain to see if any of these exist
-  const accountData = await AccountAPI.getAddressData(addresses)
-  return accountData
-}
+const _checkAddresses = async (recoveryPhraseBytes, root) => {
+  let accountData = {}
+  let accountDataFromBlockchain = {}
+  let addresses = []
+  let startIndex = 1
+  let endIndex = AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
 
-const _checkBIP44Addresses = async recoveryPhraseBytes => {
-  const addresses = await KeyMaster.getBIP44Addresses(recoveryPhraseBytes)
-  LoggingService.debug(`_checkBIP44Addresses found: ${addresses}`)
-  // check the blockchain to see if any of these exist
-  const accountData = await AccountAPI.getAddressData(addresses)
+  do {
+    accountDataFromBlockchain = {}
+    if (root) {
+      addresses = await KeyMaster.getRootAddresses(
+        recoveryPhraseBytes,
+        startIndex,
+        endIndex
+      )
+      LoggingService.debug(`KeyMaster.getRootAddresses found: ${addresses}`)
+    } else {
+      addresses = await KeyMaster.getBIP44Addresses(
+        recoveryPhraseBytes,
+        startIndex,
+        endIndex
+      )
+      LoggingService.debug(`KeyMaster.getBIP44Addresses found: ${addresses}`)
+    }
+
+    // check the blockchain to see if any of these exist
+    // swallow the error so we do not exit and not assign the account data
+    try {
+      accountDataFromBlockchain = await AccountAPI.getAddressData(addresses)
+    } catch (error) {}
+    accountData = Object.assign(accountData, accountDataFromBlockchain)
+
+    // now move ahead in the address indexs to get the next batch
+    startIndex += AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
+    endIndex += AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
+  } while (Object.keys(accountDataFromBlockchain).length > 0)
+
   return accountData
 }
 
