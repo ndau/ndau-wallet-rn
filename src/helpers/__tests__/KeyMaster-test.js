@@ -267,7 +267,11 @@ test('createNewAccount has bogus user', async () => {
 })
 
 test('test getRootAddresses to make sure we get back one address in the array', async () => {
-  const addresses = await KeyMaster.getRootAddresses(bytes)
+  const addresses = await KeyMaster.getRootAddresses(
+    bytes,
+    1,
+    AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
+  )
   expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY)
 })
 
@@ -280,7 +284,11 @@ test('getRootAddresses has an error', async () => {
 })
 
 test('test getBIP44Addresses to make sure we get back one address in the array', async () => {
-  const addresses = await KeyMaster.getBIP44Addresses(bytes)
+  const addresses = await KeyMaster.getBIP44Addresses(
+    bytes,
+    1,
+    AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
+  )
   expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY)
 })
 
