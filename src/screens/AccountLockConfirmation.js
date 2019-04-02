@@ -2,19 +2,16 @@ import React, { Component } from 'react'
 import {
   AccountLockContainer,
   AccountLockDetailsPanel,
-  AccountLockButton,
   AccountLockLargerText,
   AccountBorder,
-  AccountCheckmarkText,
-  AccountLockNoteText
+  AccountIconText,
+  AccountLockConfirmBottomPanel
 } from '../components/account'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import { H4 } from 'nachos-ui'
-import { View } from 'react-native'
+import AppConstants from '../AppConstants'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -24,7 +21,10 @@ class AccountLockConfirmation extends Component {
       wallet: {},
       lockInformation: {},
       accountAddressForEAI: null,
-      accountNicknameForEAI: null
+      accountNicknameForEAI: null,
+      confirmed: false,
+      word: null,
+      spinner: false
     }
   }
 
@@ -54,21 +54,32 @@ class AccountLockConfirmation extends Component {
   }
 
   _lock = async () => {
-    Object.assign(LockTransaction.prototype, Transaction)
-    const lockTransaction = new LockTransaction(
-      this.state.wallet,
-      this.state.account,
-      `${this.state.lockPeriod}m`
-    )
-    await lockTransaction.createSignPrevalidateSubmit()
+    this.setState({ spinner: true }, async () => {
+      Object.assign(LockTransaction.prototype, Transaction)
+      const lockTransaction = new LockTransaction(
+        this.state.wallet,
+        this.state.account,
+        `${this.state.lockInformation.lock}m`
+      )
+      await lockTransaction.createSignPrevalidateSubmit()
 
-    this.props.navigation.navigate('WalletOverview', {
-      wallet: this.state.wallet
+      this.props.navigation.navigate('WalletOverview', {
+        wallet: this.state.wallet
+      })
+      this.setState({ spinner: true })
     })
   }
 
   _goBack = () => {
     this.props.navigation.goBack()
+  }
+
+  _checkWord = word => {
+    let confirmed = false
+    if (word === 'Lock') {
+      confirmed = true
+    }
+    this.setState({ confirmed, word })
   }
 
   render () {
@@ -82,27 +93,38 @@ class AccountLockConfirmation extends Component {
       >
         <AccountLockDetailsPanel account={this.state.account}>
           <AccountLockLargerText>Confirmation</AccountLockLargerText>
-          <AccountBorder />
-          <AccountCheckmarkText>
+          <AccountBorder sideMargins />
+          <AccountIconText>
             Lock {this.state.account.addressData.nickname}
-          </AccountCheckmarkText>
-          <AccountCheckmarkText>
+          </AccountIconText>
+          <AccountIconText>
             Earn {this.state.lockInformation.bonus}% EAI bonus +{' '}
             {this.state.lockInformation.base}% base ={' '}
             {this.state.lockInformation.total}% total
-          </AccountCheckmarkText>
-          <AccountCheckmarkText>
+          </AccountIconText>
+          <AccountIconText>
             Sending EAI to {this.state.accountNicknameForEAI}
-          </AccountCheckmarkText>
-          <AccountCheckmarkText>
+          </AccountIconText>
+          <AccountIconText>
             Account will unlock in {this.state.lockPeriod} months
-          </AccountCheckmarkText>
-          <AccountLockNoteText>
-            Note: You will not be able to deposit into, spend, transfer, or
-            otherwise access the principal inthis account while it is locked
-          </AccountLockNoteText>
+          </AccountIconText>
+          <AccountIconText
+            iconColor={AppConstants.WARNING_ICON_COLOR}
+            iconName='exclamation-circle'
+          >
+            You will not be able to deposit into, spend, transfer, or otherwise
+            access the principal in this account while it is locked
+          </AccountIconText>
         </AccountLockDetailsPanel>
-        <AccountLockButton onPress={this._lock}>Confirm</AccountLockButton>
+
+        <AccountLockConfirmBottomPanel
+          disabled={!this.state.confirmed}
+          onPress={this._lock}
+          onChangeText={this._checkWord}
+          word={this.state.word}
+        >
+          Confirm
+        </AccountLockConfirmBottomPanel>
       </AccountLockContainer>
     )
   }

@@ -23,6 +23,7 @@ import NewAccountModalDialog from '../components/common/NewAccountModalDialog'
 import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
 import NdauStore from '../stores/NdauStore'
+import AccountHelper from '../helpers/AccountHelper'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -96,16 +97,10 @@ class WalletOverview extends Component {
 
   addNewAccount = async () => {
     try {
-      const password = await UserStore.getPassword()
-      const user = await MultiSafeHelper.getDefaultUser(password)
-      const wallet = await KeyMaster.createNewAccount(
+      const wallet = await AccountHelper.createAccounts(
         this.state.wallet,
         this.state.number
       )
-
-      KeyMaster.setWalletInUser(user, wallet)
-
-      await MultiSafeHelper.saveUser(user, password)
 
       this.setState({ wallet })
     } catch (error) {

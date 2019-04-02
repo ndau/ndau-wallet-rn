@@ -373,7 +373,8 @@ export default StyleSheet.create({
   },
   lockAccountTextPanelWithSmallText: {
     marginLeft: wp('4%'),
-    marginRight: wp('4%'),
+    marginRight: wp('8%'),
+    marginBottom: hp('1%'),
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
@@ -405,7 +406,7 @@ export default StyleSheet.create({
   accountDetailsSmallerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '200',
     letterSpacing: 0.26,
     lineHeight: 18,
@@ -438,7 +439,6 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // alignItems: 'stretch',
     width: wp('100%'),
     height: hp('6%'),
     backgroundColor: 'transparent',

@@ -10,7 +10,9 @@ import {
   CloseForBar,
   TitleBarGradient,
   AccountDetailsTitleBarGradient,
-  FullBarBorder
+  FullBarBorder,
+  Label,
+  TextInput
 } from '../common'
 import CollapsibleBar from '../common/CollapsibleBar'
 import styles from './styles'
@@ -442,6 +444,29 @@ export function AccountClosingBar (props) {
   )
 }
 
+export function AccountLockConfirmBottomPanel (props) {
+  return (
+    <View style={styles.accountLockButtonContainer}>
+      <Label noMargin>Please enter the word 'Lock' to confirm</Label>
+      <TextInput
+        onChangeText={word => props.onChangeText(word)}
+        placeholder='Enter the word...'
+        value={props.word}
+        autoCapitalize='none'
+        noSideMargins
+      />
+      <Button
+        style={styles.accountLargeButton}
+        textStyle={styles.accountLargeButtonText}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
 export function AccountLockButton (props) {
   return (
     <View style={styles.accountLockButtonContainer}>
@@ -487,14 +512,25 @@ export function AccountDetailsLargerText (props) {
 }
 
 export function AccountBorder (props) {
-  return <View style={styles.accountDetailsPanelBorder} />
+  let sideMargins = {}
+  if (props.sideMargins) {
+    sideMargins = styles.accountSideMargins
+  }
+  return <View style={[styles.accountDetailsPanelBorder, sideMargins]} />
 }
 
-export function AccountCheckmarkText (props) {
+export function AccountIconText (props) {
   return (
     <View style={styles.lockAccountTextPanelWithSmallText}>
       <View style={styles.lockAccountCheckmark}>
-        <FontAwesome5Pro size={18} name='check' color='#85BE4D' light />
+        <FontAwesome5Pro
+          size={18}
+          name={props.iconName ? props.iconName : 'check'}
+          color={
+            props.iconColor ? props.iconColor : AppConstants.CHECKBOX_COLOR
+          }
+          light
+        />
       </View>
       <View>
         <H4 style={styles.accountDetailsSmallerText}>{props.children}</H4>

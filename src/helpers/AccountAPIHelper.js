@@ -235,7 +235,7 @@ const weightedAverageAgeInDays = account => {
 
 const spendableNapu = addressData => {
   const totalNdau = accountNdauAmount(addressData)
-  const totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
+  let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
   const settlements = addressData.settlements
   if (!settlements) return totalNapu
 

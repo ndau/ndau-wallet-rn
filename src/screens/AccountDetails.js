@@ -15,6 +15,7 @@ import { View } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
+import AppConstants from '../AppConstants'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -106,7 +107,7 @@ class AccountDetails extends Component {
           onPress={() => this.showHistory(this.state.account)}
           {...this.props}
         />
-        {!accountLockedUntil ? (
+        {!accountLockedUntil && !accountNoticePeriod ? (
           <AccountDetailsButtonPanel
             showLock={this.showLock}
             send={this.send}
@@ -118,7 +119,7 @@ class AccountDetails extends Component {
         <AccountDetailsPanel firstPanel>
           <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
           <AccountBorder />
-          {accountLockedUntil ? (
+          {accountLockedUntil || accountNoticePeriod ? (
             <AccountParagraphText customIconName='lock'>
               Locked
             </AccountParagraphText>
@@ -133,7 +134,7 @@ class AccountDetails extends Component {
                 Will unlock on {accountLockedUntil}
               </AccountParagraphText>
               <AccountParagraphText
-                customIconColor='#F05123'
+                customIconColor={AppConstants.WARNING_ICON_COLOR}
                 customIconName='exclamation-circle'
               >
                 You cannot send or receive

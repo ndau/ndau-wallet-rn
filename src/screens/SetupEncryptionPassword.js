@@ -78,7 +78,7 @@ class SetupEncryptionPassword extends Component {
         [{ text: 'OK', onPress: () => {} }],
         { cancelable: false }
       )
-      this.setState({ textInputColor: '#f05123' })
+      this.setState({ textInputColor: AppConstants.WARNING_ICON_COLOR })
       return
     }
     if (!this.checkPasswordsLength()) {
@@ -88,7 +88,7 @@ class SetupEncryptionPassword extends Component {
         [{ text: 'OK', onPress: () => {} }],
         { cancelable: false }
       )
-      this.setState({ textInputColor: '#f05123' })
+      this.setState({ textInputColor: AppConstants.WARNING_ICON_COLOR })
       return
     }
 

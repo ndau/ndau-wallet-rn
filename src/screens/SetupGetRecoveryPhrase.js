@@ -291,7 +291,7 @@ class SetupGetRecoveryPhrase extends Component {
           }
         } else {
           this.setState({
-            textColor: '#f05123',
+            textColor: AppConstants.WARNING_ICON_COLOR,
             confirmationError: true
           })
           FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
@@ -299,7 +299,7 @@ class SetupGetRecoveryPhrase extends Component {
       } catch (error) {
         LoggingService.debug(error)
         this.setState({
-          textColor: '#f05123',
+          textColor: AppConstants.WARNING_ICON_COLOR,
           confirmationError: true
         })
         FlashNotification.showError(
