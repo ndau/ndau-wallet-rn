@@ -20,10 +20,10 @@ import LoggingService from '../services/LoggingService'
  * that is checking fot the older existence of keys
  * @returns {(string|Array)} of addresses
  * @param {string} recoveryBytes string of bytes
- * @param {number} startIndex what idex in the derivation path to
+ * @param {number} startIndex what index in the derivation path to
  * start searching for addresses
- * @param {number} endIndex what idex in the derivation path to
- * start searching for addresses
+ * @param {number} endIndex what index in the derivation path to
+ * end the search for an addresses
  */
 const getRootAddresses = async (recoveryBytes, startIndex, endIndex) => {
   if (!recoveryBytes) {
@@ -66,10 +66,10 @@ const getRootAddresses = async (recoveryBytes, startIndex, endIndex) => {
  * for the existence of an address on the blockchain.
  *
  * @param {string} recoveryBytes string of bytes
- * @param {number} startIndex what idex in the derivation path to
+ * @param {number} startIndex what index in the derivation path to
  * start searching for addresses
- * @param {number} endIndex what idex in the derivation path to
- * start searching for addresses
+ * @param {number} endIndex what index in the derivation path to
+ * end the search for an addresses
  */
 const getBIP44Addresses = async (recoveryBytes, startIndex, endIndex) => {
   if (!recoveryBytes) {
