@@ -572,6 +572,8 @@ export function AccountHistoryPanels (props) {
     const destinationUsed =
       transactionDestination && props.address !== transactionDestination
     const sourceUsed = transactionSource && props.address !== transactionSource
+    const dest = ndaujs.truncateAddress(transactionDestination)
+    const source = ndaujs.truncateAddress(transactionSource)
 
     return (
       <CollapsibleBar
@@ -605,9 +607,7 @@ export function AccountHistoryPanels (props) {
               <H4 style={styles.accountHistorySmallerTextBold}>Sent to:</H4>
             </View>
             <View>
-              <H4 style={styles.accountHistorySmallerText}>
-                {ndaujs.truncateAddress(transactionDestination)}
-              </H4>
+              <H4 style={styles.accountHistorySmallerText}>{dest}</H4>
             </View>
           </View>
         ) : null}
@@ -619,9 +619,7 @@ export function AccountHistoryPanels (props) {
               </H4>
             </View>
             <View>
-              <H4 style={styles.accountHistorySmallerText}>
-                {ndaujs.truncateAddress(transactionSource)}
-              </H4>
+              <H4 style={styles.accountHistorySmallerText}>{source}</H4>
             </View>
           </View>
         ) : null}
