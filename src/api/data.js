@@ -811,6 +811,10 @@ const delegateTxRes = {
   fee_napu: 0
 }
 
+const setRewardsDestinationTxRes = {
+  fee_napu: 0
+}
+
 const accountHistoryRes = {
   Items: [
     {
@@ -1584,5 +1588,6 @@ export default {
   test7MP4FVAddressData,
   testAddressData20Items,
   testAddressData20ItemsRoot,
-  testAddressDataRoot
+  testAddressDataRoot,
+  setRewardsDestinationTxRes
 }

@@ -109,6 +109,11 @@ class Dashboard extends Component {
         WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
         this.setState({ spinner: false }, () => {
           this.props.navigation.navigate('WalletOverview')
+          return (
+            <AppContainer>
+              <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
+            </AppContainer>
+          )
         })
       }
 
