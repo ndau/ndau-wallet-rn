@@ -68,7 +68,7 @@ class AccountSendConfirmation extends Component {
 
         this.props.navigation.push('WalletOverview', {
           wallet: this.state.wallet,
-          refresh
+          refresh: true
         })
       } catch (error) {
         FlashNotification.showError(

@@ -10,9 +10,11 @@ import {
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
+import { SetRewardsDestinationTransaction } from '../transactions/SetRewardsDestinationTransaction'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import AppConstants from '../AppConstants'
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -67,17 +69,27 @@ class AccountLockConfirmation extends Component {
       // Alright, we are locked...now send a Notify
       // This was done in version 2.0 to simplify the lock
       // process.
+      Object.assign(NotifyTransaction.prototype, Transaction)
       const notifyTransaction = new NotifyTransaction(
         this.state.wallet,
         this.state.account
       )
       await notifyTransaction.createSignPrevalidateSubmit()
 
-      this.props.navigation.navigate('WalletOverview', {
+      // Now make sure we send the EAI where it belongs
+      Object.assign(SetRewardsDestinationTransaction.prototype, Transaction)
+      const setRewardsDestinationTransaction = new SetRewardsDestinationTransaction(
+        this.state.wallet,
+        this.state.account,
+        this.state.accountAddressForEAI
+      )
+      await setRewardsDestinationTransaction.createSignPrevalidateSubmit()
+
+      this.props.navigation.push('WalletOverview', {
         wallet: this.state.wallet,
-        refresh
+        refresh: true
       })
-      this.setState({ spinner: true })
+      this.setState({ spinner: false })
     })
   }
 
@@ -102,6 +114,7 @@ class AccountLockConfirmation extends Component {
         navigation={this.props.nav}
         {...this.props}
       >
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountLockDetailsPanel account={this.state.account}>
           <AccountLockLargerText>Confirmation</AccountLockLargerText>
           <AccountBorder sideMargins />

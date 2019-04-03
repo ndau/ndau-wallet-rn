@@ -49,7 +49,7 @@ class AccountDetails extends Component {
 
   showHistory = account => {
     AccountStore.setAccount(account)
-    this.props.navigation.navigate('AccountHistory')
+    this.props.navigation.push('AccountHistory')
   }
 
   send = (account, wallet) => {

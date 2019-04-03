@@ -57,7 +57,7 @@ class WalletOverview extends Component {
     AppState.addEventListener('change', this._handleAppStateChange)
 
     if (this.props.navigation.getParam('refresh')) {
-      _onRefresh()
+      this._onRefresh()
     }
 
     const wallet = WalletStore.getWallet()
