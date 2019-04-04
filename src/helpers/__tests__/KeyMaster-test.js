@@ -146,7 +146,23 @@ for (let i = 0; i < 30; i++) {
     .mockReturnValueOnce(address + 'g')
     .mockReturnValueOnce(address + 'h')
     .mockReturnValueOnce(address + 'i')
-    .mockReturnValueOnce(address + 'h')
+    .mockReturnValueOnce(address + 'j')
+    .mockReturnValueOnce(address + 'k')
+    .mockReturnValueOnce(address + 'l')
+    .mockReturnValueOnce(address + 'm')
+    .mockReturnValueOnce(address + 'n')
+    .mockReturnValueOnce(address + 'o')
+    .mockReturnValueOnce(address + 'p')
+    .mockReturnValueOnce(address + 'q')
+    .mockReturnValueOnce(address + 'r')
+    .mockReturnValueOnce(address + 's')
+    .mockReturnValueOnce(address + 't')
+    .mockReturnValueOnce(address + 'u')
+    .mockReturnValueOnce(address + 'v')
+    .mockReturnValueOnce(address + 'w')
+    .mockReturnValueOnce(address + 'x')
+    .mockReturnValueOnce(address + 'y')
+    .mockReturnValueOnce(address + 'z')
 }
 
 const deriveFrom = sinon.spy(NativeModules.KeyaddrManager, 'deriveFrom')
@@ -172,6 +188,24 @@ for (let i = 0; i < 30; i++) {
     .mockReturnValueOnce(deriveFromKey + 'h')
     .mockReturnValueOnce(deriveFromKey + 'i')
     .mockReturnValueOnce(deriveFromKey + 'h')
+    .mockReturnValueOnce(deriveFromKey + 'i')
+    .mockReturnValueOnce(deriveFromKey + 'j')
+    .mockReturnValueOnce(deriveFromKey + 'k')
+    .mockReturnValueOnce(deriveFromKey + 'l')
+    .mockReturnValueOnce(deriveFromKey + 'm')
+    .mockReturnValueOnce(deriveFromKey + 'n')
+    .mockReturnValueOnce(deriveFromKey + 'o')
+    .mockReturnValueOnce(deriveFromKey + 'p')
+    .mockReturnValueOnce(deriveFromKey + 'q')
+    .mockReturnValueOnce(deriveFromKey + 'r')
+    .mockReturnValueOnce(deriveFromKey + 's')
+    .mockReturnValueOnce(deriveFromKey + 't')
+    .mockReturnValueOnce(deriveFromKey + 'u')
+    .mockReturnValueOnce(deriveFromKey + 'v')
+    .mockReturnValueOnce(deriveFromKey + 'w')
+    .mockReturnValueOnce(deriveFromKey + 'x')
+    .mockReturnValueOnce(deriveFromKey + 'y')
+    .mockReturnValueOnce(deriveFromKey + 'z')
 }
 
 const toPublic = sinon.spy(NativeModules.KeyaddrManager, 'toPublic')
@@ -207,9 +241,6 @@ test('createFirstTimeUser test', async () => {
     numberOfAccounts
   )
   expect(firstTimeUser).toBeDefined()
-  expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","wallets":{"c79af3b6":{"walletId":"TAC-3PY","accountCreationKeyHash":"c1ca8e03","accounts":{"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac1":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac1","addressData":{},"ownershipKey":"95b8071e","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac2":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac2","addressData":{},"ownershipKey":"20f4d175","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac3":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac3","addressData":{},"ownershipKey":"edef8a85","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac4":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac4","addressData":{},"ownershipKey":"90808ebd","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5","addressData":{},"ownershipKey":"d8cc78c1","validationKeys":[]}},"keys":{"c1ca8e03":{"publicKey":"","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf1","path":"/44'/20036'/100","derivedFromRoot":"yes"},"95b8071e":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj441","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx1","path":"/44'/20036'/100/1","derivedFromRoot":"yes"},"20f4d175":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj442","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2","path":"/44'/20036'/100/2","derivedFromRoot":"yes"},"edef8a85":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx3","path":"/44'/20036'/100/3","derivedFromRoot":"yes"},"90808ebd":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx4","path":"/44'/20036'/100/4","derivedFromRoot":"yes"},"d8cc78c1":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx5","path":"/44'/20036'/100/5","derivedFromRoot":"yes"}}}}}`
-  )
 })
 
 test('createFirstTimeUser with 0, as this will be possible post Genesis', async () => {
@@ -272,7 +303,10 @@ test('test getRootAddresses to make sure we get back one address in the array', 
     1,
     AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
   )
-  expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY)
+  expect(Object.keys(addresses).length).toBe(
+    AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
+  )
+  expect(Object.values(addresses)[0]).toBe('/1')
 })
 
 test('getRootAddresses has an error', async () => {
@@ -289,7 +323,10 @@ test('test getBIP44Addresses to make sure we get back one address in the array',
     1,
     AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
   )
-  expect(addresses.length).toBe(AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY)
+  expect(Object.keys(addresses).length).toBe(
+    AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
+  )
+  expect(Object.values(addresses)[0]).toBe(`/44'/20036'/100/1`)
 })
 
 test('getBIP44Addresses has an error', async () => {
@@ -309,13 +346,10 @@ test('addVadidationKey test', async () => {
   )
 
   expect(firstTimeUser).toBeDefined()
-  expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","wallets":{"c79af3b6":{"walletId":"TAC-3PY","accountCreationKeyHash":"1e48ba8c","accounts":{"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb","addressData":{},"ownershipKey":"a0bb883b","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacc":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacc","addressData":{},"ownershipKey":"d396491a","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacd":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacd","addressData":{},"ownershipKey":"2da2eaca","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyace":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyace","addressData":{},"ownershipKey":"b960e699","validationKeys":[]},"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacf":{"address":"tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacf","addressData":{},"ownershipKey":"057391a6","validationKeys":[]}},"keys":{"1e48ba8c":{"publicKey":"","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4","path":"/44'/20036'/100","derivedFromRoot":"yes"},"a0bb883b":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb","path":"/44'/20036'/100/1","derivedFromRoot":"yes"},"d396491a":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44c","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxc","path":"/44'/20036'/100/2","derivedFromRoot":"yes"},"2da2eaca":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44d","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxd","path":"/44'/20036'/100/3","derivedFromRoot":"yes"},"b960e699":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44e","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxe","path":"/44'/20036'/100/4","derivedFromRoot":"yes"},"057391a6":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44f","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxf","path":"/44'/20036'/100/5","derivedFromRoot":"yes"}}}}}`
-  )
 
   const wallet = firstTimeUser.wallets['c79af3b6']
   const account =
-    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb']
+    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacz']
   const keysLength = Object.keys(wallet.keys).length
 
   await KeyMaster.addValidationKey(wallet, account)
@@ -336,8 +370,9 @@ test('getPublicKeyFromHash test', async () => {
   expect(firstTimeUser).toBeDefined()
 
   const wallet = firstTimeUser.wallets['c79af3b6']
+
   const account =
-    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacg']
+    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac5']
   const keysLength = Object.keys(wallet.keys).length
 
   await KeyMaster.addValidationKey(wallet, account)
@@ -365,8 +400,9 @@ test('getPrivateKeyFromHash test', async () => {
   expect(firstTimeUser).toBeDefined()
 
   const wallet = firstTimeUser.wallets['c79af3b6']
+
   const account =
-    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac2']
+    wallet.accounts['tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac0']
   const keysLength = Object.keys(wallet.keys).length
 
   await KeyMaster.addValidationKey(wallet, account)
@@ -379,7 +415,7 @@ test('getPrivateKeyFromHash test', async () => {
     account.validationKeys[0]
   )
   expect(
-    'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf0'
+    'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdft'
   ).toBe(privateKey)
 })
 
@@ -407,7 +443,7 @@ test('_createAccount test when empty string called will use root key', async () 
   expect(newKey.callCount).toBe(countBeforeCall + 1)
 })
 
-test('addAccountsToUser should add to wallets if passed', async () => {
+test('createAccountFromIndex should add to wallets if passed', async () => {
   const user = {
     userId: 'temp-id',
     wallets: {
@@ -485,14 +521,11 @@ test('addAccountsToUser should add to wallets if passed', async () => {
     }
   }
 
-  const wallet = await KeyMaster.addAccountsToUser(
-    bytes,
-    user,
-    2,
-    undefined,
-    'temp-id',
-    user.wallets['a7bff20a']
+  const wallet = await KeyMaster.createAccountFromIndex(
+    user.wallets['a7bff20a'],
+    `/44'/20036'/100/20`
   )
 
-  expect(Object.keys(wallet.accounts).length).toBe(6)
+  expect(Object.keys(user.wallets['a7bff20a'].accounts).length).toBe(5)
+  expect(Object.keys(user.wallets['a7bff20a'].keys).length).toBe(6)
 })

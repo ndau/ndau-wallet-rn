@@ -123,7 +123,10 @@ const sendDelegateTransactionIfNeeded = async (
   account,
   addressData
 ) => {
-  if (!addressData.delegationNode) {
+  if (
+    !addressData.delegationNode &&
+    (addressData.validationKeys && addressData.validationKeys.length > 0)
+  ) {
     LoggingService.debug(
       `Sending Delegate transaction for ${addressData.nickname}`
     )
