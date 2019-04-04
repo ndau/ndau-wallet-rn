@@ -666,3 +666,19 @@ test('if we can find a wallet already existent', async () => {
     DataFormatHelper.checkIfWalletAlreadyExists(undefined, 'stevierayvaughan')
   ).toBeFalsy()
 })
+
+test('make sure truncateString works as designed', async () => {
+  expect(
+    DataFormatHelper.truncateString(
+      'This is going to be a very crazy long name'
+    )
+  ).toBe('This is going to be...')
+  expect(
+    DataFormatHelper.truncateString(
+      'This is going to be a very crazy long name',
+      25
+    )
+  ).toBe('This is going to be a ve...')
+  expect(DataFormatHelper.truncateString('Wallet 1', 25)).toBe('Wallet 1')
+  expect(DataFormatHelper.truncateString('Wallet 34')).toBe('Wallet 34')
+})

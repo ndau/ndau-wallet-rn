@@ -105,6 +105,19 @@ const getObjectWithAllAccounts = user => {
 }
 
 /**
+ * Truncate the string to maxLength characters with an elipse
+ * if it is maxLength characters or greater.
+ *
+ * @param {string} string to truncate
+ * @param {number} maxLength default is 20
+ */
+const truncateString = (string, maxLength = 20) => {
+  return string.length >= maxLength
+    ? string.slice(0, maxLength - 1) + '...'
+    : string
+}
+
+/**
  * Given a wallet send back the format for the
  * request to /account/eai/rate RESTful API call
  *
@@ -222,5 +235,6 @@ export default {
   checkIfWalletAlreadyExists,
   create8CharHash,
   getNapuFromNdau,
-  getAccountEaiRateRequestForLock
+  getAccountEaiRateRequestForLock,
+  truncateString
 }
