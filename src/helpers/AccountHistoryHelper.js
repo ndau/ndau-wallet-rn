@@ -53,8 +53,10 @@ const getTransactionType = accountHistory => {
 }
 
 const getTransactionBalance = accountHistory => {
-  return DataFormatHelper.addCommas(
-    DataFormatHelper.getNdauFromNapu(accountHistory.Balance)
+  return DataFormatHelper.getNdauFromNapu(
+    accountHistory.Balance,
+    undefined,
+    true
   )
 }
 

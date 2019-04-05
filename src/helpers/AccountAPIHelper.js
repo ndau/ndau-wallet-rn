@@ -226,9 +226,7 @@ const accountNotLocked = account => {
 
 const accountNdauAmount = account => {
   return account && account.balance
-    ? DataFormatHelper.addCommas(
-      parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
-    )
+    ? DataFormatHelper.getNdauFromNapu(account.balance, undefined, true)
     : 0.0
 }
 
@@ -288,8 +286,9 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
     }
   })
 
-  total = DataFormatHelper.getNdauFromNapu(totalNapu)
-  return localizedText ? DataFormatHelper.addCommas(total) : total
+  return localizedText
+    ? DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
+    : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
 const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
@@ -310,20 +309,16 @@ const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
     }
   })
 
-  totalNdau = DataFormatHelper.getNdauFromNapu(totalNapu)
-
   return localizedText
-    ? DataFormatHelper.addCommas(parseFloat(totalNdau))
-    : totalNdau
+    ? DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
+    : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
 const getTotalNdauForSend = (amount, addressData, transactionFee) => {
   const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
   const totalNapuForAccount = spendableNapu(addressData)
   const totalNapu = totalNapuForAccount - amountNapu - transactionFee
-  return DataFormatHelper.addCommas(
-    parseFloat(DataFormatHelper.getNdauFromNapu(totalNapu))
-  )
+  return DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
 }
 
 const currentPrice = (marketPrice, totalNdau) => {
@@ -334,7 +329,11 @@ const currentPrice = (marketPrice, totalNdau) => {
   // why not use .toLocaleString you ask...here is why:
   // https://github.com/facebook/react-native/issues/15717
   const currentPrice = marketPrice
-    ? '$' + DataFormatHelper.addCommas(parseFloat(totalNdau * marketPrice), 2)
+    ? '$' +
+      DataFormatHelper.formatUSDollarValue(
+        parseFloat(totalNdau * marketPrice),
+        2
+      )
     : '$0.00'
   LoggingService.debug(`currentPrice: ${currentPrice}`)
 
