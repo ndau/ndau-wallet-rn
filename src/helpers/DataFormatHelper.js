@@ -105,15 +105,18 @@ const getObjectWithAllAccounts = user => {
 }
 
 /**
- * Truncate the string to maxLength characters with an elipse
- * if it is maxLength characters or greater.
+ * Truncate the string to maxLength characters with an elipsis
+ * if it is maxLength characters or greater. The string is then
+ * truncated to the maxLength including the elipsis.
  *
  * @param {string} string to truncate
  * @param {number} maxLength default is 20
  */
 const truncateString = (string, maxLength = 20) => {
+  const realizedMaxLength = maxLength - 3
+  if (realizedMaxLength < 1) return '...'
   return string.length >= maxLength
-    ? string.slice(0, maxLength - 1) + '...'
+    ? string.slice(0, realizedMaxLength) + '...'
     : string
 }
 

@@ -672,13 +672,47 @@ test('make sure truncateString works as designed', async () => {
     DataFormatHelper.truncateString(
       'This is going to be a very crazy long name'
     )
-  ).toBe('This is going to be...')
+  ).toBe('This is going to ...')
+  expect(DataFormatHelper.truncateString('This will not be as l', 21)).toBe(
+    'This will not be a...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as la', 22)).toBe(
+    'This will not be as...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as lar', 23)).toBe(
+    'This will not be as ...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as larg', 24)).toBe(
+    'This will not be as l...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as large', 25)).toBe(
+    'This will not be as la...'
+  )
+  expect(
+    DataFormatHelper.truncateString('This will not be as large,', 26)
+  ).toBe('This will not be as lar...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, ', 27)
+  ).toBe('This will not be as larg...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, y', 28)
+  ).toBe('This will not be as large...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, ye', 29)
+  ).toBe('This will not be as large,...')
   expect(
     DataFormatHelper.truncateString(
       'This is going to be a very crazy long name',
       25
     )
-  ).toBe('This is going to be a ve...')
-  expect(DataFormatHelper.truncateString('Wallet 1', 25)).toBe('Wallet 1')
+  ).toBe('This is going to be a ...')
+  expect(DataFormatHelper.truncateString('This will be small', 25)).toBe(
+    'This will be small'
+  )
+  expect(DataFormatHelper.truncateString('KrisP', 1)).toBe('...')
+  expect(DataFormatHelper.truncateString('KrisP', 2)).toBe('...')
+  expect(DataFormatHelper.truncateString('KrisP', 3)).toBe('...')
+  expect(DataFormatHelper.truncateString('KrisP', 4)).toBe('K...')
+  expect(DataFormatHelper.truncateString('KrisP', 5)).toBe('Kr...')
   expect(DataFormatHelper.truncateString('Wallet 34')).toBe('Wallet 34')
 })
