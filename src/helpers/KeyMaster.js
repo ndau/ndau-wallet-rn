@@ -500,7 +500,7 @@ const createAccountFromIndex = async (wallet, derivedPath, addressData) => {
 
   const privateDerivedKey = await NativeModules.KeyaddrManager.deriveFrom(
     wallet.keys[wallet.accountCreationKeyHash].privateKey,
-    '/',
+    KeyPathHelper.accountCreationKeyPath(),
     derivedPath
   )
 
