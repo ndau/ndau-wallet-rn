@@ -369,14 +369,15 @@ const generateLegacyValidationKey = async (wallet, account, index) => {
   const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
     wallet.keys[account.ownershipKey].privateKey,
     '/',
-    wallet.keys[account.ownershipKey] + keyPath
+    keyPath
   )
 
   const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
     validationPrivateKey
   )
 
-  return _createKey(validationPrivateKey, validationPublicKey, keyPath)
+  const actualPath = wallet.keys[account.ownershipKey].path + keyPath
+  return _createKey(validationPrivateKey, validationPublicKey, actualPath)
 }
 
 /**

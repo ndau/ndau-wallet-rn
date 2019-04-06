@@ -144,7 +144,8 @@ const _checkValidationKeys = (
         account,
         wallet,
         validationKeys[validationPublicKey].privateKey,
-        validationPublicKey
+        validationPublicKey,
+        validationKeys[validationPublicKey].path
       )
       found = true
       break
