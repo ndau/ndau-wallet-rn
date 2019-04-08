@@ -72,17 +72,21 @@ export default StyleSheet.create({
   },
   accountButton: {
     width: wp('28.97%'),
-    height: hp('4.95%'),
+    ...Platform.select({
+      ios: {
+        height: hp('4.95%')
+      },
+      android: {
+        height: hp('5.5%'),
+        marginTop: hp('1%')
+      }
+    }),
+
     borderRadius: 22,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
-    backgroundColor: 'transparent',
-    ...Platform.select({
-      android: {
-        marginTop: hp('1%')
-      }
-    })
+    backgroundColor: 'transparent'
   },
   accountActionPanel: {
     width: wp('100%'),
@@ -218,7 +222,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: wp('100%'),
-    height: hp('4%'),
+    ...Platform.select({
+      ios: {
+        height: hp('4%')
+      },
+      android: {
+        height: hp('5%')
+      }
+    }),
     backgroundColor: 'transparent',
     overflow: 'hidden'
   },
@@ -226,7 +237,18 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: wp('100%'),
-    height: hp('8%'),
+    ...Platform.select({
+      ios: {
+        height: hp('8%'),
+        paddingTop: hp('1.5%'),
+        paddingBottom: hp('1.5%')
+      },
+      android: {
+        height: hp('9.5%'),
+        paddingTop: hp('1%'),
+        paddingBottom: hp('1%')
+      }
+    }),
     backgroundColor: '#293E63',
     overflow: 'hidden',
     shadowOffset: { width: 0, height: 2 },
@@ -234,9 +256,7 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
     paddingLeft: wp('4%'),
-    paddingRight: wp('4%'),
-    paddingTop: hp('1.5%'),
-    paddingBottom: hp('1.5%')
+    paddingRight: wp('4%')
   },
   accountHistoryPanel: {
     width: wp('100%'),
@@ -346,19 +366,19 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   accountButtonText: {
-    width: wp('30%'),
+    width: wp('20%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 16,
     letterSpacing: 0.34,
     lineHeight: 24,
-    textAlign: 'center',
-    ...Platform.select({
-      ios: {
-        marginBottom: -2,
-        marginTop: -5
-      }
-    })
+    textAlign: 'center'
+  },
+  accountButtonInnerPanel: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: hp('.6%')
   },
   accountDetailsTextPanelWithButton: {
     margin: wp('4%'),

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Share } from 'react-native'
+import { View, TouchableOpacity, Share, Text } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -109,7 +109,7 @@ export function AccountPanel (props) {
                   size={24}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   style={styles.accountAngle}
-                  solid
+                  light
                 />
               </TouchableOpacity>
             </View>
@@ -244,23 +244,41 @@ export function AccountHistoryContainer (props) {
   )
 }
 
+/**
+ * This is a homegrown button as opposed to using nachosui. The reason
+ * here is that they way nachosui inserts Icon objects does not allow
+ * customization. You can change the fontset but the button doesn't call
+ * the Icon correctly to pass in the name of the icon. It uses a hardcoded
+ * map of name to unicode characters. These unicode characters do not line
+ * up to the FontAwesomePro5 set.
+ *
+ * @param {Object} props
+ */
 export function AccountButton (props) {
   return (
-    <Button
-      style={styles.accountButton}
-      textStyle={styles.accountButtonText}
-      uppercase={false}
-      {...props}
+    <View
+      style={[styles.accountButton, props.disabled ? { opacity: 0.3 } : {}]}
     >
-      {props.children}{' '}
-      <FontAwesome5Pro
-        name={props.customIconName}
-        size={18}
-        color={AppConstants.ICON_BUTTON_COLOR}
-        style={styles.accountAngle}
-        light
-      />
-    </Button>
+      <TouchableOpacity
+        disabled={props.disabled}
+        activeOpacity={0.8}
+        accessibilityTraits='button'
+        accessibilityComponentType='button'
+        {...props}
+      >
+        <View style={styles.accountButtonInnerPanel}>
+          <Text style={styles.accountButtonText}>
+            {props.children}{' '}
+            <FontAwesome5Pro
+              name={props.customIconName}
+              size={18}
+              color={AppConstants.ICON_BUTTON_COLOR}
+              light
+            />
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   )
 }
 
@@ -364,7 +382,7 @@ export function AccountParagraphText (props) {
             size={18}
             color={props.customIconColor || AppConstants.ICON_BUTTON_COLOR}
             style={styles.accountDetailsIcons}
-            solid
+            light
           />
         </View>
       ) : null}

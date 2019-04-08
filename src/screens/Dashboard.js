@@ -50,6 +50,17 @@ class Dashboard extends Component {
     AppState.addEventListener('change', this._handleAppStateChange)
 
     const user = UserStore.getUser()
+
+    if (Object.keys(user.wallets).length <= 1) {
+      WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
+      this.props.navigation.navigate('WalletOverview')
+      return (
+        <AppContainer>
+          <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
+        </AppContainer>
+      )
+    }
+
     const marketPrice = NdauStore.getMarketPrice()
 
     LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
@@ -103,18 +114,6 @@ class Dashboard extends Component {
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
           </AppContainer>
         )
-      }
-
-      if (Object.keys(user.wallets).length <= 1) {
-        WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
-        this.setState({ spinner: false }, () => {
-          this.props.navigation.navigate('WalletOverview')
-          return (
-            <AppContainer>
-              <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
-            </AppContainer>
-          )
-        })
       }
 
       const wallets = Object.values(user.wallets)
