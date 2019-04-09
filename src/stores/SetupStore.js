@@ -9,7 +9,8 @@ class SetupStore {
     }
 
     this._userId = ''
-    this._numberOfAccounts = 0
+    // Default to 1 account created
+    this._numberOfAccounts = 1
     this._qrCode = ''
     this._encryptionPassword = ''
     this._entropy = ''
@@ -34,7 +35,9 @@ class SetupStore {
   }
 
   get numberOfAccounts () {
-    LoggingService.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`)
+    LoggingService.debug(
+      `SetupStore.numberOfAccounts ${this._numberOfAccounts}`
+    )
     return this._numberOfAccounts
   }
 
@@ -52,7 +55,9 @@ class SetupStore {
   }
 
   get encryptionPassword () {
-    LoggingService.debug(`SetupStore.encryptionPassword ${this._encryptionPassword}`)
+    LoggingService.debug(
+      `SetupStore.encryptionPassword ${this._encryptionPassword}`
+    )
     return this._encryptionPassword
   }
 
@@ -125,7 +130,9 @@ class SetupStore {
 
   printData = () => {
     LoggingService.debug(`SetupStore.userId ${this._userId}`)
-    LoggingService.debug(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`)
+    LoggingService.debug(
+      `SetupStore.numberOfAccounts ${this._numberOfAccounts}`
+    )
     LoggingService.debug(`SetupStore.qrCode ${this._qrCode}`)
     LoggingService.debug(`SetupStore.entropy ${this._entropy}`)
     LoggingService.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`)
