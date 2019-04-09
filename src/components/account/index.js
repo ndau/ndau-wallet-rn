@@ -573,6 +573,14 @@ export function AccountDetailPanel (props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
 }
 
+export function AccountReceivePanel (props) {
+  return <View style={styles.accountReceivePanel}>{props.children}</View>
+}
+
+export function AccountSendPanel (props) {
+  return <View style={styles.accountSendPanel}>{props.children}</View>
+}
+
 export function AccountScanPanel (props) {
   return <View style={styles.accountScan}>{props.children}</View>
 }

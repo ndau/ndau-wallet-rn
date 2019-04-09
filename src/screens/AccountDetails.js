@@ -11,7 +11,7 @@ import {
   AddressSharePanel,
   AccountConfirmationItem
 } from '../components/account'
-import { View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
@@ -116,77 +116,79 @@ class AccountDetails extends Component {
             wallet={this.state.wallet}
           />
         ) : null}
-        <AccountDetailsPanel firstPanel>
-          <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
-          <AccountBorder />
-          {accountLockedUntil || accountNoticePeriod ? (
-            <AccountParagraphText customIconName='lock'>
-              Locked
-            </AccountParagraphText>
-          ) : (
-            <AccountParagraphText customIconName='lock-open'>
-              Unlocked
-            </AccountParagraphText>
-          )}
-          {accountLockedUntil ? (
-            <View>
-              <AccountParagraphText customIconName='clock'>
-                Will unlock on {accountLockedUntil}
+        <ScrollView>
+          <AccountDetailsPanel firstPanel>
+            <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
+            <AccountBorder />
+            {accountLockedUntil || accountNoticePeriod ? (
+              <AccountParagraphText customIconName='lock'>
+                Locked
               </AccountParagraphText>
+            ) : (
+              <AccountParagraphText customIconName='lock-open'>
+                Unlocked
+              </AccountParagraphText>
+            )}
+            {accountLockedUntil ? (
+              <View>
+                <AccountParagraphText customIconName='clock'>
+                  Will unlock on {accountLockedUntil}
+                </AccountParagraphText>
+                <AccountParagraphText
+                  customIconColor={AppConstants.WARNING_ICON_COLOR}
+                  customIconName='exclamation-circle'
+                >
+                  You cannot send or receive
+                </AccountParagraphText>
+              </View>
+            ) : null}
+            {receivingEAIFrom ? (
               <AccountParagraphText
-                customIconColor={AppConstants.WARNING_ICON_COLOR}
-                customIconName='exclamation-circle'
+                customIconColor='#8CC74F'
+                customIconName='arrow-alt-down'
               >
-                You cannot send or receive
+                Receiving incentive from {receivingEAIFrom}
               </AccountParagraphText>
-            </View>
-          ) : null}
-          {receivingEAIFrom ? (
-            <AccountParagraphText
-              customIconColor='#8CC74F'
-              customIconName='arrow-alt-down'
-            >
-              Receiving incentive from {receivingEAIFrom}
+            ) : null}
+            <AccountParagraphText customIconName='usd-circle'>
+              {spendableNdau} spendable
             </AccountParagraphText>
-          ) : null}
-          <AccountParagraphText customIconName='usd-circle'>
-            {spendableNdau} spendable
-          </AccountParagraphText>
-        </AccountDetailsPanel>
-        <AccountDetailsPanel>
-          <AccountDetailsLargerText>
-            {eaiValueForDisplay}% annualized incentive (EAI)
-          </AccountDetailsLargerText>
-          <AccountBorder />
-          <AccountConfirmationItem
-            title={'Weighted average age (WAA):'}
-            value={`${weightedAverageAgeInDays} days`}
-          />
-          <AccountConfirmationItem
-            title={'Current EAI based on WAA:'}
-            value={`${baseEAI}%`}
-          />
-          <AccountConfirmationItem
-            title={'Lock bonus EAI:'}
-            value={`${lockBonusEAI}%`}
-          />
-          {sendingEAITo ? (
+          </AccountDetailsPanel>
+          <AccountDetailsPanel>
+            <AccountDetailsLargerText>
+              {eaiValueForDisplay}% annualized incentive (EAI)
+            </AccountDetailsLargerText>
+            <AccountBorder />
             <AccountConfirmationItem
-              title={'EAI being sent to:'}
-              value={sendingEAITo}
+              title={'Weighted average age (WAA):'}
+              value={`${weightedAverageAgeInDays} days`}
             />
-          ) : null}
-        </AccountDetailsPanel>
-        <AccountDetailsPanel>
-          <AccountDetailsLargerText>Address</AccountDetailsLargerText>
-          <AccountBorder />
-          <AddressSharePanel
-            transparent
-            scroll
-            noPadding
-            address={this.state.account.address}
-          />
-        </AccountDetailsPanel>
+            <AccountConfirmationItem
+              title={'Current EAI based on WAA:'}
+              value={`${baseEAI}%`}
+            />
+            <AccountConfirmationItem
+              title={'Lock bonus EAI:'}
+              value={`${lockBonusEAI}%`}
+            />
+            {sendingEAITo ? (
+              <AccountConfirmationItem
+                title={'EAI being sent to:'}
+                value={sendingEAITo}
+              />
+            ) : null}
+          </AccountDetailsPanel>
+          <AccountDetailsPanel>
+            <AccountDetailsLargerText>Address</AccountDetailsLargerText>
+            <AccountBorder />
+            <AddressSharePanel
+              transparent
+              scroll
+              noPadding
+              address={this.state.account.address}
+            />
+          </AccountDetailsPanel>
+        </ScrollView>
       </AccountDetailsContainer>
     )
   }

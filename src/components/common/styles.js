@@ -57,20 +57,23 @@ export default StyleSheet.create({
     width: wp('91%'),
     height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    padding: 0
   },
   largeButtonText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
     fontWeight: '600',
-    letterSpacing: 0.43
+    letterSpacing: 0.43,
+    padding: 0
   },
   largeButton: {
     width: wp('92%'),
     height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    padding: 0
   },
   largeButtonMargin: {
     marginLeft: wp('4%'),
@@ -115,7 +118,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    maxHeight: hp('6.5%')
+    maxHeight: hp('7%'),
+    padding: 0
   },
   ndauTotalText: {
     color: '#8CC74F',
@@ -514,7 +518,7 @@ export default StyleSheet.create({
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
     width: wp('40%'),
-    height: hp('3%')
+    height: hp('4%')
   },
   orBorderText: {
     color: AppConstants.TEXT_COLOR,
@@ -531,14 +535,16 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderRadius: 4,
     borderWidth: 2,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    marginTop: wp('3%')
   },
   largeBorderButtonText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
     fontWeight: '600',
-    letterSpacing: 0.43
+    letterSpacing: 0.43,
+    padding: 0
   },
   orBorderPanel: {
     width: wp('92%'),

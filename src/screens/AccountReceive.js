@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Share } from 'react-native'
 import {
   AccountSendContainer,
-  AccountDetailPanel,
   AccountReceiveParagraphText,
-  AddressSharePanel
+  AddressSharePanel,
+  AccountReceivePanel
 } from '../components/account'
 import { QRCode } from '../components/common'
 import AccountStore from '../stores/AccountStore'
@@ -34,13 +33,13 @@ class AccountReceive extends Component {
         account={this.state.account}
         {...this.props}
       >
-        <AccountDetailPanel>
+        <AccountReceivePanel>
           <AccountReceiveParagraphText>
             To receive ndau in your account, present this QR code or ndau
             address to the sender.
           </AccountReceiveParagraphText>
           <QRCode value={this.state.account.address} />
-        </AccountDetailPanel>
+        </AccountReceivePanel>
         <AddressSharePanel address={this.state.account.address} />
       </AccountSendContainer>
     )

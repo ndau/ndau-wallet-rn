@@ -133,16 +133,14 @@ export function LargeButton (props) {
 
 export function LargeBorderButton (props) {
   return (
-    <View>
-      <Button
-        style={[styles.largeBorderButton, props.style]}
-        textStyle={[styles.largeButtonText, props.style]}
-        uppercase={false}
-        {...props}
-      >
-        {props.children}
-      </Button>
-    </View>
+    <Button
+      style={[styles.largeBorderButton, props.style]}
+      textStyle={[styles.largeButtonText, props.style]}
+      uppercase={false}
+      {...props}
+    >
+      {props.children}
+    </Button>
   )
 }
 
@@ -492,7 +490,7 @@ export function ParagraphText (props) {
 }
 
 export function QRCodeScanner (props) {
-  return <RNQRCodeScanner {...props} cameraStyle={styles.fullWidthAndHeight} />
+  return <RNQRCodeScanner {...props} />
 }
 
 export function QRCode (props) {
