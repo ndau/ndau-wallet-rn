@@ -8,6 +8,7 @@ import { Transaction } from '../transactions/Transaction'
 import LoggingService from '../services/LoggingService'
 import NodeAddressHelper from './NodeAddressHelper'
 import KeyPathHelper from './KeyPathHelper'
+import AppConfig from '../AppConfig'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -210,7 +211,11 @@ const accountNotLocked = account => {
 
 const accountNdauAmount = account => {
   return account && account.balance
-    ? DataFormatHelper.getNdauFromNapu(account.balance, undefined, true)
+    ? DataFormatHelper.getNdauFromNapu(
+      account.balance,
+      AppConfig.NDAU_SUMMARY_PRECISION,
+      true
+    )
     : 0.0
 }
 
@@ -254,7 +259,7 @@ const lockBonusEAI = weightedAverageAgeInDays => {
   return 0
 }
 
-const accountTotalNdauAmount = (accounts, localizedText = true) => {
+const accountTotalNdauAmount = (accounts, withCommas = true) => {
   let total = 0.0
 
   if (!accounts) return total
@@ -270,12 +275,16 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
     }
   })
 
-  return localizedText
-    ? DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
+  return withCommas
+    ? DataFormatHelper.getNdauFromNapu(
+      totalNapu,
+      AppConfig.NDAU_SUMMARY_PRECISION,
+      true
+    )
     : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
-const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
+const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
   if (!accounts) return totalNdau
 
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
@@ -293,8 +302,12 @@ const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
     }
   })
 
-  return localizedText
-    ? DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
+  return withCommas
+    ? DataFormatHelper.getNdauFromNapu(
+      totalNapu,
+      AppConfig.NDAU_SUMMARY_PRECISION,
+      true
+    )
     : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
@@ -302,7 +315,11 @@ const getTotalNdauForSend = (amount, addressData, transactionFee) => {
   const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
   const totalNapuForAccount = spendableNapu(addressData)
   const totalNapu = totalNapuForAccount - amountNapu - transactionFee
-  return DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
+  return DataFormatHelper.getNdauFromNapu(
+    totalNapu,
+    AppConfig.NDAU_SUMMARY_PRECISION,
+    true
+  )
 }
 
 const currentPrice = (marketPrice, totalNdau) => {
