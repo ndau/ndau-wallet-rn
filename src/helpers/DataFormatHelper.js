@@ -64,10 +64,13 @@ const getNextPathIndex = (wallet, path) => {
         key.path.substring(path.length + pathLengthAdder, key.path.length)
       )
 
+      // We check below if we are att the validationKey inded
+      // This is at 10000. If we hit that we want to just ignore that
+      // altogether
       if (
         !isNaN(nextPossibility) &&
         nextPossibility >= nextAddress &&
-        nextPossibility != 10000
+        nextPossibility !== AppConstants.VALIDATION_KEY
       ) {
         nextAddress = nextPossibility + 1
       }
@@ -83,7 +86,11 @@ const getNextPathIndex = (wallet, path) => {
  * @param {number} digits precision past decimal
  * @param {boolean} addCommas to your ndau
  */
-const getNdauFromNapu = (napu, digits = 3, addCommas = false) => {
+const getNdauFromNapu = (
+  napu,
+  digits = AppConfig.NDAU_SUMMARY_PRECISION,
+  addCommas = false
+) => {
   return ndaujs.formatNapuForDisplay(napu, digits, addCommas)
 }
 
@@ -121,7 +128,7 @@ const getObjectWithAllAccounts = user => {
  */
 const truncateString = (string, maxLength = 20) => {
   const realizedMaxLength = maxLength - 3
-  if (realizedMaxLength < 1) return '...'
+  if (realizedMaxLength < 5 || string.length + 3 < maxLength) return string
   return string.length >= maxLength
     ? string.slice(0, realizedMaxLength) + '...'
     : string

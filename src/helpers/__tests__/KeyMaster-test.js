@@ -441,7 +441,7 @@ test('_createAccount test when empty string called will use root key', async () 
   expect(newKey.callCount).toBe(countBeforeCall + 1)
 })
 
-test('createAccountFromIndex should add to wallets if passed', async () => {
+test('createAccountFromPath should add to wallets if passed', async () => {
   const user = {
     userId: 'temp-id',
     wallets: {
@@ -519,7 +519,7 @@ test('createAccountFromIndex should add to wallets if passed', async () => {
     }
   }
 
-  const wallet = await KeyMaster.createAccountFromIndex(
+  const wallet = await KeyMaster.createAccountFromPath(
     user.wallets['a7bff20a'],
     `/44'/20036'/100/20`
   )
