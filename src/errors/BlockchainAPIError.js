@@ -8,7 +8,10 @@ class BlockchainAPIError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, BlockchainAPIError)
     }
-    if (!this.message) {
+    if (
+      !this.message ||
+      this.message === `Cannot read property 'data' of undefined`
+    ) {
       this.message =
         'The blockchain is temporarily unavailable. Please try your transaction again in a moment.'
     }

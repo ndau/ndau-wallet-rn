@@ -24,6 +24,7 @@ import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
 import NdauStore from '../stores/NdauStore'
 import AccountHelper from '../helpers/AccountHelper'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -174,7 +175,9 @@ class WalletOverview extends Component {
           />
 
           <DrawerHeaderForOverview {...this.props}>
-            {this.state.wallet ? this.state.wallet.walletName : ''}
+            {this.state.wallet
+              ? DataFormatHelper.truncateString(this.state.wallet.walletName)
+              : ''}
           </DrawerHeaderForOverview>
           <NdauTotal>{totalNdau}</NdauTotal>
           <WalletOverviewHeaderActions>

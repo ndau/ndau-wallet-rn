@@ -58,37 +58,42 @@ class AccountLockConfirmation extends Component {
 
   _lock = async () => {
     this.setState({ spinner: true }, async () => {
-      Object.assign(LockTransaction.prototype, Transaction)
-      const lockTransaction = new LockTransaction(
-        this.state.wallet,
-        this.state.account,
-        `${this.state.lockInformation.lock}m`
-      )
-      await lockTransaction.createSignPrevalidateSubmit()
+      try {
+        Object.assign(LockTransaction.prototype, Transaction)
+        const lockTransaction = new LockTransaction(
+          this.state.wallet,
+          this.state.account,
+          `${this.state.lockInformation.lock}m`
+        )
+        await lockTransaction.createSignPrevalidateSubmit()
 
-      // Alright, we are locked...now send a Notify
-      // This was done in version 2.0 to simplify the lock
-      // process.
-      Object.assign(NotifyTransaction.prototype, Transaction)
-      const notifyTransaction = new NotifyTransaction(
-        this.state.wallet,
-        this.state.account
-      )
-      await notifyTransaction.createSignPrevalidateSubmit()
+        // Alright, we are locked...now send a Notify
+        // This was done in version 2.0 to simplify the lock
+        // process.
+        Object.assign(NotifyTransaction.prototype, Transaction)
+        const notifyTransaction = new NotifyTransaction(
+          this.state.wallet,
+          this.state.account
+        )
+        await notifyTransaction.createSignPrevalidateSubmit()
 
-      // Now make sure we send the EAI where it belongs
-      Object.assign(SetRewardsDestinationTransaction.prototype, Transaction)
-      const setRewardsDestinationTransaction = new SetRewardsDestinationTransaction(
-        this.state.wallet,
-        this.state.account,
-        this.state.accountAddressForEAI
-      )
-      await setRewardsDestinationTransaction.createSignPrevalidateSubmit()
+        // Now make sure we send the EAI where it belongs
+        Object.assign(SetRewardsDestinationTransaction.prototype, Transaction)
+        const setRewardsDestinationTransaction = new SetRewardsDestinationTransaction(
+          this.state.wallet,
+          this.state.account,
+          this.state.accountAddressForEAI
+        )
+        await setRewardsDestinationTransaction.createSignPrevalidateSubmit()
 
-      this.props.navigation.push('WalletOverview', {
-        wallet: this.state.wallet,
-        refresh: true
-      })
+        this.props.navigation.push('WalletOverview', {
+          wallet: this.state.wallet,
+          refresh: true
+        })
+      } catch (error) {
+        this.setState({ spinner: false })
+        throw error
+      }
       this.setState({ spinner: false })
     })
   }

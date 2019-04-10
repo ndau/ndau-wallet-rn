@@ -18,7 +18,7 @@ import LoggingService from '../services/LoggingService'
  *
  * @deprecated since version 1.8 - this should ONLY be used by the code
  * that is checking fot the older existence of keys
- * @returns {(string|Array)} of addresses
+ * @returns {Object} of address:path (ex. {'abcd123':"/44'/20036'/100/1"})
  * @param {string} recoveryBytes string of bytes
  * @param {number} startIndex what index in the derivation path to
  * start searching for addresses
@@ -43,12 +43,11 @@ const getRootAddresses = async (recoveryBytes, startIndex, endIndex) => {
         `/${i}`
       )
 
-      LoggingService.debug(`root derivedKey: ${derivedKey}`)
       const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
-      LoggingService.debug(`root address: ${address}`)
-
-      addresses.push(address)
+      if (address) {
+        addresses[address] = `/${i}`
+      }
     }
   } catch (error) {
     FlashNotification.showError(
@@ -65,6 +64,7 @@ const getRootAddresses = async (recoveryBytes, startIndex, endIndex) => {
  * path we use for the accountCreationKey. This is used in recovery to check
  * for the existence of an address on the blockchain.
  *
+ * @returns {Object} of address:path (ex. {'abcd123':"/44'/20036'/100/1"})
  * @param {string} recoveryBytes string of bytes
  * @param {number} startIndex what index in the derivation path to
  * start searching for addresses
@@ -75,7 +75,7 @@ const getBIP44Addresses = async (recoveryBytes, startIndex, endIndex) => {
   if (!recoveryBytes) {
     throw new Error('you MUST pass recoveryBytes')
   }
-  const addresses = []
+  const addresses = {}
 
   try {
     const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
@@ -88,12 +88,11 @@ const getBIP44Addresses = async (recoveryBytes, startIndex, endIndex) => {
         KeyPathHelper.accountCreationKeyPath() + `/${i}`
       )
 
-      LoggingService.debug(`BIP44 derivedKey: ${derivedKey}`)
-
       const address = await NativeModules.KeyaddrManager.ndauAddress(derivedKey)
 
-      LoggingService.debug(`BIP44 address: ${address}`)
-      addresses.push(address)
+      if (address) {
+        addresses[address] = KeyPathHelper.accountCreationKeyPath() + `/${i}`
+      }
     }
   } catch (error) {
     FlashNotification.showError(
@@ -177,7 +176,9 @@ const createFirstTimeUser = async (
       user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
-    LoggingService.debug(`User created is: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(
+      `User initially created is: ${JSON.stringify(user, null, 2)}`
+    )
     return user
   } catch (error) {
     FlashNotification.showError(error.message)
@@ -261,29 +262,6 @@ const createWallet = async (
   } catch (error) {
     FlashNotification.showError(error.message)
   }
-}
-
-const addAccountsToUser = async (
-  recoveryPhraseBytes,
-  user,
-  numberOfAccounts,
-  rootDerivedPath,
-  walletId,
-  wallet
-) => {
-  wallet = await createWallet(
-    recoveryPhraseBytes,
-    null,
-    walletId,
-    AppConstants.MAINNET_ADDRESS,
-    numberOfAccounts,
-    rootDerivedPath,
-    wallet
-  )
-
-  user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
-
-  return wallet
 }
 
 const getWalletFromUser = (user, walletId) => {
@@ -514,6 +492,38 @@ const _createAccount = async (
   wallet.accounts[address] = account
 }
 
+const createAccountFromPath = async (wallet, derivedPath, addressData) => {
+  if (!wallet || !derivedPath) {
+    throw new Error('You must pass in wallet and derivedPath')
+  }
+  const account = new Account()
+
+  const privateDerivedKey = await NativeModules.KeyaddrManager.deriveFrom(
+    wallet.keys[wallet.accountCreationKeyHash].privateKey,
+    KeyPathHelper.accountCreationKeyPath(),
+    derivedPath
+  )
+
+  const privateKeyHash = DataFormatHelper.create8CharHash(privateDerivedKey)
+  account.ownershipKey = privateKeyHash
+
+  const publicKey = await NativeModules.KeyaddrManager.toPublic(
+    privateDerivedKey
+  )
+
+  const newKey = _createKey(privateDerivedKey, publicKey, derivedPath)
+  wallet.keys[privateKeyHash] = newKey
+
+  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey)
+  account.address = address
+
+  if (addressData) {
+    account.addressData = addressData
+  }
+
+  wallet.accounts[address] = account
+}
+
 const _createAccounts = async (
   numberOfAccounts,
   accountCreationKey,
@@ -541,7 +551,6 @@ export default {
   createFirstTimeUser,
   createWallet,
   createNewAccount,
-  addAccountsToUser,
   getRootAddresses,
   getBIP44Addresses,
   addAccounts,
@@ -551,5 +560,6 @@ export default {
   getWalletFromUser,
   setWalletInUser,
   getValidationKeys,
-  addThisValidationKey
+  addThisValidationKey,
+  createAccountFromPath: createAccountFromPath
 }

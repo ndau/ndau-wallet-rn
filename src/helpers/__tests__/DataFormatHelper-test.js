@@ -666,3 +666,67 @@ test('if we can find a wallet already existent', async () => {
     DataFormatHelper.checkIfWalletAlreadyExists(undefined, 'stevierayvaughan')
   ).toBeFalsy()
 })
+
+test('make sure truncateString works as designed', async () => {
+  expect(
+    DataFormatHelper.truncateString(
+      'This is going to be a very crazy long name'
+    )
+  ).toBe('This is going to ...')
+  expect(DataFormatHelper.truncateString('This will not be as l', 21)).toBe(
+    'This will not be a...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as la', 22)).toBe(
+    'This will not be as...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as lar', 23)).toBe(
+    'This will not be as ...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as larg', 24)).toBe(
+    'This will not be as l...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as large', 25)).toBe(
+    'This will not be as la...'
+  )
+  expect(
+    DataFormatHelper.truncateString('This will not be as large,', 26)
+  ).toBe('This will not be as lar...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, ', 27)
+  ).toBe('This will not be as larg...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, y', 28)
+  ).toBe('This will not be as large...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, ye', 29)
+  ).toBe('This will not be as large,...')
+  expect(
+    DataFormatHelper.truncateString(
+      'This is going to be a very crazy long name',
+      25
+    )
+  ).toBe('This is going to be a ...')
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 29)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 28)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 30)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This will be small', 25)).toBe(
+    'This will be small'
+  )
+  expect(DataFormatHelper.truncateString('KrisP', 1)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 2)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 3)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 4)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 5)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 6)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 7)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 8)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 9)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('Kristofer', 8)).toBe('Krist...')
+  expect(DataFormatHelper.truncateString('Wallet 34')).toBe('Wallet 34')
+})
