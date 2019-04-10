@@ -270,7 +270,7 @@ const lockBonusEAI = weightedAverageAgeInDays => {
   return 0
 }
 
-const accountTotalNdauAmount = (accounts, localizedText = true) => {
+const accountTotalNdauAmount = (accounts, withCommas = true) => {
   let total = 0.0
 
   if (!accounts) return total
@@ -286,12 +286,12 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
     }
   })
 
-  return localizedText
+  return withCommas
     ? DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
     : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
-const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
+const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
   if (!accounts) return totalNdau
 
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
@@ -309,7 +309,7 @@ const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
     }
   })
 
-  return localizedText
+  return withCommas
     ? DataFormatHelper.getNdauFromNapu(totalNapu, undefined, true)
     : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
