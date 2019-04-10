@@ -190,7 +190,6 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 dependencies {
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-background-fetch')
-    implementation project(':realm')
     implementation project(':react-native-push-notification')
     implementation project(':react-native-webview')
     implementation project(':react-native-exit-app')
