@@ -114,7 +114,7 @@ const getObjectWithAllAccounts = user => {
  */
 const truncateString = (string, maxLength = 20) => {
   const realizedMaxLength = maxLength - 3
-  if (realizedMaxLength < 1) return '...'
+  if (realizedMaxLength < 5 || string.length + 3 < maxLength) return string
   return string.length >= maxLength
     ? string.slice(0, realizedMaxLength) + '...'
     : string
