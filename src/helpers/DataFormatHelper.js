@@ -86,7 +86,11 @@ const getNextPathIndex = (wallet, path) => {
  * @param {number} digits precision past decimal
  * @param {boolean} addCommas to your ndau
  */
-const getNdauFromNapu = (napu, digits = 3, addCommas = false) => {
+const getNdauFromNapu = (
+  napu,
+  digits = AppConfig.NDAU_SUMMARY_PRECISION,
+  addCommas = false
+) => {
   return ndaujs.formatNapuForDisplay(napu, digits, addCommas)
 }
 

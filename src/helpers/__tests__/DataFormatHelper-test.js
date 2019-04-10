@@ -1,6 +1,7 @@
 import DataFormatHelper from '../DataFormatHelper'
 import AppConstants from '../../AppConstants'
 import KeyPathHelper from '../KeyPathHelper'
+import AppConfig from '../../AppConfig'
 
 test('moveTempUserToWalletName must do the needful', async () => {
   const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_ID)
@@ -619,7 +620,7 @@ test('convert words from array', async () => {
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 1000 ndau', async () => {
   let ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 1000,
-    3,
+    AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
   expect(ndau).toEqual('1,000.000')
@@ -628,7 +629,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 1000
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 500,000 ndau', async () => {
   let ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 500000,
-    3,
+    AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
   expect(ndau).toEqual('500,000.000')
@@ -637,7 +638,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 500,
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,000,000 ndau', async () => {
   let ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 1000000,
-    3,
+    AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
   expect(ndau).toEqual('1,000,000.000')
