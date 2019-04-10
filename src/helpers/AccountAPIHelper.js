@@ -7,7 +7,7 @@ import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
 import LoggingService from '../services/LoggingService'
 import NodeAddressHelper from './NodeAddressHelper'
-import KeyMaster from './KeyMaster'
+import KeyPathHelper from './KeyPathHelper'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -29,15 +29,17 @@ const populateWalletWithAddressData = async wallet => {
   // create a map to create the nickname fields appropriately
   // when iterating the address data we can check it to see
   // if a claim transaction must be done
-  addressDataKeys.forEach(async (accountKey, index) => {
+  for (const accountKey of addressDataKeys) {
     // this is the addressData item that came from API
     const addressDataItem = addressData[accountKey]
     // this is the account that is already present
     const account = wallet.accounts[accountKey]
-    // If we have not added it to the account already, add it
-    addressDataItem.nickname = account.addressData.nickname
-    // same with walletId, not there in the account, add it
-    addressDataItem.walletId = account.addressData.walletId
+    if (account) {
+      // If we have not added it to the account already, add it
+      addressDataItem.nickname = account.addressData.nickname
+      // same with walletId, not there in the account, add it
+      addressDataItem.walletId = account.addressData.walletId
+    }
 
     addressDataItem.eaiValueForDisplay = eaiRateMap.get(accountKey)
     addressNicknameMap.set(accountKey, addressDataItem.nickname)
@@ -65,11 +67,12 @@ const populateWalletWithAddressData = async wallet => {
         break
       }
     }
-  })
+  }
 
   // now iterate using the map to populate the rewardsTargetNickname
   // and incomingRewardsFromNickname
-  walletAccountKeys.forEach((walletAccountKey, index) => {
+  let count = 1
+  for (const walletAccountKey of walletAccountKeys) {
     const account = wallet.accounts[walletAccountKey]
     if (account.addressData.rewardsTarget) {
       account.addressData.rewardsTargetNickname = addressNicknameMap.get(
@@ -87,13 +90,15 @@ const populateWalletWithAddressData = async wallet => {
     // If we have a new account this will not be set yet, this will not every be reset
     // notice above if we find it in the account we use it.
     if (!account.addressData.nickname) {
-      account.addressData.nickname = `Account ${index + 1}`
+      account.addressData.nickname = `Account ${count}`
     }
     // Same explanation as nickname for walletId
     if (!account.addressData.walletId) {
       account.addressData.walletId = wallet.walletId
     }
-  })
+
+    count++
+  }
 }
 
 /**
@@ -145,32 +150,11 @@ const addPrivateValidationKeyIfNotPresent = async (
   account,
   addressData
 ) => {
-  if (
-    addressData.validationKeys &&
-    account.validationKeys &&
-    addressData.validationKeys.length !== account.validationKeys.length
-  ) {
-    LoggingService.debug(
-      `Attempting to find the private key for the public validation key we have...`
-    )
-    for (const validationKey of addressData.validationKeys) {
-      const validationKeys = await KeyMaster.getValidationKeys(wallet, account)
-      const validationPublicKeys = Object.keys(validationKeys)
-      for (const validationPublicKey of validationPublicKeys) {
-        if (validationKey === validationPublicKey) {
-          LoggingService.debug(
-            'Found a match, adding validation keys to the wallet'
-          )
-          KeyMaster.addThisValidationKey(
-            account,
-            wallet,
-            validationKeys[validationPublicKey],
-            validationPublicKey
-          )
-        }
-      }
-    }
-  }
+  await KeyPathHelper.recoveryValidationKey(
+    wallet,
+    account,
+    addressData.validationKeys
+  )
 }
 
 const getEaiValueForDisplay = account => {
