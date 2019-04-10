@@ -161,7 +161,9 @@ class Dashboard extends Component {
                 return (
                   <DashboardPanel
                     key={index}
-                    walletName={wallet.walletName}
+                    walletName={DataFormatHelper.truncateString(
+                      wallet.walletName
+                    )}
                     onPress={() => this._showWalletOverview(wallet)}
                   />
                 )
