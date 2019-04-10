@@ -1,6 +1,7 @@
 import DataFormatHelper from '../DataFormatHelper'
 import AppConstants from '../../AppConstants'
 import KeyPathHelper from '../KeyPathHelper'
+import AppConfig from '../../AppConfig'
 
 test('moveTempUserToWalletName must do the needful', async () => {
   const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_ID)
@@ -619,7 +620,7 @@ test('convert words from array', async () => {
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 1000 ndau', async () => {
   let ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 1000,
-    3,
+    AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
   expect(ndau).toEqual('1,000.000')
@@ -628,7 +629,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 1000
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 500,000 ndau', async () => {
   let ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 500000,
-    3,
+    AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
   expect(ndau).toEqual('500,000.000')
@@ -637,7 +638,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 500,
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,000,000 ndau', async () => {
   let ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 1000000,
-    3,
+    AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
   expect(ndau).toEqual('1,000,000.000')
@@ -738,13 +739,27 @@ test('make sure truncateString works as designed', async () => {
       25
     )
   ).toBe('This is going to be a ...')
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 29)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 28)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 30)).toBe(
+    'This is going to be fun!!'
+  )
   expect(DataFormatHelper.truncateString('This will be small', 25)).toBe(
     'This will be small'
   )
-  expect(DataFormatHelper.truncateString('KrisP', 1)).toBe('...')
-  expect(DataFormatHelper.truncateString('KrisP', 2)).toBe('...')
-  expect(DataFormatHelper.truncateString('KrisP', 3)).toBe('...')
-  expect(DataFormatHelper.truncateString('KrisP', 4)).toBe('K...')
-  expect(DataFormatHelper.truncateString('KrisP', 5)).toBe('Kr...')
+  expect(DataFormatHelper.truncateString('KrisP', 1)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 2)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 3)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 4)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 5)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 6)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 7)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 8)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 9)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('Kristofer', 8)).toBe('Krist...')
   expect(DataFormatHelper.truncateString('Wallet 34')).toBe('Wallet 34')
 })
