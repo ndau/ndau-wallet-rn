@@ -492,7 +492,7 @@ const _createAccount = async (
   wallet.accounts[address] = account
 }
 
-const createAccountFromIndex = async (wallet, derivedPath, addressData) => {
+const createAccountFromPath = async (wallet, derivedPath, addressData) => {
   if (!wallet || !derivedPath) {
     throw new Error('You must pass in wallet and derivedPath')
   }
@@ -561,5 +561,5 @@ export default {
   setWalletInUser,
   getValidationKeys,
   addThisValidationKey,
-  createAccountFromIndex
+  createAccountFromPath: createAccountFromPath
 }
