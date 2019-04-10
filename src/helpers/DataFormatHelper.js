@@ -64,10 +64,13 @@ const getNextPathIndex = (wallet, path) => {
         key.path.substring(path.length + pathLengthAdder, key.path.length)
       )
 
+      // We check below if we are att the validationKey inded
+      // This is at 10000. If we hit that we want to just ignore that
+      // altogether
       if (
         !isNaN(nextPossibility) &&
         nextPossibility >= nextAddress &&
-        nextPossibility != 10000
+        nextPossibility !== AppConstants.VALIDATION_KEY
       ) {
         nextAddress = nextPossibility + 1
       }
