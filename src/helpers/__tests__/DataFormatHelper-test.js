@@ -738,13 +738,27 @@ test('make sure truncateString works as designed', async () => {
       25
     )
   ).toBe('This is going to be a ...')
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 29)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 28)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 30)).toBe(
+    'This is going to be fun!!'
+  )
   expect(DataFormatHelper.truncateString('This will be small', 25)).toBe(
     'This will be small'
   )
-  expect(DataFormatHelper.truncateString('KrisP', 1)).toBe('...')
-  expect(DataFormatHelper.truncateString('KrisP', 2)).toBe('...')
-  expect(DataFormatHelper.truncateString('KrisP', 3)).toBe('...')
-  expect(DataFormatHelper.truncateString('KrisP', 4)).toBe('K...')
-  expect(DataFormatHelper.truncateString('KrisP', 5)).toBe('Kr...')
+  expect(DataFormatHelper.truncateString('KrisP', 1)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 2)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 3)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 4)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 5)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 6)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 7)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 8)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 9)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('Kristofer', 8)).toBe('Krist...')
   expect(DataFormatHelper.truncateString('Wallet 34')).toBe('Wallet 34')
 })

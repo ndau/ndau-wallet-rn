@@ -43,7 +43,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
   )
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     for (const accountPath in bip44Accounts) {
-      await KeyMaster.createAccountFromIndex(
+      await KeyMaster.createAccountFromPath(
         wallet,
         accountPath,
         bip44Accounts[accountPath]
@@ -64,7 +64,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
   )
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     for (const accountPath in rootAccounts) {
-      await KeyMaster.createAccountFromIndex(
+      await KeyMaster.createAccountFromPath(
         wallet,
         accountPath,
         rootAccounts[accountPath]
