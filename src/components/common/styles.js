@@ -203,7 +203,14 @@ export default StyleSheet.create({
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
-    marginRight: wp('3%')
+    marginRight: wp('3%'),
+    position: 'relative',
+    width: 22,
+    height: 22,
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
   },
   radioButton: {
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
@@ -235,7 +242,14 @@ export default StyleSheet.create({
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
-    marginLeft: wp('4%')
+    marginLeft: wp('4%'),
+    position: 'relative',
+    width: 22,
+    height: 22,
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
   },
   legalText: {
     color: AppConstants.TEXT_COLOR,

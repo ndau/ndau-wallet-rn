@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Share } from 'react-native'
+import { View, TouchableOpacity, Share, Text } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -21,7 +21,7 @@ import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
 import ndaujs from 'ndaujs'
 
-export function AccountPanel (props) {
+export function AccountPanel(props) {
   return (
     <View style={styles.accountMainPanel}>
       <LinearGradient
@@ -68,14 +68,14 @@ export function AccountPanel (props) {
                       light
                     />
                   ) : (
-                    <FontAwesome5Pro
-                      name='clock'
-                      size={18}
-                      color='#CC8727'
-                      style={styles.accountNicknameIcon}
-                      light
-                    />
-                  )
+                      <FontAwesome5Pro
+                        name='clock'
+                        size={18}
+                        color='#CC8727'
+                        style={styles.accountNicknameIcon}
+                        light
+                      />
+                    )
                 ) : null}
               </View>
               <View style={styles.ndauTotalContainer}>
@@ -109,7 +109,7 @@ export function AccountPanel (props) {
                   size={24}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   style={styles.accountAngle}
-                  solid
+                  light
                 />
               </TouchableOpacity>
             </View>
@@ -120,13 +120,13 @@ export function AccountPanel (props) {
   )
 }
 
-export function WalletOverviewHeaderActions (props) {
+export function WalletOverviewHeaderActions(props) {
   return (
     <View style={styles.walletOverviewHeaderActions}>{props.children}</View>
   )
 }
 
-export function AccountDetailsContainer (props) {
+export function AccountDetailsContainer(props) {
   goBack = () => {
     props.navigation.goBack()
   }
@@ -145,7 +145,7 @@ export function AccountDetailsContainer (props) {
   )
 }
 
-export function AccountLockContainer (props) {
+export function AccountLockContainer(props) {
   close = () => {
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
@@ -173,7 +173,7 @@ export function AccountLockContainer (props) {
   )
 }
 
-export function AccountUnlockContainer (props) {
+export function AccountUnlockContainer(props) {
   close = () => {
     props.navigation.push('AccountDetails', { account: props.account })
   }
@@ -197,7 +197,7 @@ export function AccountUnlockContainer (props) {
   )
 }
 
-export function AccountSendContainer (props) {
+export function AccountSendContainer(props) {
   close = () => {
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
@@ -221,7 +221,7 @@ export function AccountSendContainer (props) {
   )
 }
 
-export function AccountHistoryContainer (props) {
+export function AccountHistoryContainer(props) {
   goBack = () => {
     props.navigation.goBack()
   }
@@ -244,27 +244,45 @@ export function AccountHistoryContainer (props) {
   )
 }
 
-export function AccountButton (props) {
+/**
+ * This is a homegrown button as opposed to using nachosui. The reason
+ * here is that they way nachosui inserts Icon objects does not allow
+ * customization. You can change the fontset but the button doesn't call
+ * the Icon correctly to pass in the name of the icon. It uses a hardcoded
+ * map of name to unicode characters. These unicode characters do not line
+ * up to the FontAwesomePro5 set.
+ *
+ * @param {Object} props
+ */
+export function AccountButton(props) {
   return (
-    <Button
-      style={styles.accountButton}
-      textStyle={styles.accountButtonText}
-      uppercase={false}
-      {...props}
+    <View
+      style={[styles.accountButton, props.disabled ? { opacity: 0.3 } : {}]}
     >
-      {props.children}{' '}
-      <FontAwesome5Pro
-        name={props.customIconName}
-        size={18}
-        color={AppConstants.ICON_BUTTON_COLOR}
-        style={styles.accountAngle}
-        light
-      />
-    </Button>
+      <TouchableOpacity
+        disabled={props.disabled}
+        activeOpacity={0.8}
+        accessibilityTraits='button'
+        accessibilityComponentType='button'
+        {...props}
+      >
+        <View style={styles.accountButtonInnerPanel}>
+          <Text style={styles.accountButtonText}>
+            {props.children}{' '}
+            <FontAwesome5Pro
+              name={props.customIconName}
+              size={18}
+              color={AppConstants.ICON_BUTTON_COLOR}
+              light
+            />
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   )
 }
 
-export function LargeAccountButton (props) {
+export function LargeAccountButton(props) {
   return (
     <Button
       style={styles.largeAccountButton}
@@ -284,7 +302,7 @@ export function LargeAccountButton (props) {
   )
 }
 
-export function AccountTotalPanel (props) {
+export function AccountTotalPanel(props) {
   return (
     <View style={styles.accountTotalPanel}>
       <View style={styles.ndauTotalContainerMedium}>
@@ -311,7 +329,7 @@ export function AccountTotalPanel (props) {
   )
 }
 
-export function AccountDetailsButtonPanel (props) {
+export function AccountDetailsButtonPanel(props) {
   return (
     <View style={styles.accountDetailsButtonPanel}>
       <View>
@@ -342,7 +360,7 @@ export function AccountDetailsButtonPanel (props) {
   )
 }
 
-export function AccountLockDetailsPanel (props) {
+export function AccountLockDetailsPanel(props) {
   return (
     <View style={styles.accountLockPanel}>
       <View>{props.children}</View>
@@ -350,11 +368,11 @@ export function AccountLockDetailsPanel (props) {
   )
 }
 
-export function AccountReceiveParagraphText (props) {
+export function AccountReceiveParagraphText(props) {
   return <P style={styles.accountReceiveParagraphText}>{props.children}</P>
 }
 
-export function AccountParagraphText (props) {
+export function AccountParagraphText(props) {
   return (
     <View style={styles.accountDetailsItemPanel}>
       {props.customIconName ? (
@@ -364,7 +382,7 @@ export function AccountParagraphText (props) {
             size={18}
             color={props.customIconColor || AppConstants.ICON_BUTTON_COLOR}
             style={styles.accountDetailsIcons}
-            solid
+            light
           />
         </View>
       ) : null}
@@ -375,11 +393,11 @@ export function AccountParagraphText (props) {
   )
 }
 
-export function AccountHeaderText (props) {
+export function AccountHeaderText(props) {
   return <H3 style={styles.accountDetailsLargerText}>{props.children}</H3>
 }
 
-export function AccountDetailsPanel (props) {
+export function AccountDetailsPanel(props) {
   let firstPanel = {}
   if (props.firstPanel) {
     firstPanel = styles.firstAccountDetailsPanel
@@ -391,7 +409,7 @@ export function AccountDetailsPanel (props) {
   )
 }
 
-export function AccountDetailsBar (props) {
+export function AccountDetailsBar(props) {
   return (
     <View style={styles.accountDetailsBarContainer}>
       <View style={styles.backArrow}>
@@ -416,7 +434,7 @@ export function AccountDetailsBar (props) {
   )
 }
 
-export function AccountClosingBar (props) {
+export function AccountClosingBar(props) {
   return (
     <View style={styles.accountClosingBarContainer}>
       {props.backBar ? (
@@ -431,20 +449,20 @@ export function AccountClosingBar (props) {
           </TouchableOpacity>
         </View>
       ) : (
-        <View style={styles.backArrow} />
-      )}
+          <View style={styles.backArrow} />
+        )}
 
       <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
       {props.closeBar ? (
         <CloseForBar style={styles.closeIcon} {...props} />
       ) : (
-        <View />
-      )}
+          <View />
+        )}
     </View>
   )
 }
 
-export function AccountLockConfirmBottomPanel (props) {
+export function AccountLockConfirmBottomPanel(props) {
   return (
     <View style={styles.accountLockButtonContainer}>
       <Label noMargin>Please enter the word 'Lock' to confirm</Label>
@@ -467,7 +485,7 @@ export function AccountLockConfirmBottomPanel (props) {
   )
 }
 
-export function AccountLockButton (props) {
+export function AccountLockButton(props) {
   return (
     <View style={styles.accountLockButtonContainer}>
       <View>
@@ -485,7 +503,7 @@ export function AccountLockButton (props) {
   )
 }
 
-export function AccountLockNoteText (props) {
+export function AccountLockNoteText(props) {
   return (
     <View>
       <H4 style={[styles.lockSmallerText, styles.accountSideMargins]}>
@@ -495,7 +513,7 @@ export function AccountLockNoteText (props) {
   )
 }
 
-export function AccountLockLargerText (props) {
+export function AccountLockLargerText(props) {
   return (
     <View style={styles.accountLockDetailsTextPanel}>
       <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
@@ -503,7 +521,7 @@ export function AccountLockLargerText (props) {
   )
 }
 
-export function AccountDetailsLargerText (props) {
+export function AccountDetailsLargerText(props) {
   return (
     <View style={[styles.accountDetailsTextPanelTopMargin]}>
       <H4 style={styles.accountDetailsLargerText}>{props.children}</H4>
@@ -511,7 +529,7 @@ export function AccountDetailsLargerText (props) {
   )
 }
 
-export function AccountBorder (props) {
+export function AccountBorder(props) {
   let sideMargins = {}
   if (props.sideMargins) {
     sideMargins = styles.accountSideMargins
@@ -519,7 +537,7 @@ export function AccountBorder (props) {
   return <View style={[styles.accountDetailsPanelBorder, sideMargins]} />
 }
 
-export function AccountIconText (props) {
+export function AccountIconText(props) {
   return (
     <View style={styles.lockAccountTextPanelWithSmallText}>
       <View style={styles.lockAccountCheckmark}>
@@ -539,7 +557,7 @@ export function AccountIconText (props) {
   )
 }
 
-export function AccountLockSmallerText (props) {
+export function AccountLockSmallerText(props) {
   return (
     <View>
       <H4 style={styles.lockSmallerTextBold}>{props.children}</H4>
@@ -547,19 +565,19 @@ export function AccountLockSmallerText (props) {
   )
 }
 
-export function AccountHistoryPanel (props) {
+export function AccountHistoryPanel(props) {
   return <View style={styles.accountHistoryPanel}>{props.children}</View>
 }
 
-export function AccountDetailPanel (props) {
+export function AccountDetailPanel(props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
 }
 
-export function AccountScanPanel (props) {
+export function AccountScanPanel(props) {
   return <View style={styles.accountScan}>{props.children}</View>
 }
 
-export function AccountHistoryPanels (props) {
+export function AccountHistoryPanels(props) {
   if (!AccountHistoryHelper.hasItems(props.accountHistory)) {
     return null
   }
@@ -628,7 +646,7 @@ export function AccountHistoryPanels (props) {
   })
 }
 
-export function DashboardTotalPanel (props) {
+export function DashboardTotalPanel(props) {
   return (
     <CollapsibleBar
       {...props}
@@ -657,7 +675,7 @@ export function DashboardTotalPanel (props) {
   )
 }
 
-export function AccountConfirmationItem (props) {
+export function AccountConfirmationItem(props) {
   return (
     <View style={styles.accountSendTextPanelWithSmallText}>
       <View>
@@ -686,7 +704,7 @@ export function AccountConfirmationItem (props) {
   )
 }
 
-export function AccountSendErrorText (props) {
+export function AccountSendErrorText(props) {
   return (
     <View style={styles.accountSideMargins}>
       <View>
@@ -703,7 +721,7 @@ export function AccountSendErrorText (props) {
   )
 }
 
-export function AccountLockOption (props) {
+export function AccountLockOption(props) {
   let selectedStyle = {}
   if (props.selected) {
     selectedStyle = styles.accountLockOptionSelected
@@ -717,12 +735,12 @@ export function AccountLockOption (props) {
         <P style={styles.accountLockOptionText}>=</P>
         <P style={styles.accountLockOptionTextWithBorder}>{`${
           props.total
-        }%`}</P>
+          }%`}</P>
         <P style={styles.accountLockOptionText} />
         <P style={styles.accountLockOptionText} />
         <P style={styles.accountLockOptionHeaderText}>{`${
           props.lock
-        } months`}</P>
+          } months`}</P>
         {props.selected ? (
           <FontAwesome5Pro
             style={styles.accountLockCheckbox}
@@ -737,7 +755,7 @@ export function AccountLockOption (props) {
   )
 }
 
-export function AccountLockOptionHeader (props) {
+export function AccountLockOptionHeader(props) {
   return (
     <View style={styles.accountLockOptionHeader}>
       <P style={styles.accountLockOptionHeaderText}>Base</P>
@@ -749,18 +767,18 @@ export function AccountLockOptionHeader (props) {
   )
 }
 
-export function AddressSharePanel (props) {
-  const address = ndaujs.truncateAddress(props.address)
+export function AddressSharePanel(props) {
+  const address = props.address
 
   share = address => {
     Share.share(
       {
         message: address,
-        title: 'Share public ndau address',
+        title: 'ndau address',
         url: '/'
       },
       {
-        dialogTitle: 'Share public ndau address'
+        dialogTitle: 'ndau address'
       }
     )
   }
