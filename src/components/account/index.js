@@ -776,17 +776,17 @@ export function AccountLockOptionHeader (props) {
 }
 
 export function AddressSharePanel (props) {
-  const address = ndaujs.truncateAddress(props.address)
+  const address = props.address
 
   share = address => {
     Share.share(
       {
         message: address,
-        title: 'Share public ndau address',
+        title: 'ndau address',
         url: '/'
       },
       {
-        dialogTitle: 'Share public ndau address'
+        dialogTitle: 'ndau address'
       }
     )
   }
