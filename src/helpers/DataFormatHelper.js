@@ -4,6 +4,7 @@ import sha256 from 'crypto-js/sha256'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountAPIHelper from './AccountAPIHelper'
 import ndaujs from 'ndaujs'
+import KeyPathHelper from './KeyPathHelper'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_ID
@@ -57,13 +58,20 @@ const getNextPathIndex = (wallet, path) => {
 
   Object.keys(keys).forEach(theKey => {
     const key = keys[theKey]
-    if (key.path && key.path.indexOf(path) !== -1) {
+    if (key.path && key.path.includes(path)) {
       let pathLengthAdder = path === '/' ? 0 : 1
       let nextPossibility = parseInt(
         key.path.substring(path.length + pathLengthAdder, key.path.length)
       )
 
-      if (!isNaN(nextPossibility) && nextPossibility >= nextAddress) {
+      // We check below if we are att the validationKey inded
+      // This is at 10000. If we hit that we want to just ignore that
+      // altogether
+      if (
+        !isNaN(nextPossibility) &&
+        nextPossibility >= nextAddress &&
+        nextPossibility !== AppConstants.VALIDATION_KEY
+      ) {
         nextAddress = nextPossibility + 1
       }
     }
@@ -75,9 +83,15 @@ const getNextPathIndex = (wallet, path) => {
  * Convert napu to ndau
  *
  * @param {number} napu
+ * @param {number} digits precision past decimal
+ * @param {boolean} addCommas to your ndau
  */
-const getNdauFromNapu = napu => {
-  return ndaujs.formatNapuForDisplay(napu)
+const getNdauFromNapu = (
+  napu,
+  digits = AppConfig.NDAU_SUMMARY_PRECISION,
+  addCommas = false
+) => {
+  return ndaujs.formatNapuForDisplay(napu, digits, addCommas)
 }
 
 /**
@@ -184,31 +198,6 @@ const convertRecoveryArrayToString = recoveryPhrase => {
 }
 
 /**
- * Add commas into the number given. The number can be a string. If it is a string
- * then this method cannot fix the precision.
- *
- * why not use .toLocaleString you ask...here is why:
- *
- * https://github.com/facebook/react-native/issues/15717
- *
- * @param {number | float} number
- * @param {number} precision=AppConfig.NDAU_SUMMARY_PRECISION
- *
- * @returns {string} the return value is a string version
- * of the number
- */
-const addCommas = (number, precision = AppConfig.NDAU_SUMMARY_PRECISION) => {
-  let numberToAddCommas = number
-  try {
-    numberToAddCommas = number.toFixed(precision)
-  } catch (error) {
-    // we swallow this up, if we can't do this then we assume you have passed in a string
-  }
-
-  return numberToAddCommas.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
-
-/**
  * Check if the walletId passed in is an actual wallet within
  * the User already.
  *
@@ -227,6 +216,30 @@ const checkIfWalletAlreadyExists = (user, walletId) => {
   return false
 }
 
+/**
+ * Add commas to the dollar amount given. The number can be a string.
+ * If it is a string then this method cannot fix the precision.
+ *
+ * why not use .toLocaleString you ask...here is why:
+ *
+ * https://github.com/facebook/react-native/issues/15717
+ *
+ * @param {number | float} number
+ *
+ * @returns {string} the return value is a string version
+ * of the number
+ */
+const formatUSDollarValue = number => {
+  let numberToAddCommas = number
+  try {
+    numberToAddCommas = number.toFixed(2)
+  } catch (error) {
+    // we swallow this up, if we can't do this then we assume you have passed in a string
+  }
+
+  return numberToAddCommas.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
@@ -234,10 +247,10 @@ export default {
   getObjectWithAllAccounts,
   getAccountEaiRateRequest,
   convertRecoveryArrayToString,
-  addCommas,
   checkIfWalletAlreadyExists,
   create8CharHash,
   getNapuFromNdau,
   getAccountEaiRateRequestForLock,
-  truncateString
+  truncateString,
+  formatUSDollarValue
 }

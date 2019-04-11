@@ -155,12 +155,15 @@ class WalletOverview extends Component {
       const totalNdau = wallet
         ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
         : 0
+      const totalNdauNumber = wallet
+        ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
+        : 0
       const totalSpendable = wallet
-        ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdau)
+        ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
         : 0
       const currentPrice = AccountAPIHelper.currentPrice(
         this.state.marketPrice,
-        totalNdau
+        totalNdauNumber
       )
       this.accountsCanRxEAI = {}
 

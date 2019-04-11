@@ -27,13 +27,11 @@ export default class App extends React.Component {
       <View style={{ flex: 1 }}>
         <ThemeProvider
           theme={{
-            Radio: {
+            Icon: {
               style: {
-                base: {
-                  borderColor: AppConstants.SQUARE_BUTTON_COLOR
-                },
-                check: {
-                  backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
+                icon: {
+                  // fontFamily: 'Font Awesome 5 Pro'
+                  // fontFamily: 'Ionicons'
                 }
               }
             }

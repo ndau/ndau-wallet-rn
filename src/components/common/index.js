@@ -254,17 +254,44 @@ export function Label (props) {
   )
 }
 
+/**
+ * This is a homegrown button as opposed to using nachosui. The reason
+ * here is that they way nachosui inserts Icon objects does not allow
+ * customization. You can change the fontset but the button doesn't call
+ * the Icon correctly to pass in the name of the icon. It uses a hardcoded
+ * map of name to unicode characters. These unicode characters do not line
+ * up to the FontAwesomePro5 set.
+ *
+ * @param {Object} props
+ */
 export function CheckBox (props) {
+  const {
+    activeOpacity,
+    disabled,
+    checkComponent,
+    checked,
+    onValueChange
+  } = props
+
+  const isChecked = checked || false
   return (
-    <View style={{ flexDirection: 'row' }}>
-      <Checkbox
+    <View style={[{ flexDirection: 'row' }, disabled ? disabledStyle : {}]}>
+      <TouchableOpacity
+        activeOpacity={0.8}
         style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
-        iconColor={AppConstants.TEXT_COLOR}
-        iconName='check'
+        onPress={() => onValueChange(!checked)}
         {...props}
       >
-        {props.children}
-      </Checkbox>
+        {isChecked && !checkComponent && (
+          <FontAwesome5Pro
+            color={AppConstants.TEXT_COLOR}
+            name='check'
+            size={18}
+            light
+          />
+        )}
+        {isChecked && checkComponent}
+      </TouchableOpacity>
       <P style={[styles.checkboxLabel]} {...props}>
         {props.label}
       </P>

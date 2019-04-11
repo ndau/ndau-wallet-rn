@@ -10,6 +10,8 @@ MockHelper.mockAccountsAPI()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
+MockHelper.mockClaimAccountTx()
+MockHelper.mockDelegateTx()
 
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),
@@ -18,7 +20,8 @@ NativeModules.KeyaddrManager = {
   hardenedChild: jest.fn(),
   ndauAddress: jest.fn(),
   deriveFrom: jest.fn(),
-  toPublic: jest.fn()
+  toPublic: jest.fn(),
+  sign: jest.fn()
 }
 
 const deriveFromKey =
@@ -217,10 +220,18 @@ test('if we can get a null if not present', async () => {
 test('make sure we can populate validation keys if not present', async () => {
   const keyMaster = jest.spyOn(KeyMaster, 'getValidationKeys')
   keyMaster.mockReturnValue({
-    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi:
-      'pvtblah',
-    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry123:
-      'pvtnope'
+    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi: {
+      publicKey:
+        'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi',
+      privateKey: 'pvtblah',
+      path: `/44'/20036/blah`
+    },
+    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry123: {
+      publicKey:
+        'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi',
+      privateKey: 'pvtnope',
+      path: `/44'/20036/nope`
+    }
   })
   MockHelper.mockAccountsAPI(data.test7MP4FVAddressData)
   MockHelper.mockAccountAPI()
@@ -232,7 +243,7 @@ test('make sure we can populate validation keys if not present', async () => {
     wallet.accounts['ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4']
       .validationKeys
   expect(wallet).toBeDefined()
-  expect(validationKeys.length).toBe(1)
+  expect(validationKeys.length).toBe(2)
   expect(wallet.keys[validationKeys[0]].publicKey).toBe(
     'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi'
   )

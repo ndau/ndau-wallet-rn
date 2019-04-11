@@ -17,7 +17,7 @@ class MultiSafe {
   // a MultiSafe is created with the constructor but may not be used until it
   // is initialized with create(), which is an async function because of
   // AsyncStorage.
-  constructor () {
+  constructor() {
     this.storageKey = ''
   }
 
@@ -138,7 +138,7 @@ class MultiSafe {
         return decrypted
       }
     }
-    throw Error('no matching combo found')
+    throw Error('Bad recovery phrase. Please check your phrase and try again')
   }
 
   // create(storagekey, combo) is the way to initialize a MultiSafe. It takes as
@@ -308,7 +308,7 @@ class MultiSafe {
           return true
         }
       }
-    } catch (error) {}
+    } catch (error) { }
 
     return false
   }
