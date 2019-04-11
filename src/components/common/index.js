@@ -15,8 +15,11 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
-import RNQRCodeScanner from 'react-native-qrcode-scanner'
-import RNQRCode from 'react-native-qrcode'
+import { RNCamera } from 'react-native-camera'
+import BarcodeMask from 'react-native-barcode-mask'
+import { QRCode } from 'react-native-custom-qr-codes'
+import Spinner from 'react-native-loading-spinner-overlay'
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -489,19 +492,47 @@ export function ParagraphText (props) {
   )
 }
 
-export function QRCodeScanner (props) {
-  return <RNQRCodeScanner {...props} />
+export function NdauQRCodeScanner (props) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#000'
+      }}
+    >
+      <RNCamera
+        style={{
+          flex: 1
+        }}
+        {...props}
+      >
+        <BarcodeMask width={250} height={250} showAnimatedLine={false} />
+        {props.children}
+      </RNCamera>
+    </View>
+  )
 }
 
-export function QRCode (props) {
+export function NdauQRCode (props) {
   return (
     <View style={styles.qrCode}>
-      <RNQRCode
-        value={props.value}
-        size={wp('65%')}
-        color='black'
-        backgroundColor='transparent'
-      />
+      <QRCode content={props.value} ecl='Q' />
     </View>
+  )
+}
+
+export function LoadingSpinner (props) {
+  return (
+    <Spinner
+      visible={props.spinner}
+      textContent={'Loading...'}
+      textStyle={{
+        color: '#ffffff',
+        fontSize: 20,
+        fontFamily: 'TitilliumWeb-Light'
+      }}
+      animation='fade'
+      overlayColor='rgba(0, 0, 0, 0.7)'
+    />
   )
 }

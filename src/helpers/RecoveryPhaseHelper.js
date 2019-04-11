@@ -126,13 +126,9 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
       )
     }
 
-    // check the blockchain to see if any of these exist
-    // swallow the error so we do not exit and not assign the account data
-    try {
-      accountDataFromBlockchain = await AccountAPI.getAddressData(
-        Object.keys(addresses)
-      )
-    } catch (error) {}
+    accountDataFromBlockchain = await AccountAPI.getAddressData(
+      Object.keys(addresses)
+    )
 
     const addressKeys = Object.keys(addresses)
     for (const address in accountDataFromBlockchain) {

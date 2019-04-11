@@ -53,6 +53,7 @@
 		9E255BD622152295004B2CFC /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BBF22152295004B2CFC /* TitilliumWeb-Light.ttf */; };
 		9E6DA47120F053B400B347DE /* Keyaddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6DA47020F053B400B347DE /* Keyaddr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9E6DA47420F2E15800B347DE /* KeyaddrManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DA47320F2E15800B347DE /* KeyaddrManager.m */; };
+		9E9F8C84225ED2E700250D25 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9F8C7F225ED2BE00250D25 /* libRNSVG.a */; };
 		9EA4640A224332B300839F9F /* MaterialIcons-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EA46408224332B300839F9F /* MaterialIcons-Regular.ttf */; };
 		9EAA412B2211F5E900529729 /* libRNBackgroundFetch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAA412A2211F5DF00529729 /* libRNBackgroundFetch.a */; };
 		9EAA412C2211FB9D00529729 /* TSBackgroundFetch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */; };
@@ -376,6 +377,20 @@
 			remoteGlobalIDString = 64AA15081EF7F30100718508;
 			remoteInfo = "BVLinearGradient-tvOS";
 		};
+		9E9F8C7E225ED2BE00250D25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E9F8C4A225ED2BE00250D25 /* RNSVG.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = RNSVG;
+		};
+		9E9F8C80225ED2BE00250D25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E9F8C4A225ED2BE00250D25 /* RNSVG.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 94DDAC5C1F3D024300EED511;
+			remoteInfo = "RNSVG-tvOS";
+		};
 		9EAA41292211F5DF00529729 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9EAA41242211F5DE00529729 /* RNBackgroundFetch.xcodeproj */;
@@ -478,6 +493,7 @@
 		9E6DA47220F2E10700B347DE /* KeyaddrManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyaddrManager.h; sourceTree = "<group>"; };
 		9E6DA47320F2E15800B347DE /* KeyaddrManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyaddrManager.m; sourceTree = "<group>"; };
 		9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/TSBackgroundFetch.framework"; sourceTree = "<group>"; };
+		9E9F8C4A225ED2BE00250D25 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		9EA46408224332B300839F9F /* MaterialIcons-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "MaterialIcons-Regular.ttf"; path = "../assets/fonts/MaterialIcons-Regular.ttf"; sourceTree = "<group>"; };
 		9EAA41242211F5DE00529729 /* RNBackgroundFetch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundFetch.xcodeproj; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch.xcodeproj"; sourceTree = "<group>"; };
 		9EAA412D2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
@@ -510,6 +526,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E9F8C84225ED2E700250D25 /* libRNSVG.a in Frameworks */,
 				9E255B9022149F5F004B2CFC /* libBVLinearGradient.a in Frameworks */,
 				9EAA412C2211FB9D00529729 /* TSBackgroundFetch.framework in Frameworks */,
 				9EAA412B2211F5E900529729 /* libRNBackgroundFetch.a in Frameworks */,
@@ -751,6 +768,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9E9F8C4A225ED2BE00250D25 /* RNSVG.xcodeproj */,
 				9E255B8722149F48004B2CFC /* BVLinearGradient.xcodeproj */,
 				9EAA41242211F5DE00529729 /* RNBackgroundFetch.xcodeproj */,
 				9EE419E1220A012700D9E32E /* RCTPushNotification.xcodeproj */,
@@ -837,6 +855,15 @@
 				689B744E43254BCBA91C98DE /* libRNExitApp.a */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		9E9F8C4B225ED2BE00250D25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9E9F8C7F225ED2BE00250D25 /* libRNSVG.a */,
+				9E9F8C81225ED2BE00250D25 /* libRNSVG-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		9EAA41252211F5DE00529729 /* Products */ = {
@@ -1107,6 +1134,10 @@
 				{
 					ProductGroup = 0365337A210B7627002EEF95 /* Products */;
 					ProjectRef = B9800CBAA9914504A4422D8E /* RNSecureRandom.xcodeproj */;
+				},
+				{
+					ProductGroup = 9E9F8C4B225ED2BE00250D25 /* Products */;
+					ProjectRef = 9E9F8C4A225ED2BE00250D25 /* RNSVG.xcodeproj */;
 				},
 				{
 					ProductGroup = 9ED1691020D3422D00EC0290 /* Products */;
@@ -1416,6 +1447,20 @@
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = 9E255B8E22149F49004B2CFC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9E9F8C7F225ED2BE00250D25 /* libRNSVG.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSVG.a;
+			remoteRef = 9E9F8C7E225ED2BE00250D25 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9E9F8C81225ED2BE00250D25 /* libRNSVG-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNSVG-tvOS.a";
+			remoteRef = 9E9F8C80225ED2BE00250D25 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9EAA412A2211F5DF00529729 /* libRNBackgroundFetch.a */ = {

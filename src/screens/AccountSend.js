@@ -16,7 +16,7 @@ import {
   Label,
   OrBorder,
   LargeBorderButton,
-  QRCodeScanner,
+  NdauQRCodeScanner,
   BarBorder
 } from '../components/common'
 import FlashNotification from '../components/common/FlashNotification'
@@ -166,8 +166,8 @@ class AccountSend extends Component {
     if (event.data.substr(0, 2) === 'nd') {
       this.setState({
         address: event.data,
-        requestingAmount: true,
-        scanning: false
+        scanning: false,
+        validAddress: true
       })
     } else {
       FlashNotification.showError('QR code is not a valid ndau address')
@@ -245,13 +245,10 @@ class AccountSend extends Component {
         account={this.state.account}
         {...this.props}
       >
-        <AccountScanPanel>
-          <QRCodeScanner
-            onRead={e => this._scannedSuccessfully(e)}
-            cameraType={this.state.cameraType}
-            showMarker
-          />
-        </AccountScanPanel>
+        <NdauQRCodeScanner
+          onBarCodeRead={e => this._scannedSuccessfully(e)}
+          type={this.state.cameraType}
+        />
         <LargeButton sideMargins onPress={() => this._flipCamera()}>
           Flip camera
         </LargeButton>
