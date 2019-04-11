@@ -22,6 +22,8 @@ import { QRCode } from 'react-native-custom-qr-codes'
 // there seemed to be an issue with how it creates a black border. Even padding
 // the qr with a white border does not help. The react-native-custom-qr-codes is slow
 // on old android devices. I think we might get complaints.
+// The issue tracking the slow performance of react-native-custom-qr-codes is
+// https://github.com/nating/react-native-custom-qr-codes/issues/14
 // import QRCode from 'react-native-qrcode-svg'
 import Spinner from 'react-native-loading-spinner-overlay'
 
