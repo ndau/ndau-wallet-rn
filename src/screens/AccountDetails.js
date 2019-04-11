@@ -11,6 +11,7 @@ import {
   AddressSharePanel,
   AccountConfirmationItem
 } from '../components/account'
+import { LoadingSpinner } from '../components/common'
 import { View, ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
@@ -23,7 +24,8 @@ class AccountDetails extends Component {
     this.state = {
       account: {},
       wallet: {},
-      accountsCanRxEAI: {}
+      accountsCanRxEAI: {},
+      spinner: false
     }
   }
 
@@ -102,6 +104,7 @@ class AccountDetails extends Component {
         account={this.state.account}
         {...this.props}
       >
+        <LoadingSpinner spinner={this.state.spinner} />
         <AccountTotalPanel
           account={this.state.account}
           onPress={() => this.showHistory(this.state.account)}

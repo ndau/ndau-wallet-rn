@@ -15,7 +15,8 @@ class AccountReceive extends Component {
     this.state = {
       account: {},
       wallet: {},
-      spinner: true
+      spinner: true,
+      qrCode: {}
     }
   }
 
@@ -23,6 +24,11 @@ class AccountReceive extends Component {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
     this.setState({ account, wallet })
+
+    // new Promise(resolve => {
+    //   const qrCode = <NdauQRCode value={account.address} />
+    //   resolve(this.setState({ qrCode, spinner: false }))
+    // })
   }
 
   componentDidMount () {
