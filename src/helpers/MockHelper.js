@@ -21,7 +21,7 @@ const mockAccountsAPI = (testAddressData = data.testAddressData) => {
     .reply(200, testAddressData)
 }
 
-const mockAccountsAPIReplyOnce = (testAddressData = data.testAddressData) => {
+const mockAccountsAPIReplyOnce = (testAddressData = []) => {
   mock
     .onPost('https://testnet-0.api.ndau.tech/account/accounts')
     .replyOnce(200, testAddressData)
