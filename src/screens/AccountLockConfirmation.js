@@ -63,7 +63,7 @@ class AccountLockConfirmation extends Component {
         const lockTransaction = new LockTransaction(
           this.state.wallet,
           this.state.account,
-          `${this.state.lockInformation.lock}m`
+          `${this.state.lockInformation.lockISO}`
         )
         await lockTransaction.createSignPrevalidateSubmit()
 
@@ -135,7 +135,7 @@ class AccountLockConfirmation extends Component {
             Sending EAI to {this.state.accountNicknameForEAI}
           </AccountIconText>
           <AccountIconText>
-            Account will unlock in {this.state.lockPeriod} months
+            Account will unlock in {this.state.lockInformation.lock}
           </AccountIconText>
           <AccountIconText
             iconColor={AppConstants.WARNING_ICON_COLOR}

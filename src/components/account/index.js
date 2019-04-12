@@ -21,7 +21,7 @@ import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
 import ndaujs from 'ndaujs'
 
-export function AccountPanel(props) {
+export function AccountPanel (props) {
   return (
     <View style={styles.accountMainPanel}>
       <LinearGradient
@@ -68,14 +68,14 @@ export function AccountPanel(props) {
                       light
                     />
                   ) : (
-                      <FontAwesome5Pro
-                        name='clock'
-                        size={18}
-                        color='#CC8727'
-                        style={styles.accountNicknameIcon}
-                        light
-                      />
-                    )
+                    <FontAwesome5Pro
+                      name='clock'
+                      size={18}
+                      color='#CC8727'
+                      style={styles.accountNicknameIcon}
+                      light
+                    />
+                  )
                 ) : null}
               </View>
               <View style={styles.ndauTotalContainer}>
@@ -120,13 +120,13 @@ export function AccountPanel(props) {
   )
 }
 
-export function WalletOverviewHeaderActions(props) {
+export function WalletOverviewHeaderActions (props) {
   return (
     <View style={styles.walletOverviewHeaderActions}>{props.children}</View>
   )
 }
 
-export function AccountDetailsContainer(props) {
+export function AccountDetailsContainer (props) {
   goBack = () => {
     props.navigation.goBack()
   }
@@ -145,7 +145,7 @@ export function AccountDetailsContainer(props) {
   )
 }
 
-export function AccountLockContainer(props) {
+export function AccountLockContainer (props) {
   close = () => {
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
@@ -173,7 +173,7 @@ export function AccountLockContainer(props) {
   )
 }
 
-export function AccountUnlockContainer(props) {
+export function AccountUnlockContainer (props) {
   close = () => {
     props.navigation.push('AccountDetails', { account: props.account })
   }
@@ -197,7 +197,7 @@ export function AccountUnlockContainer(props) {
   )
 }
 
-export function AccountSendContainer(props) {
+export function AccountSendContainer (props) {
   close = () => {
     props.navigation.push('WalletOverview', { wallet: props.wallet })
   }
@@ -221,7 +221,7 @@ export function AccountSendContainer(props) {
   )
 }
 
-export function AccountHistoryContainer(props) {
+export function AccountHistoryContainer (props) {
   goBack = () => {
     props.navigation.goBack()
   }
@@ -254,7 +254,7 @@ export function AccountHistoryContainer(props) {
  *
  * @param {Object} props
  */
-export function AccountButton(props) {
+export function AccountButton (props) {
   return (
     <View
       style={[styles.accountButton, props.disabled ? { opacity: 0.3 } : {}]}
@@ -282,7 +282,7 @@ export function AccountButton(props) {
   )
 }
 
-export function LargeAccountButton(props) {
+export function LargeAccountButton (props) {
   return (
     <Button
       style={styles.largeAccountButton}
@@ -302,7 +302,7 @@ export function LargeAccountButton(props) {
   )
 }
 
-export function AccountTotalPanel(props) {
+export function AccountTotalPanel (props) {
   return (
     <View style={styles.accountTotalPanel}>
       <View style={styles.ndauTotalContainerMedium}>
@@ -329,7 +329,7 @@ export function AccountTotalPanel(props) {
   )
 }
 
-export function AccountDetailsButtonPanel(props) {
+export function AccountDetailsButtonPanel (props) {
   return (
     <View style={styles.accountDetailsButtonPanel}>
       <View>
@@ -360,7 +360,7 @@ export function AccountDetailsButtonPanel(props) {
   )
 }
 
-export function AccountLockDetailsPanel(props) {
+export function AccountLockDetailsPanel (props) {
   return (
     <View style={styles.accountLockPanel}>
       <View>{props.children}</View>
@@ -368,11 +368,19 @@ export function AccountLockDetailsPanel(props) {
   )
 }
 
-export function AccountReceiveParagraphText(props) {
+export function AccountLockOptionsPanel (props) {
+  return (
+    <View style={styles.accountLockOptionsPanel}>
+      <View>{props.children}</View>
+    </View>
+  )
+}
+
+export function AccountReceiveParagraphText (props) {
   return <P style={styles.accountReceiveParagraphText}>{props.children}</P>
 }
 
-export function AccountParagraphText(props) {
+export function AccountParagraphText (props) {
   return (
     <View style={styles.accountDetailsItemPanel}>
       {props.customIconName ? (
@@ -393,11 +401,11 @@ export function AccountParagraphText(props) {
   )
 }
 
-export function AccountHeaderText(props) {
+export function AccountHeaderText (props) {
   return <H3 style={styles.accountDetailsLargerText}>{props.children}</H3>
 }
 
-export function AccountDetailsPanel(props) {
+export function AccountDetailsPanel (props) {
   let firstPanel = {}
   if (props.firstPanel) {
     firstPanel = styles.firstAccountDetailsPanel
@@ -409,7 +417,7 @@ export function AccountDetailsPanel(props) {
   )
 }
 
-export function AccountDetailsBar(props) {
+export function AccountDetailsBar (props) {
   return (
     <View style={styles.accountDetailsBarContainer}>
       <View style={styles.backArrow}>
@@ -434,7 +442,7 @@ export function AccountDetailsBar(props) {
   )
 }
 
-export function AccountClosingBar(props) {
+export function AccountClosingBar (props) {
   return (
     <View style={styles.accountClosingBarContainer}>
       {props.backBar ? (
@@ -449,20 +457,20 @@ export function AccountClosingBar(props) {
           </TouchableOpacity>
         </View>
       ) : (
-          <View style={styles.backArrow} />
-        )}
+        <View style={styles.backArrow} />
+      )}
 
       <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
       {props.closeBar ? (
         <CloseForBar style={styles.closeIcon} {...props} />
       ) : (
-          <View />
-        )}
+        <View />
+      )}
     </View>
   )
 }
 
-export function AccountLockConfirmBottomPanel(props) {
+export function AccountLockConfirmBottomPanel (props) {
   return (
     <View style={styles.accountLockButtonContainer}>
       <Label noMargin>Please enter the word 'Lock' to confirm</Label>
@@ -485,7 +493,7 @@ export function AccountLockConfirmBottomPanel(props) {
   )
 }
 
-export function AccountLockButton(props) {
+export function AccountLockButton (props) {
   return (
     <View style={styles.accountLockButtonContainer}>
       <View>
@@ -503,7 +511,7 @@ export function AccountLockButton(props) {
   )
 }
 
-export function AccountLockNoteText(props) {
+export function AccountLockNoteText (props) {
   return (
     <View>
       <H4 style={[styles.lockSmallerText, styles.accountSideMargins]}>
@@ -513,7 +521,7 @@ export function AccountLockNoteText(props) {
   )
 }
 
-export function AccountLockLargerText(props) {
+export function AccountLockLargerText (props) {
   return (
     <View style={styles.accountLockDetailsTextPanel}>
       <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
@@ -521,7 +529,11 @@ export function AccountLockLargerText(props) {
   )
 }
 
-export function AccountDetailsLargerText(props) {
+export function AccountLockGreenText (props) {
+  return <H4 style={styles.accountLockGreenText}>{props.children}</H4>
+}
+
+export function AccountDetailsLargerText (props) {
   return (
     <View style={[styles.accountDetailsTextPanelTopMargin]}>
       <H4 style={styles.accountDetailsLargerText}>{props.children}</H4>
@@ -529,7 +541,7 @@ export function AccountDetailsLargerText(props) {
   )
 }
 
-export function AccountBorder(props) {
+export function AccountBorder (props) {
   let sideMargins = {}
   if (props.sideMargins) {
     sideMargins = styles.accountSideMargins
@@ -537,7 +549,7 @@ export function AccountBorder(props) {
   return <View style={[styles.accountDetailsPanelBorder, sideMargins]} />
 }
 
-export function AccountIconText(props) {
+export function AccountIconText (props) {
   return (
     <View style={styles.lockAccountTextPanelWithSmallText}>
       <View style={styles.lockAccountCheckmark}>
@@ -557,7 +569,7 @@ export function AccountIconText(props) {
   )
 }
 
-export function AccountLockSmallerText(props) {
+export function AccountLockSmallerText (props) {
   return (
     <View>
       <H4 style={styles.lockSmallerTextBold}>{props.children}</H4>
@@ -565,19 +577,19 @@ export function AccountLockSmallerText(props) {
   )
 }
 
-export function AccountHistoryPanel(props) {
+export function AccountHistoryPanel (props) {
   return <View style={styles.accountHistoryPanel}>{props.children}</View>
 }
 
-export function AccountDetailPanel(props) {
+export function AccountDetailPanel (props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
 }
 
-export function AccountScanPanel(props) {
+export function AccountScanPanel (props) {
   return <View style={styles.accountScan}>{props.children}</View>
 }
 
-export function AccountHistoryPanels(props) {
+export function AccountHistoryPanels (props) {
   if (!AccountHistoryHelper.hasItems(props.accountHistory)) {
     return null
   }
@@ -646,7 +658,7 @@ export function AccountHistoryPanels(props) {
   })
 }
 
-export function DashboardTotalPanel(props) {
+export function DashboardTotalPanel (props) {
   return (
     <CollapsibleBar
       {...props}
@@ -675,7 +687,7 @@ export function DashboardTotalPanel(props) {
   )
 }
 
-export function AccountConfirmationItem(props) {
+export function AccountConfirmationItem (props) {
   return (
     <View style={styles.accountSendTextPanelWithSmallText}>
       <View>
@@ -704,7 +716,7 @@ export function AccountConfirmationItem(props) {
   )
 }
 
-export function AccountSendErrorText(props) {
+export function AccountSendErrorText (props) {
   return (
     <View style={styles.accountSideMargins}>
       <View>
@@ -721,7 +733,7 @@ export function AccountSendErrorText(props) {
   )
 }
 
-export function AccountLockOption(props) {
+export function AccountLockOption (props) {
   let selectedStyle = {}
   if (props.selected) {
     selectedStyle = styles.accountLockOptionSelected
@@ -729,18 +741,16 @@ export function AccountLockOption(props) {
   return (
     <TouchableOpacity {...props}>
       <View style={[styles.accountLockOption, selectedStyle]}>
+        <P style={styles.accountLockOptionHeaderText}>{props.lock}</P>
+        <P style={styles.accountLockOptionText} />
         <P style={styles.accountLockOptionText}>{`${props.base}%`}</P>
-        <P style={styles.accountLockOptionText}>+</P>
+        <P style={styles.accountLockOptionText}>{'     '}+</P>
+        <P style={styles.accountLockOptionText} />
         <P style={styles.accountLockOptionText}>{`${props.bonus}%`}</P>
-        <P style={styles.accountLockOptionText}>=</P>
-        <P style={styles.accountLockOptionTextWithBorder}>{`${
-          props.total
-          }%`}</P>
+        <P style={styles.accountLockOptionText}>{'     '}=</P>
         <P style={styles.accountLockOptionText} />
-        <P style={styles.accountLockOptionText} />
-        <P style={styles.accountLockOptionHeaderText}>{`${
-          props.lock
-          } months`}</P>
+        <P style={styles.accountLockOptionText}>{`${props.total}%`}</P>
+
         {props.selected ? (
           <FontAwesome5Pro
             style={styles.accountLockCheckbox}
@@ -755,20 +765,23 @@ export function AccountLockOption(props) {
   )
 }
 
-export function AccountLockOptionHeader(props) {
+export function AccountLockOptionHeader (props) {
   return (
     <View style={styles.accountLockOptionHeader}>
-      <P style={styles.accountLockOptionHeaderText}>Base</P>
+      <P style={styles.accountLockOptionHeaderText}>Lock for</P>
+      <P style={styles.accountLockOptionText} />
+      <P style={styles.accountLockOptionHeaderText}>New base</P>
+      <P style={styles.accountLockOptionText} />
       <P style={styles.accountLockOptionHeaderText}>Bonus</P>
-      <P style={styles.accountLockOptionHeaderText} />
-      <P style={styles.accountLockOptionHeaderText} />
-      <P style={styles.accountLockOptionHeaderText}>Lock</P>
+      <P style={styles.accountLockOptionText} />
+      <P style={styles.accountLockOptionHeaderText}>Total</P>
     </View>
   )
 }
 
-export function AddressSharePanel(props) {
+export function AddressSharePanel (props) {
   const address = props.address
+  const truncatedAddress = ndaujs.truncateAddress(address)
 
   share = address => {
     Share.share(
@@ -820,7 +833,7 @@ export function AddressSharePanel(props) {
           }}
         >
           <View>
-            <P style={styles.addressCopyPanelText}>{address}</P>
+            <P style={styles.addressCopyPanelText}>{truncatedAddress}</P>
           </View>
           <View>
             <Button

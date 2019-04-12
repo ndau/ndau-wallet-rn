@@ -3,6 +3,7 @@ import TransactionAPI from '../api/TransactionAPI'
 import DateHelper from './DateHelper'
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
+import AppConfig from '../AppConfig'
 
 const getAccountHistory = async address => {
   const accountHistory = await AccountAPI.accountHistory(address)
@@ -55,7 +56,7 @@ const getTransactionType = accountHistory => {
 const getTransactionBalance = accountHistory => {
   return DataFormatHelper.getNdauFromNapu(
     accountHistory.Balance,
-    undefined,
+    AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
 }

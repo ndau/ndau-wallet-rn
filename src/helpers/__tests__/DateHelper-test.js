@@ -39,3 +39,24 @@ test('getDaysFromISODate returns days from an ISO8601 duration', async () => {
   expect(DateHelper.getDaysFromISODate('1y3dt18h57m7s726133us')).toBe(369)
   expect(DateHelper.getDaysFromISODate('3y')).toBe(1095)
 })
+
+test('getYearsFromISODate returns days from an ISO8601 duration', async () => {
+  expect(DateHelper.getYearsFromISODate('3dt18h57m7s726133us')).toBe(0)
+  expect(DateHelper.getYearsFromISODate('1y3dt18h57m7s726133us')).toBe(1)
+  expect(DateHelper.getYearsFromISODate('3y')).toBe(3)
+  expect(DateHelper.getYearsFromISODate('3m')).toBe(0)
+  expect(DateHelper.getYearsFromISODate('11m')).toBe(1)
+  expect(DateHelper.getYearsFromISODate('13m')).toBe(1)
+})
+
+test('getMonthsFromISODate returns days from an ISO8601 duration', async () => {
+  expect(DateHelper.getMonthsFromISODate('3dt18h57m7s726133us')).toBe(0)
+  expect(DateHelper.getMonthsFromISODate('1y3dt18h57m7s726133us')).toBe(12)
+  expect(DateHelper.getMonthsFromISODate('3y')).toBe(36)
+  expect(DateHelper.getMonthsFromISODate('3m')).toBe(3)
+  expect(DateHelper.getMonthsFromISODate('11m')).toBe(11)
+  expect(DateHelper.getMonthsFromISODate('13m')).toBe(13)
+  expect(DateHelper.getMonthsFromISODate('13d')).toBe(0)
+  expect(DateHelper.getMonthsFromISODate('24d')).toBe(1)
+  expect(DateHelper.getMonthsFromISODate('34d')).toBe(1)
+})

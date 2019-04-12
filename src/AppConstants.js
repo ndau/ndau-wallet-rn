@@ -30,6 +30,7 @@ const TOS_BUY = 'termsOfServiceBuyMode'
 
 const NUMBER_PICKER_COLOR = '#A9A9A9'
 const TEXT_COLOR = '#FFFFFF'
+const GREEN_TEXT_COLOR = '#4B9176'
 const ERROR_COLOR = '#F05123'
 const SQUARE_BUTTON_COLOR = '#4e957a'
 const PROGRESS_BAR_COLOR = '#4e957a'
@@ -46,21 +47,21 @@ const WARNING_ICON_COLOR = '#F05123'
 
 const TRANSACTION_TYPES = {
   1: 'Transfer',
-  2: 'ChangeValidation',
+  2: 'CV',
   3: 'RFE',
   4: 'CSP',
   5: 'Delegate',
   6: 'CreditEAI',
   7: 'Lock',
   8: 'Notify',
-  9: 'SetRewardsDestination',
+  9: 'SRD',
   10: 'ClaimAccount',
   11: 'Stake',
   12: 'RegisterNode',
   13: 'NominateNodeReward',
   14: 'ClaimNodeReward',
   15: 'TransferAndLock',
-  16: 'CommandValidatorChange',
+  16: 'CVC',
   17: 'SidechainTx',
   18: 'UnregisterNode',
   19: 'Unstake',
@@ -69,7 +70,13 @@ const TRANSACTION_TYPES = {
 
 const NDAU_ICON_FONT = 'ndau-0'
 
-const LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS = [3, 6, 12, 24, 48]
+const LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES = {
+  '3m': '3 months',
+  '6m': '6 months',
+  '1y': '1 year',
+  '2y': '2 years',
+  '3y': '3 years'
+}
 
 export default {
   HARDENED_CHILD_BIP_44,
@@ -111,7 +118,8 @@ export default {
   FULL_SCREEN_DUAL_COLOR_GRADIENT_END_COLOR,
   FULL_SCREEN_DUAL_COLOR_GRADIENT_START_COLOR,
   NDAU_ICON_FONT,
-  LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS,
+  LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES,
   CHECKBOX_COLOR,
-  WARNING_ICON_COLOR
+  WARNING_ICON_COLOR,
+  GREEN_TEXT_COLOR
 }
