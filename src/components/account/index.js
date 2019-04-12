@@ -368,6 +368,14 @@ export function AccountLockDetailsPanel (props) {
   )
 }
 
+export function AccountLockOptionsPanel (props) {
+  return (
+    <View style={styles.accountLockOptionsPanel}>
+      <View>{props.children}</View>
+    </View>
+  )
+}
+
 export function AccountReceiveParagraphText (props) {
   return <P style={styles.accountReceiveParagraphText}>{props.children}</P>
 }
@@ -398,12 +406,14 @@ export function AccountHeaderText (props) {
 }
 
 export function AccountDetailsPanel (props) {
-  let firstPanel = {}
+  let additionalProps = {}
   if (props.firstPanel) {
-    firstPanel = styles.firstAccountDetailsPanel
+    additionalProps = styles.firstAccountDetailsPanel
+  } else if (props.secondPanel) {
+    additionalProps = styles.secondAccountDetailsPanel
   }
   return (
-    <View style={[styles.accountDetailsPanel, firstPanel]}>
+    <View style={[styles.accountDetailsPanel, additionalProps]}>
       {props.children}
     </View>
   )
@@ -519,6 +529,10 @@ export function AccountLockLargerText (props) {
       <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
     </View>
   )
+}
+
+export function AccountLockGreenText (props) {
+  return <H4 style={styles.accountLockGreenText}>{props.children}</H4>
 }
 
 export function AccountDetailsLargerText (props) {
@@ -737,18 +751,16 @@ export function AccountLockOption (props) {
   return (
     <TouchableOpacity {...props}>
       <View style={[styles.accountLockOption, selectedStyle]}>
+        <P style={styles.accountLockOptionHeaderText}>{props.lock}</P>
+        <P style={styles.accountLockOptionText} />
         <P style={styles.accountLockOptionText}>{`${props.base}%`}</P>
-        <P style={styles.accountLockOptionText}>+</P>
+        <P style={styles.accountLockOptionText}>{'     '}+</P>
+        <P style={styles.accountLockOptionText} />
         <P style={styles.accountLockOptionText}>{`${props.bonus}%`}</P>
-        <P style={styles.accountLockOptionText}>=</P>
-        <P style={styles.accountLockOptionTextWithBorder}>{`${
-          props.total
-        }%`}</P>
+        <P style={styles.accountLockOptionText}>{'     '}=</P>
         <P style={styles.accountLockOptionText} />
-        <P style={styles.accountLockOptionText} />
-        <P style={styles.accountLockOptionHeaderText}>{`${
-          props.lock
-        } months`}</P>
+        <P style={styles.accountLockOptionText}>{`${props.total}%`}</P>
+
         {props.selected ? (
           <FontAwesome5Pro
             style={styles.accountLockCheckbox}
@@ -766,17 +778,20 @@ export function AccountLockOption (props) {
 export function AccountLockOptionHeader (props) {
   return (
     <View style={styles.accountLockOptionHeader}>
-      <P style={styles.accountLockOptionHeaderText}>Base</P>
+      <P style={styles.accountLockOptionHeaderText}>Lock for</P>
+      <P style={styles.accountLockOptionText} />
+      <P style={styles.accountLockOptionHeaderText}>New base</P>
+      <P style={styles.accountLockOptionText} />
       <P style={styles.accountLockOptionHeaderText}>Bonus</P>
-      <P style={styles.accountLockOptionHeaderText} />
-      <P style={styles.accountLockOptionHeaderText} />
-      <P style={styles.accountLockOptionHeaderText}>Lock</P>
+      <P style={styles.accountLockOptionText} />
+      <P style={styles.accountLockOptionHeaderText}>Total</P>
     </View>
   )
 }
 
 export function AddressSharePanel (props) {
   const address = props.address
+  const truncatedAddress = ndaujs.truncateAddress(address)
 
   share = address => {
     Share.share(
@@ -828,7 +843,7 @@ export function AddressSharePanel (props) {
           }}
         >
           <View>
-            <P style={styles.addressCopyPanelText}>{address}</P>
+            <P style={styles.addressCopyPanelText}>{truncatedAddress}</P>
           </View>
           <View>
             <Button

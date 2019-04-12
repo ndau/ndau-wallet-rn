@@ -5,6 +5,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountAPIHelper from './AccountAPIHelper'
 import ndaujs from 'ndaujs'
 import KeyPathHelper from './KeyPathHelper'
+import DateHelper from './DateHelper'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_ID
@@ -170,24 +171,28 @@ const getAccountEaiRateRequest = addressData => {
  * @param {string} account
  */
 const getAccountEaiRateRequestForLock = account => {
-  return AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS.map(months => {
-    const weightedAverageAge = account.addressData.weightedAverageAge
-    const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
-      account.addressData
-    )
-    const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
-      weightedAverageAgeInDays
-    )
-    const lock = {}
-    lock.noticePeriod = `${months}m`
-    lock.bonus = theLockEAIBonus * 10000000000
+  return Object.keys(AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES).map(
+    period => {
+      const weightedAverageAge = account.addressData.weightedAverageAge
+      const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
+        account.addressData
+      )
+      const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
+        DateHelper.getDaysFromISODate(period)
+      )
+      const lock = {}
+      lock.noticePeriod = `${period}`
+      lock.bonus = theLockEAIBonus * 10000000000
 
-    return {
-      address: account.address,
-      weightedAverageAge,
-      lock
+      // We use period here because we just need a unique identifier
+      // to separate out the rates.
+      return {
+        address: period,
+        weightedAverageAge,
+        lock
+      }
     }
-  })
+  )
 }
 const convertRecoveryArrayToString = recoveryPhrase => {
   return recoveryPhrase

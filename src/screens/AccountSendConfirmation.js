@@ -108,7 +108,8 @@ class AccountSendConfirmation extends Component {
             title={'Remaining balance:'}
             value={
               AccountAPIHelper.accountNdauAmount(
-                this.state.account.addressData
+                this.state.account.addressData,
+                false
               ) - this.state.amount
             }
           />

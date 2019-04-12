@@ -27,6 +27,8 @@ class AccountDetails extends Component {
       accountsCanRxEAI: {},
       spinner: false
     }
+
+    this.baseEAI = 0
   }
 
   componentWillMount = () => {
@@ -45,7 +47,8 @@ class AccountDetails extends Component {
     WalletStore.setWallet(wallet)
     this.props.navigation.push('AccountLock', {
       nav: this.props.navigation,
-      accountsCanRxEAI: this.state.accountsCanRxEAI
+      accountsCanRxEAI: this.state.accountsCanRxEAI,
+      baseEAI: this.baseEAI
     })
   }
 
@@ -92,7 +95,7 @@ class AccountDetails extends Component {
       account.addressData
     )
     const lockBonusEAI = AccountAPIHelper.lockBonusEAI(weightedAverageAgeInDays)
-    const baseEAI = eaiValueForDisplay - lockBonusEAI
+    this.baseEAI = eaiValueForDisplay - lockBonusEAI
     let spendableNdau = 0
     if (accountNotLocked) {
       spendableNdau = AccountAPIHelper.spendableNdau(account.addressData)
@@ -157,7 +160,7 @@ class AccountDetails extends Component {
               {spendableNdau} spendable
             </AccountParagraphText>
           </AccountDetailsPanel>
-          <AccountDetailsPanel>
+          <AccountDetailsPanel secondPanel>
             <AccountDetailsLargerText>
               {eaiValueForDisplay}% annualized incentive (EAI)
             </AccountDetailsLargerText>
@@ -168,7 +171,7 @@ class AccountDetails extends Component {
             />
             <AccountConfirmationItem
               title={'Current EAI based on WAA:'}
-              value={`${baseEAI}%`}
+              value={`${this.baseEAI}%`}
             />
             <AccountConfirmationItem
               title={'Lock bonus EAI:'}

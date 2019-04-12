@@ -275,7 +275,14 @@ export default StyleSheet.create({
   },
   accountDetailsPanel: {
     width: wp('100%'),
-    height: hp('30%'),
+    height: hp('31%'),
+    backgroundColor: '#0A1724',
+    paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  secondAccountDetailsPanel: {
+    width: wp('100%'),
+    height: hp('24%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -300,6 +307,12 @@ export default StyleSheet.create({
     backgroundColor: '#0A1724',
     paddingTop: 0
   },
+  accountLockOptionsPanel: {
+    width: wp('100%'),
+    height: hp('58%'),
+    backgroundColor: '#0A1724',
+    paddingTop: 0
+  },
   accountScan: {
     width: wp('100%'),
     height: hp('26%'),
@@ -308,14 +321,7 @@ export default StyleSheet.create({
   },
   firstAccountDetailsPanel: {
     width: wp('100%'),
-    height: hp('27%'),
-    backgroundColor: '#0A1724',
-    paddingHorizontal: wp('4%'),
-    paddingTop: 0
-  },
-  firstAccountDetailsPanel: {
-    width: wp('100%'),
-    height: hp('26%'),
+    height: hp('28%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -432,7 +438,15 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    fontWeight: '200',
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24
+  },
+  accountLockGreenText: {
+    color: AppConstants.GREEN_TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '800',
     letterSpacing: 0.34,
     lineHeight: 24
   },
@@ -755,7 +769,7 @@ export default StyleSheet.create({
   accountLockOptionText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '400',
     letterSpacing: 0.34,
     lineHeight: 24,

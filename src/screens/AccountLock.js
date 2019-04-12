@@ -6,8 +6,11 @@ import {
   AccountLockButton,
   AccountLockLargerText,
   AccountLockOption,
-  AccountLockOptionHeader
+  AccountLockOptionHeader,
+  AccountLockOptionsPanel,
+  AccountLockGreenText
 } from '../components/account'
+import { ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
@@ -29,7 +32,8 @@ class AccountLock extends Component {
       spinner: false,
       accountsCanRxEAI: {},
       accountAddressForEAI: null,
-      accountNicknameForEAI: null
+      accountNicknameForEAI: null,
+      baseEAI: 0
     }
   }
 
@@ -39,6 +43,7 @@ class AccountLock extends Component {
         'accountsCanRxEAI',
         null
       )
+      const baseEAI = this.props.navigation.getParam('baseEAI', null)
       const account = AccountStore.getAccount()
       const wallet = WalletStore.getWallet()
 
@@ -54,7 +59,8 @@ class AccountLock extends Component {
           bonus,
           total,
           base,
-          lock: AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES_IN_MONTHS[index]
+          lock: AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES[data.address],
+          lockISO: data.address
         }
       })
 
@@ -63,7 +69,8 @@ class AccountLock extends Component {
         account,
         wallet,
         possibleLocks,
-        accountsCanRxEAI
+        accountsCanRxEAI,
+        baseEAI
       })
     })
   }
@@ -92,36 +99,54 @@ class AccountLock extends Component {
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountLockDetailsPanel account={this.state.account}>
-          <AccountLockLargerText>
-            Locking your ndau accrues EAI at a higher rate.
-          </AccountLockLargerText>
-          <AccountLockLargerText>
-            Please choose your bonus and hold period:
-          </AccountLockLargerText>
-          <AccountLockOptionHeader />
-          {this.state.possibleLocks.map((possibleLock, index) => {
-            return (
-              <AccountLockOption
-                key={index}
-                base={possibleLock.base}
-                bonus={possibleLock.bonus}
-                lock={possibleLock.lock}
-                total={possibleLock.total}
-                onPress={() => this.handleLockSelection(index)}
-                selected={index === this.state.selectedIndex}
-              />
-            )
-          })}
+          <ScrollView>
+            <AccountLockLargerText>
+              Locking your ndau accrues EAI at a higher rate.
+            </AccountLockLargerText>
+            <AccountLockLargerText>
+              Based on your account's weighted average age of{' '}
+              <AccountLockGreenText>
+                {AccountAPIHelper.weightedAverageAgeInDays(
+                  this.state.account.addressData
+                )}{' '}
+                days
+              </AccountLockGreenText>
+              , you are currently earning a base rate of{' '}
+              <AccountLockGreenText>
+                {this.state.baseEAI}% EAI
+              </AccountLockGreenText>
+              .
+            </AccountLockLargerText>
+            <AccountLockLargerText>
+              Choose your lock time and bonus rate:
+            </AccountLockLargerText>
+            <AccountLockOptionHeader />
+            <AccountLockOptionsPanel>
+              {this.state.possibleLocks.map((possibleLock, index) => {
+                return (
+                  <AccountLockOption
+                    key={index}
+                    base={possibleLock.base}
+                    bonus={possibleLock.bonus}
+                    lock={possibleLock.lock}
+                    total={possibleLock.total}
+                    onPress={() => this.handleLockSelection(index)}
+                    selected={index === this.state.selectedIndex}
+                  />
+                )
+              })}
+            </AccountLockOptionsPanel>
+            <AccountLockButton
+              smallText={
+                'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
+              }
+              onPress={this._selectAccountToSendEAI}
+              disabled={this.state.selectedIndex === null}
+            >
+              Continue
+            </AccountLockButton>
+          </ScrollView>
         </AccountLockDetailsPanel>
-        <AccountLockButton
-          smallText={
-            'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
-          }
-          onPress={this._selectAccountToSendEAI}
-          disabled={this.state.selectedIndex === null}
-        >
-          Continue
-        </AccountLockButton>
       </AccountLockContainer>
     )
   }

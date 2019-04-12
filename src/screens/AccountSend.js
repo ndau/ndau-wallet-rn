@@ -41,7 +41,7 @@ class AccountSend extends Component {
       scanning: false,
       cameraType: 'back',
       requestingAmount: false,
-      amount: '',
+      amount: 0,
       validAmount: false,
       validAddress: false,
       transactionFee: 0,
@@ -135,11 +135,19 @@ class AccountSend extends Component {
       transactionFee
     )
 
-    if (totalNdau > 0) {
+    if (
+      AccountAPIHelper.getTotalNdauForSend(
+        amount,
+        this.state.account.addressData,
+        transactionFee,
+        false
+      ) > 0
+    ) {
       validAmount = true
     } else {
       validAmount = false
     }
+
     this.setState(
       {
         amount,
@@ -206,7 +214,8 @@ class AccountSend extends Component {
             title='Remaining balance:'
             value={
               AccountAPIHelper.accountNdauAmount(
-                this.state.account.addressData
+                this.state.account.addressData,
+                false
               ) - this.state.amount
             }
           />

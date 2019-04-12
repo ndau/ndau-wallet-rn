@@ -209,12 +209,12 @@ const accountNotLocked = account => {
   return account && account.lock !== undefined ? !account.lock : false
 }
 
-const accountNdauAmount = account => {
+const accountNdauAmount = (account, addCommas = true) => {
   return account && account.balance
     ? DataFormatHelper.getNdauFromNapu(
       account.balance,
       AppConfig.NDAU_SUMMARY_PRECISION,
-      true
+      addCommas
     )
     : 0.0
 }
@@ -311,14 +311,19 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
     : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
-const getTotalNdauForSend = (amount, addressData, transactionFee) => {
+const getTotalNdauForSend = (
+  amount,
+  addressData,
+  transactionFee,
+  addCommas = true
+) => {
   const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
   const totalNapuForAccount = spendableNapu(addressData)
   const totalNapu = totalNapuForAccount - amountNapu - transactionFee
   return DataFormatHelper.getNdauFromNapu(
     totalNapu,
     AppConfig.NDAU_SUMMARY_PRECISION,
-    true
+    addCommas
   )
 }
 
