@@ -47,6 +47,7 @@
 		9E255BD122152295004B2CFC /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BBA22152295004B2CFC /* OpenSans-Italic.ttf */; };
 		9E255BD322152295004B2CFC /* FontAwesome5_Pro_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BBC22152295004B2CFC /* FontAwesome5_Pro_Light.ttf */; };
 		9E255BD622152295004B2CFC /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BBF22152295004B2CFC /* TitilliumWeb-Light.ttf */; };
+		9E53E64A226118FF001390BF /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9F8C7F225ED2BE00250D25 /* libRNSVG.a */; };
 		9E647606225F7BEA00CA0AFC /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E647605225F7BD500CA0AFC /* libRNCamera.a */; };
 		9E647607225F7C7E00CA0AFC /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED1691420D3422D00EC0290 /* libRNVectorIcons.a */; };
 		9E647608225F7C8F00CA0AFC /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03071BBC21230D1B001E8652 /* libReactNativePermissions.a */; };
@@ -54,7 +55,6 @@
 		9E64760A225F7CA700CA0AFC /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03071C0121231343001E8652 /* libRNExitApp.a */; };
 		9E6DA47120F053B400B347DE /* Keyaddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6DA47020F053B400B347DE /* Keyaddr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9E6DA47420F2E15800B347DE /* KeyaddrManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DA47320F2E15800B347DE /* KeyaddrManager.m */; };
-		9E9F8C84225ED2E700250D25 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9F8C7F225ED2BE00250D25 /* libRNSVG.a */; };
 		9EA4640A224332B300839F9F /* MaterialIcons-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EA46408224332B300839F9F /* MaterialIcons-Regular.ttf */; };
 		9EAA412B2211F5E900529729 /* libRNBackgroundFetch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAA412A2211F5DF00529729 /* libRNBackgroundFetch.a */; };
 		9EAA412C2211FB9D00529729 /* TSBackgroundFetch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */; };
@@ -526,12 +526,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E53E64A226118FF001390BF /* libRNSVG.a in Frameworks */,
 				9E64760A225F7CA700CA0AFC /* libRNExitApp.a in Frameworks */,
 				9E647609225F7C9D00CA0AFC /* libRNSecureRandom.a in Frameworks */,
 				9E647608225F7C8F00CA0AFC /* libReactNativePermissions.a in Frameworks */,
 				9E647607225F7C7E00CA0AFC /* libRNVectorIcons.a in Frameworks */,
 				9E647606225F7BEA00CA0AFC /* libRNCamera.a in Frameworks */,
-				9E9F8C84225ED2E700250D25 /* libRNSVG.a in Frameworks */,
 				9E255B9022149F5F004B2CFC /* libBVLinearGradient.a in Frameworks */,
 				9EAA412C2211FB9D00529729 /* TSBackgroundFetch.framework in Frameworks */,
 				9EAA412B2211F5E900529729 /* libRNBackgroundFetch.a in Frameworks */,
