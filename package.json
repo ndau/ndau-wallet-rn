@@ -4,26 +4,24 @@
   "private": true,
   "devDependencies": {
     "axios-mock-adapter": "^1.16.0",
-    "chai": "4.1.2",
-    "enzyme": "3.3.0",
-    "enzyme-adapter-react-16": "1.1.1",
-    "eslint": "4.19.1",
-    "eslint-config-standard": "11.0.0",
-    "eslint-plugin-import": "2.12.0",
-    "eslint-plugin-node": "6.0.1",
-    "eslint-plugin-promise": "3.8.0",
-    "eslint-plugin-standard": "3.1.0",
-    "jest": "23.2.0",
-    "jest-fetch-mock": "1.6.5",
+    "chai": "4.2.0",
+    "eslint": "5.16.0",
+    "eslint-config-standard": "12.0.0",
+    "eslint-plugin-import": "2.17.1",
+    "eslint-plugin-node": "8.0.1",
+    "eslint-plugin-promise": "4.1.1",
+    "eslint-plugin-standard": "4.0.0",
+    "jest": "24.7.1",
+    "jest-fetch-mock": "2.1.2",
     "jest-react-native": "18.0.0",
     "jest-serializer-enzyme": "1.0.0",
-    "jsdom": "11.11.0",
+    "jsdom": "14.0.0",
     "react-addons-test-utils": "15.6.2",
     "react-dom": "16.8.6",
     "react-native-mock": "0.3.1",
     "react-native-mock-render": "0.1.2",
     "react-test-renderer": "16.8.6",
-    "sinon": "6.1.3"
+    "sinon": "7.3.1"
   },
   "scripts": {
     "start": "react-native start",
@@ -51,15 +49,12 @@
     },
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|react-navigation-tabs|react-native-responsive-screen|react-native-vector-icons|react-native-button|react-native-qrcode|react-native-safe-area-view|react-native-tab-view|react-navigation|react-native-check-box|react-native-exit-app|react-native-autocomplete-input|react-native-modal-dropdown|react-native-simple-dialogs|react-native-flash-message|react-native-loading-spinner-overlay|react-native-device-log|react-native-invertible-scroll-view|react-native-scrollable-mixin|react-native-linear-gradient|nachos-ui|@react-native-community/async-storage)/)"
-    ]
+    }
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.3.2",
-    "@react-navigation/core": "^3.0.2",
-    "@react-navigation/native": "^3.1.1",
+    "@react-native-community/async-storage": "^1.3.3",
+    "@react-navigation/core": "^3.3.1",
+    "@react-navigation/native": "^3.4.1",
     "axios": "^0.18.0",
     "babel-preset-react-native": "4.0.1",
     "base-64": "0.1.0",
@@ -93,7 +88,7 @@
     "react-native-securerandom": "0.3.0",
     "react-native-simple-dialogs": "1.1.0",
     "react-native-svg": "^9.4.0",
-    "react-native-vector-icons": "6.1.0",
+    "react-native-vector-icons": "6.3.0",
     "react-navigation": "2.18.3"
   },
   "rnpm": {
