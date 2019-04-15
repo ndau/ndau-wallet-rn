@@ -4,7 +4,6 @@ import KeyMaster from '../KeyMaster'
 import User from '../../model/User'
 import AppConfig from '../../AppConfig'
 import Wallet from '../../model/Wallet'
-import MockAsyncStorage from 'mock-async-storage'
 import MockHelper from '../MockHelper'
 import AppConstants from '../../AppConstants'
 
@@ -13,13 +12,6 @@ MockHelper.mockAccountsAPI()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),

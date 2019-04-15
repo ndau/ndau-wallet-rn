@@ -125,6 +125,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         multiDexEnabled true
+        missingDimensionStrategy "react-native-camera", "general"
     }
     signingConfigs {
         release {
@@ -188,20 +189,15 @@ subprojects {
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 dependencies {
+    implementation project(':@react-native-community_async-storage')
     implementation project(':react-native-svg')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-push-notification')
-    implementation project(':react-native-webview')
     implementation project(':react-native-exit-app')
     implementation project(':react-native-securerandom')
     implementation project(':react-native-vector-icons')
-    implementation (project(':react-native-camera')) {
-        exclude group: "com.google.android.gms"
-    }
-    implementation ("com.google.android.gms:play-services-vision:10.2.0") {
-        force = true;
-    }
+    implementation (project(':react-native-camera'))
     implementation ("com.android.support:support-v4:27.1.0") {
         force = true
     }
@@ -209,7 +205,7 @@ dependencies {
     implementation 'com.facebook.fresco:animated-gif:1.5.0'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:27.0.2"
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:design:27.1.1'
     implementation "com.facebook.react:react-native:+"
     implementation project(':keyaddr')
  }

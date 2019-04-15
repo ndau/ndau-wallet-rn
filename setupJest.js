@@ -1,5 +1,3 @@
-import deviceLog, { InMemoryAdapter } from 'react-native-device-log'
-
 const { JSDOM } = require('jsdom')
 const jsdom = new JSDOM()
 const { window } = jsdom

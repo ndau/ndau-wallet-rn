@@ -2,15 +2,6 @@ import OrderAPI from '../OrderAPI'
 import AccountAPI from '../AccountAPI'
 import data from '../data'
 import MockHelper from '../../helpers/MockHelper'
-import MockAsyncStorage from 'mock-async-storage'
-import AsyncStorageHelper from '../../model/AsyncStorageHelper'
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 const addresses = data.addresses
 

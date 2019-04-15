@@ -2,7 +2,6 @@ import { LockTransaction } from '../LockTransaction'
 import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
-import MockAsyncStorage from 'mock-async-storage'
 import data from '../../api/data'
 
 MockHelper.mockServiceDiscovery()
@@ -25,13 +24,6 @@ NativeModules.KeyaddrManager = {
   toPublic: jest.fn(),
   sign: jest.fn().mockRejectedValue(new Error('testing sign error'))
 }
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 jest.mock('../../api/TransactionAPI', {
   prevalidate: jest.fn().mockReturnValue({ err: 'error being sent' })

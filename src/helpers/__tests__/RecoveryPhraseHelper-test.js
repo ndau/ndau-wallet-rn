@@ -1,5 +1,4 @@
 import { NativeModules } from 'react-native'
-import MockAsyncStorage from 'mock-async-storage'
 import sinon from 'sinon'
 import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
 import data from '../../api/data'
@@ -14,13 +13,6 @@ NativeModules.KeyaddrManager = {
   deriveFrom: jest.fn(),
   toPublic: jest.fn()
 }
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 let recoveryPhraseString =
   'goat amount liar amount expire adjust cage candy arch gather drum buyer'

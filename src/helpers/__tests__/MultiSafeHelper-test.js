@@ -1,17 +1,9 @@
-import MockAsyncStorage from 'mock-async-storage'
 import { NativeModules } from 'react-native'
 import sinon from 'sinon'
 import MultiSafeHelper from '../MultiSafeHelper'
 import data from '../../api/data'
 import AccountAPI from '../../api/AccountAPI'
 import KeyPathHelper from '../KeyPathHelper'
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),
