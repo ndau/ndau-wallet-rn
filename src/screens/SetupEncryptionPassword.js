@@ -107,11 +107,7 @@ class SetupEncryptionPassword extends Component {
   finishSetup = () => {
     SetupStore.encryptionPassword = this.state.password
     UserStore.setPassword(this.state.password)
-    this.props.navigation.navigate('SetupTermsOfService', {
-      walletSetupType:
-        this.props.navigation.state.params &&
-        this.props.navigation.state.params.walletSetupType
-    })
+    this.props.navigation.navigate('SetupTermsOfService')
   }
 
   resetPassword = async () => {
@@ -134,9 +130,7 @@ class SetupEncryptionPassword extends Component {
       UserStore.setUser(user)
       NdauStore.setMarketPrice(marketPrice)
 
-      this.props.navigation.navigate('Dashboard', {
-        walletSetupType: null
-      })
+      this.props.navigation.navigate('Dashboard')
     } catch (error) {
       LoggingService.error(error)
       FlashNotification.showError(error.message, false, false)

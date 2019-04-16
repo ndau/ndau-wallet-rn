@@ -4,13 +4,7 @@ import AppConstants from '../AppConstants'
 import UserStore from '../stores/UserStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import { SetupContainer } from '../components/setup'
-import {
-  ProgressBar,
-  LargeButtons,
-  NEW_WALLET_SETUP_TYPE,
-  RECOVERY_WALLET_SETUP_TYPE,
-  ParagraphText
-} from '../components/common'
+import { ProgressBar, LargeButtons, ParagraphText } from '../components/common'
 
 class SetupNewOrRecovery extends Component {
   componentWillUnmount () {
@@ -30,7 +24,6 @@ class SetupNewOrRecovery extends Component {
     const user = await MultiSafeHelper.getDefaultUser(password)
 
     this.props.navigation.navigate('SetupYourWallet', {
-      walletSetupType: 'new',
       user
     })
   }
@@ -40,9 +33,7 @@ class SetupNewOrRecovery extends Component {
     const user = await MultiSafeHelper.getDefaultUser(password)
 
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-      walletSetupType: 'recovery',
       mode: AppConstants.NORMAL_MODE,
-      walletSetupType: RECOVERY_WALLET_SETUP_TYPE,
       user
     })
   }
