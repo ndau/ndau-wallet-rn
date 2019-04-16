@@ -188,6 +188,7 @@ subprojects {
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 dependencies {
+    compile project(':react-native-version-number')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-push-notification')
