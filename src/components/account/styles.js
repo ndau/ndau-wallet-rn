@@ -8,7 +8,15 @@ import AppConstants from '../../AppConstants'
 export default StyleSheet.create({
   accountMainPanel: {
     width: wp('100%'),
-    height: hp('12%'),
+    ...Platform.select({
+      ios: {
+        height: hp('13%')
+      },
+      android: {
+        height: hp('14%')
+      }
+    }),
+
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
@@ -30,7 +38,8 @@ export default StyleSheet.create({
       android: {
         height: hp('9%')
       }
-    })
+    }),
+    padding: 0
   },
   accountDetailsTitlePanel: {
     width: wp('100%'),
@@ -71,7 +80,7 @@ export default StyleSheet.create({
     })
   },
   accountButton: {
-    width: wp('28.97%'),
+    width: wp('30%'),
     ...Platform.select({
       ios: {
         height: hp('4.95%')
@@ -224,7 +233,7 @@ export default StyleSheet.create({
     width: wp('100%'),
     ...Platform.select({
       ios: {
-        height: hp('4%')
+        height: hp('5%')
       },
       android: {
         height: hp('5%')
@@ -266,7 +275,28 @@ export default StyleSheet.create({
   },
   accountDetailsPanel: {
     width: wp('100%'),
-    height: hp('26%'),
+    height: hp('31%'),
+    backgroundColor: '#0A1724',
+    paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  secondAccountDetailsPanel: {
+    width: wp('100%'),
+    height: hp('24%'),
+    backgroundColor: '#0A1724',
+    paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  accountReceivePanel: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#0A1724',
+    paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  accountSendPanel: {
+    width: wp('100%'),
+    height: hp('100%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -291,7 +321,7 @@ export default StyleSheet.create({
   },
   firstAccountDetailsPanel: {
     width: wp('100%'),
-    height: hp('25%'),
+    height: hp('28%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -372,7 +402,7 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   accountButtonText: {
-    width: wp('20%'),
+    width: wp('30%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 16,
@@ -784,7 +814,7 @@ export default StyleSheet.create({
   },
 
   addressButtonText: {
-    width: wp('10%'),
+    width: wp('12%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 14,

@@ -5,12 +5,6 @@ import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
 import data from '../../api/data'
 import MockHelper from '../MockHelper'
 
-MockHelper.mockServiceDiscovery()
-
-MockHelper.mockAccountAPI()
-MockHelper.mockEaiRate()
-MockHelper.mockMarketPriceAPI()
-
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),
   newKey: jest.fn(),
@@ -159,10 +153,15 @@ for (let i = 0; i < 500; i++) {
 test('recoverUser test', async () => {
   MockHelper.mockReset()
   MockHelper.mockServiceDiscovery()
+  MockHelper.mockAccountAPI()
+  MockHelper.mockEaiRate()
+  MockHelper.mockMarketPriceAPI()
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20Items)
+  MockHelper.mockAccountsAPIReplyOnce(data.testAddressData)
   MockHelper.mockAccountsAPIReplyOnce()
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20ItemsRoot)
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressDataRoot)
+  MockHelper.mockAccountsAPIReplyOnce()
 
   const user = {
     userId: userId,
@@ -182,7 +181,11 @@ test('recoverUser test', async () => {
 test('checkAddresses gets the correct format for BIP44 addresses', async () => {
   MockHelper.mockReset()
   MockHelper.mockServiceDiscovery()
+  MockHelper.mockAccountAPI()
+  MockHelper.mockEaiRate()
+  MockHelper.mockMarketPriceAPI()
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20Items)
+  MockHelper.mockAccountsAPIReplyOnce(data.testAddressData)
   MockHelper.mockAccountsAPIReplyOnce()
 
   const bip44Addresses = await RecoveryPhaseHelper.checkAddresses(

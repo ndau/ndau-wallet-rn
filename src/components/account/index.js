@@ -406,12 +406,14 @@ export function AccountHeaderText (props) {
 }
 
 export function AccountDetailsPanel (props) {
-  let firstPanel = {}
+  let additionalProps = {}
   if (props.firstPanel) {
-    firstPanel = styles.firstAccountDetailsPanel
+    additionalProps = styles.firstAccountDetailsPanel
+  } else if (props.secondPanel) {
+    additionalProps = styles.secondAccountDetailsPanel
   }
   return (
-    <View style={[styles.accountDetailsPanel, firstPanel]}>
+    <View style={[styles.accountDetailsPanel, additionalProps]}>
       {props.children}
     </View>
   )
@@ -583,6 +585,14 @@ export function AccountHistoryPanel (props) {
 
 export function AccountDetailPanel (props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
+}
+
+export function AccountReceivePanel (props) {
+  return <View style={styles.accountReceivePanel}>{props.children}</View>
+}
+
+export function AccountSendPanel (props) {
+  return <View style={styles.accountSendPanel}>{props.children}</View>
 }
 
 export function AccountScanPanel (props) {

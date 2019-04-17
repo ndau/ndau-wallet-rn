@@ -132,6 +132,7 @@
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid:17.1.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7:27.1.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-vision:10.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.soloader:soloader:0.5.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable:27.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-utils:27.1.1@aar" level="project" />
@@ -160,13 +161,13 @@
     <orderEntry type="library" name="Gradle: com.google.auto.value:auto-value-annotations:1.6@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks:16.0.1@aar" level="project" />
     <orderEntry type="module" module-name="react-native-exit-app" />
-    <orderEntry type="module" module-name="android-react-native-securerandom" />
-    <orderEntry type="module" module-name="android-react-native-linear-gradient" />
+    <orderEntry type="module" module-name="react-native-securerandom" />
+    <orderEntry type="module" module-name="react-native-linear-gradient" />
+    <orderEntry type="module" module-name="react-native-svg" />
     <orderEntry type="module" module-name="react-native-webview" />
-    <orderEntry type="module" module-name="android-react-native-camera" />
-    <orderEntry type="module" module-name="android-react-native-vector-icons" />
-    <orderEntry type="module" module-name="android-realm" />
+    <orderEntry type="module" module-name="react-native-camera" />
+    <orderEntry type="module" module-name="react-native-vector-icons" />
     <orderEntry type="module" module-name="react-native-push-notification" />
-    <orderEntry type="module" module-name="android-react-native-background-fetch" />
+    <orderEntry type="module" module-name="react-native-background-fetch" />
   </component>
 </module>
