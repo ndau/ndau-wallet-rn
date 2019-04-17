@@ -1,6 +1,7 @@
 import DataFormatHelper from '../DataFormatHelper'
 import AppConstants from '../../AppConstants'
 import KeyPathHelper from '../KeyPathHelper'
+import AppConfig from '../../AppConfig'
 
 test('moveTempUserToWalletName must do the needful', async () => {
   const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_ID)
@@ -454,6 +455,14 @@ test('getNdauFromNapu converts napu correctly', async () => {
   expect(ndau).toEqual('10.000')
 })
 
+test('getNdauFromNapu converts napu correctly to 5 digits', async () => {
+  const ndau = DataFormatHelper.getNdauFromNapu(
+    AppConstants.QUANTA_PER_UNIT * 10,
+    5
+  )
+  expect(ndau).toEqual('10.00000')
+})
+
 test('getNapuFromNdau converts ndau correctly', async () => {
   const ndau = DataFormatHelper.getNapuFromNdau(10)
   expect(ndau).toEqual(AppConstants.QUANTA_PER_UNIT * 10)
@@ -608,25 +617,40 @@ test('convert words from array', async () => {
   )
 })
 
-test('if adding commas to 1 - 6 numbers works', async () => {
-  expect(DataFormatHelper.addCommas(1)).toBe('1.000')
-  expect(DataFormatHelper.addCommas(11)).toBe('11.000')
-  expect(DataFormatHelper.addCommas(111)).toBe('111.000')
-  expect(DataFormatHelper.addCommas(1111)).toBe('1,111.000')
-  expect(DataFormatHelper.addCommas(11111)).toBe('11,111.000')
-  expect(DataFormatHelper.addCommas(111111)).toBe('111,111.000')
+test('getNdauFromNapu converts napu correctly and adds commas correctly for 1000 ndau', async () => {
+  let ndau = DataFormatHelper.getNdauFromNapu(
+    AppConstants.QUANTA_PER_UNIT * 1000,
+    AppConfig.NDAU_SUMMARY_PRECISION,
+    true
+  )
+  expect(ndau).toEqual('1,000.000')
 })
 
-test('if adding commas to 6 - 13 numbers with precision 2 passed works', async () => {
-  expect(DataFormatHelper.addCommas(1111111, 2)).toBe('1,111,111.00')
-  expect(DataFormatHelper.addCommas(11111111, 2)).toBe('11,111,111.00')
-  expect(DataFormatHelper.addCommas(111111111, 2)).toBe('111,111,111.00')
-  expect(DataFormatHelper.addCommas(1111111111, 2)).toBe('1,111,111,111.00')
-  expect(DataFormatHelper.addCommas(11111111111, 2)).toBe('11,111,111,111.00')
-  expect(DataFormatHelper.addCommas(111111111111, 2)).toBe('111,111,111,111.00')
-  expect(DataFormatHelper.addCommas(1111111111111, 2)).toBe(
-    '1,111,111,111,111.00'
+test('getNdauFromNapu converts napu correctly and adds commas correctly for 500,000 ndau', async () => {
+  let ndau = DataFormatHelper.getNdauFromNapu(
+    AppConstants.QUANTA_PER_UNIT * 500000,
+    AppConfig.NDAU_SUMMARY_PRECISION,
+    true
   )
+  expect(ndau).toEqual('500,000.000')
+})
+
+test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,000,000 ndau', async () => {
+  let ndau = DataFormatHelper.getNdauFromNapu(
+    AppConstants.QUANTA_PER_UNIT * 1000000,
+    AppConfig.NDAU_SUMMARY_PRECISION,
+    true
+  )
+  expect(ndau).toEqual('1,000,000.000')
+})
+
+test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,000,000,000 ndau', async () => {
+  let ndau = DataFormatHelper.getNdauFromNapu(
+    AppConstants.QUANTA_PER_UNIT * 1000000000,
+    undefined,
+    true
+  )
+  expect(ndau).toEqual('1,000,000,000.000')
 })
 
 test('if pass in string we get 8 char hash back', async () => {
@@ -638,6 +662,15 @@ test('if pass in string we get 8 char hash back', async () => {
     DataFormatHelper.create8CharHash(`and she's buying a stairway...to heaven`)
       .length
   ).toBe(8)
+})
+
+test('check formatUSDollarValue', async () => {
+  expect(DataFormatHelper.formatUSDollarValue(1)).toBe('1.00')
+  expect(DataFormatHelper.formatUSDollarValue(11)).toBe('11.00')
+  expect(DataFormatHelper.formatUSDollarValue(111)).toBe('111.00')
+  expect(DataFormatHelper.formatUSDollarValue(1111)).toBe('1,111.00')
+  expect(DataFormatHelper.formatUSDollarValue(11111)).toBe('11,111.00')
+  expect(DataFormatHelper.formatUSDollarValue(111111)).toBe('111,111.00')
 })
 
 test('if we can find a wallet already existent', async () => {
@@ -665,4 +698,68 @@ test('if we can find a wallet already existent', async () => {
   expect(
     DataFormatHelper.checkIfWalletAlreadyExists(undefined, 'stevierayvaughan')
   ).toBeFalsy()
+})
+
+test('make sure truncateString works as designed', async () => {
+  expect(
+    DataFormatHelper.truncateString(
+      'This is going to be a very crazy long name'
+    )
+  ).toBe('This is going to ...')
+  expect(DataFormatHelper.truncateString('This will not be as l', 21)).toBe(
+    'This will not be a...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as la', 22)).toBe(
+    'This will not be as...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as lar', 23)).toBe(
+    'This will not be as ...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as larg', 24)).toBe(
+    'This will not be as l...'
+  )
+  expect(DataFormatHelper.truncateString('This will not be as large', 25)).toBe(
+    'This will not be as la...'
+  )
+  expect(
+    DataFormatHelper.truncateString('This will not be as large,', 26)
+  ).toBe('This will not be as lar...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, ', 27)
+  ).toBe('This will not be as larg...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, y', 28)
+  ).toBe('This will not be as large...')
+  expect(
+    DataFormatHelper.truncateString('This will not be as large, ye', 29)
+  ).toBe('This will not be as large,...')
+  expect(
+    DataFormatHelper.truncateString(
+      'This is going to be a very crazy long name',
+      25
+    )
+  ).toBe('This is going to be a ...')
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 29)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 28)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This is going to be fun!!', 30)).toBe(
+    'This is going to be fun!!'
+  )
+  expect(DataFormatHelper.truncateString('This will be small', 25)).toBe(
+    'This will be small'
+  )
+  expect(DataFormatHelper.truncateString('KrisP', 1)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 2)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 3)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 4)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 5)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 6)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 7)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 8)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('KrisP', 9)).toBe('KrisP')
+  expect(DataFormatHelper.truncateString('Kristofer', 8)).toBe('Krist...')
+  expect(DataFormatHelper.truncateString('Wallet 34')).toBe('Wallet 34')
 })

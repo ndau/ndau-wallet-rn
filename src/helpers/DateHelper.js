@@ -43,6 +43,24 @@ const getDaysFromISODate = isoDate => {
   )
 }
 
+const getMonthsFromISODate = isoDate => {
+  if (!isoDate) {
+    return 0
+  }
+  return Math.round(
+    moment.duration(parseDurationToMicroseconds(isoDate) / 1000).asMonths()
+  )
+}
+
+const getYearsFromISODate = isoDate => {
+  if (!isoDate) {
+    return 0
+  }
+  return Math.round(
+    moment.duration(parseDurationToMicroseconds(isoDate) / 1000).asYears()
+  )
+}
+
 // useful constants for the parseDuration function
 // they're not exported.
 const sec = 1000000
@@ -103,5 +121,7 @@ export default {
   getMicrosecondsSinceNdauEpoch,
   parseDurationToMicroseconds,
   addDaysToToday,
-  getDaysFromISODate
+  getDaysFromISODate,
+  getMonthsFromISODate,
+  getYearsFromISODate
 }

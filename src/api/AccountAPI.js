@@ -84,6 +84,23 @@ const getEaiRate = async addressData => {
   }
 }
 
+const getLockRates = async account => {
+  const accountEaiRateRequestData = DataFormatHelper.getAccountEaiRateRequestForLock(
+    account
+  )
+
+  const eaiRateAddress = await APIAddressHelper.getEaiRateAPIAddress()
+  try {
+    return await APICommunicationHelper.post(
+      eaiRateAddress,
+      JSON.stringify(accountEaiRateRequestData)
+    )
+  } catch (error) {
+    LoggingService.debug(error)
+    throw new BlockchainAPIError(error.message)
+  }
+}
+
 const accountHistory = async address => {
   const accountHistoryAddress = await APIAddressHelper.getAccountHistoryAPIAddress(
     address
@@ -101,5 +118,6 @@ export default {
   getEaiRate,
   accountHistory,
   isAddressDataNew,
-  getNextSequence
+  getNextSequence,
+  getLockRates
 }

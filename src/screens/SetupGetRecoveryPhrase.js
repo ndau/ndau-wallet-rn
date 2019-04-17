@@ -198,8 +198,8 @@ class SetupGetRecoveryPhrase extends Component {
     FlashNotification.hideMessage()
   }
 
-  _checkRecoveryPhrase = async () => {
-    return await RecoveryPhaseHelper.checkRecoveryPhrase(
+  _recoverUser = async () => {
+    return await RecoveryPhaseHelper.recoverUser(
       DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase),
       UserStore.getUser()
     )
@@ -239,7 +239,7 @@ class SetupGetRecoveryPhrase extends Component {
           return
         }
 
-        const user = await this._checkRecoveryPhrase()
+        const user = await this._recoverUser()
         if (user) {
           const encryptionPassword = UserStore.getPassword()
           let marketPrice = 0
@@ -291,7 +291,7 @@ class SetupGetRecoveryPhrase extends Component {
           }
         } else {
           this.setState({
-            textColor: '#f05123',
+            textColor: AppConstants.WARNING_ICON_COLOR,
             confirmationError: true
           })
           FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
@@ -299,7 +299,7 @@ class SetupGetRecoveryPhrase extends Component {
       } catch (error) {
         LoggingService.debug(error)
         this.setState({
-          textColor: '#f05123',
+          textColor: AppConstants.WARNING_ICON_COLOR,
           confirmationError: true
         })
         FlashNotification.showError(
@@ -325,7 +325,6 @@ class SetupGetRecoveryPhrase extends Component {
 
   adjustStepNumber = pageIndex => {
     this.setState({ stepNumber: pageIndex })
-    LoggingService.debug(`pageIndex: ${pageIndex}`)
     if (pageIndex === this.recoveryPhrase.length) {
       this.setState({ recoverPhraseFull: true })
     }
@@ -490,8 +489,6 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   render () {
-    LoggingService.debug(`recoverPhrase is now: ${this.recoveryPhrase}`)
-
     return !this.state.recoverPhraseFull
       ? this._renderAcquisition()
       : this._renderConfirmation()

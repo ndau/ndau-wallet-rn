@@ -8,7 +8,15 @@ import AppConstants from '../../AppConstants'
 export default StyleSheet.create({
   accountMainPanel: {
     width: wp('100%'),
-    height: hp('12%'),
+    ...Platform.select({
+      ios: {
+        height: hp('13%')
+      },
+      android: {
+        height: hp('14%')
+      }
+    }),
+
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
@@ -30,7 +38,8 @@ export default StyleSheet.create({
       android: {
         height: hp('9%')
       }
-    })
+    }),
+    padding: 0
   },
   accountDetailsTitlePanel: {
     width: wp('100%'),
@@ -71,18 +80,22 @@ export default StyleSheet.create({
     })
   },
   accountButton: {
-    width: wp('28.97%'),
-    height: hp('4.95%'),
+    width: wp('30%'),
+    ...Platform.select({
+      ios: {
+        height: hp('4.95%')
+      },
+      android: {
+        height: hp('5.5%'),
+        marginTop: hp('1%')
+      }
+    }),
+
     borderRadius: 22,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
-    backgroundColor: 'transparent',
-    ...Platform.select({
-      android: {
-        marginTop: hp('1%')
-      }
-    })
+    backgroundColor: 'transparent'
   },
   accountActionPanel: {
     width: wp('100%'),
@@ -218,7 +231,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: wp('100%'),
-    height: hp('4%'),
+    ...Platform.select({
+      ios: {
+        height: hp('5%')
+      },
+      android: {
+        height: hp('5%')
+      }
+    }),
     backgroundColor: 'transparent',
     overflow: 'hidden'
   },
@@ -226,7 +246,18 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: wp('100%'),
-    height: hp('8%'),
+    ...Platform.select({
+      ios: {
+        height: hp('8%'),
+        paddingTop: hp('1.5%'),
+        paddingBottom: hp('1.5%')
+      },
+      android: {
+        height: hp('9.5%'),
+        paddingTop: hp('1%'),
+        paddingBottom: hp('1%')
+      }
+    }),
     backgroundColor: '#293E63',
     overflow: 'hidden',
     shadowOffset: { width: 0, height: 2 },
@@ -234,9 +265,7 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
     paddingLeft: wp('4%'),
-    paddingRight: wp('4%'),
-    paddingTop: hp('1.5%'),
-    paddingBottom: hp('1.5%')
+    paddingRight: wp('4%')
   },
   accountHistoryPanel: {
     width: wp('100%'),
@@ -246,9 +275,42 @@ export default StyleSheet.create({
   },
   accountDetailsPanel: {
     width: wp('100%'),
-    height: hp('26%'),
+    height: hp('31%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  secondAccountDetailsPanel: {
+    width: wp('100%'),
+    height: hp('24%'),
+    backgroundColor: '#0A1724',
+    paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  accountReceivePanel: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#0A1724',
+    paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  accountSendPanel: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#0A1724',
+    paddingHorizontal: wp('4%'),
+    paddingTop: 0
+  },
+  accountLockPanel: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#0A1724',
+    paddingTop: 0
+  },
+  accountLockOptionsPanel: {
+    width: wp('100%'),
+    height: hp('58%'),
+    backgroundColor: '#0A1724',
     paddingTop: 0
   },
   accountScan: {
@@ -259,7 +321,7 @@ export default StyleSheet.create({
   },
   firstAccountDetailsPanel: {
     width: wp('100%'),
-    height: hp('25%'),
+    height: hp('28%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -346,13 +408,13 @@ export default StyleSheet.create({
     fontSize: 16,
     letterSpacing: 0.34,
     lineHeight: 24,
-    textAlign: 'center',
-    ...Platform.select({
-      ios: {
-        marginBottom: -2,
-        marginTop: -5
-      }
-    })
+    textAlign: 'center'
+  },
+  accountButtonInnerPanel: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: hp('.6%')
   },
   accountDetailsTextPanelWithButton: {
     margin: wp('4%'),
@@ -367,7 +429,8 @@ export default StyleSheet.create({
   },
   lockAccountTextPanelWithSmallText: {
     marginLeft: wp('4%'),
-    marginRight: wp('4%'),
+    marginRight: wp('8%'),
+    marginBottom: hp('1%'),
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
@@ -375,7 +438,15 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    fontWeight: '200',
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24
+  },
+  accountLockGreenText: {
+    color: AppConstants.GREEN_TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '800',
     letterSpacing: 0.34,
     lineHeight: 24
   },
@@ -399,7 +470,7 @@ export default StyleSheet.create({
   accountDetailsSmallerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '200',
     letterSpacing: 0.26,
     lineHeight: 18,
@@ -432,7 +503,6 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // alignItems: 'stretch',
     width: wp('100%'),
     height: hp('6%'),
     backgroundColor: 'transparent',
@@ -516,6 +586,17 @@ export default StyleSheet.create({
     }),
     marginLeft: 0
   },
+  backArrowForLock: {
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1.2%')
+      },
+      android: {
+        marginTop: hp('.8%')
+      }
+    }),
+    marginLeft: wp('4%')
+  },
   detailsBarCog: {
     ...Platform.select({
       ios: {
@@ -544,20 +625,12 @@ export default StyleSheet.create({
     marginTop: hp('2%'),
     textAlign: 'center'
   },
-  lockSliderContainer: {
-    margin: wp('4%'),
-    marginBottom: hp('7%')
-  },
-  lockSlider: {
-    width: wp('92%'),
-    height: hp('1%'),
-    color: '#0A1724'
-  },
   lockSmallerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 12,
-    textAlign: 'left'
+    textAlign: 'left',
+    marginTop: hp('2%')
   },
   accountHistoryTextPanelWithSmallText: {
     marginLeft: wp('4%'),
@@ -571,7 +644,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  accountSendErrorSmallText: {
+  accountSideMargins: {
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
@@ -650,6 +723,75 @@ export default StyleSheet.create({
     backgroundColor: '#293E63',
     paddingHorizontal: wp('4%')
   },
+  accountLockOption: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: '#0F2748',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    marginBottom: hp('2%')
+  },
+  accountLockOptionSelected: {
+    backgroundColor: '#293E63',
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2
+  },
+  accountLockOptionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: 'transparent',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountLockOptionHeaderText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    width: wp('16%')
+  },
+  accountLockCheckbox: {
+    paddingTop: hp('1.5%'),
+    paddingLeft: wp('1$')
+  },
+  accountLockOptionText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    width: wp('8%')
+  },
+  accountLockOptionTextWithBorder: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 24,
+    width: wp('16%'),
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    textAlign: 'center',
+    paddingTop: 0,
+    marginTop: hp('1%'),
+    marginBottom: hp('1%')
+  },
   addressCopyPanelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -672,7 +814,7 @@ export default StyleSheet.create({
   },
 
   addressButtonText: {
-    width: wp('10%'),
+    width: wp('12%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 14,

@@ -2,50 +2,99 @@ import React, { Component } from 'react'
 import {
   AccountLockContainer,
   AccountLockDetailsPanel,
-  AccountLockButton,
   AccountLockLargerText,
   AccountBorder,
-  AccountCheckmarkText
+  AccountIconText,
+  AccountLockConfirmBottomPanel
 } from '../components/account'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
+import { NotifyTransaction } from '../transactions/NotifyTransaction'
+import { SetRewardsDestinationTransaction } from '../transactions/SetRewardsDestinationTransaction'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import AppConstants from '../AppConstants'
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
     super(props)
     this.state = {
       account: {},
-      wallet: {}
+      wallet: {},
+      lockInformation: {},
+      accountAddressForEAI: null,
+      accountNicknameForEAI: null,
+      confirmed: false,
+      word: null,
+      spinner: false
     }
   }
 
   componentWillMount = () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-
-    const lockPercentage = this.props.navigation.getParam(
-      'lockPercentage',
+    const lockInformation = this.props.navigation.getParam(
+      'lockInformation',
       null
     )
-    const lockPeriod = this.props.navigation.getParam('lockPeriod', null)
+    const accountAddressForEAI = this.props.navigation.getParam(
+      'accountAddressForEAI',
+      null
+    )
+    const accountNicknameForEAI = this.props.navigation.getParam(
+      'accountNicknameForEAI',
+      null
+    )
 
-    this.setState({ account, wallet, lockPercentage, lockPeriod })
+    this.setState({
+      account,
+      wallet,
+      lockInformation,
+      accountAddressForEAI,
+      accountNicknameForEAI
+    })
   }
 
   _lock = async () => {
-    Object.assign(LockTransaction.prototype, Transaction)
-    const lockTransaction = new LockTransaction(
-      this.state.wallet,
-      this.state.account,
-      `${this.state.lockPeriod}m`
-    )
-    await lockTransaction.createSignPrevalidateSubmit()
+    this.setState({ spinner: true }, async () => {
+      try {
+        Object.assign(LockTransaction.prototype, Transaction)
+        const lockTransaction = new LockTransaction(
+          this.state.wallet,
+          this.state.account,
+          `${this.state.lockInformation.lockISO}`
+        )
+        await lockTransaction.createSignPrevalidateSubmit()
 
-    this.props.navigation.navigate('WalletOverview', {
-      wallet: this.state.wallet
+        // Alright, we are locked...now send a Notify
+        // This was done in version 2.0 to simplify the lock
+        // process.
+        Object.assign(NotifyTransaction.prototype, Transaction)
+        const notifyTransaction = new NotifyTransaction(
+          this.state.wallet,
+          this.state.account
+        )
+        await notifyTransaction.createSignPrevalidateSubmit()
+
+        // Now make sure we send the EAI where it belongs
+        Object.assign(SetRewardsDestinationTransaction.prototype, Transaction)
+        const setRewardsDestinationTransaction = new SetRewardsDestinationTransaction(
+          this.state.wallet,
+          this.state.account,
+          this.state.accountAddressForEAI
+        )
+        await setRewardsDestinationTransaction.createSignPrevalidateSubmit()
+
+        this.props.navigation.push('WalletOverview', {
+          wallet: this.state.wallet,
+          refresh: true
+        })
+      } catch (error) {
+        this.setState({ spinner: false })
+        throw error
+      }
+      this.setState({ spinner: false })
     })
   }
 
@@ -53,52 +102,58 @@ class AccountLockConfirmation extends Component {
     this.props.navigation.goBack()
   }
 
+  _checkWord = word => {
+    let confirmed = false
+    if (word === 'Lock') {
+      confirmed = true
+    }
+    this.setState({ confirmed, word })
+  }
+
   render () {
-    const { account } = this.state
-    const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(
-      account.addressData
-    )
-    const sendingEAITo = AccountAPIHelper.sendingEAITo(account.addressData)
-    const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
-      account.addressData
-    )
-    const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-      account.addressData
-    )
-    const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-      account.addressData
-    )
-    const accountNotLocked = AccountAPIHelper.accountNotLocked(
-      account.addressData
-    )
     return (
       <AccountLockContainer
-        title='Lock account step 2'
+        title='Lock account'
         account={this.state.account}
         wallet={this.state.wallet}
+        navigation={this.props.nav}
         {...this.props}
       >
-        <AccountLockDetailsPanel
-          eaiValueForDisplay={eaiValueForDisplay}
-          sendingEAITo={sendingEAITo}
-          receivingEAIFrom={receivingEAIFrom}
-          accountLockedUntil={accountLockedUntil}
-          accountNoticePeriod={accountNoticePeriod}
-          accountNotLocked={accountNotLocked}
-        >
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <AccountLockDetailsPanel account={this.state.account}>
           <AccountLockLargerText>Confirmation</AccountLockLargerText>
-          <AccountBorder />
-          <AccountCheckmarkText>
+          <AccountBorder sideMargins />
+          <AccountIconText>
             Lock {this.state.account.addressData.nickname}
-          </AccountCheckmarkText>
-          <AccountCheckmarkText>
-            Earn {this.state.lockPercentage}% EAI Incentive
-          </AccountCheckmarkText>
-          <AccountCheckmarkText>
-            Account will unlock in {this.state.lockPeriod} months
-          </AccountCheckmarkText>
+          </AccountIconText>
+          <AccountIconText>
+            Earn {this.state.lockInformation.bonus}% EAI bonus +{' '}
+            {this.state.lockInformation.base}% base ={' '}
+            {this.state.lockInformation.total}% total
+          </AccountIconText>
+          <AccountIconText>
+            Sending EAI to {this.state.accountNicknameForEAI}
+          </AccountIconText>
+          <AccountIconText>
+            Account will unlock in {this.state.lockInformation.lock}
+          </AccountIconText>
+          <AccountIconText
+            iconColor={AppConstants.WARNING_ICON_COLOR}
+            iconName='exclamation-circle'
+          >
+            You will not be able to deposit into, spend, transfer, or otherwise
+            access the principal in this account while it is locked
+          </AccountIconText>
         </AccountLockDetailsPanel>
-        <AccountLockButton onPress={this._lock}>Confirm</AccountLockButton>
+
+        <AccountLockConfirmBottomPanel
+          disabled={!this.state.confirmed}
+          onPress={this._lock}
+          onChangeText={this._checkWord}
+          word={this.state.word}
+        >
+          Confirm
+        </AccountLockConfirmBottomPanel>
       </AccountLockContainer>
     )
   }

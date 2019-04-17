@@ -4,20 +4,29 @@ import {
   StatusBar,
   ImageBackground,
   TouchableOpacity,
-  Picker,
   Text,
   Image,
   ScrollView
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
-import { Button, Progress, H4, P, Checkbox, Input } from 'nachos-ui'
+import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
-import RNQRCodeScanner from 'react-native-qrcode-scanner'
-import RNQRCode from 'react-native-qrcode'
+import { RNCamera } from 'react-native-camera'
+import BarcodeMask from 'react-native-barcode-mask'
+import { QRCode } from 'react-native-custom-qr-codes'
+// It would be ideal to use the below library as it is faster. However
+// there seemed to be an issue with how it creates a black border. Even padding
+// the qr with a white border does not help. The react-native-custom-qr-codes is slow
+// on old android devices. I think we might get complaints.
+// The issue tracking the slow performance of react-native-custom-qr-codes is
+// https://github.com/nating/react-native-custom-qr-codes/issues/14
+// import QRCode from 'react-native-qrcode-svg'
+import Spinner from 'react-native-loading-spinner-overlay'
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -134,16 +143,14 @@ export function LargeButton (props) {
 
 export function LargeBorderButton (props) {
   return (
-    <View>
-      <Button
-        style={[styles.largeBorderButton, props.style]}
-        textStyle={[styles.largeButtonText, props.style]}
-        uppercase={false}
-        {...props}
-      >
-        {props.children}
-      </Button>
-    </View>
+    <Button
+      style={[styles.largeBorderButton, props.style]}
+      textStyle={[styles.largeButtonText, props.style]}
+      uppercase={false}
+      {...props}
+    >
+      {props.children}
+    </Button>
   )
 }
 
@@ -255,21 +262,59 @@ export function Label (props) {
   )
 }
 
+/**
+ * This is a homegrown button as opposed to using nachosui. The reason
+ * here is that they way nachosui inserts Icon objects does not allow
+ * customization. You can change the fontset but the button doesn't call
+ * the Icon correctly to pass in the name of the icon. It uses a hardcoded
+ * map of name to unicode characters. These unicode characters do not line
+ * up to the FontAwesomePro5 set.
+ *
+ * @param {Object} props
+ */
 export function CheckBox (props) {
+  const {
+    activeOpacity,
+    disabled,
+    checkComponent,
+    checked,
+    onValueChange
+  } = props
+
+  const isChecked = checked || false
   return (
-    <View style={{ flexDirection: 'row' }}>
-      <Checkbox
+    <View style={[{ flexDirection: 'row' }, disabled ? disabledStyle : {}]}>
+      <TouchableOpacity
+        activeOpacity={0.8}
         style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
-        iconColor={AppConstants.TEXT_COLOR}
-        iconName='check'
+        onPress={() => onValueChange(!checked)}
         {...props}
       >
-        {props.children}
-      </Checkbox>
+        {isChecked && !checkComponent && (
+          <FontAwesome5Pro
+            color={AppConstants.TEXT_COLOR}
+            name='check'
+            size={18}
+            light
+          />
+        )}
+        {isChecked && checkComponent}
+      </TouchableOpacity>
       <P style={[styles.checkboxLabel]} {...props}>
         {props.label}
       </P>
     </View>
+  )
+}
+
+export function RadioButton (props) {
+  return (
+    <RadioGroup
+      style={styles.radioButton}
+      textStyle={styles.checkboxLabel}
+      direction='column'
+      {...props}
+    />
   )
 }
 
@@ -350,26 +395,6 @@ export function BarBorder (props) {
 
 export function FullBarBorder (props) {
   return <View style={styles.fullBarBorder} />
-}
-
-export function Dropdown (props) {
-  return (
-    <View style={styles.dropdownDetailsTextPanel}>
-      <Picker
-        itemStyle={styles.dropdownPickerText}
-        style={styles.dropdownPicker}
-        {...props}
-      >
-        {Object.keys(props.items)
-          .filter(key => key !== props.nickname)
-          .map((key, index) => {
-            return (
-              <Picker.Item key={index} label={key} value={props.items[key]} />
-            )
-          })}
-      </Picker>
-    </View>
-  )
 }
 
 export function OrBorder (props) {
@@ -474,19 +499,47 @@ export function ParagraphText (props) {
   )
 }
 
-export function QRCodeScanner (props) {
-  return <RNQRCodeScanner {...props} cameraStyle={styles.fullWidthAndHeight} />
+export function NdauQRCodeScanner (props) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#000'
+      }}
+    >
+      <RNCamera
+        style={{
+          flex: 1
+        }}
+        {...props}
+      >
+        <BarcodeMask width={250} height={250} showAnimatedLine={false} />
+        {props.children}
+      </RNCamera>
+    </View>
+  )
 }
 
-export function QRCode (props) {
+export function NdauQRCode (props) {
   return (
     <View style={styles.qrCode}>
-      <RNQRCode
-        value={props.value}
-        size={wp('65%')}
-        color='black'
-        backgroundColor='transparent'
-      />
+      <QRCode content={props.value} size={250} />
     </View>
+  )
+}
+
+export function LoadingSpinner (props) {
+  return (
+    <Spinner
+      visible={props.spinner}
+      textContent={props.text ? props.text : 'Loading...'}
+      textStyle={{
+        color: '#ffffff',
+        fontSize: 20,
+        fontFamily: 'TitilliumWeb-Light'
+      }}
+      animation='fade'
+      overlayColor='rgba(0, 0, 0, 0.7)'
+    />
   )
 }

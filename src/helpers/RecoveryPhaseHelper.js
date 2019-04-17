@@ -20,58 +20,63 @@ import AppConfig from '../AppConfig'
  * @return {User} we either pass back null if nothing is found or a populated
  * user if we find information.
  */
-const checkRecoveryPhrase = async (recoveryPhraseString, user) => {
+const recoverUser = async (recoveryPhraseString, user) => {
   const recoveryPhraseBytes = await _getRecoveryStringAsBytes(
     recoveryPhraseString
   )
 
   // if we are recovering and there is no user we must use a
   // temp userId. It will be changed in the SetupWalletName screen
+  let wallet
   let userId = AppConstants.TEMP_ID
   if (user) {
-    const wallet = await KeyMaster.createWallet(
-      recoveryPhraseBytes,
-      null,
-      userId
-    )
+    wallet = await KeyMaster.createWallet(recoveryPhraseBytes, null, userId)
     user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
   } else {
     user = await KeyMaster.createFirstTimeUser(recoveryPhraseBytes, userId)
+    wallet = user.wallets[Object.keys(user.wallets)[0]]
   }
 
-  let wallet
-  const bip44Accounts = await _checkAddresses(recoveryPhraseBytes)
+  const bip44Accounts = await checkAddresses(recoveryPhraseBytes)
   LoggingService.debug(
     `BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`
   )
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
-    wallet = await KeyMaster.addAccountsToUser(
-      recoveryPhraseBytes,
-      user,
-      Object.keys(bip44Accounts).length,
-      undefined,
-      userId
+    for (const accountPath in bip44Accounts) {
+      await KeyMaster.createAccountFromPath(
+        wallet,
+        accountPath,
+        bip44Accounts[accountPath]
+      )
+    }
+    LoggingService.debug(
+      `Recovered user containing BIP44 accounts: ${JSON.stringify(
+        user,
+        null,
+        2
+      )}`
     )
-    LoggingService.debug(`user with BIP44: ${JSON.stringify(user, null, 2)}`)
   }
 
-  const rootAccounts = await _checkAddresses(recoveryPhraseBytes, true)
+  const rootAccounts = await checkAddresses(recoveryPhraseBytes, true)
   LoggingService.debug(
     `root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`
   )
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
-    // Here again we are attempting to genereate at the very root of the tree
-    // Notice we pass wallet in here. This is so we do not create
-    // a new wallet as it was just created when we did BIP44 above.
-    await KeyMaster.addAccountsToUser(
-      recoveryPhraseBytes,
-      user,
-      Object.keys(rootAccounts).length,
-      '',
-      userId,
-      wallet
+    for (const accountPath in rootAccounts) {
+      await KeyMaster.createAccountFromPath(
+        wallet,
+        accountPath,
+        rootAccounts[accountPath]
+      )
+    }
+    LoggingService.debug(
+      `Recovered user containing root accounts now: ${JSON.stringify(
+        user,
+        null,
+        2
+      )}`
     )
-    LoggingService.debug(`user with root: ${JSON.stringify(user, null, 2)}`)
   }
 
   return user
@@ -84,7 +89,7 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
   )
 }
 
-const _checkAddresses = async (recoveryPhraseBytes, root) => {
+const checkAddresses = async (recoveryPhraseBytes, root) => {
   let accountData = {}
   let accountDataFromBlockchain = {}
   let addresses = []
@@ -99,22 +104,41 @@ const _checkAddresses = async (recoveryPhraseBytes, root) => {
         startIndex,
         endIndex
       )
-      LoggingService.debug(`KeyMaster.getRootAddresses found: ${addresses}`)
+      LoggingService.debug(
+        `KeyMaster.getRootAddresses found: ${JSON.stringify(
+          addresses,
+          null,
+          2
+        )}`
+      )
     } else {
       addresses = await KeyMaster.getBIP44Addresses(
         recoveryPhraseBytes,
         startIndex,
         endIndex
       )
-      LoggingService.debug(`KeyMaster.getBIP44Addresses found: ${addresses}`)
+      LoggingService.debug(
+        `KeyMaster.getBIP44Addresses found: ${JSON.stringify(
+          addresses,
+          null,
+          2
+        )}`
+      )
     }
 
-    // check the blockchain to see if any of these exist
-    // swallow the error so we do not exit and not assign the account data
-    try {
-      accountDataFromBlockchain = await AccountAPI.getAddressData(addresses)
-    } catch (error) {}
-    accountData = Object.assign(accountData, accountDataFromBlockchain)
+    accountDataFromBlockchain = await AccountAPI.getAddressData(
+      Object.keys(addresses)
+    )
+
+    const addressKeys = Object.keys(addresses)
+    for (const address in accountDataFromBlockchain) {
+      const foundElement = addressKeys.find(element => {
+        return element === address
+      })
+      if (foundElement) {
+        accountData[addresses[address]] = accountDataFromBlockchain[address]
+      }
+    }
 
     // now move ahead in the address indexs to get the next batch
     startIndex += AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
@@ -125,5 +149,6 @@ const _checkAddresses = async (recoveryPhraseBytes, root) => {
 }
 
 export default {
-  checkRecoveryPhrase
+  recoverUser,
+  checkAddresses
 }

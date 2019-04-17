@@ -23,6 +23,8 @@ import NewAccountModalDialog from '../components/common/NewAccountModalDialog'
 import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
 import NdauStore from '../stores/NdauStore'
+import AccountHelper from '../helpers/AccountHelper'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -39,7 +41,7 @@ class WalletOverview extends Component {
     }
 
     this.isTestNet = false
-    this.allAccountNicknames = []
+    this.accountsCanRxEAI = []
   }
 
   _handleAppStateChange = async nextAppState => {
@@ -54,6 +56,10 @@ class WalletOverview extends Component {
 
   componentWillMount = async () => {
     AppState.addEventListener('change', this._handleAppStateChange)
+
+    if (this.props.navigation.getParam('refresh')) {
+      this._onRefresh()
+    }
 
     const wallet = WalletStore.getWallet()
     const marketPrice = NdauStore.getMarketPrice()
@@ -96,16 +102,10 @@ class WalletOverview extends Component {
 
   addNewAccount = async () => {
     try {
-      const password = await UserStore.getPassword()
-      const user = await MultiSafeHelper.getDefaultUser(password)
-      const wallet = await KeyMaster.createNewAccount(
+      const wallet = await AccountHelper.createAccounts(
         this.state.wallet,
         this.state.number
       )
-
-      KeyMaster.setWalletInUser(user, wallet)
-
-      await MultiSafeHelper.saveUser(user, password)
 
       this.setState({ wallet })
     } catch (error) {
@@ -142,7 +142,7 @@ class WalletOverview extends Component {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
     this.props.navigation.push('AccountDetails', {
-      allAccountNicknames: this.allAccountNicknames
+      accountsCanRxEAI: this.accountsCanRxEAI
     })
   }
 
@@ -155,14 +155,17 @@ class WalletOverview extends Component {
       const totalNdau = wallet
         ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
         : 0
+      const totalNdauNumber = wallet
+        ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
+        : 0
       const totalSpendable = wallet
-        ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdau)
+        ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
         : 0
       const currentPrice = AccountAPIHelper.currentPrice(
         this.state.marketPrice,
-        totalNdau
+        totalNdauNumber
       )
-      this.allAccountNicknames = {}
+      this.accountsCanRxEAI = {}
 
       return (
         <AppContainer>
@@ -175,7 +178,9 @@ class WalletOverview extends Component {
           />
 
           <DrawerHeaderForOverview {...this.props}>
-            {this.state.wallet ? this.state.wallet.walletName : ''}
+            {this.state.wallet
+              ? DataFormatHelper.truncateString(this.state.wallet.walletName)
+              : ''}
           </DrawerHeaderForOverview>
           <NdauTotal>{totalNdau}</NdauTotal>
           <WalletOverviewHeaderActions>
@@ -241,12 +246,14 @@ class WalletOverview extends Component {
                       const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
                         wallet.accounts[accountKey].addressData
                       )
-                      const address = wallet.accounts[accountKey].address
-                      const nickname =
-                          wallet.accounts[accountKey].addressData.nickname
-                      Object.assign(this.allAccountNicknames, {
-                        [nickname]: address
-                      })
+                      if (!wallet.accounts[accountKey].addressData.lock) {
+                        const address = wallet.accounts[accountKey].address
+                        const nickname =
+                            wallet.accounts[accountKey].addressData.nickname
+                        Object.assign(this.accountsCanRxEAI, {
+                          [nickname]: address
+                        })
+                      }
                       return (
                         <AccountPanel
                           key={index}

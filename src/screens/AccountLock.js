@@ -5,13 +5,18 @@ import {
   AccountLockContainer,
   AccountLockButton,
   AccountLockLargerText,
-  AccountLockSmallerText,
-  AccountLockSlider
+  AccountLockOption,
+  AccountLockOptionHeader,
+  AccountLockOptionsPanel,
+  AccountLockGreenText
 } from '../components/account'
+import { ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import { Dropdown } from '../components/common'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import AccountAPI from '../api/AccountAPI'
+import AppConstants from '../AppConstants'
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -19,100 +24,129 @@ class AccountLock extends Component {
     this.state = {
       account: {},
       wallet: {},
-      sliderValue: 0.5,
-      lockPercentage: 3,
-      lockPeriod: 12,
-      allAccountNicknames: {}
+      possibleLocks: [],
+      selectedIndex: null,
+      whereToSendEAI: null,
+      lockType: null,
+      chooseAccounts: false,
+      spinner: false,
+      accountsCanRxEAI: {},
+      accountAddressForEAI: null,
+      accountNicknameForEAI: null,
+      baseEAI: 0
     }
   }
 
-  componentWillMount = () => {
-    const account = AccountStore.getAccount()
-    const wallet = WalletStore.getWallet()
-    const allAccountNicknames = this.props.navigation.getParam(
-      'allAccountNicknames',
-      null
-    )
+  componentWillMount = async () => {
+    this.setState({ spinner: true }, async () => {
+      const accountsCanRxEAI = this.props.navigation.getParam(
+        'accountsCanRxEAI',
+        null
+      )
+      const baseEAI = this.props.navigation.getParam('baseEAI', null)
+      const account = AccountStore.getAccount()
+      const wallet = WalletStore.getWallet()
 
-    this.setState({ account, wallet, allAccountNicknames })
-  }
+      const lockData = await AccountAPI.getLockRates(account)
 
-  _showLockConfirmation = () => {
-    this.props.navigation.navigate('AccountLockConfirmation', {
-      account: this.state.account,
-      wallet: this.state.wallet,
-      lockPercentage: this.state.lockPercentage,
-      lockPeriod: this.state.lockPeriod
+      possibleLocks = lockData.map((data, index) => {
+        const total = AccountAPIHelper.eaiValueForDisplay({
+          eaiValueForDisplay: data.eairate
+        })
+        const bonus = index + 1
+        const base = total - bonus
+        return {
+          bonus,
+          total,
+          base,
+          lock: AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES[data.address],
+          lockISO: data.address
+        }
+      })
+
+      this.setState({
+        spinner: false,
+        account,
+        wallet,
+        possibleLocks,
+        accountsCanRxEAI,
+        baseEAI
+      })
     })
   }
 
-  handleSliderChange = sliderValue => {
-    let lockPeriod = 3
-    if (sliderValue.toFixed(1) == 0.0) {
-      lockPercentage = 1
-      lockPeriod = 3
-    } else if (sliderValue.toFixed(2) == 0.25) {
-      lockPercentage = 2
-      lockPeriod = 5
-    } else if (sliderValue.toFixed(1) == 0.5) {
-      lockPercentage = 3
-      lockPeriod = 12
-    } else if (sliderValue.toFixed(2) == 0.75) {
-      lockPercentage = 4
-      lockPeriod = 24
-    } else if (sliderValue.toFixed(1) == 1.0) {
-      lockPercentage = 5
-      lockPeriod = 36
-    }
-    this.setState({ sliderValue, lockPercentage, lockPeriod })
+  handleLockSelection = index => {
+    this.setState({ selectedIndex: index })
+  }
+
+  _selectAccountToSendEAI = () => {
+    this.props.navigation.navigate('AccountLockType', {
+      account: this.state.account,
+      wallet: this.state.wallet,
+      lockInformation: this.state.possibleLocks[this.state.selectedIndex],
+      accountsCanRxEAI: this.state.accountsCanRxEAI
+    })
   }
 
   render () {
     return (
       <AccountLockContainer
-        title='Lock account step 1'
+        title='Lock account'
         account={this.state.account}
         wallet={this.state.wallet}
         navigation={this.props.nav}
         {...this.props}
       >
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountLockDetailsPanel account={this.state.account}>
-          <AccountLockLargerText>
-            Locking your ndau with a withdrawal countdown period accrues bonus
-            EAI.
-          </AccountLockLargerText>
-          <AccountLockLargerText>
-            Lock the{' '}
-            {AccountAPIHelper.accountNdauAmount(this.state.account.addressData)}{' '}
-            ndau in{' '}
-            {AccountAPIHelper.accountNickname(this.state.account.addressData)}{' '}
-            for a bonus incentive of:
-          </AccountLockLargerText>
-          <AccountLockSmallerText>
-            {this.state.lockPercentage}% ({this.state.lockPeriod} months to
-            unlock)
-          </AccountLockSmallerText>
-          <AccountLockSlider
-            value={this.state.sliderValue}
-            onValueChange={this.handleSliderChange}
-          />
-          <AccountLockLargerText>
-            Where do you want to send the incentive (EAI) from this lock?
-          </AccountLockLargerText>
-          <Dropdown
-            selectedValue={this.state.language}
-            onValueChange={itemValue => this.setState({ language: itemValue })}
-            items={this.state.allAccountNicknames}
-            nickname={this.state.account.addressData.nickname}
-          />
+          <ScrollView>
+            <AccountLockLargerText>
+              Locking your ndau accrues EAI at a higher rate.
+            </AccountLockLargerText>
+            <AccountLockLargerText>
+              Based on your account's weighted average age of{' '}
+              <AccountLockGreenText>
+                {AccountAPIHelper.weightedAverageAgeInDays(
+                  this.state.account.addressData
+                )}{' '}
+                days
+              </AccountLockGreenText>
+              , you are currently earning a base rate of{' '}
+              <AccountLockGreenText>
+                {this.state.baseEAI}% EAI
+              </AccountLockGreenText>
+              .
+            </AccountLockLargerText>
+            <AccountLockLargerText>
+              Choose your lock time and bonus rate:
+            </AccountLockLargerText>
+            <AccountLockOptionHeader />
+            <AccountLockOptionsPanel>
+              {this.state.possibleLocks.map((possibleLock, index) => {
+                return (
+                  <AccountLockOption
+                    key={index}
+                    base={possibleLock.base}
+                    bonus={possibleLock.bonus}
+                    lock={possibleLock.lock}
+                    total={possibleLock.total}
+                    onPress={() => this.handleLockSelection(index)}
+                    selected={index === this.state.selectedIndex}
+                  />
+                )
+              })}
+            </AccountLockOptionsPanel>
+            <AccountLockButton
+              smallText={
+                'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
+              }
+              onPress={this._selectAccountToSendEAI}
+              disabled={this.state.selectedIndex === null}
+            >
+              Continue
+            </AccountLockButton>
+          </ScrollView>
         </AccountLockDetailsPanel>
-        <AccountLockButton
-          smallText='Note: You will not be able to spend, transfer or otherwise access the
-          principal in this account while it is locked'
-          onPress={this._showLockConfirmation}
-        >
-          Continue
-        </AccountLockButton>
       </AccountLockContainer>
     )
   }

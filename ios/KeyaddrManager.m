@@ -151,7 +151,7 @@ RCT_REMAP_METHOD(sign,key:(NSString*)key msgstr:(NSString*)msgstr resolver:(RCTP
 RCT_REMAP_METHOD(deriveFrom, parentKey:(NSString*)parentKey parentPath:(NSString*)parentPath childPath:(NSString*)childPath resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject )
 {
-  RCTLogInfo(@"deriveFrom call on %@", parentPath);
+  RCTLogInfo(@"deriveFrom call with parentKey:%@ parentPath:%@ and childPath:%@", parentKey, parentPath, childPath);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrDeriveFrom(parentKey, parentPath, childPath, error);
 

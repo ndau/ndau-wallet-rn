@@ -67,7 +67,8 @@ class AccountSendConfirmation extends Component {
         await transferTransaction.createSignPrevalidateSubmit()
 
         this.props.navigation.push('WalletOverview', {
-          wallet: this.state.wallet
+          wallet: this.state.wallet,
+          refresh: true
         })
       } catch (error) {
         FlashNotification.showError(
@@ -107,7 +108,8 @@ class AccountSendConfirmation extends Component {
             title={'Remaining balance:'}
             value={
               AccountAPIHelper.accountNdauAmount(
-                this.state.account.addressData
+                this.state.account.addressData,
+                false
               ) - this.state.amount
             }
           />
@@ -126,7 +128,7 @@ class AccountSendConfirmation extends Component {
             value={this.state.total}
           />
         </AccountDetailPanel>
-        <LargeButton onPress={() => this._confirm()}>
+        <LargeButton sideMargins onPress={() => this._confirm()}>
           Confirm {'&'} send
         </LargeButton>
       </AccountSendContainer>

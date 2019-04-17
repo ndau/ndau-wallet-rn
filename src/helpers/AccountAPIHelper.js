@@ -7,7 +7,8 @@ import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
 import LoggingService from '../services/LoggingService'
 import NodeAddressHelper from './NodeAddressHelper'
-import KeyMaster from './KeyMaster'
+import KeyPathHelper from './KeyPathHelper'
+import AppConfig from '../AppConfig'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -29,15 +30,17 @@ const populateWalletWithAddressData = async wallet => {
   // create a map to create the nickname fields appropriately
   // when iterating the address data we can check it to see
   // if a claim transaction must be done
-  addressDataKeys.forEach(async (accountKey, index) => {
+  for (const accountKey of addressDataKeys) {
     // this is the addressData item that came from API
     const addressDataItem = addressData[accountKey]
     // this is the account that is already present
     const account = wallet.accounts[accountKey]
-    // If we have not added it to the account already, add it
-    addressDataItem.nickname = account.addressData.nickname
-    // same with walletId, not there in the account, add it
-    addressDataItem.walletId = account.addressData.walletId
+    if (account) {
+      // If we have not added it to the account already, add it
+      addressDataItem.nickname = account.addressData.nickname
+      // same with walletId, not there in the account, add it
+      addressDataItem.walletId = account.addressData.walletId
+    }
 
     addressDataItem.eaiValueForDisplay = eaiRateMap.get(accountKey)
     addressNicknameMap.set(accountKey, addressDataItem.nickname)
@@ -65,11 +68,12 @@ const populateWalletWithAddressData = async wallet => {
         break
       }
     }
-  })
+  }
 
   // now iterate using the map to populate the rewardsTargetNickname
   // and incomingRewardsFromNickname
-  walletAccountKeys.forEach((walletAccountKey, index) => {
+  let count = 1
+  for (const walletAccountKey of walletAccountKeys) {
     const account = wallet.accounts[walletAccountKey]
     if (account.addressData.rewardsTarget) {
       account.addressData.rewardsTargetNickname = addressNicknameMap.get(
@@ -87,13 +91,15 @@ const populateWalletWithAddressData = async wallet => {
     // If we have a new account this will not be set yet, this will not every be reset
     // notice above if we find it in the account we use it.
     if (!account.addressData.nickname) {
-      account.addressData.nickname = `Account ${index + 1}`
+      account.addressData.nickname = `Account ${count}`
     }
     // Same explanation as nickname for walletId
     if (!account.addressData.walletId) {
       account.addressData.walletId = wallet.walletId
     }
-  })
+
+    count++
+  }
 }
 
 /**
@@ -123,7 +129,10 @@ const sendDelegateTransactionIfNeeded = async (
   account,
   addressData
 ) => {
-  if (!addressData.delegationNode) {
+  if (
+    !addressData.delegationNode &&
+    (addressData.validationKeys && addressData.validationKeys.length > 0)
+  ) {
     LoggingService.debug(
       `Sending Delegate transaction for ${addressData.nickname}`
     )
@@ -142,32 +151,11 @@ const addPrivateValidationKeyIfNotPresent = async (
   account,
   addressData
 ) => {
-  if (
-    addressData.validationKeys &&
-    account.validationKeys &&
-    addressData.validationKeys.length !== account.validationKeys.length
-  ) {
-    LoggingService.debug(
-      `Attempting to find the private key for the public validation key we have...`
-    )
-    for (const validationKey of addressData.validationKeys) {
-      const validationKeys = await KeyMaster.getValidationKeys(wallet, account)
-      const validationPublicKeys = Object.keys(validationKeys)
-      for (const validationPublicKey of validationPublicKeys) {
-        if (validationKey === validationPublicKey) {
-          LoggingService.debug(
-            'Found a match, adding validation keys to the wallet'
-          )
-          KeyMaster.addThisValidationKey(
-            account,
-            wallet,
-            validationKeys[validationPublicKey],
-            validationPublicKey
-          )
-        }
-      }
-    }
-  }
+  await KeyPathHelper.recoveryValidationKey(
+    wallet,
+    account,
+    addressData.validationKeys
+  )
 }
 
 const getEaiValueForDisplay = account => {
@@ -221,10 +209,12 @@ const accountNotLocked = account => {
   return account && account.lock !== undefined ? !account.lock : false
 }
 
-const accountNdauAmount = account => {
+const accountNdauAmount = (account, addCommas = true) => {
   return account && account.balance
-    ? DataFormatHelper.addCommas(
-      parseFloat(DataFormatHelper.getNdauFromNapu(account.balance))
+    ? DataFormatHelper.getNdauFromNapu(
+      account.balance,
+      AppConfig.NDAU_SUMMARY_PRECISION,
+      addCommas
     )
     : 0.0
 }
@@ -235,7 +225,7 @@ const weightedAverageAgeInDays = account => {
 
 const spendableNapu = addressData => {
   const totalNdau = accountNdauAmount(addressData)
-  const totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
+  let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
   const settlements = addressData.settlements
   if (!settlements) return totalNapu
 
@@ -269,7 +259,7 @@ const lockBonusEAI = weightedAverageAgeInDays => {
   return 0
 }
 
-const accountTotalNdauAmount = (accounts, localizedText = true) => {
+const accountTotalNdauAmount = (accounts, withCommas = true) => {
   let total = 0.0
 
   if (!accounts) return total
@@ -285,11 +275,16 @@ const accountTotalNdauAmount = (accounts, localizedText = true) => {
     }
   })
 
-  total = DataFormatHelper.getNdauFromNapu(totalNapu)
-  return localizedText ? DataFormatHelper.addCommas(total) : total
+  return withCommas
+    ? DataFormatHelper.getNdauFromNapu(
+      totalNapu,
+      AppConfig.NDAU_SUMMARY_PRECISION,
+      true
+    )
+    : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
-const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
+const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
   if (!accounts) return totalNdau
 
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
@@ -307,19 +302,28 @@ const totalSpendableNdau = (accounts, totalNdau, localizedText = true) => {
     }
   })
 
-  totalNdau = DataFormatHelper.getNdauFromNapu(totalNapu)
-
-  return localizedText
-    ? DataFormatHelper.addCommas(parseFloat(totalNdau))
-    : totalNdau
+  return withCommas
+    ? DataFormatHelper.getNdauFromNapu(
+      totalNapu,
+      AppConfig.NDAU_SUMMARY_PRECISION,
+      true
+    )
+    : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
-const getTotalNdauForSend = (amount, addressData, transactionFee) => {
+const getTotalNdauForSend = (
+  amount,
+  addressData,
+  transactionFee,
+  addCommas = true
+) => {
   const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
   const totalNapuForAccount = spendableNapu(addressData)
   const totalNapu = totalNapuForAccount - amountNapu - transactionFee
-  return DataFormatHelper.addCommas(
-    parseFloat(DataFormatHelper.getNdauFromNapu(totalNapu))
+  return DataFormatHelper.getNdauFromNapu(
+    totalNapu,
+    AppConfig.NDAU_SUMMARY_PRECISION,
+    addCommas
   )
 }
 
@@ -331,7 +335,11 @@ const currentPrice = (marketPrice, totalNdau) => {
   // why not use .toLocaleString you ask...here is why:
   // https://github.com/facebook/react-native/issues/15717
   const currentPrice = marketPrice
-    ? '$' + DataFormatHelper.addCommas(parseFloat(totalNdau * marketPrice), 2)
+    ? '$' +
+      DataFormatHelper.formatUSDollarValue(
+        parseFloat(totalNdau * marketPrice),
+        2
+      )
     : '$0.00'
   LoggingService.debug(`currentPrice: ${currentPrice}`)
 

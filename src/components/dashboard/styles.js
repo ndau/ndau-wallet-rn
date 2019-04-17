@@ -59,7 +59,8 @@ export default StyleSheet.create({
     height: hp('6.5%'),
     maxHeight: hp('6.5%'),
     marginTop: wp('2%'),
-    marginBottom: wp('2%')
+    marginBottom: wp('2%'),
+    width: wp('40%')
   },
   walletOverviewLabelWithIconContainer: {
     flex: 1,

@@ -219,7 +219,7 @@ class SetupConfirmRecoveryPhrase extends Component {
 function Word (props) {
   let bgColor = 'transparent'
   if (props.error) {
-    bgColor = '#f05123'
+    bgColor = AppConstants.WARNING_ICON_COLOR
   } else if (props.selected) {
     bgColor = AppConstants.SQUARE_BUTTON_COLOR
   }

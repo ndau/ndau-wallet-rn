@@ -99,7 +99,9 @@ const addNewWallet = async (
   const wallet = await KeyMaster.createWallet(
     recoveryPhraseAsBytes,
     null,
-    walletId
+    walletId,
+    addressType,
+    numberOfAccounts
   )
 
   user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet

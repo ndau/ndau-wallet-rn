@@ -150,7 +150,7 @@ export function RecoveryPhraseConfirmationButtons (props) {
 export function RecoveryPhraseConfirmationButton (props) {
   let bgColor = AppConstants.SQUARE_BUTTON_COLOR
   if (props.error) {
-    bgColor = '#f05123'
+    bgColor = AppConstants.WARNING_ICON_COLOR
   } else if (props.selected) {
     bgColor = '#A0CFBD'
   }

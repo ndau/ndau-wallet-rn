@@ -5,12 +5,6 @@ import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
 import data from '../../api/data'
 import MockHelper from '../MockHelper'
 
-MockHelper.mockServiceDiscovery()
-
-MockHelper.mockAccountAPI()
-MockHelper.mockEaiRate()
-MockHelper.mockMarketPriceAPI()
-
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),
   newKey: jest.fn(),
@@ -83,8 +77,67 @@ for (let i = 0; i < 500; i++) {
 }
 
 const ndauAddress = sinon.spy(NativeModules.KeyaddrManager, 'ndauAddress')
-for (let i = 0; i < 500; i++) {
-  ndauAddress.mockReturnValueOnce(address + i)
+for (let i = 0; i < 200; i++) {
+  ndauAddress.mockReturnValueOnce(
+    'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zc11'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm3822'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf33'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f644'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp65'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb66'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk77'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcu8'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38v9'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf10'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f611'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp12'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb13'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk14'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zc15'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm3816'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf17'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f618'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp519'
+  )
+  ndauAddress.mockReturnValueOnce(
+    'ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb20'
+  )
 }
 
 const deriveFrom = sinon.spy(NativeModules.KeyaddrManager, 'deriveFrom')
@@ -97,52 +150,48 @@ for (let i = 0; i < 500; i++) {
   toPublic.mockReturnValueOnce(publicKey + i)
 }
 
-test('checkRecoveryPhrase test', async () => {
-  MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20Items)
-  MockHelper.mockAccountsAPIReplyOnce()
-  MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20ItemsRoot)
-  MockHelper.mockAccountsAPIReplyOnce(data.testAddressDataRoot)
-
-  const user = {
-    userId: userId,
-    wallets: {},
-    addresses: [
-      'tnai24puxki6s4zqyy7ebizgcviw2ui9z9x98pmah5n3ynmz',
-      'tnarpmwz3yxxyk7fdgiu2irmvatygg5u8nrg735xcu5ezezv'
-    ]
-  }
-
-  const firstTimeUser = await RecoveryPhaseHelper.checkRecoveryPhrase(
-    recoveryPhraseString,
-    user
-  )
-
-  console.log(`TEST ${JSON.stringify(firstTimeUser)}`)
-
-  expect(firstTimeUser).toBeDefined()
-  expect(Object.keys(firstTimeUser.wallets['a7bff20a'].accounts).length).toBe(
-    54
-  )
-})
-
-test('_checkRootAddresses works correctly', async () => {
+test('recoverUser test', async () => {
   MockHelper.mockReset()
   MockHelper.mockServiceDiscovery()
+  MockHelper.mockAccountAPI()
+  MockHelper.mockEaiRate()
+  MockHelper.mockMarketPriceAPI()
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20Items)
+  MockHelper.mockAccountsAPIReplyOnce(data.testAddressData)
   MockHelper.mockAccountsAPIReplyOnce()
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20ItemsRoot)
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressDataRoot)
+  MockHelper.mockAccountsAPIReplyOnce()
 
   const user = {
     userId: userId,
     wallets: {}
   }
 
-  const firstTimeUser = await RecoveryPhaseHelper.checkRecoveryPhrase(
+  const firstTimeUser = await RecoveryPhaseHelper.recoverUser(
     recoveryPhraseString,
     user
   )
   expect(Object.keys(firstTimeUser.wallets['a7bff20a'].accounts).length).toBe(
-    54
+    20
   )
+  expect(Object.keys(firstTimeUser.wallets['a7bff20a'].keys).length).toBe(21)
+})
+
+test('checkAddresses gets the correct format for BIP44 addresses', async () => {
+  MockHelper.mockReset()
+  MockHelper.mockServiceDiscovery()
+  MockHelper.mockAccountAPI()
+  MockHelper.mockEaiRate()
+  MockHelper.mockMarketPriceAPI()
+  MockHelper.mockAccountsAPIReplyOnce(data.testAddressData20Items)
+  MockHelper.mockAccountsAPIReplyOnce(data.testAddressData)
+  MockHelper.mockAccountsAPIReplyOnce()
+
+  const bip44Addresses = await RecoveryPhaseHelper.checkAddresses(
+    recoveryPhraseString
+  )
+
+  expect(Object.keys(bip44Addresses).length).toBe(20)
+  expect(Object.values(bip44Addresses).length).toBe(20)
 })

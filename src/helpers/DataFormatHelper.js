@@ -4,6 +4,8 @@ import sha256 from 'crypto-js/sha256'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountAPIHelper from './AccountAPIHelper'
 import ndaujs from 'ndaujs'
+import KeyPathHelper from './KeyPathHelper'
+import DateHelper from './DateHelper'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_ID
@@ -57,13 +59,20 @@ const getNextPathIndex = (wallet, path) => {
 
   Object.keys(keys).forEach(theKey => {
     const key = keys[theKey]
-    if (key.path && key.path.indexOf(path) !== -1) {
+    if (key.path && key.path.includes(path)) {
       let pathLengthAdder = path === '/' ? 0 : 1
       let nextPossibility = parseInt(
         key.path.substring(path.length + pathLengthAdder, key.path.length)
       )
 
-      if (!isNaN(nextPossibility) && nextPossibility >= nextAddress) {
+      // We check below if we are att the validationKey inded
+      // This is at 10000. If we hit that we want to just ignore that
+      // altogether
+      if (
+        !isNaN(nextPossibility) &&
+        nextPossibility >= nextAddress &&
+        nextPossibility !== AppConstants.VALIDATION_KEY
+      ) {
         nextAddress = nextPossibility + 1
       }
     }
@@ -75,9 +84,15 @@ const getNextPathIndex = (wallet, path) => {
  * Convert napu to ndau
  *
  * @param {number} napu
+ * @param {number} digits precision past decimal
+ * @param {boolean} addCommas to your ndau
  */
-const getNdauFromNapu = napu => {
-  return ndaujs.formatNapuForDisplay(napu)
+const getNdauFromNapu = (
+  napu,
+  digits = AppConfig.NDAU_SUMMARY_PRECISION,
+  addCommas = false
+) => {
+  return ndaujs.formatNapuForDisplay(napu, digits, addCommas)
 }
 
 /**
@@ -102,6 +117,22 @@ const getObjectWithAllAccounts = user => {
     Object.assign(newObject, wallet.accounts)
   })
   return newObject
+}
+
+/**
+ * Truncate the string to maxLength characters with an elipsis
+ * if it is maxLength characters or greater. The string is then
+ * truncated to the maxLength including the elipsis.
+ *
+ * @param {string} string to truncate
+ * @param {number} maxLength default is 20
+ */
+const truncateString = (string, maxLength = 20) => {
+  const realizedMaxLength = maxLength - 3
+  if (realizedMaxLength < 5 || string.length + 3 < maxLength) return string
+  return string.length >= maxLength
+    ? string.slice(0, realizedMaxLength) + '...'
+    : string
 }
 
 /**
@@ -133,37 +164,42 @@ const getAccountEaiRateRequest = addressData => {
   })
 }
 
+/**
+ * Given a wallet send back the a custom
+ * version of this call to get possible lock rates
+ *
+ * @param {string} account
+ */
+const getAccountEaiRateRequestForLock = account => {
+  return Object.keys(AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES).map(
+    period => {
+      const weightedAverageAge = account.addressData.weightedAverageAge
+      const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
+        account.addressData
+      )
+      const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
+        DateHelper.getDaysFromISODate(period)
+      )
+      const lock = {}
+      lock.noticePeriod = `${period}`
+      lock.bonus = theLockEAIBonus * 10000000000
+
+      // We use period here because we just need a unique identifier
+      // to separate out the rates.
+      return {
+        address: period,
+        weightedAverageAge,
+        lock
+      }
+    }
+  )
+}
 const convertRecoveryArrayToString = recoveryPhrase => {
   return recoveryPhrase
     .join()
     .replace(/\s+/g, '')
     .replace(/,/g, ' ')
     .toLowerCase()
-}
-
-/**
- * Add commas into the number given. The number can be a string. If it is a string
- * then this method cannot fix the precision.
- *
- * why not use .toLocaleString you ask...here is why:
- *
- * https://github.com/facebook/react-native/issues/15717
- *
- * @param {number | float} number
- * @param {number} precision=AppConfig.NDAU_SUMMARY_PRECISION
- *
- * @returns {string} the return value is a string version
- * of the number
- */
-const addCommas = (number, precision = AppConfig.NDAU_SUMMARY_PRECISION) => {
-  let numberToAddCommas = number
-  try {
-    numberToAddCommas = number.toFixed(precision)
-  } catch (error) {
-    // we swallow this up, if we can't do this then we assume you have passed in a string
-  }
-
-  return numberToAddCommas.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 /**
@@ -185,6 +221,30 @@ const checkIfWalletAlreadyExists = (user, walletId) => {
   return false
 }
 
+/**
+ * Add commas to the dollar amount given. The number can be a string.
+ * If it is a string then this method cannot fix the precision.
+ *
+ * why not use .toLocaleString you ask...here is why:
+ *
+ * https://github.com/facebook/react-native/issues/15717
+ *
+ * @param {number | float} number
+ *
+ * @returns {string} the return value is a string version
+ * of the number
+ */
+const formatUSDollarValue = number => {
+  let numberToAddCommas = number
+  try {
+    numberToAddCommas = number.toFixed(2)
+  } catch (error) {
+    // we swallow this up, if we can't do this then we assume you have passed in a string
+  }
+
+  return numberToAddCommas.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
@@ -192,8 +252,10 @@ export default {
   getObjectWithAllAccounts,
   getAccountEaiRateRequest,
   convertRecoveryArrayToString,
-  addCommas,
   checkIfWalletAlreadyExists,
   create8CharHash,
-  getNapuFromNdau
+  getNapuFromNdau,
+  getAccountEaiRateRequestForLock,
+  truncateString,
+  formatUSDollarValue
 }

@@ -11,10 +11,12 @@ import {
   AddressSharePanel,
   AccountConfirmationItem
 } from '../components/account'
-import { View } from 'react-native'
+import { LoadingSpinner } from '../components/common'
+import { View, ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
+import AppConstants from '../AppConstants'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -22,33 +24,37 @@ class AccountDetails extends Component {
     this.state = {
       account: {},
       wallet: {},
-      allAccountNicknames: {}
+      accountsCanRxEAI: {},
+      spinner: false
     }
+
+    this.baseEAI = 0
   }
 
   componentWillMount = () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-    const allAccountNicknames = this.props.navigation.getParam(
-      'allAccountNicknames',
+    const accountsCanRxEAI = this.props.navigation.getParam(
+      'accountsCanRxEAI',
       null
     )
 
-    this.setState({ account, wallet, allAccountNicknames })
+    this.setState({ account, wallet, accountsCanRxEAI })
   }
 
   showLock = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
-    this.props.navigation.navigate('AccountLock', {
+    this.props.navigation.push('AccountLock', {
       nav: this.props.navigation,
-      allAccountNicknames: this.state.allAccountNicknames
+      accountsCanRxEAI: this.state.accountsCanRxEAI,
+      baseEAI: this.baseEAI
     })
   }
 
   showHistory = account => {
     AccountStore.setAccount(account)
-    this.props.navigation.navigate('AccountHistory')
+    this.props.navigation.push('AccountHistory')
   }
 
   send = (account, wallet) => {
@@ -89,7 +95,7 @@ class AccountDetails extends Component {
       account.addressData
     )
     const lockBonusEAI = AccountAPIHelper.lockBonusEAI(weightedAverageAgeInDays)
-    const baseEAI = eaiValueForDisplay - lockBonusEAI
+    this.baseEAI = eaiValueForDisplay - lockBonusEAI
     let spendableNdau = 0
     if (accountNotLocked) {
       spendableNdau = AccountAPIHelper.spendableNdau(account.addressData)
@@ -101,12 +107,13 @@ class AccountDetails extends Component {
         account={this.state.account}
         {...this.props}
       >
+        <LoadingSpinner spinner={this.state.spinner} />
         <AccountTotalPanel
           account={this.state.account}
           onPress={() => this.showHistory(this.state.account)}
           {...this.props}
         />
-        {!accountLockedUntil ? (
+        {!accountLockedUntil && !accountNoticePeriod ? (
           <AccountDetailsButtonPanel
             showLock={this.showLock}
             send={this.send}
@@ -115,77 +122,79 @@ class AccountDetails extends Component {
             wallet={this.state.wallet}
           />
         ) : null}
-        <AccountDetailsPanel firstPanel>
-          <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
-          <AccountBorder />
-          {accountLockedUntil ? (
-            <AccountParagraphText customIconName='lock'>
-              Locked
-            </AccountParagraphText>
-          ) : (
-            <AccountParagraphText customIconName='lock-open'>
-              Unlocked
-            </AccountParagraphText>
-          )}
-          {accountLockedUntil ? (
-            <View>
-              <AccountParagraphText customIconName='clock'>
-                Will unlock on {accountLockedUntil}
+        <ScrollView>
+          <AccountDetailsPanel firstPanel>
+            <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
+            <AccountBorder />
+            {accountLockedUntil || accountNoticePeriod ? (
+              <AccountParagraphText customIconName='lock'>
+                Locked
               </AccountParagraphText>
+            ) : (
+              <AccountParagraphText customIconName='lock-open'>
+                Unlocked
+              </AccountParagraphText>
+            )}
+            {accountLockedUntil ? (
+              <View>
+                <AccountParagraphText customIconName='clock'>
+                  Will unlock on {accountLockedUntil}
+                </AccountParagraphText>
+                <AccountParagraphText
+                  customIconColor={AppConstants.WARNING_ICON_COLOR}
+                  customIconName='exclamation-circle'
+                >
+                  You cannot send or receive
+                </AccountParagraphText>
+              </View>
+            ) : null}
+            {receivingEAIFrom ? (
               <AccountParagraphText
-                customIconColor='#F05123'
-                customIconName='exclamation-circle'
+                customIconColor='#8CC74F'
+                customIconName='arrow-alt-down'
               >
-                You cannot send or receive
+                Receiving incentive from {receivingEAIFrom}
               </AccountParagraphText>
-            </View>
-          ) : null}
-          {receivingEAIFrom ? (
-            <AccountParagraphText
-              customIconColor='#8CC74F'
-              customIconName='arrow-alt-down'
-            >
-              Receiving incentive from {receivingEAIFrom}
+            ) : null}
+            <AccountParagraphText customIconName='usd-circle'>
+              {spendableNdau} spendable
             </AccountParagraphText>
-          ) : null}
-          <AccountParagraphText customIconName='usd-circle'>
-            {spendableNdau} spendable
-          </AccountParagraphText>
-        </AccountDetailsPanel>
-        <AccountDetailsPanel>
-          <AccountDetailsLargerText>
-            {eaiValueForDisplay}% annualized incentive (EAI)
-          </AccountDetailsLargerText>
-          <AccountBorder />
-          <AccountConfirmationItem
-            title={'Weighted average age (WAA):'}
-            value={`${weightedAverageAgeInDays} days`}
-          />
-          <AccountConfirmationItem
-            title={'Current EAI based on WAA:'}
-            value={`${baseEAI}%`}
-          />
-          <AccountConfirmationItem
-            title={'Lock bonus EAI:'}
-            value={`${lockBonusEAI}%`}
-          />
-          {sendingEAITo ? (
+          </AccountDetailsPanel>
+          <AccountDetailsPanel secondPanel>
+            <AccountDetailsLargerText>
+              {eaiValueForDisplay}% annualized incentive (EAI)
+            </AccountDetailsLargerText>
+            <AccountBorder />
             <AccountConfirmationItem
-              title={'EAI being sent to:'}
-              value={sendingEAITo}
+              title={'Weighted average age (WAA):'}
+              value={`${weightedAverageAgeInDays} days`}
             />
-          ) : null}
-        </AccountDetailsPanel>
-        <AccountDetailsPanel>
-          <AccountDetailsLargerText>Address</AccountDetailsLargerText>
-          <AccountBorder />
-          <AddressSharePanel
-            transparent
-            scroll
-            noPadding
-            address={this.state.account.address}
-          />
-        </AccountDetailsPanel>
+            <AccountConfirmationItem
+              title={'Current EAI based on WAA:'}
+              value={`${this.baseEAI}%`}
+            />
+            <AccountConfirmationItem
+              title={'Lock bonus EAI:'}
+              value={`${lockBonusEAI}%`}
+            />
+            {sendingEAITo ? (
+              <AccountConfirmationItem
+                title={'EAI being sent to:'}
+                value={sendingEAITo}
+              />
+            ) : null}
+          </AccountDetailsPanel>
+          <AccountDetailsPanel>
+            <AccountDetailsLargerText>Address</AccountDetailsLargerText>
+            <AccountBorder />
+            <AddressSharePanel
+              transparent
+              scroll
+              noPadding
+              address={this.state.account.address}
+            />
+          </AccountDetailsPanel>
+        </ScrollView>
       </AccountDetailsContainer>
     )
   }
