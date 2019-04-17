@@ -245,7 +245,7 @@ test('createFirstTimeUser with 0, as this will be possible post Genesis', async 
 
   expect(firstTimeUser).toBeDefined()
   expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","wallets":{"c79af3b6":{"walletId":"TAC-3PY","accountCreationKeyHash":"4cb4dca9","accounts":{},"keys":{"4cb4dca9":{"publicKey":"","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf2","path":"/44'/20036'/100","derivedFromRoot":"yes"}}}}}`
+    `{"userId":"TAC-3PY","wallets":{"c79af3b6":{"walletId":"TAC-3PY","accountCreationKeyHash":"4cb4dca9","accounts":{},"keys":{"4cb4dca9":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf2","path":"/44'/20036'/100","derivedFromRoot":"yes"}}}}}`
   )
 })
 
@@ -377,7 +377,7 @@ test('getPublicKeyFromHash test', async () => {
     account.validationKeys[0]
   )
   expect(
-    'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444'
+    'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj449'
   ).toBe(publicKey)
 })
 
