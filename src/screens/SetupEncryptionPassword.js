@@ -181,6 +181,7 @@ class SetupEncryptionPassword extends Component {
           placeholder='Confirm your password...'
           secureTextEntry={!this.state.showPasswords}
           autoCapitalize='none'
+          onSubmitEditing={this.showNextSetup}
         />
 
         <CheckBox

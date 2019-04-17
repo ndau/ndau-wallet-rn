@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert } from 'react-native'
+import { Alert, Keyboard } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import RNExitApp from 'react-native-exit-app'
 import UserData from '../model/UserData'
@@ -155,6 +155,7 @@ class Authentication extends Component {
           placeholder='Enter your password...'
           secureTextEntry
           autoCapitalize='none'
+          onSubmitEditing={this.login}
         />
         <PasswordLinkText onPress={this.showPasswordReset}>
           Forgot your password?

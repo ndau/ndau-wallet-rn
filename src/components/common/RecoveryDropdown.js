@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   Text,
   Platform,
-  NativeModules
+  NativeModules,
+  Keyboard
 } from 'react-native'
 import {
   widthPercentageToDP as wp,
@@ -151,7 +152,9 @@ class RecoveryDropdown extends Component {
         ref={input => {
           this.autoCompleteRef = input
         }}
-        {...this.prop}
+        onSubmitEditing={this.props.moveToNextWord}
+        blurOnSubmit={false}
+        // {...this.props}
       />
     )
   }

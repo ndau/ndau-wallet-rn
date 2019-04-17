@@ -203,6 +203,7 @@ class AccountSend extends Component {
             autoCapitalize='none'
             noBottomMargin
             noSideMargins
+            onSubmitEditing={this._next}
             error={!this.state.validAmount && this.state.amount}
           />
           {!this.state.validAmount && this.state.amount ? (
@@ -285,6 +286,7 @@ class AccountSend extends Component {
             placeholder='ndau address...'
             autoCapitalize='none'
             noSideMargins
+            onSubmitEditing={this._haveAddress}
           />
           <OrBorder />
           <LargeBorderButton onPress={() => this._scan()}>
