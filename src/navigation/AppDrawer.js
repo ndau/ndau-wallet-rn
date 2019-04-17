@@ -1,5 +1,6 @@
 import React from 'react'
-import { Alert, ScrollView } from 'react-native'
+import { Alert, ScrollView, Platform } from 'react-native'
+import VersionNumber from 'react-native-version-number'
 import {
   DrawerEntryItem,
   DrawerExit,
@@ -58,6 +59,10 @@ class AppDrawer extends React.Component {
   }
 
   render () {
+    let version = `V${VersionNumber.appVersion}`
+    if (Platform.OS === 'ios') {
+      version += `.${VersionNumber.buildVersion}`
+    }
     return (
       <DrawerContainer logoutHandler={() => this.logout()}>
         <ScrollView>
@@ -82,6 +87,9 @@ class AppDrawer extends React.Component {
           >
             Recover wallet
           </DrawerEntryItem>
+
+          <DrawerEntryItem>{version}</DrawerEntryItem>
+
           {/*
           <DrawerEntryItem
             onPress={() => this.logging()}

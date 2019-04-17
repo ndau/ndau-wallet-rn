@@ -1,6 +1,9 @@
 {
   "apinodes": [
-    "testnet-0.api.ndau.tech",
-    "testnet-1.api.ndau.tech"
+    "api.ndau.tech:31300",
+    "api.ndau.tech:31301",
+    "api.ndau.tech:31302",
+    "api.ndau.tech:31303",
+    "api.ndau.tech:31304"
   ]
 }
