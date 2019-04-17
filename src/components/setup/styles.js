@@ -29,8 +29,8 @@ export default StyleSheet.create({
     width: wp('100%'),
     height: hp('100%'),
     marginRight: wp('4%'),
-    marginTop: hp('10%'),
-    marginBottom: hp('6%')
+    marginTop: hp('5%'),
+    marginBottom: hp('3%')
   },
   setupContainerOverlay: {
     position: 'absolute',

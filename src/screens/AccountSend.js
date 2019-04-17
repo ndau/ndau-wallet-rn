@@ -6,7 +6,8 @@ import {
   AccountScanPanel,
   AccountHeaderText,
   AccountConfirmationItem,
-  AccountSendErrorText
+  AccountSendErrorText,
+  AccountSendPanel
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import {
@@ -15,7 +16,7 @@ import {
   Label,
   OrBorder,
   LargeBorderButton,
-  QRCodeScanner,
+  NdauQRCodeScanner,
   BarBorder
 } from '../components/common'
 import FlashNotification from '../components/common/FlashNotification'
@@ -25,6 +26,7 @@ import { Transaction } from '../transactions/Transaction'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import { Text, TouchableOpacity } from 'react-native'
 
 const _ = require('lodash')
 
@@ -170,7 +172,11 @@ class AccountSend extends Component {
 
   _scannedSuccessfully (event) {
     if (event.data.substr(0, 2) === 'nd') {
-      this.setState({ address: event.data })
+      this.setState({
+        address: event.data,
+        scanning: false,
+        validAddress: true
+      })
     } else {
       FlashNotification.showError('QR code is not a valid ndau address')
     }
@@ -248,12 +254,10 @@ class AccountSend extends Component {
         account={this.state.account}
         {...this.props}
       >
-        <AccountScanPanel>
-          <QRCodeScanner
-            onRead={e => this._scannedSuccessfully(e)}
-            cameraType={this.state.cameraType}
-          />
-        </AccountScanPanel>
+        <NdauQRCodeScanner
+          onBarCodeRead={e => this._scannedSuccessfully(e)}
+          type={this.state.cameraType}
+        />
         <LargeButton sideMargins onPress={() => this._flipCamera()}>
           Flip camera
         </LargeButton>
@@ -271,7 +275,7 @@ class AccountSend extends Component {
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <AccountDetailPanel>
+        <AccountSendPanel>
           <AccountHeaderText>Who are you sending to?</AccountHeaderText>
           <Label noMargin>Address</Label>
           <TextInput
@@ -283,10 +287,10 @@ class AccountSend extends Component {
             noSideMargins
           />
           <OrBorder />
-          <LargeBorderButton onPress={this._scan}>
+          <LargeBorderButton onPress={() => this._scan()}>
             Scan QR Code
           </LargeBorderButton>
-        </AccountDetailPanel>
+        </AccountSendPanel>
         <LargeButton
           sideMargins
           disabled={!this.state.validAddress}

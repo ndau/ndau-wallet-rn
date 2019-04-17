@@ -1,14 +1,4 @@
-import MockAsyncStorage from 'mock-async-storage'
-
 import MultiSafe from '../MultiSafe'
-import { HTML5_FMT } from 'moment'
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 describe('MultiSafe _encrypt/_decrypt tests...', () => {
   it('should store and retrieve an object using the official API', async () => {

@@ -106,10 +106,7 @@ class SetupRecoveryPhrase extends Component {
     SetupStore.shuffledWords = this.shuffledWords
 
     const { navigation } = this.props
-    navigation.navigate('SetupConfirmRecoveryPhrase', {
-      walletSetupType:
-        navigation.state.params && navigation.state.params.walletSetupType
-    })
+    navigation.navigate('SetupConfirmRecoveryPhrase')
   }
 
   render () {

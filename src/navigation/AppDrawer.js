@@ -28,7 +28,7 @@ class AppDrawer extends React.Component {
 
   addWallet = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('SetupWelcome')
+    this.props.navigation.navigate('SetupYourWallet')
   }
 
   logout = () => {

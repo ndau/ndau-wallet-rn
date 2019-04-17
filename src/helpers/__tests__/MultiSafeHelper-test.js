@@ -1,17 +1,9 @@
-import MockAsyncStorage from 'mock-async-storage'
 import { NativeModules } from 'react-native'
 import sinon from 'sinon'
 import MultiSafeHelper from '../MultiSafeHelper'
 import data from '../../api/data'
 import AccountAPI from '../../api/AccountAPI'
 import KeyPathHelper from '../KeyPathHelper'
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),
@@ -223,7 +215,7 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
         keys: {
           '95b8071e': {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj441',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj442',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx1',
             path: KeyPathHelper.accountCreationKeyPath() + '/1',
@@ -231,14 +223,15 @@ test('setupNewUser creates a MultiSafe and we can then retrieve with password', 
           },
           '20f4d175': {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj442',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx2',
             path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           c1ca8e03: {
-            publicKey: '',
+            publicKey:
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj441',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf1',
             path: KeyPathHelper.accountCreationKeyPath(),
@@ -290,7 +283,7 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
         keys: {
           edef8a85: {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj443',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx3',
             path: KeyPathHelper.accountCreationKeyPath() + '/1',
@@ -298,14 +291,15 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
           },
           '90808ebd': {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx4',
             path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '4cb4dca9': {
-            publicKey: '',
+            publicKey:
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj444',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf2',
             path: KeyPathHelper.accountCreationKeyPath(),
@@ -351,14 +345,15 @@ test('setupTestUser creates a MultiSafe and we can then retrieve with recovery p
         keys: {
           d8cc78c1: {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj445',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj448',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx5',
             path: KeyPathHelper.accountCreationKeyPath() + '/1',
             derivedFromRoot: 'yes'
           },
           '5ba05375': {
-            publicKey: '',
+            publicKey:
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf3',
             path: KeyPathHelper.accountCreationKeyPath(),
@@ -465,7 +460,7 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
         keys: {
           '9d152ff0': {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj446',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj440',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx6',
             path: KeyPathHelper.accountCreationKeyPath() + '/1',
@@ -473,14 +468,15 @@ test('setupTestUser creates a MultiSafe, retrieve with recovery and then resetPa
           },
           '1e12ca49': {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44a',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx7',
             path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '1e48ba8c': {
-            publicKey: '',
+            publicKey:
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj449',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf4',
             path: KeyPathHelper.accountCreationKeyPath(),
@@ -567,7 +563,7 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
         keys: {
           '42514ecf': {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj448',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44c',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx8',
             path: KeyPathHelper.accountCreationKeyPath() + '/1',
@@ -575,14 +571,15 @@ test('addNewWallet adds a new wallet to an existing user in a safe', async () =>
           },
           '4e842c41': {
             publicKey:
-              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj449',
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44d',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqx9',
             path: KeyPathHelper.accountCreationKeyPath() + '/2',
             derivedFromRoot: 'yes'
           },
           '5a3b36e3': {
-            publicKey: '',
+            publicKey:
+              'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
             privateKey:
               'npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf5',
             path: KeyPathHelper.accountCreationKeyPath(),

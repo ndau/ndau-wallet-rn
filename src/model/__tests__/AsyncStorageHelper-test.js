@@ -1,13 +1,4 @@
-import MockAsyncStorage from 'mock-async-storage'
-
 import AsyncStorageHelper from '../AsyncStorageHelper'
-
-const mock = () => {
-  const mockImpl = new MockAsyncStorage()
-  jest.mock('AsyncStorage', () => mockImpl)
-}
-
-mock()
 
 describe('AsyncStorageHelper tests...', () => {
   it('should set one user', async () => {
@@ -96,7 +87,8 @@ describe('AsyncStorageHelper tests...', () => {
 
     await AsyncStorageHelper.unlockUser('doesNotExist', password1)
       .then(storedUser => {
-        fail()
+        console.log(`STORED USER ${storedUser}`)
+        expect(storedUser).toBeDefined()
       })
       .catch(error => {
         expect(error).toBeDefined()

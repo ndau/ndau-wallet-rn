@@ -15,8 +15,18 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
-import RNQRCodeScanner from 'react-native-qrcode-scanner'
-import RNQRCode from 'react-native-qrcode'
+import { RNCamera } from 'react-native-camera'
+import BarcodeMask from 'react-native-barcode-mask'
+import { QRCode } from 'react-native-custom-qr-codes'
+// It would be ideal to use the below library as it is faster. However
+// there seemed to be an issue with how it creates a black border. Even padding
+// the qr with a white border does not help. The react-native-custom-qr-codes is slow
+// on old android devices. I think we might get complaints.
+// The issue tracking the slow performance of react-native-custom-qr-codes is
+// https://github.com/nating/react-native-custom-qr-codes/issues/14
+// import QRCode from 'react-native-qrcode-svg'
+import Spinner from 'react-native-loading-spinner-overlay'
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -133,16 +143,14 @@ export function LargeButton (props) {
 
 export function LargeBorderButton (props) {
   return (
-    <View>
-      <Button
-        style={[styles.largeBorderButton, props.style]}
-        textStyle={[styles.largeButtonText, props.style]}
-        uppercase={false}
-        {...props}
-      >
-        {props.children}
-      </Button>
-    </View>
+    <Button
+      style={[styles.largeBorderButton, props.style]}
+      textStyle={[styles.largeButtonText, props.style]}
+      uppercase={false}
+      {...props}
+    >
+      {props.children}
+    </Button>
   )
 }
 
@@ -186,9 +194,6 @@ export function NdauTotal (props) {
     </View>
   )
 }
-
-export const NEW_WALLET_SETUP_TYPE = 'new'
-export const RECOVERY_WALLET_SETUP_TYPE = 'recovery'
 
 const SETUP_SCREEN_TOTAL = 19
 
@@ -491,19 +496,47 @@ export function ParagraphText (props) {
   )
 }
 
-export function QRCodeScanner (props) {
-  return <RNQRCodeScanner {...props} cameraStyle={styles.fullWidthAndHeight} />
+export function NdauQRCodeScanner (props) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#000'
+      }}
+    >
+      <RNCamera
+        style={{
+          flex: 1
+        }}
+        {...props}
+      >
+        <BarcodeMask width={250} height={250} showAnimatedLine={false} />
+        {props.children}
+      </RNCamera>
+    </View>
+  )
 }
 
-export function QRCode (props) {
+export function NdauQRCode (props) {
   return (
     <View style={styles.qrCode}>
-      <RNQRCode
-        value={props.value}
-        size={wp('65%')}
-        color='black'
-        backgroundColor='transparent'
-      />
+      <QRCode content={props.value} size={250} />
     </View>
+  )
+}
+
+export function LoadingSpinner (props) {
+  return (
+    <Spinner
+      visible={props.spinner}
+      textContent={props.text ? props.text : 'Loading...'}
+      textStyle={{
+        color: '#ffffff',
+        fontSize: 20,
+        fontFamily: 'TitilliumWeb-Light'
+      }}
+      animation='fade'
+      overlayColor='rgba(0, 0, 0, 0.7)'
+    />
   )
 }

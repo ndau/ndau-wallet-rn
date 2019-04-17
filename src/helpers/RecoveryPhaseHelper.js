@@ -63,11 +63,15 @@ const recoverUser = async (recoveryPhraseString, user) => {
     `root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`
   )
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
+    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
+      recoveryPhraseBytes
+    )
     for (const accountPath in rootAccounts) {
       await KeyMaster.createAccountFromPath(
         wallet,
         accountPath,
-        rootAccounts[accountPath]
+        rootAccounts[accountPath],
+        rootPrivateKey
       )
     }
     LoggingService.debug(
@@ -126,13 +130,9 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
       )
     }
 
-    // check the blockchain to see if any of these exist
-    // swallow the error so we do not exit and not assign the account data
-    try {
-      accountDataFromBlockchain = await AccountAPI.getAddressData(
-        Object.keys(addresses)
-      )
-    } catch (error) {}
+    accountDataFromBlockchain = await AccountAPI.getAddressData(
+      Object.keys(addresses)
+    )
 
     const addressKeys = Object.keys(addresses)
     for (const address in accountDataFromBlockchain) {

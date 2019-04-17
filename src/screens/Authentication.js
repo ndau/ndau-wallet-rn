@@ -9,8 +9,6 @@ import OrderAPI from '../api/OrderAPI'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
 import {
-  NEW_WALLET_SETUP_TYPE,
-  RECOVERY_WALLET_SETUP_TYPE,
   LoginContainer,
   LabelWithIcon,
   TextInput,
@@ -20,7 +18,6 @@ import {
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
-import WalletStore from '../stores/WalletStore'
 
 class Authentication extends Component {
   constructor (props) {
@@ -123,17 +120,14 @@ class Authentication extends Component {
 
   showSetup = async () => {
     FlashNotification.hideMessage()
-    this.props.navigation.navigate('SetupWelcome', {
-      walletSetupType: NEW_WALLET_SETUP_TYPE
-    })
+    this.props.navigation.navigate('SetupWelcome')
   }
 
   showPasswordReset = user => {
     FlashNotification.hideMessage()
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
-      mode: AppConstants.PASSWORD_RESET_MODE,
-      walletSetupType: RECOVERY_WALLET_SETUP_TYPE
+      mode: AppConstants.PASSWORD_RESET_MODE
     })
   }
 

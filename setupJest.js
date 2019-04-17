@@ -1,5 +1,3 @@
-import deviceLog, { InMemoryAdapter } from 'react-native-device-log'
-
 const { JSDOM } = require('jsdom')
 const jsdom = new JSDOM()
 const { window } = jsdom
@@ -17,12 +15,6 @@ global.navigator = {
   userAgent: 'node.js'
 }
 copyProps(window, global)
-
-// Setup adapter to work with enzyme 3.2.0
-const Enzyme = require('enzyme')
-const Adapter = require('enzyme-adapter-react-16')
-
-Enzyme.configure({ adapter: new Adapter() })
 
 // Ignore React Web errors when using React Native
 console.error = message => {

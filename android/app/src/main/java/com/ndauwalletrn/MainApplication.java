@@ -4,10 +4,11 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.apsl.versionnumber.RNVersionNumberPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.horcrux.svg.SvgPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
@@ -30,11 +31,10 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(),
-            new RNVersionNumberPackage(), new LinearGradientPackage(),
-                    new RNBackgroundFetchPackage(), new ReactNativePushNotificationPackage(), new RNCWebViewPackage(),
-                    new VectorIconsPackage(), new KeyaddrPackage(), new RNCameraPackage(), new RNExitAppPackage(),
-                    new RNSecureRandomPackage());
+            return Arrays.<ReactPackage>asList(new MainReactPackage(), new AsyncStoragePackage(), new SvgPackage(), new RNVersionNumberPackage(),
+                    new LinearGradientPackage(), new RNBackgroundFetchPackage(),
+                    new ReactNativePushNotificationPackage(), new VectorIconsPackage(), new KeyaddrPackage(),
+                    new RNCameraPackage(), new RNExitAppPackage(), new RNSecureRandomPackage());
         }
 
         @Override
