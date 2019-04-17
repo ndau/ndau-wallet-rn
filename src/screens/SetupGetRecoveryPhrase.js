@@ -17,7 +17,6 @@ import RecoveryDropdown from '../components/common/RecoveryDropdown'
 import { Dialog } from 'react-native-simple-dialogs'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import SetupStore from '../stores/SetupStore'
 import FlashNotification from '../components/common/FlashNotification'
@@ -227,9 +226,6 @@ class SetupGetRecoveryPhrase extends Component {
         if (this.state.mode === AppConstants.PASSWORD_RESET_MODE) {
           navigation.navigate('SetupEncryptionPassword', {
             user,
-            walletSetupType:
-              navigation.state.params &&
-              navigation.state.params.walletSetupType,
             mode: AppConstants.PASSWORD_RESET_MODE,
             recoveryPhraseString: DataFormatHelper.convertRecoveryArrayToString(
               this.recoveryPhrase
@@ -241,54 +237,22 @@ class SetupGetRecoveryPhrase extends Component {
 
         const user = await this._recoverUser()
         if (user) {
-          const encryptionPassword = UserStore.getPassword()
-          let marketPrice = 0
-          // IF we have a password we are fixing up an account from a 1.6 user here
-          // so we fixed it up...now save it...and go back to Dashboard
-          if (encryptionPassword) {
-            try {
-              await UserData.loadUserData(user)
-              marketPrice = await OrderAPI.getMarketPrice()
-            } catch (error) {
-              FlashNotification.showError(error.message)
-            }
-
-            await MultiSafeHelper.saveUser(
-              user,
-              encryptionPassword,
-              DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase)
+          if (
+            await MultiSafeHelper.recoveryPhraseAlreadyExists(
+              user.userId,
+              this.recoveryPhrase
             )
-
-            UserStore.setUser(user)
-            NdauStore.setMarketPrice(marketPrice)
-
-            this.props.navigation.push('Dashboard', {
-              walletSetupType:
-                navigation.state.params &&
-                navigation.state.params.walletSetupType
-            })
-          } else {
-            if (
-              await MultiSafeHelper.recoveryPhraseAlreadyExists(
-                user.userId,
-                this.recoveryPhrase
-              )
-            ) {
-              FlashNotification.showError(
-                'This recovery phrase already exists in the wallet.'
-              )
-              return
-            }
-
-            UserStore.setUser(user)
-
-            SetupStore.recoveryPhrase = this.recoveryPhrase
-            navigation.navigate('SetupWalletName', {
-              walletSetupType:
-                navigation.state.params &&
-                navigation.state.params.walletSetupType
-            })
+          ) {
+            FlashNotification.showError(
+              'This recovery phrase already exists in the wallet.'
+            )
+            return
           }
+
+          UserStore.setUser(user)
+
+          SetupStore.recoveryPhrase = this.recoveryPhrase
+          navigation.navigate('SetupWalletName')
         } else {
           this.setState({
             textColor: AppConstants.WARNING_ICON_COLOR,

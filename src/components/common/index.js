@@ -195,9 +195,6 @@ export function NdauTotal (props) {
   )
 }
 
-export const NEW_WALLET_SETUP_TYPE = 'new'
-export const RECOVERY_WALLET_SETUP_TYPE = 'recovery'
-
 const SETUP_SCREEN_TOTAL = 19
 
 export function ProgressBar (props) {

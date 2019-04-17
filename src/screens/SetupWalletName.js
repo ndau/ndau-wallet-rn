@@ -62,10 +62,7 @@ class SetupWalletName extends Component {
     if (password) {
       SetupStore.encryptionPassword = password
       this.props.navigation.navigate('SetupTermsOfService', {
-        user,
-        walletSetupType:
-          this.props.navigation.state.params &&
-          this.props.navigation.state.params.walletSetupType
+        user
       })
     } else {
       if (user) {
@@ -78,9 +75,7 @@ class SetupWalletName extends Component {
       }
 
       navigation.navigate('SetupEncryptionPassword', {
-        user,
-        walletSetupType:
-          navigation.state.params && navigation.state.params.walletSetupType
+        user
       })
     }
   }

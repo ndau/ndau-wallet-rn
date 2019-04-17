@@ -12,9 +12,6 @@ import AccountReceive from '../screens/AccountReceive'
 import AccountSendConfirmation from '../screens/AccountSendConfirmation'
 import AccountHistory from '../screens/AccountHistory'
 import AccountLockConfirmation from '../screens/AccountLockConfirmation'
-import IdentityMind from '../screens/IdentityMind'
-import IdentityVerificationIntro from '../screens/IdentityVerificationIntro'
-import IdentityVerificationSuccess from '../screens/IdentityVerificationSuccess'
 
 const WalletOverviewScreen = ({ navigation }) => (
   <WalletOverview navigation={navigation} />
@@ -93,27 +90,6 @@ AccountLockConfirmationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
-const IdentityMindScreen = ({ navigation }) => (
-  <IdentityMind navigation={navigation} />
-)
-IdentityMindScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityVerificationIntroScreen = ({ navigation }) => (
-  <IdentityVerificationIntro navigation={navigation} />
-)
-IdentityVerificationIntroScreen.navigationOptions = {
-  header: null
-}
-
-const IdentityVerificationSuccessScreen = ({ navigation }) => (
-  <IdentityVerificationSuccess navigation={navigation} />
-)
-IdentityVerificationSuccessScreen.navigationOptions = {
-  header: null
-}
-
 const WalletOverviewStack = createStackNavigator({
   WalletOverview: { screen: WalletOverviewScreen },
   AccountDetails: { screen: AccountDetailsScreen },
@@ -125,10 +101,7 @@ const WalletOverviewStack = createStackNavigator({
   AccountReceive: { screen: AccountReceiveScreen },
   AccountSendConfirmation: { screen: AccountSendConfirmationScreen },
   AccountHistory: { screen: AccountHistoryScreen },
-  AccountLockConfirmation: { screen: AccountLockConfirmationScreen },
-  IdentityMind: { screen: IdentityMindScreen },
-  IdentityVerificationIntro: { screen: IdentityVerificationIntroScreen },
-  IdentityVerificationSuccess: { screen: IdentityVerificationSuccessScreen }
+  AccountLockConfirmation: { screen: AccountLockConfirmationScreen }
 })
 
 const WalletOverviewNavigation = createDrawerNavigator(

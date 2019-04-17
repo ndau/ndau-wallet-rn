@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import CryptoJS from 'crypto-js'
 import EntropyHelper from '../helpers/EntropyHelper'
 
@@ -17,7 +17,7 @@ class MultiSafe {
   // a MultiSafe is created with the constructor but may not be used until it
   // is initialized with create(), which is an async function because of
   // AsyncStorage.
-  constructor() {
+  constructor () {
     this.storageKey = ''
   }
 
@@ -308,7 +308,7 @@ class MultiSafe {
           return true
         }
       }
-    } catch (error) { }
+    } catch (error) {}
 
     return false
   }

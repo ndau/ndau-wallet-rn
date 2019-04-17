@@ -238,7 +238,7 @@ const createWallet = async (
         accountCreationKey
       )
 
-      _createInitialKeys(wallet, accountCreationKey)
+      await _createInitialKeys(wallet, accountCreationKey)
     }
 
     // This function is used in many ways across the application
@@ -491,12 +491,15 @@ const _createAccountCreationKey = async recoveryBytes => {
   return accountCreationKey
 }
 
-const _createInitialKeys = (wallet, accountCreationKey) => {
+const _createInitialKeys = async (wallet, accountCreationKey) => {
+  const accountCreationPublicKey = await NativeModules.KeyaddrManager.toPublic(
+    accountCreationKey
+  )
   wallet.keys[
     DataFormatHelper.create8CharHash(accountCreationKey)
   ] = _createKey(
     accountCreationKey,
-    null,
+    accountCreationPublicKey,
     KeyPathHelper.accountCreationKeyPath()
   )
 }
@@ -558,17 +561,44 @@ const _createAccount = async (
   wallet.accounts[address] = account
 }
 
-const createAccountFromPath = async (wallet, derivedPath, addressData) => {
+/**
+ * This method will create an account from the path and data
+ * sent in. This method will support the use of the root private
+ * key as well. This is to support generation of some initial wallets
+ * at root.
+ *
+ * @param {Wallet} wallet Wallet where account is added
+ * @param {string} derivedPath path to be created
+ * @param {string} addressData data to add to the account
+ * @param {string} rootPrivateKey If present we use this key and assume it is root
+ */
+const createAccountFromPath = async (
+  wallet,
+  derivedPath,
+  addressData,
+  rootPrivateKey
+) => {
   if (!wallet || !derivedPath) {
     throw new Error('You must pass in wallet and derivedPath')
   }
   const account = new Account()
 
-  const privateDerivedKey = await NativeModules.KeyaddrManager.deriveFrom(
-    wallet.keys[wallet.accountCreationKeyHash].privateKey,
-    wallet.keys[wallet.accountCreationKeyHash].path,
-    derivedPath
-  )
+  let privateDerivedKey
+  if (rootPrivateKey) {
+    // So we must take the derivedPath into consideration and here.
+    // The assumption is that this private key passed in is at root
+    privateDerivedKey = await NativeModules.KeyaddrManager.deriveFrom(
+      rootPrivateKey,
+      '/',
+      derivedPath
+    )
+  } else {
+    privateDerivedKey = await NativeModules.KeyaddrManager.deriveFrom(
+      wallet.keys[wallet.accountCreationKeyHash].privateKey,
+      wallet.keys[wallet.accountCreationKeyHash].path,
+      derivedPath
+    )
+  }
 
   const privateKeyHash = DataFormatHelper.create8CharHash(privateDerivedKey)
   account.ownershipKey = privateKeyHash
