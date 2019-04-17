@@ -2,7 +2,7 @@ import AccountAPI from '../api/AccountAPI'
 import DateHelper from './DateHelper'
 import DataFormatHelper from './DataFormatHelper'
 import AppConstants from '../AppConstants'
-import { ClaimTransaction } from '../transactions/ClaimTransaction'
+import { SetValidationTransaction } from '../transactions/SetValidationTransaction'
 import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
 import LoggingService from '../services/LoggingService'
@@ -29,7 +29,7 @@ const populateWalletWithAddressData = async wallet => {
   const walletAccountKeys = Object.keys(wallet.accounts)
   // create a map to create the nickname fields appropriately
   // when iterating the address data we can check it to see
-  // if a claim transaction must be done
+  // if a setValidation transaction must be done
   for (const accountKey of addressDataKeys) {
     // this is the addressData item that came from API
     const addressDataItem = addressData[accountKey]
@@ -54,7 +54,7 @@ const populateWalletWithAddressData = async wallet => {
           addressDataItem
         )
 
-        await sendClaimTransactionIfNeeded(
+        await sendSetValidationTransactionIfNeeded(
           wallet,
           walletAccount,
           addressDataItem
@@ -113,14 +113,14 @@ const _repairWalletObject = wallet => {
   }
 }
 
-const sendClaimTransactionIfNeeded = async (wallet, account, addressData) => {
+const sendSetValidationTransactionIfNeeded = async (wallet, account, addressData) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
     LoggingService.debug(
-      `Sending ClaimAccount transaction for ${addressData.nickname}`
+      `Sending SetValidation transaction for ${addressData.nickname}`
     )
-    Object.assign(ClaimTransaction.prototype, Transaction)
-    const claimTransaction = new ClaimTransaction(wallet, account)
-    await claimTransaction.createSignPrevalidateSubmit()
+    Object.assign(SetValidationTransaction.prototype, Transaction)
+    const setValidationTransaction = new SetValidationTransaction(wallet, account)
+    await setValidationTransaction.createSignPrevalidateSubmit()
   }
 }
 

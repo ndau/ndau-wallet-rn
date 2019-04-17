@@ -189,7 +189,7 @@ test('validate getTransactionType works', async () => {
   expect(accountHistory).toEqual(accountHistoryExpected)
   expect(
     AccountHistoryHelper.getTransactionType(accountHistory.Items[0])
-  ).toEqual('ClaimAccount')
+  ).toEqual('SetValidation')
 })
 
 test('validate getTransactionBalance works', async () => {
