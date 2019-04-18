@@ -285,9 +285,9 @@ describe('SetRewardsDestination object prepare tests', () => {
     )
   })
 })
-describe('ClaimAccount object prepare tests', () => {
-  it('should build an object for ClaimAccount and convert to known b64', () => {
-    var claimaccounttx = {
+describe('SetValidation object prepare tests', () => {
+  it('should build an object for SetValidation and convert to known b64', () => {
+    var setValidationaccounttx = {
       target: 'ndacby8ywhuv9ckgn54kkmu2cf3k3kmuq379urraw3u6zcqe',
       ownership:
         'npuba8jadtbbecdwzxpufjuz3xgs5ae5sfkatf7eua2z7dt7xbfswqzqgjscxthi2asksx2jhh9e',
@@ -300,14 +300,14 @@ describe('ClaimAccount object prepare tests', () => {
         'a4jadtcaywvuugas3nktrtyt85refg72m93mesgm5nq3ahmat9m3yng48x63qrjbtuu35qg7fb3kqevva3w2yq86thmqrjpjtdt7dp4s7txxxc72rwuenfmn'
     }
 
-    var bb = new TxSignPrep().prepare(claimaccounttx)
+    var bb = new TxSignPrep().prepare(setValidationaccounttx)
     var b64 = bb.b64encode()
     expect(b64).toEqual(
       'bnB1YmE4amFkdGJiZWNkd3p4cHVmanV6M3hnczVhZTVzZmthdGY3ZXVhMno3ZHQ3eGJmc3dxenFnanNjeHRoaTJhc2tzeDJqaGg5ZQAZX/GDxHNZbmRhY2J5OHl3aHV2OWNrZ241NGtrbXUyY2YzazNrbXVxMzc5dXJyYXczdTZ6Y3FlbnB1YmE4amFkdGJiZWRieWNrenk3ZXQzYmVzd3JrYzlpd2F6d2l4dWhidHhlcG03NGM5cHZocDNoOW1nd3J0cGt5YWFndnNrOGU2cE5pcWtKY3Q1N1Z2bkxXUS8='
     )
   })
-  it('should build an object for ClaimAccount without signatures and convert to known b64', () => {
-    var claimaccounttx = {
+  it('should build an object for SetValidation without signatures and convert to known b64', () => {
+    var setValidationaccounttx = {
       ownership:
         'npuba8jadtbbecdwzxpufjuz3xgs5ae5sfkatf7eua2z7dt7xbfswqzqgjscxthi2asksx2jhh9e',
       sequence: 7142365320213337,
@@ -318,7 +318,7 @@ describe('ClaimAccount object prepare tests', () => {
       validation_script: 'NiqkJct57VvnLWQ/'
     }
 
-    var bb = new TxSignPrep().prepare(claimaccounttx)
+    var bb = new TxSignPrep().prepare(setValidationaccounttx)
     var b64 = bb.b64encode()
     expect(b64).toEqual(
       'bnB1YmE4amFkdGJiZWNkd3p4cHVmanV6M3hnczVhZTVzZmthdGY3ZXVhMno3ZHQ3eGJmc3dxenFnanNjeHRoaTJhc2tzeDJqaGg5ZQAZX/GDxHNZbmRhY2J5OHl3aHV2OWNrZ241NGtrbXUyY2YzazNrbXVxMzc5dXJyYXczdTZ6Y3FlbnB1YmE4amFkdGJiZWRieWNrenk3ZXQzYmVzd3JrYzlpd2F6d2l4dWhidHhlcG03NGM5cHZocDNoOW1nd3J0cGt5YWFndnNrOGU2cE5pcWtKY3Q1N1Z2bkxXUS8='
@@ -414,9 +414,9 @@ describe('NominateNodeReward object prepare tests', () => {
     expect(b64).toEqual('ABs65BlHbVYAEQF/vImALQ==')
   })
 })
-describe('ClaimNodeReward object prepare tests', () => {
+describe('SetValidationNodeReward object prepare tests', () => {
   it('should build an object for ClaimNodeReward and convert to known b64', () => {
-    var claimnoderewardtx = {
+    var setValidationnoderewardtx = {
       node: 'ndai3tzkwu9win6p7i2bwrmhk5gs9bis5fjst7j8a76rvnec',
       sequence: 4402827188794727,
       signatures: [
@@ -424,19 +424,19 @@ describe('ClaimNodeReward object prepare tests', () => {
       ]
     }
 
-    var bb = new TxSignPrep().prepare(claimnoderewardtx)
+    var bb = new TxSignPrep().prepare(setValidationnoderewardtx)
     var b64 = bb.b64encode()
     expect(b64).toEqual(
       'bmRhaTN0emt3dTl3aW42cDdpMmJ3cm1oazVnczliaXM1ZmpzdDdqOGE3NnJ2bmVjAA+kWRaYdWc='
     )
   })
   it('should build an object for ClaimNodeReward without signatures and convert to known b64', () => {
-    var claimnoderewardtx = {
+    var setValidationnoderewardtx = {
       node: 'ndai3tzkwu9win6p7i2bwrmhk5gs9bis5fjst7j8a76rvnec',
       sequence: 4402827188794727
     }
 
-    var bb = new TxSignPrep().prepare(claimnoderewardtx)
+    var bb = new TxSignPrep().prepare(setValidationnoderewardtx)
     var b64 = bb.b64encode()
     expect(b64).toEqual(
       'bmRhaTN0emt3dTl3aW42cDdpMmJ3cm1oazVnczliaXM1ZmpzdDdqOGE3NnJ2bmVjAA+kWRaYdWc='

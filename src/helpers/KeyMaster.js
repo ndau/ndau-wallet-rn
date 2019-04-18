@@ -344,7 +344,7 @@ const createNewAccount = async (wallet, numberOfAccounts = 1) => {
  * This method will generate a key object based on either
  * the nextIndex or a passed in index. This function MUST be used
  * when recovering legacy validation keys. As of the 1.8 ndau wallet
- * we started to ClaimAccount (or now SetValidation). In doing this
+ * we started to SetValidation (or now SetValidation). In doing this
  * we generate a validation key. The key generated in this method
  * is what was used initially. The path of the keys are:
  *

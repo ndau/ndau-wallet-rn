@@ -791,7 +791,7 @@ const nodeStatus = {
   }
 }
 
-const claimAccountTxRes = {
+const setValidationTxRes = {
   fee_napu: 0
 }
 
@@ -1575,7 +1575,7 @@ export default {
   testUser,
   eaiValueForDisplayResponse,
   nodeStatus,
-  claimAccountTxRes,
+  setValidationTxRes,
   lockTxRes,
   notifyTxRes,
   transferTxRes,
