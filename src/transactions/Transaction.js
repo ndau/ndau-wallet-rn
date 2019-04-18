@@ -79,7 +79,7 @@ export const Transaction = {
    */
   async sign () {
     try {
-      // Here we get the ownership key to sign for ClaimAccount. This is
+      // Here we get the ownership key to sign for SetValidation. This is
       // the ONLY time we use the ownershipKey. Any subsequent/other
       // transactions use the validationKey within the account
       const privateKeyFromHash = this.privateKeyForSigning()

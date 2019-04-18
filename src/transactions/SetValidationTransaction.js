@@ -2,7 +2,7 @@ import FlashNotification from '../components/common/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import KeyMaster from '../helpers/KeyMaster'
 
-export class ClaimTransaction {
+export class SetValidationTransaction {
   constructor (wallet, account) {
     this._wallet = wallet
     this._account = account
@@ -16,7 +16,7 @@ export class ClaimTransaction {
       throw new Error('You must pass wallet and account')
     }
 
-    this.transactionType = 'ClaimAccount'
+    this.transactionType = 'SetValidation'
   }
 
   addToJsonTransaction = () => {

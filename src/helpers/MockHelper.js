@@ -48,13 +48,13 @@ const mockEaiRate = () => {
     .reply(200, data.eaiValueForDisplayResponse)
 }
 
-const mockClaimAccountTx = () => {
+const mockSetValidationTx = () => {
   mock
-    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/ClaimAccount')
-    .reply(200, data.claimAccountTxRes)
+    .onPost('https://testnet-0.api.ndau.tech/tx/prevalidate/SetValidation')
+    .reply(200, data.setValidationTxRes)
   mock
-    .onPost('https://testnet-0.api.ndau.tech/tx/submit/ClaimAccount')
-    .reply(200, data.claimAccountTxRes)
+    .onPost('https://testnet-0.api.ndau.tech/tx/submit/SetValidation')
+    .reply(200, data.setValidationTxRes)
 }
 
 const mockLockTx = () => {
@@ -121,7 +121,7 @@ export default {
   mockAccountsAPI,
   mockMarketPriceAPI,
   mockEaiRate,
-  mockClaimAccountTx,
+  mockSetValidationTx,
   mockLockTx,
   mockNotifyTx,
   mockTransferTx,

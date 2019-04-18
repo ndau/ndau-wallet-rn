@@ -1,4 +1,4 @@
-import { ClaimTransaction } from '../ClaimTransaction'
+import { SetValidationTransaction } from '../SetValidationTransaction'
 import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
@@ -12,7 +12,7 @@ MockHelper.mockAccountAPI(
 )
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-MockHelper.mockClaimAccountTx()
+MockHelper.mockSetValidationTx()
 
 NativeModules.KeyaddrManager = {
   keyaddrWordsToBytes: jest.fn(),
@@ -138,8 +138,8 @@ const user = {
   }
 }
 
-test('creation of a claim transaction', async () => {
-  const theClaimTransaction = {
+test('creation of a setValidation transaction', async () => {
+  const theSetValidationTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     ownership:
       'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
@@ -150,19 +150,19 @@ test('creation of a claim transaction', async () => {
     sequence: 3830689465
   }
 
-  Object.assign(ClaimTransaction.prototype, Transaction)
+  Object.assign(SetValidationTransaction.prototype, Transaction)
 
-  const claimTransaction = new ClaimTransaction(
+  const setValidationTransaction = new SetValidationTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
     ]
   )
-  const createdClaimTransaction = await claimTransaction.create()
-  expect(createdClaimTransaction).toEqual(theClaimTransaction)
+  const createdSetValidationTransaction = await setValidationTransaction.create()
+  expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
 })
 
-test('claim fails if no sequence', async () => {
+test('setValidation fails if no sequence', async () => {
   const userNoValidationKeys = {
     userId: 'fail',
     wallets: {
@@ -198,15 +198,15 @@ test('claim fails if no sequence', async () => {
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
+    Object.assign(SetValidationTransaction.prototype, Transaction)
 
-    const claimTransaction = new ClaimTransaction(
+    const setValidationTransaction = new SetValidationTransaction(
       userNoValidationKeys.wallets.c79af3b6,
       userNoValidationKeys.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
       ]
     )
-    await claimTransaction.create()
+    await setValidationTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
     expect(error.toString()).toEqual('Error: No sequence found in addressData')
@@ -214,7 +214,7 @@ test('claim fails if no sequence', async () => {
 })
 
 test('failure of any transaction around sign', async () => {
-  const theClaimTransaction = {
+  const theSetValidationTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     ownership:
       'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
@@ -226,24 +226,24 @@ test('failure of any transaction around sign', async () => {
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
+    Object.assign(SetValidationTransaction.prototype, Transaction)
 
-    const claimTransaction = new ClaimTransaction(
+    const setValidationTransaction = new SetValidationTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
       ]
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.sign()
+    const createdSetValidationTransaction = await setValidationTransaction.create()
+    expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
+    await setValidationTransaction.sign()
   } catch (error) {
     expect(error.toString()).toEqual('Error: testing sign error')
   }
 })
 
 test('failure of any transaction around prevalidate', async () => {
-  const theClaimTransaction = {
+  const theSetValidationTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     ownership:
       'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
@@ -255,24 +255,24 @@ test('failure of any transaction around prevalidate', async () => {
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
+    Object.assign(SetValidationTransaction.prototype, Transaction)
 
-    const claimTransaction = new ClaimTransaction(
+    const setValidationTransaction = new SetValidationTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
       ]
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.prevalidate()
+    const createdSetValidationTransaction = await setValidationTransaction.create()
+    expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
+    await setValidationTransaction.prevalidate()
   } catch (error) {
     expect(error.toString()).toEqual('Error: error being sent')
   }
 })
 
 test('failure of any transaction around submit', async () => {
-  const theClaimTransaction = {
+  const theSetValidationTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     ownership:
       'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
@@ -284,17 +284,17 @@ test('failure of any transaction around submit', async () => {
   }
 
   try {
-    Object.assign(ClaimTransaction.prototype, Transaction)
+    Object.assign(SetValidationTransaction.prototype, Transaction)
 
-    const claimTransaction = new ClaimTransaction(
+    const setValidationTransaction = new SetValidationTransaction(
       user.wallets.c79af3b6,
       user.wallets.c79af3b6.accounts[
         'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
       ]
     )
-    const createdClaimTransaction = await claimTransaction.create()
-    expect(createdClaimTransaction).toEqual(theClaimTransaction)
-    await claimTransaction.submit()
+    const createdSetValidationTransaction = await setValidationTransaction.create()
+    expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
+    await setValidationTransaction.submit()
   } catch (error) {
     expect(error.toString()).toEqual('Error: error being sent')
   }

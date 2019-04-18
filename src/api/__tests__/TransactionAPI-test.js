@@ -2,7 +2,7 @@ import TransactionAPI from '../TransactionAPI'
 import data from '../data'
 import services from '../../api/services-dev.json'
 import MockHelper from '../../helpers/MockHelper'
-import { ClaimTransaction } from '../../transactions/ClaimTransaction'
+import { SetValidationTransaction } from '../../transactions/SetValidationTransaction'
 import { Transaction } from '../../transactions/Transaction'
 
 MockHelper.mockServiceDiscovery()
@@ -13,7 +13,7 @@ MockHelper.mockAccountAPI(
 )
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-MockHelper.mockClaimAccountTx()
+MockHelper.mockSetValidationTx()
 
 const user = {
   userId: 'TAC-3PY',
@@ -126,9 +126,9 @@ const user = {
 fetch.resetMocks()
 
 test('prevalidate should return something back', async () => {
-  fetch.mockResponses([services], [data.claimAccountTxRes])
+  fetch.mockResponses([services], [data.setValidationTxRes])
 
-  const theClaimTransaction = {
+  const theSetValidationTransaction = {
     target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
     ownership:
       'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
@@ -139,17 +139,17 @@ test('prevalidate should return something back', async () => {
     sequence: 3830689465
   }
 
-  Object.assign(ClaimTransaction.prototype, Transaction)
-  const claimTransaction = new ClaimTransaction(
+  Object.assign(SetValidationTransaction.prototype, Transaction)
+  const setValidationTransaction = new SetValidationTransaction(
     user.wallets.c79af3b6,
     user.wallets.c79af3b6.accounts[
       'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
     ]
   )
-  const claimTxToSend = await claimTransaction.create()
-  expect(claimTxToSend).toEqual(theClaimTransaction)
+  const setValidationTxToSend = await setValidationTransaction.create()
+  expect(setValidationTxToSend).toEqual(theSetValidationTransaction)
 
-  const ndau = await claimTransaction.prevalidate()
+  const ndau = await setValidationTransaction.prevalidate()
 
   expect(ndau).toBeDefined()
 })
