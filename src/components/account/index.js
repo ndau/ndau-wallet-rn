@@ -482,7 +482,7 @@ export function AccountLockConfirmBottomPanel (props) {
         value={props.word}
         autoCapitalize='none'
         noSideMargins
-        onSubmitEditing={this.props.onPress}
+        onSubmitEditing={props.onPress}
       />
       <Button
         style={styles.accountLargeButton}

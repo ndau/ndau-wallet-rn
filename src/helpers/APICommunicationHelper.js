@@ -1,5 +1,6 @@
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import axios from 'axios'
+import axiosRetry from 'axios-retry'
 import LoggingService from '../services/LoggingService'
 
 /**
@@ -12,7 +13,10 @@ import LoggingService from '../services/LoggingService'
 const post = async (url, data, timeout = 10000) => {
   try {
     LoggingService.debug(`Sending ${data} to ${url}`)
+
+    axiosRetry(axios, { retries: 3 })
     const response = await axios.post(url, data, { timeout })
+
     LoggingService.debug(
       `${url} response: ${JSON.stringify(response.data, null, 2)}`
     )
@@ -32,7 +36,10 @@ const post = async (url, data, timeout = 10000) => {
 const get = async (url, timeout = 10000) => {
   try {
     LoggingService.debug(`Performing GET on ${url}`)
+
+    axiosRetry(axios, { retries: 3 })
     const response = await axios.get(url, { timeout })
+
     LoggingService.debug(
       `${url} response: ${JSON.stringify(response.data, null, 2)}`
     )
