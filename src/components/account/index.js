@@ -175,7 +175,10 @@ export function AccountLockContainer (props) {
 
 export function AccountUnlockContainer (props) {
   close = () => {
-    props.navigation.push('AccountDetails', { account: props.account })
+    props.navigation.navigate('AccountDetails', {
+      wallet: props.wallet,
+      account: props.account
+    })
   }
   return (
     <MainContainer>
@@ -199,7 +202,10 @@ export function AccountUnlockContainer (props) {
 
 export function AccountSendContainer (props) {
   close = () => {
-    props.navigation.push('WalletOverview', { wallet: props.wallet })
+    props.navigation.navigate('AccountDetails', {
+      wallet: props.wallet,
+      account: props.account
+    })
   }
   return (
     <MainContainer>
