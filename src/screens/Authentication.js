@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert } from 'react-native'
+import { Alert, Keyboard } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import RNExitApp from 'react-native-exit-app'
 import UserData from '../model/UserData'
@@ -37,7 +37,6 @@ class Authentication extends Component {
     this.setState({ spinner: true }, async () => {
       try {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
-        let marketPrice = 0
         if (user) {
           FlashNotification.hideMessage()
 
@@ -52,15 +51,11 @@ class Authentication extends Component {
 
           try {
             await UserData.loadUserData(user)
-            marketPrice = await OrderAPI.getMarketPrice()
           } catch (error) {
             FlashNotification.showError(error.message)
             LoggingService.debug(error)
             errorMessage = error.message
           }
-
-          UserStore.setUser(user)
-          NdauStore.setMarketPrice(marketPrice)
 
           this.setState({ spinner: false }, () => {
             this.props.navigation.navigate('Dashboard', {
@@ -155,6 +150,7 @@ class Authentication extends Component {
           placeholder='Enter your password...'
           secureTextEntry
           autoCapitalize='none'
+          onSubmitEditing={this.login}
         />
         <PasswordLinkText onPress={this.showPasswordReset}>
           Forgot your password?

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
   View,
-  ScrollView,
+  Keyboard,
   Text,
   Linking,
   PixelRatio,
@@ -159,6 +159,11 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   _moveToNextWord = () => {
+    // this allows a second prevention to move to the next
+    // word if there are problems, mainly for when keyboard
+    // stays up and user uses return key to progress
+    if (this.state.disableArrows) return
+
     if (this.state.recoveryIndex <= 11) {
       const newRecoveryIndex = this.state.recoveryIndex + 1
       this.setState(
@@ -168,12 +173,12 @@ class SetupGetRecoveryPhrase extends Component {
         },
         () => {
           this.adjustStepNumber(this.state.recoveryIndex)
+          if (this.recoveryDropdownRef) {
+            this.recoveryDropdownRef.clearWord()
+            this.recoveryDropdownRef.focus()
+          }
         }
       )
-      if (this.recoveryDropdownRef) {
-        this.recoveryDropdownRef.clearWord()
-        this.recoveryDropdownRef.focus()
-      }
     }
     FlashNotification.hideMessage()
   }
@@ -364,7 +369,7 @@ class SetupGetRecoveryPhrase extends Component {
                 setAcquisitionError={this.setAcquisitionError}
                 recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
                 setDisableArrows={this.setDisableArrows}
-                onSubmitEditing={this._moveToNextWord}
+                moveToNextWord={this._moveToNextWord}
                 ref={input => {
                   this.recoveryDropdownRef = input
                 }}

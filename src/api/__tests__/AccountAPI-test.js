@@ -7,6 +7,7 @@ const addresses = data.addresses
 
 test('getAddressData should return something back', async () => {
   MockHelper.mockServiceDiscovery()
+  MockHelper.mockAccountAPI()
   MockHelper.mockAccountsAPI()
 
   const ndau = await AccountAPI.getAddressData(addresses)

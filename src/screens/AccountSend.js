@@ -41,7 +41,7 @@ class AccountSend extends Component {
       scanning: false,
       cameraType: 'back',
       requestingAmount: false,
-      amount: 0,
+      amount: '',
       validAmount: false,
       validAddress: false,
       transactionFee: 0,
@@ -127,6 +127,10 @@ class AccountSend extends Component {
   }
 
   _setAmount = amount => {
+    // If the amount passed in is not a number then we do not
+    // have to do any math here
+    if (isNaN(amount)) return
+
     let { validAmount, transactionFee } = this.state
 
     const totalNdau = AccountAPIHelper.getTotalNdauForSend(
@@ -207,7 +211,7 @@ class AccountSend extends Component {
           />
           {!this.state.validAmount && this.state.amount ? (
             <AccountSendErrorText>
-              You do not have the much ndau to send.
+              You do not have enough ndau in this account.
             </AccountSendErrorText>
           ) : null}
           <AccountConfirmationItem

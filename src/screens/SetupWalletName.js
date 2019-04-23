@@ -95,6 +95,7 @@ class SetupWalletName extends Component {
             this.setState({ value })
           }}
           placeholder={`${SetupStore.walletId}`}
+          onSubmitEditing={this.showNextSetup}
         />
         <LargeButtons sideMargins bottom onPress={() => this.showNextSetup()}>
           Next

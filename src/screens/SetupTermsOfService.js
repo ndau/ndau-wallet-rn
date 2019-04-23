@@ -65,11 +65,8 @@ class SetupTermsOfService extends Component {
         }
 
         await UserData.loadUserData(user)
-        const marketPrice = await OrderAPI.getMarketPrice()
 
         UserStore.setPassword(SetupStore.encryptionPassword)
-        UserStore.setUser(user)
-        NdauStore.setMarketPrice(marketPrice)
 
         this.setState({ spinner: false }, () => {
           this.props.navigation.navigate('Dashboard')

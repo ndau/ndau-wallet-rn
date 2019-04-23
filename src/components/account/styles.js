@@ -303,7 +303,7 @@ export default StyleSheet.create({
   },
   accountLockPanel: {
     width: wp('100%'),
-    height: hp('100%'),
+    height: hp('90%'),
     backgroundColor: '#0A1724',
     paddingTop: 0
   },

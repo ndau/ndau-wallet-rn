@@ -10,7 +10,7 @@ MockHelper.mockAccountsAPI()
 MockHelper.mockAccountAPI()
 MockHelper.mockEaiRate()
 MockHelper.mockMarketPriceAPI()
-MockHelper.mockClaimAccountTx()
+MockHelper.mockSetValidationTx()
 MockHelper.mockDelegateTx()
 
 NativeModules.KeyaddrManager = {
