@@ -122,20 +122,21 @@ class WalletOverview extends Component {
     const user = await MultiSafeHelper.getDefaultUser(password)
 
     let wallet = this.state.wallet
-    let marketPrice = this.state.marketPrice
     try {
       await UserData.loadUserData(user)
 
       wallet = KeyMaster.getWalletFromUser(user, this.state.wallet.walletId)
-      marketPrice = await OrderAPI.getMarketPrice()
     } catch (error) {
       FlashNotification.showError(error.message)
     }
 
     WalletStore.setWallet(wallet)
-    NdauStore.setMarketPrice(marketPrice)
 
-    this.setState({ refreshing: false, marketPrice, wallet })
+    this.setState({
+      refreshing: false,
+      marketPrice: NdauStore.getMarketPrice(),
+      wallet
+    })
   }
 
   _showAccountDetails = (account, wallet) => {

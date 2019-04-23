@@ -12,7 +12,9 @@ import LoggingService from '../services/LoggingService'
 const post = async (url, data, timeout = 10000) => {
   try {
     LoggingService.debug(`Sending ${data} to ${url}`)
+
     const response = await axios.post(url, data, { timeout })
+
     LoggingService.debug(
       `${url} response: ${JSON.stringify(response.data, null, 2)}`
     )
@@ -32,9 +34,11 @@ const post = async (url, data, timeout = 10000) => {
 const get = async (url, timeout = 10000) => {
   try {
     LoggingService.debug(`Performing GET on ${url}`)
+
     const response = await axios.get(url, { timeout })
+
     LoggingService.debug(
-      `${url} response: ${JSON.stringify(response.data, null, 2)}`
+      `${url} response123: ${JSON.stringify(response, null, 2)}`
     )
     return response.data
   } catch (error) {
