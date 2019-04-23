@@ -125,10 +125,6 @@ class SetupEncryptionPassword extends Component {
       await UserStore.setPassword(this.state.password)
 
       await UserData.loadUserData(user)
-      const marketPrice = await OrderAPI.getMarketPrice()
-
-      UserStore.setUser(user)
-      NdauStore.setMarketPrice(marketPrice)
 
       this.props.navigation.navigate('Dashboard')
     } catch (error) {

@@ -41,7 +41,7 @@ class AccountSend extends Component {
       scanning: false,
       cameraType: 'back',
       requestingAmount: false,
-      amount: 0,
+      amount: '',
       validAmount: false,
       validAddress: false,
       transactionFee: 0,
