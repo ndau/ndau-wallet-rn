@@ -470,6 +470,10 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: hp('2%')
   },
+  collapsibleBarBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1
+  },
   fullBarBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,

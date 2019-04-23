@@ -317,7 +317,9 @@ export function AccountTotalPanel (props) {
           {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
         </H4>
       </View>
-      <View>
+      {/* The below is commented out temporarily for the first
+          release of MVP. This WILL be coming back VERY soon */}
+      {/* <View>
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
           <H4 style={styles.historyAccountPanelText}>View history</H4>
           <TouchableOpacity {...props}>
@@ -330,7 +332,7 @@ export function AccountTotalPanel (props) {
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
     </View>
   )
 }
