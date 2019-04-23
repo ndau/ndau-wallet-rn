@@ -208,7 +208,7 @@ class AccountSend extends Component {
           />
           {!this.state.validAmount && this.state.amount ? (
             <AccountSendErrorText>
-              Not have enough ndau in this account.
+              You do not have enough ndau in this account.
             </AccountSendErrorText>
           ) : null}
           <AccountConfirmationItem
