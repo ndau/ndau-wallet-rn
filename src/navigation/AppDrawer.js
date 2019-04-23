@@ -1,6 +1,7 @@
 import React from 'react'
-import { Alert, ScrollView, Platform } from 'react-native'
+import { Alert, ScrollView, Platform, Linking } from 'react-native'
 import VersionNumber from 'react-native-version-number'
+import DeviceInfo from 'react-native-device-info'
 import {
   DrawerEntryItem,
   DrawerExit,
@@ -31,6 +32,36 @@ class AppDrawer extends React.Component {
     this.props.navigation.navigate('SetupYourWallet')
   }
 
+  sendSupportEmail = () => {
+    this.closeDrawer()
+    Linking.openURL(
+      `mailto:support@oneiro.freshdesk.com?subject=Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`
+    )
+  }
+
+  /* NEED HELP WITH THIS STUFF */
+
+  getHardware () {
+    DeviceInfo
+    const deviceId = DeviceInfo.getDeviceId()
+  }
+
+  getVersion () {
+    let version = `V${VersionNumber.appVersion}`
+    if (Platform.OS === 'ios') {
+      version += `.${VersionNumber.buildVersion}`
+    }
+    return version
+  }
+
+  getOs () {
+    if (Platform.OS === 'ios') {
+      return 'Apple iOS'
+    } else {
+      return 'Android os'
+    }
+  }
+
   logout = () => {
     this.closeDrawer()
     Alert.alert(
@@ -59,10 +90,6 @@ class AppDrawer extends React.Component {
   }
 
   render () {
-    let version = `V${VersionNumber.appVersion}`
-    if (Platform.OS === 'ios') {
-      version += `.${VersionNumber.buildVersion}`
-    }
     return (
       <DrawerContainer logoutHandler={() => this.logout()}>
         <ScrollView>
@@ -88,7 +115,14 @@ class AppDrawer extends React.Component {
             Recover wallet
           </DrawerEntryItem>
 
-          <DrawerEntryItem>{version}</DrawerEntryItem>
+          <DrawerEntryItem
+            onPress={() => this.sendSupportEmail()}
+            fontAwesomeIconName='comment'
+          >
+            Contact support
+          </DrawerEntryItem>
+
+          <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem>
 
           {/*
           <DrawerEntryItem
