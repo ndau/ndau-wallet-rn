@@ -69,8 +69,8 @@ class AccountLockChooseAccount extends Component {
         navigation={this.props.nav}
         {...this.props}
       >
-        <AccountLockDetailsPanel account={this.state.account}>
-          <ScrollView>
+        <ScrollView>
+          <AccountLockDetailsPanel account={this.state.account}>
             <AccountLockLargerText>
               Your available accounts:
             </AccountLockLargerText>
@@ -92,17 +92,17 @@ class AccountLockChooseAccount extends Component {
                 })
               }}
             />
-          </ScrollView>
-        </AccountLockDetailsPanel>
+          </AccountLockDetailsPanel>
 
-        <AccountLockButton
-          smallText={
-            'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
-          }
-          onPress={this._showLockConfirmation}
-        >
-          Continue
-        </AccountLockButton>
+          <AccountLockButton
+            smallText={
+              'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal in this account while it is locked'
+            }
+            onPress={this._showLockConfirmation}
+          >
+            Continue
+          </AccountLockButton>
+        </ScrollView>
       </AccountLockContainer>
     )
   }

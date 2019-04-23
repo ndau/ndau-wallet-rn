@@ -61,7 +61,7 @@ class Dashboard extends Component {
       )
     }
 
-    const marketPrice = NdauStore.getMarketPrice()
+    const marketPrice = NdauStore.getMarketPrice(user)
 
     LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
 
@@ -86,16 +86,11 @@ class Dashboard extends Component {
     this.setState({ refreshing: true })
 
     const user = this.state.user
-    let marketPrice = this.state.marketPrice
     try {
       await UserData.loadUserData(user)
-      marketPrice = await OrderAPI.getMarketPrice()
     } catch (error) {
       FlashNotification.showError(error.message)
     }
-
-    UserStore.setUser(user)
-    NdauStore.setMarketPrice(marketPrice)
 
     this.setState({ refreshing: false, user, marketPrice })
   }
