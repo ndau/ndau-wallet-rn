@@ -208,6 +208,7 @@ export default StyleSheet.create({
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
+    marginBottom: hp('3%'),
     position: 'relative',
     width: 22,
     height: 22,

@@ -41,7 +41,7 @@ class AccountSend extends Component {
       scanning: false,
       cameraType: 'back',
       requestingAmount: false,
-      amount: 0,
+      amount: '',
       validAmount: false,
       validAddress: false,
       transactionFee: 0,
@@ -127,6 +127,10 @@ class AccountSend extends Component {
   }
 
   _setAmount = amount => {
+    // If the amount passed in is not a number then we do not
+    // have to do any math here
+    if (isNaN(amount)) return
+
     let { validAmount, transactionFee } = this.state
 
     const totalNdau = AccountAPIHelper.getTotalNdauForSend(
@@ -203,7 +207,6 @@ class AccountSend extends Component {
             autoCapitalize='none'
             noBottomMargin
             noSideMargins
-            onSubmitEditing={this._next}
             error={!this.state.validAmount && this.state.amount}
           />
           {!this.state.validAmount && this.state.amount ? (
@@ -286,7 +289,6 @@ class AccountSend extends Component {
             placeholder='ndau address...'
             autoCapitalize='none'
             noSideMargins
-            onSubmitEditing={this._haveAddress}
           />
           <OrBorder />
           <LargeBorderButton onPress={() => this._scan()}>
