@@ -40,6 +40,7 @@ class Authentication extends Component {
         console.log(`user is ${JSON.stringify(user)}`)
         if (user) {
           FlashNotification.hideMessage()
+          UserStore.setUser(user)
 
           LoggingService.debug(
             'user in Authentication found is',
@@ -47,7 +48,7 @@ class Authentication extends Component {
           )
 
           // cache the password
-          await UserStore.setPassword(this.state.password)
+          UserStore.setPassword(this.state.password)
           let errorMessage = null
 
           try {
