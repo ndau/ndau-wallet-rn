@@ -18,6 +18,7 @@ import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
+import StringifyDataWriter from 'react-native-device-log'
 
 class Dashboard extends Component {
   constructor (props) {

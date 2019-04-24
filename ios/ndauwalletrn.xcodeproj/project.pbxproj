@@ -438,13 +438,6 @@
 			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
-		9EF2B49A21CC336F006F3FA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9EF2B46F21CC3367006F3FA2 /* RNCWebView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNCWebView;
-		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -546,7 +539,6 @@
 		9EAA412D2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		9EC12AC12264F15000E44F82 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		9EE419E1220A012700D9E32E /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
-		9EF2B46F21CC3367006F3FA2 /* RNCWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCWebView.xcodeproj; path = "../node_modules/react-native-webview/ios/RNCWebView.xcodeproj"; sourceTree = "<group>"; };
 		9EF436222247222800892250 /* ndau-0.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ndau-0.ttf"; path = "../assets/fonts/ndau-0.ttf"; sourceTree = "<group>"; };
 		9EF6095B220DCD430062947C /* ndauwalletrn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ndauwalletrn.entitlements; path = ndauwalletrn/ndauwalletrn.entitlements; sourceTree = "<group>"; };
 		9EFCD39420EFFCC100456FF1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -762,7 +754,6 @@
 				9E9E77742262E92500F7A416 /* EventKit.framework */,
 				9E9E773F2262E78800F7A416 /* JavaScriptCore.framework */,
 				9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */,
-				9EF2B46F21CC3367006F3FA2 /* RNCWebView.xcodeproj */,
 				9E6DA47020F053B400B347DE /* Keyaddr.framework */,
 				9EFCD39420EFFCC100456FF1 /* UIKit.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -957,14 +948,6 @@
 			children = (
 				9EE419F3220A012800D9E32E /* libRCTPushNotification.a */,
 				9EE419F5220A012800D9E32E /* libRCTPushNotification-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9EF2B47021CC3367006F3FA2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9EF2B49B21CC336F006F3FA2 /* libRNCWebView.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1213,10 +1196,6 @@
 				{
 					ProductGroup = 9E5A791922642B4B0082F897 /* Products */;
 					ProjectRef = 9E5A791822642B4B0082F897 /* RNCAsyncStorage.xcodeproj */;
-				},
-				{
-					ProductGroup = 9EF2B47021CC3367006F3FA2 /* Products */;
-					ProjectRef = 9EF2B46F21CC3367006F3FA2 /* RNCWebView.xcodeproj */;
 				},
 				{
 					ProductGroup = DFB0F5B5226FA41400C47464 /* Products */;
@@ -1602,13 +1581,6 @@
 			fileType = archive.ar;
 			path = "libRCTPushNotification-tvOS.a";
 			remoteRef = 9EE419F4220A012800D9E32E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9EF2B49B21CC336F006F3FA2 /* libRNCWebView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNCWebView.a;
-			remoteRef = 9EF2B49A21CC336F006F3FA2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {

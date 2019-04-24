@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Animated, View, Text, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5Pro'
 import styles from './styles'
-import { BarBorder } from '.'
+import { CollapsibleBarBorder } from '.'
 
-class BarCollapsible extends Component {
+class CollapsibleBar extends Component {
   constructor (props) {
     super(props)
 
@@ -153,11 +153,11 @@ class BarCollapsible extends Component {
 
         {this.state.show && (
           <Animated.View style={{ opacity: fadeAnim }}>
-            {upperBorder ? <BarBorder /> : null}
+            {upperBorder ? <CollapsibleBarBorder /> : null}
             {children}
           </Animated.View>
         )}
-        {lowerBorder ? <BarBorder /> : null}
+        {lowerBorder ? <CollapsibleBarBorder /> : null}
       </View>
     )
   }
@@ -199,4 +199,4 @@ class BarCollapsible extends Component {
   }
 }
 
-export default BarCollapsible
+export default CollapsibleBar

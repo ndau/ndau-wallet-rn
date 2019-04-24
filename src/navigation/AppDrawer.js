@@ -7,6 +7,7 @@ import {
   DrawerExit,
   DrawerContainer
 } from '../components/drawer'
+import LoggingService from '../services/LoggingService'
 
 class AppDrawer extends React.Component {
   constructor (props) {
@@ -32,18 +33,33 @@ class AppDrawer extends React.Component {
     this.props.navigation.navigate('SetupYourWallet')
   }
 
-  sendSupportEmail = () => {
+  sendSupportEmail = async () => {
     this.closeDrawer()
-    Linking.openURL(
-      `mailto:support@oneiro.freshdesk.com?subject=Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`
-    )
+    const data = await LoggingService.getLoggingData()
+    // try {
+    //   await MailCompose.send({
+    //     toRecipients: ['support@oneiro.freshdesk.com'],
+    //     subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
+    //     text: 'This is body',
+    //     // html: '<p>This is <b>html</b> body</p>', // Or, use this if you want html body. Note that some Android mail clients / devices don't support this properly.
+    //     attachments: [
+    //       {
+    //         filename: 'ndau-wallet-log', // [Optional] If not provided, UUID will be generated.
+    //         ext: '.txt',
+    //         mimeType: 'text/plain',
+    //         data // Or, use this if the data is not in plain text.
+    //       }
+    //     ]
+    //   })
+    // } catch (error) {
+    //   LoggingService.error(error)
+    // }
   }
 
   /* NEED HELP WITH THIS STUFF */
 
   getHardware () {
-    DeviceInfo
-    const deviceId = DeviceInfo.getDeviceId()
+    return DeviceInfo.getManufacturer() + ' ' + DeviceInfo.getModel()
   }
 
   getVersion () {
@@ -55,11 +71,7 @@ class AppDrawer extends React.Component {
   }
 
   getOs () {
-    if (Platform.OS === 'ios') {
-      return 'Apple iOS'
-    } else {
-      return 'Android os'
-    }
+    return DeviceInfo.getManufacturer() + ' ' + DeviceInfo.getSystemName()
   }
 
   logout = () => {

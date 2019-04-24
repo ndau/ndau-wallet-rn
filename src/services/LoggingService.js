@@ -22,16 +22,43 @@ const initialize = () => {
   // deviceLog.startTimer('start-up')
 }
 
-const debug = (...args) => {
-  deviceLog.debug(...args)
+const scrubData = data => {
+  if (!data) return data
+
+  let scrubbedData = data
+  // pull out ALL private keys
+  try {
+    scrubbedData = data.toString().replace(/"npvt[^"]+"/g, '')
+  } catch (error) {
+    // scrubbedData = JSON.stringify(data).replace(/"npvt[^"]+"/g, '')
+  }
+
+  return scrubbedData
 }
 
-const error = (...args) => {
-  deviceLog.error(...args)
+const debug = message => {
+  return deviceLog.debug(scrubData(message))
+}
+
+const error = message => {
+  return deviceLog.error(scrubData(message))
+}
+
+const getLoggingData = async logData => {
+  const device = await deviceLog.store.getRows()
+  const logEntries = logData || device
+  for (const entry of logEntries) {
+    const theEntry = `${entry.timeStamp} -- ${entry.message}`
+    console.log(`entry is: ${JSON.stringify(theEntry, null, 2)}`)
+    logData += theEntry
+  }
+  return JSON.stringify(logData, null, 2)
 }
 
 export default {
   initialize,
   debug,
-  error
+  error,
+  scrubData,
+  getLoggingData
 }
