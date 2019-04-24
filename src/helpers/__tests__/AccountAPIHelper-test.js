@@ -273,24 +273,48 @@ test('make sure totalSpendableNdau subtracks the settlements correctly', async (
 
 test('make sure we get the correct total for send with all values', async () => {
   const amount = 23
-  const addressData = { balance: 30000000000 }
-  const transactionFee = 10000000000
+  const transactionFee = 1
+  const sibFee = 1
   const totalNdau = AccountAPIHelper.getTotalNdauForSend(
     amount,
-    addressData,
-    transactionFee
+    transactionFee,
+    sibFee
   )
-  expect(totalNdau).toEqual('177.000')
+  expect(totalNdau).toEqual('25.000')
+})
+
+test('make sure we get the correct total with sib not tx fee', async () => {
+  const amount = 23
+  const transactionFee = 0
+  const sibFee = 7
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    transactionFee,
+    sibFee
+  )
+  expect(totalNdau).toEqual('30.000')
+})
+
+test('make sure we get the correct total with tx fee not sib', async () => {
+  const amount = 23
+  const transactionFee = 7
+  const sibFee = 0
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    transactionFee,
+    sibFee
+  )
+  expect(totalNdau).toEqual('30.000')
 })
 
 test('make sure we get the correct total for send with no tx fees', async () => {
   const amount = 23
-  const addressData = { balance: 30000000000 }
   const transactionFee = 0
+  const sibFee = 0
   const totalNdau = AccountAPIHelper.getTotalNdauForSend(
     amount,
-    addressData,
-    transactionFee
+    transactionFee,
+    sibFee
   )
-  expect(totalNdau).toEqual('277.000')
+  expect(totalNdau).toEqual('23.000')
 })

@@ -3,6 +3,8 @@ package com.ndauwalletrn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.chirag.RNMail.RNMail;
+import com.rnfs.RNFSPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.apsl.versionnumber.RNVersionNumberPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -33,6 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new RNMail(),
+            new RNFSPackage(),
             new RNDeviceInfo(), new AsyncStoragePackage(), new SvgPackage(), new RNVersionNumberPackage(),
                     new LinearGradientPackage(), new RNBackgroundFetchPackage(),
                     new ReactNativePushNotificationPackage(), new VectorIconsPackage(), new KeyaddrPackage(),

@@ -8,6 +8,9 @@ import {
   DrawerContainer
 } from '../components/drawer'
 import LoggingService from '../services/LoggingService'
+import rnfs from 'react-native-fs'
+
+const Mailer = require('NativeModules').RNMail
 
 class AppDrawer extends React.Component {
   constructor (props) {
@@ -36,27 +39,33 @@ class AppDrawer extends React.Component {
   sendSupportEmail = async () => {
     this.closeDrawer()
     const data = await LoggingService.getLoggingData()
-    // try {
-    //   await MailCompose.send({
-    //     toRecipients: ['support@oneiro.freshdesk.com'],
-    //     subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
-    //     text: 'This is body',
-    //     // html: '<p>This is <b>html</b> body</p>', // Or, use this if you want html body. Note that some Android mail clients / devices don't support this properly.
-    //     attachments: [
-    //       {
-    //         filename: 'ndau-wallet-log', // [Optional] If not provided, UUID will be generated.
-    //         ext: '.txt',
-    //         mimeType: 'text/plain',
-    //         data // Or, use this if the data is not in plain text.
-    //       }
-    //     ]
-    //   })
-    // } catch (error) {
-    //   LoggingService.error(error)
-    // }
-  }
+    var path = rnfs.DocumentDirectoryPath + '/ndau-wallet.log'
 
-  /* NEED HELP WITH THIS STUFF */
+    // write the file and wait
+    try {
+      await rnfs.writeFile(path, data, 'utf8')
+    } catch (error) {
+      LoggingService.error(error)
+    }
+
+    Mailer.mail(
+      {
+        subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
+        recipients: ['support@oneiro.freshdesk.com'],
+        body: '/n/n' + data,
+        attachment: {
+          path, // The absolute path of the file from which to read data.
+          mimeType: 'log',
+          name: 'ndau-wallet.log'
+        }
+      },
+      error => {
+        if (error) {
+          LoggingService.error(error)
+        }
+      }
+    )
+  }
 
   getHardware () {
     return DeviceInfo.getManufacturer() + ' ' + DeviceInfo.getModel()
@@ -136,13 +145,12 @@ class AppDrawer extends React.Component {
 
           <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem>
 
-          {/*
           <DrawerEntryItem
             onPress={() => this.logging()}
             fontAwesomeIconName='exclamation-triangle'
           >
             Logging
-          </DrawerEntryItem> */}
+          </DrawerEntryItem>
         </ScrollView>
       </DrawerContainer>
     )

@@ -45,7 +45,7 @@ class AccountSend extends Component {
       validAmount: false,
       validAddress: false,
       transactionFee: 0,
-      sib: 0,
+      sibFee: 0,
       total: 0
     }
 
@@ -77,7 +77,7 @@ class AccountSend extends Component {
       address: this.state.address,
       amount: this.state.amount,
       transactionFee: this.state.transactionFee,
-      sib: this.state.sib,
+      sibFee: this.state.sibFee,
       total: this.state.total
     })
   }
@@ -93,6 +93,8 @@ class AccountSend extends Component {
   _requestTransactionFee = () => {
     this.setState({ spinner: true }, async () => {
       let transactionFee = 0
+      let sibFee = 0
+      let total = this.state.total
       try {
         Object.assign(TransferTransaction.prototype, Transaction)
         const transferTransaction = new TransferTransaction(
@@ -110,13 +112,22 @@ class AccountSend extends Component {
             prevalidateData.fee_napu
           )
         }
+        if (prevalidateData.sib_napu) {
+          sibFee = DataFormatHelper.getNdauFromNapu(prevalidateData.sib_napu)
+        }
+
+        total = AccountAPIHelper.getTotalNdauForSend(
+          this.state.amount,
+          transactionFee,
+          sibFee
+        )
       } catch (error) {
         FlashNotification.showError(
           `Error occurred while sending ndau: ${error.message}`
         )
       }
 
-      this.setState({ spinner: false, transactionFee })
+      this.setState({ spinner: false, transactionFee, sibFee, total })
     })
   }
 
@@ -131,19 +142,19 @@ class AccountSend extends Component {
     // have to do any math here
     if (isNaN(amount)) return
 
-    let { validAmount, transactionFee } = this.state
+    let { validAmount, transactionFee, sibFee } = this.state
 
     const totalNdau = AccountAPIHelper.getTotalNdauForSend(
       amount,
-      this.state.account.addressData,
-      transactionFee
+      transactionFee,
+      sibFee
     )
 
     if (
       AccountAPIHelper.getTotalNdauForSend(
         amount,
-        this.state.account.addressData,
         transactionFee,
+        sibFee,
         false
       ) > 0
     ) {
@@ -220,7 +231,7 @@ class AccountSend extends Component {
               AccountAPIHelper.accountNdauAmount(
                 this.state.account.addressData,
                 false
-              ) - this.state.amount
+              ) - this.state.total
             }
           />
           <AccountHeaderText>Fees</AccountHeaderText>
@@ -230,7 +241,7 @@ class AccountSend extends Component {
             value={this.state.transactionFee}
           />
           <BarBorder />
-          <AccountConfirmationItem title={'SIB:'} value={this.state.sib} />
+          <AccountConfirmationItem title={'SIB:'} value={this.state.sibFee} />
           <BarBorder />
           <AccountConfirmationItem
             largerText

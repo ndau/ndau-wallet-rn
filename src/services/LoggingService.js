@@ -10,8 +10,8 @@ const initialize = () => {
     .init(AsyncStorage, {
       logToConsole: __DEV__, // Send logs to console as well as device-log
       logRNErrors: true, // Will pick up RN-errors and send them to the device log
-      maxNumberToRender: 2000, // 0 or undefined == unlimited
-      maxNumberToPersist: 2000 // 0 or undefined == unlimited
+      maxNumberToRender: 0, // 0 or undefined == unlimited
+      maxNumberToPersist: 1000 // 0 or undefined == unlimited
     })
     .then(() => {
       // When the deviceLog has been initialized we can clear it if we want to:
@@ -30,7 +30,7 @@ const scrubData = data => {
   try {
     scrubbedData = data.toString().replace(/"npvt[^"]+"/g, '')
   } catch (error) {
-    // scrubbedData = JSON.stringify(data).replace(/"npvt[^"]+"/g, '')
+    scrubbedData = JSON.stringify(data).replace(/"npvt[^"]+"/g, '')
   }
 
   return scrubbedData
@@ -46,13 +46,14 @@ const error = message => {
 
 const getLoggingData = async logData => {
   const device = await deviceLog.store.getRows()
-  const logEntries = logData || device
-  for (const entry of logEntries) {
-    const theEntry = `${entry.timeStamp} -- ${entry.message}`
-    console.log(`entry is: ${JSON.stringify(theEntry, null, 2)}`)
-    logData += theEntry
-  }
-  return JSON.stringify(logData, null, 2)
+  return new Promise(resolve => {
+    const logEntries = logData || device
+    for (const entry of logEntries) {
+      console.log(`entry is: ${JSON.stringify(entry, null, 2)}`)
+      logData += entry
+    }
+    resolve(logData)
+  })
 }
 
 export default {
