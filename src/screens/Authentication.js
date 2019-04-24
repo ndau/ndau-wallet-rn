@@ -39,6 +39,7 @@ class Authentication extends Component {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
         if (user) {
           FlashNotification.hideMessage()
+          UserStore.setUser(user)
 
           LoggingService.debug(
             'user in Authentication found is',
@@ -46,7 +47,7 @@ class Authentication extends Component {
           )
 
           // cache the password
-          await UserStore.setPassword(this.state.password)
+          UserStore.setPassword(this.state.password)
           let errorMessage = null
 
           try {
