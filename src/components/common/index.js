@@ -390,6 +390,10 @@ export function BarBorder (props) {
   return <View style={styles.barBorder} />
 }
 
+export function CollapsibleBarBorder (props) {
+  return <View style={styles.collapsibleBarBorder} />
+}
+
 export function FullBarBorder (props) {
   return <View style={styles.fullBarBorder} />
 }
