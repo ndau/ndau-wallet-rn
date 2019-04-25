@@ -87,7 +87,6 @@ describe('AsyncStorageHelper tests...', () => {
 
     await AsyncStorageHelper.unlockUser('doesNotExist', password1)
       .then(storedUser => {
-        console.log(`STORED USER ${storedUser}`)
         expect(storedUser).toBeDefined()
       })
       .catch(error => {

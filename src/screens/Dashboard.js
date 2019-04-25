@@ -18,6 +18,7 @@ import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
+import StringifyDataWriter from 'react-native-device-log'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -63,7 +64,7 @@ class Dashboard extends Component {
 
     const marketPrice = NdauStore.getMarketPrice(user)
 
-    LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`User to be drawn: ${JSON.stringify(user)}`)
 
     this.setState({ user, marketPrice })
 

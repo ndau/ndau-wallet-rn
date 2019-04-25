@@ -145,7 +145,7 @@ const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
 
     const checkPersist = await unlockUser(user.userId, encryptionPassword)
     LoggingService.debug(
-      `Successfully set user to: ${JSON.stringify(checkPersist, null, 2)}`
+      `Successfully set user to: ${JSON.stringify(checkPersist)}`
     )
   } catch (error) {
     FlashNotification.showError(`Problem locking user: ${error.message}`)
