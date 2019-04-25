@@ -147,14 +147,14 @@ class AppDrawer extends React.Component {
             Contact support
           </DrawerEntryItem>
 
-          {/* <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem> */}
+          <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem>
 
-          <DrawerEntryItem
+          {/* <DrawerEntryItem
             onPress={() => this.logging()}
             fontAwesomeIconName='exclamation-triangle'
           >
             Logging
-          </DrawerEntryItem>
+          </DrawerEntryItem> */}
         </ScrollView>
       </DrawerContainer>
     )
