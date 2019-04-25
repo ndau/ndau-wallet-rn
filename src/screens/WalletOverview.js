@@ -11,7 +11,7 @@ import {
   DashboardContainer,
   DashboardLabelWithIcon
 } from '../components/dashboard'
-import { DrawerHeaderForOverview, DrawerHeader } from '../components/drawer'
+import { DrawerHeader } from '../components/drawer'
 import {
   DashboardTotalPanel,
   WalletOverviewHeaderActions
@@ -178,11 +178,11 @@ class WalletOverview extends Component {
             ref={component => (this._newAccountModal = component)}
           />
 
-          <DrawerHeaderForOverview {...this.props}>
+          <DrawerHeader {...this.props}>
             {this.state.wallet
               ? DataFormatHelper.truncateString(this.state.wallet.walletName)
               : ''}
-          </DrawerHeaderForOverview>
+          </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
           <WalletOverviewHeaderActions>
             <DashboardLabelWithIcon

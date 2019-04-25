@@ -77,32 +77,19 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     width: wp('100%'),
-    maxHeight: hp('5%'),
+    maxHeight: hp('6%'),
     color: '#000000'
   },
   drawerHeaderText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '200',
     letterSpacing: 0.34,
     lineHeight: 24,
     width: wp('76%'),
-    height: hp('5%'),
-    textAlign: 'center',
-    paddingTop: 0
-  },
-  drawerHeaderTextForOverview: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Titillium Web',
-    fontSize: 24,
-    fontWeight: '600',
-    letterSpacing: 0.51,
-    lineHeight: 36,
-    width: wp('86%'),
     height: hp('6%'),
-    textAlign: 'right',
-    alignSelf: 'flex-end',
-    paddingTop: hp('.5%')
+    textAlign: 'center',
+    paddingTop: 4
   }
 })
