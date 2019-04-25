@@ -64,7 +64,7 @@ class Dashboard extends Component {
 
     const marketPrice = NdauStore.getMarketPrice(user)
 
-    LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`User to be drawn: ${JSON.stringify(user)}`)
 
     this.setState({ user, marketPrice })
 

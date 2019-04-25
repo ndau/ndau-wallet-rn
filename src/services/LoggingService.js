@@ -30,7 +30,7 @@ const scrubData = data => {
   try {
     scrubbedData = data.toString().replace(/"npvt[^"]+"/g, '')
   } catch (error) {
-    scrubbedData = JSON.stringify(data).replace(/"npvt[^"]+"/g, '')
+    scrubbedData = data.replace(/"npvt[^"]+"/g, '')
   }
 
   return scrubbedData
@@ -46,13 +46,15 @@ const error = message => {
 
 const getLoggingData = async logData => {
   const device = await deviceLog.store.getRows()
+  const returnLoggingData = {}
   return new Promise(resolve => {
     const logEntries = logData || device
+    console.log(`logEntries ${logEntries}`)
     for (const entry of logEntries) {
-      console.log(`entry is: ${JSON.stringify(entry, null, 2)}`)
-      logData += entry
+      returnLoggingData[entry.timeStamp] = entry.message
     }
-    resolve(logData)
+    console.log(`HERE IS DATA: ${JSON.stringify(returnLoggingData)}`)
+    resolve(returnLoggingData)
   })
 }
 

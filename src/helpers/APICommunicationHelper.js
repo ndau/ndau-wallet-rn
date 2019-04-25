@@ -15,9 +15,7 @@ const post = async (url, data, timeout = 10000) => {
 
     const response = await axios.post(url, data, { timeout })
 
-    LoggingService.debug(
-      `${url} response: ${JSON.stringify(response.data, null, 2)}`
-    )
+    LoggingService.debug(`${url} response: ${JSON.stringify(response.data)}`)
     return response.data
   } catch (error) {
     LoggingService.debug(`Error from ${url} ${JSON.stringify(error.response)}`)
@@ -37,9 +35,7 @@ const get = async (url, timeout = 10000) => {
 
     const response = await axios.get(url, { timeout })
 
-    LoggingService.debug(
-      `${url} response: ${JSON.stringify(response.data, null, 2)}`
-    )
+    LoggingService.debug(`${url} response: ${JSON.stringify(response.data)}`)
     return response.data
   } catch (error) {
     LoggingService.debug(`Error from ${url} ${JSON.stringify(error.response)}`)

@@ -638,9 +638,7 @@ const _createAccounts = async (
       recoveryPhraseBytes
     )
   }
-  LoggingService.debug(
-    `Accounts created: ${JSON.stringify(wallet.accounts, null, 2)}`
-  )
+  LoggingService.debug(`Accounts created: ${JSON.stringify(wallet.accounts)}`)
 }
 
 export default {

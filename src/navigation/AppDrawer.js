@@ -41,23 +41,27 @@ class AppDrawer extends React.Component {
     const data = await LoggingService.getLoggingData()
     var path = rnfs.DocumentDirectoryPath + '/ndau-wallet.log'
 
+    // The comments here should be removed.
+    // TODO: 1 of 2 Removing attachments as they are not working
     // write the file and wait
-    try {
-      await rnfs.writeFile(path, data, 'utf8')
-    } catch (error) {
-      LoggingService.error(error)
-    }
+    // try {
+    //   await rnfs.writeFile(path, data, 'utf8')
+    // } catch (error) {
+    //   LoggingService.error(error)
+    // }
 
     Mailer.mail(
       {
         subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
         recipients: ['support@oneiro.freshdesk.com'],
-        body: '/n/n' + data,
-        attachment: {
-          path, // The absolute path of the file from which to read data.
-          mimeType: 'log',
-          name: 'ndau-wallet.log'
-        }
+        body: '<br><br><code>' + JSON.stringify(data) + '</code>',
+        isHTML: true
+        // TODO: 2 of 2 Removing attachements as they are not working
+        // attachment: {
+        //   path, // The absolute path of the file from which to read data.
+        //   mimeType: 'log',
+        //   name: 'ndau-wallet.log'
+        // }
       },
       error => {
         if (error) {
@@ -143,7 +147,7 @@ class AppDrawer extends React.Component {
             Contact support
           </DrawerEntryItem>
 
-          <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem>
+          {/* <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem> */}
 
           <DrawerEntryItem
             onPress={() => this.logging()}

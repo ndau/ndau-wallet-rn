@@ -10,7 +10,7 @@ getTargetPrice = () => {
     .then(response => response.json())
     .then(responseJson => {
       LoggingService.debug(
-        `getTargetPrice responseJson ${JSON.stringify(responseJson, null, 2)}`
+        `getTargetPrice responseJson ${JSON.stringify(responseJson)}`
       )
       return responseJson
     })
@@ -46,7 +46,7 @@ getNdauNewsLinks = () => {
     .then(response => response.json())
     .then(responseJson => {
       LoggingService.debug(
-        `getNdauNewsLinks responseJson ${JSON.stringify(responseJson, null, 2)}`
+        `getNdauNewsLinks responseJson ${JSON.stringify(responseJson)}`
       )
       return responseJson
     })
