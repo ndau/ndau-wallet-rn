@@ -184,9 +184,7 @@ const createFirstTimeUser = async (
       user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
-    LoggingService.debug(
-      `User initially created is: ${JSON.stringify(user, null, 2)}`
-    )
+    LoggingService.debug(`User initially created is: ${JSON.stringify(user)}`)
     return user
   } catch (error) {
     FlashNotification.showError(error.message)
@@ -262,9 +260,7 @@ const createWallet = async (
       )
     }
 
-    LoggingService.debug(
-      `Wallet created is: ${JSON.stringify(wallet, null, 2)}`
-    )
+    LoggingService.debug(`Wallet created is: ${JSON.stringify(wallet)}`)
 
     return wallet
   } catch (error) {

@@ -10,7 +10,7 @@ const initialize = () => {
     .init(AsyncStorage, {
       logToConsole: __DEV__, // Send logs to console as well as device-log
       logRNErrors: true, // Will pick up RN-errors and send them to the device log
-      maxNumberToRender: 0, // 0 or undefined == unlimited
+      maxNumberToRender: 20000, // 0 or undefined == unlimited
       maxNumberToPersist: 1000 // 0 or undefined == unlimited
     })
     .then(() => {

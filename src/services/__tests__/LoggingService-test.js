@@ -421,7 +421,6 @@ test('make sure we can remove private keys', async () => {
 })
 
 test('make sure we can extrapolate logging information', async () => {
-  await LoggingService.debug('Testing')
   const output = await LoggingService.getLoggingData(logData)
   expect(output).to.not.be.undefined
 })
