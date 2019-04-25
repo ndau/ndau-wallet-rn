@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, RefreshControl, AppState } from 'react-native'
+import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
@@ -139,11 +139,8 @@ class Dashboard extends Component {
           >
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
-            <DashboardLabelWithIcon
-              greenFont
-              style={{ justifyContent: 'center' }}
-            >
-              {totalSpendableNdau} spendable
+            <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
+              <Text> {totalSpendableNdau} spendable </Text>
             </DashboardLabelWithIcon>
             <DashboardContainer>
               <DashboardTotalPanel
