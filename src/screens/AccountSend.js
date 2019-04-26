@@ -42,7 +42,7 @@ class AccountSend extends Component {
       cameraType: 'back',
       requestingAmount: false,
       amount: '',
-      validAmount: false,
+      canProceedFromAmount: false,
       validAddress: false,
       transactionFee: 0,
       sibFee: 0,
@@ -95,7 +95,8 @@ class AccountSend extends Component {
       let transactionFee = 0
       let sibFee = 0
       let total = this.state.total
-      let validAmount = false
+      let canProceedFromAmount = this.state.canProceedFromAmount
+
       try {
         Object.assign(TransferTransaction.prototype, Transaction)
         const transferTransaction = new TransferTransaction(
@@ -122,9 +123,9 @@ class AccountSend extends Component {
           transactionFee,
           sibFee
         )
-
-        validAmount = true
+        canProceedFromAmount = true
       } catch (error) {
+        canProceedFromAmount = false
         FlashNotification.showError(
           `Error occurred while sending ndau: ${error.message}`
         )
@@ -135,7 +136,7 @@ class AccountSend extends Component {
         transactionFee,
         sibFee,
         total,
-        validAmount
+        canProceedFromAmount
       })
     })
   }
@@ -151,7 +152,7 @@ class AccountSend extends Component {
     // have to do any math here
     if (isNaN(amount)) return
 
-    let { validAmount, transactionFee, sibFee } = this.state
+    let { transactionFee, sibFee } = this.state
 
     const totalNdau = AccountAPIHelper.getTotalNdauForSend(
       amount,
@@ -159,24 +160,11 @@ class AccountSend extends Component {
       sibFee
     )
 
-    if (
-      AccountAPIHelper.getTotalNdauForSend(
-        amount,
-        transactionFee,
-        sibFee,
-        false
-      ) > 0
-    ) {
-      validAmount = true
-    } else {
-      validAmount = false
-    }
-
     this.setState(
       {
         amount,
-        validAmount,
-        total: totalNdau
+        total: totalNdau,
+        canProceedFromAmount: false
       },
       this.debounceRequestTransactionFee
     )
@@ -207,6 +195,12 @@ class AccountSend extends Component {
   }
 
   _renderRequestAmount () {
+    const remainingBalance =
+      AccountAPIHelper.accountNdauAmount(
+        this.state.account.addressData,
+        false
+      ) - this.state.total || 0
+
     return (
       <AccountSendContainer
         title='Send'
@@ -227,21 +221,16 @@ class AccountSend extends Component {
             autoCapitalize='none'
             noBottomMargin
             noSideMargins
-            error={!this.state.validAmount && this.state.amount}
+            error={remainingBalance <= 0}
           />
-          {!this.state.validAmount && this.state.amount ? (
+          {remainingBalance <= 0 ? (
             <AccountSendErrorText>
               You do not have enough ndau in this account.
             </AccountSendErrorText>
           ) : null}
           <AccountConfirmationItem
             title='Remaining balance:'
-            value={
-              AccountAPIHelper.accountNdauAmount(
-                this.state.account.addressData,
-                false
-              ) - this.state.total
-            }
+            value={remainingBalance}
           />
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
@@ -260,7 +249,7 @@ class AccountSend extends Component {
         </AccountDetailPanel>
         <LargeButton
           sideMargins
-          disabled={!this.state.validAmount}
+          disabled={!this.state.canProceedFromAmount}
           onPress={() => this._next()}
         >
           Next
