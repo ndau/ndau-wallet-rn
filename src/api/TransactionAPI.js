@@ -4,14 +4,15 @@ import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import LoggingService from '../services/LoggingService'
 
 const _postTransaction = async (submitAddress, transaction) => {
+  LoggingService.debug('TransactionAPI _postTransaction', error)
   try {
     return await APICommunicationHelper.post(
       submitAddress,
       JSON.stringify(transaction)
     )
   } catch (error) {
-    LoggingService.debug(error)
-    throw new BlockchainAPIError(error.message)
+    LoggingService.error('TransactionAPI _postTransaction', error)
+    throw error
   }
 }
 

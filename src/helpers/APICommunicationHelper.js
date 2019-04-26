@@ -1,6 +1,7 @@
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import axios from 'axios'
 import LoggingService from '../services/LoggingService'
+import DeviceStore from '../stores/DeviceStore'
 
 /**
  * This method will post data to a specified URL.
@@ -11,18 +12,27 @@ import LoggingService from '../services/LoggingService'
  */
 const post = async (url, data, timeout = 10000) => {
   try {
-    LoggingService.debug(`Sending ${data} to ${url}`)
-
+    // don't make requests if the device is offline
+    if (!DeviceStore.online()) {
+      LoggingService.debug(`Device offline. Can't POST to ${url}`)
+      return
+    }
+    LoggingService.debug('APICommunicationHelper.post',{url:url,data:data})
     const response = await axios.post(url, data, { timeout })
-
     LoggingService.debug(
       `${url} response: ${JSON.stringify(response.data, null, 2)}`
     )
     return response.data
   } catch (error) {
-    LoggingService.debug(`Error from ${url} ${JSON.stringify(error.response)}`)
-    throw new BlockchainAPIError(_getErrorMessage(error.response.data))
+    const safeStatus = error && error.response ? error.response.status : null
+    LoggingService.error('APICommunicationHelper.post', {
+      status: safeStatus,
+      url: url,
+      response: JSON.stringify(error.response)
+    })
+    throw new BlockchainAPIError({msg:_getError(error), status:safeStatus})
   }
+
 }
 
 /**
@@ -33,22 +43,42 @@ const post = async (url, data, timeout = 10000) => {
  */
 const get = async (url, timeout = 10000) => {
   try {
-    LoggingService.debug(`Performing GET on ${url}`)
-
+    // don't make requests if the device is offline
+    if (!DeviceStore.online()) {
+      LoggingService.debug(`Device offline. Can't GET. ${url}`)
+      return
+    }
+    LoggingService.debug('APICommunicationHelper.get', {url:url})
     const response = await axios.get(url, { timeout })
 
-    LoggingService.debug(
-      `${url} response123: ${JSON.stringify(response, null, 2)}`
-    )
+    LoggingService.debug({
+      url : JSON.stringify(response, null, 2)
+    })
+    LoggingService.debug(response.data)
     return response.data
   } catch (error) {
-    LoggingService.debug(`Error from ${url} ${JSON.stringify(error.response)}`)
-    throw new BlockchainAPIError(_getErrorMessage(error.response.data))
+    LoggingService.error('APICommunicationHelper.get', {
+      status: error.response.status,
+      url: url,
+      response: JSON.stringify(error.response)
+    })
+    throw new BlockchainAPIError({msg:_getError(error), status:error.response.status})
   }
 }
 
-const _getErrorMessage = data => {
-  return data.err || data.msg || null
+// _getError tries to parse an axiosErr for BlockchainAPIError.
+// It will first try to return an error, which is parseable by BlockChainAPIError
+const _getError = axiosErr => {
+
+  if (axiosErr && axiosErr.response && axiosErr.response.data) {
+    const data = axiosErr.response.data
+    if (data.err_code && data.err_code != -1) {
+      return data.err_code // return a code, BlockchainAPIError's constructor will use it to look up a message
+    } else {
+      return data.err || data.msg || data
+    }
+  }
+  return axiosErr
 }
 
 export default {
