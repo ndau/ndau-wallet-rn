@@ -50,7 +50,7 @@
 	<key>NSMotionUsageDescription</key>
 	<string>The ndau wallet does not currently use motion data.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The nadu wallet does not currently use any photo data.</string>
+	<string>The ndau wallet does not currently use any photo data.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>The ndau wallet does not currently use speech data.</string>
 	<key>UIAppFonts</key>
