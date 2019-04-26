@@ -20,9 +20,13 @@ const getMarketPrice = async user => {
 
     return dollars
   } catch (error) {
-    LoggingService.debug(error)
-    return user.defaults.marketPrice
-    throw new BlockchainAPIError(error.message)
+    LoggingService.debug(
+      `Something went wrong geting market price: ${JSON.stringify(error)}`
+    )
+
+    if (user) {
+      return user.defaults.marketPrice
+    }
   }
 }
 
