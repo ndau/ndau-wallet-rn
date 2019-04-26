@@ -25,9 +25,9 @@ class AccountSendConfirmation extends Component {
       wallet: {},
       spinner: false,
       amount: 0,
-      transactionFee: 0
+      transactionFee: 0,
+      sibFee: 0
     }
-    this.sibBurn = 0
   }
 
   componentWillMount = async () => {
@@ -39,7 +39,7 @@ class AccountSendConfirmation extends Component {
       'transactionFee',
       null
     )
-    const sib = this.props.navigation.getParam('sib', null)
+    const sibFee = this.props.navigation.getParam('sibFee', null)
     const total = this.props.navigation.getParam('total', null)
 
     this.setState({
@@ -48,7 +48,7 @@ class AccountSendConfirmation extends Component {
       address,
       amount,
       transactionFee,
-      sib,
+      sibFee,
       total,
       spinner: false
     })
@@ -120,7 +120,7 @@ class AccountSendConfirmation extends Component {
             value={this.state.transactionFee}
           />
           <BarBorder />
-          <AccountConfirmationItem title={'SIB:'} value={this.state.sib} />
+          <AccountConfirmationItem title={'SIB:'} value={this.state.sibFee} />
           <BarBorder />
           <AccountConfirmationItem
             largerText

@@ -25,7 +25,7 @@ test('getAccountAPIAddress sends back the correct address', async () => {
 
 test('getMarketPriceAPIAddress sends back the correct address', async () => {
   const marketPriceUrl = await APIAddressHelper.getMarketPriceAPIAddress()
-  expect(marketPriceUrl.indexOf('.api.ndau.tech/order/current') !== -1).toBe(
+  expect(marketPriceUrl.indexOf('.api.ndau.tech/price/current') !== -1).toBe(
     true
   )
 })

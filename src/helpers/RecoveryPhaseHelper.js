@@ -38,9 +38,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
   }
 
   const bip44Accounts = await checkAddresses(recoveryPhraseBytes)
-  LoggingService.debug(
-    `BIP44 accounts found: ${JSON.stringify(bip44Accounts, null, 2)}`
-  )
+  LoggingService.debug(`BIP44 accounts found: ${JSON.stringify(bip44Accounts)}`)
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     for (const accountPath in bip44Accounts) {
       await KeyMaster.createAccountFromPath(
@@ -50,18 +48,12 @@ const recoverUser = async (recoveryPhraseString, user) => {
       )
     }
     LoggingService.debug(
-      `Recovered user containing BIP44 accounts: ${JSON.stringify(
-        user,
-        null,
-        2
-      )}`
+      `Recovered user containing BIP44 accounts: ${JSON.stringify(user)}`
     )
   }
 
   const rootAccounts = await checkAddresses(recoveryPhraseBytes, true)
-  LoggingService.debug(
-    `root accounts found: ${JSON.stringify(rootAccounts, null, 2)}`
-  )
+  LoggingService.debug(`root accounts found: ${JSON.stringify(rootAccounts)}`)
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
       recoveryPhraseBytes
@@ -75,11 +67,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
       )
     }
     LoggingService.debug(
-      `Recovered user containing root accounts now: ${JSON.stringify(
-        user,
-        null,
-        2
-      )}`
+      `Recovered user containing root accounts now: ${JSON.stringify(user)}`
     )
   }
 
@@ -109,11 +97,7 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
         endIndex
       )
       LoggingService.debug(
-        `KeyMaster.getRootAddresses found: ${JSON.stringify(
-          addresses,
-          null,
-          2
-        )}`
+        `KeyMaster.getRootAddresses found: ${JSON.stringify(addresses)}`
       )
     } else {
       addresses = await KeyMaster.getBIP44Addresses(
@@ -122,11 +106,7 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
         endIndex
       )
       LoggingService.debug(
-        `KeyMaster.getBIP44Addresses found: ${JSON.stringify(
-          addresses,
-          null,
-          2
-        )}`
+        `KeyMaster.getBIP44Addresses found: ${JSON.stringify(addresses)}`
       )
     }
 

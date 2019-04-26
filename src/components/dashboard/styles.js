@@ -43,7 +43,7 @@ export default StyleSheet.create({
   dashboardLabelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 16,
+    fontSize: 18,
     letterSpacing: 0.34,
     lineHeight: 24,
     marginTop: wp('2%'),

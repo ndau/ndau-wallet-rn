@@ -113,13 +113,20 @@ const _repairWalletObject = wallet => {
   }
 }
 
-const sendSetValidationTransactionIfNeeded = async (wallet, account, addressData) => {
+const sendSetValidationTransactionIfNeeded = async (
+  wallet,
+  account,
+  addressData
+) => {
   if (addressData.balance > 0 && !addressData.validationKeys) {
     LoggingService.debug(
       `Sending SetValidation transaction for ${addressData.nickname}`
     )
     Object.assign(SetValidationTransaction.prototype, Transaction)
-    const setValidationTransaction = new SetValidationTransaction(wallet, account)
+    const setValidationTransaction = new SetValidationTransaction(
+      wallet,
+      account
+    )
     await setValidationTransaction.createSignPrevalidateSubmit()
   }
 }
@@ -313,13 +320,14 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
 
 const getTotalNdauForSend = (
   amount,
-  addressData,
   transactionFee,
+  sibFee,
   addCommas = true
 ) => {
   const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
-  const totalNapuForAccount = spendableNapu(addressData)
-  const totalNapu = totalNapuForAccount - amountNapu - transactionFee
+  const transactionFeeNapu = DataFormatHelper.getNapuFromNdau(transactionFee)
+  const sibFeeNapu = DataFormatHelper.getNapuFromNdau(sibFee)
+  const totalNapu = amountNapu + transactionFeeNapu + sibFeeNapu
   return DataFormatHelper.getNdauFromNapu(
     totalNapu,
     AppConfig.NDAU_SUMMARY_PRECISION,

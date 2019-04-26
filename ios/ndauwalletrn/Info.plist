@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>234</string>
+	<string>286</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -49,6 +49,8 @@
 	<string>The ndau wallet app does NOT use your location in any way.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>The ndau wallet does not currently use motion data.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The ndau wallet does not currently use any photo data.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>The ndau wallet does not currently use speech data.</string>
 	<key>UIAppFonts</key>

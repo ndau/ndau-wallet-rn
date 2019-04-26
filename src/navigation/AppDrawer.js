@@ -1,11 +1,16 @@
 import React from 'react'
-import { Alert, ScrollView, Platform } from 'react-native'
+import { Alert, ScrollView, Platform, Linking } from 'react-native'
 import VersionNumber from 'react-native-version-number'
+import DeviceInfo from 'react-native-device-info'
 import {
   DrawerEntryItem,
   DrawerExit,
   DrawerContainer
 } from '../components/drawer'
+import LoggingService from '../services/LoggingService'
+import rnfs from 'react-native-fs'
+
+const Mailer = require('NativeModules').RNMail
 
 class AppDrawer extends React.Component {
   constructor (props) {
@@ -29,6 +34,57 @@ class AppDrawer extends React.Component {
   addWallet = async () => {
     this.closeDrawer()
     this.props.navigation.navigate('SetupYourWallet')
+  }
+
+  sendSupportEmail = async () => {
+    this.closeDrawer()
+    const data = await LoggingService.getLoggingData()
+    var path = rnfs.DocumentDirectoryPath + '/ndau-wallet.log'
+
+    // The comments here should be removed.
+    // TODO: 1 of 2 Removing attachments as they are not working
+    // write the file and wait
+    // try {
+    //   await rnfs.writeFile(path, data, 'utf8')
+    // } catch (error) {
+    //   LoggingService.error(error)
+    // }
+
+    Mailer.mail(
+      {
+        subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
+        recipients: ['support@oneiro.freshdesk.com'],
+        body: '<br><br><code>' + JSON.stringify(data) + '</code>',
+        isHTML: true
+        // TODO: 2 of 2 Removing attachements as they are not working
+        // attachment: {
+        //   path, // The absolute path of the file from which to read data.
+        //   mimeType: 'log',
+        //   name: 'ndau-wallet.log'
+        // }
+      },
+      error => {
+        if (error) {
+          LoggingService.error(error)
+        }
+      }
+    )
+  }
+
+  getHardware () {
+    return DeviceInfo.getManufacturer() + ' ' + DeviceInfo.getModel()
+  }
+
+  getVersion () {
+    let version = `V${VersionNumber.appVersion}`
+    if (Platform.OS === 'ios') {
+      version += `.${VersionNumber.buildVersion}`
+    }
+    return version
+  }
+
+  getOs () {
+    return DeviceInfo.getManufacturer() + ' ' + DeviceInfo.getSystemName()
   }
 
   logout = () => {
@@ -59,10 +115,6 @@ class AppDrawer extends React.Component {
   }
 
   render () {
-    let version = `V${VersionNumber.appVersion}`
-    if (Platform.OS === 'ios') {
-      version += `.${VersionNumber.buildVersion}`
-    }
     return (
       <DrawerContainer logoutHandler={() => this.logout()}>
         <ScrollView>
@@ -88,10 +140,16 @@ class AppDrawer extends React.Component {
             Recover wallet
           </DrawerEntryItem>
 
-          <DrawerEntryItem>{version}</DrawerEntryItem>
-
-          {/*
           <DrawerEntryItem
+            onPress={() => this.sendSupportEmail()}
+            fontAwesomeIconName='comment'
+          >
+            Contact support
+          </DrawerEntryItem>
+
+          <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem>
+
+          {/* <DrawerEntryItem
             onPress={() => this.logging()}
             fontAwesomeIconName='exclamation-triangle'
           >

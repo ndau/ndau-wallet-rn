@@ -10,7 +10,7 @@ getTargetPrice = () => {
     .then(response => response.json())
     .then(responseJson => {
       LoggingService.debug(
-        `getTargetPrice responseJson ${JSON.stringify(responseJson, null, 2)}`
+        `getTargetPrice responseJson ${JSON.stringify(responseJson)}`
       )
       return responseJson
     })
@@ -29,11 +29,7 @@ getNumberOfAccounts = userId => {
     .then(response => response.json())
     .then(responseJson => {
       LoggingService.debug(
-        `getNumberOfAccounts responseJson ${JSON.stringify(
-          responseJson,
-          null,
-          2
-        )}`
+        `getNumberOfAccounts responseJson ${JSON.stringify(responseJson)}`
       )
       return responseJson
     })
@@ -46,7 +42,7 @@ getNdauNewsLinks = () => {
     .then(response => response.json())
     .then(responseJson => {
       LoggingService.debug(
-        `getNdauNewsLinks responseJson ${JSON.stringify(responseJson, null, 2)}`
+        `getNdauNewsLinks responseJson ${JSON.stringify(responseJson)}`
       )
       return responseJson
     })
@@ -71,11 +67,7 @@ sendAccountAddresses = (userId, addresses, token) => {
     .then(response => response.json())
     .then(responseJson => {
       LoggingService.debug(
-        `sendAccountAddresses responseJson ${JSON.stringify(
-          responseJson,
-          null,
-          2
-        )}`
+        `sendAccountAddresses responseJson ${JSON.stringify(responseJson)}`
       )
       return responseJson
     })
@@ -97,11 +89,7 @@ triggerQRTEmail = userId => {
     .then(response => response.json())
     .then(responseJson => {
       LoggingService.debug(
-        `sendAccountAddresses responseJson ${JSON.stringify(
-          responseJson,
-          null,
-          2
-        )}`
+        `sendAccountAddresses responseJson ${JSON.stringify(responseJson)}`
       )
       return responseJson
     })

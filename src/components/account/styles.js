@@ -8,15 +8,7 @@ import AppConstants from '../../AppConstants'
 export default StyleSheet.create({
   accountMainPanel: {
     width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('13%')
-      },
-      android: {
-        height: hp('14%')
-      }
-    }),
-
+    height: 120,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
@@ -31,14 +23,7 @@ export default StyleSheet.create({
   },
   accountTitlePanel: {
     width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('8%')
-      },
-      android: {
-        height: hp('9%')
-      }
-    }),
+    height: 20,
     padding: 0
   },
   accountDetailsTitlePanel: {
@@ -99,15 +84,7 @@ export default StyleSheet.create({
   },
   accountActionPanel: {
     width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('6%')
-      },
-      android: {
-        height: hp('7%')
-      }
-    }),
-
+    height: 46,
     backgroundColor: '#0F2748'
   },
   walletOverviewHeaderActions: {
@@ -173,9 +150,10 @@ export default StyleSheet.create({
   ndauSmall: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
-    fontSize: 12,
+    fontSize: 17,
     letterSpacing: 0.51,
-    lineHeight: 36
+    lineHeight: 36,
+    paddingRight: 4
   },
   ndauMedium: {
     color: '#FFFFFF',
@@ -680,7 +658,7 @@ export default StyleSheet.create({
   },
   dashboardTotalPanel: {
     backgroundColor: '#293E63',
-    height: hp('5%'),
+    height: 40,
     justifyContent: 'center'
   },
   dashboardTotalTitleLeft: {
@@ -706,10 +684,10 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   dashboardTotalPanelTextContainer: {
-    backgroundColor: '#293E63'
+    backgroundColor: '#293E63',
+    marginTop: -16
   },
   addressCopyPanelContainerBottomNoBorder: {
-    position: 'absolute',
     bottom: 0,
     marginLeft: wp('4%')
   },

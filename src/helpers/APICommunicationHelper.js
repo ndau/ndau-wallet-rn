@@ -54,7 +54,6 @@ const get = async (url, timeout = 10000) => {
     LoggingService.debug({
       url : JSON.stringify(response, null, 2)
     })
-    LoggingService.debug(response.data)
     return response.data
   } catch (error) {
     LoggingService.error('APICommunicationHelper.get', {

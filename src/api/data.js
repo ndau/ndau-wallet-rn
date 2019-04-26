@@ -624,13 +624,12 @@ const eaiValueForDisplayResponse = [
 ]
 
 const testMarketPrice = {
-  marketPrice: 16.92432746094448,
-  targetPrice: 16.92432746094448,
-  floorPrice: 2.587509238949236,
-  totalIssued: 291501922963188,
-  totalNdau: 316945773007461,
-  sib: 1,
-  priceUnit: 'USD'
+  marketPrice: 1690000000000,
+  targetPrice: 1694044654905,
+  totalIssued: 291621830228936,
+  totalNdau: 344295174387934,
+  totalSIB: 23229117000,
+  sib: 0
 }
 
 const testUser = {

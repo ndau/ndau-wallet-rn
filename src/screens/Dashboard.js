@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, RefreshControl, AppState } from 'react-native'
+import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
@@ -18,6 +18,7 @@ import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
+import StringifyDataWriter from 'react-native-device-log'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -63,7 +64,7 @@ class Dashboard extends Component {
 
     const marketPrice = NdauStore.getMarketPrice(user)
 
-    LoggingService.debug(`User to be drawn: ${JSON.stringify(user, null, 2)}`)
+    LoggingService.debug(`User to be drawn: ${JSON.stringify(user)}`)
 
     this.setState({ user, marketPrice })
 
@@ -92,7 +93,11 @@ class Dashboard extends Component {
       FlashNotification.showError(error.message)
     }
 
-    this.setState({ refreshing: false, user, marketPrice })
+    this.setState({
+      refreshing: false,
+      user,
+      marketPrice: NdauStore.getMarketPrice()
+    })
   }
 
   _showWalletOverview = wallet => {
@@ -139,11 +144,8 @@ class Dashboard extends Component {
           >
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
-            <DashboardLabelWithIcon
-              greenFont
-              style={{ justifyContent: 'center' }}
-            >
-              {totalSpendableNdau} spendable
+            <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
+              <Text> {totalSpendableNdau} spendable </Text>
             </DashboardLabelWithIcon>
             <DashboardContainer>
               <DashboardTotalPanel

@@ -114,11 +114,17 @@ export default StyleSheet.create({
     paddingVertical: 0
   },
   ndauTotalContainer: {
+    ...Platform.select({
+      android: {
+        marginTop: hp('4%'),
+        marginBottom: hp('4%')
+      }
+    }),
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    maxHeight: hp('7%'),
+    maxHeight: hp('8%'),
     padding: 0
   },
   ndauTotalText: {
@@ -139,10 +145,11 @@ export default StyleSheet.create({
   ndauLarge: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
-    fontSize: 28,
+    fontSize: 33,
     letterSpacing: 0.77,
-    lineHeight: 68,
+    lineHeight: 66,
     alignSelf: 'flex-start',
+    paddingRight: 4,
     paddingVertical: 0
   },
   ndauSmall: {
@@ -469,6 +476,10 @@ export default StyleSheet.create({
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
     marginBottom: hp('2%')
+  },
+  collapsibleBarBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1
   },
   fullBarBorder: {
     borderBottomColor: '#455B82',

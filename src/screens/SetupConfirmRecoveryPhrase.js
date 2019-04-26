@@ -75,7 +75,7 @@ class SetupConfirmRecoveryPhrase extends Component {
     }
 
     LoggingService.debug(
-      `user going into SetupWalletName: ${JSON.stringify(user, null, 2)}`
+      `user going into SetupWalletName: ${JSON.stringify(user)}`
     )
 
     this.props.navigation.navigate('SetupWalletName')
