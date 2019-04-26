@@ -25,7 +25,7 @@ const getEaiRateAPIAddress = async () => {
 }
 
 const getMarketPriceAPIAddress = async () => {
-  return (await getNodeAddress()) + '/order/current'
+  return (await getNodeAddress()) + '/price/current'
 }
 
 const getTransactionPrevalidateAPIAddress = async () => {

@@ -165,6 +165,18 @@ const getAccountEaiRateRequest = addressData => {
 }
 
 /**
+ * Take in nano seconds and convert to dollars by
+ * dividing 10^11
+ *
+ * @param {number} number to convert
+ * @returns number converted
+ */
+const convertNanoCentsToDollars = number => {
+  const dollars = number / 100000000000
+  return dollars.toFixed(2)
+}
+
+/**
  * Given a wallet send back the a custom
  * version of this call to get possible lock rates
  *
@@ -257,5 +269,6 @@ export default {
   getNapuFromNdau,
   getAccountEaiRateRequestForLock,
   truncateString,
-  formatUSDollarValue
+  formatUSDollarValue,
+  convertNanoCentsToDollars
 }

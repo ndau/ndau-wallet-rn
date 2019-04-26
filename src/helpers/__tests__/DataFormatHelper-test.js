@@ -763,3 +763,15 @@ test('make sure truncateString works as designed', async () => {
   expect(DataFormatHelper.truncateString('Kristofer', 8)).toBe('Krist...')
   expect(DataFormatHelper.truncateString('Wallet 34')).toBe('Wallet 34')
 })
+
+test('make sure nano seconds conversion works correctly', async () => {
+  expect(DataFormatHelper.convertNanoCentsToDollars(1690000000000)).toBe(
+    '16.90'
+  )
+  expect(DataFormatHelper.convertNanoCentsToDollars(1690000000009)).toBe(
+    '16.90'
+  )
+  expect(DataFormatHelper.convertNanoCentsToDollars(16990000000000)).toBe(
+    '169.90'
+  )
+})
