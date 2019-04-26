@@ -172,16 +172,18 @@
     <orderEntry type="library" name="Gradle: com.android.support:swiperefreshlayout:28.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.15.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-media-compat:28.0.0@aar" level="project" />
-    <orderEntry type="module" module-name="react-native-exit-app" />
-    <orderEntry type="module" module-name="react-native-securerandom" />
     <orderEntry type="module" module-name="react-native-linear-gradient" />
     <orderEntry type="module" module-name="react-native-svg" />
+    <orderEntry type="module" module-name="react-native-fs" />
+    <orderEntry type="module" module-name="react-native-push-notification" />
+    <orderEntry type="module" module-name="react-native-device-info" />
+    <orderEntry type="module" module-name="react-native-background-fetch" />
+    <orderEntry type="module" module-name="react-native-exit-app" />
+    <orderEntry type="module" module-name="react-native-securerandom" />
+    <orderEntry type="module" module-name="react-native-mail" />
     <orderEntry type="module" module-name="react-native-version-number" />
     <orderEntry type="module" module-name="react-native-camera" />
     <orderEntry type="module" module-name="react-native-vector-icons" />
     <orderEntry type="module" module-name="@react-native-community_async-storage" />
-    <orderEntry type="module" module-name="react-native-push-notification" />
-    <orderEntry type="module" module-name="react-native-device-info" />
-    <orderEntry type="module" module-name="react-native-background-fetch" />
   </component>
 </module>

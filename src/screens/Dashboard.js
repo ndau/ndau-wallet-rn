@@ -93,7 +93,11 @@ class Dashboard extends Component {
       FlashNotification.showError(error.message)
     }
 
-    this.setState({ refreshing: false, user, marketPrice })
+    this.setState({
+      refreshing: false,
+      user,
+      marketPrice: NdauStore.getMarketPrice()
+    })
   }
 
   _showWalletOverview = wallet => {
