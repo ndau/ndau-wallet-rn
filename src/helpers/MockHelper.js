@@ -38,7 +38,7 @@ const mockAccountAPI = (
 
 const mockMarketPriceAPI = () => {
   mock
-    .onGet('https://testnet-0.api.ndau.tech/order/current')
+    .onGet('https://testnet-0.api.ndau.tech/price/current')
     .reply(200, data.testMarketPrice)
 }
 
