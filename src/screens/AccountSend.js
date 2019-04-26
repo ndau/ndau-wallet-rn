@@ -95,6 +95,7 @@ class AccountSend extends Component {
       let transactionFee = 0
       let sibFee = 0
       let total = this.state.total
+      let validAmount = false
       try {
         Object.assign(TransferTransaction.prototype, Transaction)
         const transferTransaction = new TransferTransaction(
@@ -121,13 +122,21 @@ class AccountSend extends Component {
           transactionFee,
           sibFee
         )
+
+        validAmount = true
       } catch (error) {
         FlashNotification.showError(
           `Error occurred while sending ndau: ${error.message}`
         )
       }
 
-      this.setState({ spinner: false, transactionFee, sibFee, total })
+      this.setState({
+        spinner: false,
+        transactionFee,
+        sibFee,
+        total,
+        validAmount
+      })
     })
   }
 
