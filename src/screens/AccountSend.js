@@ -27,6 +27,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import { Text, TouchableOpacity } from 'react-native'
+import AppConfig from '../AppConfig'
 
 const _ = require('lodash')
 
@@ -198,7 +199,8 @@ class AccountSend extends Component {
     const remainingBalance =
       AccountAPIHelper.accountNdauAmount(
         this.state.account.addressData,
-        false
+        false,
+        AppConfig.NDAU_DETAIL_PRECISION
       ) - this.state.total || 0
 
     return (
