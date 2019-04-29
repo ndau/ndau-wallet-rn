@@ -92,6 +92,10 @@ class AccountSend extends Component {
   }
 
   _requestTransactionFee = () => {
+    // If we don't have a number in amount we should short
+    // circuit here as there is nothing to calculate
+    if (isNaN(this.state.amount)) return
+
     this.setState({ spinner: true }, async () => {
       let transactionFee = 0
       let sibFee = 0
@@ -149,11 +153,12 @@ class AccountSend extends Component {
   }
 
   _setAmount = amount => {
+    let totalNdau = 0
     // If the amount passed in is not a number then we do not
-    // have to do any math here
-    if (isNaN(amount)) return
-
-    const totalNdau = this._getTotalNdau(amount)
+    // have to do any math
+    if (!isNaN(amount)) {
+      totalNdau = this._getTotalNdau(amount)
+    }
 
     this.setState(
       {
