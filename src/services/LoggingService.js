@@ -32,14 +32,8 @@ const scrubData = (...data) => {
       return JSON.stringify(e)
     }
   }).join(',')
-
   // pull out ALL private keys
-  try {
-    scrubbedData = stringData.replace(/"npvt[^"]+"/g, '')
-  } catch (error) {
-    scrubbedData = stringData.replace(/"npvt[^"]+"/g, '')
-  }
-
+  let scrubbedData = stringData.replace(/"npvt[^"]+"/g, '')
   return scrubbedData
 }
 
