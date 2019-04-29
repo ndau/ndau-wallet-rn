@@ -219,6 +219,9 @@ const accountNotLocked = account => {
 const remainingBalanceNdau = (account, amount, addCommas = true, precision) => {
   const napuAmount = DataFormatHelper.getNapuFromNdau(amount)
   const napuAccountBalance = account.balance
+
+  if (napuAmount > napuAccountBalance) return '0'
+
   return DataFormatHelper.getNdauFromNapu(
     napuAccountBalance - napuAmount,
     precision,
