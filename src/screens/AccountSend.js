@@ -91,6 +91,10 @@ class AccountSend extends Component {
   }
 
   _requestTransactionFee = () => {
+    // Don't request transaction fees for invalid amounts
+    if (!this.state.validAmount) {
+      return
+    }
     this.setState({ spinner: true }, async () => {
       let transactionFee = 0
       let sibFee = 0
@@ -150,19 +154,14 @@ class AccountSend extends Component {
       sibFee
     )
 
-    if (
-      AccountAPIHelper.getTotalNdauForSend(
-        amount,
-        transactionFee,
-        sibFee,
-        false
-      ) > 0
-    ) {
-      validAmount = true
-    } else {
-      validAmount = false
-    }
-
+    const available = AccountAPIHelper.accountNdauAmount()
+    const totalForTx = AccountAPIHelper.getTotalNdauForSend(
+      amount,
+      transactionFee,
+      sibFee,
+      false
+    )
+    validAmount = available - totalForTx >= 0
     this.setState(
       {
         amount,

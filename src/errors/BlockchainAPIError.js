@@ -4,7 +4,17 @@ const APIErrors = [
   {
     code: 1000,
     message: "Insufficient balance in account",
-    re: new RegExp("insufficient available balance")
+    re: new RegExp("insufficient available balance", "i")
+  },
+  {
+    code: 1001,
+    message: "Source account has no history and no balance",
+    re: new RegExp("no sequence found", "i")
+  },
+  {
+    code: 1002,
+    message: "Cannot send and receive from the same account",
+    re: new RegExp("source == destination", "i")
   }
 ]
 
@@ -19,12 +29,29 @@ function codeFromMessage(msg) {
   const s = String(msg)
   const keys = Object.keys(APIErrors)
   for (let i = 0, l = keys.length; i<l; i++) {
+    console.log(s, APIErrors[keys[i]].re, s.match(APIErrors[keys[i]].re))
     if (s.match(APIErrors[keys[i]].re)) {
       return APIErrors[keys[i]].code
     }
   }
   // If no code is found return `null`
   return null
+}
+
+
+// _getError tries to parse an axiosErr for BlockchainAPIError.
+// It will first try to return an error, which is parseable by BlockChainAPIError
+const _getError = axiosErr => {
+
+  if (axiosErr && axiosErr.response && axiosErr.response.data) {
+    const data = axiosErr.response.data
+    if (data.err_code && data.err_code != -1) {
+      return data.err_code // return a code, BlockchainAPIError's constructor will use it to look up a message
+    } else {
+      return data.err || data.msg || data
+    }
+  }
+  return axiosErr
 }
 
 // shown if error not recognized
@@ -34,11 +61,25 @@ class BlockchainAPIError extends Error {
   constructor (...args) {
     if (args) {
       super(...args)
+
       if (Object.prototype.toString.call(args[0]) === "[object String]") {
+        // If the first argument is a string. Just use that as the message
         this.message = args[0]
       } else if (Object.prototype.toString.call(args[0]) === "[object Object]") {
-        this.message = args[0].msg
-        this.status = args[0].status
+        // If the first argument is an object.
+        if (args[0] instanceof BlockchainAPIError) {
+          // If the first argument object is BlockchainAPIError, just copy it's variables
+          this.message = args[0].err.message
+          this.status = args[0].err.status
+        } else if (args[0].err && args[0].err instanceof BlockchainAPIError) {
+          // if the error being thrown was already a blockchain api error, then copy it
+          this.message = args[0].err.message
+          this.status = args[0].err.status
+        } else {
+          // if the error being thrown was an axios error
+          this.message = _getError(args[0].err)
+          this.status = args[0].status
+        }
       }
     }
 

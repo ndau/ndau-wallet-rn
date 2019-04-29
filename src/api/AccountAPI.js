@@ -19,7 +19,7 @@ const getAddressData = async addresses => {
     return accountData
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError(error.message)
+    throw new BlockchainAPIError(error)
   }
 }
 
@@ -50,7 +50,7 @@ const isAddressDataNew = async addresses => {
     return !_.isEqual(lastAccountData, accountData)
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError(error.message)
+    throw new BlockchainAPIError(error)
   }
 }
 
@@ -80,7 +80,7 @@ const getEaiRate = async addressData => {
     )
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError(error.message)
+    throw new BlockchainAPIError(error)
   }
 }
 
@@ -97,7 +97,7 @@ const getLockRates = async account => {
     )
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError(error.message)
+    throw new BlockchainAPIError(error)
   }
 }
 
@@ -109,7 +109,7 @@ const accountHistory = async address => {
     return await APICommunicationHelper.get(accountHistoryAddress)
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError(error.message)
+    throw new BlockchainAPIError(error)
   }
 }
 

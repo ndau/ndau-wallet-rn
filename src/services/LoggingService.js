@@ -22,26 +22,33 @@ const initialize = () => {
   // deviceLog.startTimer('start-up')
 }
 
-const scrubData = data => {
+const scrubData = (...data) => {
   if (!data) return data
+  let stringData = data.map((e)=>{
+    const t = typeof e
+    if (t === "string" || t === "number") {
+      return e.toString()
+    } else {
+      return JSON.stringify(e)
+    }
+  }).join(',')
 
-  let scrubbedData = data
   // pull out ALL private keys
   try {
-    scrubbedData = data.toString().replace(/"npvt[^"]+"/g, '')
+    scrubbedData = stringData.replace(/"npvt[^"]+"/g, '')
   } catch (error) {
-    scrubbedData = data.replace(/"npvt[^"]+"/g, '')
+    scrubbedData = stringData.replace(/"npvt[^"]+"/g, '')
   }
 
   return scrubbedData
 }
 
-const debug = message => {
-  return deviceLog.debug(scrubData(message))
+const debug = (...messages) => {
+  return deviceLog.log(scrubData(...messages))
 }
 
-const error = message => {
-  return deviceLog.error(scrubData(message))
+const error = (...messages) => {
+  return deviceLog.error(scrubData(...messages))
 }
 
 const getLoggingData = async logData => {

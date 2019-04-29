@@ -6,6 +6,8 @@ import FlashNotification from '../components/common/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import LoggingService from '../services/LoggingService'
 import AccountAPI from '../api/AccountAPI'
+import BlockchainAPIError from '../errors/BlockchainAPIError'
+
 
 export const Transaction = {
   /**
@@ -45,7 +47,7 @@ export const Transaction = {
 
       return this._jsonTransaction
     } catch (error) {
-      this.handleError(error.message)
+      this.handleError(new BlockchainAPIError(error))
     }
   },
 
@@ -63,14 +65,19 @@ export const Transaction = {
       this.transactionType
   },
 
-  handleError (message) {
-    LoggingService.debug(`Error from blockchain: ${message}`)
+  handleError (msgOrErr) {
+    LoggingService.debug(`Error from blockchain: ${msgOrErr}`)
     FlashNotification.showError(
       `Problem occurred sending a ${this.transactionType} for ${
         this._account.addressData.nickname
       }`
     )
-    throw new Error(message)
+    if (msgOrErr instanceof Error) {
+      throw msgOrErr
+    } else {
+      throw new Error(msgOrErr)
+    }
+
   },
 
   /**
@@ -131,7 +138,7 @@ export const Transaction = {
         return response
       }
     } catch (error) {
-      this.handleError(error.message)
+      this.handleError(error)
     }
   },
 
@@ -152,11 +159,10 @@ export const Transaction = {
         // Successful transaction so update
         // the account with the new sequence
         this._account.addressData.sequence = this._jsonTransaction.sequence
-
         return response
       }
     } catch (error) {
-      this.handleError(error.message)
+      this.handleError(error)
     }
   },
 
