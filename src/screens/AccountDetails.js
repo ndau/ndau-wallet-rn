@@ -17,6 +17,7 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
 import AppConstants from '../AppConstants'
+import AppConfig from '../AppConfig'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -98,7 +99,11 @@ class AccountDetails extends Component {
     this.baseEAI = eaiValueForDisplay - lockBonusEAI
     let spendableNdau = 0
     if (accountNotLocked) {
-      spendableNdau = AccountAPIHelper.spendableNdau(account.addressData)
+      spendableNdau = AccountAPIHelper.spendableNdau(
+        account.addressData,
+        true,
+        AppConfig.NDAU_DETAIL_PRECISION
+      )
     }
 
     return (

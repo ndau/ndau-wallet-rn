@@ -20,6 +20,7 @@ import DateHelper from '../../helpers/DateHelper'
 import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
 import ndaujs from 'ndaujs'
+import AppConfig from '../../AppConfig'
 
 export function AccountPanel (props) {
   return (
@@ -314,25 +315,13 @@ export function AccountTotalPanel (props) {
       <View style={styles.ndauTotalContainerMedium}>
         <P style={styles.ndauMedium}>n</P>
         <H4 style={styles.accountTotalPanelText}>
-          {AccountAPIHelper.accountNdauAmount(props.account.addressData)}
+          {AccountAPIHelper.accountNdauAmount(
+            props.account.addressData,
+            true,
+            AppConfig.NDAU_DETAIL_PRECISION
+          )}
         </H4>
       </View>
-      {/* The below is commented out temporarily for the first
-          release of MVP. This WILL be coming back VERY soon */}
-      {/* <View>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-          <H4 style={styles.historyAccountPanelText}>View history</H4>
-          <TouchableOpacity {...props}>
-            <FontAwesome5Pro
-              name='chevron-circle-right'
-              size={24}
-              color={AppConstants.ICON_BUTTON_COLOR}
-              style={styles.viewHistoryAngle}
-              light
-            />
-          </TouchableOpacity>
-        </View>
-      </View> */}
     </View>
   )
 }

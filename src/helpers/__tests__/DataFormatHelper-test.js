@@ -452,7 +452,7 @@ test('getNdauFromNapu converts napu correctly', async () => {
   const ndau = DataFormatHelper.getNdauFromNapu(
     AppConstants.QUANTA_PER_UNIT * 10
   )
-  expect(ndau).toEqual('10.000')
+  expect(ndau).toEqual('10.00')
 })
 
 test('getNdauFromNapu converts napu correctly to 5 digits', async () => {
@@ -623,7 +623,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 1000
     AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
-  expect(ndau).toEqual('1,000.000')
+  expect(ndau).toEqual('1,000.00')
 })
 
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 500,000 ndau', async () => {
@@ -632,7 +632,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 500,
     AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
-  expect(ndau).toEqual('500,000.000')
+  expect(ndau).toEqual('500,000.00')
 })
 
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,000,000 ndau', async () => {
@@ -641,7 +641,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,00
     AppConfig.NDAU_SUMMARY_PRECISION,
     true
   )
-  expect(ndau).toEqual('1,000,000.000')
+  expect(ndau).toEqual('1,000,000.00')
 })
 
 test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,000,000,000 ndau', async () => {
@@ -650,7 +650,7 @@ test('getNdauFromNapu converts napu correctly and adds commas correctly for 1,00
     undefined,
     true
   )
-  expect(ndau).toEqual('1,000,000,000.000')
+  expect(ndau).toEqual('1,000,000,000.00')
 })
 
 test('if pass in string we get 8 char hash back', async () => {

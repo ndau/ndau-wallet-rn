@@ -27,6 +27,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import { Text, TouchableOpacity } from 'react-native'
+import AppConfig from '../AppConfig'
 
 const _ = require('lodash')
 
@@ -42,7 +43,7 @@ class AccountSend extends Component {
       cameraType: 'back',
       requestingAmount: false,
       amount: '',
-      validAmount: false,
+      canProceedFromAmount: false,
       validAddress: false,
       transactionFee: 0,
       sibFee: 0,
@@ -91,14 +92,17 @@ class AccountSend extends Component {
   }
 
   _requestTransactionFee = () => {
-    // Don't request transaction fees for invalid amounts
-    if (!this.state.validAmount) {
-      return
-    }
+    // If we don't have a number or if the amount is zero then
+    // we should short circuit here as there is nothing to
+    // calculate
+    if (isNaN(this.state.amount) || this.state.amount == 0) return
+
     this.setState({ spinner: true }, async () => {
       let transactionFee = 0
       let sibFee = 0
       let total = this.state.total
+      let canProceedFromAmount = this.state.canProceedFromAmount
+
       try {
         Object.assign(TransferTransaction.prototype, Transaction)
         const transferTransaction = new TransferTransaction(
@@ -125,13 +129,21 @@ class AccountSend extends Component {
           transactionFee,
           sibFee
         )
+        canProceedFromAmount = true
       } catch (error) {
+        canProceedFromAmount = false
         FlashNotification.showError(
           `Error occurred while sending ndau: ${error.message}`
         )
       }
 
-      this.setState({ spinner: false, transactionFee, sibFee, total })
+      this.setState({
+        spinner: false,
+        transactionFee,
+        sibFee,
+        total,
+        canProceedFromAmount
+      })
     })
   }
 
@@ -142,31 +154,18 @@ class AccountSend extends Component {
   }
 
   _setAmount = amount => {
+    let totalNdau = 0
     // If the amount passed in is not a number then we do not
-    // have to do any math here
-    if (isNaN(amount)) return
+    // have to do any math
+    if (!isNaN(amount)) {
+      totalNdau = this._getTotalNdau(amount)
+    }
 
-    let { validAmount, transactionFee, sibFee } = this.state
-
-    const totalNdau = AccountAPIHelper.getTotalNdauForSend(
-      amount,
-      transactionFee,
-      sibFee
-    )
-
-    const available = AccountAPIHelper.accountNdauAmount()
-    const totalForTx = AccountAPIHelper.getTotalNdauForSend(
-      amount,
-      transactionFee,
-      sibFee,
-      false
-    )
-    validAmount = available - totalForTx >= 0
     this.setState(
       {
         amount,
-        validAmount,
-        total: totalNdau
+        total: totalNdau,
+        canProceedFromAmount: false
       },
       this.debounceRequestTransactionFee
     )
@@ -184,6 +183,16 @@ class AccountSend extends Component {
     }
   }
 
+  _getTotalNdau (amount) {
+    let { transactionFee, sibFee } = this.state
+    const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+      amount,
+      transactionFee,
+      sibFee
+    )
+    return totalNdau
+  }
+
   _scannedSuccessfully (event) {
     if (event.data.substr(0, 2) === 'nd') {
       this.setState({
@@ -197,6 +206,14 @@ class AccountSend extends Component {
   }
 
   _renderRequestAmount () {
+    const remainingBalance =
+      AccountAPIHelper.remainingBalanceNdau(
+        this.state.account.addressData,
+        this.state.total,
+        false,
+        AppConfig.NDAU_DETAIL_PRECISION
+      ) || 0
+
     return (
       <AccountSendContainer
         title='Send'
@@ -217,21 +234,16 @@ class AccountSend extends Component {
             autoCapitalize='none'
             noBottomMargin
             noSideMargins
-            error={!this.state.validAmount && this.state.amount}
+            error={remainingBalance <= 0}
           />
-          {!this.state.validAmount && this.state.amount ? (
+          {remainingBalance <= 0 ? (
             <AccountSendErrorText>
               You do not have enough ndau in this account.
             </AccountSendErrorText>
           ) : null}
           <AccountConfirmationItem
             title='Remaining balance:'
-            value={
-              AccountAPIHelper.accountNdauAmount(
-                this.state.account.addressData,
-                false
-              ) - this.state.total
-            }
+            value={remainingBalance}
           />
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
@@ -250,7 +262,7 @@ class AccountSend extends Component {
         </AccountDetailPanel>
         <LargeButton
           sideMargins
-          disabled={!this.state.validAmount}
+          disabled={!this.state.canProceedFromAmount}
           onPress={() => this._next()}
         >
           Next

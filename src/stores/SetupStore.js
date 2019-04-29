@@ -135,9 +135,6 @@ class SetupStore {
     )
     LoggingService.debug(`SetupStore.qrCode ${this._qrCode}`)
     LoggingService.debug(`SetupStore.entropy ${this._entropy}`)
-    LoggingService.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`)
-    LoggingService.debug(`SetupStore.shuffledWords ${this._shuffledWords}`)
-    LoggingService.debug(`SetupStore.shuffledMap ${this._shuffledMap}`)
     LoggingService.debug(`SetupStore.walletId ${this._walletId}`)
     LoggingService.debug(`SetupStore.addressType ${this._addressType}`)
   }
