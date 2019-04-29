@@ -76,9 +76,8 @@ class SetupRecoveryPhrase extends Component {
     if (!_(seedBytes).isEqual(SetupStore.entropy)) {
       this.showExitApp()
     } else {
-      LoggingService.debug(`${seedBytes} and ${SetupStore.entropy} are equal.`)
+      LoggingService.debug(`the seedBytes and entropy are equal.`)
     }
-    LoggingService.debug(`keyaddr's seed words are: ${seeds}`)
     const recoveryPhrase = seeds.split(/\s+/g)
     this.setState({ recoveryPhrase: recoveryPhrase })
 
