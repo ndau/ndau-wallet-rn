@@ -415,7 +415,7 @@ export function OrBorder (props) {
 export function MainContainer (props) {
   return (
     <SafeAreaView style={[styles.container, styles.statusBarColor]}>
-      <StatusBar barStyle='light-content' backgroundColor='#000000' />
+      <StatusBar barStyle='light-content' backgroundColor='#0A1724' />
       {props.children}
     </SafeAreaView>
   )

@@ -10,7 +10,7 @@ export default StyleSheet.create({
     flex: 1
   },
   statusBarColor: {
-    backgroundColor: '#000000'
+    backgroundColor: '#0A1724'
   },
   appContainer: {
     flex: 1,
@@ -39,8 +39,12 @@ export default StyleSheet.create({
     marginLeft: wp('4%')
   },
   setupButtonContainerBottomNoBorder: {
-    position: 'absolute',
-    bottom: hp('2%')
+    ...Platform.select({
+      ios: {
+        bottom: hp('4%')
+      }
+    }),
+    bottom: hp('6%')
   },
   setupButtonContainerScrollView: {
     marginTop: hp('1%')
