@@ -39,6 +39,9 @@ class AccountLockChooseAccount extends Component {
       null
     )
 
+    // clone the object stored at the screen level.
+    // the iteration of the clones keys allows us to
+    // remove/filter out this account from the list
     const accountsCanRxEAIClone = _.clone(accountsCanRxEAI)
     Object.keys(accountsCanRxEAIClone).map(key => {
       if (key === account.addressData.nickname) {
