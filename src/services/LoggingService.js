@@ -49,11 +49,9 @@ const getLoggingData = async logData => {
   const returnLoggingData = {}
   return new Promise(resolve => {
     const logEntries = logData || device
-    console.log(`logEntries ${logEntries}`)
     for (const entry of logEntries) {
       returnLoggingData[entry.timeStamp] = entry.message
     }
-    console.log(`HERE IS DATA: ${JSON.stringify(returnLoggingData)}`)
     resolve(returnLoggingData)
   })
 }
