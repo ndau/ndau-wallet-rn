@@ -4,6 +4,7 @@ import MockHelper from '../MockHelper'
 import { NativeModules } from 'react-native'
 import KeyMaster from '../KeyMaster'
 import sinon from 'sinon'
+import AppConfig from '../../AppConfig'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -100,13 +101,13 @@ test('make sure we can get the amount of ndau per account', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe('42.073')
+  ).toBe('42.07')
   expect(
     AccountAPIHelper.accountNdauAmount(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe('200.939')
+  ).toBe('200.94')
 })
 
 test('make sure we can get the locked until date of ndau per account', async () => {
@@ -136,7 +137,7 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
-    '1,757.559'
+    '1,757.55859375'
   )
 })
 
@@ -151,7 +152,7 @@ test('make sure we can get the current price of the users ndau', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
-    '$29,745.50'
+    '$29,745.52'
   )
 })
 
@@ -262,13 +263,13 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
 test('make sure totalSpendableNdau subtracks the settlements correctly', async () => {
   const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
   const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
-  expect(totalNdau).toEqual('1.214')
+  expect(totalNdau).toEqual('1.21')
   const totalSpendable = AccountAPIHelper.totalSpendableNdau(
     accounts,
     totalNdau,
     false
   )
-  expect(totalSpendable).toEqual('0.144')
+  expect(totalSpendable).toEqual('0.14')
 })
 
 test('make sure we get the correct total for send with all values', async () => {
@@ -280,7 +281,7 @@ test('make sure we get the correct total for send with all values', async () => 
     transactionFee,
     sibFee
   )
-  expect(totalNdau).toEqual('25.000')
+  expect(totalNdau).toEqual('25.00000000')
 })
 
 test('make sure we get the correct total with sib not tx fee', async () => {
@@ -292,7 +293,7 @@ test('make sure we get the correct total with sib not tx fee', async () => {
     transactionFee,
     sibFee
   )
-  expect(totalNdau).toEqual('30.000')
+  expect(totalNdau).toEqual('30.00000000')
 })
 
 test('make sure we get the correct total with tx fee not sib', async () => {
@@ -304,7 +305,7 @@ test('make sure we get the correct total with tx fee not sib', async () => {
     transactionFee,
     sibFee
   )
-  expect(totalNdau).toEqual('30.000')
+  expect(totalNdau).toEqual('30.00000000')
 })
 
 test('make sure we get the correct total for send with no tx fees', async () => {
@@ -316,5 +317,29 @@ test('make sure we get the correct total for send with no tx fees', async () => 
     transactionFee,
     sibFee
   )
-  expect(totalNdau).toEqual('23.000')
+  expect(totalNdau).toEqual('23.00000000')
+})
+
+test('remainingBalanceNdau returns value', async () => {
+  const account = { balance: 134962649000 }
+  const amount = '100.5344'
+  const remainingBalanceNdau = AccountAPIHelper.remainingBalanceNdau(
+    account,
+    amount,
+    false,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
+  expect(remainingBalanceNdau).toEqual('1249.09209000')
+})
+
+test('remainingBalanceNdau returns 0', async () => {
+  const account = { balance: 134962649000 }
+  const amount = '2349.5344'
+  const remainingBalanceNdau = AccountAPIHelper.remainingBalanceNdau(
+    account,
+    amount,
+    false,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
+  expect(remainingBalanceNdau).toEqual('0')
 })

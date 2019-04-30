@@ -216,22 +216,31 @@ const accountNotLocked = account => {
   return account && account.lock !== undefined ? !account.lock : false
 }
 
-const accountNdauAmount = (account, addCommas = true) => {
+const remainingBalanceNdau = (account, amount, addCommas = true, precision) => {
+  const napuAmount = DataFormatHelper.getNapuFromNdau(amount)
+  const napuAccountBalance = account.balance
+
+  if (napuAmount > napuAccountBalance) return '0'
+
+  return DataFormatHelper.getNdauFromNapu(
+    napuAccountBalance - napuAmount,
+    precision,
+    addCommas
+  )
+}
+
+const accountNdauAmount = (account, addCommas = true, precision) => {
   return account && account.balance
-    ? DataFormatHelper.getNdauFromNapu(
-      account.balance,
-      AppConfig.NDAU_SUMMARY_PRECISION,
-      addCommas
-    )
-    : 0.0
+    ? DataFormatHelper.getNdauFromNapu(account.balance, precision, addCommas)
+    : 0
 }
 
 const weightedAverageAgeInDays = account => {
   return account ? DateHelper.getDaysFromISODate(account.weightedAverageAge) : 0
 }
 
-const spendableNapu = addressData => {
-  const totalNdau = accountNdauAmount(addressData)
+const spendableNapu = (addressData, addCommas = true, precision) => {
+  const totalNdau = accountNdauAmount(addressData, addCommas, precision)
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
   const settlements = addressData.settlements
   if (!settlements) return totalNapu
@@ -242,8 +251,11 @@ const spendableNapu = addressData => {
   return DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
-const spendableNdau = addressData => {
-  return DataFormatHelper.getNdauFromNapu(spendableNapu(addressData))
+const spendableNdau = (addressData, addCommas = true, precision) => {
+  return DataFormatHelper.getNdauFromNapu(
+    spendableNapu(addressData, addCommas, precision),
+    precision
+  )
 }
 
 const lockBonusEAI = weightedAverageAgeInDays => {
@@ -267,7 +279,7 @@ const lockBonusEAI = weightedAverageAgeInDays => {
 }
 
 const accountTotalNdauAmount = (accounts, withCommas = true) => {
-  let total = 0.0
+  let total = 0
 
   if (!accounts) return total
 
@@ -285,7 +297,7 @@ const accountTotalNdauAmount = (accounts, withCommas = true) => {
   return withCommas
     ? DataFormatHelper.getNdauFromNapu(
       totalNapu,
-      AppConfig.NDAU_SUMMARY_PRECISION,
+      AppConfig.NDAU_DETAIL_PRECISION,
       true
     )
     : DataFormatHelper.getNdauFromNapu(totalNapu)
@@ -312,7 +324,7 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
   return withCommas
     ? DataFormatHelper.getNdauFromNapu(
       totalNapu,
-      AppConfig.NDAU_SUMMARY_PRECISION,
+      AppConfig.NDAU_DETAIL_PRECISION,
       true
     )
     : DataFormatHelper.getNdauFromNapu(totalNapu)
@@ -330,7 +342,7 @@ const getTotalNdauForSend = (
   const totalNapu = amountNapu + transactionFeeNapu + sibFeeNapu
   return DataFormatHelper.getNdauFromNapu(
     totalNapu,
-    AppConfig.NDAU_SUMMARY_PRECISION,
+    AppConfig.NDAU_DETAIL_PRECISION,
     addCommas
   )
 }
@@ -373,5 +385,6 @@ export default {
   spendableNdau,
   spendableNapu,
   totalSpendableNdau,
-  getTotalNdauForSend
+  getTotalNdauForSend,
+  remainingBalanceNdau
 }

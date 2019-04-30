@@ -15,6 +15,7 @@ import { Transaction } from '../transactions/Transaction'
 import ndaujs from 'ndaujs'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import AppConfig from '../AppConfig'
 
 class AccountSendConfirmation extends Component {
   constructor (props) {
@@ -107,10 +108,12 @@ class AccountSendConfirmation extends Component {
           <AccountConfirmationItem
             title={'Remaining balance:'}
             value={
-              AccountAPIHelper.accountNdauAmount(
+              AccountAPIHelper.remainingBalanceNdau(
                 this.state.account.addressData,
-                false
-              ) - this.state.amount
+                this.state.total,
+                false,
+                AppConfig.NDAU_DETAIL_PRECISION
+              ) || 0
             }
           />
           <AccountHeaderText>Fees</AccountHeaderText>

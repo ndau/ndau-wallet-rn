@@ -416,7 +416,6 @@ test('make sure we can remove private keys', async () => {
           "marketPrice": 0
         }
       }`)
-  console.log(scrubbedData)
   expect(scrubbedData.includes('npvt')).to.be.false
 })
 

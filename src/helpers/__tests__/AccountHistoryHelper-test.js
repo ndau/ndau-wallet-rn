@@ -238,5 +238,5 @@ test('validate getTransactionBalance works', async () => {
   expect(accountHistory).toEqual(accountHistoryExpected)
   expect(
     AccountHistoryHelper.getTransactionBalance(accountHistory.Items[0])
-  ).toEqual('1,000.000')
+  ).toEqual('1,000.00')
 })

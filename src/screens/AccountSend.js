@@ -27,6 +27,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import { Text, TouchableOpacity } from 'react-native'
+import AppConfig from '../AppConfig'
 
 const _ = require('lodash')
 
@@ -152,13 +153,7 @@ class AccountSend extends Component {
     // have to do any math here
     if (isNaN(amount)) return
 
-    let { transactionFee, sibFee } = this.state
-
-    const totalNdau = AccountAPIHelper.getTotalNdauForSend(
-      amount,
-      transactionFee,
-      sibFee
-    )
+    const totalNdau = this._getTotalNdau(amount)
 
     this.setState(
       {
@@ -182,6 +177,16 @@ class AccountSend extends Component {
     }
   }
 
+  _getTotalNdau (amount) {
+    let { transactionFee, sibFee } = this.state
+    const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+      amount,
+      transactionFee,
+      sibFee
+    )
+    return totalNdau
+  }
+
   _scannedSuccessfully (event) {
     if (event.data.substr(0, 2) === 'nd') {
       this.setState({
@@ -196,10 +201,12 @@ class AccountSend extends Component {
 
   _renderRequestAmount () {
     const remainingBalance =
-      AccountAPIHelper.accountNdauAmount(
+      AccountAPIHelper.remainingBalanceNdau(
         this.state.account.addressData,
-        false
-      ) - this.state.total || 0
+        this.state.total,
+        false,
+        AppConfig.NDAU_DETAIL_PRECISION
+      ) || 0
 
     return (
       <AccountSendContainer
