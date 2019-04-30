@@ -216,10 +216,23 @@ const accountNotLocked = account => {
   return account && account.lock !== undefined ? !account.lock : false
 }
 
+const remainingBalanceNdau = (account, amount, addCommas = true, precision) => {
+  const napuAmount = DataFormatHelper.getNapuFromNdau(amount)
+  const napuAccountBalance = account.balance
+
+  if (napuAmount > napuAccountBalance) return '0'
+
+  return DataFormatHelper.getNdauFromNapu(
+    napuAccountBalance - napuAmount,
+    precision,
+    addCommas
+  )
+}
+
 const accountNdauAmount = (account, addCommas = true, precision) => {
   return account && account.balance
     ? DataFormatHelper.getNdauFromNapu(account.balance, precision, addCommas)
-    : 0.0
+    : 0
 }
 
 const weightedAverageAgeInDays = account => {
@@ -266,7 +279,7 @@ const lockBonusEAI = weightedAverageAgeInDays => {
 }
 
 const accountTotalNdauAmount = (accounts, withCommas = true) => {
-  let total = 0.0
+  let total = 0
 
   if (!accounts) return total
 
@@ -372,5 +385,6 @@ export default {
   spendableNdau,
   spendableNapu,
   totalSpendableNdau,
-  getTotalNdauForSend
+  getTotalNdauForSend,
+  remainingBalanceNdau
 }

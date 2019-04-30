@@ -4,6 +4,7 @@ import MockHelper from '../MockHelper'
 import { NativeModules } from 'react-native'
 import KeyMaster from '../KeyMaster'
 import sinon from 'sinon'
+import AppConfig from '../../AppConfig'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -317,4 +318,28 @@ test('make sure we get the correct total for send with no tx fees', async () => 
     sibFee
   )
   expect(totalNdau).toEqual('23.00000000')
+})
+
+test('remainingBalanceNdau returns value', async () => {
+  const account = { balance: 134962649000 }
+  const amount = '100.5344'
+  const remainingBalanceNdau = AccountAPIHelper.remainingBalanceNdau(
+    account,
+    amount,
+    false,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
+  expect(remainingBalanceNdau).toEqual('1249.09209000')
+})
+
+test('remainingBalanceNdau returns 0', async () => {
+  const account = { balance: 134962649000 }
+  const amount = '2349.5344'
+  const remainingBalanceNdau = AccountAPIHelper.remainingBalanceNdau(
+    account,
+    amount,
+    false,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
+  expect(remainingBalanceNdau).toEqual('0')
 })
