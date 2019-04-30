@@ -28,12 +28,14 @@ class AppDrawer extends React.Component {
 
   recoverWallet = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('SetupGetRecoveryPhrase')
+    this.props.navigation.navigate('SetupGetRecoveryPhrase', {
+      fromHamburger: true
+    })
   }
 
   addWallet = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('SetupYourWallet')
+    this.props.navigation.navigate('SetupYourWallet', { fromHamburger: true })
   }
 
   sendSupportEmail = async () => {

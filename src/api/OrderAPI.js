@@ -13,7 +13,8 @@ const getMarketPrice = async user => {
 
     // set the marketPrice to the user to cache this value with
     // the user. The marketPrice is captured in a defaults object
-    if (user) {
+    // only if dollars is truthy (not 0 mainly)
+    if (user && dollars) {
       if (!user.defaults) user.defaults = {}
       user.defaults.marketPrice = dollars
     }
@@ -24,7 +25,7 @@ const getMarketPrice = async user => {
       `Something went wrong geting market price: ${JSON.stringify(error)}`
     )
 
-    if (user) {
+    if (user.defaults.marketPrice) {
       return user.defaults.marketPrice
     }
   }

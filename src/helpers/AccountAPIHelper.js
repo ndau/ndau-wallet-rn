@@ -118,16 +118,20 @@ const sendSetValidationTransactionIfNeeded = async (
   account,
   addressData
 ) => {
-  if (addressData.balance > 0 && !addressData.validationKeys) {
-    LoggingService.debug(
-      `Sending SetValidation transaction for ${addressData.nickname}`
-    )
-    Object.assign(SetValidationTransaction.prototype, Transaction)
-    const setValidationTransaction = new SetValidationTransaction(
-      wallet,
-      account
-    )
-    await setValidationTransaction.createSignPrevalidateSubmit()
+  try {
+    if (addressData.balance > 0 && !addressData.validationKeys) {
+      LoggingService.debug(
+        `Sending SetValidation transaction for ${addressData.nickname}`
+      )
+      Object.assign(SetValidationTransaction.prototype, Transaction)
+      const setValidationTransaction = new SetValidationTransaction(
+        wallet,
+        account
+      )
+      await setValidationTransaction.createSignPrevalidateSubmit()
+    }
+  } catch (error) {
+    ;`Issue encountered perfroming SetValidation: ${JSON.stringify(error)}`
   }
 }
 
@@ -136,20 +140,26 @@ const sendDelegateTransactionIfNeeded = async (
   account,
   addressData
 ) => {
-  if (
-    !addressData.delegationNode &&
-    (addressData.validationKeys && addressData.validationKeys.length > 0)
-  ) {
+  try {
+    if (
+      !addressData.delegationNode &&
+      (addressData.validationKeys && addressData.validationKeys.length > 0)
+    ) {
+      LoggingService.debug(
+        `Sending Delegate transaction for ${addressData.nickname}`
+      )
+      Object.assign(DelegateTransaction.prototype, Transaction)
+      const delegateTransaction = new DelegateTransaction(
+        wallet,
+        account,
+        NodeAddressHelper.getNodeAddress()
+      )
+      await delegateTransaction.createSignPrevalidateSubmit()
+    }
+  } catch (error) {
     LoggingService.debug(
-      `Sending Delegate transaction for ${addressData.nickname}`
+      `Issue encountered perfroming Delegate: ${JSON.stringify(error)}`
     )
-    Object.assign(DelegateTransaction.prototype, Transaction)
-    const delegateTransaction = new DelegateTransaction(
-      wallet,
-      account,
-      NodeAddressHelper.getNodeAddress()
-    )
-    await delegateTransaction.createSignPrevalidateSubmit()
   }
 }
 
