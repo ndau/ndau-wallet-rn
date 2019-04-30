@@ -85,11 +85,6 @@ class AccountLockConfirmation extends Component {
           this.state.accountAddressForEAI
         )
         await setRewardsDestinationTransaction.createSignPrevalidateSubmit()
-
-        this.props.navigation.push('WalletOverview', {
-          wallet: this.state.wallet,
-          refresh: true
-        })
       } catch (error) {
         this.setState({ spinner: false })
         throw error
