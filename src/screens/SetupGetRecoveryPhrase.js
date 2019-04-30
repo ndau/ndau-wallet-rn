@@ -142,6 +142,8 @@ class SetupGetRecoveryPhrase extends Component {
     }
 
     this.setState({ mode, introductionText })
+
+    this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
   }
 
   addToRecoveryPhrase = value => {
@@ -223,6 +225,10 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({ acquisitionError: value })
   }
 
+  goBack = () => {
+    this.props.navigation.navigate('Dashboard')
+  }
+
   confirm = async () => {
     this.setState({ spinner: true }, async () => {
       try {
@@ -301,7 +307,11 @@ class SetupGetRecoveryPhrase extends Component {
 
   _renderAcquisition = () => {
     return (
-      <SetupContainer {...this.props} pageNumber={2 + this.state.stepNumber}>
+      <SetupContainer
+        {...this.props}
+        goBack={this.fromHamburger ? this.goBack : null}
+        pageNumber={2 + this.state.stepNumber}
+      >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <ParagraphText>{this.state.introductionText}</ParagraphText>
         <View
@@ -440,7 +450,11 @@ class SetupGetRecoveryPhrase extends Component {
     let count = 1
 
     return (
-      <SetupContainer {...this.props} pageNumber={15}>
+      <SetupContainer
+        {...this.props}
+        pageNumber={15}
+        goBack={this.fromHamburger ? this.goBack : null}
+      >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <ParagraphText>Please verify your recovery phrase.</ParagraphText>
         <RecoveryPhraseConfirmation
