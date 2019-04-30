@@ -10,9 +10,21 @@ class SetupYourWallet extends Component {
     this.props.navigation.navigate('SetupRecoveryPhrase')
   }
 
+  componentWillMount = () => {
+    this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
+  }
+
+  goBack = () => {
+    this.props.navigation.navigate('Dashboard')
+  }
+
   render () {
     return (
-      <SetupContainer {...this.props} pageNumber={2}>
+      <SetupContainer
+        {...this.props}
+        goBack={this.fromHamburger ? this.goBack : null}
+        pageNumber={2}
+      >
         <ParagraphText>
           Next we will give you a recovery phrase. This is critical to restoring
           your wallet. You risk losing access to your funds if you do not WRITE

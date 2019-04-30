@@ -32,7 +32,11 @@ export function SetupWelcomeContainer ({ children }) {
 
 export function SetupContainer (props) {
   goBack = () => {
-    props.navigation.goBack()
+    if (props.goBack) {
+      props.goBack()
+    } else {
+      props.navigation.goBack()
+    }
   }
   return (
     <MainContainer>
