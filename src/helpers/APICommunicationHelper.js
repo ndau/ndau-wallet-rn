@@ -40,11 +40,10 @@ const post = async (url, data, timeoutMS = DEFAULT_TIMEOUT_MS) => {
         if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
           setTimeout(once, RETRY_DELAY_MS)
-        } else if (safeStatus >= 400 && safeStatus < 500 || !retriesLeft) {
-          console.log("LOOK HERE", error)
+        } else {
           reject( new BlockchainAPIError({err: error, status:safeStatus}))
         }
-
+        }
       }
     }
     once()
@@ -61,7 +60,6 @@ const get = async (url, timeoutMS = DEFAULT_TIMEOUT_MS) => {
   let retriesLeft = MAX_RETRIES
   return new Promise(async function(resolve, reject){
     const once = async () => {
-
       try {
         // don't make requests if the device is offline
         if (!DeviceStore.online()) {
@@ -82,13 +80,12 @@ const get = async (url, timeoutMS = DEFAULT_TIMEOUT_MS) => {
           url: url,
           response: JSON.stringify(error.response)
         })
-        if (safeStatus >= 500 && retriesLeft || !retriesLeft) {
+        if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
           setTimeout(once, RETRY_DELAY_MS)
-        } else if (safeStatus >= 400 && safeStatus < 500) {
+        } else {
           reject( new BlockchainAPIError({err: error, status:safeStatus}))
         }
-        reject( new BlockchainAPIError({err: error, status:safeStatus}))
       }
     }
     once()
