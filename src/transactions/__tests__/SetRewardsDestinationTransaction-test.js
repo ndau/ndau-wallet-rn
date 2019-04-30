@@ -3,6 +3,7 @@ import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
 import data from '../../api/data'
+import { Messages }from '../../errors/BlockchainAPIError'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -208,7 +209,7 @@ test('setRewardsDestination fails if no sequence', async () => {
     await setRewardsDestinationTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
-    expect(error.toString()).toEqual('Error: No sequence found in addressData')
+    expect(error.toString()).toEqual(`Error: ${Messages.SRC_NO_HISTORY}`)
   }
 })
 

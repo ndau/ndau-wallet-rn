@@ -1,24 +1,29 @@
 import LoggingService from "../services/LoggingService";
 
+export const Messages = {
+  INSUFFICIENT_BALANCE: 'Insufficient balance in account',
+  SRC_NO_HISTORY: 'Source account has no history and no balance',
+  SRC_DEST_SAME: 'Cannot send and receive from the same account'
+}
 const APIErrors = [
   {
     code: 1000,
-    message: "Insufficient balance in account",
+    message: Messages.INSUFFICIENT_BALANCE,
     re: new RegExp("insufficient available balance", "i")
   },
   {
     code: 1001,
-    message: "Source account has no history and no balance",
+    message: Messages.SRC_NO_HISTORY,
     re: new RegExp("no sequence found", "i")
   },
   {
     code: 1002,
-    message: "Cannot send and receive from the same account",
+    message: Messages.SRC_DEST_SAME,
     re: new RegExp("source == destination", "i")
   }
 ]
 
-const MessagesByCode = APIErrors.reduce((p, c, i, a) => {
+export const MessagesByCode = APIErrors.reduce((a, c, i, s) => {
   a[c.code] = c.message
   return a
 }, {})
@@ -29,7 +34,6 @@ function codeFromMessage(msg) {
   const s = String(msg)
   const keys = Object.keys(APIErrors)
   for (let i = 0, l = keys.length; i<l; i++) {
-    console.log(s, APIErrors[keys[i]].re, s.match(APIErrors[keys[i]].re))
     if (s.match(APIErrors[keys[i]].re)) {
       return APIErrors[keys[i]].code
     }
@@ -71,6 +75,9 @@ class BlockchainAPIError extends Error {
           // If the first argument object is BlockchainAPIError, just copy it's variables
           this.message = args[0].err.message
           this.status = args[0].err.status
+        } else if (args[0] instanceof Error) {
+          // pass through an error
+          this.message = args[0].message
         } else if (args[0].err && args[0].err instanceof BlockchainAPIError) {
           // if the error being thrown was already a blockchain api error, then copy it
           this.message = args[0].err.message
@@ -89,7 +96,7 @@ class BlockchainAPIError extends Error {
 
     const parsedCode = parseInt(this.message)
     if ( parsedCode > 999 && parsedCode < 9999 ) {
-      this.message = MessagesByCode[code]
+      this.message = MessagesByCode[parsedCode]
     } else {
       const code = codeFromMessage(this.message)
       const statusOrNot = this.status ? ` status code: ${this.status}` : ''

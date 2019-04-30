@@ -35,7 +35,7 @@ export const Transaction = {
         throw Error('No validation keys present')
       }
       if (isNaN(this._account.addressData.sequence)) {
-        throw Error('No sequence found in addressData')
+        throw new BlockchainAPIError('1001')
       }
 
       const sequence = await AccountAPI.getNextSequence(this._account.address)
@@ -47,7 +47,7 @@ export const Transaction = {
 
       return this._jsonTransaction
     } catch (error) {
-      this.handleError(new BlockchainAPIError(error))
+      this.handleError(error)
     }
   },
 
