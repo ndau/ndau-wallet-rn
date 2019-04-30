@@ -4,6 +4,8 @@ import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
 import AppConstants from '../../AppConstants'
 import data from '../../api/data'
+import { Messages }from '../../errors/BlockchainAPIError'
+
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -210,7 +212,7 @@ test('transfer fails if no sequence', async () => {
     await transferTransaction.create()
     expect(false).toBe(true)
   } catch (error) {
-    expect(error.toString()).toEqual('Error: No sequence found in addressData')
+    expect(error.toString()).toEqual(`Error: ${Messages.SRC_NO_HISTORY}`)
   }
 })
 
