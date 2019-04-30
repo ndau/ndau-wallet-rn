@@ -492,6 +492,24 @@ export function AccountLockConfirmBottomPanel (props) {
   )
 }
 
+export function AccountSendButton (props) {
+  return (
+    <View style={styles.accountSendButtonContainer}>
+      <View>
+        <H4 style={styles.lockSmallerText}>{props.smallText}</H4>
+      </View>
+      <Button
+        style={styles.accountLargeButton}
+        textStyle={styles.accountLargeButtonText}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
 export function AccountLockButton (props) {
   return (
     <View style={styles.accountLockButtonContainer}>
