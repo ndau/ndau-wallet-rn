@@ -4,12 +4,8 @@ import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import LoggingService from '../services/LoggingService'
 import moment from 'moment'
 
-const AWS_S3_SERVICE_JSON_PROD =
-  'https://s3.us-east-2.amazonaws.com/ndau-json/services-prod.json'
-const AWS_S3_SERVICE_JSON_TEST =
-  'https://s3.us-east-2.amazonaws.com/ndau-json/services-test.json'
-const AWS_S3_SERVICE_JSON_DEV =
-  'https://s3.us-east-2.amazonaws.com/ndau-json/services-dev.json'
+const AWS_S3_SERVICE_JSON =
+  'https://s3.us-east-2.amazonaws.com/ndau-json/services.json'
 
 const cache = {
   lastChecked: moment(0), // moment date. starts a 0 to immediately invalidate the cache
@@ -18,16 +14,12 @@ const cache = {
 
 const CACHE_TTL = 1000 * 60 * 5 // 1000 * 60 * 5 = five minutes
 const getServiceNodeURL = async () => {
-  let url = AWS_S3_SERVICE_JSON_PROD
-  if ((await AsyncStorageHelper.isTestNet()) || __DEV__) {
-    url = AWS_S3_SERVICE_JSON_TEST
-  }
-  LoggingService.debug(`Service Discovery URL: ${url}`)
+  LoggingService.debug(`Service Discovery URL: ${AWS_S3_SERVICE_JSON}`)
 
   try {
-    if ( moment().diff(cache.lastChecked) > CACHE_TTL ) {
-      const response = await APICommunicationHelper.get(url)
-      cache.nodes = response.apinodes
+    if (moment().diff(cache.lastChecked) > CACHE_TTL) {
+      const response = await APICommunicationHelper.get(AWS_S3_SERVICE_JSON)
+      cache.nodes = await _parseServicesForNodes(response)
       cache.lastChecked = moment()
     }
 
@@ -37,6 +29,24 @@ const getServiceNodeURL = async () => {
     LoggingService.debug(error)
     throw new ServiceDiscoveryError()
   }
+}
+
+const _parseServicesForNodes = async serviceDiscovery => {
+  let nodes = []
+  let environment = 'mainnet'
+  if ((await AsyncStorageHelper.isTestNet()) || __DEV__) {
+    LoggingService.debug('Using TestNet...')
+    environment = 'testnet'
+  } else {
+    LoggingService.debug('Using MainNet...')
+  }
+
+  for (const node of Object.values(
+    serviceDiscovery.networks[environment].nodes
+  )) {
+    nodes.push(node.api)
+  }
+  return nodes
 }
 
 export default {

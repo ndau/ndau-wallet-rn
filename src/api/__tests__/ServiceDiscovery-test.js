@@ -8,6 +8,6 @@ describe('...testing ServiceDiscovery', () => {
     const serverUrl = await ServiceDiscovery.getServiceNodeURL()
 
     // its testnet because that is what we pull in within MockHelper
-    expect(serverUrl).toEqual('testnet-0.api.ndau.tech')
+    expect(serverUrl.includes('api.ndau.tech:31300')).toBeTruthy()
   })
 })

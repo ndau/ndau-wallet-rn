@@ -39,6 +39,7 @@ export default StyleSheet.create({
     marginLeft: wp('4%')
   },
   setupButtonContainerBottomNoBorder: {
+    position: 'absolute',
     ...Platform.select({
       ios: {
         bottom: hp('4%')
