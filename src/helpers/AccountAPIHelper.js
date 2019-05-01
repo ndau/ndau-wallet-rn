@@ -334,7 +334,7 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
   return withCommas
     ? DataFormatHelper.getNdauFromNapu(
       totalNapu,
-      AppConfig.NDAU_DETAIL_PRECISION,
+      AppConfig.NDAU_SUMMARY_PRECISION,
       true
     )
     : DataFormatHelper.getNdauFromNapu(totalNapu)

@@ -11,6 +11,8 @@ import WalletStore from '../stores/WalletStore'
 import { RadioButton } from '../components/common'
 import { ScrollView } from 'react-native'
 
+const _ = require('lodash')
+
 class AccountLockChooseAccount extends Component {
   constructor (props) {
     super(props)
@@ -27,8 +29,9 @@ class AccountLockChooseAccount extends Component {
   componentWillMount = async () => {
     const accountsCanRxEAI = this.props.navigation.getParam(
       'accountsCanRxEAI',
-      null
+      {}
     )
+
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
     const lockInformation = this.props.navigation.getParam(
@@ -36,12 +39,22 @@ class AccountLockChooseAccount extends Component {
       null
     )
 
+    // clone the object stored at the screen level.
+    // the iteration of the clones keys allows us to
+    // remove/filter out this account from the list
+    const accountsCanRxEAIClone = _.clone(accountsCanRxEAI)
+    Object.keys(accountsCanRxEAIClone).map(key => {
+      if (key === account.addressData.nickname) {
+        delete accountsCanRxEAIClone[key]
+      }
+    })
+
     this.setState({
       account,
       wallet,
-      accountsCanRxEAI,
-      accountAddressForEAI: Object.values(this.state.accountsCanRxEAI)[0],
-      accountNicknameForEAI: Object.keys(this.state.accountsCanRxEAI)[0],
+      accountsCanRxEAI: accountsCanRxEAIClone,
+      accountAddressForEAI: Object.values(accountsCanRxEAIClone)[0],
+      accountNicknameForEAI: Object.keys(accountsCanRxEAIClone)[0],
       lockInformation
     })
   }

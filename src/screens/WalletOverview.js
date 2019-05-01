@@ -238,15 +238,13 @@ class WalletOverview extends Component {
                       return 0
                     })
                     .map((accountKey, index) => {
-                      const accountNotLocked = AccountAPIHelper.accountNotLocked(
-                        wallet.accounts[accountKey].addressData
-                      )
                       const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
                         wallet.accounts[accountKey].addressData
                       )
                       const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
                         wallet.accounts[accountKey].addressData
                       )
+
                       if (!wallet.accounts[accountKey].addressData.lock) {
                         const address = wallet.accounts[accountKey].address
                         const nickname =

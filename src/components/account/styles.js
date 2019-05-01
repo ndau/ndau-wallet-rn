@@ -494,6 +494,12 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginBottom: hp('2.5%')
   },
+  accountSendButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%')
+  },
   accountButtonLargeButton: {
     width: wp('92%'),
     height: hp('6%'),
