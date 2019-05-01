@@ -10,6 +10,7 @@ import NodeAddressHelper from './NodeAddressHelper'
 import KeyPathHelper from './KeyPathHelper'
 import AppConfig from '../AppConfig'
 import KeyMaster from '../helpers/KeyMaster'
+import APIAddressHelper from './APIAddressHelper'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -53,11 +54,7 @@ const populateWalletWithAddressData = async wallet => {
 
         await sendSetValidationTransactionIfNeeded(wallet, walletAccount)
 
-        await sendDelegateTransactionIfNeeded(
-          wallet,
-          walletAccount,
-          addressDataItem
-        )
+        await sendDelegateTransactionIfNeeded(wallet, walletAccount)
 
         break
       }
@@ -124,7 +121,9 @@ const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
       await setValidationTransaction.createSignPrevalidateSubmit()
     }
   } catch (error) {
-    ;`Issue encountered perfroming SetValidation: ${JSON.stringify(error)}`
+    LoggingService.debug(
+      `Issue encountered perfroming SetValidation: ${JSON.stringify(error)}`
+    )
   }
 }
 
@@ -160,7 +159,19 @@ const addPrivateValidationKeyIfNotPresent = async (wallet, account) => {
     account.addressData.validationScript ===
       AppConfig.GENESIS_USER_VALIDATION_SCRIPT
   ) {
-    await KeyMaster.addValidationKey(wallet, account)
+    // Only create the key if we haven't already created it. If we have,
+    // then the SetValidation did go through yet...so try it again
+    if (!account.validationKeys || account.validationKeys.length === 0) {
+      await KeyMaster.addValidationKey(wallet, account)
+    }
+
+    Object.assign(SetValidationTransaction.prototype, Transaction)
+    const setValidationTransaction = new SetValidationTransaction(
+      wallet,
+      account,
+      APIAddressHelper.RECOVERY
+    )
+    await setValidationTransaction.createSignPrevalidateSubmit()
   } else {
     await KeyPathHelper.recoveryValidationKey(
       wallet,

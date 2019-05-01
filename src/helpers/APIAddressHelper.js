@@ -1,14 +1,22 @@
 import AppConfig from '../AppConfig'
 import ServiceDiscovery from '../api/ServiceDiscovery'
 
+const BLOCKCHAIN = 1
+const RECOVERY = 2
+
 const PROTOCOL = 'https'
 
-const getNode = async () => {
-  return await ServiceDiscovery.getServiceNodeURL()
+const getBlockchainNode = async () => {
+  return await ServiceDiscovery.getBlockchainServiceNodeURL()
 }
 
-const getNodeAddress = async () => {
-  const node = await getNode()
+const getRecoveryNode = async () => {
+  return await ServiceDiscovery.getRecoveryServiceNodeURL()
+}
+
+const getNodeAddress = async (type = BLOCKCHAIN) => {
+  const node =
+    type === RECOVERY ? await getRecoveryNode() : await getBlockchainNode()
   return PROTOCOL + '://' + node
 }
 
@@ -28,12 +36,12 @@ const getMarketPriceAPIAddress = async () => {
   return (await getNodeAddress()) + '/price/current'
 }
 
-const getTransactionPrevalidateAPIAddress = async () => {
-  return (await getNodeAddress()) + '/tx/prevalidate'
+const getTransactionPrevalidateAPIAddress = async sendType => {
+  return (await getNodeAddress(sendType)) + '/tx/prevalidate'
 }
 
-const getTransactionSubmitAPIAddress = async () => {
-  return (await getNodeAddress()) + '/tx/submit'
+const getTransactionSubmitAPIAddress = async sendType => {
+  return (await getNodeAddress(sendType)) + '/tx/submit'
 }
 
 const getAccountHistoryAPIAddress = async address => {
@@ -55,5 +63,7 @@ export default {
   getTransactionPrevalidateAPIAddress,
   getTransactionSubmitAPIAddress,
   getAccountHistoryAPIAddress,
-  getTransactionByHashAPIAddress
+  getTransactionByHashAPIAddress,
+  BLOCKCHAIN,
+  RECOVERY
 }

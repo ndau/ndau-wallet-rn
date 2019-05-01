@@ -3,9 +3,10 @@ import APIAddressHelper from '../helpers/APIAddressHelper'
 import KeyMaster from '../helpers/KeyMaster'
 
 export class SetValidationTransaction {
-  constructor (wallet, account) {
+  constructor (wallet, account, sendType) {
     this._wallet = wallet
     this._account = account
+    this._sendType = sendType
 
     this._keys = wallet.keys
     this._jsonTransaction = {}

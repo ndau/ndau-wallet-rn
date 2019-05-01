@@ -55,6 +55,12 @@ const mockSetValidationTx = () => {
   mock
     .onPost('https://api.ndau.tech:31300/tx/submit/SetValidation')
     .reply(200, data.setValidationTxRes)
+  mock
+    .onPost('https://recovery.ndau.tech/tx/prevalidate/SetValidation')
+    .reply(200, data.setValidationTxRes)
+  mock
+    .onPost('https://recovery.ndau.tech/tx/submit/SetValidation')
+    .reply(200, data.setValidationTxRes)
 }
 
 const mockLockTx = () => {
