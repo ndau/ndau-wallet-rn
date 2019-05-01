@@ -9,6 +9,7 @@ import LoggingService from '../services/LoggingService'
 import NodeAddressHelper from './NodeAddressHelper'
 import KeyPathHelper from './KeyPathHelper'
 import AppConfig from '../AppConfig'
+import KeyMaster from '../helpers/KeyMaster'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -48,17 +49,10 @@ const populateWalletWithAddressData = async wallet => {
       const walletAccount = wallet.accounts[walletAccountKey]
       if (walletAccountKey === accountKey) {
         walletAccount.addressData = addressDataItem
-        await addPrivateValidationKeyIfNotPresent(
-          wallet,
-          walletAccount,
-          addressDataItem
-        )
+        await addPrivateValidationKeyIfNotPresent(wallet, walletAccount)
 
-        await sendSetValidationTransactionIfNeeded(
-          wallet,
-          walletAccount,
-          addressDataItem
-        )
+        await sendSetValidationTransactionIfNeeded(wallet, walletAccount)
+
         await sendDelegateTransactionIfNeeded(
           wallet,
           walletAccount,
@@ -113,15 +107,14 @@ const _repairWalletObject = wallet => {
   }
 }
 
-const sendSetValidationTransactionIfNeeded = async (
-  wallet,
-  account,
-  addressData
-) => {
+const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
   try {
-    if (addressData.balance > 0 && !addressData.validationKeys) {
+    if (
+      account.addressData.balance > 0 &&
+      !account.addressData.validationKeys
+    ) {
       LoggingService.debug(
-        `Sending SetValidation transaction for ${addressData.nickname}`
+        `Sending SetValidation transaction for ${account.addressData.nickname}`
       )
       Object.assign(SetValidationTransaction.prototype, Transaction)
       const setValidationTransaction = new SetValidationTransaction(
@@ -135,18 +128,15 @@ const sendSetValidationTransactionIfNeeded = async (
   }
 }
 
-const sendDelegateTransactionIfNeeded = async (
-  wallet,
-  account,
-  addressData
-) => {
+const sendDelegateTransactionIfNeeded = async (wallet, account) => {
   try {
     if (
-      !addressData.delegationNode &&
-      (addressData.validationKeys && addressData.validationKeys.length > 0)
+      !account.addressData.delegationNode &&
+      (account.addressData.validationKeys &&
+        account.addressData.validationKeys.length > 0)
     ) {
       LoggingService.debug(
-        `Sending Delegate transaction for ${addressData.nickname}`
+        `Sending Delegate transaction for ${account.addressData.nickname}`
       )
       Object.assign(DelegateTransaction.prototype, Transaction)
       const delegateTransaction = new DelegateTransaction(
@@ -163,16 +153,21 @@ const sendDelegateTransactionIfNeeded = async (
   }
 }
 
-const addPrivateValidationKeyIfNotPresent = async (
-  wallet,
-  account,
-  addressData
-) => {
-  await KeyPathHelper.recoveryValidationKey(
-    wallet,
-    account,
-    addressData.validationKeys
-  )
+const addPrivateValidationKeyIfNotPresent = async (wallet, account) => {
+  if (
+    account.addressData.validationKeys &&
+    account.addressData.validationKeys.length === 2 &&
+    account.addressData.validationScript ===
+      AppConfig.GENESIS_USER_VALIDATION_SCRIPT
+  ) {
+    await KeyMaster.addValidationKey(wallet, account)
+  } else {
+    await KeyPathHelper.recoveryValidationKey(
+      wallet,
+      account,
+      account.addressData.validationKeys
+    )
+  }
 }
 
 const getEaiValueForDisplay = account => {

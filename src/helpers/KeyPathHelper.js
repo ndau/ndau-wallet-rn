@@ -86,9 +86,12 @@ const recoveryValidationKey = async (wallet, account, validationKeys) => {
       `Attempting to find the private key for the public validation key we have...`
     )
     for (const validationKey of validationKeys) {
-      let startIndex = 1
+      let startIndex = AppConfig.VALIDATION_KEY_SEARCH_START_INDEX
       let endIndex = AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
-      let found = true
+      let found = false
+      // Use a counter to prevent infinite search
+      let counter = 0
+
       do {
         let validationKeys = await KeyMaster.getValidationKeys(
           wallet,
@@ -122,7 +125,13 @@ const recoveryValidationKey = async (wallet, account, validationKeys) => {
 
         startIndex += AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
         endIndex += AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
-      } while (!found)
+
+        counter++
+      } while (
+        !found &&
+        // go until we hit the configured max
+        counter < AppConfig.VALIDATION_KEY_SEARCH_ITERATION_MAX
+      )
     }
   }
 }

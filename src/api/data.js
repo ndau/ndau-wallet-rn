@@ -13,7 +13,7 @@ const addresses = [
 
 const testSingleAddressData = {
   tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: [
       'npuba8jadtbbedhhdcad42tysymzpi5ec77vpi4exabh3unu2yem8wn4wv22kvvt24kpm3ghikst'
     ],
@@ -344,7 +344,7 @@ const test7MP4FVAddressData = {
 
 const testAddressData = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
@@ -360,7 +360,7 @@ const testAddressData = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
     incomingRewardsFrom: null,
@@ -379,7 +379,7 @@ const testAddressData = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
@@ -398,7 +398,7 @@ const testAddressData = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
     incomingRewardsFrom: null,
@@ -417,7 +417,7 @@ const testAddressData = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp5c: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -433,7 +433,7 @@ const testAddressData = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbfq: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -452,7 +452,7 @@ const testAddressData = {
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk98: {
-    balance: 51500000000.0,
+    balance: 515000000000,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -471,7 +471,7 @@ const testAddressData = {
 
 const testAddressDataRoot = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty1root: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcmroot'],
@@ -487,7 +487,7 @@ const testAddressDataRoot = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9m2root: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8root',
     incomingRewardsFrom: null,
@@ -506,7 +506,7 @@ const testAddressDataRoot = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufc3root: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68root'],
@@ -525,7 +525,7 @@ const testAddressDataRoot = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk64root: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcroot',
     incomingRewardsFrom: null,
@@ -544,7 +544,7 @@ const testAddressDataRoot = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5z5root: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -560,7 +560,7 @@ const testAddressDataRoot = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3y6root: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -579,7 +579,7 @@ const testAddressDataRoot = {
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy7root: {
-    balance: 51500000000.0,
+    balance: 515000000000,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -760,8 +760,7 @@ const testUser = {
           path: "/44'/20036'/100/6",
           derivedFromRoot: 'yes'
         }
-      },
-      marketPrice: 16.92432746094448
+      }
     }
   }
 }
@@ -852,7 +851,7 @@ const transactionByHashRes = {
 
 const testAddressData20Items = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zc11: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
@@ -868,7 +867,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm3822: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
     incomingRewardsFrom: null,
@@ -887,7 +886,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf33: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
@@ -906,7 +905,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f644: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
     incomingRewardsFrom: null,
@@ -925,7 +924,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp65: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -941,7 +940,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb66: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -960,7 +959,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk77: {
-    balance: 51500000000.0,
+    balance: 515000000000,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -976,7 +975,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcu8: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
@@ -992,7 +991,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38v9: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
     incomingRewardsFrom: null,
@@ -1011,7 +1010,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf10: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
@@ -1030,7 +1029,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f611: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
     incomingRewardsFrom: null,
@@ -1049,7 +1048,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp12: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1065,7 +1064,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb13: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1084,7 +1083,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk14: {
-    balance: 51500000000.0,
+    balance: 515000000000,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1100,7 +1099,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zc15: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
@@ -1116,7 +1115,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm3816: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
     incomingRewardsFrom: null,
@@ -1135,7 +1134,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf17: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g'],
@@ -1154,7 +1153,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f618: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55',
     incomingRewardsFrom: null,
@@ -1173,7 +1172,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp519: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1189,7 +1188,7 @@ const testAddressData20Items = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb20: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1211,7 +1210,7 @@ const testAddressData20Items = {
 
 const testAddressData20ItemsRoot = {
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbt18root: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcmroot'],
@@ -1227,7 +1226,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9m2mroot: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8root',
     incomingRewardsFrom: null,
@@ -1246,7 +1245,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiu3croot: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68root'],
@@ -1265,7 +1264,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk48root: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcroot',
     incomingRewardsFrom: null,
@@ -1284,7 +1283,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc55jroot: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1300,7 +1299,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd36croot: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1319,7 +1318,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctknd72root: {
-    balance: 51500000000.0,
+    balance: 515000000000,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1335,7 +1334,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbt88root: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcmroot'],
@@ -1351,7 +1350,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr99cmroot: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8root',
     incomingRewardsFrom: null,
@@ -1370,7 +1369,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfh10ufcroot: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68root'],
@@ -1389,7 +1388,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i711zk68f611: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcroot',
     incomingRewardsFrom: null,
@@ -1408,7 +1407,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv712pgc5zjroot: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1424,7 +1423,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr913tnd3ycroot: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1443,7 +1442,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjb14tkndy2root: {
-    balance: 51500000000.0,
+    balance: 515000000000,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1459,7 +1458,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3a15ufbty8root: {
-    balance: 4200000000.23,
+    balance: 420000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcmroot'],
@@ -1475,7 +1474,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997169mcmroot: {
-    balance: 20000000000.2,
+    balance: 200000000002,
     validationKeys: null,
     rewardsTarget: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8root',
     incomingRewardsFrom: null,
@@ -1494,7 +1493,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhj17fcroot: {
-    balance: 40000000000.54,
+    balance: 4000000000054,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: ['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68root'],
@@ -1513,7 +1512,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7n18k68root: {
-    balance: 7600000000.03,
+    balance: 760000000003,
     validationKeys: null,
     rewardsTarget: 'ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcroot',
     incomingRewardsFrom: null,
@@ -1532,7 +1531,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc19jyroot: {
-    balance: 40000000000.87,
+    balance: 4000000000087,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
@@ -1548,7 +1547,7 @@ const testAddressData20ItemsRoot = {
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd320root: {
-    balance: 12400000000.23,
+    balance: 1240000000023,
     validationKeys: null,
     rewardsTarget: null,
     incomingRewardsFrom: null,
