@@ -63,8 +63,8 @@ const DEFAULT_UNKNOWN_MESSAGE = "Blockchain API error: "
 
 class BlockchainAPIError extends Error {
   constructor (...args) {
-    super(...args)
     if (args) {
+      super(...args)
       if (Object.prototype.toString.call(args[0]) === "[object String]") {
         // If the first argument is a string. Just use that as the message
         this.message = args[0]

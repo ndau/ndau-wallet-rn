@@ -43,7 +43,6 @@ const post = async (url, data, timeoutMS = DEFAULT_TIMEOUT_MS) => {
         } else {
           reject( new BlockchainAPIError({err: error, status:safeStatus}))
         }
-        }
       }
     }
     once()
