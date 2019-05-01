@@ -1,5 +1,31 @@
 {
-  "apinodes": [
-    "testnet-0.api.ndau.tech"
-  ]
+  "networks": {
+    "devnet": {
+      "nodes": {
+        "devnet-0": {
+          "api": "api.ndau.tech:30300",
+          "p2p": "p2p.ndau.tech:30200",
+          "rpc": "api.ndau.tech:30100"
+        }
+      }
+    },
+    "mainnet": {
+      "nodes": {
+        "mainnet-0": {
+          "api": "api.ndau.tech:32300",
+          "p2p": "p2p.ndau.tech:32200",
+          "rpc": "api.ndau.tech:32100"
+        }
+      }
+    },
+    "testnet": {
+      "nodes": {
+        "testnet-0": {
+          "api": "api.ndau.tech:31300",
+          "p2p": "p2p.ndau.tech:31200",
+          "rpc": "api.ndau.tech:31100"
+        }
+      }
+    }
+  }
 }
