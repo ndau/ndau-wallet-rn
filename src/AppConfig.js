@@ -12,6 +12,10 @@ const NODE_ADDRESSES = [
   'ndaekyty73hd56gynsswuj5q9em68tp6ed5v7tpft872hvuc'
 ]
 
+const API_MAX_RETRIES = 3 // allow 3 unsuccessful attempts
+const API_RETRY_DELAY_MS = 1 * 1000 // 1 * 1000 = 1 second (in miliseconds)
+const API_DEFAULT_TIMEOUT_MS = 10 * 1000 // 10 * 1000 = 10 seconds (in miliseconds)
+
 export default {
   LOCALE,
   CURRENT_PRICE_CURRENCY,
@@ -19,5 +23,8 @@ export default {
   NDAU_SUMMARY_PRECISION,
   NDAU_DETAIL_PRECISION,
   BACKGROUND_TASK_INTERVAL,
-  NODE_ADDRESSES
+  NODE_ADDRESSES,
+  API_MAX_RETRIES,
+  API_RETRY_DELAY_MS,
+  API_DEFAULT_TIMEOUT_MS
 }

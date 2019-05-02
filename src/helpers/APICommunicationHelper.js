@@ -2,10 +2,7 @@ import BlockchainAPIError from '../errors/BlockchainAPIError'
 import axios from 'axios'
 import LoggingService from '../services/LoggingService'
 import DeviceStore from '../stores/DeviceStore'
-
-const MAX_RETRIES = 3 // allow 3 unsuccessful attempts
-const RETRY_DELAY_MS = 1 * 1000 // 1 * 1000 = 1 second (in miliseconds)
-const DEFAULT_TIMEOUT_MS = 10 * 1000 // 10 * 1000 = 10 seconds (in miliseconds)
+import AppConfig from '../AppConfig'
 
 /**
  * This method will post data to a specified URL.
@@ -14,8 +11,8 @@ const DEFAULT_TIMEOUT_MS = 10 * 1000 // 10 * 1000 = 10 seconds (in miliseconds)
  * @param {string} data must be JSON.stringify data ready to be sent
  * @param {number} timeoutMS default to 10000ms, set to desired timeout
  */
-const post = async (url, data, timeoutMS = DEFAULT_TIMEOUT_MS) => {
-  let retriesLeft = MAX_RETRIES
+const post = async (url, data, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
+  let retriesLeft = AppConfig.API_MAX_RETRIES
   return new Promise(async function(resolve, reject){
     const once = async () => {
       try {
@@ -39,7 +36,7 @@ const post = async (url, data, timeoutMS = DEFAULT_TIMEOUT_MS) => {
         })
         if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
-          setTimeout(once, RETRY_DELAY_MS)
+          setTimeout(once, AppConfig.API_RETRY_DELAY_MS)
         } else {
           reject( new BlockchainAPIError({err: error, status:safeStatus}))
         }
@@ -55,8 +52,8 @@ const post = async (url, data, timeoutMS = DEFAULT_TIMEOUT_MS) => {
  * @param {string} url to GET
  * @param {number} timeoutMS default to DEFAULT_TIMEOUT_MS, set to desired timeout
  */
-const get = async (url, timeoutMS = DEFAULT_TIMEOUT_MS) => {
-  let retriesLeft = MAX_RETRIES
+const get = async (url, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
+  let retriesLeft = AppConfig.API_MAX_RETRIES
   return new Promise(async function(resolve, reject){
     const once = async () => {
       try {
@@ -81,7 +78,7 @@ const get = async (url, timeoutMS = DEFAULT_TIMEOUT_MS) => {
         })
         if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
-          setTimeout(once, RETRY_DELAY_MS)
+          setTimeout(once, AppConfig.API_RETRY_DELAY_MS)
         } else {
           reject( new BlockchainAPIError({err: error, status:safeStatus}))
         }
