@@ -17,6 +17,10 @@ const VALIDATION_KEY_SEARCH_START_INDEX = 1
 // for a genesis user containing the 2 recovery validation keys
 const GENESIS_USER_VALIDATION_SCRIPT = 'somestring'
 
+const API_MAX_RETRIES = 3 // allow 3 unsuccessful attempts
+const API_RETRY_DELAY_MS = 1 * 1000 // 1 * 1000 = 1 second (in miliseconds)
+const API_DEFAULT_TIMEOUT_MS = 10 * 1000 // 10 * 1000 = 10 seconds (in miliseconds)
+
 export default {
   LOCALE,
   CURRENT_PRICE_CURRENCY,
@@ -27,5 +31,8 @@ export default {
   BACKGROUND_TASK_INTERVAL,
   NODE_ADDRESSES,
   VALIDATION_KEY_SEARCH_ITERATION_MAX,
-  GENESIS_USER_VALIDATION_SCRIPT
+  GENESIS_USER_VALIDATION_SCRIPT,
+  API_MAX_RETRIES,
+  API_RETRY_DELAY_MS,
+  API_DEFAULT_TIMEOUT_MS
 }

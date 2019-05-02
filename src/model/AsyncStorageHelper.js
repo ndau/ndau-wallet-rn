@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import CryptoJS from 'crypto-js'
 import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
+import ServiceDiscovery from '../api/ServiceDiscovery'
 
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:'
 const CURRENT_USER_KEY = '@CurrentUserKey'
@@ -12,8 +13,9 @@ const DEBUG_ROWS = 'debug-rows'
 
 const LAST_ACCOUNT_DATA = '@LastAccountData'
 
-const TEST_NET = 'TestNet'
-const MAIN_NET = 'MainNet'
+const TEST_NET = 'testnet'
+const MAIN_NET = 'mainnet'
+const DEV_NET = 'devnet'
 
 /**
  * Cache the last call to address data so we can check to see if we
@@ -34,37 +36,74 @@ const getLastAccountData = async () => {
 }
 
 /**
- * Application will be using MainNet
+ * Application will be using mainnet
  */
 const useMainNet = async () => {
+  ServiceDiscovery.invalidateCache()
   await AsyncStorage.setItem(APPLICATION_NETWORK, MAIN_NET)
 }
 
 /**
- * Application will be using TestNet
+ * Application will be using testnet
  */
 const useTestNet = async () => {
+  ServiceDiscovery.invalidateCache()
   await AsyncStorage.setItem(APPLICATION_NETWORK, TEST_NET)
 }
 
 /**
- * Is the application using MainNet
+ * Application will be using devnet
  */
-const isMainNet = async () => {
-  // TODO: temporarily returning false so we hardcode to testnet
-  return false
-  // const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  // return applicationNetwork === MAIN_NET
+const useDevNet = async () => {
+  ServiceDiscovery.invalidateCache()
+  await AsyncStorage.setItem(APPLICATION_NETWORK, DEV_NET)
+}
+
+const _ifNetworkNotSetDefaultIt = async () => {
+  const network = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  if (!network) {
+    await useMainNet()
+  }
 }
 
 /**
- * Is the application using TestNet
+ * Is the application using mainnet
+ */
+const isMainNet = async () => {
+  await _ifNetworkNotSetDefaultIt()
+
+  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  return applicationNetwork === MAIN_NET
+}
+
+/**
+ * Is the application using testnet
  */
 const isTestNet = async () => {
-  // TODO: temporarily returning true so we hardcode to testnet
-  return true
-  // const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  // return applicationNetwork === TEST_NET
+  await _ifNetworkNotSetDefaultIt()
+
+  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  return applicationNetwork === TEST_NET
+}
+
+/**
+ * Is the application using devnet
+ */
+const isDevNet = async () => {
+  await _ifNetworkNotSetDefaultIt()
+
+  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  return applicationNetwork === DEV_NET
+}
+
+/**
+ * Send back the network being used
+ */
+const getNetwork = async () => {
+  await _ifNetworkNotSetDefaultIt()
+
+  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  return applicationNetwork
 }
 
 /**
@@ -188,6 +227,12 @@ export default {
   getLastAccountData,
   useMainNet,
   useTestNet,
+  useDevNet,
   isMainNet,
-  isTestNet
+  isTestNet,
+  isDevNet,
+  getNetwork,
+  TEST_NET,
+  MAIN_NET,
+  DEV_NET
 }

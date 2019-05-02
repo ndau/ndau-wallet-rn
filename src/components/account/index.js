@@ -232,7 +232,9 @@ export function AccountSendContainer (props) {
 export function SettingsContainer (props) {
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View
+        style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}
+      >
         <TitleBarGradient>
           <DrawerHeader {...props}>{props.title}</DrawerHeader>
           <ContentContainer style={styles.accountContentPanel}>

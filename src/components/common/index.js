@@ -503,11 +503,11 @@ export function ParagraphText (props) {
 
 export function BooleanSetting (props) {
   return (
-    <View style={{ flex: 1, flexDirection: 'column' }}>
-      <View style={{ alignSelf: 'flex-start' }}>
+    <View style={styles.booleanSettingPanel}>
+      <View>
         <ParagraphText>{props.title}</ParagraphText>
       </View>
-      <View style={{ alignSelf: 'flex-end' }}>
+      <View>
         <Switch trackColor={AppConstants.SQUARE_BUTTON_COLOR} {...props} />
       </View>
     </View>

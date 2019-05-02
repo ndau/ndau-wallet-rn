@@ -65,14 +65,18 @@ const getRecoveryServiceNodeURL = async () => {
   }
 }
 
+const invalidateCache = () => {
+  blockchainCache.lastChecked = moment(0)
+  recoveryCache.lastChecked = moment(0)
+}
+
 const _parseServicesForNodes = async (serviceDiscovery, type) => {
   let nodes = []
-  let environment = 'mainnet'
-  if ((await AsyncStorageHelper.isTestNet()) || __DEV__) {
-    LoggingService.debug('Using TestNet...')
-    environment = 'testnet'
-  } else {
-    LoggingService.debug('Using MainNet...')
+  let environment = await AsyncStorageHelper.getNetwork()
+  // if we are in simulators then force to testnet
+  if (__DEV__) {
+    await AsyncStorageHelper.useTestNet()
+    environment = await AsyncStorageHelper.getNetwork()
   }
 
   if (type === APIAddressHelper.RECOVERY) {
@@ -93,5 +97,6 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
 
 export default {
   getBlockchainServiceNodeURL,
-  getRecoveryServiceNodeURL
+  getRecoveryServiceNodeURL,
+  invalidateCache
 }

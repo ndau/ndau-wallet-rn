@@ -38,6 +38,13 @@ export default StyleSheet.create({
     borderWidth: 2,
     marginLeft: wp('4%')
   },
+  booleanSettingPanel: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: wp('4%'),
+    maxHeight: hp('7%')
+  },
   setupButtonContainerBottomNoBorder: {
     position: 'absolute',
     ...Platform.select({
