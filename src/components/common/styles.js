@@ -47,12 +47,7 @@ export default StyleSheet.create({
   },
   setupButtonContainerBottomNoBorder: {
     position: 'absolute',
-    ...Platform.select({
-      ios: {
-        bottom: hp('4%')
-      }
-    }),
-    bottom: hp('6%')
+    bottom: hp('2%')
   },
   setupButtonContainerScrollView: {
     marginTop: hp('1%')
