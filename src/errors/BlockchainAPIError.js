@@ -65,28 +65,30 @@ class BlockchainAPIError extends Error {
   constructor (...args) {
     if (args) {
       super(...args)
-
       if (Object.prototype.toString.call(args[0]) === "[object String]") {
         // If the first argument is a string. Just use that as the message
         this.message = args[0]
       } else if (Object.prototype.toString.call(args[0]) === "[object Object]") {
         // If the first argument is an object.
-        if (args[0] instanceof BlockchainAPIError) {
-          // If the first argument object is BlockchainAPIError, just copy it's variables
-          this.message = args[0].err.message
-          this.status = args[0].err.status
-        } else if (args[0] instanceof Error) {
-          // pass through an error
-          this.message = args[0].message
-        } else if (args[0].err && args[0].err instanceof BlockchainAPIError) {
+        if (args[0].err && args[0].err instanceof BlockchainAPIError) {
           // if the error being thrown was already a blockchain api error, then copy it
           this.message = args[0].err.message
           this.status = args[0].err.status
+        } else if (args[0].err instanceof Error) {
+          // pass through an error
+          this.message = args[0].err.message
         } else {
           // if the error being thrown was an axios error
           this.message = _getError(args[0].err)
           this.status = args[0].status
         }
+      } else if (args[0] instanceof BlockchainAPIError) {
+        // If the first argument object is BlockchainAPIError, just copy it's variables
+        this.message = args[0].message
+        this.status = args[0].status
+      } else if (args[0] instanceof Error) {
+        // pass through an error
+        this.message = args[0].message
       }
     }
 
@@ -99,11 +101,11 @@ class BlockchainAPIError extends Error {
       this.message = MessagesByCode[parsedCode]
     } else {
       const code = codeFromMessage(this.message)
-      const statusOrNot = this.status ? ` status code: ${this.status}` : ''
-      if (code === null) {
-        this.message = `${DEFAULT_UNKNOWN_MESSAGE}${statusOrNot} [${code}]`
+      const statusOrNot = this.status ?  this.status: ' '
+      if (code !== null) {
+        this.message = MessagesByCode[code]
       } else {
-      this.message = MessagesByCode[code]
+        this.message = `${DEFAULT_UNKNOWN_MESSAGE}${statusOrNot}${this.message}`
       }
     }
   }

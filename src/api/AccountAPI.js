@@ -19,7 +19,7 @@ const getAddressData = async addresses => {
     return accountData
   } catch (error) {
     LoggingService.debug(error)
-    throw new BlockchainAPIError(error)
+    throw error
   }
 }
 
