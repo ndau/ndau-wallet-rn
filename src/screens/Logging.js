@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { StatusBar } from 'react-native'
-import { SafeAreaView } from 'react-navigation'
 import { LogView } from 'react-native-device-log'
-import cssStyles from '../css/styles'
 import { AppContainer } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 

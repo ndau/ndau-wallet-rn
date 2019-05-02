@@ -14,6 +14,7 @@ import SetupTermsOfService from '../screens/SetupTermsOfService'
 import SetupYourWallet from '../screens/SetupYourWallet'
 import Authentication from '../screens/Authentication'
 import AuthLoading from './AuthLoading'
+import SettingsNavigation from './SettingsNavigation'
 
 const AuthenticationScreen = ({ navigation }) => (
   <Authentication navigation={navigation} />
@@ -125,7 +126,8 @@ export default createSwitchNavigator(
     App: DashboardNavigation,
     Logging: LoggingNavigation,
     WalletOverview: WalletOverviewNavigation,
-    Setup: SetupStack
+    Setup: SetupStack,
+    Settings: SettingsNavigation
   },
   {
     initialRouteName: 'AuthLoading',

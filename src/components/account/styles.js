@@ -23,7 +23,7 @@ export default StyleSheet.create({
   },
   accountTitlePanel: {
     width: wp('100%'),
-    height: 20,
+    height: hp('2%'),
     padding: 0
   },
   accountDetailsTitlePanel: {

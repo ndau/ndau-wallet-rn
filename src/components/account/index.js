@@ -21,6 +21,7 @@ import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
 import ndaujs from 'ndaujs'
 import AppConfig from '../../AppConfig'
+import { DrawerHeader } from '../drawer'
 
 export function AccountPanel (props) {
   return (
@@ -219,6 +220,21 @@ export function AccountSendContainer (props) {
               close={this.close}
             />
           </View>
+          <ContentContainer style={styles.accountContentPanel}>
+            {props.children}
+          </ContentContainer>
+        </TitleBarGradient>
+      </View>
+    </MainContainer>
+  )
+}
+
+export function SettingsContainer (props) {
+  return (
+    <MainContainer>
+      <View style={{ flex: 1 }}>
+        <TitleBarGradient>
+          <DrawerHeader {...props}>{props.title}</DrawerHeader>
           <ContentContainer style={styles.accountContentPanel}>
             {props.children}
           </ContentContainer>

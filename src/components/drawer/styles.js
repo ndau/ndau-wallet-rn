@@ -38,28 +38,17 @@ export default StyleSheet.create({
   drawerButton: {
     paddingLeft: wp('4%')
   },
-  drawerEntryBottom: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    marginLeft: wp('4%'),
-    marginBottom: hp('2.5%')
-  },
   drawerEntry: {
     flex: 1,
     flexDirection: 'row',
     marginLeft: wp('4%'),
     marginBottom: hp('2.5%')
   },
-  drawerTextBottom: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 16,
-    fontWeight: '200',
-    letterSpacing: 0.34,
-    lineHeight: 24,
-    marginLeft: wp('2%'),
-    paddingBottom: 0
+  drawerVersionEntry: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: wp('4%'),
+    marginBottom: hp('35%')
   },
   drawerText: {
     color: AppConstants.TEXT_COLOR,
