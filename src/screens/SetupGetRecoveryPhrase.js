@@ -195,11 +195,12 @@ class SetupGetRecoveryPhrase extends Component {
         },
         () => {
           this.adjustStepNumber(this.state.recoveryIndex)
+          if (this.recoveryDropdownRef) {
+            this.recoveryDropdownRef.clearWord()
+            this.recoveryDropdownRef.focus()
+          }
         }
       )
-      if (this.recoveryDropdownRef) {
-        this.recoveryDropdownRef.focus()
-      }
     }
     FlashNotification.hideMessage()
   }
