@@ -64,10 +64,14 @@ const useDevNet = async () => {
 }
 
 const _ifNetworkNotSetDefaultIt = async () => {
-  const network = await AsyncStorage.getItem(APPLICATION_NETWORK)
+  let network = await AsyncStorage.getItem(APPLICATION_NETWORK)
   if (!network) {
     await useMainNet()
+    network = await AsyncStorage.getItem(APPLICATION_NETWORK)
   }
+  // make sure too that we have the SettingsStore populated with the
+  // correct value
+  SettingsStore.setApplicationNetwork(network)
 }
 
 /**

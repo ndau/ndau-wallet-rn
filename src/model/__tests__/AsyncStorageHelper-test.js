@@ -1,4 +1,5 @@
 import AsyncStorageHelper from '../AsyncStorageHelper'
+import AsyncStorage from '@react-native-community/async-storage'
 
 describe('AsyncStorageHelper tests...', () => {
   it('should set one user', async () => {
@@ -176,5 +177,15 @@ describe('AsyncStorageHelper tests...', () => {
     expect(await AsyncStorageHelper.getNetwork()).toBe('mainnet')
     await AsyncStorageHelper.useTestNet()
     expect(await AsyncStorageHelper.getNetwork()).toBe('testnet')
+  })
+
+  it('make sure that is calls send back the correct value or default', async () => {
+    await AsyncStorage.clear()
+    expect(await AsyncStorageHelper.isMainNet()).toBeTruthy()
+    await AsyncStorage.clear()
+    expect(await AsyncStorageHelper.isDevNet()).toBeFalsy()
+    await AsyncStorageHelper.useDevNet()
+    await AsyncStorage.clear()
+    expect(await AsyncStorageHelper.isMainNet()).toBeTruthy()
   })
 })
