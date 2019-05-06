@@ -32,29 +32,29 @@
         "mainnet": {
             "nodes": {
                 "mainnet-0": {
-                    "api": "main-api.ndau.tech:32300",
-                    "p2p": "main-p2p.ndau.tech:32200",
-                    "rpc": "main-api.ndau.tech:32100"
+                    "api": "DISABLEDTEMP-api.ndau.tech:32300",
+                    "p2p": "DISABLEDTEMP-p2p.ndau.tech:32200",
+                    "rpc": "DISABLEDTEMP-api.ndau.tech:32100"
                 },
                 "mainnet-1": {
-                    "api": "main-api.ndau.tech:32301",
-                    "p2p": "main-p2p.ndau.tech:32201",
-                    "rpc": "main-api.ndau.tech:32101"
+                    "api": "DISABLEDTEMP-api.ndau.tech:32301",
+                    "p2p": "DISABLEDTEMP-p2p.ndau.tech:32201",
+                    "rpc": "DISABLEDTEMP-api.ndau.tech:32101"
                 },
                 "mainnet-2": {
-                    "api": "main-api.ndau.tech:32302",
-                    "p2p": "main-p2p.ndau.tech:32202",
-                    "rpc": "main-api.ndau.tech:32102"
+                    "api": "DISABLEDTEMP-api.ndau.tech:32302",
+                    "p2p": "DISABLEDTEMP-p2p.ndau.tech:32202",
+                    "rpc": "DISABLEDTEMP-api.ndau.tech:32102"
                 },
                 "mainnet-3": {
-                    "api": "main-api.ndau.tech:32303",
-                    "p2p": "main-p2p.ndau.tech:32203",
-                    "rpc": "main-api.ndau.tech:32103"
+                    "api": "DISABLEDTEMP-api.ndau.tech:32303",
+                    "p2p": "DISABLEDTEMP-p2p.ndau.tech:32203",
+                    "rpc": "DISABLEDTEMP-api.ndau.tech:32103"
                 },
                 "mainnet-4": {
-                    "api": "main-api.ndau.tech:32304",
-                    "p2p": "main-p2p.ndau.tech:32204",
-                    "rpc": "main-api.ndau.tech:32104"
+                    "api": "DISABLEDTEMP-api.ndau.tech:32304",
+                    "p2p": "DISABLEDTEMP-p2p.ndau.tech:32204",
+                    "rpc": "DISABLEDTEMP-api.ndau.tech:32104"
                 }
             }
         },
@@ -106,7 +106,7 @@
         "testnet": {
             "nodes": {
                 "testnet-0": {
-                    "api": "recovery.ndau.tech"
+                    "api": "recovery.testnet.ndau.tech:20036"
                 }
             }
         }
