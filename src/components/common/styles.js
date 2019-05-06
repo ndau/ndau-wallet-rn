@@ -47,12 +47,7 @@ export default StyleSheet.create({
   },
   setupButtonContainerBottomNoBorder: {
     position: 'absolute',
-    ...Platform.select({
-      ios: {
-        bottom: hp('4%')
-      }
-    }),
-    bottom: hp('6%')
+    bottom: hp('2%')
   },
   setupButtonContainerScrollView: {
     marginTop: hp('1%')
@@ -497,6 +492,11 @@ export default StyleSheet.create({
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
     marginTop: hp('2%')
+  },
+  drawerBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginBottom: hp('3%')
   },
   barTitleLeft: {
     color: AppConstants.TEXT_COLOR,

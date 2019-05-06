@@ -399,6 +399,10 @@ export function FullBarBorder (props) {
   return <View style={styles.fullBarBorder} />
 }
 
+export function DrawerBorder (props) {
+  return <View style={styles.drawerBorder} />
+}
+
 export function OrBorder (props) {
   return (
     <View style={styles.orBorderPanel}>
@@ -479,12 +483,13 @@ export function TitleBarGradient (props) {
 export function AccountDetailsTitleBarGradient (props) {
   return (
     <LinearGradient
-      start={{ x: 0.0, y: 0.05 }}
-      end={{ x: 0.0, y: 1.0 }}
-      locations={[0, 0.08]}
+      start={{ x: 0.0, y: 0.0 }}
+      end={{ x: 0.0, y: 0.7 }}
+      locations={[0, 0.2, 0.6]}
       colors={[
         AppConstants.TITLE_BAR_GRADIENT_START_COLOR,
-        AppConstants.TITLE_BAR_GRADIENT_END_COLOR
+        AppConstants.TITLE_BAR_GRADIENT_END_COLOR,
+        AppConstants.TITLE_BAR_GRADIENT_START_COLOR
       ]}
       style={[styles.appContainerOverlay]}
     >

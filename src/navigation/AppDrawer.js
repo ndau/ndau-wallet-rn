@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, ScrollView, Platform, Linking } from 'react-native'
+import { Alert, ScrollView, Platform, View } from 'react-native'
 import VersionNumber from 'react-native-version-number'
 import DeviceInfo from 'react-native-device-info'
 import {
@@ -10,6 +10,9 @@ import {
 } from '../components/drawer'
 import LoggingService from '../services/LoggingService'
 import rnfs from 'react-native-fs'
+import { DrawerBorder } from '../components/common'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import SettingsStore from '../stores/SettingsStore'
 
 const Mailer = require('NativeModules').RNMail
 
@@ -161,6 +164,24 @@ class AppDrawer extends React.Component {
           >
             Settings
           </DrawerEntryItem>
+
+          {SettingsStore.getApplicationNetwork() !==
+          AsyncStorageHelper.MAIN_NET ? (
+            <View>
+                <DrawerBorder />
+                <DrawerEntryItem
+                fontAwesomeIconName={
+                    SettingsStore.getApplicationNetwork() ===
+                  AsyncStorageHelper.TEST_NET
+                      ? 'flask'
+                      : 'laptop-code'
+                  }
+                >
+                {SettingsStore.getApplicationNetwork()} environment
+              </DrawerEntryItem>
+                <DrawerBorder />
+              </View>
+            ) : null}
 
           <DrawerEntryVersionItem>{this.getVersion()}</DrawerEntryVersionItem>
 
