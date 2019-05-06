@@ -10,7 +10,7 @@ const initialize = () => {
     .init(AsyncStorage, {
       logToConsole: __DEV__, // Send logs to console as well as device-log
       logRNErrors: true, // Will pick up RN-errors and send them to the device log
-      maxNumberToRender: 20000, // 0 or undefined == unlimited
+      maxNumberToRender: 0, // 0 or undefined == unlimited
       maxNumberToPersist: 1000 // 0 or undefined == unlimited
     })
     .then(() => {
@@ -24,14 +24,16 @@ const initialize = () => {
 
 const scrubData = (...data) => {
   if (!data) return data
-  let stringData = data.map((e)=>{
-    const t = typeof e
-    if (t === "string" || t === "number") {
-      return e.toString()
-    } else {
-      return JSON.stringify(e)
-    }
-  }).join(',')
+  let stringData = data
+    .map(e => {
+      const t = typeof e
+      if (t === 'string' || t === 'number') {
+        return e.toString()
+      } else {
+        return JSON.stringify(e)
+      }
+    })
+    .join(',')
   // pull out ALL private keys
   let scrubbedData = stringData.replace(/"npvt[^"]+"/g, '')
   return scrubbedData
@@ -47,11 +49,11 @@ const error = (...messages) => {
 
 const getLoggingData = async logData => {
   const device = await deviceLog.store.getRows()
-  const returnLoggingData = {}
+  const returnLoggingData = []
   return new Promise(resolve => {
     const logEntries = logData || device
     for (const entry of logEntries) {
-      returnLoggingData[entry.timeStamp] = entry.message
+      returnLoggingData.push({ [entry.timeStamp]: entry.message })
     }
     resolve(returnLoggingData)
   })

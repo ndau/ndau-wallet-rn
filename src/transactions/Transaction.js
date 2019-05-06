@@ -8,7 +8,6 @@ import LoggingService from '../services/LoggingService'
 import AccountAPI from '../api/AccountAPI'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 
-
 export const Transaction = {
   /**
    * Create a transaction and store information internally
@@ -53,14 +52,16 @@ export const Transaction = {
 
   async createSubmissionAddress () {
     this._submitAddress =
-      (await APIAddressHelper.getTransactionSubmitAPIAddress()) +
+      (await APIAddressHelper.getTransactionSubmitAPIAddress(this._sendType)) +
       '/' +
       this.transactionType
   },
 
   async createPrevalidateAddress () {
     this._prevalidateAddress =
-      (await APIAddressHelper.getTransactionPrevalidateAPIAddress()) +
+      (await APIAddressHelper.getTransactionPrevalidateAPIAddress(
+        this.sendType
+      )) +
       '/' +
       this.transactionType
   },
@@ -77,7 +78,6 @@ export const Transaction = {
     } else {
       throw new Error(msgOrErr)
     }
-
   },
 
   /**

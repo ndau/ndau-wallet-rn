@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  ScrollView
+  ScrollView,
+  Switch
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
@@ -398,6 +399,10 @@ export function FullBarBorder (props) {
   return <View style={styles.fullBarBorder} />
 }
 
+export function DrawerBorder (props) {
+  return <View style={styles.drawerBorder} />
+}
+
 export function OrBorder (props) {
   return (
     <View style={styles.orBorderPanel}>
@@ -498,6 +503,19 @@ export function ParagraphText (props) {
     <P style={[styles.paragraphText]} {...props}>
       {props.children}
     </P>
+  )
+}
+
+export function BooleanSetting (props) {
+  return (
+    <View style={styles.booleanSettingPanel}>
+      <View>
+        <ParagraphText>{props.title}</ParagraphText>
+      </View>
+      <View>
+        <Switch trackColor={AppConstants.SQUARE_BUTTON_COLOR} {...props} />
+      </View>
+    </View>
   )
 }
 

@@ -38,6 +38,13 @@ export default StyleSheet.create({
     borderWidth: 2,
     marginLeft: wp('4%')
   },
+  booleanSettingPanel: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: wp('4%'),
+    maxHeight: hp('7%')
+  },
   setupButtonContainerBottomNoBorder: {
     position: 'absolute',
     bottom: hp('2%')
@@ -485,6 +492,11 @@ export default StyleSheet.create({
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
     marginTop: hp('2%')
+  },
+  drawerBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginBottom: hp('3%')
   },
   barTitleLeft: {
     color: AppConstants.TEXT_COLOR,

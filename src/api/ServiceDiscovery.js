@@ -3,52 +3,100 @@ import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import LoggingService from '../services/LoggingService'
 import moment from 'moment'
+import APIAddressHelper from '../helpers/APIAddressHelper'
 
 const AWS_S3_SERVICE_JSON =
   'https://s3.us-east-2.amazonaws.com/ndau-json/services.json'
 
-const cache = {
+const CACHE_TTL = 1000 * 60 * 5 // 1000 * 60 * 5 = five minutes
+
+const blockchainCache = {
   lastChecked: moment(0), // moment date. starts a 0 to immediately invalidate the cache
   nodes: []
 }
 
-const CACHE_TTL = 1000 * 60 * 5 // 1000 * 60 * 5 = five minutes
-const getServiceNodeURL = async () => {
-  LoggingService.debug(`Service Discovery URL: ${AWS_S3_SERVICE_JSON}`)
+const recoveryCache = {
+  lastChecked: moment(0), // moment date. starts a 0 to immediately invalidate the cache
+  nodes: []
+}
+
+const getBlockchainServiceNodeURL = async () => {
+  LoggingService.debug(
+    `Blockchain Service Discovery URL: ${AWS_S3_SERVICE_JSON}`
+  )
 
   try {
-    if (moment().diff(cache.lastChecked) > CACHE_TTL) {
+    if (moment().diff(blockchainCache.lastChecked) > CACHE_TTL) {
       const response = await APICommunicationHelper.get(AWS_S3_SERVICE_JSON)
-      cache.nodes = await _parseServicesForNodes(response)
-      cache.lastChecked = moment()
+      blockchainCache.nodes = await _parseServicesForNodes(response)
+      blockchainCache.lastChecked = moment()
     }
 
     // return a random service for use
-    return cache.nodes[Math.floor(Math.random() * cache.nodes.length)]
+    return blockchainCache.nodes[
+      Math.floor(Math.random() * blockchainCache.nodes.length)
+    ]
   } catch (error) {
     LoggingService.debug(error)
     throw new ServiceDiscoveryError()
   }
 }
 
-const _parseServicesForNodes = async serviceDiscovery => {
+const getRecoveryServiceNodeURL = async () => {
+  LoggingService.debug(`Recovery Service Discovery URL: ${AWS_S3_SERVICE_JSON}`)
+
+  try {
+    if (moment().diff(recoveryCache.lastChecked) > CACHE_TTL) {
+      const response = await APICommunicationHelper.get(AWS_S3_SERVICE_JSON)
+      recoveryCache.nodes = await _parseServicesForNodes(
+        response,
+        APIAddressHelper.RECOVERY
+      )
+      recoveryCache.lastChecked = moment()
+    }
+
+    // return a random service for use
+    return recoveryCache.nodes[
+      Math.floor(Math.random() * recoveryCache.nodes.length)
+    ]
+  } catch (error) {
+    LoggingService.debug(error)
+    throw new ServiceDiscoveryError()
+  }
+}
+
+const invalidateCache = () => {
+  blockchainCache.lastChecked = moment(0)
+  recoveryCache.lastChecked = moment(0)
+}
+
+const _parseServicesForNodes = async (serviceDiscovery, type) => {
   let nodes = []
-  let environment = 'mainnet'
-  if ((await AsyncStorageHelper.isTestNet()) || __DEV__) {
-    LoggingService.debug('Using TestNet...')
-    environment = 'testnet'
-  } else {
-    LoggingService.debug('Using MainNet...')
+  let environment = await AsyncStorageHelper.getNetwork()
+  // if we are in simulators then force to testnet
+  if (__DEV__) {
+    await AsyncStorageHelper.useTestNet()
+    environment = await AsyncStorageHelper.getNetwork()
   }
 
-  for (const node of Object.values(
-    serviceDiscovery.networks[environment].nodes
-  )) {
-    nodes.push(node.api)
+  if (type === APIAddressHelper.RECOVERY) {
+    for (const node of Object.values(
+      serviceDiscovery.recovery[environment].nodes
+    )) {
+      nodes.push(node.api)
+    }
+  } else {
+    for (const node of Object.values(
+      serviceDiscovery.networks[environment].nodes
+    )) {
+      nodes.push(node.api)
+    }
   }
   return nodes
 }
 
 export default {
-  getServiceNodeURL
+  getBlockchainServiceNodeURL,
+  getRecoveryServiceNodeURL,
+  invalidateCache
 }

@@ -38,14 +38,13 @@ export default StyleSheet.create({
   drawerButton: {
     paddingLeft: wp('4%')
   },
-  drawerEntryBottom: {
+  drawerEntry: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'flex-end',
     marginLeft: wp('4%'),
     marginBottom: hp('2.5%')
   },
-  drawerEntry: {
+  drawerVersionEntry: {
     flex: 1,
     flexDirection: 'row',
     marginLeft: wp('4%'),

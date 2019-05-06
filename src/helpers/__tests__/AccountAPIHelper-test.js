@@ -5,6 +5,7 @@ import { NativeModules } from 'react-native'
 import KeyMaster from '../KeyMaster'
 import sinon from 'sinon'
 import AppConfig from '../../AppConfig'
+import KeyPathHelper from '../KeyPathHelper'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -63,11 +64,11 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
   expect(
     wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
       .addressData.balance
-  ).toBe(4200000000.23)
+  ).toBe(420000000023)
   expect(
     wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
       .addressData.balance
-  ).toBe(20000000000.2)
+  ).toBe(200000000002)
   expect(
     wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
       .addressData.lock
@@ -101,13 +102,13 @@ test('make sure we can get the amount of ndau per account', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe('42.07')
+  ).toBe('4,200.00')
   expect(
     AccountAPIHelper.accountNdauAmount(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe('200.94')
+  ).toBe('2,000.00')
 })
 
 test('make sure we can get the locked until date of ndau per account', async () => {
@@ -137,7 +138,7 @@ test('make sure we can get the total amount of ndau for accounts', async () => {
 
   expect(wallet).toBeDefined()
   expect(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)).toBe(
-    '1,757.55859375'
+    '111,350.00000192'
   )
 })
 
@@ -151,8 +152,8 @@ test('make sure we can get the current price of the users ndau', async () => {
   )
 
   expect(wallet).toBeDefined()
-  expect(AccountAPIHelper.currentPrice(wallet.marketPrice, totalNdau)).toBe(
-    '$29,745.52'
+  expect(AccountAPIHelper.currentPrice(16.92432746094448, totalNdau)).toBe(
+    '$1,884,523.86'
   )
 })
 
@@ -342,4 +343,98 @@ test('remainingBalanceNdau returns 0', async () => {
     AppConfig.NDAU_DETAIL_PRECISION
   )
   expect(remainingBalanceNdau).toEqual('0')
+})
+
+test('addPrivateValidationKeyIfNotPresent used for genesis accounts, make sure it works', async () => {
+  const wallet = {
+    walletId: 'testwallet',
+    accountCreationKeyHash: 'e58b438d',
+    accounts: {
+      ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun: {
+        address: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+        addressData: {
+          nickname: 'Account 1',
+          balance: 420000000023,
+          validationKeys: [
+            'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb361',
+            'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb362'
+          ],
+          rewardsTarget: null,
+          incomingRewardsFrom: [
+            'ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'
+          ],
+          delegationNode: null,
+          lock: null,
+          stake: null,
+          lastEAIUpdate: 589991567000000,
+          lastWAAUpdate: 589991567000000,
+          weightedAverageAge: 0,
+          sequence: 0,
+          settlements: null,
+          settlementSettings: { period: 0, changesAt: null, next: null },
+          validationScript: 'somestring'
+        },
+        ownershipKey: 'b32d1dfb',
+        validationKeys: []
+      }
+    },
+    keys: {
+      e58b438d: {
+        publicKey:
+          'npuba8jaftcjed7stf8bkz3nnipyqahdau5vexjr52ez4wvcuusgimc7fjac52pbwa4fdissaaaanv2qizmsubdetvqmqys8fwvj4pw2b9vg9jire7cd3xm9cg74sc75yu44tbkhh23s',
+        privateKey:
+          'npvta8jaftcjed7stf8bkz3nnipyqahdau5vexjr52ez4wvcuusgimc7fjac52pbwa4fdissaaaanv2qizmsubdetvqmqys8fwvj4pw2b9vg9jire7cd3xm9cg74sc75yu44tbkhh23s',
+        path: KeyPathHelper.accountCreationKeyPath(),
+        derivedFromRoot: 'yes'
+      },
+      b32d1dfb: {
+        publicKey:
+          'npuba4jaftckeeb8m2xih7dbwsqndrt2hzz6k6xxvn3k48kss87uwuta2rbaj2dz7tie4nw4waaaaaahwni9kfku8detab44b4mqenf3qx4skffjxzfmgev5pipapeiaeqqbqsvdzkit',
+        privateKey:
+          'npvta8jaftcjed2vzrknnzf8fj83q6bsfqnf72q7pr4b4evxzgfgn24tznve5gcfkbgvfgxaaaaaab7dch4tkwzs3eiaqysqu5tdbqmxqwctjkpp3k3te85kdidjcabdu6fkrqkq356k',
+        path: "/44'/20036'/100/0",
+        derivedFromRoot: 'yes'
+      },
+      e54b7ece: {
+        publicKey:
+          'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb36x',
+        privateKey:
+          'npvta8jaftcjeai6tm5yy3j4ruh6tc9c2qgyt8jhijns3j9ib8i5jdhfvcpkj52tgbgvfgxaaaaaahdk3iu9en5kad97jugns5siid68bzkg23chd4q5mphrf24kxtq2mwu775a2cky7',
+        path: "/44'/20036'/100/1",
+        derivedFromRoot: 'yes'
+      }
+    }
+  }
+  const account = {
+    address: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+    addressData: {
+      nickname: 'Account 1',
+      balance: 420000000023,
+      validationKeys: [
+        'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb361',
+        'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb362'
+      ],
+      rewardsTarget: null,
+      incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
+      delegationNode: null,
+      lock: null,
+      stake: null,
+      lastEAIUpdate: 589991567000000,
+      lastWAAUpdate: 589991567000000,
+      weightedAverageAge: 0,
+      sequence: 0,
+      settlements: null,
+      settlementSettings: { period: 0, changesAt: null, next: null },
+      validationScript: 'somestring'
+    },
+    ownershipKey: 'b32d1dfb',
+    validationKeys: []
+  }
+
+  await AccountAPIHelper.addPrivateValidationKeyIfNotPresent(wallet, account)
+
+  expect(wallet).toBeDefined()
+  expect(wallet.accounts).toBeDefined()
+  expect(Object.keys(wallet.keys).length).toBe(4)
+  expect(account.validationKeys.length).toBe(1)
 })

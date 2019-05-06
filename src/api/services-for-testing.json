@@ -27,5 +27,28 @@
         }
       }
     }
+  },
+  "recovery": {
+    "devnet": {
+      "nodes": {
+        "devnet-0": {
+          "api": "recovery.ndau.tech"
+        }
+      }
+    },
+    "mainnet": {
+      "nodes": {
+        "mainnet-0": {
+          "api": "recovery.ndau.tech"
+        }
+      }
+    },
+    "testnet": {
+      "nodes": {
+        "testnet-0": {
+          "api": "recovery.ndau.tech"
+        }
+      }
+    }
   }
 }

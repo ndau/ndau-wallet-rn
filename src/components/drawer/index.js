@@ -17,13 +17,6 @@ export function DrawerContainer (props) {
           style={[styles.drawerContainerOverlay]}
         >
           <View style={styles.drawerContainer}>{props.children}</View>
-          <DrawerEntryItem
-            bottom
-            onPress={props.logoutHandler}
-            fontAwesomeIconName='user-circle'
-          >
-            Logout
-          </DrawerEntryItem>
         </LinearGradient>
       </View>
     </MainContainer>
@@ -42,7 +35,7 @@ export function DrawerExit (props) {
 
 export function DrawerEntryItem (props) {
   return (
-    <View style={props.bottom ? styles.drawerEntryBottom : styles.drawerEntry}>
+    <View style={styles.drawerEntry}>
       <TouchableOpacity {...props}>
         <FontAwesome5Pro
           size={22}
@@ -52,9 +45,25 @@ export function DrawerEntryItem (props) {
         />
       </TouchableOpacity>
       <TouchableOpacity {...props}>
-        <H4 style={props.bottom ? styles.drawerTextBottom : styles.drawerText}>
-          {props.children}
-        </H4>
+        <H4 style={styles.drawerText}>{props.children}</H4>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export function DrawerEntryVersionItem (props) {
+  return (
+    <View style={styles.drawerVersionEntry}>
+      <TouchableOpacity {...props}>
+        <FontAwesome5Pro
+          size={22}
+          name={props.fontAwesomeIconName}
+          color={AppConstants.ICON_BUTTON_COLOR}
+          light
+        />
+      </TouchableOpacity>
+      <TouchableOpacity {...props}>
+        <H4 style={styles.drawerText}>{props.children}</H4>
       </TouchableOpacity>
     </View>
   )

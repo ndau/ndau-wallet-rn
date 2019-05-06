@@ -1,14 +1,18 @@
 import React from 'react'
-import { Alert, ScrollView, Platform, Linking } from 'react-native'
+import { Alert, ScrollView, Platform, View } from 'react-native'
 import VersionNumber from 'react-native-version-number'
 import DeviceInfo from 'react-native-device-info'
 import {
   DrawerEntryItem,
   DrawerExit,
-  DrawerContainer
+  DrawerContainer,
+  DrawerEntryVersionItem
 } from '../components/drawer'
 import LoggingService from '../services/LoggingService'
 import rnfs from 'react-native-fs'
+import { DrawerBorder } from '../components/common'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import SettingsStore from '../stores/SettingsStore'
 
 const Mailer = require('NativeModules').RNMail
 
@@ -36,6 +40,11 @@ class AppDrawer extends React.Component {
   addWallet = async () => {
     this.closeDrawer()
     this.props.navigation.navigate('SetupYourWallet', { fromHamburger: true })
+  }
+
+  showSettings = async () => {
+    this.closeDrawer()
+    this.props.navigation.navigate('Settings')
   }
 
   sendSupportEmail = async () => {
@@ -149,14 +158,40 @@ class AppDrawer extends React.Component {
             Contact support
           </DrawerEntryItem>
 
-          <DrawerEntryItem>{this.getVersion()}</DrawerEntryItem>
-
-          {/* <DrawerEntryItem
-            onPress={() => this.logging()}
-            fontAwesomeIconName='exclamation-triangle'
+          <DrawerEntryItem
+            onPress={() => this.showSettings()}
+            fontAwesomeIconName='cog'
           >
-            Logging
-          </DrawerEntryItem> */}
+            Settings
+          </DrawerEntryItem>
+
+          {SettingsStore.getApplicationNetwork() !==
+          AsyncStorageHelper.MAIN_NET ? (
+            <View>
+                <DrawerBorder />
+                <DrawerEntryItem
+                fontAwesomeIconName={
+                    SettingsStore.getApplicationNetwork() ===
+                  AsyncStorageHelper.TEST_NET
+                      ? 'flask'
+                      : 'laptop-code'
+                  }
+                >
+                {SettingsStore.getApplicationNetwork()} environment
+              </DrawerEntryItem>
+                <DrawerBorder />
+              </View>
+            ) : null}
+
+          <DrawerEntryVersionItem>{this.getVersion()}</DrawerEntryVersionItem>
+
+          <DrawerEntryItem
+            bottom
+            onPress={() => this.logout()}
+            fontAwesomeIconName='user-circle'
+          >
+            Logout
+          </DrawerEntryItem>
         </ScrollView>
       </DrawerContainer>
     )
