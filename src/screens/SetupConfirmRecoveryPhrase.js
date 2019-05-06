@@ -143,34 +143,27 @@ class SetupConfirmRecoveryPhrase extends Component {
     }
   }
 
-  compare (correctSoFar, selected) {
+  isCorrect (selected) {
+    const correctSoFar = SetupStore.shuffledMap.slice(
+      0,
+      this.state.selected.length
+    )
+    const recoveryPhrase = SetupStore.shuffledWords
     if (_.isEqual(correctSoFar, selected)) {
       return true
+    } else if ( recoveryPhrase[_(selected).last()] === recoveryPhrase[_(correctSoFar).last()] ) {
+      // compare the last element of the arrays by string
+      return true
     } else {
-      // compare strings
-      const recoveryPhrase = SetupStore.shuffledWords
-
-      return correctSoFar.every(index => {
-        const correctIndex = correctSoFar[index]
-        const selectedIndex = selected[index]
-        const correctWord = recoveryPhrase[correctIndex]
-        const selectedWord = recoveryPhrase[selectedIndex]
-        const wordsMatch =
-          correctWord && correctWord.length > 0 && correctWord === selectedWord
-
-        return wordsMatch
-      })
+      return false
     }
   }
 
   checkMistakes () {
     const { selected } = this.state
-    const correctSoFar = SetupStore.shuffledMap.slice(
-      0,
-      this.state.selected.length
-    )
 
-    if (!this.compare(correctSoFar, selected)) {
+
+    if (!this.isCorrect(selected)) {
       const errorText = this.state.mustRetry
         ? 'Please click the Back button to generate a new recovery phrase. Write down your phrase instead of memorizing it, or you may lose access to your ndau.'
         : 'Please enter the words in the correct order. De-select the last word to continue.'
@@ -210,6 +203,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       this.setState({ selected }, this.afterClick)
     }
   }
+
   afterClick () {
     this.checkMistakes()
     this.checkDone()
