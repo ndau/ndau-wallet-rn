@@ -8,7 +8,7 @@ import AppConstants from '../../AppConstants'
 export default StyleSheet.create({
   accountMainPanel: {
     width: wp('100%'),
-    height: 120,
+    height: 100,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
@@ -224,26 +224,19 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('8%'),
-        paddingTop: hp('1.5%'),
-        paddingBottom: hp('1.5%')
-      },
-      android: {
-        height: hp('9.5%'),
-        paddingTop: hp('1%'),
-        paddingBottom: hp('1%')
-      }
-    }),
+    height: 70,
     backgroundColor: '#293E63',
     overflow: 'hidden',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
-    paddingLeft: wp('4%'),
-    paddingRight: wp('4%')
+    padding: wp('4%'),
+    ...Platform.select({
+      android: {
+        paddingTop: hp('2%')
+      }
+    })
   },
   accountHistoryPanel: {
     width: wp('100%'),
@@ -253,14 +246,13 @@ export default StyleSheet.create({
   },
   accountDetailsPanel: {
     width: wp('100%'),
-    height: hp('31%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
-    paddingTop: 0
+    paddingTop: 0,
+    marginBottom: 32
   },
   secondAccountDetailsPanel: {
     width: wp('100%'),
-    height: hp('24%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -299,10 +291,14 @@ export default StyleSheet.create({
   },
   firstAccountDetailsPanel: {
     width: wp('100%'),
-    height: hp('28%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
-    paddingTop: 0
+    paddingTop: 0,
+    ...Platform.select({
+      android: {
+        paddingBottom: 6
+      }
+    })
   },
   accountTitlePanel: {
     width: wp('100%'),
@@ -349,17 +345,19 @@ export default StyleSheet.create({
     paddingLeft: wp('3%')
   },
   accountDetailsBarText: {
-    width: wp('50%'),
-    height: hp('6%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '200',
     letterSpacing: 0.34,
     lineHeight: 24,
+    height: hp('8%'),
+    textAlign: 'center',
+    marginTop: 4,
+    marginLeft: -20,
     ...Platform.select({
       ios: {
-        marginTop: hp('.6%')
+        marginTop: 8
       }
     })
   },
@@ -418,7 +416,12 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     letterSpacing: 0.34,
-    lineHeight: 24
+    lineHeight: 24,
+    ...Platform.select({
+      android: {
+        lineHeight: 20
+      }
+    })
   },
   accountLockGreenText: {
     color: AppConstants.GREEN_TEXT_COLOR,
@@ -489,6 +492,12 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   accountLockButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%')
+  },
+  accountSendButtonContainer: {
     position: 'absolute',
     bottom: 0,
     marginLeft: wp('4%'),
@@ -685,7 +694,7 @@ export default StyleSheet.create({
   },
   dashboardTotalPanelTextContainer: {
     backgroundColor: '#293E63',
-    marginTop: -16
+    marginTop: 0
   },
   addressCopyPanelContainerBottomNoBorder: {
     bottom: 0,

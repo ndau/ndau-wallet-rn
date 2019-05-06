@@ -4,7 +4,8 @@ import {
   AccountSendContainer,
   AccountDetailPanel,
   AccountHeaderText,
-  AccountConfirmationItem
+  AccountConfirmationItem,
+  AccountSendButton
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import { LargeButton, BarBorder } from '../components/common'
@@ -131,9 +132,9 @@ class AccountSendConfirmation extends Component {
             value={this.state.total}
           />
         </AccountDetailPanel>
-        <LargeButton sideMargins onPress={() => this._confirm()}>
+        <AccountSendButton sideMargins onPress={() => this._confirm()}>
           Confirm {'&'} send
-        </LargeButton>
+        </AccountSendButton>
       </AccountSendContainer>
     )
   }

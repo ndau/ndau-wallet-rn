@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {
   AccountSendContainer,
   AccountDetailPanel,
-  AccountScanPanel,
+  AccountSendButton,
   AccountHeaderText,
   AccountConfirmationItem,
   AccountSendErrorText,
@@ -260,13 +260,13 @@ class AccountSend extends Component {
             value={this.state.total}
           />
         </AccountDetailPanel>
-        <LargeButton
+        <AccountSendButton
           sideMargins
           disabled={!this.state.canProceedFromAmount}
           onPress={() => this._next()}
         >
           Next
-        </LargeButton>
+        </AccountSendButton>
       </AccountSendContainer>
     )
   }
@@ -317,13 +317,13 @@ class AccountSend extends Component {
             Scan QR Code
           </LargeBorderButton>
         </AccountSendPanel>
-        <LargeButton
+        <AccountSendButton
           sideMargins
           disabled={!this.state.validAddress}
           onPress={() => this._haveAddress()}
         >
           Next
-        </LargeButton>
+        </AccountSendButton>
       </AccountSendContainer>
     )
   }
