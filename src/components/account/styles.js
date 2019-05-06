@@ -746,7 +746,7 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     letterSpacing: 0.34,
-    lineHeight: 24,
+    lineHeight: 20,
     width: wp('16%')
   },
   accountLockCheckbox: {
@@ -754,12 +754,19 @@ export default StyleSheet.create({
     paddingLeft: wp('1$')
   },
   accountLockOptionText: {
+    ...Platform.select({
+      ios: {
+        lineHeight: 24
+      },
+      android: {
+        lineHeight: 17
+      }
+    }),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 16,
     fontWeight: '400',
     letterSpacing: 0.34,
-    lineHeight: 24,
     width: wp('8%')
   },
   accountLockOptionTextWithBorder: {
