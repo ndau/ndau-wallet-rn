@@ -41,7 +41,7 @@ export function SetupContainer (props) {
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
-        <ProgressBar goBack={() => goBack()} pageNumber={props.pageNumber} />
+        <ProgressBar goBack={goBack} pageNumber={props.pageNumber} />
         <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
           <ScrollView>
             <View style={styles.setupContainer}>{props.children}</View>

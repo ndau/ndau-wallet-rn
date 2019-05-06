@@ -3,6 +3,7 @@ import CryptoJS from 'crypto-js'
 import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
 import ServiceDiscovery from '../api/ServiceDiscovery'
+import SettingsStore from '../stores/SettingsStore'
 
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:'
 const CURRENT_USER_KEY = '@CurrentUserKey'
@@ -40,6 +41,7 @@ const getLastAccountData = async () => {
  */
 const useMainNet = async () => {
   ServiceDiscovery.invalidateCache()
+  SettingsStore.setApplicationNetwork(MAIN_NET)
   await AsyncStorage.setItem(APPLICATION_NETWORK, MAIN_NET)
 }
 
@@ -48,6 +50,7 @@ const useMainNet = async () => {
  */
 const useTestNet = async () => {
   ServiceDiscovery.invalidateCache()
+  SettingsStore.setApplicationNetwork(TEST_NET)
   await AsyncStorage.setItem(APPLICATION_NETWORK, TEST_NET)
 }
 
@@ -56,6 +59,7 @@ const useTestNet = async () => {
  */
 const useDevNet = async () => {
   ServiceDiscovery.invalidateCache()
+  SettingsStore.setApplicationNetwork(DEV_NET)
   await AsyncStorage.setItem(APPLICATION_NETWORK, DEV_NET)
 }
 

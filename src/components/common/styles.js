@@ -493,6 +493,11 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: hp('2%')
   },
+  drawerBorder: {
+    borderBottomColor: '#455B82',
+    borderBottomWidth: 1,
+    marginBottom: hp('3%')
+  },
   barTitleLeft: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
