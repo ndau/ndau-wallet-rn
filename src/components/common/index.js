@@ -399,6 +399,10 @@ export function FullBarBorder (props) {
   return <View style={styles.fullBarBorder} />
 }
 
+export function DrawerBorder (props) {
+  return <View style={styles.drawerBorder} />
+}
+
 export function OrBorder (props) {
   return (
     <View style={styles.orBorderPanel}>
