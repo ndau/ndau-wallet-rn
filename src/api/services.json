@@ -32,29 +32,29 @@
         "mainnet": {
             "nodes": {
                 "mainnet-0": {
-                    "api": "api.ndau.tech:32300",
-                    "p2p": "p2p.ndau.tech:32200",
-                    "rpc": "api.ndau.tech:32100"
+                    "api": "main-api.ndau.tech:32300",
+                    "p2p": "main-p2p.ndau.tech:32200",
+                    "rpc": "main-api.ndau.tech:32100"
                 },
                 "mainnet-1": {
-                    "api": "api.ndau.tech:32301",
-                    "p2p": "p2p.ndau.tech:32201",
-                    "rpc": "api.ndau.tech:32101"
+                    "api": "main-api.ndau.tech:32301",
+                    "p2p": "main-p2p.ndau.tech:32201",
+                    "rpc": "main-api.ndau.tech:32101"
                 },
                 "mainnet-2": {
-                    "api": "api.ndau.tech:32302",
-                    "p2p": "p2p.ndau.tech:32202",
-                    "rpc": "api.ndau.tech:32102"
+                    "api": "main-api.ndau.tech:32302",
+                    "p2p": "main-p2p.ndau.tech:32202",
+                    "rpc": "main-api.ndau.tech:32102"
                 },
                 "mainnet-3": {
-                    "api": "api.ndau.tech:32303",
-                    "p2p": "p2p.ndau.tech:32203",
-                    "rpc": "api.ndau.tech:32103"
+                    "api": "main-api.ndau.tech:32303",
+                    "p2p": "main-p2p.ndau.tech:32203",
+                    "rpc": "main-api.ndau.tech:32103"
                 },
                 "mainnet-4": {
-                    "api": "api.ndau.tech:32304",
-                    "p2p": "p2p.ndau.tech:32204",
-                    "rpc": "api.ndau.tech:32104"
+                    "api": "main-api.ndau.tech:32304",
+                    "p2p": "main-p2p.ndau.tech:32204",
+                    "rpc": "main-api.ndau.tech:32104"
                 }
             }
         },
