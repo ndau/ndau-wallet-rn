@@ -48,15 +48,25 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginLeft: wp('4%'),
-    marginBottom: hp('35%')
+    marginBottom: hp('2.5%')
+  },
+  drawerTextBottom: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    fontWeight: '200',
+    letterSpacing: 0.34,
+    lineHeight: 20,
+    marginLeft: wp('2%'),
+    paddingBottom: 0
   },
   drawerText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '200',
     letterSpacing: 0.34,
-    lineHeight: 24,
+    lineHeight: 20,
     marginLeft: wp('2%'),
     paddingTop: 0
   },
