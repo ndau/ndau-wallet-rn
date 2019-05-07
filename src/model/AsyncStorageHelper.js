@@ -69,6 +69,12 @@ const _ifNetworkNotSetDefaultIt = async () => {
     await useMainNet()
     network = await AsyncStorage.getItem(APPLICATION_NETWORK)
   }
+
+  // This is to change the 1.8.1 version of ndau wallet to the newest format
+  if (network === 'MainNet') {
+    await useMainNet()
+  }
+
   // make sure too that we have the SettingsStore populated with the
   // correct value
   SettingsStore.setApplicationNetwork(network)
@@ -81,7 +87,7 @@ const isMainNet = async () => {
   await _ifNetworkNotSetDefaultIt()
 
   const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork === MAIN_NET
+  return applicationNetwork && applicationNetwork.toLowerCase() === MAIN_NET
 }
 
 /**
@@ -91,7 +97,7 @@ const isTestNet = async () => {
   await _ifNetworkNotSetDefaultIt()
 
   const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork === TEST_NET
+  return applicationNetwork && applicationNetwork.toLowerCase() === TEST_NET
 }
 
 /**
@@ -101,7 +107,7 @@ const isDevNet = async () => {
   await _ifNetworkNotSetDefaultIt()
 
   const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork === DEV_NET
+  return applicationNetwork && applicationNetwork.toLowerCase() === DEV_NET
 }
 
 /**

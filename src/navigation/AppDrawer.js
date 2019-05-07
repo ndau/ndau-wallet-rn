@@ -165,23 +165,22 @@ class AppDrawer extends React.Component {
             Settings
           </DrawerEntryItem>
 
-          {SettingsStore.getApplicationNetwork() !==
-          AsyncStorageHelper.MAIN_NET ? (
+          {!SettingsStore.isMainNet() ? (
             <View>
-                <DrawerBorder />
-                <DrawerEntryItem
+              <DrawerBorder />
+              <DrawerEntryItem
                 fontAwesomeIconName={
-                    SettingsStore.getApplicationNetwork() ===
+                  SettingsStore.getApplicationNetwork() ===
                   AsyncStorageHelper.TEST_NET
-                      ? 'flask'
-                      : 'laptop-code'
-                  }
-                >
+                    ? 'flask'
+                    : 'laptop-code'
+                }
+              >
                 {SettingsStore.getApplicationNetwork()} environment
               </DrawerEntryItem>
-                <DrawerBorder />
-              </View>
-            ) : null}
+              <DrawerBorder />
+            </View>
+          ) : null}
 
           <DrawerEntryVersionItem>{this.getVersion()}</DrawerEntryVersionItem>
 

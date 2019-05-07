@@ -1,3 +1,5 @@
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+
 class SettingsStore {
   constructor () {
     if (!SettingsStore.instance) {
@@ -13,7 +15,21 @@ class SettingsStore {
   }
 
   getApplicationNetwork () {
+    if (!this._settings.applicationNetwork) {
+      this._settings.applicationNetwork = AsyncStorageHelper.MAIN_NET
+    }
     return this._settings.applicationNetwork
+  }
+
+  isMainNet () {
+    if (
+      this._settings.applicationNetwork &&
+      this._settings.applicationNetwork.toLowerCase() ===
+        AsyncStorageHelper.MAIN_NET
+    ) {
+      return true
+    }
+    return false
   }
 }
 
