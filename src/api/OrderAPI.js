@@ -1,5 +1,4 @@
 import APIAddressHelper from '../helpers/APIAddressHelper'
-import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import LoggingService from '../services/LoggingService'
 import DataFormatHelper from '../helpers/DataFormatHelper'
@@ -25,10 +24,12 @@ const getMarketPrice = async user => {
       `Something went wrong geting market price: ${JSON.stringify(error)}`
     )
 
-    if (user.defaults.marketPrice) {
+    if (user.defaults && user.defaults.marketPrice) {
       return user.defaults.marketPrice
     }
   }
+
+  return 0
 }
 
 export default {

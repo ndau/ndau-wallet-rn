@@ -18,14 +18,18 @@ const loadUserData = async user => {
 
   for (const walletKey of walletKeys) {
     const wallet = user.wallets[walletKey]
-    await AccountAPIHelper.populateWalletWithAddressData(wallet)
+    const dataFound = await AccountAPIHelper.populateWalletWithAddressData(
+      wallet
+    )
 
     // after the data is loaded successfully then save the user
     const password = await UserStore.getPassword()
     // double check that both are truthy, user should be if password is
     // so we could just check for password, but if they are not we might
     // have other problems.
-    if (user && password) {
+    // Also make sure that you have found data, if not we stand the risk
+    // of blowing away data that is present
+    if (user && password && dataFound) {
       await MultiSafeHelper.saveUser(user, password)
     }
   }

@@ -23,7 +23,10 @@ export const Transaction = {
       // but only if there are none present. This business logic may
       // change in the future, but for now, we only create one validation
       // key per account here
-      if (this._account.validationKeys.length === 0) {
+      if (
+        this._account.validationKeys &&
+        this._account.validationKeys.length === 0
+      ) {
         await KeyMaster.addValidationKey(this._wallet, this._account)
       }
 

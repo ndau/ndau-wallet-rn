@@ -91,6 +91,8 @@ const populateWalletWithAddressData = async wallet => {
 
     count++
   }
+
+  return addressDataKeys.length > 0
 }
 
 /**
@@ -161,7 +163,10 @@ const addPrivateValidationKeyIfNotPresent = async (wallet, account) => {
   ) {
     // Only create the key if we haven't already created it. If we have,
     // then the SetValidation did go through yet...so try it again
-    if (!account.validationKeys || account.validationKeys.length === 0) {
+    if (
+      !account.validationKeys ||
+      (account.validationKeys && account.validationKeys.length === 0)
+    ) {
       await KeyMaster.addValidationKey(wallet, account)
     }
 
