@@ -65,30 +65,23 @@ class BlockchainAPIError extends Error {
   constructor (...args) {
     if (args) {
       super(...args)
-      if (Object.prototype.toString.call(args[0]) === "[object String]") {
-        // If the first argument is a string. Just use that as the message
-        this.message = args[0]
-      } else if (Object.prototype.toString.call(args[0]) === "[object Object]") {
-        // If the first argument is an object.
-        if (args[0].err && args[0].err instanceof BlockchainAPIError) {
-          // if the error being thrown was already a blockchain api error, then copy it
-          this.message = args[0].err.message
-          this.status = args[0].err.status
-        } else if (args[0].err instanceof Error) {
-          // pass through an error
-          this.message = args[0].err.message
-        } else {
+      const err = args[0].err || args[0]
+      if (Object.prototype.toString.call(err) === "[object String]") {
+        // If the err is a string. Just use that as the message
+        this.message = err
+      } else if (err instanceof BlockchainAPIError) {
+        // if the error being thrown was already a blockchain api error, then copy it
+        this.message = err.message
+        this.status = err.status
+      } else if (err.response) {
           // if the error being thrown was an axios error
-          this.message = _getError(args[0].err)
-          this.status = args[0].status
-        }
-      } else if (args[0] instanceof BlockchainAPIError) {
-        // If the first argument object is BlockchainAPIError, just copy it's variables
-        this.message = args[0].message
+        this.message = _getError(err)
         this.status = args[0].status
-      } else if (args[0] instanceof Error) {
+      } else if (err instanceof Error) {
         // pass through an error
-        this.message = args[0].message
+        this.message = err.message
+      } else {
+        this.message = err
       }
     }
 
