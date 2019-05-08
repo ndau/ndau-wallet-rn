@@ -125,7 +125,7 @@ const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
   } catch (error) {
     if (account.addressData.balance) {
       LoggingService.debug(
-        `Issue encountered perfroming SetValidation: ${JSON.stringify(error)}`
+        `Issue encountered performing SetValidation: ${JSON.stringify(error)}`
       )
     }
   }
