@@ -261,7 +261,7 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
   expect(AccountAPIHelper.lockBonusEAI(1098)).toBe(5)
 })
 
-test('make sure totalSpendableNdau subtracks the holds correctly', async () => {
+test('make sure totalSpendableNdau subtracts the holds correctly', async () => {
   const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
   const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
   expect(totalNdau).toEqual('1.21')
