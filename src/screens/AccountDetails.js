@@ -118,7 +118,7 @@ class AccountDetails extends Component {
           onPress={() => this.showHistory(this.state.account)}
           {...this.props}
         />
-        {!accountLockedUntil && !accountNoticePeriod ? (
+        {!accountLockedUntil && !accountNoticePeriod && !spendableNdau ? (
           <AccountDetailsButtonPanel
             showLock={this.showLock}
             send={this.send}
