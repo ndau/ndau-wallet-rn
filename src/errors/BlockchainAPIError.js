@@ -1,4 +1,4 @@
-import LoggingService from "../services/LoggingService";
+import LoggingService from '../services/LoggingService'
 
 export const Messages = {
   INSUFFICIENT_BALANCE: 'Insufficient balance in account',
@@ -9,17 +9,17 @@ const APIErrors = [
   {
     code: 1000,
     message: Messages.INSUFFICIENT_BALANCE,
-    re: new RegExp("insufficient available balance", "i")
+    re: new RegExp('insufficient available balance', 'i')
   },
   {
     code: 1001,
     message: Messages.SRC_NO_HISTORY,
-    re: new RegExp("no sequence found", "i")
+    re: new RegExp('no sequence found', 'i')
   },
   {
     code: 1002,
     message: Messages.SRC_DEST_SAME,
-    re: new RegExp("source == destination", "i")
+    re: new RegExp('source == destination', 'i')
   }
 ]
 
@@ -30,10 +30,10 @@ export const MessagesByCode = APIErrors.reduce((a, c, i, s) => {
 
 // codeFromMessage should return an error code based on
 // returns null if not found
-function codeFromMessage(msg) {
+function codeFromMessage (msg) {
   const s = String(msg)
   const keys = Object.keys(APIErrors)
-  for (let i = 0, l = keys.length; i<l; i++) {
+  for (let i = 0, l = keys.length; i < l; i++) {
     if (s.match(APIErrors[keys[i]].re)) {
       return APIErrors[keys[i]].code
     }
@@ -42,11 +42,9 @@ function codeFromMessage(msg) {
   return null
 }
 
-
 // _getError tries to parse an axiosErr for BlockchainAPIError.
 // It will first try to return an error, which is parseable by BlockChainAPIError
 const _getError = axiosErr => {
-
   if (axiosErr && axiosErr.response && axiosErr.response.data) {
     const data = axiosErr.response.data
     if (data.err_code && data.err_code != -1) {
@@ -59,14 +57,15 @@ const _getError = axiosErr => {
 }
 
 // shown if error not recognized
-const DEFAULT_UNKNOWN_MESSAGE = "Blockchain API error: "
+const DEFAULT_UNKNOWN_MESSAGE = 'Blockchain API error: '
 
 class BlockchainAPIError extends Error {
   constructor (...args) {
     if (args) {
       super(...args)
       const err = args[0].err || args[0]
-      if (Object.prototype.toString.call(err) === "[object String]") {
+      this.error = err
+      if (Object.prototype.toString.call(err) === '[object String]') {
         // If the err is a string. Just use that as the message
         this.message = err
       } else if (err instanceof BlockchainAPIError) {
@@ -74,7 +73,7 @@ class BlockchainAPIError extends Error {
         this.message = err.message
         this.status = err.status
       } else if (err.response) {
-          // if the error being thrown was an axios error
+        // if the error being thrown was an axios error
         this.message = _getError(err)
         this.status = args[0].status
       } else if (err instanceof Error) {
@@ -90,17 +89,25 @@ class BlockchainAPIError extends Error {
     }
 
     const parsedCode = parseInt(this.message)
-    if ( parsedCode > 999 && parsedCode < 9999 ) {
+    if (parsedCode > 999 && parsedCode < 9999) {
       this.message = MessagesByCode[parsedCode]
     } else {
       const code = codeFromMessage(this.message)
-      const statusOrNot = this.status ?  this.status: ' '
+      const statusOrNot = this.status ? this.status : ' '
       if (code !== null) {
         this.message = MessagesByCode[code]
       } else {
         this.message = `${DEFAULT_UNKNOWN_MESSAGE}${statusOrNot}${this.message}`
       }
     }
+  }
+
+  getData () {
+    if (this.error && this.error.response && this.error.response.data) {
+      return this.error.response.data
+    }
+
+    return null
   }
 }
 

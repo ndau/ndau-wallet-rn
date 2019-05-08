@@ -47,20 +47,22 @@ export class SetValidationTransaction {
   }
 
   async createSignPrevalidateSubmit () {
-    const spendable = AccountAPIHelper.spendableNdau(
-      this._account.addressData,
-      true,
-      AppConfig.NDAU_DETAIL_PRECISION
-    )
     await this.create()
     await this.sign()
-    if (spendable <= 0) {
-      LoggingService.debug(
-        `SetValidation not being sent as spendable ${spendable} is <= 0`
-      )
-    } else {
+    try {
       await this.prevalidate()
       await this.submit()
+    } catch (error) {
+      const spendableNapu = AccountAPIHelper.spendableNapu(
+        this._account.addressData,
+        true,
+        AppConfig.NDAU_DETAIL_PRECISION
+      )
+      const data = error.getData()
+      if (spendableNapu > data.fee_napu) {
+        this.handleError(error)
+        throw error
+      }
     }
   }
 }

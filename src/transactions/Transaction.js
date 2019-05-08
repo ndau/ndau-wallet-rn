@@ -130,18 +130,14 @@ export const Transaction = {
    * is well you can then call `submit`.
    */
   async prevalidate () {
-    try {
-      const response = await TransactionAPI.prevalidate(
-        this._prevalidateAddress,
-        this._jsonTransaction
-      )
-      if (response.err) {
-        this.handleError(response.err)
-      } else {
-        return response
-      }
-    } catch (error) {
-      this.handleError(error)
+    const response = await TransactionAPI.prevalidate(
+      this._prevalidateAddress,
+      this._jsonTransaction
+    )
+    if (response.err) {
+      this.handleError(response.err)
+    } else {
+      return response
     }
   },
 

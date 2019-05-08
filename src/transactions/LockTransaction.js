@@ -27,9 +27,14 @@ export class LockTransaction {
   }
 
   async createSignPrevalidateSubmit () {
-    await this.create()
-    await this.sign()
-    await this.prevalidate()
-    await this.submit()
+    try {
+      await this.create()
+      await this.sign()
+      await this.prevalidate()
+      await this.submit()
+    } catch (error) {
+      this.handleError(error)
+      throw error
+    }
   }
 }
