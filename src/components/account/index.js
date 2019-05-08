@@ -462,6 +462,10 @@ export function AccountDetailsBar (props) {
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountClosingBarContainer}>
+      <View>
+        <Text style={styles.testText}>TEST</Text>
+      </View>
+
       {props.backBar ? (
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <TouchableOpacity onPress={props.goBack}>
@@ -477,7 +481,7 @@ export function AccountClosingBar (props) {
         <View style={styles.backArrow} />
       )}
 
-      <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
+      <H4 style={[styles.accountClosingBarText]}>{props.title}</H4>
       {props.closeBar ? (
         <CloseForBar style={styles.closeIcon} {...props} />
       ) : (
