@@ -54,8 +54,8 @@ test('isAddressDataNew should report correctly with minor change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz: {
@@ -73,8 +73,8 @@ test('isAddressDataNew should report correctly with minor change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55: {
@@ -92,8 +92,8 @@ test('isAddressDataNew should report correctly with minor change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g: {
@@ -111,8 +111,8 @@ test('isAddressDataNew should report correctly with minor change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp5c: {
@@ -127,8 +127,8 @@ test('isAddressDataNew should report correctly with minor change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbfq: {
@@ -146,8 +146,8 @@ test('isAddressDataNew should report correctly with minor change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk98: {
@@ -162,8 +162,8 @@ test('isAddressDataNew should report correctly with minor change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     }
   })
@@ -203,8 +203,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz: {
@@ -222,8 +222,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55: {
@@ -241,8 +241,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g: {
@@ -260,8 +260,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp5c: {
@@ -276,8 +276,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbfq: {
@@ -295,8 +295,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk98: {
@@ -311,8 +311,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     },
     ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk12: {
@@ -327,8 +327,8 @@ test('isAddressDataNew should report correctly with large change', async () => {
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
       validationScript: null
     }
   })

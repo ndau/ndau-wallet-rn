@@ -20,4 +20,11 @@ export class SetRewardsDestinationTransaction {
     this._jsonTransaction.target = this._account.address
     this._jsonTransaction.destination = this._destination
   }
+
+  async createSignPrevalidateSubmit () {
+    await this.create()
+    await this.sign()
+    await this.prevalidate()
+    await this.submit()
+  }
 }

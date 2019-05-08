@@ -1,6 +1,7 @@
-import FlashNotification from '../components/common/FlashNotification'
-import APIAddressHelper from '../helpers/APIAddressHelper'
+import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import AppConfig from '../AppConfig'
 import KeyMaster from '../helpers/KeyMaster'
+import LoggingService from '../services/LoggingService'
 
 export class SetValidationTransaction {
   constructor (wallet, account, sendType) {
@@ -43,5 +44,23 @@ export class SetValidationTransaction {
 
   addSignatureToJsonTransaction = signature => {
     this._jsonTransaction.signature = signature
+  }
+
+  async createSignPrevalidateSubmit () {
+    const spendable = AccountAPIHelper.spendableNdau(
+      this._account.addressData,
+      true,
+      AppConfig.NDAU_DETAIL_PRECISION
+    )
+    await this.create()
+    await this.sign()
+    if (spendable <= 0) {
+      LoggingService.debug(
+        `SetValidation not being sent as spendable ${spendable} is <= 0`
+      )
+    } else {
+      await this.prevalidate()
+      await this.submit()
+    }
   }
 }

@@ -28,8 +28,8 @@ const user = {
             lastWAAUpdate: '2019-04-02T19:31:35Z',
             weightedAverageAge: '2dt19h55m48s220684us',
             sequence: 3,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -65,8 +65,8 @@ const user = {
             lastWAAUpdate: '2019-04-03T01:34:26Z',
             weightedAverageAge: '2dt13h52m57s291734us',
             sequence: 4,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -100,8 +100,8 @@ const user = {
             lastWAAUpdate: '2019-03-11T19:48:25Z',
             weightedAverageAge: '5m1dt6h36m42s476192us',
             sequence: 1,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '1dt23h59m',
               changesAt: null,
               next: null
@@ -138,8 +138,8 @@ const user = {
             lastWAAUpdate: '2018-06-01T00:00:00Z',
             weightedAverageAge: '10m8dt15h27m24s172149us',
             sequence: 1,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '1dt23h59m',
               changesAt: null,
               next: null
@@ -176,8 +176,8 @@ const user = {
             lastWAAUpdate: '2019-04-03T02:06:48Z',
             weightedAverageAge: '2dt13h20m35s320985us',
             sequence: 4,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -209,8 +209,8 @@ const user = {
             lastWAAUpdate: '2019-04-02T19:28:54Z',
             weightedAverageAge: '2dt19h58m29s694200us',
             sequence: 2,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -242,8 +242,8 @@ const user = {
             lastWAAUpdate: '2019-03-26T23:57:31Z',
             weightedAverageAge: '9dt15h29m52s413627us',
             sequence: 11,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -279,8 +279,8 @@ const user = {
             lastWAAUpdate: '2019-04-03T01:33:45Z',
             weightedAverageAge: '2dt14h42m52s105281us',
             sequence: 3,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -312,8 +312,8 @@ const user = {
             lastWAAUpdate: '2019-04-02T19:29:21Z',
             weightedAverageAge: '2dt19h58m3s126850us',
             sequence: 2,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -345,8 +345,8 @@ const user = {
             lastWAAUpdate: '2019-04-02T19:33:07Z',
             weightedAverageAge: '2dt19h54m16s739001us',
             sequence: 2,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null

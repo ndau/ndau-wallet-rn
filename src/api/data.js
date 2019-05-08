@@ -29,8 +29,8 @@ const testSingleAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 3830689464,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   }
 }
@@ -61,8 +61,8 @@ const test7MP4FVUserData = {
             lastWAAUpdate: '2018-06-01T00:00:00Z',
             weightedAverageAge: '9m26dt23h54m21s889673us',
             sequence: 0,
-            settlements: null,
-            settlementSettings: {
+            holds: null,
+            recourseSettings: {
               period: '1dt23h59m',
               changesAt: null,
               next: null
@@ -94,17 +94,17 @@ const test7MP4FVUserData = {
             lastWAAUpdate: '2019-03-11T19:48:25Z',
             weightedAverageAge: '4m19dt15h3m40s193716us',
             sequence: 0,
-            settlements: [
+            holds: [
               {
-                Qty: 1000000,
-                Expiry: '2019-03-28T20:50:59Z'
+                qty: 1000000,
+                expiry: '2019-03-28T20:50:59Z'
               },
               {
-                Qty: 1000000,
-                Expiry: '2019-03-26T20:52:54Z'
+                qty: 1000000,
+                expiry: '2019-03-26T20:52:54Z'
               }
             ],
-            settlementSettings: {
+            recourseSettings: {
               period: '1dt23h59m',
               changesAt: null,
               next: null
@@ -140,17 +140,17 @@ const test7MP4FVUserData = {
             lastWAAUpdate: '2019-03-26T23:57:31Z',
             weightedAverageAge: 't22h48m29s528919us',
             sequence: 2,
-            settlements: [
+            holds: [
               {
-                Qty: 1000000,
-                Expiry: '2019-03-28T20:50:59Z'
+                qty: 1000000,
+                expiry: '2019-03-28T20:50:59Z'
               },
               {
-                Qty: 1000000,
-                Expiry: '2019-03-26T20:52:54Z'
+                qty: 1000000,
+                expiry: '2019-03-26T20:52:54Z'
               }
             ],
-            settlementSettings: {
+            recourseSettings: {
               period: '2d',
               changesAt: null,
               next: null
@@ -242,17 +242,17 @@ const test7MP4FVAddressData = {
     lastWAAUpdate: '2019-03-11T19:48:25Z',
     weightedAverageAge: '4m19dt15h8m41s509064us',
     sequence: 0,
-    settlements: [
+    holds: [
       {
-        Qty: 1000000,
-        Expiry: '2019-03-28T20:50:59Z'
+        qty: 1000000,
+        expiry: '2019-03-28T20:50:59Z'
       },
       {
-        Qty: 1000000,
-        Expiry: '2019-03-26T20:52:54Z'
+        qty: 1000000,
+        expiry: '2019-03-26T20:52:54Z'
       }
     ],
-    settlementSettings: {
+    recourseSettings: {
       period: '1dt23h59m',
       changesAt: null,
       next: null
@@ -280,17 +280,17 @@ const test7MP4FVAddressData = {
     lastWAAUpdate: '2018-06-01T00:00:00Z',
     weightedAverageAge: '9m26dt23h59m23s205021us',
     sequence: 1,
-    settlements: [
+    holds: [
       {
-        Qty: 1000000,
-        Expiry: '2019-03-28T20:50:59Z'
+        qty: 1000000,
+        expiry: '2019-03-28T20:50:59Z'
       },
       {
-        Qty: 1000000,
-        Expiry: '2019-03-26T20:52:54Z'
+        qty: 1000000,
+        expiry: '2019-03-26T20:52:54Z'
       }
     ],
-    settlementSettings: {
+    recourseSettings: {
       period: '1dt23h59m',
       changesAt: null,
       next: null
@@ -318,17 +318,17 @@ const test7MP4FVAddressData = {
     lastWAAUpdate: '2019-03-26T23:57:31Z',
     weightedAverageAge: 't22h48m29s528919us',
     sequence: 2,
-    settlements: [
+    holds: [
       {
-        Qty: 1000000,
-        Expiry: '2019-03-28T20:50:59Z'
+        qty: 1000000,
+        expiry: '2019-03-28T20:50:59Z'
       },
       {
-        Qty: 1000000,
-        Expiry: '2019-03-26T20:52:54Z'
+        qty: 1000000,
+        expiry: '2019-03-26T20:52:54Z'
       }
     ],
-    settlementSettings: {
+    recourseSettings: {
       period: '2d',
       changesAt: null,
       next: null
@@ -355,8 +355,8 @@ const testAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz: {
@@ -374,8 +374,8 @@ const testAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55: {
@@ -393,8 +393,8 @@ const testAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g: {
@@ -412,8 +412,8 @@ const testAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp5c: {
@@ -428,8 +428,8 @@ const testAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychbfq: {
@@ -447,8 +447,8 @@ const testAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk98: {
@@ -463,8 +463,8 @@ const testAddressData = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   }
 }
@@ -482,8 +482,8 @@ const testAddressDataRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9m2root: {
@@ -501,8 +501,8 @@ const testAddressDataRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufc3root: {
@@ -520,8 +520,8 @@ const testAddressDataRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk64root: {
@@ -539,8 +539,8 @@ const testAddressDataRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5z5root: {
@@ -555,8 +555,8 @@ const testAddressDataRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3y6root: {
@@ -574,8 +574,8 @@ const testAddressDataRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy7root: {
@@ -590,8 +590,8 @@ const testAddressDataRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   }
 }
@@ -862,8 +862,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm3822: {
@@ -881,8 +881,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf33: {
@@ -900,8 +900,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f644: {
@@ -919,8 +919,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp65: {
@@ -935,8 +935,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb66: {
@@ -954,8 +954,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk77: {
@@ -970,8 +970,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcu8: {
@@ -986,8 +986,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38v9: {
@@ -1005,8 +1005,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf10: {
@@ -1024,8 +1024,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f611: {
@@ -1043,8 +1043,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp12: {
@@ -1059,8 +1059,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb13: {
@@ -1078,8 +1078,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctkndy2fk14: {
@@ -1094,8 +1094,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zc15: {
@@ -1110,8 +1110,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm3816: {
@@ -1129,8 +1129,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf17: {
@@ -1148,8 +1148,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f618: {
@@ -1167,8 +1167,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc5zjyp519: {
@@ -1183,8 +1183,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd3ychb20: {
@@ -1202,8 +1202,8 @@ const testAddressData20Items = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   }
 }
@@ -1221,8 +1221,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9m2mroot: {
@@ -1240,8 +1240,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiu3croot: {
@@ -1259,8 +1259,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk48root: {
@@ -1278,8 +1278,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc55jroot: {
@@ -1294,8 +1294,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd36croot: {
@@ -1313,8 +1313,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjbcctknd72root: {
@@ -1329,8 +1329,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbt88root: {
@@ -1345,8 +1345,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr99cmroot: {
@@ -1364,8 +1364,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfh10ufcroot: {
@@ -1383,8 +1383,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i711zk68f611: {
@@ -1402,8 +1402,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv712pgc5zjroot: {
@@ -1418,8 +1418,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr913tnd3ycroot: {
@@ -1437,8 +1437,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaq9euuwf83yds7f3bwcfqdqsx43x5v4vjb14tkndy2root: {
@@ -1453,8 +1453,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndarc8etbkidm5ewytxhvzida94sgg9mvr3a15ufbty8root: {
@@ -1469,8 +1469,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997169mcmroot: {
@@ -1488,8 +1488,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhj17fcroot: {
@@ -1507,8 +1507,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7n18k68root: {
@@ -1526,8 +1526,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndafwi9munvx8uhgg3pmaw7m6p22ixp5mpv7nipgc19jyroot: {
@@ -1542,8 +1542,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   },
   ndap34mk6yzyiru49ivfitgzybkfqxnejcr9qvtnd320root: {
@@ -1561,8 +1561,8 @@ const testAddressData20ItemsRoot = {
     lastWAAUpdate: 589991567000000,
     weightedAverageAge: 0,
     sequence: 0,
-    settlements: null,
-    settlementSettings: { period: 0, changesAt: null, next: null },
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
     validationScript: null
   }
 }

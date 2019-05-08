@@ -27,4 +27,11 @@ export class TransferTransaction {
     this._jsonTransaction.destination = this._destination
     this._jsonTransaction.source = this._account.address
   }
+
+  async createSignPrevalidateSubmit () {
+    await this.create()
+    await this.sign()
+    await this.prevalidate()
+    await this.submit()
+  }
 }

@@ -25,4 +25,11 @@ export class LockTransaction {
     this._jsonTransaction.period = this._period
     this._jsonTransaction.target = this._account.address
   }
+
+  async createSignPrevalidateSubmit () {
+    await this.create()
+    await this.sign()
+    await this.prevalidate()
+    await this.submit()
+  }
 }

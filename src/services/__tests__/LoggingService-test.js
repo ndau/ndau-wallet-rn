@@ -105,8 +105,8 @@ test('make sure we can remove private keys', async () => {
                   "lastWAAUpdate": "2019-04-23T00:49:53Z",
                   "weightedAverageAge": "t17h20m39s883531us",
                   "sequence": 6,
-                  "settlements": null,
-                  "settlementSettings": {
+                  "holds": null,
+                  "recourseSettings": {
                     "period": "2d",
                     "changesAt": null,
                     "next": null
@@ -144,13 +144,13 @@ test('make sure we can remove private keys', async () => {
                   "lastWAAUpdate": "2019-04-23T02:49:14Z",
                   "weightedAverageAge": "t15h21m18s766106us",
                   "sequence": 5,
-                  "settlements": [
+                  "holds": [
                     {
-                      "Qty": 6655000000,
-                      "Expiry": "2019-04-25T02:49:14Z"
+                      "qty": 6655000000,
+                      "expiry": "2019-04-25T02:49:14Z"
                     }
                   ],
-                  "settlementSettings": {
+                  "recourseSettings": {
                     "period": "2d",
                     "changesAt": null,
                     "next": null
@@ -221,17 +221,17 @@ test('make sure we can remove private keys', async () => {
                   "lastWAAUpdate": "2019-04-23T01:12:32Z",
                   "weightedAverageAge": "t16h59m13s386244us",
                   "sequence": 2,
-                  "settlements": [
+                  "holds": [
                     {
-                      "Qty": 3423000000,
-                      "Expiry": "2019-04-25T01:10:07Z"
+                      "qty": 3423000000,
+                      "expiry": "2019-04-25T01:10:07Z"
                     },
                     {
-                      "Qty": 3423000000,
-                      "Expiry": "2019-04-25T01:12:32Z"
+                      "qty": 3423000000,
+                      "expiry": "2019-04-25T01:12:32Z"
                     }
                   ],
-                  "settlementSettings": {
+                  "recourseSettings": {
                     "period": "2d",
                     "changesAt": null,
                     "next": null
@@ -269,13 +269,13 @@ test('make sure we can remove private keys', async () => {
                   "lastWAAUpdate": "2019-04-23T00:53:30Z",
                   "weightedAverageAge": "t17h17m3s153291us",
                   "sequence": 5,
-                  "settlements": [
+                  "holds": [
                     {
-                      "Qty": 3423000000,
-                      "Expiry": "2019-04-25T00:53:30Z"
+                      "qty": 3423000000,
+                      "expiry": "2019-04-25T00:53:30Z"
                     }
                   ],
-                  "settlementSettings": {
+                  "recourseSettings": {
                     "period": "2d",
                     "changesAt": null,
                     "next": null
@@ -311,8 +311,8 @@ test('make sure we can remove private keys', async () => {
                   "lastWAAUpdate": "2019-04-23T00:55:00Z",
                   "weightedAverageAge": "t17h15m32s210916us",
                   "sequence": 0,
-                  "settlements": null,
-                  "settlementSettings": {
+                  "holds": null,
+                  "recourseSettings": {
                     "period": "2d",
                     "changesAt": null,
                     "next": null
