@@ -123,9 +123,11 @@ const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
       await setValidationTransaction.createSignPrevalidateSubmit()
     }
   } catch (error) {
-    LoggingService.debug(
-      `Issue encountered perfroming SetValidation: ${JSON.stringify(error)}`
-    )
+    if (account.addressData.balance) {
+      LoggingService.debug(
+        `Issue encountered perfroming SetValidation: ${JSON.stringify(error)}`
+      )
+    }
   }
 }
 
