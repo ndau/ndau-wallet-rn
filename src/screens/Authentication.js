@@ -41,10 +41,7 @@ class Authentication extends Component {
           FlashNotification.hideMessage()
           UserStore.setUser(user)
 
-          LoggingService.debug(
-            'user in Authentication found is',
-            JSON.stringify(user)
-          )
+          LoggingService.debug('User in Authentication found is', user)
 
           // cache the password
           UserStore.setPassword(this.state.password)

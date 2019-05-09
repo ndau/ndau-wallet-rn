@@ -122,9 +122,7 @@ const _internalSaveUser = async (
 ) => {
   const multiSafe = new MultiSafe()
 
-  LoggingService.debug(
-    `persisting key ${walletId} into MultiSafe: ${JSON.stringify(user)}`
-  )
+  LoggingService.debug(`persisting key ${walletId} into MultiSafe:`, user)
 
   // create a multisafe
   await multiSafe.create(walletId.replace(/\s+/g, ''), encryptionPassword)

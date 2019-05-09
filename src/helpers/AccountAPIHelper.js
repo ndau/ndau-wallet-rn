@@ -125,7 +125,8 @@ const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
   } catch (error) {
     if (account.addressData.balance) {
       LoggingService.debug(
-        `Issue encountered performing SetValidation: ${JSON.stringify(error)}`
+        `Issue encountered performing SetValidation: `,
+        error
       )
     }
   }
@@ -150,9 +151,7 @@ const sendDelegateTransactionIfNeeded = async (wallet, account) => {
       await delegateTransaction.createSignPrevalidateSubmit()
     }
   } catch (error) {
-    LoggingService.debug(
-      `Issue encountered perfroming Delegate: ${JSON.stringify(error)}`
-    )
+    LoggingService.debug(`Issue encountered perfroming Delegate: `, error)
   }
 }
 

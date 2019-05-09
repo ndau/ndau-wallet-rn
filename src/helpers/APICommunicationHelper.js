@@ -30,9 +30,7 @@ const post = async (
           data: data
         })
         const response = await axios.post(url, data, { timeout: timeoutMS })
-        LoggingService.debug(
-          `${url} response: ${JSON.stringify(response.data, null, 2)}`
-        )
+        LoggingService.debug(`${url} response: `, response.data)
         resolve(response.data)
       } catch (error) {
         const safeStatus =

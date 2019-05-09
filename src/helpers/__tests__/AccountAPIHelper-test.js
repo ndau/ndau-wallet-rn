@@ -372,7 +372,7 @@ test('addPrivateValidationKeyIfNotPresent used for genesis accounts, make sure i
           sequence: 0,
           holds: null,
           recourseSettings: { period: 0, changesAt: null, next: null },
-          validationScript: 'somestring'
+          validationScript: AppConfig.GENESIS_USER_VALIDATION_SCRIPT
         },
         ownershipKey: 'b32d1dfb',
         validationKeys: []
@@ -425,7 +425,7 @@ test('addPrivateValidationKeyIfNotPresent used for genesis accounts, make sure i
       sequence: 0,
       holds: null,
       recourseSettings: { period: 0, changesAt: null, next: null },
-      validationScript: 'somestring'
+      validationScript: AppConfig.GENESIS_USER_VALIDATION_SCRIPT
     },
     ownershipKey: 'b32d1dfb',
     validationKeys: []

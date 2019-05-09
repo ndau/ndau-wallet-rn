@@ -15,7 +15,7 @@ const NODE_ADDRESSES = [
 const VALIDATION_KEY_SEARCH_START_INDEX = 1
 // this will be the value of the account.validationScript present
 // for a genesis user containing the 2 recovery validation keys
-const GENESIS_USER_VALIDATION_SCRIPT = 'somestring'
+const GENESIS_USER_VALIDATION_SCRIPT = 'oAARiKABAiCI'
 
 const API_MAX_RETRIES = 3 // allow 3 unsuccessful attempts
 const API_RETRY_DELAY_MS = 1 * 1000 // 1 * 1000 = 1 second (in miliseconds)

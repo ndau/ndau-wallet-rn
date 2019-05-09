@@ -4,7 +4,6 @@ import sha256 from 'crypto-js/sha256'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountAPIHelper from './AccountAPIHelper'
 import ndaujs from 'ndaujs'
-import KeyPathHelper from './KeyPathHelper'
 import DateHelper from './DateHelper'
 
 /**
@@ -152,7 +151,7 @@ const getAccountEaiRateRequest = addressData => {
         addressData
       )
       const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
-        weightedAverageAgeInDays
+        DateHelper.getDaysFromISODate(lock.noticePeriod)
       )
       lock.bonus = theLockEAIBonus * 10000000000
     }

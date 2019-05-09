@@ -74,9 +74,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       )
     }
 
-    LoggingService.debug(
-      `user going into SetupWalletName: ${JSON.stringify(user)}`
-    )
+    LoggingService.debug(`user going into SetupWalletName: `, user)
 
     this.props.navigation.navigate('SetupWalletName')
   }
@@ -151,7 +149,10 @@ class SetupConfirmRecoveryPhrase extends Component {
     const recoveryPhrase = SetupStore.shuffledWords
     if (_.isEqual(correctSoFar, selected)) {
       return true
-    } else if ( recoveryPhrase[_(selected).last()] === recoveryPhrase[_(correctSoFar).last()] ) {
+    } else if (
+      recoveryPhrase[_(selected).last()] ===
+      recoveryPhrase[_(correctSoFar).last()]
+    ) {
       // compare the last element of the arrays by string
       return true
     } else {
@@ -161,7 +162,6 @@ class SetupConfirmRecoveryPhrase extends Component {
 
   checkMistakes () {
     const { selected } = this.state
-
 
     if (!this.isCorrect(selected)) {
       const errorText = this.state.mustRetry

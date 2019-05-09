@@ -20,9 +20,7 @@ const getMarketPrice = async user => {
 
     return dollars
   } catch (error) {
-    LoggingService.debug(
-      `Something went wrong geting market price: ${JSON.stringify(error)}`
-    )
+    LoggingService.debug(`Something went wrong geting market price: `, error)
 
     if (user.defaults && user.defaults.marketPrice) {
       return user.defaults.marketPrice

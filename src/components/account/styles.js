@@ -490,7 +490,8 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     marginLeft: wp('4%'),
-    marginBottom: hp('2.5%')
+    marginBottom: hp('2.5%'),
+    backgroundColor: '#0A1724'
   },
   accountSendButtonContainer: {
     position: 'absolute',
