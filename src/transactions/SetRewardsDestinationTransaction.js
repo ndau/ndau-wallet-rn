@@ -1,3 +1,6 @@
+import APIAddressHelper from '../helpers/APIAddressHelper'
+import LoggingService from '../services/LoggingService'
+
 export class SetRewardsDestinationTransaction {
   constructor (wallet, account, destination) {
     this._wallet = wallet

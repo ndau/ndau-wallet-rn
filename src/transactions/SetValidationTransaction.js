@@ -1,4 +1,5 @@
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import APIAddressHelper from '../helpers/APIAddressHelper'
 import AppConfig from '../AppConfig'
 import KeyMaster from '../helpers/KeyMaster'
 import LoggingService from '../services/LoggingService'

@@ -3,10 +3,10 @@ import KeyMaster from '../helpers/KeyMaster'
 import TransactionAPI from '../api/TransactionAPI'
 import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/common/FlashNotification'
-import APIAddressHelper from '../helpers/APIAddressHelper'
 import LoggingService from '../services/LoggingService'
 import AccountAPI from '../api/AccountAPI'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
+import APIAddressHelper from '../helpers/APIAddressHelper'
 
 export const Transaction = {
   /**
@@ -51,22 +51,6 @@ export const Transaction = {
     } catch (error) {
       this.handleError(error)
     }
-  },
-
-  async createSubmissionAddress () {
-    this._submitAddress =
-      (await APIAddressHelper.getTransactionSubmitAPIAddress(this._sendType)) +
-      '/' +
-      this.transactionType
-  },
-
-  async createPrevalidateAddress () {
-    this._prevalidateAddress =
-      (await APIAddressHelper.getTransactionPrevalidateAPIAddress(
-        this.sendType
-      )) +
-      '/' +
-      this.transactionType
   },
 
   handleError (msgOrErr) {
@@ -163,5 +147,26 @@ export const Transaction = {
     } catch (error) {
       this.handleError(error)
     }
+  },
+
+  async createSubmissionAddress () {
+    const submitAddressPre = await APIAddressHelper.getTransactionSubmitAPIAddress(
+      this._sendType
+    )
+    this._submitAddress = submitAddressPre + '/' + this.transactionType
+
+    LoggingService.debug(`Submit address is ${this._submitAddress}`)
+    LoggingService.debug(`Send type is ${this._sendType}`)
+  },
+
+  async createPrevalidateAddress () {
+    const prevalidateAddressPre = await APIAddressHelper.getTransactionPrevalidateAPIAddress(
+      this._sendType
+    )
+    this._prevalidateAddress =
+      prevalidateAddressPre + '/' + this.transactionType
+
+    LoggingService.debug(`Prevalidate address is ${this._prevalidateAddress}`)
+    LoggingService.debug(`Send type is ${this._sendType}`)
   }
 }

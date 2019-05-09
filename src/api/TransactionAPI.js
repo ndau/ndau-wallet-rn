@@ -5,7 +5,7 @@ import LoggingService from '../services/LoggingService'
 
 const _postTransaction = async (submitAddress, transaction) => {
   LoggingService.debug(
-    'TransactionAPI._postTransaction',
+    'TransactionAPI._postTransaction: ',
     submitAddress,
     transaction
   )

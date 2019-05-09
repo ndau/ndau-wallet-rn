@@ -1,6 +1,5 @@
-import FlashNotification from '../components/common/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
-import KeyMaster from '../helpers/KeyMaster'
+import LoggingService from '../services/LoggingService'
 
 export class LockTransaction {
   constructor (wallet, account, period) {

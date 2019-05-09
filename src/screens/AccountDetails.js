@@ -18,6 +18,7 @@ import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
+import DateHelper from '../helpers/DateHelper'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -95,7 +96,11 @@ class AccountDetails extends Component {
     const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
       account.addressData
     )
-    const lockBonusEAI = AccountAPIHelper.lockBonusEAI(weightedAverageAgeInDays)
+    const lockBonusEAI = AccountAPIHelper.lockBonusEAI(
+      DateHelper.getDaysFromISODate(
+        account.addressData.lock ? account.addressData.lock.noticePeriod : 0
+      )
+    )
     this.baseEAI = eaiValueForDisplay - lockBonusEAI
     let spendableNdau = 0
     if (accountNotLocked) {

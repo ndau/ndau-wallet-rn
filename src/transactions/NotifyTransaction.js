@@ -1,3 +1,6 @@
+import APIAddressHelper from '../helpers/APIAddressHelper'
+import LoggingService from '../services/LoggingService'
+
 export class NotifyTransaction {
   constructor (wallet, account) {
     this._wallet = wallet

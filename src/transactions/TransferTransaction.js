@@ -1,4 +1,6 @@
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import APIAddressHelper from '../helpers/APIAddressHelper'
+import LoggingService from '../services/LoggingService'
 
 export class TransferTransaction {
   constructor (wallet, account, destination, quantity) {
