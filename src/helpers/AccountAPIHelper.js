@@ -123,9 +123,12 @@ const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
       await setValidationTransaction.createSignPrevalidateSubmit()
     }
   } catch (error) {
-    LoggingService.debug(
-      `Issue encountered perfroming SetValidation: ${JSON.stringify(error)}`
-    )
+    if (account.addressData.balance) {
+      LoggingService.debug(
+        `Issue encountered performing SetValidation: `,
+        error
+      )
+    }
   }
 }
 
@@ -148,9 +151,7 @@ const sendDelegateTransactionIfNeeded = async (wallet, account) => {
       await delegateTransaction.createSignPrevalidateSubmit()
     }
   } catch (error) {
-    LoggingService.debug(
-      `Issue encountered perfroming Delegate: ${JSON.stringify(error)}`
-    )
+    LoggingService.debug(`Issue encountered perfroming Delegate: `, error)
   }
 }
 
@@ -263,12 +264,13 @@ const weightedAverageAgeInDays = account => {
 const spendableNapu = (addressData, addCommas = true, precision) => {
   const totalNdau = accountNdauAmount(addressData, addCommas, precision)
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
-  const settlements = addressData.settlements
-  if (!settlements) return totalNapu
+  const holds = addressData.holds
+  if (!holds) return totalNapu
 
-  for (const settlement of settlements) {
-    totalNapu -= settlement.Qty
+  for (const hold of holds) {
+    totalNapu -= hold.qty
   }
+
   return DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
@@ -333,11 +335,11 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
     if (accounts[accountKey].addressData.lock) {
       // subtract locked account value
       totalNapu -= accounts[accountKey].addressData.balance
-    } else if (accounts[accountKey].addressData.settlements) {
-      // subtract settlements if there are any and the account is unlocked
-      const settlements = accounts[accountKey].addressData.settlements
-      for (const settlement of settlements) {
-        totalNapu -= settlement.Qty
+    } else if (accounts[accountKey].addressData.holds) {
+      // subtract holds if there are any and the account is unlocked
+      const holds = accounts[accountKey].addressData.holds
+      for (const hold of holds) {
+        totalNapu -= hold.qty
       }
     }
   })

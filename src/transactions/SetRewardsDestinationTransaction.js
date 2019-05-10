@@ -1,3 +1,6 @@
+import APIAddressHelper from '../helpers/APIAddressHelper'
+import LoggingService from '../services/LoggingService'
+
 export class SetRewardsDestinationTransaction {
   constructor (wallet, account, destination) {
     this._wallet = wallet
@@ -19,5 +22,17 @@ export class SetRewardsDestinationTransaction {
   addToJsonTransaction = () => {
     this._jsonTransaction.target = this._account.address
     this._jsonTransaction.destination = this._destination
+  }
+
+  async createSignPrevalidateSubmit () {
+    try {
+      await this.create()
+      await this.sign()
+      await this.prevalidate()
+      await this.submit()
+    } catch (error) {
+      this.handleError(error)
+      throw error
+    }
   }
 }

@@ -1,6 +1,8 @@
 import moment from 'moment'
 import AppConstants from '../AppConstants'
 
+const _ = require('lodash')
+
 const DATE_FORMAT = 'DD MMM YYYY'
 const DATE_FORMAT_LONG = 'MMMM DD, YYYY'
 
@@ -35,7 +37,7 @@ const getDaysFromMicroseconds = microseconds => {
 }
 
 const getDaysFromISODate = isoDate => {
-  if (!isoDate) {
+  if (!isoDate || !_.isString(isoDate)) {
     return 0
   }
   return Math.round(
@@ -44,7 +46,7 @@ const getDaysFromISODate = isoDate => {
 }
 
 const getMonthsFromISODate = isoDate => {
-  if (!isoDate) {
+  if (!isoDate || !_.isString(isoDate)) {
     return 0
   }
   return Math.round(
@@ -53,7 +55,7 @@ const getMonthsFromISODate = isoDate => {
 }
 
 const getYearsFromISODate = isoDate => {
-  if (!isoDate) {
+  if (!isoDate || !_.isString(isoDate)) {
     return 0
   }
   return Math.round(

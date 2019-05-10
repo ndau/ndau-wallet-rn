@@ -1,15 +1,17 @@
+import LoggingService from '../services/LoggingService'
 
 const instance = {
-
   _isOnline: null,
 
-  setOnline: (isOnline) => {
+  setOnline: isOnline => {
     this._isOnline = Boolean(isOnline)
   },
 
   online: () => {
-    if (process.env.NODE_ENV === 'test' ) {
-      console.log('Returning true online status for testing environment.')
+    if (process.env.NODE_ENV === 'test') {
+      LoggingService.debug(
+        'Returning true online status for testing environment.'
+      )
       return true
     }
     return this._isOnline
@@ -19,5 +21,3 @@ const instance = {
 Object.freeze(instance)
 
 export default instance
-
-

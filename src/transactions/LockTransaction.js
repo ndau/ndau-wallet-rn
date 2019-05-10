@@ -1,6 +1,5 @@
-import FlashNotification from '../components/common/FlashNotification'
 import APIAddressHelper from '../helpers/APIAddressHelper'
-import KeyMaster from '../helpers/KeyMaster'
+import LoggingService from '../services/LoggingService'
 
 export class LockTransaction {
   constructor (wallet, account, period) {
@@ -24,5 +23,17 @@ export class LockTransaction {
   addToJsonTransaction = () => {
     this._jsonTransaction.period = this._period
     this._jsonTransaction.target = this._account.address
+  }
+
+  async createSignPrevalidateSubmit () {
+    try {
+      await this.create()
+      await this.sign()
+      await this.prevalidate()
+      await this.submit()
+    } catch (error) {
+      this.handleError(error)
+      throw error
+    }
   }
 }

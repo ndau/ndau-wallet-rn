@@ -16,7 +16,8 @@ export default StyleSheet.create({
     flex: 1,
     width: wp('100%'),
     height: hp('100%'),
-    marginTop: hp('1%')
+    marginTop: hp('1%'),
+    backgroundColor: '#0A1724'
   },
   closeForBar: {
     ...Platform.select({

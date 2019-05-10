@@ -1,4 +1,6 @@
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import APIAddressHelper from '../helpers/APIAddressHelper'
+import LoggingService from '../services/LoggingService'
 
 export class TransferTransaction {
   constructor (wallet, account, destination, quantity) {
@@ -26,5 +28,17 @@ export class TransferTransaction {
     this._jsonTransaction.qty = this._quantity
     this._jsonTransaction.destination = this._destination
     this._jsonTransaction.source = this._account.address
+  }
+
+  async createSignPrevalidateSubmit () {
+    try {
+      await this.create()
+      await this.sign()
+      await this.prevalidate()
+      await this.submit()
+    } catch (error) {
+      this.handleError(error)
+      throw error
+    }
   }
 }
