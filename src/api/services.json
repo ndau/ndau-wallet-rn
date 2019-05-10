@@ -106,7 +106,7 @@
     "testnet": {
       "nodes": {
         "testnet-0": {
-          "api": "recovery.testnet.ndau.tech:20036"
+          "api": "recovery-testnet.ndau.tech:20036"
         }
       }
     }
