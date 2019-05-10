@@ -35,7 +35,7 @@ const scrubData = (...data) => {
     })
     .join(',')
   // pull out ALL private keys
-  let scrubbedData = stringData.replace(/"npvt[^"]+"/g, '')
+  let scrubbedData = stringData.replace(/"npvt[^"]+"/g, 'a')
   return scrubbedData
 }
 

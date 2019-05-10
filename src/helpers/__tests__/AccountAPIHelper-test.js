@@ -273,6 +273,18 @@ test('make sure totalSpendableNdau subtracts the holds correctly', async () => {
   expect(totalSpendable).toEqual('0.14')
 })
 
+test('make sure totalSpendableNdauWithHolds subtracts the holds correctly', async () => {
+  const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
+  const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
+  expect(totalNdau).toEqual('1.21')
+  const totalSpendable = AccountAPIHelper.totalSpendableNdau(
+    accounts,
+    totalNdau,
+    false
+  )
+  expect(totalSpendable).toEqual('0.14')
+})
+
 test('make sure we get the correct total for send with all values', async () => {
   const amount = 23
   const transactionFee = 1
