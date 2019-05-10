@@ -1,6 +1,8 @@
-import FlashNotification from '../components/common/FlashNotification'
+import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import APIAddressHelper from '../helpers/APIAddressHelper'
+import AppConfig from '../AppConfig'
 import KeyMaster from '../helpers/KeyMaster'
+import LoggingService from '../services/LoggingService'
 
 export class SetValidationTransaction {
   constructor (wallet, account, sendType) {
@@ -43,5 +45,25 @@ export class SetValidationTransaction {
 
   addSignatureToJsonTransaction = signature => {
     this._jsonTransaction.signature = signature
+  }
+
+  async createSignPrevalidateSubmit () {
+    await this.create()
+    await this.sign()
+    try {
+      await this.prevalidate()
+      await this.submit()
+    } catch (error) {
+      const spendableNapu = AccountAPIHelper.spendableNapu(
+        this._account.addressData,
+        true,
+        AppConfig.NDAU_DETAIL_PRECISION
+      )
+      const data = error.getData()
+      if (data && spendableNapu > data.fee_napu) {
+        this.handleError(error)
+        throw error
+      }
+    }
   }
 }

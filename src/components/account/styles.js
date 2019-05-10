@@ -273,7 +273,6 @@ export default StyleSheet.create({
   },
   accountLockPanel: {
     width: wp('100%'),
-    height: hp('90%'),
     backgroundColor: '#0A1724',
     paddingTop: 0
   },
@@ -357,25 +356,23 @@ export default StyleSheet.create({
     marginLeft: -20,
     ...Platform.select({
       ios: {
-        marginTop: 8
+        marginTop: 4
       }
     })
   },
   accountClosingBarText: {
-    width: wp('33%'),
-    height: hp('6%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '200',
     letterSpacing: 0.34,
     lineHeight: 24,
-    ...Platform.select({
-      ios: {
-        marginTop: hp('.6%')
-      }
-    }),
-    textAlign: 'center'
+    height: hp('8%'),
+    marginTop: 4,
+    width: hp('20%')
+  },
+  testText: {
+    display: 'none'
   },
   accountButtonText: {
     width: wp('30%'),
@@ -473,11 +470,9 @@ export default StyleSheet.create({
   accountClosingBarContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'stretch',
-    width: wp('100%'),
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     height: hp('6%'),
-    backgroundColor: 'transparent',
     color: '#000000'
   },
   accountDetailsBarContainer: {
@@ -495,7 +490,8 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     marginLeft: wp('4%'),
-    marginBottom: hp('2.5%')
+    marginBottom: hp('2.5%'),
+    backgroundColor: '#0A1724'
   },
   accountSendButtonContainer: {
     position: 'absolute',
@@ -554,7 +550,8 @@ export default StyleSheet.create({
   closeIcon: {
     ...Platform.select({
       ios: {
-        marginTop: hp('1.2%')
+        marginTop: hp('1.2%'),
+        marginLeft: 300
       },
       android: {
         marginTop: hp('.8%')

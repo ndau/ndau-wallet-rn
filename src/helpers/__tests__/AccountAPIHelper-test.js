@@ -261,7 +261,7 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
   expect(AccountAPIHelper.lockBonusEAI(1098)).toBe(5)
 })
 
-test('make sure totalSpendableNdau subtracks the settlements correctly', async () => {
+test('make sure totalSpendableNdau subtracts the holds correctly', async () => {
   const accounts = data.test7MP4FVUserData.wallets['2c963f83'].accounts
   const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts, false)
   expect(totalNdau).toEqual('1.21')
@@ -370,9 +370,9 @@ test('addPrivateValidationKeyIfNotPresent used for genesis accounts, make sure i
           lastWAAUpdate: 589991567000000,
           weightedAverageAge: 0,
           sequence: 0,
-          settlements: null,
-          settlementSettings: { period: 0, changesAt: null, next: null },
-          validationScript: 'somestring'
+          holds: null,
+          recourseSettings: { period: 0, changesAt: null, next: null },
+          validationScript: AppConfig.GENESIS_USER_VALIDATION_SCRIPT
         },
         ownershipKey: 'b32d1dfb',
         validationKeys: []
@@ -423,9 +423,9 @@ test('addPrivateValidationKeyIfNotPresent used for genesis accounts, make sure i
       lastWAAUpdate: 589991567000000,
       weightedAverageAge: 0,
       sequence: 0,
-      settlements: null,
-      settlementSettings: { period: 0, changesAt: null, next: null },
-      validationScript: 'somestring'
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
+      validationScript: AppConfig.GENESIS_USER_VALIDATION_SCRIPT
     },
     ownershipKey: 'b32d1dfb',
     validationKeys: []

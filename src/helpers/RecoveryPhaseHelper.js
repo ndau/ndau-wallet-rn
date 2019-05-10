@@ -38,7 +38,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
   }
 
   const bip44Accounts = await checkAddresses(recoveryPhraseBytes)
-  LoggingService.debug(`BIP44 accounts found: ${JSON.stringify(bip44Accounts)}`)
+  LoggingService.debug(`BIP44 accounts found: `, bip44Accounts)
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     for (const accountPath in bip44Accounts) {
       await KeyMaster.createAccountFromPath(
@@ -47,13 +47,11 @@ const recoverUser = async (recoveryPhraseString, user) => {
         bip44Accounts[accountPath]
       )
     }
-    LoggingService.debug(
-      `Recovered user containing BIP44 accounts: ${JSON.stringify(user)}`
-    )
+    LoggingService.debug(`Recovered user containing BIP44 accounts: `, user)
   }
 
   const rootAccounts = await checkAddresses(recoveryPhraseBytes, true)
-  LoggingService.debug(`root accounts found: ${JSON.stringify(rootAccounts)}`)
+  LoggingService.debug(`root accounts found: `, rootAccounts)
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
       recoveryPhraseBytes
@@ -66,9 +64,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
         rootPrivateKey
       )
     }
-    LoggingService.debug(
-      `Recovered user containing root accounts now: ${JSON.stringify(user)}`
-    )
+    LoggingService.debug(`Recovered user containing root accounts now: `, user)
   }
 
   return user
@@ -96,18 +92,14 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
         startIndex,
         endIndex
       )
-      LoggingService.debug(
-        `KeyMaster.getRootAddresses found: ${JSON.stringify(addresses)}`
-      )
+      LoggingService.debug(`KeyMaster.getRootAddresses found: `, addresses)
     } else {
       addresses = await KeyMaster.getBIP44Addresses(
         recoveryPhraseBytes,
         startIndex,
         endIndex
       )
-      LoggingService.debug(
-        `KeyMaster.getBIP44Addresses found: ${JSON.stringify(addresses)}`
-      )
+      LoggingService.debug(`KeyMaster.getBIP44Addresses found: `, addresses)
     }
 
     accountDataFromBlockchain = await AccountAPI.getAddressData(

@@ -1,10 +1,8 @@
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import sha256 from 'crypto-js/sha256'
-import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountAPIHelper from './AccountAPIHelper'
 import ndaujs from 'ndaujs'
-import KeyPathHelper from './KeyPathHelper'
 import DateHelper from './DateHelper'
 
 /**
@@ -22,13 +20,13 @@ const moveTempUserToWalletName = (user, walletId) => {
     const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
     wallet.walletName = walletId
-    user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
+    user.wallets[create8CharHash(walletId)] = wallet
     delete user.wallets[hashedTempKey]
   } else if (user.wallets[create8CharHash(AppConstants.TEMP_ID)]) {
     const wallet = user.wallets[hashedTempKey]
     wallet.walletId = walletId
     wallet.walletName = walletId
-    user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
+    user.wallets[create8CharHash(walletId)] = wallet
     delete user.wallets[hashedTempKey]
   }
 }
@@ -152,7 +150,7 @@ const getAccountEaiRateRequest = addressData => {
         addressData
       )
       const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
-        weightedAverageAgeInDays
+        DateHelper.getDaysFromISODate(lock.noticePeriod)
       )
       lock.bonus = theLockEAIBonus * 10000000000
     }

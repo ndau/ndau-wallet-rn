@@ -163,6 +163,62 @@ test('creation of a setValidation transaction', async () => {
   expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
 })
 
+test('creation a transaction yeilds new instance', async () => {
+  const theSetValidationTransaction = {
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    ownership:
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
+    validation_keys: [
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
+    ],
+    sequence: 3830689465
+  }
+
+  Object.assign(SetValidationTransaction.prototype, Transaction)
+
+  const setValidationTransaction = new SetValidationTransaction(
+    user.wallets.c79af3b6,
+    user.wallets.c79af3b6.accounts[
+      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+    ]
+  )
+  const createdSetValidationTransaction = await setValidationTransaction.create()
+  expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
+
+  Object.assign(SetValidationTransaction.prototype, Transaction)
+  let setValidationTransaction1 = new SetValidationTransaction(
+    user.wallets.c79af3b6,
+    user.wallets.c79af3b6.accounts[
+      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+    ],
+    2
+  )
+  const createdSetValidationTransaction1 = await setValidationTransaction1.create()
+  expect(createdSetValidationTransaction1).toEqual(theSetValidationTransaction)
+  expect(setValidationTransaction1._sendType).toBe(2)
+  setValidationTransaction1 = new SetValidationTransaction(
+    user.wallets.c79af3b6,
+    user.wallets.c79af3b6.accounts[
+      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+    ],
+    1
+  )
+  expect(setValidationTransaction1._sendType).toBe(1)
+  setValidationTransaction1 = new SetValidationTransaction(
+    user.wallets.c79af3b6,
+    user.wallets.c79af3b6.accounts[
+      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+    ],
+    2
+  )
+  expect(setValidationTransaction1._sendType).toBe(2)
+  await setValidationTransaction1.create()
+  const address = setValidationTransaction1._prevalidateAddress
+  console.log('ADDRESS:', address)
+  expect(address.includes('recovery')).toBeTruthy()
+})
+
 test('setValidation fails if no sequence', async () => {
   const userNoValidationKeys = {
     userId: 'fail',

@@ -16,7 +16,6 @@ import {
 } from '../common'
 import CollapsibleBar from '../common/CollapsibleBar'
 import styles from './styles'
-import DateHelper from '../../helpers/DateHelper'
 import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
 import ndaujs from 'ndaujs'
@@ -462,6 +461,10 @@ export function AccountDetailsBar (props) {
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountClosingBarContainer}>
+      <View>
+        <Text style={styles.testText}>TEST</Text>
+      </View>
+
       {props.backBar ? (
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <TouchableOpacity onPress={props.goBack}>
@@ -477,7 +480,7 @@ export function AccountClosingBar (props) {
         <View style={styles.backArrow} />
       )}
 
-      <H4 style={[styles.accountDetailsBarText]}>{props.title}</H4>
+      <H4 style={[styles.accountClosingBarText]}>{props.title}</H4>
       {props.closeBar ? (
         <CloseForBar style={styles.closeIcon} {...props} />
       ) : (
@@ -717,13 +720,7 @@ export function DashboardTotalPanel (props) {
     >
       <View style={styles.dashboardTotalPanelTextContainer}>
         <P style={styles.totalAsterickTextVerySmallWhite}>
-          * The estimated value of ndau in US dollars can be calculated using
-          the Target Price at which new ndau have most recently been issued. The
-          value shown here is calculated using that method as of the issue price
-          on {DateHelper.getTodaysDate()}. The Axiom Foundation, creator and
-          issuer of ndau, bears no responsibility or liability for the
-          calculation of that estimated value, or for decisions based on that
-          estimated value.
+          * This is an estimated value of ndau based on recent trading volume.
         </P>
       </View>
     </CollapsibleBar>

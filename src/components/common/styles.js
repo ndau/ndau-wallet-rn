@@ -16,7 +16,8 @@ export default StyleSheet.create({
     flex: 1,
     width: wp('100%'),
     height: hp('100%'),
-    marginTop: hp('1%')
+    marginTop: hp('1%'),
+    backgroundColor: '#0A1724'
   },
   closeForBar: {
     ...Platform.select({
@@ -233,7 +234,7 @@ export default StyleSheet.create({
   },
   radioButton: {
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
-    color: AppConstants.TEXT_COLOR,
+    color: AppConstants.SQUARE_BUTTON_COLOR,
     marginRight: wp('4%'),
     marginLeft: wp('4%'),
     paddingTop: hp('1%')
@@ -258,7 +259,7 @@ export default StyleSheet.create({
   },
   checkbox: {
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
-    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderColor: AppConstants.TEXT_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
     marginLeft: wp('4%'),
@@ -306,6 +307,7 @@ export default StyleSheet.create({
     borderColor: '#BDC1CC',
     backgroundColor: '#EDEAEA',
     fontFamily: 'Open Sans',
+    zIndex: 5,
     fontSize: 16,
     letterSpacing: 0.34,
     lineHeight: 24
@@ -482,6 +484,7 @@ export default StyleSheet.create({
   barBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
+    marginTop: hp('2%'),
     marginBottom: hp('2%')
   },
   collapsibleBarBorder: {

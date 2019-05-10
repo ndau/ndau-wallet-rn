@@ -15,7 +15,6 @@ describe('...testing ServiceDiscovery', () => {
     MockHelper.mockServiceDiscovery()
 
     const serverUrl = await ServiceDiscovery.getRecoveryServiceNodeURL()
-    console.log(`RECOVERY ${serverUrl}`)
 
     // its testnet because that is what we pull in within MockHelper
     expect(serverUrl.includes('recovery.ndau.tech')).toBeTruthy()

@@ -1,4 +1,7 @@
-import DataFormatHelper from '../helpers/DataFormatHelper'
+import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import APIAddressHelper from '../helpers/APIAddressHelper'
+import LoggingService from '../services/LoggingService'
+import AppConfig from '../AppConfig'
 
 export class DelegateTransaction {
   constructor (wallet, account, node) {
@@ -21,5 +24,25 @@ export class DelegateTransaction {
   addToJsonTransaction = () => {
     this._jsonTransaction.target = this._account.address
     this._jsonTransaction.node = this._node
+  }
+
+  async createSignPrevalidateSubmit () {
+    await this.create()
+    await this.sign()
+    try {
+      await this.prevalidate()
+      await this.submit()
+    } catch (error) {
+      const spendableNapu = AccountAPIHelper.spendableNapu(
+        this._account.addressData,
+        true,
+        AppConfig.NDAU_DETAIL_PRECISION
+      )
+      const data = error.getData()
+      if (spendableNapu > data.fee_napu) {
+        this.handleError(error)
+        throw error
+      }
+    }
   }
 }
