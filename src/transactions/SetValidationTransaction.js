@@ -60,7 +60,7 @@ export class SetValidationTransaction {
         AppConfig.NDAU_DETAIL_PRECISION
       )
       const data = error.getData()
-      if (spendableNapu > data.fee_napu) {
+      if (data && spendableNapu > data.fee_napu) {
         this.handleError(error)
         throw error
       }
