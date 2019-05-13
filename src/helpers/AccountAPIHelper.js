@@ -265,13 +265,14 @@ const spendableNapu = (addressData, addCommas = true, precision) => {
   const totalNdau = accountNdauAmount(addressData, addCommas, precision)
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
   const holds = addressData.holds
+
   if (!holds) return totalNapu
 
   for (const hold of holds) {
     totalNapu -= hold.qty
   }
 
-  return DataFormatHelper.getNdauFromNapu(totalNapu)
+  return totalNapu
 }
 
 const spendableNdau = (addressData, addCommas = true, precision) => {
