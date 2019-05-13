@@ -28,11 +28,6 @@ import { QRCode } from 'react-native-custom-qr-codes'
 // import QRCode from 'react-native-qrcode-svg'
 import Spinner from 'react-native-loading-spinner-overlay'
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
-
 export function LoginContainer ({ children }) {
   return (
     <MainContainer>
