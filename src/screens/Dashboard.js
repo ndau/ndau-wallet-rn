@@ -27,7 +27,9 @@ class Dashboard extends Component {
     this.state = {
       user: {},
       refreshing: false,
-      marketPrice: 0,
+      currentPrice: 0,
+      totalNdau: 0,
+      totalSpendableNdau: 0,
       spinner: false,
       appState: AppState.currentState
     }
@@ -62,11 +64,9 @@ class Dashboard extends Component {
       )
     }
 
-    const marketPrice = NdauStore.getMarketPrice(user)
+    this._loadMetricsAndSetState(user)
 
     LoggingService.debug(`User to be drawn: `, user)
-
-    this.setState({ user, marketPrice })
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
@@ -82,21 +82,42 @@ class Dashboard extends Component {
     this.setState({ spinner: true })
   }
 
-  _onRefresh = async () => {
-    FlashNotification.hideMessage()
-    this.setState({ refreshing: true })
-
-    const user = this.state.user
-    try {
-      await UserData.loadUserData(user)
-    } catch (error) {
-      FlashNotification.showError(error.message)
-    }
+  _loadMetricsAndSetState = user => {
+    const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
+    const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
+    const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
+      accounts,
+      false
+    )
+    const totalSpendableNdau = AccountAPIHelper.totalSpendableNdau(
+      accounts,
+      totalNdauNumber
+    )
+    const currentPrice = AccountAPIHelper.currentPrice(
+      NdauStore.getMarketPrice(),
+      totalNdauNumber
+    )
 
     this.setState({
       refreshing: false,
       user,
-      marketPrice: NdauStore.getMarketPrice()
+      currentPrice,
+      totalNdau,
+      totalSpendableNdau
+    })
+  }
+
+  _onRefresh = async () => {
+    FlashNotification.hideMessage()
+    this.setState({ refreshing: true }, async () => {
+      const user = this.state.user
+      try {
+        await UserData.loadUserData(user)
+      } catch (error) {
+        FlashNotification.showError(error.message)
+      }
+
+      this._loadMetricsAndSetState(user)
     })
   }
 
@@ -116,21 +137,8 @@ class Dashboard extends Component {
         )
       }
 
+      const { totalNdau, totalSpendableNdau, currentPrice } = this.state
       const wallets = Object.values(user.wallets)
-      const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
-      const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
-      const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
-        accounts,
-        false
-      )
-      const totalSpendableNdau = AccountAPIHelper.totalSpendableNdau(
-        accounts,
-        totalNdauNumber
-      )
-      const currentPrice = AccountAPIHelper.currentPrice(
-        this.state.marketPrice,
-        totalNdauNumber
-      )
 
       return (
         <AppContainer>
