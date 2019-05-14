@@ -51,7 +51,7 @@ export default StyleSheet.create({
     bottom: hp('2%')
   },
   setupButtonContainerScrollView: {
-    marginTop: hp('1%')
+    // marginTop: hp('1%')
   },
   setupButtonContainerTop: {
     // Due to how we have to fill the LinearGradient we
@@ -119,7 +119,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginRight: wp('4%'),
-    paddingVertical: 0
+    paddingVertical: 0,
+    minHeight: hp('7%')
   },
   ndauTotalContainer: {
     ...Platform.select({
@@ -199,10 +200,12 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     ...Platform.select({
       ios: {
-        maxHeight: hp('4%')
+        maxHeight: hp('4%'),
+        minHeight: hp('4%')
       },
       android: {
-        maxHeight: hp('5%')
+        maxHeight: hp('5%'),
+        minHeight: hp('5%')
       }
     })
   },
@@ -339,7 +342,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     width: wp('100%'),
-    height: hp('88%'),
+    height: hp('83%'),
     marginRight: wp('4%'),
     marginTop: hp('5%'),
     marginBottom: hp('6%')

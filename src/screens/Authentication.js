@@ -18,6 +18,7 @@ import {
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
+import KeyboardView from '../components/common/KeyboardView'
 
 class Authentication extends Component {
   constructor (props) {
@@ -134,28 +135,30 @@ class Authentication extends Component {
     const { textInputColor } = this.state
     return (
       <LoginContainer>
-        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <LoginImage />
-        <LabelWithIcon
-          onPress={this.showInformation}
-          fontAwesomeIconName='info-circle'
-        >
-          Password
-        </LabelWithIcon>
-        <TextInput
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-          placeholder='Enter your password...'
-          secureTextEntry
-          autoCapitalize='none'
-          onSubmitEditing={this.login}
-        />
-        <PasswordLinkText onPress={this.showPasswordReset}>
-          Forgot your password?
-        </PasswordLinkText>
-        <LargeButton sideMargins onPress={this.login}>
-          Login
-        </LargeButton>
+        <KeyboardView>
+          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+          <LoginImage />
+          <LabelWithIcon
+            onPress={this.showInformation}
+            fontAwesomeIconName='info-circle'
+          >
+            Password
+          </LabelWithIcon>
+          <TextInput
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            placeholder='Enter your password...'
+            secureTextEntry
+            autoCapitalize='none'
+            onSubmitEditing={this.login}
+          />
+          <PasswordLinkText onPress={this.showPasswordReset}>
+            Forgot your password?
+          </PasswordLinkText>
+          <LargeButton scroll sideMargins onPress={this.login}>
+            Login
+          </LargeButton>
+        </KeyboardView>
       </LoginContainer>
     )
   }
