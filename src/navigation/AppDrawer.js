@@ -65,7 +65,10 @@ class AppDrawer extends React.Component {
       {
         subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
         recipients: ['support@oneiro.freshdesk.com'],
-        body: '<br><br><code>' + JSON.stringify(data) + '</code>',
+        body:
+          'Describe the problem or issue you are having.<br><br><code>' +
+          JSON.stringify(data) +
+          '</code>',
         isHTML: true
         // TODO: 2 of 2 Removing attachements as they are not working
         // attachment: {
