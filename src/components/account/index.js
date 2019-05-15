@@ -348,6 +348,7 @@ export function AccountDetailsButtonPanel (props) {
     <View style={styles.accountDetailsButtonPanel}>
       <View>
         <AccountButton
+          disabled={props.disableSend}
           onPress={() => props.send(props.account, props.wallet)}
           customIconName='arrow-alt-up'
         >
@@ -356,6 +357,7 @@ export function AccountDetailsButtonPanel (props) {
       </View>
       <View>
         <AccountButton
+          disabled={props.disabledReceive}
           onPress={() => props.receive(props.account, props.wallet)}
           customIconName='arrow-alt-down'
         >
@@ -364,7 +366,8 @@ export function AccountDetailsButtonPanel (props) {
       </View>
       <View>
         <AccountButton
-          onPress={() => props.showLock(props.account, props.wallet)}
+          disabled={props.disableLock}
+          onPress={() => props.lock(props.account, props.wallet)}
           customIconName='lock'
         >
           Lock

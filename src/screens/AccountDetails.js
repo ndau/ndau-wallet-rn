@@ -44,7 +44,7 @@ class AccountDetails extends Component {
     this.setState({ account, wallet, accountsCanRxEAI })
   }
 
-  showLock = (account, wallet) => {
+  lock = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
     this.props.navigation.push('AccountLock', {
@@ -110,8 +110,9 @@ class AccountDetails extends Component {
         AppConfig.NDAU_DETAIL_PRECISION
       )
     }
-
+    const showAllAcctButtons = !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
     return (
+
       <AccountDetailsContainer
         goBack={this.goBack}
         account={this.state.account}
@@ -123,15 +124,15 @@ class AccountDetails extends Component {
           onPress={() => this.showHistory(this.state.account)}
           {...this.props}
         />
-        {!accountLockedUntil && !accountNoticePeriod && spendableNdau > 0 ? (
-          <AccountDetailsButtonPanel
-            showLock={this.showLock}
-            send={this.send}
-            receive={this.receive}
-            account={this.state.account}
-            wallet={this.state.wallet}
-          />
-        ) : null}
+        <AccountDetailsButtonPanel
+          lock={this.lock}
+          send={this.send}
+          receive={this.receive}
+          account={this.state.account}
+          wallet={this.state.wallet}
+          disableLock={!showAllAcctButtons}
+          disableSend={!showAllAcctButtons}
+        />
         <ScrollView>
           <AccountDetailsPanel firstPanel>
             <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
