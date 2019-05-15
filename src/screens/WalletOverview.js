@@ -17,7 +17,6 @@ import {
   WalletOverviewHeaderActions
 } from '../components/account'
 import UserData from '../model/UserData'
-import OrderAPI from '../api/OrderAPI'
 import UserStore from '../stores/UserStore'
 import NewAccountModalDialog from '../components/common/NewAccountModalDialog'
 import WalletStore from '../stores/WalletStore'
@@ -35,7 +34,9 @@ class WalletOverview extends Component {
       activeAddress: null,
       wallet: {},
       refreshing: false,
-      marketPrice: 0,
+      currentPrice: 0,
+      totalNdau: 0,
+      totalSpendable: 0,
       spinner: false,
       appState: AppState.currentState
     }
@@ -59,17 +60,38 @@ class WalletOverview extends Component {
 
     if (this.props.navigation.getParam('refresh')) {
       this._onRefresh()
+    } else {
+      const wallet = this._loadMetricsAndSetState(WalletStore.getWallet())
     }
-
-    const wallet = WalletStore.getWallet()
-    const marketPrice = NdauStore.getMarketPrice()
-
-    this.setState({ wallet, marketPrice })
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
       FlashNotification.showError(error)
     }
+  }
+
+  _loadMetricsAndSetState = wallet => {
+    const totalNdau = wallet
+      ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
+      : 0
+    const totalNdauNumber = wallet
+      ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
+      : 0
+    const totalSpendable = wallet
+      ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
+      : 0
+    const currentPrice = AccountAPIHelper.currentPrice(
+      NdauStore.getMarketPrice(),
+      totalNdauNumber
+    )
+
+    this.setState({
+      refreshing: false,
+      wallet,
+      currentPrice,
+      totalNdau,
+      totalSpendable
+    })
   }
 
   subtractNumber = () => {
@@ -117,25 +139,22 @@ class WalletOverview extends Component {
 
   _onRefresh = async () => {
     FlashNotification.hideMessage()
-    this.setState({ refreshing: true })
-    const password = await UserStore.getPassword()
-    const user = await MultiSafeHelper.getDefaultUser(password)
+    this.setState({ refreshing: true }, async () => {
+      const password = await UserStore.getPassword()
+      const user = await MultiSafeHelper.getDefaultUser(password)
 
-    let wallet = this.state.wallet
-    try {
-      await UserData.loadUserData(user)
+      let wallet = this.state.wallet
+      try {
+        await UserData.loadUserData(user)
 
-      wallet = KeyMaster.getWalletFromUser(user, this.state.wallet.walletId)
-    } catch (error) {
-      FlashNotification.showError(error.message)
-    }
+        wallet = KeyMaster.getWalletFromUser(user, this.state.wallet.walletId)
+      } catch (error) {
+        FlashNotification.showError(error.message)
+      }
 
-    WalletStore.setWallet(wallet)
+      WalletStore.setWallet(wallet)
 
-    this.setState({
-      refreshing: false,
-      marketPrice: NdauStore.getMarketPrice(),
-      wallet
+      this._loadMetricsAndSetState(wallet)
     })
   }
 
@@ -153,19 +172,8 @@ class WalletOverview extends Component {
       if (!wallet) {
         wallet = WalletStore.getWallet()
       }
-      const totalNdau = wallet
-        ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
-        : 0
-      const totalNdauNumber = wallet
-        ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
-        : 0
-      const totalSpendable = wallet
-        ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
-        : 0
-      const currentPrice = AccountAPIHelper.currentPrice(
-        this.state.marketPrice,
-        totalNdauNumber
-      )
+
+      const { totalNdau, totalSpendable, currentPrice } = this.state
       this.accountsCanRxEAI = {}
 
       return (
