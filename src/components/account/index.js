@@ -346,29 +346,29 @@ export function AccountTotalPanel (props) {
 export function AccountDetailsButtonPanel (props) {
   return (
     <View style={styles.accountDetailsButtonPanel}>
-      <View>
+      {!props.hideSend ? <View>
         <AccountButton
           onPress={() => props.send(props.account, props.wallet)}
           customIconName='arrow-alt-up'
         >
           Send
         </AccountButton>
-      </View>
+      </View> : null }
       <View>
-        <AccountButton
+        { !props.hideReceive ? <AccountButton
           onPress={() => props.receive(props.account, props.wallet)}
           customIconName='arrow-alt-down'
         >
           Receive
-        </AccountButton>
+        </AccountButton> : null }
       </View>
       <View>
-        <AccountButton
+        { !props.hideLock ? <AccountButton
           onPress={() => props.showLock(props.account, props.wallet)}
           customIconName='lock'
         >
           Lock
-        </AccountButton>
+        </AccountButton> : null }
       </View>
     </View>
   )
