@@ -130,8 +130,8 @@ class AccountDetails extends Component {
           receive={this.receive}
           account={this.state.account}
           wallet={this.state.wallet}
-          hideLock={showAllAcctButtons}
-          hideSend={showAllAcctButtons}
+          hideLock={!showAllAcctButtons}
+          hideSend={!showAllAcctButtons}
         />
         <ScrollView>
           <AccountDetailsPanel firstPanel>
