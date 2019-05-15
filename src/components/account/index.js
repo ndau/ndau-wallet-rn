@@ -364,7 +364,7 @@ export function AccountDetailsButtonPanel (props) {
       </View>
       <View>
         { !props.hideLock ? <AccountButton
-          onPress={() => props.showLock(props.account, props.wallet)}
+          onPress={() => props.lock(props.account, props.wallet)}
           customIconName='lock'
         >
           Lock

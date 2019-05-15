@@ -44,7 +44,7 @@ class AccountDetails extends Component {
     this.setState({ account, wallet, accountsCanRxEAI })
   }
 
-  showLock = (account, wallet) => {
+  lock = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
     this.props.navigation.push('AccountLock', {
@@ -125,7 +125,7 @@ class AccountDetails extends Component {
           {...this.props}
         />
         <AccountDetailsButtonPanel
-          showLock={this.showLock}
+          lock={this.lock}
           send={this.send}
           receive={this.receive}
           account={this.state.account}
