@@ -7,6 +7,7 @@ import {
   AccountIconText,
   AccountLockConfirmBottomPanel
 } from '../components/account'
+import { Text } from 'react-native'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
@@ -16,6 +17,8 @@ import WalletStore from '../stores/WalletStore'
 import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import { TextLink } from '../components/common'
+import AppConfig from '../AppConfig'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -50,12 +53,12 @@ class AccountLockConfirmation extends Component {
     )
 
     this.setState({ spinner: true }, async () => {
-      const transactionFee = 0
+      let transactionFee = 0
       try {
         Object.assign(LockTransaction.prototype, Transaction)
         const lockTransaction = new LockTransaction(
           this.state.wallet,
-          this.state.account,
+          account,
           `${this.state.lockInformation.lockISO}`
         )
         await lockTransaction.create()
@@ -65,21 +68,12 @@ class AccountLockConfirmation extends Component {
       } catch (error) {
         this.setState({
           spinner: false,
-          account,
-          wallet,
-          lockInformation,
-          accountAddressForEAI,
-          accountNicknameForEAI
+          transactionFee
         })
         throw error
       }
       this.setState({
         spinner: false,
-        account,
-        wallet,
-        lockInformation,
-        accountAddressForEAI,
-        accountNicknameForEAI,
         transactionFee
       })
     })
@@ -175,8 +169,11 @@ class AccountLockConfirmation extends Component {
             Account will unlock in {this.state.lockInformation.lock}
           </AccountIconText>
           <AccountIconText iconColor='#8CC74F' iconName='usd-circle'>
-            {this.state.account.addressData.nickname} will be charged a fee of{' '}
-            {this.state.transactionFee} ndau
+            {this.state.account.addressData.nickname} will be charged a{' '}
+            <TextLink url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}>
+              fee
+            </TextLink>{' '}
+            of {this.state.transactionFee} ndau
           </AccountIconText>
           <AccountIconText
             iconColor={AppConstants.WARNING_ICON_COLOR}

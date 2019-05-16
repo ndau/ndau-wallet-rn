@@ -7,7 +7,8 @@ import {
   Text,
   Image,
   ScrollView,
-  Switch
+  Switch,
+  Linking
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
@@ -42,6 +43,14 @@ export function LoginContainer ({ children }) {
         </ScrollView>
       </FullScreenTripColorGradient>
     </MainContainer>
+  )
+}
+
+export function TextLink (props) {
+  return (
+    <H4 onPress={() => Linking.openURL(props.url)} style={styles.greenLinkText}>
+      {props.children}
+    </H4>
   )
 }
 

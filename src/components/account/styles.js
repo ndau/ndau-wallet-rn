@@ -662,6 +662,16 @@ export default StyleSheet.create({
     lineHeight: 18,
     paddingBottom: 0
   },
+  accountHistoryLinkText: {
+    color: '#4E957A',
+    textDecorationLine: 'underline',
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
   dashboardTotalPanel: {
     backgroundColor: '#293E63',
     height: 40,
@@ -803,7 +813,6 @@ export default StyleSheet.create({
     marginTop: hp('1%'),
     padding: 0
   },
-
   addressButtonText: {
     width: wp('12%'),
     color: AppConstants.TEXT_COLOR,

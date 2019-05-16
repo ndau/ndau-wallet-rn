@@ -114,6 +114,19 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     paddingVertical: 0
   },
+  greenLinkText: {
+    color: '#4E957A',
+    fontFamily: 'Open Sans',
+    fontSize: 15,
+    fontWeight: '200',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0,
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    paddingVertical: 0,
+    textDecorationLine: 'underline'
+  },
   passwordLinkContainer: {
     flex: 1,
     flexDirection: 'row',

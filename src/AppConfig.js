@@ -21,6 +21,11 @@ const API_MAX_RETRIES = 3 // allow 3 unsuccessful attempts
 const API_RETRY_DELAY_MS = 1 * 1000 // 1 * 1000 = 1 second (in miliseconds)
 const API_DEFAULT_TIMEOUT_MS = 10 * 1000 // 10 * 1000 = 10 seconds (in miliseconds)
 
+const TRANSACTION_FEE_KNOWLEDGEBASE_URL =
+  'https://ndaucollective.org/knowledge-base/transaction-fees/'
+const SIB_FEE_KNOWLEDGEBASE_URL =
+  'https://ndaucollective.org/knowledge-base/stabilization-incentive-burn-sib/'
+
 export default {
   LOCALE,
   CURRENT_PRICE_CURRENCY,
@@ -34,5 +39,7 @@ export default {
   GENESIS_USER_VALIDATION_SCRIPT,
   API_MAX_RETRIES,
   API_RETRY_DELAY_MS,
-  API_DEFAULT_TIMEOUT_MS
+  API_DEFAULT_TIMEOUT_MS,
+  TRANSACTION_FEE_KNOWLEDGEBASE_URL,
+  SIB_FEE_KNOWLEDGEBASE_URL
 }
