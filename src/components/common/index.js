@@ -14,7 +14,6 @@ import { SafeAreaView } from 'react-navigation'
 import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
-import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
 import { RNCamera } from 'react-native-camera'
@@ -51,6 +50,14 @@ export function TextLink (props) {
     <H4 onPress={() => Linking.openURL(props.url)} style={styles.greenLinkText}>
       {props.children}
     </H4>
+  )
+}
+
+export function SmallParagraphText (props) {
+  return (
+    <P style={[styles.smallParagraphText]} {...props}>
+      {props.children}
+    </P>
   )
 }
 

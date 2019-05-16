@@ -608,5 +608,15 @@ export default StyleSheet.create({
   qrCode: {
     marginTop: hp('14%'),
     alignSelf: 'center'
+  },
+  smallParagraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    textAlign: 'center',
+    marginLeft: wp('4%')
   }
 })
