@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Share, Text } from 'react-native'
+import { View, TouchableOpacity, Share, Text, Linking } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -734,15 +734,24 @@ export function AccountConfirmationItem (props) {
   return (
     <View style={styles.accountSendTextPanelWithSmallText}>
       <View>
-        <H4
-          style={
-            props.largerText
-              ? styles.accountHistoryLargerTextBold
-              : styles.accountHistorySmallerTextBold
-          }
-        >
-          {props.title}
-        </H4>
+        {props.url ? (
+          <H4
+            onPress={() => Linking.openURL(props.url)}
+            style={styles.accountHistoryLinkText}
+          >
+            {props.title}
+          </H4>
+        ) : (
+          <H4
+            style={
+              props.largerText
+                ? styles.accountHistoryLargerTextBold
+                : styles.accountHistorySmallerText
+            }
+          >
+            {props.title}
+          </H4>
+        )}
       </View>
       <View>
         <H4
