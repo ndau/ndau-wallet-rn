@@ -144,7 +144,7 @@ class RecoveryDropdown extends Component {
         }}
         listContainerStyle={styles.listContainerStyle}
         placeholderTextColor='#ffffff'
-        renderItem={({ item }) => (
+        renderItem={item => (
           <TouchableOpacity onPress={() => this.onPress(item)}>
             <Text style={styles.itemText}>{item}</Text>
           </TouchableOpacity>
