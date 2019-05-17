@@ -607,8 +607,10 @@ export default StyleSheet.create({
   fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {
     marginTop: hp('14%'),
-    marginBottom: hp('18%'),
-    alignSelf: 'center'
+    marginBottom: hp('16%'),
+    alignSelf: 'center',
+    padding: 10,
+    backgroundColor: '#FFFFFF'
   },
   smallParagraphText: {
     color: AppConstants.TEXT_COLOR,
