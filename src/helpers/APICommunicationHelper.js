@@ -38,7 +38,7 @@ const post = async (
         LoggingService.debug('APICommunicationHelper.post', {
           status: safeStatus,
           url: url,
-          response: JSON.stringify(error.response)
+          response: error.response
         })
         if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
@@ -71,9 +71,7 @@ const get = async (url, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
         LoggingService.debug('APICommunicationHelper.get', { url: url })
         const response = await axios.get(url, { timeout: timeoutMS })
 
-        LoggingService.debug({
-          url: JSON.stringify(response, null, 2)
-        })
+        LoggingService.debug('Response is: ', response)
         resolve(response.data)
       } catch (error) {
         const safeStatus =
@@ -81,7 +79,7 @@ const get = async (url, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
         LoggingService.debug('APICommunicationHelper.get', {
           status: safeStatus,
           url: url,
-          response: JSON.stringify(error.response)
+          response: error.response
         })
         if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
