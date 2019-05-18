@@ -110,9 +110,9 @@ class AccountDetails extends Component {
         AppConfig.NDAU_DETAIL_PRECISION
       )
     }
-    const showAllAcctButtons = !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
+    const showAllAcctButtons =
+      !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
     return (
-
       <AccountDetailsContainer
         goBack={this.goBack}
         account={this.state.account}
@@ -194,16 +194,6 @@ class AccountDetails extends Component {
                 value={sendingEAITo}
               />
             ) : null}
-          </AccountDetailsPanel>
-          <AccountDetailsPanel>
-            <AccountDetailsLargerText>Address</AccountDetailsLargerText>
-            <AccountBorder />
-            <AddressSharePanel
-              transparent
-              scroll
-              noPadding
-              address={this.state.account.address}
-            />
           </AccountDetailsPanel>
         </ScrollView>
       </AccountDetailsContainer>
