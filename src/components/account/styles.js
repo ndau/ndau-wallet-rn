@@ -713,6 +713,8 @@ export default StyleSheet.create({
   addressCopyPanel: {
     width: wp('92%'),
     height: hp('6%'),
+    marginRight: wp('4%'),
+    marginLeft: wp('4%'),
     borderRadius: 4,
     backgroundColor: '#293E63',
     paddingHorizontal: wp('4%')

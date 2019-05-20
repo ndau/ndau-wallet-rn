@@ -83,16 +83,6 @@ export default StyleSheet.create({
     marginRight: wp('1%'),
     marginBottom: wp('5%')
   },
-  smallParagraphText: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 12,
-    fontWeight: '400',
-    letterSpacing: 0.26,
-    lineHeight: 18,
-    textAlign: 'center',
-    marginLeft: wp('4%')
-  },
   recoveryConfirmationText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',

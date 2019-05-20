@@ -14,12 +14,11 @@ import { SafeAreaView } from 'react-navigation'
 import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
-import { SmallParagraphText } from '../setup'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
 import { RNCamera } from 'react-native-camera'
 import BarcodeMask from 'react-native-barcode-mask'
-import { QRCode } from 'react-native-custom-qr-codes'
+import QRCode from 'react-native-qrcode-svg'
 // It would be ideal to use the below library as it is faster. However
 // there seemed to be an issue with how it creates a black border. Even padding
 // the qr with a white border does not help. The react-native-custom-qr-codes is slow
@@ -51,6 +50,14 @@ export function TextLink (props) {
     <H4 onPress={() => Linking.openURL(props.url)} style={styles.greenLinkText}>
       {props.children}
     </H4>
+  )
+}
+
+export function SmallParagraphText (props) {
+  return (
+    <P style={[styles.smallParagraphText]} {...props}>
+      {props.children}
+    </P>
   )
 }
 
@@ -547,7 +554,7 @@ export function NdauQRCodeScanner (props) {
 export function NdauQRCode (props) {
   return (
     <View style={styles.qrCode}>
-      <QRCode content={props.value} size={250} />
+      <QRCode value={props.value} size={250} />
     </View>
   )
 }
