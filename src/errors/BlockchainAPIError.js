@@ -93,7 +93,7 @@ class BlockchainAPIError extends Error {
       this.message = MessagesByCode[parsedCode]
     } else {
       const code = codeFromMessage(this.message)
-      const statusOrNot = this.status ? this.status : ' '
+      const statusOrNot = this.status ? `${this.status} ` : ' '
       if (code !== null) {
         this.message = MessagesByCode[code]
       } else {
