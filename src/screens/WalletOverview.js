@@ -24,6 +24,7 @@ import AccountStore from '../stores/AccountStore'
 import NdauStore from '../stores/NdauStore'
 import AccountHelper from '../helpers/AccountHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import NdauNumber from '../helpers/NdauNumber'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -71,15 +72,16 @@ class WalletOverview extends Component {
   }
 
   _loadMetricsAndSetState = wallet => {
-    const totalNdau = wallet
-      ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
-      : 0
-    const totalNdauNumber = wallet
-      ? AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
-      : 0
-    const totalSpendable = wallet
-      ? AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
-      : 0
+    if (wallet) {
+      //throw new Error(Object.prototype.toString.call(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)))
+      totalNdau = (new NdauNumber(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts))).toSummary()
+      totalNdauNumber = (new NdauNumber(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false))).toSummary()
+      totalSpendable = (new NdauNumber(AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber))).toSummary()
+    } else {
+      totalNdau = '0'
+      totalNdauNumber = '0'
+      totalSpendable = '0'
+    }
     const currentPrice = AccountAPIHelper.currentPrice(
       NdauStore.getMarketPrice(),
       totalNdauNumber
@@ -195,7 +197,7 @@ class WalletOverview extends Component {
           <WalletOverviewHeaderActions>
             <DashboardLabelWithIcon
               greenFont
-              style={{ justifyContent: 'flex-start' }}
+              style={{ flex: 1.5, justifyContent: 'flex-start' }}
             >
               {totalSpendable} spendable
             </DashboardLabelWithIcon>

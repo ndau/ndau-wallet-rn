@@ -19,6 +19,7 @@ import AccountStore from '../stores/AccountStore'
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import DateHelper from '../helpers/DateHelper'
+import NdauNumber from '../helpers/NdauNumber'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -111,6 +112,7 @@ class AccountDetails extends Component {
       )
     }
     const showAllAcctButtons = !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
+    const spendableNdauDisplayed = (new NdauNumber(spendableNdau)).toDetail()
     return (
 
       <AccountDetailsContainer
@@ -168,7 +170,7 @@ class AccountDetails extends Component {
               </AccountParagraphText>
             ) : null}
             <AccountParagraphText customIconName='usd-circle'>
-              {spendableNdau} spendable
+              {spendableNdauDisplayed} spendable
             </AccountParagraphText>
           </AccountDetailsPanel>
           <AccountDetailsPanel secondPanel>
