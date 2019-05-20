@@ -75,7 +75,7 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
   let environment = await AsyncStorageHelper.getNetwork()
   // if we are in simulators then force to testnet
   if (__DEV__) {
-    await AsyncStorageHelper.useTestNet()
+    await AsyncStorageHelper.useDevNet()
     environment = await AsyncStorageHelper.getNetwork()
   }
 
