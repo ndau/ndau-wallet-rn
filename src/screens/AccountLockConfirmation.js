@@ -19,6 +19,7 @@ import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockcha
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import { TextLink } from '../components/common'
 import AppConfig from '../AppConfig'
+import KeyboardView from '../components/common/KeyboardView'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -150,48 +151,50 @@ class AccountLockConfirmation extends Component {
         navigation={this.props.nav}
         {...this.props}
       >
-        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <AccountLockDetailsPanel account={this.state.account}>
-          <AccountLockLargerText>Confirmation</AccountLockLargerText>
-          <AccountBorder sideMargins />
-          <AccountIconText>
-            Lock {this.state.account.addressData.nickname}
-          </AccountIconText>
-          <AccountIconText>
-            Earn {this.state.lockInformation.bonus}% EAI bonus +{' '}
-            {this.state.lockInformation.base}% base ={' '}
-            {this.state.lockInformation.total}% total
-          </AccountIconText>
-          <AccountIconText>
-            Sending EAI to {this.state.accountNicknameForEAI}
-          </AccountIconText>
-          <AccountIconText>
-            Account will unlock in {this.state.lockInformation.lock}
-          </AccountIconText>
-          <AccountIconText iconColor='#8CC74F' iconName='usd-circle'>
-            {this.state.account.addressData.nickname} will be charged a{' '}
-            <TextLink url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}>
-              fee
-            </TextLink>{' '}
-            of {this.state.transactionFee} ndau
-          </AccountIconText>
-          <AccountIconText
-            iconColor={AppConstants.WARNING_ICON_COLOR}
-            iconName='exclamation-circle'
-          >
-            You will not be able to deposit into, spend, transfer, or otherwise
-            access the principal in this account while it is locked
-          </AccountIconText>
-        </AccountLockDetailsPanel>
+        <KeyboardView>
+          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+          <AccountLockDetailsPanel account={this.state.account}>
+            <AccountLockLargerText>Confirmation</AccountLockLargerText>
+            <AccountBorder sideMargins />
+            <AccountIconText>
+              Lock {this.state.account.addressData.nickname}
+            </AccountIconText>
+            <AccountIconText>
+              Earn {this.state.lockInformation.bonus}% EAI bonus +{' '}
+              {this.state.lockInformation.base}% base ={' '}
+              {this.state.lockInformation.total}% total
+            </AccountIconText>
+            <AccountIconText>
+              Sending EAI to {this.state.accountNicknameForEAI}
+            </AccountIconText>
+            <AccountIconText>
+              Account will unlock in {this.state.lockInformation.lock}
+            </AccountIconText>
+            <AccountIconText iconColor='#8CC74F' iconName='usd-circle'>
+              {this.state.account.addressData.nickname} will be charged a{' '}
+              <TextLink url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}>
+                fee
+              </TextLink>{' '}
+              of {this.state.transactionFee} ndau
+            </AccountIconText>
+            <AccountIconText
+              iconColor={AppConstants.WARNING_ICON_COLOR}
+              iconName='exclamation-circle'
+            >
+              You will not be able to deposit into, spend, transfer, or
+              otherwise access the principal in this account while it is locked
+            </AccountIconText>
+          </AccountLockDetailsPanel>
 
-        <AccountLockConfirmBottomPanel
-          disabled={!this.state.confirmed}
-          onPress={this._lock}
-          onChangeText={this._checkWord}
-          word={this.state.word}
-        >
-          Confirm
-        </AccountLockConfirmBottomPanel>
+          <AccountLockConfirmBottomPanel
+            disabled={!this.state.confirmed}
+            onPress={this._lock}
+            onChangeText={this._checkWord}
+            word={this.state.word}
+          >
+            Confirm
+          </AccountLockConfirmBottomPanel>
+        </KeyboardView>
       </AccountLockContainer>
     )
   }

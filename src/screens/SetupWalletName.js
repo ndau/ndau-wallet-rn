@@ -5,6 +5,7 @@ import UserStore from '../stores/UserStore'
 import FlashNotification from '../components/common/FlashNotification'
 import { SetupContainer } from '../components/setup'
 import { LargeButtons, TextInput, ParagraphText } from '../components/common'
+import KeyboardView from '../components/common/KeyboardView'
 
 class SetupWalletName extends Component {
   constructor (props) {
@@ -83,23 +84,25 @@ class SetupWalletName extends Component {
   render () {
     return (
       <SetupContainer {...this.props} pageNumber={16}>
-        <ParagraphText>Give this wallet a name.</ParagraphText>
-        <TextInput
-          value={this.state.value}
-          onChangeText={value => {
-            if (value) {
-              SetupStore.walletId = value
-            } else {
-              SetupStore.walletId = this.defaultWalletId
-            }
-            this.setState({ value })
-          }}
-          placeholder={`${SetupStore.walletId}`}
-          onSubmitEditing={this.showNextSetup}
-        />
-        <LargeButtons sideMargins bottom onPress={() => this.showNextSetup()}>
-          Next
-        </LargeButtons>
+        <KeyboardView>
+          <ParagraphText>Give this wallet a name.</ParagraphText>
+          <TextInput
+            value={this.state.value}
+            onChangeText={value => {
+              if (value) {
+                SetupStore.walletId = value
+              } else {
+                SetupStore.walletId = this.defaultWalletId
+              }
+              this.setState({ value })
+            }}
+            placeholder={`${SetupStore.walletId}`}
+            onSubmitEditing={this.showNextSetup}
+          />
+          <LargeButtons sideMargins bottom onPress={() => this.showNextSetup()}>
+            Next
+          </LargeButtons>
+        </KeyboardView>
       </SetupContainer>
     )
   }

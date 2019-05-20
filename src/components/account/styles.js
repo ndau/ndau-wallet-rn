@@ -487,7 +487,6 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   accountLockButtonContainer: {
-    position: 'absolute',
     bottom: 0,
     marginLeft: wp('4%'),
     marginBottom: hp('2.5%'),

@@ -26,6 +26,7 @@ import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
 import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
+import KeyboardView from '../components/common/KeyboardView'
 import {
   LargeButtons,
   ParagraphText,
@@ -313,123 +314,125 @@ class SetupGetRecoveryPhrase extends Component {
         goBack={this.fromHamburger ? this.goBack : null}
         pageNumber={2 + this.state.stepNumber}
       >
-        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <ParagraphText>{this.state.introductionText}</ParagraphText>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            height: hp('10%')
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <Text style={cssStyles.wizardText}>
-              {this.state.recoveryIndex + 1}
-            </Text>
-            <Text style={cssStyles.wizardText}>{' of '}</Text>
-            <Text style={cssStyles.wizardText}>
-              {this.recoveryPhrase.length}
-            </Text>
-          </View>
+        <KeyboardView>
+          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+          <ParagraphText>{this.state.introductionText}</ParagraphText>
           <View
             style={{
               flex: 1,
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'flex-start'
+              justifyContent: 'flex-start',
+              height: hp('10%')
             }}
           >
             <View
               style={{
                 flexDirection: 'row',
+                alignItems: 'center',
                 justifyContent: 'center'
               }}
             >
-              <TouchableOpacity
+              <Text style={cssStyles.wizardText}>
+                {this.state.recoveryIndex + 1}
+              </Text>
+              <Text style={cssStyles.wizardText}>{' of '}</Text>
+              <Text style={cssStyles.wizardText}>
+                {this.recoveryPhrase.length}
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-start'
+              }}
+            >
+              <View
                 style={{
-                  marginLeft: wp('5%'),
-                  marginTop: hp('.8%'),
-                  ...Platform.select({
-                    ios: {
-                      marginRight: hp('1.6%')
-                    },
-                    android: {
-                      marginRight: hp('6%')
-                    }
-                  })
+                  flexDirection: 'row',
+                  justifyContent: 'center'
                 }}
-                onPress={this._moveBackAWord}
               >
-                <FontAwesome5Pro
-                  name='arrow-circle-left'
-                  color={styleConstants.ICON_GRAY}
-                  size={32}
-                  light
+                <TouchableOpacity
+                  style={{
+                    marginLeft: wp('5%'),
+                    marginTop: hp('.8%'),
+                    ...Platform.select({
+                      ios: {
+                        marginRight: hp('1.6%')
+                      },
+                      android: {
+                        marginRight: hp('6%')
+                      }
+                    })
+                  }}
+                  onPress={this._moveBackAWord}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-left'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                    light
+                  />
+                </TouchableOpacity>
+                <RecoveryDropdown
+                  addToRecoveryPhrase={this.addToRecoveryPhrase}
+                  setAcquisitionError={this.setAcquisitionError}
+                  recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
+                  setDisableArrows={this.setDisableArrows}
+                  moveToNextWord={this._moveToNextWord}
+                  ref={input => {
+                    this.recoveryDropdownRef = input
+                  }}
                 />
-              </TouchableOpacity>
-              <RecoveryDropdown
-                addToRecoveryPhrase={this.addToRecoveryPhrase}
-                setAcquisitionError={this.setAcquisitionError}
-                recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
-                setDisableArrows={this.setDisableArrows}
-                moveToNextWord={this._moveToNextWord}
-                ref={input => {
-                  this.recoveryDropdownRef = input
-                }}
-              />
-              <TouchableOpacity
-                style={{
-                  marginTop: hp('.5%'),
-                  marginLeft: wp('3%'),
-                  marginRight: wp('5%')
-                }}
-                onPress={this._moveToNextWord}
-                disabled={this.state.disableArrows}
-              >
-                <FontAwesome5Pro
-                  name='arrow-circle-right'
-                  color={styleConstants.ICON_GRAY}
-                  size={32}
-                  light
-                />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    marginTop: hp('.5%'),
+                    marginLeft: wp('3%'),
+                    marginRight: wp('5%')
+                  }}
+                  onPress={this._moveToNextWord}
+                  disabled={this.state.disableArrows}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-right'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                    light
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-        <BottomLinkText
-          left={Platform.OS === 'android' ? wp('20%') : wp('18%')}
-          onPress={this.noRecoveryPhrase}
-        >
-          I don't have my recovery phrase
-        </BottomLinkText>
-        <Dialog
-          style={{
-            fontSize: 18,
-            fontFamily: 'TitilliumWeb-Regular'
-          }}
-          visible={this.state.dialogVisible}
-          // title="Missing Recovery Phrase"
-          onTouchOutside={() => this.setState({ dialogVisible: false })}
-        >
-          <View>
-            <Text style={cssStyles.blackDialogText}>
-              Your recovery phrase is necessary to prove ownership of your ndau.
-              Your wallet cannot be restored without it. If you have lost your
-              recovery phrase please contact{' '}
-            </Text>
-            <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
-              Oneiro concierge support.
-            </Text>
-          </View>
-        </Dialog>
+          <BottomLinkText
+            left={Platform.OS === 'android' ? wp('20%') : wp('18%')}
+            onPress={this.noRecoveryPhrase}
+          >
+            I don't have my recovery phrase
+          </BottomLinkText>
+          <Dialog
+            style={{
+              fontSize: 18,
+              fontFamily: 'TitilliumWeb-Regular'
+            }}
+            visible={this.state.dialogVisible}
+            // title="Missing Recovery Phrase"
+            onTouchOutside={() => this.setState({ dialogVisible: false })}
+          >
+            <View>
+              <Text style={cssStyles.blackDialogText}>
+                Your recovery phrase is necessary to prove ownership of your
+                ndau. Your wallet cannot be restored without it. If you have
+                lost your recovery phrase please contact{' '}
+              </Text>
+              <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
+                Oneiro concierge support.
+              </Text>
+            </View>
+          </Dialog>
+        </KeyboardView>
       </SetupContainer>
     )
   }

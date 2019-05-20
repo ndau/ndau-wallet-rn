@@ -9,6 +9,7 @@ import FlashNotification from '../components/common/FlashNotification'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import { SetupContainer } from '../components/setup'
+import KeyboardView from '../components/common/KeyboardView'
 import {
   LargeButtons,
   Label,
@@ -161,38 +162,40 @@ class SetupEncryptionPassword extends Component {
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
-        <ParagraphText>{this.state.instructionText}</ParagraphText>
-        <Label>Password</Label>
-        <TextInput
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-          placeholder='Enter a password...'
-          secureTextEntry={!this.state.showPasswords}
-          autoCapitalize='none'
-        />
-        <Label>Confirm Password</Label>
-        <TextInput
-          onChangeText={this.updateComfirmPassword}
-          value={this.state.confirmPassword}
-          placeholder='Confirm your password...'
-          secureTextEntry={!this.state.showPasswords}
-          autoCapitalize='none'
-          onSubmitEditing={this.showNextSetup}
-        />
+        <KeyboardView>
+          <ParagraphText>{this.state.instructionText}</ParagraphText>
+          <Label>Password</Label>
+          <TextInput
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            placeholder='Enter a password...'
+            secureTextEntry={!this.state.showPasswords}
+            autoCapitalize='none'
+          />
+          <Label>Confirm Password</Label>
+          <TextInput
+            onChangeText={this.updateComfirmPassword}
+            value={this.state.confirmPassword}
+            placeholder='Confirm your password...'
+            secureTextEntry={!this.state.showPasswords}
+            autoCapitalize='none'
+            onSubmitEditing={this.showNextSetup}
+          />
 
-        <CheckBox
-          onValueChange={this.checkedShowPasswords}
-          checked={this.state.showPasswords}
-          label='Hide/show passwords'
-        />
-        <LargeButtons
-          sideMargins
-          bottom
-          onPress={() => this.showNextSetup()}
-          disabled={!progress}
-        >
-          Next
-        </LargeButtons>
+          <CheckBox
+            onValueChange={this.checkedShowPasswords}
+            checked={this.state.showPasswords}
+            label='Hide/show passwords'
+          />
+          <LargeButtons
+            sideMargins
+            bottom
+            onPress={() => this.showNextSetup()}
+            disabled={!progress}
+          >
+            Next
+          </LargeButtons>
+        </KeyboardView>
       </SetupContainer>
     )
   }
