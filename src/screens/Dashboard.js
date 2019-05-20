@@ -54,6 +54,8 @@ class Dashboard extends Component {
 
     const user = UserStore.getUser()
 
+    console.log('GOT HERE', Object.keys(user.wallets))
+
     if (Object.keys(user.wallets).length <= 1) {
       WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
       this.props.navigation.navigate('WalletOverview')
@@ -128,14 +130,7 @@ class Dashboard extends Component {
 
   render = () => {
     try {
-      const user = this.state.user
-      if (!user.wallets) {
-        return (
-          <AppContainer>
-            <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
-          </AppContainer>
-        )
-      }
+      const user = UserStore.getUser()
 
       const { totalNdau, totalSpendableNdau, currentPrice } = this.state
       const wallets = Object.values(user.wallets)

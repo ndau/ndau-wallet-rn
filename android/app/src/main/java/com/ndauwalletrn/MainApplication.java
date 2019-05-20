@@ -14,7 +14,6 @@ import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
-import com.github.wumke.RNExitApp.RNExitAppPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

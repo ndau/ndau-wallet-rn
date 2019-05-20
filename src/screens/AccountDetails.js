@@ -47,7 +47,7 @@ class AccountDetails extends Component {
   lock = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
-    this.props.navigation.push('AccountLock', {
+    this.props.navigation.navigate('AccountLock', {
       nav: this.props.navigation,
       accountsCanRxEAI: this.state.accountsCanRxEAI,
       baseEAI: this.baseEAI
@@ -56,19 +56,19 @@ class AccountDetails extends Component {
 
   showHistory = account => {
     AccountStore.setAccount(account)
-    this.props.navigation.push('AccountHistory')
+    this.props.navigation.navigate('AccountHistory')
   }
 
   send = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
-    this.props.navigation.push('AccountSend')
+    this.props.navigation.navigate('AccountSend')
   }
 
   receive = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
-    this.props.navigation.push('AccountReceive')
+    this.props.navigation.navigate('AccountReceive')
   }
 
   goBack = () => {

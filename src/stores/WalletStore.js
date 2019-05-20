@@ -9,6 +9,7 @@ class WalletStore {
   }
 
   setWallet (wallet) {
+    console.log('SETTING WALLET TO', wallet)
     this._wallet[0] = wallet
   }
 
