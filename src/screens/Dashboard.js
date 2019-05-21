@@ -3,7 +3,6 @@ import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
-import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import LoggingService from '../services/LoggingService'
 import { AppContainer, NdauTotal } from '../components/common'
@@ -18,7 +17,8 @@ import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
-import StringifyDataWriter from 'react-native-device-log'
+import NdauNumber from '../helpers/NdauNumber'
+
 
 class Dashboard extends Component {
   constructor (props) {
@@ -84,15 +84,15 @@ class Dashboard extends Component {
 
   _loadMetricsAndSetState = user => {
     const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
-    const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
+    const totalNdau = (new NdauNumber(AccountAPIHelper.accountTotalNdauAmount(accounts))).toSummary()
     const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
       accounts,
       false
     )
-    const totalSpendableNdau = AccountAPIHelper.totalSpendableNdau(
+    const totalSpendableNdau = (new NdauNumber(AccountAPIHelper.totalSpendableNdau(
       accounts,
       totalNdauNumber
-    )
+    ))).toSummary()
     const currentPrice = AccountAPIHelper.currentPrice(
       NdauStore.getMarketPrice(),
       totalNdauNumber
