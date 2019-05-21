@@ -24,6 +24,7 @@ import AccountStore from '../stores/AccountStore'
 import NdauStore from '../stores/NdauStore'
 import AccountHelper from '../helpers/AccountHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
+import { NavigationEvents } from 'react-navigation'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -32,7 +33,6 @@ class WalletOverview extends Component {
     this.state = {
       number: 1,
       activeAddress: null,
-      wallet: {},
       refreshing: false,
       currentPrice: 0,
       totalNdau: 0,
@@ -122,7 +122,7 @@ class WalletOverview extends Component {
   addNewAccount = async () => {
     try {
       const wallet = await AccountHelper.createAccounts(
-        this.state.wallet,
+        this._getWallet(),
         this.state.number
       )
 
@@ -174,11 +174,14 @@ class WalletOverview extends Component {
     try {
       const wallet = this._getWallet()
 
+      LoggingService.debug(`Rendering wallet: `, wallet)
+
       const { totalNdau, totalSpendable, currentPrice } = this.state
       this.accountsCanRxEAI = {}
 
       return (
         <AppContainer>
+          <NavigationEvents onWillFocus={payload => this._onRefresh()} />
           <NewAccountModalDialog
             number={this.state.number}
             subtractNumber={this.subtractNumber}
@@ -188,9 +191,7 @@ class WalletOverview extends Component {
           />
 
           <DrawerHeader {...this.props}>
-            {this.state.wallet
-              ? DataFormatHelper.truncateString(this.state.wallet.walletName)
-              : ''}
+            {wallet ? DataFormatHelper.truncateString(wallet.walletName) : ''}
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
           <WalletOverviewHeaderActions>
