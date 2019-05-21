@@ -15,7 +15,7 @@ const _postTransaction = async (submitAddress, transaction) => {
       JSON.stringify(transaction)
     )
   } catch (error) {
-    LoggingService.error('TransactionAPI._postTransaction', error)
+    LoggingService.debug('TransactionAPI._postTransaction', error)
     throw error
   }
 }
@@ -36,7 +36,7 @@ const transactionByHash = async transactionHash => {
     )
     return await APICommunicationHelper.get(transactionByHashAddress)
   } catch (error) {
-    LoggingService.error('TransactionAPI.transactionByHash', error)
+    LoggingService.debug('TransactionAPI.transactionByHash', error)
     throw new BlockchainAPIError(error)
   }
 }

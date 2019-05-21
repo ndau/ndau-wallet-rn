@@ -273,6 +273,7 @@ export default StyleSheet.create({
   },
   accountLockPanel: {
     width: wp('100%'),
+    minHeight: hp('85%'),
     backgroundColor: '#0A1724',
     paddingTop: 0
   },
