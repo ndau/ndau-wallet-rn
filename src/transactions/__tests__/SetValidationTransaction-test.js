@@ -215,7 +215,6 @@ test('creation a transaction yeilds new instance', async () => {
   expect(setValidationTransaction1._sendType).toBe(2)
   await setValidationTransaction1.create()
   const address = setValidationTransaction1._prevalidateAddress
-  console.log('ADDRESS:', address)
   expect(address.includes('recovery')).toBeTruthy()
 })
 

@@ -138,7 +138,7 @@ class AccountLock extends Component {
             </AccountLockOptionsPanel>
             <AccountLockButton
               smallText={
-                'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
+                'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal in this account while it is locked'
               }
               onPress={this._selectAccountToSendEAI}
               disabled={this.state.selectedIndex === null}
