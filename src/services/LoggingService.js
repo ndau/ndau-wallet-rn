@@ -11,7 +11,7 @@ const initialize = () => {
       logToConsole: __DEV__, // Send logs to console as well as device-log
       logRNErrors: true, // Will pick up RN-errors and send them to the device log
       maxNumberToRender: 0, // 0 or undefined == unlimited
-      maxNumberToPersist: 500 // 0 or undefined == unlimited
+      maxNumberToPersist: 100 // 0 or undefined == unlimited
     })
     .then(() => {
       // Clean the log upon initialization for
@@ -48,10 +48,16 @@ const error = (...messages) => {
 }
 
 const getLoggingData = async logData => {
-  const device = await deviceLog.store.getRows()
+  let logEntries = []
   const returnLoggingData = []
+  const device = await deviceLog.store.getRows()
+  if (device && device.length > 50) {
+    logEntries = device.splice(0, 50)
+  }
+
+  if (logData) logEntries = logData
+
   return new Promise(resolve => {
-    const logEntries = logData || device
     for (const entry of logEntries) {
       returnLoggingData.push({ [entry.timeStamp]: entry.message })
     }

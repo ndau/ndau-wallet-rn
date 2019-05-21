@@ -19,7 +19,6 @@ import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
 import NdauNumber from '../helpers/NdauNumber'
 
-
 class Dashboard extends Component {
   constructor (props) {
     super(props)
@@ -84,15 +83,16 @@ class Dashboard extends Component {
 
   _loadMetricsAndSetState = user => {
     const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
-    const totalNdau = (new NdauNumber(AccountAPIHelper.accountTotalNdauAmount(accounts))).toSummary()
+    const totalNdau = new NdauNumber(
+      AccountAPIHelper.accountTotalNdauAmount(accounts)
+    ).toDetail()
     const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
       accounts,
       false
     )
-    const totalSpendableNdau = (new NdauNumber(AccountAPIHelper.totalSpendableNdau(
-      accounts,
-      totalNdauNumber
-    ))).toSummary()
+    const totalSpendableNdau = new NdauNumber(
+      AccountAPIHelper.totalSpendableNdau(accounts, totalNdauNumber)
+    ).toSummary()
     const currentPrice = AccountAPIHelper.currentPrice(
       NdauStore.getMarketPrice(),
       totalNdauNumber

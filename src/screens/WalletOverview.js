@@ -76,10 +76,16 @@ class WalletOverview extends Component {
 
   _loadMetricsAndSetState = wallet => {
     if (wallet) {
-      //throw new Error(Object.prototype.toString.call(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)))
-      totalNdau = (new NdauNumber(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts))).toSummary()
-      totalNdauNumber = (new NdauNumber(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false))).toSummary()
-      totalSpendable = (new NdauNumber(AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber))).toSummary()
+      // throw new Error(Object.prototype.toString.call(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)))
+      totalNdau = new NdauNumber(
+        AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
+      ).toDetail()
+      totalNdauNumber = new NdauNumber(
+        AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
+      ).toDetail()
+      totalSpendable = new NdauNumber(
+        AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
+      ).toSummary()
     } else {
       totalNdau = '0'
       totalNdauNumber = '0'
