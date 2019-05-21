@@ -14,7 +14,7 @@ const initialize = () => {
       maxNumberToPersist: 500 // 0 or undefined == unlimited
     })
     .then(() => {
-      // Clean the log as it can get
+      // Clean the log upon initialization for
       deviceLog.clear()
     })
 

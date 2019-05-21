@@ -33,13 +33,11 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(),
-            new RNMail(),
-            new RNFSPackage(),
-            new RNDeviceInfo(), new AsyncStoragePackage(), new SvgPackage(), new RNVersionNumberPackage(),
+            return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNMail(), new RNFSPackage(),
+                    new RNDeviceInfo(), new AsyncStoragePackage(), new SvgPackage(), new RNVersionNumberPackage(),
                     new LinearGradientPackage(), new RNBackgroundFetchPackage(),
                     new ReactNativePushNotificationPackage(), new VectorIconsPackage(), new KeyaddrPackage(),
-                    new RNCameraPackage(), new RNExitAppPackage(), new RNSecureRandomPackage());
+                    new RNCameraPackage(), new RNSecureRandomPackage());
         }
 
         @Override
