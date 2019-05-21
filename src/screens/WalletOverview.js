@@ -25,6 +25,7 @@ import NdauStore from '../stores/NdauStore'
 import AccountHelper from '../helpers/AccountHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import NdauNumber from '../helpers/NdauNumber'
+import { NavigationEvents } from 'react-navigation'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -33,7 +34,6 @@ class WalletOverview extends Component {
     this.state = {
       number: 1,
       activeAddress: null,
-      wallet: {},
       refreshing: false,
       currentPrice: 0,
       totalNdau: 0,
@@ -62,7 +62,10 @@ class WalletOverview extends Component {
     if (this.props.navigation.getParam('refresh')) {
       this._onRefresh()
     } else {
-      const wallet = this._loadMetricsAndSetState(WalletStore.getWallet())
+      const wallet = this._loadMetricsAndSetState(this._getWallet())
+      if (wallet) {
+        WalletStore.setWallet(wallet)
+      }
     }
 
     const error = this.props.navigation.getParam('error', null)
@@ -114,12 +117,6 @@ class WalletOverview extends Component {
     this.setState({ spinner: true })
   }
 
-  buy = () => {
-    // TODO: if no code exists we have to verify identity
-    this.props.navigation.navigate('IdentityVerificationIntro')
-    // TODO: otherwise we can continue in the purchase of ndau
-  }
-
   launchAddNewAccountDialog = () => {
     this._newAccountModal.showModal()
   }
@@ -127,7 +124,7 @@ class WalletOverview extends Component {
   addNewAccount = async () => {
     try {
       const wallet = await AccountHelper.createAccounts(
-        this.state.wallet,
+        this._getWallet(),
         this.state.number
       )
 
@@ -145,17 +142,16 @@ class WalletOverview extends Component {
       const password = await UserStore.getPassword()
       const user = await MultiSafeHelper.getDefaultUser(password)
 
-      let wallet = this.state.wallet
+      let wallet = this._getWallet()
       try {
         await UserData.loadUserData(user)
 
-        wallet = KeyMaster.getWalletFromUser(user, this.state.wallet.walletId)
+        wallet = KeyMaster.getWalletFromUser(user, wallet.walletId)
       } catch (error) {
         FlashNotification.showError(error.message)
       }
 
-      WalletStore.setWallet(wallet)
-
+      if (wallet) WalletStore.setWallet(wallet)
       this._loadMetricsAndSetState(wallet)
     })
   }
@@ -163,23 +159,31 @@ class WalletOverview extends Component {
   _showAccountDetails = (account, wallet) => {
     AccountStore.setAccount(account)
     WalletStore.setWallet(wallet)
-    this.props.navigation.push('AccountDetails', {
+    this.props.navigation.navigate('AccountDetails', {
       accountsCanRxEAI: this.accountsCanRxEAI
     })
   }
 
+  _getWallet = () => {
+    let { wallet } = this.state
+    if (!wallet) {
+      wallet = WalletStore.getWallet()
+    }
+    return wallet
+  }
+
   render = () => {
     try {
-      let { wallet } = this.state
-      if (!wallet) {
-        wallet = WalletStore.getWallet()
-      }
+      const wallet = this._getWallet()
+
+      LoggingService.debug(`Rendering wallet: `, wallet)
 
       const { totalNdau, totalSpendable, currentPrice } = this.state
       this.accountsCanRxEAI = {}
 
       return (
         <AppContainer>
+          <NavigationEvents onWillFocus={payload => this._onRefresh()} />
           <NewAccountModalDialog
             number={this.state.number}
             subtractNumber={this.subtractNumber}
@@ -189,9 +193,7 @@ class WalletOverview extends Component {
           />
 
           <DrawerHeader {...this.props}>
-            {this.state.wallet
-              ? DataFormatHelper.truncateString(this.state.wallet.walletName)
-              : ''}
+            {wallet ? DataFormatHelper.truncateString(wallet.walletName) : ''}
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
           <WalletOverviewHeaderActions>

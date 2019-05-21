@@ -128,14 +128,7 @@ class Dashboard extends Component {
 
   render = () => {
     try {
-      const user = this.state.user
-      if (!user.wallets) {
-        return (
-          <AppContainer>
-            <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
-          </AppContainer>
-        )
-      }
+      const user = UserStore.getUser()
 
       const { totalNdau, totalSpendableNdau, currentPrice } = this.state
       const wallets = Object.values(user.wallets)
