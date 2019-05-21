@@ -6,12 +6,21 @@ class SettingsStore {
       this._settings = {}
       SettingsStore.instance = this
     }
-
+    this.funcs = new Set()
     return SettingsStore.instance
   }
 
   setApplicationNetwork (network) {
     this._settings.applicationNetwork = network
+    this.funcs.forEach(func=>func(network))
+  }
+
+  addListener (func) {
+    this.funcs.add(func)
+  }
+
+  removeListener(func) {
+    this.funcs.delete(func)
   }
 
   getApplicationNetwork () {
