@@ -58,7 +58,7 @@ class AppDrawer extends React.Component {
     // try {
     //   await rnfs.writeFile(path, data, 'utf8')
     // } catch (error) {
-    //   LoggingService.error(error)
+    //   LoggingService.debug(error)
     // }
 
     Mailer.mail(
@@ -79,7 +79,7 @@ class AppDrawer extends React.Component {
       },
       error => {
         if (error) {
-          LoggingService.error(error)
+          LoggingService.debug(error)
         }
       }
     )

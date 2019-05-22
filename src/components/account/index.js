@@ -20,9 +20,13 @@ import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
 import ndaujs from 'ndaujs'
 import AppConfig from '../../AppConfig'
+import NdauNumber from '../../helpers/NdauNumber'
 import { DrawerHeader } from '../drawer'
 
 export function AccountPanel (props) {
+  const accountAmount = new NdauNumber(
+    AccountAPIHelper.accountNdauAmount(props.account.addressData)
+  )
   return (
     <View style={styles.accountMainPanel}>
       <LinearGradient
@@ -85,9 +89,7 @@ export function AccountPanel (props) {
                 </View>
                 <View>
                   <H4 style={styles.accountPanelTotal}>
-                    {AccountAPIHelper.accountNdauAmount(
-                      props.account.addressData
-                    )}
+                    {accountAmount.toSummary()}
                   </H4>
                 </View>
               </View>
@@ -148,7 +150,7 @@ export function AccountDetailsContainer (props) {
 
 export function AccountLockContainer (props) {
   close = () => {
-    props.navigation.push('WalletOverview', { wallet: props.wallet })
+    props.navigation.navigate('AccountDetails', { wallet: props.wallet })
   }
   goBack = () => {
     props.navigation.goBack()
@@ -327,17 +329,18 @@ export function LargeAccountButton (props) {
 }
 
 export function AccountTotalPanel (props) {
+  const amount = new NdauNumber(
+    AccountAPIHelper.accountNdauAmount(
+      props.account.addressData,
+      true,
+      AppConfig.NDAU_DETAIL_PRECISION
+    )
+  ).toDetail()
   return (
     <View style={styles.accountTotalPanel}>
       <View style={styles.ndauTotalContainerMedium}>
         <P style={styles.ndauMedium}>n</P>
-        <H4 style={styles.accountTotalPanelText}>
-          {AccountAPIHelper.accountNdauAmount(
-            props.account.addressData,
-            true,
-            AppConfig.NDAU_DETAIL_PRECISION
-          )}
-        </H4>
+        <H4 style={styles.accountTotalPanelText}>{amount}</H4>
       </View>
     </View>
   )

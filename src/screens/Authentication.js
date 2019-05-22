@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Alert, Keyboard } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import RNExitApp from 'react-native-exit-app'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import FlashNotification from '../components/common/FlashNotification'

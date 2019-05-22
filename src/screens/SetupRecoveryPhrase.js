@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { PixelRatio, NativeModules, Alert } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
-import RNExitApp from 'react-native-exit-app'
 import SetupStore from '../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
