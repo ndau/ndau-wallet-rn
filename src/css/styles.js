@@ -5,15 +5,21 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 
+
 const networkCommon = {
   width: '100%',
-  position: 'absolute',
-  top: 27,
-  padding: 5,
   zIndex: 9001,
   textAlign: 'center',
   color: 'white',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  ...Platform.select({
+    ios: {
+      position: 'absolute',
+      top: 27,
+      padding: 5
+    }
+  })
+
 }
 
 export default StyleSheet.create({
