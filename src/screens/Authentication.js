@@ -4,9 +4,8 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import FlashNotification from '../components/common/FlashNotification'
-import OrderAPI from '../api/OrderAPI'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import {
   LoginContainer,
   LabelWithIcon,
@@ -41,7 +40,9 @@ class Authentication extends Component {
           FlashNotification.hideMessage()
           UserStore.setUser(user)
 
-          LoggingService.debug('User in Authentication found is', user)
+          LogStore.log(
+            `User in Authentication found is ${JSON.stringify(user)}`
+          )
 
           // cache the password
           UserStore.setPassword(this.state.password)
@@ -51,7 +52,7 @@ class Authentication extends Component {
             await UserData.loadUserData(user)
           } catch (error) {
             FlashNotification.showError(error.message)
-            LoggingService.debug(error)
+            LogStore.log(error)
             errorMessage = error.message
           }
 
@@ -65,7 +66,7 @@ class Authentication extends Component {
           this.setState({ spinner: false })
         }
       } catch (error) {
-        LoggingService.debug(error)
+        LogStore.log(error)
         this.showLoginError()
         this.setState({ spinner: false })
       }

@@ -4,7 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import LoggingService from '../../services/LoggingService'
+import LogStore from '../../stores/LogStore'
 
 class KeyboardView extends Component {
   constructor (props) {
@@ -75,7 +75,6 @@ class KeyboardView extends Component {
 
   // This one is for Android
   keyboardDidShow = event => {
-    LoggingService.debug(`event is `, event)
     Animated.parallel([
       Animated.timing(this.keyboardHeight, {
         duration: this._getDuration(event),

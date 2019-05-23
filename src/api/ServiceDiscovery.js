@@ -1,7 +1,7 @@
 import ServiceDiscoveryError from '../errors/ServiceDiscoveryError'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import moment from 'moment'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 
@@ -21,9 +21,7 @@ const recoveryCache = {
 }
 
 const getBlockchainServiceNodeURL = async () => {
-  LoggingService.debug(
-    `Blockchain Service Discovery URL: ${AWS_S3_SERVICE_JSON}`
-  )
+  LogStore.log(`Blockchain Service Discovery URL: ${AWS_S3_SERVICE_JSON}`)
 
   try {
     if (moment().diff(blockchainCache.lastChecked) > CACHE_TTL) {
@@ -37,13 +35,13 @@ const getBlockchainServiceNodeURL = async () => {
       Math.floor(Math.random() * blockchainCache.nodes.length)
     ]
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     throw new ServiceDiscoveryError()
   }
 }
 
 const getRecoveryServiceNodeURL = async () => {
-  LoggingService.debug(`Recovery Service Discovery URL: ${AWS_S3_SERVICE_JSON}`)
+  LogStore.log(`Recovery Service Discovery URL: ${AWS_S3_SERVICE_JSON}`)
 
   try {
     if (moment().diff(recoveryCache.lastChecked) > CACHE_TTL) {
@@ -60,7 +58,7 @@ const getRecoveryServiceNodeURL = async () => {
       Math.floor(Math.random() * recoveryCache.nodes.length)
     ]
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     throw new ServiceDiscoveryError()
   }
 }

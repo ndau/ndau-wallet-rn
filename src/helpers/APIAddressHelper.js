@@ -1,6 +1,6 @@
 import AppConfig from '../AppConfig'
 import ServiceDiscovery from '../api/ServiceDiscovery'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 
 const BLOCKCHAIN = 1
 const RECOVERY = 2
@@ -13,7 +13,7 @@ const getBlockchainNode = async () => {
 
 const getRecoveryNode = async () => {
   const node = await ServiceDiscovery.getRecoveryServiceNodeURL()
-  LoggingService.debug(`Using Recovery Service node: ${node}`)
+  LogStore.log(`Using Recovery Service node: ${node}`)
   return node
 }
 
@@ -44,10 +44,7 @@ const getTransactionPrevalidateAPIAddress = async sendType => {
 }
 
 const getTransactionSubmitAPIAddress = async sendType => {
-  LoggingService.debug(`TEST sendType is:`, sendType)
-  const addressPre = await getNodeAddress(sendType)
-  LoggingService.debug(`TEST addressPre:`, addressPre)
-  return addressPre + '/tx/submit'
+  return (await getNodeAddress(sendType)) + '/tx/submit'
 }
 
 const getAccountHistoryAPIAddress = async address => {

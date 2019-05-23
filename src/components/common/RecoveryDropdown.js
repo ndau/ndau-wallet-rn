@@ -15,7 +15,7 @@ import {
 import Autocomplete from 'react-native-autocomplete-input'
 import styleConstants from '../../css/styleConstants'
 import AppConstants from '../../AppConstants'
-import LoggingService from '../../services/LoggingService'
+import LogStore from '../../stores/LogStore'
 
 class RecoveryDropdown extends Component {
   constructor (props) {
@@ -32,7 +32,7 @@ class RecoveryDropdown extends Component {
   }
   // TODO: we are going to have to write them somewhere...
   onPress (title) {
-    // LoggingService.debug(`title selected is ${title}`)
+    // LogStore.log(`title selected is ${title}`)
     this.setState({ query: title, list: [] })
     this.props.addToRecoveryPhrase(title)
     this.props.setDisableArrows(false)
@@ -89,7 +89,7 @@ class RecoveryDropdown extends Component {
       )
       this.retrievedData = true
       const wordsArray = words.split(' ')
-      // LoggingService.debug(`words; ${words} textEntered: ${textEntered}`)
+      // LogStore.log(`words; ${words} textEntered: ${textEntered}`)
 
       this._checkIfArrowsNeedToBeDisabled(words, textEntered)
 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { BackHandler } from 'react-native'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import FlashNotification from '../components/common/FlashNotification'
-import LoggingService from '../services/LoggingService'
 import {
   SetupWelcomeContainer,
   LargeText,

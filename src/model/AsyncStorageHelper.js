@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import CryptoJS from 'crypto-js'
 import FlashNotification from '../components/common/FlashNotification'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import ServiceDiscovery from '../api/ServiceDiscovery'
 import SettingsStore from '../stores/SettingsStore'
 
@@ -131,12 +131,12 @@ const getNetwork = async () => {
 const unlockUser = (userId, encryptionPassword) => {
   return new Promise((resolve, reject) => {
     const storageKey = STORAGE_KEY_PREFIX + userId
-    LoggingService.debug(`storage key to check is ${storageKey}`)
+    LogStore.log(`storage key to check is ${storageKey}`)
     AsyncStorage.getItem(STORAGE_KEY_PREFIX + userId)
       .then(user => {
-        LoggingService.debug(`The following user object was returned: ${user}`)
+        LogStore.log(`The following user object was returned: ${user}`)
         if (user !== null) {
-          LoggingService.debug(`unlockUser - encrypted user is: ${user}`)
+          LogStore.log(`unlockUser - encrypted user is: ${user}`)
           const userDecryptedBytes = CryptoJS.AES.decrypt(
             user,
             encryptionPassword
@@ -144,9 +144,7 @@ const unlockUser = (userId, encryptionPassword) => {
           const userDecryptedString = userDecryptedBytes.toString(
             CryptoJS.enc.Utf8
           )
-          LoggingService.debug(
-            `unlockUser - decrypted user is: ${userDecryptedString}`
-          )
+          LogStore.log(`unlockUser - decrypted user is: ${userDecryptedString}`)
 
           if (!userDecryptedString) resolve(null)
 
@@ -156,8 +154,10 @@ const unlockUser = (userId, encryptionPassword) => {
         }
       })
       .catch(error => {
-        LoggingService.debug(
-          `User could be present but password is incorrect: ${error}`
+        LogStore.log(
+          `User could be present but password is incorrect: ${JSON.stringify(
+            error
+          )}`
         )
         reject(error)
       })
@@ -185,21 +185,17 @@ const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
     const userString = JSON.stringify(user)
     const storageKey = storageKeyOverride || STORAGE_KEY_PREFIX + user.userId
 
-    LoggingService.debug(
-      `lockUser - user to encrypt to ${storageKey}: ${userString}`
-    )
+    LogStore.log(`lockUser - user to encrypt to ${storageKey}: ${userString}`)
     const userStringEncrypted = CryptoJS.AES.encrypt(
       userString,
       encryptionPassword
     )
-    LoggingService.debug(`lockUser - encrypted user is: ${userStringEncrypted}`)
+    LogStore.log(`lockUser - encrypted user is: ${userStringEncrypted}`)
 
     await AsyncStorage.setItem(storageKey, userStringEncrypted.toString())
 
     const checkPersist = await unlockUser(user.userId, encryptionPassword)
-    LoggingService.debug(
-      `Successfully set user to: ${JSON.stringify(checkPersist)}`
-    )
+    LogStore.log(`Successfully set user to: ${JSON.stringify(checkPersist)}`)
   } catch (error) {
     FlashNotification.showError(`Problem locking user: ${error.message}`)
     throw error
@@ -226,7 +222,7 @@ const getAllKeys = async () => {
           key !== DEBUG_ROWS &&
           key !== LAST_ACCOUNT_DATA
       )
-    LoggingService.debug(`keys found in getAllKeys are ${newKeys}`)
+    LogStore.log(`keys found in getAllKeys are ${newKeys}`)
     return newKeys
   } catch (error) {
     return []

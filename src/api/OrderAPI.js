@@ -1,6 +1,6 @@
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 
 const getMarketPrice = async user => {
@@ -20,7 +20,7 @@ const getMarketPrice = async user => {
 
     return dollars
   } catch (error) {
-    LoggingService.debug(`Something went wrong geting market price: `, error)
+    LogStore.log(`Something went wrong geting market price: ${JSON.stringify(error)}`)
 
     if (user.defaults && user.defaults.marketPrice) {
       return user.defaults.marketPrice

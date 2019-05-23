@@ -4,7 +4,7 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import FlashNotification from '../components/common/FlashNotification'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import { AppContainer, NdauTotal } from '../components/common'
 import { AccountPanel } from '../components/account'
 import {
@@ -182,7 +182,7 @@ class WalletOverview extends Component {
     try {
       const wallet = this._getWallet()
 
-      LoggingService.debug(`Rendering wallet: `, wallet)
+      LogStore.log(`Rendering wallet: ${JSON.stringify(wallet)}`)
 
       const { totalNdau, totalSpendable, currentPrice } = this.state
       this.accountsCanRxEAI = {}
@@ -299,7 +299,7 @@ class WalletOverview extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LoggingService.debug(error)
+      LogStore.log(error)
       FlashNotification.showError(error.message)
     }
 

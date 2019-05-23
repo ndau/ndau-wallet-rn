@@ -4,7 +4,7 @@ import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import { AppContainer, NdauTotal } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
@@ -65,7 +65,7 @@ class Dashboard extends Component {
 
     this._loadMetricsAndSetState(user)
 
-    LoggingService.debug(`User to be drawn: `, user)
+    LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
@@ -170,7 +170,7 @@ class Dashboard extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LoggingService.debug(error)
+      LogStore.log(error)
       FlashNotification.showError(error.message)
     }
 

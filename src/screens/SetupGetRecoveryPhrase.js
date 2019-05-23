@@ -24,7 +24,7 @@ import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
 import {
   LargeButtons,
@@ -111,14 +111,14 @@ class SetupGetRecoveryPhrase extends Component {
     this.boxHeight = '13%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    LoggingService.debug(
+    LogStore.log(
       `PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`
     )
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       this.boxWidth = '100%'
       this.boxHeight = '30%'
-      LoggingService.debug(
+      LogStore.log(
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
@@ -273,7 +273,7 @@ class SetupGetRecoveryPhrase extends Component {
           FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
         }
       } catch (error) {
-        LoggingService.debug(error)
+        LogStore.log(error)
         this.setState({
           textColor: AppConstants.WARNING_ICON_COLOR,
           confirmationError: true

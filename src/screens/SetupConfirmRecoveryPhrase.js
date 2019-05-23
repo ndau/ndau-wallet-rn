@@ -18,7 +18,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import UserStore from '../stores/UserStore'
 import AppConstants from '../AppConstants'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import {
   SetupContainer,
   RecoveryPhraseConfirmation,
@@ -74,7 +74,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       )
     }
 
-    LoggingService.debug(`user going into SetupWalletName: `, user)
+    LogStore.log(`user going into SetupWalletName: ${user}`)
 
     this.props.navigation.navigate('SetupWalletName')
   }

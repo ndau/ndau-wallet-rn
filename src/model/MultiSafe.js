@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import CryptoJS from 'crypto-js'
 import EntropyHelper from '../helpers/EntropyHelper'
+import LogStore from '../stores/LogStore'
 
 // we put these things on either end of the combination to make sure we know that we
 // have decrypted it properly
@@ -61,7 +62,7 @@ class MultiSafe {
       )
       return newKeys
     } catch (error) {
-      LoggingService.debug('GetAllKeys failed', error)
+      LogStore.log('GetAllKeys failed', error)
       return []
     }
   }
@@ -99,7 +100,7 @@ class MultiSafe {
       let item = await AsyncStorage.getItem(key)
       return item
     } catch (err) {
-      LoggingService.debug(key + ' was not a valid key in AsyncStorage')
+      LogStore.log(key + ' was not a valid key in AsyncStorage')
       throw err
     }
   }

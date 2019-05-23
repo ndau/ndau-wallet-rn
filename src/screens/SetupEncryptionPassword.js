@@ -3,11 +3,9 @@ import { Alert } from 'react-native'
 import SetupStore from '../stores/SetupStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
-import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
 import UserStore from '../stores/UserStore'
-import NdauStore from '../stores/NdauStore'
 import { SetupContainer } from '../components/setup'
 import {
   LargeButtons,
@@ -16,6 +14,7 @@ import {
   TextInput,
   ParagraphText
 } from '../components/common'
+import LogStore from '../stores/LogStore'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -128,7 +127,7 @@ class SetupEncryptionPassword extends Component {
 
       this.props.navigation.navigate('Dashboard')
     } catch (error) {
-      LoggingService.debug(error)
+      LogStore.log(error)
       FlashNotification.showError(error.message, false, false)
     }
   }
