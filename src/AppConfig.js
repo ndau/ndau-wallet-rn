@@ -25,6 +25,8 @@ const TRANSACTION_FEE_KNOWLEDGEBASE_URL =
   'https://ndaucollective.org/knowledge-base/transaction-fees/'
 const SIB_FEE_KNOWLEDGEBASE_URL =
   'https://ndaucollective.org/knowledge-base/stabilization-incentive-burn-sib/'
+const SPENDABLE_KNOWLEDGEBASE_URL =
+  'https://ndaucollective.org/knowledge-base/spendable/'
 
 const MAX_LOG_ENTRIES = 100
 
@@ -44,5 +46,6 @@ export default {
   API_DEFAULT_TIMEOUT_MS,
   TRANSACTION_FEE_KNOWLEDGEBASE_URL,
   SIB_FEE_KNOWLEDGEBASE_URL,
-  MAX_LOG_ENTRIES
+  MAX_LOG_ENTRIES,
+  SPENDABLE_KNOWLEDGEBASE_URL
 }
