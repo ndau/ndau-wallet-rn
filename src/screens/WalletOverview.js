@@ -5,7 +5,7 @@ import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import FlashNotification from '../components/common/FlashNotification'
 import LogStore from '../stores/LogStore'
-import { AppContainer, NdauTotal } from '../components/common'
+import { AppContainer, NdauTotal, TextLink } from '../components/common'
 import { AccountPanel } from '../components/account'
 import {
   DashboardContainer,
@@ -26,6 +26,7 @@ import AccountHelper from '../helpers/AccountHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import NdauNumber from '../helpers/NdauNumber'
 import { NavigationEvents } from 'react-navigation'
+import AppConfig from '../AppConfig'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -207,7 +208,10 @@ class WalletOverview extends Component {
               greenFont
               style={{ flex: 1.5, justifyContent: 'flex-start' }}
             >
-              {totalSpendable} spendable
+              {totalSpendable}{' '}
+              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
+                spendable
+              </TextLink>
             </DashboardLabelWithIcon>
             <DashboardLabelWithIcon
               onPress={() => this.launchAddNewAccountDialog()}

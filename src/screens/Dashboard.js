@@ -5,7 +5,7 @@ import UserData from '../model/UserData'
 import FlashNotification from '../components/common/FlashNotification'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import LogStore from '../stores/LogStore'
-import { AppContainer, NdauTotal } from '../components/common'
+import { AppContainer, NdauTotal, TextLink } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardContainer,
@@ -18,6 +18,7 @@ import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
 import NdauNumber from '../helpers/NdauNumber'
+import AppConfig from '../AppConfig'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -146,7 +147,10 @@ class Dashboard extends Component {
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
-              <Text> {totalSpendableNdau} spendable </Text>
+              <Text>{totalSpendableNdau} </Text>
+              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
+                spendable
+              </TextLink>
             </DashboardLabelWithIcon>
             <DashboardContainer>
               <DashboardTotalPanel
