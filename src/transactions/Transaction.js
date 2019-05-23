@@ -90,7 +90,6 @@ export const Transaction = {
         base64EncodedPrepTx
       )
 
-      LogStore.log(`signature from KeyaddrManager.sign is ${signature}`)
       this.addSignatureToJsonTransaction(signature)
     } catch (error) {
       this.handleError(error.message)

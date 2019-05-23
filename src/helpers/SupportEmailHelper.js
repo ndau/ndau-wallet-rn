@@ -17,8 +17,8 @@ const sendSupportEmail = async (hardware, os, version) => {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
-            title: 'Permissions Grant',
-            message: 'Granting permissions to write to external storage',
+            title: 'Attach debug info',
+            message: 'Allow ndau wallet to include debugging information',
             buttonNegative: 'Cancel',
             buttonPositive: 'OK'
           }

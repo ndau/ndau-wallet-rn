@@ -26,7 +26,6 @@ class SetupStore {
   }
 
   get userId () {
-    LogStore.log(`SetupStore.userId ${this._userId}`)
     return this._userId
   }
 
@@ -35,7 +34,6 @@ class SetupStore {
   }
 
   get numberOfAccounts () {
-    LogStore.log(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`)
     return this._numberOfAccounts
   }
 
@@ -44,7 +42,6 @@ class SetupStore {
   }
 
   get qrCode () {
-    LogStore.log(`SetupStore.qrCode ${this._qrCode}`)
     return this._qrCode
   }
 
@@ -53,7 +50,6 @@ class SetupStore {
   }
 
   get encryptionPassword () {
-    LogStore.log(`SetupStore.encryptionPassword ${this._encryptionPassword}`)
     return this._encryptionPassword
   }
 
@@ -62,7 +58,6 @@ class SetupStore {
   }
 
   get entropy () {
-    LogStore.log(`SetupStore.entropy ${this._entropy}`)
     return this._entropy
   }
 
@@ -71,7 +66,6 @@ class SetupStore {
   }
 
   get recoveryPhrase () {
-    LogStore.log(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`)
     return this._recoveryPhrase
   }
 
@@ -80,7 +74,6 @@ class SetupStore {
   }
 
   get shuffledWords () {
-    LogStore.log(`SetupStore.shuffledWords ${this._shuffledWords}`)
     return this._shuffledWords
   }
 
@@ -89,7 +82,6 @@ class SetupStore {
   }
 
   get shuffledMap () {
-    LogStore.log(`SetupStore.shuffledMap ${this._shuffledMap}`)
     return this._shuffledMap
   }
 
@@ -111,7 +103,6 @@ class SetupStore {
   }
 
   get addressType () {
-    LogStore.log(`SetupStore.addressType ${this._addressType}`)
     return this._addressType
   }
 
@@ -120,7 +111,6 @@ class SetupStore {
   }
 
   get walletId () {
-    LogStore.log(`SetupStore.walletId ${this._walletId}`)
     return this._walletId
   }
 

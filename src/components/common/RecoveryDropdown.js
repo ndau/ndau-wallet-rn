@@ -30,9 +30,7 @@ class RecoveryDropdown extends Component {
     this.retrievedData = false
     this.autoCompleteRef = null
   }
-  // TODO: we are going to have to write them somewhere...
   onPress (title) {
-    // LogStore.log(`title selected is ${title}`)
     this.setState({ query: title, list: [] })
     this.props.addToRecoveryPhrase(title)
     this.props.setDisableArrows(false)
@@ -89,7 +87,6 @@ class RecoveryDropdown extends Component {
       )
       this.retrievedData = true
       const wordsArray = words.split(' ')
-      // LogStore.log(`words; ${words} textEntered: ${textEntered}`)
 
       this._checkIfArrowsNeedToBeDisabled(words, textEntered)
 

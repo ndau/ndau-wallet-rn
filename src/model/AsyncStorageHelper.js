@@ -123,88 +123,6 @@ const getNetwork = async () => {
 /**
  * This function is deprecated. It is only kept around for the 1.8 release. After that
  * we can look at phasing this out.
- *
- * @param {string} userId
- * @param {string} encryptionPassword
- * @deprecated as of 1.8
- */
-const unlockUser = (userId, encryptionPassword) => {
-  return new Promise((resolve, reject) => {
-    const storageKey = STORAGE_KEY_PREFIX + userId
-    LogStore.log(`storage key to check is ${storageKey}`)
-    AsyncStorage.getItem(STORAGE_KEY_PREFIX + userId)
-      .then(user => {
-        LogStore.log(`The following user object was returned: ${user}`)
-        if (user !== null) {
-          LogStore.log(`unlockUser - encrypted user is: ${user}`)
-          const userDecryptedBytes = CryptoJS.AES.decrypt(
-            user,
-            encryptionPassword
-          )
-          const userDecryptedString = userDecryptedBytes.toString(
-            CryptoJS.enc.Utf8
-          )
-          LogStore.log(`unlockUser - decrypted user is: ${userDecryptedString}`)
-
-          if (!userDecryptedString) resolve(null)
-
-          resolve(JSON.parse(userDecryptedString))
-        } else {
-          resolve(null)
-        }
-      })
-      .catch(error => {
-        LogStore.log(
-          `User could be present but password is incorrect: ${JSON.stringify(
-            error
-          )}`
-        )
-        reject(error)
-      })
-  })
-}
-
-/**
- * This function is deprecated. It is only kept around for the 1.8 release. After that
- * we can look at phasing this out.
- *
- * @param {string} user
- * @param {string} encryptionPassword
- * @param {boolean} storageKeyOverride
- * @deprecated as of 1.8
- */
-const lockUser = async (user, encryptionPassword, storageKeyOverride) => {
-  try {
-    if (!encryptionPassword) {
-      throw Error('you must pass an encryptionPassword to use this method')
-    }
-    if (!user.userId) {
-      throw Error('you must pass user.userId containing a valid ID')
-    }
-
-    const userString = JSON.stringify(user)
-    const storageKey = storageKeyOverride || STORAGE_KEY_PREFIX + user.userId
-
-    LogStore.log(`lockUser - user to encrypt to ${storageKey}: ${userString}`)
-    const userStringEncrypted = CryptoJS.AES.encrypt(
-      userString,
-      encryptionPassword
-    )
-    LogStore.log(`lockUser - encrypted user is: ${userStringEncrypted}`)
-
-    await AsyncStorage.setItem(storageKey, userStringEncrypted.toString())
-
-    const checkPersist = await unlockUser(user.userId, encryptionPassword)
-    LogStore.log(`Successfully set user to: ${JSON.stringify(checkPersist)}`)
-  } catch (error) {
-    FlashNotification.showError(`Problem locking user: ${error.message}`)
-    throw error
-  }
-}
-
-/**
- * This function is deprecated. It is only kept around for the 1.8 release. After that
- * we can look at phasing this out.
  * @deprecated as of 1.8
  */
 const getAllKeys = async () => {
@@ -222,7 +140,6 @@ const getAllKeys = async () => {
           key !== DEBUG_ROWS &&
           key !== LAST_ACCOUNT_DATA
       )
-    LogStore.log(`keys found in getAllKeys are ${newKeys}`)
     return newKeys
   } catch (error) {
     return []
@@ -230,8 +147,6 @@ const getAllKeys = async () => {
 }
 
 export default {
-  unlockUser,
-  lockUser,
   getAllKeys,
   setLastAccountData,
   getLastAccountData,

@@ -100,7 +100,6 @@ class MultiSafe {
       let item = await AsyncStorage.getItem(key)
       return item
     } catch (err) {
-      LogStore.log(key + ' was not a valid key in AsyncStorage')
       throw err
     }
   }

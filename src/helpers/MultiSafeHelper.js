@@ -28,12 +28,10 @@ const setupNewUser = async (
 ) => {
   if (!user) {
     LogStore.log('Generating all keys from phrase given...')
-    LogStore.log(`recoveryPhraseString: ${recoveryPhraseString}`)
     const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
       AppConstants.APP_LANGUAGE,
       recoveryPhraseString
     )
-    LogStore.log(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
 
     user = await KeyMaster.createFirstTimeUser(
       recoveryPhraseAsBytes,
@@ -89,12 +87,10 @@ const addNewWallet = async (
   encryptionPassword,
   addressType = AppConstants.MAINNET_ADDRESS
 ) => {
-  LogStore.log(`recoveryPhraseString: ${recoveryPhraseString}`)
   const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
     AppConstants.APP_LANGUAGE,
     recoveryPhraseString
   )
-  LogStore.log(`recoveryPhraseAsBytes: ${recoveryPhraseAsBytes}`)
 
   const wallet = await KeyMaster.createWallet(
     recoveryPhraseAsBytes,
