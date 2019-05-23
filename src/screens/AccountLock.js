@@ -17,6 +17,7 @@ import WalletStore from '../stores/WalletStore'
 import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../components/common/FlashNotification'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -35,6 +36,7 @@ class AccountLock extends Component {
       accountNicknameForEAI: null,
       baseEAI: 0
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {

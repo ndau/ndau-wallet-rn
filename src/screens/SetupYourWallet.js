@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 
 import EntropyHelper from '../helpers/EntropyHelper'
 import { SetupContainer } from '../components/setup'
-import { LargeButtons, ParagraphText } from '../components/common'
+import { LargeButtons, ParagraphText, FlashNotification } from '../components/common'
 
 class SetupYourWallet extends Component {
+  constructor(props) {
+    super()
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+  }
   showNextSetup = async () => {
     await EntropyHelper.generateEntropy()
     this.props.navigation.navigate('SetupRecoveryPhrase')

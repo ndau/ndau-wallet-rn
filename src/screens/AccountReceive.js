@@ -8,6 +8,7 @@ import {
 import { NdauQRCode, LoadingSpinner } from '../components/common'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import FlashNotification from '../components/common/FlashNotification'
 
 class AccountReceive extends Component {
   constructor (props) {
@@ -18,6 +19,7 @@ class AccountReceive extends Component {
       spinner: true,
       qrCode: {}
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {

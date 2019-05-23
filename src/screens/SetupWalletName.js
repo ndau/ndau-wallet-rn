@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import SetupStore from '../stores/SetupStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import UserStore from '../stores/UserStore'
-import FlashNotification from '../components/common/FlashNotification'
 import { SetupContainer } from '../components/setup'
-import { LargeButtons, TextInput, ParagraphText } from '../components/common'
+import { LargeButtons, TextInput, ParagraphText, FlashNotification } from '../components/common'
 
 class SetupWalletName extends Component {
   constructor (props) {
@@ -14,6 +13,7 @@ class SetupWalletName extends Component {
 
     this.walletCount = 1
     this.defaultWalletId = 'Wallet 1'
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = () => {

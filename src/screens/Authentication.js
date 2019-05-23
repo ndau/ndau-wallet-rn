@@ -4,7 +4,6 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import RNExitApp from 'react-native-exit-app'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
-import FlashNotification from '../components/common/FlashNotification'
 import OrderAPI from '../api/OrderAPI'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LoggingService from '../services/LoggingService'
@@ -14,7 +13,8 @@ import {
   TextInput,
   PasswordLinkText,
   LargeButton,
-  LoginImage
+  LoginImage,
+  FlashNotification
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
@@ -32,6 +32,7 @@ class Authentication extends Component {
     }
 
     this.maxLoginAttempts = 10
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   login = async () => {

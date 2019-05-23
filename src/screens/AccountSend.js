@@ -17,9 +17,9 @@ import {
   OrBorder,
   LargeBorderButton,
   NdauQRCodeScanner,
-  BarBorder
+  BarBorder,
+  FlashNotification
 } from '../components/common'
-import FlashNotification from '../components/common/FlashNotification'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
@@ -54,6 +54,7 @@ class AccountSend extends Component {
       this._requestTransactionFee,
       2000
     )
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {

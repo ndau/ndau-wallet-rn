@@ -8,8 +8,7 @@ import {
   AccountSendButton
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { LargeButton, BarBorder } from '../components/common'
-import FlashNotification from '../components/common/FlashNotification'
+import { FlashNotification, BarBorder } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
@@ -30,6 +29,7 @@ class AccountSendConfirmation extends Component {
       transactionFee: 0,
       sibFee: 0
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {

@@ -15,6 +15,7 @@ import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../components/common/FlashNotification'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -29,6 +30,7 @@ class AccountLockConfirmation extends Component {
       word: null,
       spinner: false
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = () => {
