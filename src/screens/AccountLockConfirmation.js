@@ -16,6 +16,9 @@ import WalletStore from '../stores/WalletStore'
 import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import FlashNotification from '../components/common/FlashNotification'
+import DataFormatHelper from '../helpers/DataFormatHelper'
+import { TextLink } from '../components/common'
+import AppConfig from '../AppConfig'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -28,7 +31,8 @@ class AccountLockConfirmation extends Component {
       accountNicknameForEAI: null,
       confirmed: false,
       word: null,
-      spinner: false
+      spinner: false,
+      transactionFee: 0
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -48,6 +52,32 @@ class AccountLockConfirmation extends Component {
       'accountNicknameForEAI',
       null
     )
+
+    this.setState({ spinner: true }, async () => {
+      let transactionFee = 0
+      try {
+        Object.assign(LockTransaction.prototype, Transaction)
+        const lockTransaction = new LockTransaction(
+          this.state.wallet,
+          account,
+          `${this.state.lockInformation.lockISO}`
+        )
+        await lockTransaction.create()
+        await lockTransaction.sign()
+        const data = await lockTransaction.prevalidate()
+        transactionFee = DataFormatHelper.getNdauFromNapu(data.fee_napu)
+      } catch (error) {
+        this.setState({
+          spinner: false,
+          transactionFee
+        })
+        throw error
+      }
+      this.setState({
+        spinner: false,
+        transactionFee
+      })
+    })
 
     this.setState({
       account,
@@ -88,8 +118,7 @@ class AccountLockConfirmation extends Component {
         )
         await setRewardsDestinationTransaction.createSignPrevalidateSubmit()
 
-        this.props.navigation.push('WalletOverview', {
-          wallet: this.state.wallet,
+        this.props.navigation.navigate('WalletOverview', {
           refresh: true
         })
       } catch (error) {
@@ -138,6 +167,13 @@ class AccountLockConfirmation extends Component {
           </AccountIconText>
           <AccountIconText>
             Account will unlock in {this.state.lockInformation.lock}
+          </AccountIconText>
+          <AccountIconText iconColor='#8CC74F' iconName='usd-circle'>
+            {this.state.account.addressData.nickname} will be charged a{' '}
+            <TextLink url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}>
+              fee
+            </TextLink>{' '}
+            of {this.state.transactionFee} ndau
           </AccountIconText>
           <AccountIconText
             iconColor={AppConstants.WARNING_ICON_COLOR}

@@ -12,7 +12,6 @@ class CollapsibleBar extends Component {
       fadeAnim: new Animated.Value(0),
       icon: props.icon,
       onPressed: null,
-      title: '',
       children: null,
       show: props.showOnStart
     }
@@ -33,7 +32,6 @@ class CollapsibleBar extends Component {
       collapsible,
       clickable,
       icon,
-      title,
       iconOpened,
       iconActive,
       iconCollapsed,
@@ -45,21 +43,17 @@ class CollapsibleBar extends Component {
     if (clickable) {
       this.setState({
         icon,
-        onPressed,
-        title
+        onPressed
       })
     } else if (collapsible) {
       this.setState(
         {
           icon: showOnStart ? iconOpened : iconActive,
           iconCollapsed,
-          iconOpened,
-          title
+          iconOpened
         },
         Animated.timing(fadeAnim, { toValue: 1 }).start()
       )
-    } else {
-      this.setState({ title })
     }
   }
 
@@ -73,8 +67,7 @@ class CollapsibleBar extends Component {
   }
 
   renderDefault = () => {
-    const { titleStyle } = this.props
-    const { title } = this.state
+    const { title, titleStyle } = this.props
 
     return (
       <View style={styles.bar}>
@@ -87,6 +80,7 @@ class CollapsibleBar extends Component {
     const {
       style,
       iconStyle,
+      title,
       titleStyle,
       titleStyleLeft,
       titleStyleMiddle,
@@ -97,7 +91,7 @@ class CollapsibleBar extends Component {
       lowerBorder,
       upperBorder
     } = this.props
-    const { icon, fadeAnim, title } = this.state
+    const { icon, fadeAnim } = this.state
 
     return (
       <View>
@@ -163,8 +157,8 @@ class CollapsibleBar extends Component {
   }
 
   renderClickable = () => {
-    const { style, titleStyle, iconStyle } = this.props
-    const { icon, title, onPressed } = this.state
+    const { style, titleStyle, iconStyle, title } = this.props
+    const { icon, onPressed } = this.state
 
     return (
       <TouchableHighlight

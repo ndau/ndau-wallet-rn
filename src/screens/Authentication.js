@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Alert, Keyboard } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import RNExitApp from 'react-native-exit-app'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
 import OrderAPI from '../api/OrderAPI'
@@ -136,30 +135,30 @@ class Authentication extends Component {
     const { textInputColor } = this.state
     return (
       <LoginContainer>
-        <KeyboardView>
-          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-          <LoginImage />
-          <LabelWithIcon
-            onPress={this.showInformation}
-            fontAwesomeIconName='info-circle'
-          >
-            Password
-          </LabelWithIcon>
-          <TextInput
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholder='Enter your password...'
-            secureTextEntry
-            autoCapitalize='none'
-            onSubmitEditing={this.login}
-          />
-          <PasswordLinkText onPress={this.showPasswordReset}>
-            Forgot your password?
-          </PasswordLinkText>
-          <LargeButton scroll sideMargins onPress={this.login}>
-            Login
-          </LargeButton>
-        </KeyboardView>
+        {/* <KeyboardView> */}
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <LoginImage />
+        <LabelWithIcon
+          onPress={this.showInformation}
+          fontAwesomeIconName='info-circle'
+        >
+          Password
+        </LabelWithIcon>
+        <TextInput
+          onChangeText={password => this.setState({ password })}
+          value={this.state.password}
+          placeholder='Enter your password...'
+          secureTextEntry
+          autoCapitalize='none'
+          onSubmitEditing={this.login}
+        />
+        <PasswordLinkText onPress={this.showPasswordReset}>
+          Forgot your password?
+        </PasswordLinkText>
+        <LargeButton scroll sideMargins onPress={this.login}>
+          Login
+        </LargeButton>
+        {/* </KeyboardView> */}
       </LoginContainer>
     )
   }

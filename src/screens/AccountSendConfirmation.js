@@ -68,8 +68,7 @@ class AccountSendConfirmation extends Component {
         )
         await transferTransaction.createSignPrevalidateSubmit()
 
-        this.props.navigation.push('WalletOverview', {
-          wallet: this.state.wallet,
+        this.props.navigation.navigate('WalletOverview', {
           refresh: true
         })
       } catch (error) {

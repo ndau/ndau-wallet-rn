@@ -129,7 +129,7 @@ class SetupEncryptionPassword extends Component {
 
       this.props.navigation.navigate('Dashboard')
     } catch (error) {
-      LoggingService.error(error)
+      LoggingService.debug(error)
       FlashNotification.showError(error.message, false, false)
     }
   }

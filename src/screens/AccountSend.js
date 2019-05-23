@@ -251,9 +251,14 @@ class AccountSend extends Component {
           <AccountConfirmationItem
             title={'Transaction fee:'}
             value={this.state.transactionFee}
+            url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}
           />
           <BarBorder />
-          <AccountConfirmationItem title={'SIB:'} value={this.state.sibFee} />
+          <AccountConfirmationItem
+            title={'SIB:'}
+            value={this.state.sibFee}
+            url={AppConfig.SIB_FEE_KNOWLEDGEBASE_URL}
+          />
           <BarBorder />
           <AccountConfirmationItem
             largerText

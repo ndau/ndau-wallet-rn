@@ -78,14 +78,6 @@ export function UnderlineDivider ({ children }) {
   return <Progress style={styles.underline} />
 }
 
-export function SmallParagraphText (props) {
-  return (
-    <P style={[styles.smallParagraphText]} {...props}>
-      {props.children}
-    </P>
-  )
-}
-
 export function RecoveryConfirmationText (props) {
   return (
     <P style={[styles.recoveryConfirmationText]} {...props}>

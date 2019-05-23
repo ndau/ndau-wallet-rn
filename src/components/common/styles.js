@@ -114,6 +114,19 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     paddingVertical: 0
   },
+  greenLinkText: {
+    color: '#4E957A',
+    fontFamily: 'Open Sans',
+    fontSize: 15,
+    fontWeight: '200',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0,
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    paddingVertical: 0,
+    textDecorationLine: 'underline'
+  },
   passwordLinkContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -594,6 +607,19 @@ export default StyleSheet.create({
   fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {
     marginTop: hp('14%'),
-    alignSelf: 'center'
+    marginBottom: hp('16%'),
+    alignSelf: 'center',
+    padding: 10,
+    backgroundColor: '#FFFFFF'
+  },
+  smallParagraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    textAlign: 'center',
+    marginLeft: wp('4%')
   }
 })

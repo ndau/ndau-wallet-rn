@@ -6,7 +6,7 @@ import {
   Text,
   Platform,
   NativeModules,
-  Keyboard
+  View
 } from 'react-native'
 import {
   widthPercentageToDP as wp,

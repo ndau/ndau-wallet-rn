@@ -119,8 +119,8 @@ android {
         applicationId "com.ndauwalletrn"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 200381
-        versionName "2.0.0.381"
+        versionCode 202010
+        versionName "2.0.2.010"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -198,7 +198,6 @@ dependencies {
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-push-notification')
-    implementation project(':react-native-exit-app')
     implementation project(':react-native-securerandom')
     implementation project(':react-native-vector-icons')
     implementation (project(':react-native-camera'))

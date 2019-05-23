@@ -273,6 +273,7 @@ export default StyleSheet.create({
   },
   accountLockPanel: {
     width: wp('100%'),
+    minHeight: hp('85%'),
     backgroundColor: '#0A1724',
     paddingTop: 0
   },
@@ -662,6 +663,16 @@ export default StyleSheet.create({
     lineHeight: 18,
     paddingBottom: 0
   },
+  accountHistoryLinkText: {
+    color: '#4E957A',
+    textDecorationLine: 'underline',
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0
+  },
   dashboardTotalPanel: {
     backgroundColor: '#293E63',
     height: 40,
@@ -703,6 +714,8 @@ export default StyleSheet.create({
   addressCopyPanel: {
     width: wp('92%'),
     height: hp('6%'),
+    marginRight: wp('4%'),
+    marginLeft: wp('4%'),
     borderRadius: 4,
     backgroundColor: '#293E63',
     paddingHorizontal: wp('4%')
@@ -803,7 +816,6 @@ export default StyleSheet.create({
     marginTop: hp('1%'),
     padding: 0
   },
-
   addressButtonText: {
     width: wp('12%'),
     color: AppConstants.TEXT_COLOR,

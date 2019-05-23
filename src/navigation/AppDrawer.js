@@ -58,14 +58,17 @@ class AppDrawer extends React.Component {
     // try {
     //   await rnfs.writeFile(path, data, 'utf8')
     // } catch (error) {
-    //   LoggingService.error(error)
+    //   LoggingService.debug(error)
     // }
 
     Mailer.mail(
       {
         subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
         recipients: ['support@oneiro.freshdesk.com'],
-        body: '<br><br><code>' + JSON.stringify(data) + '</code>',
+        body:
+          'Describe the problem or issue you are having.<br><br><code>' +
+          JSON.stringify(data) +
+          '</code>',
         isHTML: true
         // TODO: 2 of 2 Removing attachements as they are not working
         // attachment: {
@@ -76,7 +79,7 @@ class AppDrawer extends React.Component {
       },
       error => {
         if (error) {
-          LoggingService.error(error)
+          LoggingService.debug(error)
         }
       }
     )

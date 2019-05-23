@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Share, Text } from 'react-native'
+import { View, TouchableOpacity, Share, Text, Linking } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -20,9 +20,13 @@ import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
 import AppConstants from '../../AppConstants'
 import ndaujs from 'ndaujs'
 import AppConfig from '../../AppConfig'
+import NdauNumber from '../../helpers/NdauNumber'
 import { DrawerHeader } from '../drawer'
 
 export function AccountPanel (props) {
+  const accountAmount = new NdauNumber(
+    AccountAPIHelper.accountNdauAmount(props.account.addressData)
+  )
   return (
     <View style={styles.accountMainPanel}>
       <LinearGradient
@@ -85,9 +89,7 @@ export function AccountPanel (props) {
                 </View>
                 <View>
                   <H4 style={styles.accountPanelTotal}>
-                    {AccountAPIHelper.accountNdauAmount(
-                      props.account.addressData
-                    )}
+                    {accountAmount.toSummary()}
                   </H4>
                 </View>
               </View>
@@ -148,7 +150,7 @@ export function AccountDetailsContainer (props) {
 
 export function AccountLockContainer (props) {
   close = () => {
-    props.navigation.push('WalletOverview', { wallet: props.wallet })
+    props.navigation.navigate('AccountDetails', { wallet: props.wallet })
   }
   goBack = () => {
     props.navigation.goBack()
@@ -327,17 +329,18 @@ export function LargeAccountButton (props) {
 }
 
 export function AccountTotalPanel (props) {
+  const amount = new NdauNumber(
+    AccountAPIHelper.accountNdauAmount(
+      props.account.addressData,
+      true,
+      AppConfig.NDAU_DETAIL_PRECISION
+    )
+  ).toDetail()
   return (
     <View style={styles.accountTotalPanel}>
       <View style={styles.ndauTotalContainerMedium}>
         <P style={styles.ndauMedium}>n</P>
-        <H4 style={styles.accountTotalPanelText}>
-          {AccountAPIHelper.accountNdauAmount(
-            props.account.addressData,
-            true,
-            AppConfig.NDAU_DETAIL_PRECISION
-          )}
-        </H4>
+        <H4 style={styles.accountTotalPanelText}>{amount}</H4>
       </View>
     </View>
   )
@@ -348,6 +351,7 @@ export function AccountDetailsButtonPanel (props) {
     <View style={styles.accountDetailsButtonPanel}>
       <View>
         <AccountButton
+          disabled={props.disableSend}
           onPress={() => props.send(props.account, props.wallet)}
           customIconName='arrow-alt-up'
         >
@@ -356,6 +360,7 @@ export function AccountDetailsButtonPanel (props) {
       </View>
       <View>
         <AccountButton
+          disabled={props.disabledReceive}
           onPress={() => props.receive(props.account, props.wallet)}
           customIconName='arrow-alt-down'
         >
@@ -364,7 +369,8 @@ export function AccountDetailsButtonPanel (props) {
       </View>
       <View>
         <AccountButton
-          onPress={() => props.showLock(props.account, props.wallet)}
+          disabled={props.disableLock}
+          onPress={() => props.lock(props.account, props.wallet)}
           customIconName='lock'
         >
           Lock
@@ -731,15 +737,24 @@ export function AccountConfirmationItem (props) {
   return (
     <View style={styles.accountSendTextPanelWithSmallText}>
       <View>
-        <H4
-          style={
-            props.largerText
-              ? styles.accountHistoryLargerTextBold
-              : styles.accountHistorySmallerTextBold
-          }
-        >
-          {props.title}
-        </H4>
+        {props.url ? (
+          <H4
+            onPress={() => Linking.openURL(props.url)}
+            style={styles.accountHistoryLinkText}
+          >
+            {props.title}
+          </H4>
+        ) : (
+          <H4
+            style={
+              props.largerText
+                ? styles.accountHistoryLargerTextBold
+                : styles.accountHistorySmallerText
+            }
+          >
+            {props.title}
+          </H4>
+        )}
       </View>
       <View>
         <H4

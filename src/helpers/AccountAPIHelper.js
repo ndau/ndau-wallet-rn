@@ -302,13 +302,8 @@ const lockBonusEAI = weightedAverageAgeInDays => {
   return 0
 }
 
-const accountTotalNdauAmount = (accounts, withCommas = true) => {
-  let total = 0
-
-  if (!accounts) return total
-
-  let totalNapu = DataFormatHelper.getNapuFromNdau(total)
-
+const accountTotalNapuAmount = (accounts) => {
+  let totalNapu = 0
   Object.keys(accounts).forEach(accountKey => {
     if (
       accounts[accountKey].addressData &&
@@ -317,6 +312,15 @@ const accountTotalNdauAmount = (accounts, withCommas = true) => {
       totalNapu += accounts[accountKey].addressData.balance
     }
   })
+  return totalNapu
+}
+
+const accountTotalNdauAmount = (accounts, withCommas = true) => {
+  let totalNdau = 0
+
+  if (!accounts) return totalNdau
+
+  let totalNapu = accountTotalNapuAmount(accounts)
 
   return withCommas
     ? DataFormatHelper.getNdauFromNapu(
