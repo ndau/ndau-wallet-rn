@@ -19,7 +19,6 @@ import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import SetupStore from '../stores/SetupStore'
-import FlashNotification from '../components/common/FlashNotification'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import styleConstants from '../css/styleConstants'
@@ -29,7 +28,8 @@ import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
 import {
   LargeButtons,
   ParagraphText,
-  BottomLinkText
+  BottomLinkText,
+  FlashNotification
 } from '../components/common'
 import cssStyles from '../css/styles'
 import UserStore from '../stores/UserStore'
@@ -123,6 +123,7 @@ class SetupGetRecoveryPhrase extends Component {
       )
     }
     this.recoveryDropdownRef = null
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount () {

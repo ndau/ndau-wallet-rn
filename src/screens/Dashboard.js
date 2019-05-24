@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
-import FlashNotification from '../components/common/FlashNotification'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import LoggingService from '../services/LoggingService'
-import { AppContainer, NdauTotal } from '../components/common'
+import { AppContainer, NdauTotal, FlashNotification } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardContainer,
@@ -32,6 +31,7 @@ class Dashboard extends Component {
       spinner: false,
       appState: AppState.currentState
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillUnmount () {
