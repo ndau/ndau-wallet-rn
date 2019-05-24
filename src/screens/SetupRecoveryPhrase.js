@@ -12,6 +12,7 @@ import {
   SetupContainer,
   RecoveryPhraseConfirmationTextOnly
 } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import { LargeButtons, ParagraphText } from '../components/common'
 
 var _ = require('lodash')
@@ -29,9 +30,7 @@ class SetupRecoveryPhrase extends Component {
     this.boxHeight = '14%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    LogStore.log(
-      `PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`
-    )
+    LogStore.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       this.boxWidth = '100%'
@@ -40,6 +39,7 @@ class SetupRecoveryPhrase extends Component {
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentDidMount = () => {

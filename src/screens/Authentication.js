@@ -3,9 +3,9 @@ import { Alert, Keyboard } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
-import FlashNotification from '../components/common/FlashNotification'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LogStore from '../stores/LogStore'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LoginContainer,
   LabelWithIcon,
@@ -30,6 +30,7 @@ class Authentication extends Component {
     }
 
     this.maxLoginAttempts = 10
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   login = async () => {

@@ -3,8 +3,8 @@ import { ScrollView, View, RefreshControl, AppState } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import KeyMaster from '../helpers/KeyMaster'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import FlashNotification from '../components/common/FlashNotification'
 import LogStore from '../stores/LogStore'
+import FlashNotification from '../components/common/FlashNotification'
 import { AppContainer, NdauTotal, TextLink } from '../components/common'
 import { AccountPanel } from '../components/account'
 import {
@@ -45,6 +45,7 @@ class WalletOverview extends Component {
 
     this.isTestNet = false
     this.accountsCanRxEAI = []
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   _handleAppStateChange = async nextAppState => {

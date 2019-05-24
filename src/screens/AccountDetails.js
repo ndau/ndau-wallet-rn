@@ -10,6 +10,7 @@ import {
   AccountParagraphText,
   AccountConfirmationItem
 } from '../components/account'
+import FlashNotification from '../components/common/FlashNotification'
 import { LoadingSpinner, TextLink } from '../components/common'
 import { View, ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
@@ -31,6 +32,7 @@ class AccountDetails extends Component {
     }
 
     this.baseEAI = 0
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = () => {

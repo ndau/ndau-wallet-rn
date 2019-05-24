@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import {
   AccountSendContainer,
   AccountReceiveParagraphText,
-  AddressSharePanel,
-  AccountReceivePanel
+  AddressSharePanel
 } from '../components/account'
+import FlashNotification from '../components/common/FlashNotification'
 import { NdauQRCode, LoadingSpinner } from '../components/common'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import { ScrollView } from 'react-native'
 
 class AccountReceive extends Component {
   constructor (props) {
@@ -19,6 +18,7 @@ class AccountReceive extends Component {
       spinner: true,
       qrCode: {}
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {

@@ -1,7 +1,4 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import CryptoJS from 'crypto-js'
-import FlashNotification from '../components/common/FlashNotification'
-import LogStore from '../stores/LogStore'
 import ServiceDiscovery from '../api/ServiceDiscovery'
 import SettingsStore from '../stores/SettingsStore'
 

@@ -4,9 +4,9 @@ import SetupStore from '../stores/SetupStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import UserData from '../model/UserData'
-import FlashNotification from '../components/common/FlashNotification'
 import UserStore from '../stores/UserStore'
 import { SetupContainer } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButtons,
   Label,
@@ -37,6 +37,7 @@ class SetupEncryptionPassword extends Component {
       mode: AppConstants.NEW_PASSWORD_MODE,
       instructionText: this.NEW_PASSWORD_MODE_TEXT
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount () {

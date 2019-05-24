@@ -6,6 +6,7 @@ import {
   LargeText,
   UnderlineDivider
 } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import { LargeButton, ParagraphText } from '../components/common'
 
 class SetupWelcome extends Component {
@@ -16,6 +17,7 @@ class SetupWelcome extends Component {
       toggleCount: 1,
       maxToggle: 10
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillUnmount () {

@@ -19,13 +19,13 @@ import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import SetupStore from '../stores/SetupStore'
-import FlashNotification from '../components/common/FlashNotification'
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LogStore from '../stores/LogStore'
 import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButtons,
   ParagraphText,
@@ -111,9 +111,7 @@ class SetupGetRecoveryPhrase extends Component {
     this.boxHeight = '13%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    LogStore.log(
-      `PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`
-    )
+    LogStore.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       this.boxWidth = '100%'
@@ -123,6 +121,7 @@ class SetupGetRecoveryPhrase extends Component {
       )
     }
     this.recoveryDropdownRef = null
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount () {

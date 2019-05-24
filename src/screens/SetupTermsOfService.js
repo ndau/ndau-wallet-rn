@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import SetupStore from '../stores/SetupStore'
-import FlashNotification from '../components/common/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
@@ -11,6 +10,7 @@ import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockcha
 import AppConstants from '../AppConstants'
 import LogStore from '../stores/LogStore'
 import { SetupContainerWithScrollView } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButton,
   CheckBox,
@@ -28,6 +28,7 @@ class SetupTermsOfService extends Component {
       agree: !!__DEV__,
       spinner: false
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   finishSetup = async () => {

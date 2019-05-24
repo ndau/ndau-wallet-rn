@@ -11,6 +11,7 @@ import WalletStore from '../stores/WalletStore'
 import { RadioButton } from '../components/common'
 import AccountHelper from '../helpers/AccountHelper'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../components/common/FlashNotification'
 
 const COMPOUND_TO_THIS_ACCOUNT = '1'
 const COMPOUND_TO_NEW_ACCOUNT = '2'
@@ -30,6 +31,7 @@ class AccountLockType extends Component {
       lockInformation: null,
       spinner: false
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {

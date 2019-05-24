@@ -6,7 +6,7 @@ import {
   AccountParagraphText
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { LargeButton } from '../components/common'
+import { LargeButton, FlashNotification } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import DateHelper from '../helpers/DateHelper'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
@@ -23,6 +23,7 @@ class AccountUnlock extends Component {
       wallet: {},
       spinner: false
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {
