@@ -20,6 +20,7 @@ class AccountHistory extends Component {
       account: {},
       spinner: false
     }
+    navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {

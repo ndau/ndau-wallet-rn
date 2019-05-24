@@ -22,7 +22,8 @@ import LoggingService from '../services/LoggingService'
 import {
   SetupContainer,
   RecoveryPhraseConfirmation,
-  RecoveryPhraseConfirmationButtons
+  RecoveryPhraseConfirmationButtons,
+  FlashNotification
 } from '../components/setup'
 import { LargeButtons, ParagraphText } from '../components/common'
 
@@ -54,6 +55,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       boxWidth = '100%'
       boxHeight = '15%'
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   showNextSetup = async () => {

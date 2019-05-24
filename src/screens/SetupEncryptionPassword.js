@@ -5,7 +5,6 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
-import FlashNotification from '../components/common/FlashNotification'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import { SetupContainer } from '../components/setup'
@@ -15,7 +14,8 @@ import {
   Label,
   CheckBox,
   TextInput,
-  ParagraphText
+  ParagraphText,
+  FlashNotification
 } from '../components/common'
 
 class SetupEncryptionPassword extends Component {
@@ -39,6 +39,7 @@ class SetupEncryptionPassword extends Component {
       mode: AppConstants.NEW_PASSWORD_MODE,
       instructionText: this.NEW_PASSWORD_MODE_TEXT
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount () {

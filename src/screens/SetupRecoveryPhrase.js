@@ -12,7 +12,7 @@ import {
   SetupContainer,
   RecoveryPhraseConfirmationTextOnly
 } from '../components/setup'
-import { LargeButtons, ParagraphText } from '../components/common'
+import { LargeButtons, ParagraphText, FlashNotification } from '../components/common'
 
 var _ = require('lodash')
 
@@ -40,6 +40,7 @@ class SetupRecoveryPhrase extends Component {
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentDidMount = () => {

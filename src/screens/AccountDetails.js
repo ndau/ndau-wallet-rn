@@ -11,7 +11,7 @@ import {
   AddressSharePanel,
   AccountConfirmationItem
 } from '../components/account'
-import { LoadingSpinner } from '../components/common'
+import { LoadingSpinner, FlashNotification } from '../components/common'
 import { View, ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
@@ -32,6 +32,7 @@ class AccountDetails extends Component {
     }
 
     this.baseEAI = 0
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = () => {

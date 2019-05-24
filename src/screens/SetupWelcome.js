@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { BackHandler } from 'react-native'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
 import {
   SetupWelcomeContainer,
   LargeText,
   UnderlineDivider
 } from '../components/setup'
-import { LargeButton, ParagraphText } from '../components/common'
+import { LargeButton, ParagraphText, FlashNotification } from '../components/common'
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -18,6 +17,7 @@ class SetupWelcome extends Component {
       toggleCount: 1,
       maxToggle: 10
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillUnmount () {

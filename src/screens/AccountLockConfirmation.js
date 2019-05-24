@@ -7,7 +7,6 @@ import {
   AccountIconText,
   AccountLockConfirmBottomPanel
 } from '../components/account'
-import { Text } from 'react-native'
 import { LockTransaction } from '../transactions/LockTransaction'
 import { Transaction } from '../transactions/Transaction'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
@@ -16,6 +15,7 @@ import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../components/common/FlashNotification'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import { TextLink } from '../components/common'
 import AppConfig from '../AppConfig'
@@ -35,6 +35,7 @@ class AccountLockConfirmation extends Component {
       spinner: false,
       transactionFee: 0
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = () => {

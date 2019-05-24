@@ -18,7 +18,8 @@ import {
   LegalText,
   LegalTextHeading,
   MainLegalTextHeading,
-  LegalTextBold
+  LegalTextBold,
+  FlashNotification
 } from '../components/common'
 import NdauStore from '../stores/NdauStore'
 
@@ -30,6 +31,7 @@ class SetupTermsOfService extends Component {
       agree: !!__DEV__,
       spinner: false
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   finishSetup = async () => {
