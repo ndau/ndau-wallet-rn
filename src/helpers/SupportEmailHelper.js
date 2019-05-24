@@ -1,46 +1,9 @@
-import { PermissionsAndroid, Platform } from 'react-native'
 import LogStore from '../stores/LogStore'
-import rnfs from 'react-native-fs'
 
 const Mailer = require('NativeModules').RNMail
 
 const sendSupportEmail = async (hardware, os, version) => {
-  const data = LogStore.getLoggingData()
-  let path = `${rnfs.ExternalStorageDirectoryPath}/ndau-wallet.json`
-
-  if (Platform.OS === 'android') {
-    try {
-      let hasPermission = await PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-      )
-      if (!hasPermission) {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Attach debug info',
-            message: 'Allow ndau wallet to include debugging information',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK'
-          }
-        )
-        hasPermission = granted !== PermissionsAndroid.RESULTS.GRANTED
-      }
-      if (!hasPermission) {
-        LogStore.log('Issue attempting to grand external write access')
-      }
-    } catch (error) {
-      LogStore.log(error)
-    }
-  } else if (Platform.OS === 'ios') {
-    path = `${rnfs.DocumentDirectoryPath}/ndau-wallet.json`
-  }
-
-  try {
-    LogStore.log('Attemping to write ndau-wallet.log...')
-    await rnfs.writeFile(path, JSON.stringify(data), 'utf8')
-  } catch (error) {
-    LogStore.log(error)
-  }
+  const path = await LogStore.writeLogFile()
 
   LogStore.log(`Sending email with ${path} as attachment...`)
   Mailer.mail(
@@ -61,12 +24,7 @@ const sendSupportEmail = async (hardware, os, version) => {
       }
 
       // remove the file
-      try {
-        LogStore.log('Attemping to remove ndau-wallet.log...')
-        await rnfs.unlink(path)
-      } catch (error) {
-        LogStore.log(error)
-      }
+      LogStore.deleteLogFile(path)
     }
   )
 }
