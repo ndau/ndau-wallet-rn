@@ -8,7 +8,8 @@ import {
   AccountSendButton
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { FlashNotification, BarBorder } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { BarBorder } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
