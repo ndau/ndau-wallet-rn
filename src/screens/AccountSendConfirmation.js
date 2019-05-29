@@ -98,17 +98,16 @@ class AccountSendConfirmation extends Component {
           </AccountHeaderText>
           <AccountConfirmationItem
             style={{ marginRight: '3%' }}
-            title={'To:'}
             value={this.state.address}
-          />
+          >
+            To:
+          </AccountConfirmationItem>
+          <BarBorder />
+          <AccountConfirmationItem value={this.state.amount}>
+            Amount to be sent:
+          </AccountConfirmationItem>
           <BarBorder />
           <AccountConfirmationItem
-            title={'Amount to be sent:'}
-            value={this.state.amount}
-          />
-          <BarBorder />
-          <AccountConfirmationItem
-            title={'Remaining balance:'}
             value={
               AccountAPIHelper.remainingBalanceNdau(
                 this.state.account.addressData,
@@ -117,21 +116,22 @@ class AccountSendConfirmation extends Component {
                 AppConfig.NDAU_DETAIL_PRECISION
               ) || 0
             }
-          />
+          >
+            Remaining balance:
+          </AccountConfirmationItem>
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
-          <AccountConfirmationItem
-            title={'Transaction fee:'}
-            value={this.state.transactionFee}
-          />
+          <AccountConfirmationItem value={this.state.transactionFee}>
+            Transaction fee:
+          </AccountConfirmationItem>
           <BarBorder />
-          <AccountConfirmationItem title={'SIB:'} value={this.state.sibFee} />
+          <AccountConfirmationItem value={this.state.sibFee}>
+            SIB:
+          </AccountConfirmationItem>
           <BarBorder />
-          <AccountConfirmationItem
-            largerText
-            title={'Total'}
-            value={this.state.total}
-          />
+          <AccountConfirmationItem largerText value={this.state.total}>
+            Total
+          </AccountConfirmationItem>
         </AccountDetailPanel>
         <AccountSendButton sideMargins onPress={() => this._confirm()}>
           Confirm {'&'} send

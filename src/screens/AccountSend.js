@@ -242,29 +242,28 @@ class AccountSend extends Component {
               You do not have enough ndau in this account.
             </AccountSendErrorText>
           ) : null}
-          <AccountConfirmationItem
-            title='Remaining balance:'
-            value={remainingBalance}
-          />
+          <AccountConfirmationItem value={remainingBalance}>
+            Remaining balance:
+          </AccountConfirmationItem>
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
           <AccountConfirmationItem
-            title={'Transaction fee:'}
             value={this.state.transactionFee}
             url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}
-          />
+          >
+            Transaction fee:
+          </AccountConfirmationItem>
           <BarBorder />
           <AccountConfirmationItem
-            title={'SIB:'}
             value={this.state.sibFee}
             url={AppConfig.SIB_FEE_KNOWLEDGEBASE_URL}
-          />
+          >
+            SIB:
+          </AccountConfirmationItem>
           <BarBorder />
-          <AccountConfirmationItem
-            largerText
-            title={'Total'}
-            value={this.state.total}
-          />
+          <AccountConfirmationItem largerText value={this.state.total}>
+            Total
+          </AccountConfirmationItem>
         </AccountDetailPanel>
         <AccountSendButton
           sideMargins

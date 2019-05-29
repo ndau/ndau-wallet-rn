@@ -744,7 +744,7 @@ export function AccountConfirmationItem (props) {
             onPress={() => Linking.openURL(props.url)}
             style={styles.accountHistoryLinkText}
           >
-            {props.title}
+            {props.children}
           </H4>
         ) : (
           <H4
@@ -754,7 +754,7 @@ export function AccountConfirmationItem (props) {
                 : styles.accountHistorySmallerText
             }
           >
-            {props.title}
+            {props.children}
           </H4>
         )}
       </View>

@@ -18,6 +18,8 @@ import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import FlashNotification from '../components/common/FlashNotification'
+import { TextLink } from '../components/common'
+import AppConfig from '../AppConfig'
 
 class AccountLock extends Component {
   constructor (props) {
@@ -103,7 +105,9 @@ class AccountLock extends Component {
         <AccountLockDetailsPanel account={this.state.account}>
           <ScrollView>
             <AccountLockLargerText>
-              Locking your ndau accrues EAI at a higher rate.
+              Locking your ndau accrues{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink> at
+              a higher rate.
             </AccountLockLargerText>
             <AccountLockLargerText>
               Based on your account's weighted average age of{' '}
@@ -115,7 +119,8 @@ class AccountLock extends Component {
               </AccountLockGreenText>
               , you are currently earning a base rate of{' '}
               <AccountLockGreenText>
-                {this.state.baseEAI}% EAI
+                {this.state.baseEAI}%{' '}
+                <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>
               </AccountLockGreenText>
               .
             </AccountLockLargerText>
