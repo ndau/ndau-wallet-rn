@@ -26,7 +26,7 @@ import { Transaction } from '../transactions/Transaction'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import { Text, TouchableOpacity } from 'react-native'
+import { KeyboardAvoidingView, View, Platform } from 'react-native'
 import AppConfig from '../AppConfig'
 
 const _ = require('lodash')
@@ -307,29 +307,45 @@ class AccountSend extends Component {
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <AccountSendPanel>
-          <AccountHeaderText>Who are you sending to?</AccountHeaderText>
-          <Label noMargin>Address</Label>
-          <TextInput
-            onChangeText={this._setAddress}
-            value={this.state.address}
-            name='address'
-            placeholder='ndau address...'
-            autoCapitalize='none'
-            noSideMargins
-          />
-          <OrBorder />
-          <LargeBorderButton onPress={() => this._scan()}>
-            Scan QR Code
-          </LargeBorderButton>
-        </AccountSendPanel>
-        <AccountSendButton
-          sideMargins
-          disabled={!this.state.validAddress}
-          onPress={() => this._haveAddress()}
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : -110}
+          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
-          Next
-        </AccountSendButton>
+          <View style={{ height: '42%' }}>
+            <AccountSendPanel>
+              <AccountHeaderText>Who are you sending to?</AccountHeaderText>
+              <Label noMargin>Address</Label>
+              <TextInput
+                onChangeText={this._setAddress}
+                value={this.state.address}
+                name='address'
+                placeholder='ndau address...'
+                autoCapitalize='none'
+                noSideMargins
+              />
+              <OrBorder />
+              <LargeBorderButton onPress={() => this._scan()}>
+                Scan QR Code
+              </LargeBorderButton>
+            </AccountSendPanel>
+          </View>
+          <View
+            style={{
+              height: '56%',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              marginBottom: '4%'
+            }}
+          >
+            <AccountSendButton
+              sideMargins
+              disabled={!this.state.validAddress}
+              onPress={() => this._haveAddress()}
+            >
+              Next
+            </AccountSendButton>
+          </View>
+        </KeyboardAvoidingView>
       </AccountSendContainer>
     )
   }
