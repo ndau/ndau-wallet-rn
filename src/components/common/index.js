@@ -37,7 +37,7 @@ export function LoginContainer ({ children }) {
         resizeMode='contain'
       />
       <FullScreenTripColorGradient>
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps='always'>
           <View style={styles.loginContainer}>{children}</View>
         </ScrollView>
       </FullScreenTripColorGradient>

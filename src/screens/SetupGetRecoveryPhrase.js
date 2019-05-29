@@ -39,6 +39,11 @@ import NdauStore from '../stores/NdauStore'
 const DEFAULT_ROW_LENGTH = 4
 const _ = require('lodash')
 
+const ANDROID_SHRINK_SIZE = '15%'
+const ANDROID_NORMAL_SIZE = '62%'
+const IOS_SHRINK_SIZE = '30%'
+const IOS_NORMAL_SIZE = '64%'
+
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
@@ -72,8 +77,8 @@ class SetupGetRecoveryPhrase extends Component {
       recoveryIndex: 0,
       disableArrows: true,
       spinner: false,
-      lowerHeightAndroid: '65%',
-      lowerHeightIOS: '80%'
+      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
+      lowerHeightIOS: IOS_NORMAL_SIZE
     }
 
     this.index = 0
@@ -346,12 +351,17 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   keyboardWillShow = event => {
-    this.setState({ lowerHeightAndroid: '15%', lowerHeightIOS: '30%' })
+    this.setState({
+      lowerHeightAndroid: ANDROID_SHRINK_SIZE,
+      lowerHeightIOS: IOS_SHRINK_SIZE
+    })
   }
 
   keyboardWillHide = event => {
-    60
-    this.setState({ lowerHeightAndroid: '62%', lowerHeightIOS: '64%' })
+    this.setState({
+      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
+      lowerHeightIOS: IOS_NORMAL_SIZE
+    })
   }
 
   _renderAcquisition = () => {
