@@ -55,11 +55,14 @@ export const Transaction = {
 
   handleError (msgOrErr) {
     LoggingService.debug(`Error from blockchain: ${msgOrErr}`)
-    FlashNotification.showError(
-      `Problem occurred sending a ${this.transactionType} for ${
-        this._account.addressData.nickname
-      }`
-    )
+    let msg = `Problem occurred sending a ${this.transactionType} for ${
+      this._account.addressData.nickname
+    }`
+    if (msgOrErr instanceof Error) {
+      // If it was an error, append the message to the flash message
+      msg += `: ${msgOrErr.message}`
+    }
+    FlashNotification.showError(msg)
     if (msgOrErr instanceof Error) {
       throw msgOrErr
     } else {
