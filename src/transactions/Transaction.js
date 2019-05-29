@@ -5,7 +5,7 @@ import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/common/FlashNotification'
 import LoggingService from '../services/LoggingService'
 import AccountAPI from '../api/AccountAPI'
-import BlockchainAPIError from '../errors/BlockchainAPIError'
+import {ErrorsByMessage, Messages} from '../errors/BlockchainAPIError'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 
 export const Transaction = {
@@ -37,7 +37,7 @@ export const Transaction = {
         throw Error('No validation keys present')
       }
       if (isNaN(this._account.addressData.sequence)) {
-        throw new BlockchainAPIError('1001')
+        throw new ErrorsByMessage[Messages.SRC_NO_HISTORY]
       }
 
       const sequence = await AccountAPI.getNextSequence(this._account.address)
