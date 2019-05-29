@@ -117,8 +117,7 @@ class RecoveryDropdown extends Component {
       color: this.state.textColor,
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      borderRadius: 3,
-      zIndex: 1
+      borderRadius: 3
     }
 
     return (

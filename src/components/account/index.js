@@ -735,7 +735,9 @@ export function DashboardTotalPanel (props) {
 
 export function AccountConfirmationItem (props) {
   return (
-    <View style={styles.accountSendTextPanelWithSmallText}>
+    <View
+      style={[styles.accountSendTextPanelWithSmallText, { ...props.style }]}
+    >
       <View>
         {props.url ? (
           <H4

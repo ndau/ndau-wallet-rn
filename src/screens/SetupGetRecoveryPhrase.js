@@ -385,7 +385,8 @@ class SetupGetRecoveryPhrase extends Component {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'flex-start',
-              minHeight: '25%'
+              minHeight: '25%',
+              zIndex: 100
             }}
           >
             <View
@@ -481,7 +482,8 @@ class SetupGetRecoveryPhrase extends Component {
                 }
               }),
               flexDirection: 'column',
-              justifyContent: 'flex-end'
+              justifyContent: 'flex-end',
+              zIndex: 0
             }}
           >
             <BottomLinkText onPress={this.noRecoveryPhrase}>

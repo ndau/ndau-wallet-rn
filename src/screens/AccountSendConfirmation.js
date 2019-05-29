@@ -97,8 +97,9 @@ class AccountSendConfirmation extends Component {
             Please confirm the details below
           </AccountHeaderText>
           <AccountConfirmationItem
+            style={{ marginRight: '3%' }}
             title={'To:'}
-            value={ndaujs.truncateAddress(this.state.address)}
+            value={this.state.address}
           />
           <BarBorder />
           <AccountConfirmationItem
