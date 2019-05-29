@@ -278,7 +278,6 @@ export default StyleSheet.create({
   },
   accountLockOptionsPanel: {
     width: wp('100%'),
-    height: hp('58%'),
     backgroundColor: '#0A1724',
     paddingTop: 0
   },
@@ -304,7 +303,6 @@ export default StyleSheet.create({
     height: hp('6%')
   },
   accountContentPanel: {
-    // marginBottom: wp('2.5%'),
     backgroundColor: '#0A1724',
     height: hp('100%')
   },
@@ -487,8 +485,6 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   accountLockButtonContainer: {
-    position: 'absolute',
-    bottom: 0,
     marginLeft: wp('4%'),
     marginBottom: hp('2.5%'),
     backgroundColor: '#0A1724'
@@ -711,7 +707,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     width: wp('92%'),
-    height: hp('6%'),
     borderRadius: 4,
     backgroundColor: '#0F2748',
     paddingHorizontal: wp('4%'),
@@ -737,20 +732,33 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
-  accountLockOptionHeaderText: {
+  accountLockOptionHeaderTextTop: {
+    flex: 1.5,
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 14,
     fontWeight: '400',
     letterSpacing: 0.34,
     lineHeight: 20,
-    width: wp('16%')
+  },
+  accountLockOptionHeaderText: {
+    flex: 1.5,
+    justifyContent: 'center',
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.34,
+    lineHeight: 20,
   },
   accountLockCheckbox: {
     paddingTop: hp('1.5%'),
-    paddingLeft: wp('1$')
+    paddingLeft: wp('1%')
   },
   accountLockOptionText: {
+    flex: 1,
+    justifyContent: 'center',
+    textAlign: 'center',
     ...Platform.select({
       ios: {
         lineHeight: 24
@@ -764,7 +772,24 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     letterSpacing: 0.34,
-    width: wp('8%')
+  },
+  accountLockOptionTextSmall: {
+    flex: 0.5,
+    justifyContent: 'center',
+    textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        lineHeight: 24
+      },
+      android: {
+        lineHeight: 17
+      }
+    }),
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: 0.34
   },
   accountLockOptionTextWithBorder: {
     color: AppConstants.TEXT_COLOR,
