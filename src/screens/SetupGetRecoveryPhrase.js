@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import {
   View,
-  Keyboard,
+  KeyboardAvoidingView,
   Text,
   Linking,
   PixelRatio,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  Keyboard
 } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
 import {
@@ -70,7 +71,9 @@ class SetupGetRecoveryPhrase extends Component {
       mode: AppConstants.NORMAL_MODE,
       recoveryIndex: 0,
       disableArrows: true,
-      spinner: false
+      spinner: false,
+      lowerHeightAndroid: '65%',
+      lowerHeightIOS: '80%'
     }
 
     this.index = 0
@@ -125,6 +128,26 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   componentWillMount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub = Keyboard.addListener(
+        'keyboardWillShow',
+        this.keyboardWillShow
+      )
+      this.keyboardWillHideSub = Keyboard.addListener(
+        'keyboardWillHide',
+        this.keyboardWillHide
+      )
+    } else {
+      this.keyboardDidShowSub = Keyboard.addListener(
+        'keyboardDidShow',
+        this.keyboardWillShow
+      )
+      this.keyboardDidHideSub = Keyboard.addListener(
+        'keyboardDidHide',
+        this.keyboardWillHide
+      )
+    }
+
     const mode = this.props.navigation.getParam(
       'mode',
       AppConstants.NORMAL_MODE
@@ -143,6 +166,16 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({ mode, introductionText })
 
     this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
+  }
+
+  componentWillUnmount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub.remove()
+      this.keyboardWillHideSub.remove()
+    } else {
+      this.keyboardDidShowSub.remove()
+      this.keyboardDidHideSub.remove()
+    }
   }
 
   addToRecoveryPhrase = value => {
@@ -305,6 +338,22 @@ class SetupGetRecoveryPhrase extends Component {
     }
   }
 
+  _getDuration = event => {
+    if (event) {
+      this.eventDuration = event.duration
+    }
+    return event ? event.duration : this.eventDuration
+  }
+
+  keyboardWillShow = event => {
+    this.setState({ lowerHeightAndroid: '15%', lowerHeightIOS: '30%' })
+  }
+
+  keyboardWillHide = event => {
+    60
+    this.setState({ lowerHeightAndroid: '62%', lowerHeightIOS: '64%' })
+  }
+
   _renderAcquisition = () => {
     return (
       <SetupContainer
@@ -313,102 +362,123 @@ class SetupGetRecoveryPhrase extends Component {
         pageNumber={2 + this.state.stepNumber}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <ParagraphText>{this.state.introductionText}</ParagraphText>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            height: hp('10%')
-          }}
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
         >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <Text style={cssStyles.wizardText}>
-              {this.state.recoveryIndex + 1}
-            </Text>
-            <Text style={cssStyles.wizardText}>{' of '}</Text>
-            <Text style={cssStyles.wizardText}>
-              {this.recoveryPhrase.length}
-            </Text>
+          <View style={{ height: 'auto' }}>
+            <ParagraphText>{this.state.introductionText}</ParagraphText>
           </View>
           <View
             style={{
               flex: 1,
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'flex-start'
+              justifyContent: 'flex-start',
+              minHeight: '25%'
             }}
           >
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'center'
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '15%'
               }}
             >
-              <TouchableOpacity
+              <Text style={cssStyles.wizardText}>
+                {this.state.recoveryIndex + 1}
+              </Text>
+              <Text style={cssStyles.wizardText}>{' of '}</Text>
+              <Text style={cssStyles.wizardText}>
+                {this.recoveryPhrase.length}
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                minHeight: '30%'
+              }}
+            >
+              <View
                 style={{
-                  marginLeft: wp('5%'),
-                  marginTop: hp('.8%'),
-                  ...Platform.select({
-                    ios: {
-                      marginRight: hp('1.6%')
-                    },
-                    android: {
-                      marginRight: hp('6%')
-                    }
-                  })
+                  flexDirection: 'row',
+                  justifyContent: 'center'
                 }}
-                onPress={this._moveBackAWord}
               >
-                <FontAwesome5Pro
-                  name='arrow-circle-left'
-                  color={styleConstants.ICON_GRAY}
-                  size={32}
-                  light
+                <TouchableOpacity
+                  style={{
+                    marginLeft: wp('5%'),
+                    marginTop: hp('.8%'),
+                    ...Platform.select({
+                      ios: {
+                        marginRight: hp('1.6%')
+                      },
+                      android: {
+                        marginRight: hp('6%')
+                      }
+                    })
+                  }}
+                  onPress={this._moveBackAWord}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-left'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                    light
+                  />
+                </TouchableOpacity>
+                <RecoveryDropdown
+                  addToRecoveryPhrase={this.addToRecoveryPhrase}
+                  setAcquisitionError={this.setAcquisitionError}
+                  recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
+                  setDisableArrows={this.setDisableArrows}
+                  moveToNextWord={this._moveToNextWord}
+                  ref={input => {
+                    this.recoveryDropdownRef = input
+                  }}
                 />
-              </TouchableOpacity>
-              <RecoveryDropdown
-                addToRecoveryPhrase={this.addToRecoveryPhrase}
-                setAcquisitionError={this.setAcquisitionError}
-                recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
-                setDisableArrows={this.setDisableArrows}
-                moveToNextWord={this._moveToNextWord}
-                ref={input => {
-                  this.recoveryDropdownRef = input
-                }}
-              />
-              <TouchableOpacity
-                style={{
-                  marginTop: hp('.5%'),
-                  marginLeft: wp('3%'),
-                  marginRight: wp('5%')
-                }}
-                onPress={this._moveToNextWord}
-                disabled={this.state.disableArrows}
-              >
-                <FontAwesome5Pro
-                  name='arrow-circle-right'
-                  color={styleConstants.ICON_GRAY}
-                  size={32}
-                  light
-                />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    marginTop: hp('.5%'),
+                    marginLeft: wp('3%'),
+                    marginRight: wp('5%')
+                  }}
+                  onPress={this._moveToNextWord}
+                  disabled={this.state.disableArrows}
+                >
+                  <FontAwesome5Pro
+                    name='arrow-circle-right'
+                    color={styleConstants.ICON_GRAY}
+                    size={32}
+                    light
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-        <BottomLinkText
-          left={Platform.OS === 'android' ? wp('20%') : wp('18%')}
-          onPress={this.noRecoveryPhrase}
-        >
-          I don't have my recovery phrase
-        </BottomLinkText>
+          <View
+            style={{
+              ...Platform.select({
+                ios: {
+                  height: this.state.lowerHeightIOS
+                },
+                android: {
+                  height: this.state.lowerHeightAndroid
+                }
+              }),
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}
+          >
+            <BottomLinkText onPress={this.noRecoveryPhrase}>
+              I don't have my recovery phrase
+            </BottomLinkText>
+          </View>
+        </KeyboardAvoidingView>
         <Dialog
           style={{
             fontSize: 18,

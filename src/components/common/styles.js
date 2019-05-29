@@ -88,8 +88,12 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   centeredLinkContainer: {
-    position: 'absolute',
-    bottom: 0
+    // position: 'absolute',
+    // bottom: 0
+    // justifyContent: 'flex-end',
+    // alignItems: 'center'
+    alignSelf: 'center',
+    minHeight: '6%'
   },
   centeredLinkText: {
     color: '#8DC84F',
@@ -243,10 +247,11 @@ export default StyleSheet.create({
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
-    marginBottom: hp('3%'),
+    marginBottom: hp('4%'),
     position: 'relative',
     width: 22,
     height: 22,
+    minHeight: 22,
     borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
@@ -283,9 +288,11 @@ export default StyleSheet.create({
     marginTop: hp('3%'),
     marginRight: wp('3%'),
     marginLeft: wp('4%'),
+    marginBottom: hp('1%'),
     position: 'relative',
     width: 22,
     height: 22,
+    minHeight: 22,
     borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',

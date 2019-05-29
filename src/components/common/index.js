@@ -168,7 +168,7 @@ export function LargeBorderButton (props) {
 
 export function BottomLinkText (props) {
   return (
-    <View style={[styles.centeredLinkContainer, { left: props.left }]}>
+    <View style={[styles.centeredLinkContainer]}>
       <H4 {...props} style={styles.centeredLinkText}>
         {props.children}
       </H4>
