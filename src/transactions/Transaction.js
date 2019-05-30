@@ -54,7 +54,7 @@ export const Transaction = {
   },
 
   handleError (msgOrErr) {
-    LoggingService.debug(`Error from blockchain: ${msgOrErr}`)
+    LogStore.log(`Error from blockchain: ${msgOrErr}`)
     let msg = `Problem occurred sending a ${this.transactionType} for ${
       this._account.addressData.nickname
     }`
