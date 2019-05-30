@@ -797,14 +797,12 @@ export function AccountLockOption (props) {
     <TouchableOpacity {...props}>
       <View style={[styles.accountLockOption, selectedStyle]}>
         <P style={styles.accountLockOptionHeaderText}>{props.lock}</P>
-        <P style={styles.accountLockOptionText} />
         <P style={styles.accountLockOptionText}>{`${props.base}%`}</P>
-        <P style={styles.accountLockOptionText}>{'     '}+</P>
-        <P style={styles.accountLockOptionText} />
+        <P style={styles.accountLockOptionTextSmall}>+</P>
         <P style={styles.accountLockOptionText}>{`${props.bonus}%`}</P>
-        <P style={styles.accountLockOptionText}>{'     '}=</P>
-        <P style={styles.accountLockOptionText} />
+        <P style={styles.accountLockOptionTextSmall}>=</P>
         <P style={styles.accountLockOptionText}>{`${props.total}%`}</P>
+        <P style={styles.accountLockOptionTextSmall} />
 
         {props.selected ? (
           <FontAwesome5Pro
@@ -823,13 +821,10 @@ export function AccountLockOption (props) {
 export function AccountLockOptionHeader (props) {
   return (
     <View style={styles.accountLockOptionHeader}>
-      <P style={styles.accountLockOptionHeaderText}>Lock for</P>
-      <P style={styles.accountLockOptionText} />
-      <P style={styles.accountLockOptionHeaderText}>New base</P>
-      <P style={styles.accountLockOptionText} />
-      <P style={styles.accountLockOptionHeaderText}>Bonus</P>
-      <P style={styles.accountLockOptionText} />
-      <P style={styles.accountLockOptionHeaderText}>Total</P>
+      <P style={styles.accountLockOptionHeaderTextTop}>Lock for</P>
+      <P style={styles.accountLockOptionHeaderTextTop}>New base</P>
+      <P style={styles.accountLockOptionHeaderTextTop}>Bonus</P>
+      <P style={styles.accountLockOptionHeaderTextTop}>Total</P>
     </View>
   )
 }
