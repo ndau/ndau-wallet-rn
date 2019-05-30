@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
-import { Alert } from 'react-native'
+import {
+  Alert,
+  KeyboardAvoidingView,
+  View,
+  Platform,
+  Keyboard
+} from 'react-native'
 import SetupStore from '../stores/SetupStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
-import OrderAPI from '../api/OrderAPI'
 import UserData from '../model/UserData'
 import UserStore from '../stores/UserStore'
-import NdauStore from '../stores/NdauStore'
 import { SetupContainer } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButtons,
   Label,
   CheckBox,
   TextInput,
-  ParagraphText,
-  FlashNotification
+  ParagraphText
 } from '../components/common'
+import LogStore from '../stores/LogStore'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -36,12 +45,58 @@ class SetupEncryptionPassword extends Component {
       progress: false,
       textInputColor: '#000000',
       mode: AppConstants.NEW_PASSWORD_MODE,
-      instructionText: this.NEW_PASSWORD_MODE_TEXT
+      instructionText: this.NEW_PASSWORD_MODE_TEXT,
+      lowerHeight: hp('29%')
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
+  componentWillUnmount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub.remove()
+      this.keyboardWillHideSub.remove()
+    } else {
+      this.keyboardDidShowSub.remove()
+      this.keyboardDidHideSub.remove()
+    }
+  }
+
+  _getDuration = event => {
+    if (event) {
+      this.eventDuration = event.duration
+    }
+    return event ? event.duration : this.eventDuration
+  }
+
+  keyboardWillShow = event => {
+    this.setState({ lowerHeight: hp('8%') })
+  }
+
+  keyboardWillHide = event => {
+    this.setState({ lowerHeight: hp('29%') })
+  }
+
   componentWillMount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub = Keyboard.addListener(
+        'keyboardWillShow',
+        this.keyboardWillShow
+      )
+      this.keyboardWillHideSub = Keyboard.addListener(
+        'keyboardWillHide',
+        this.keyboardWillHide
+      )
+    } else {
+      this.keyboardDidShowSub = Keyboard.addListener(
+        'keyboardDidShow',
+        this.keyboardWillShow
+      )
+      this.keyboardDidHideSub = Keyboard.addListener(
+        'keyboardDidHide',
+        this.keyboardWillHide
+      )
+    }
+
     const mode = this.props.navigation.getParam(
       'mode',
       AppConstants.NEW_PASSWORD_MODE
@@ -129,7 +184,7 @@ class SetupEncryptionPassword extends Component {
 
       this.props.navigation.navigate('Dashboard')
     } catch (error) {
-      LoggingService.debug(error)
+      LogStore.log(error)
       FlashNotification.showError(error.message, false, false)
     }
   }
@@ -162,38 +217,53 @@ class SetupEncryptionPassword extends Component {
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
-        <ParagraphText>{this.state.instructionText}</ParagraphText>
-        <Label>Password</Label>
-        <TextInput
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-          placeholder='Enter a password...'
-          secureTextEntry={!this.state.showPasswords}
-          autoCapitalize='none'
-        />
-        <Label>Confirm Password</Label>
-        <TextInput
-          onChangeText={this.updateComfirmPassword}
-          value={this.state.confirmPassword}
-          placeholder='Confirm your password...'
-          secureTextEntry={!this.state.showPasswords}
-          autoCapitalize='none'
-          onSubmitEditing={this.showNextSetup}
-        />
-
-        <CheckBox
-          onValueChange={this.checkedShowPasswords}
-          checked={this.state.showPasswords}
-          label='Hide/show passwords'
-        />
-        <LargeButtons
-          sideMargins
-          bottom
-          onPress={() => this.showNextSetup()}
-          disabled={!progress}
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 330 : -60}
+          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
-          Next
-        </LargeButtons>
+          <View style={{ height: '25%' }}>
+            <ParagraphText>{this.state.instructionText}</ParagraphText>
+          </View>
+          <View style={{ minHeight: '15%' }}>
+            <Label>Password</Label>
+            <TextInput
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+              placeholder='Enter a password...'
+              secureTextEntry={!this.state.showPasswords}
+              autoCapitalize='none'
+            />
+          </View>
+          <View style={{ minHeight: '15%' }}>
+            <Label>Confirm Password</Label>
+            <TextInput
+              onChangeText={this.updateComfirmPassword}
+              value={this.state.confirmPassword}
+              placeholder='Confirm your password...'
+              secureTextEntry={!this.state.showPasswords}
+              autoCapitalize='none'
+              onSubmitEditing={this.showNextSetup}
+            />
+          </View>
+          <View style={{ height: 'auto' }}>
+            <CheckBox
+              onValueChange={this.checkedShowPasswords}
+              checked={this.state.showPasswords}
+              label='Hide/show passwords'
+            />
+          </View>
+          <View style={{ height: this.state.lowerHeight }}>
+            <LargeButtons
+              sideMargins
+              bottom
+              onPress={() => this.showNextSetup()}
+              disabled={!progress}
+            >
+              Next
+            </LargeButtons>
+          </View>
+          <View style={{ flex: 1 }} />
+        </KeyboardAvoidingView>
       </SetupContainer>
     )
   }

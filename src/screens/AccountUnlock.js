@@ -5,8 +5,6 @@ import {
   AccountDetailPanel,
   AccountParagraphText
 } from '../components/account'
-import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
-import LoggingService from '../services/LoggingService'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import { LargeButton, FlashNotification } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'

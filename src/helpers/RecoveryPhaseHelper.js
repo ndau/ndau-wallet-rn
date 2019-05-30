@@ -3,7 +3,7 @@ import KeyMaster from './KeyMaster'
 import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import AppConfig from '../AppConfig'
 
 /**
@@ -38,7 +38,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
   }
 
   const bip44Accounts = await checkAddresses(recoveryPhraseBytes)
-  LoggingService.debug(`BIP44 accounts found: `, bip44Accounts)
+  LogStore.log(`BIP44 accounts found: ${bip44Accounts}`)
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     for (const accountPath in bip44Accounts) {
       await KeyMaster.createAccountFromPath(
@@ -47,11 +47,11 @@ const recoverUser = async (recoveryPhraseString, user) => {
         bip44Accounts[accountPath]
       )
     }
-    LoggingService.debug(`Recovered user containing BIP44 accounts: `, user)
+    LogStore.log(`Recovered user containing BIP44 accounts: ${user}`)
   }
 
   const rootAccounts = await checkAddresses(recoveryPhraseBytes, true)
-  LoggingService.debug(`root accounts found: `, rootAccounts)
+  LogStore.log(`root accounts found: ${rootAccounts}`)
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
       recoveryPhraseBytes
@@ -64,7 +64,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
         rootPrivateKey
       )
     }
-    LoggingService.debug(`Recovered user containing root accounts now: `, user)
+    LogStore.log(`Recovered user containing root accounts now: ${user}`)
   }
 
   return user
@@ -92,14 +92,14 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
         startIndex,
         endIndex
       )
-      LoggingService.debug(`KeyMaster.getRootAddresses found: `, addresses)
+      LogStore.log(`KeyMaster.getRootAddresses found: ${addresses}`)
     } else {
       addresses = await KeyMaster.getBIP44Addresses(
         recoveryPhraseBytes,
         startIndex,
         endIndex
       )
-      LoggingService.debug(`KeyMaster.getBIP44Addresses found: `, addresses)
+      LogStore.log(`KeyMaster.getBIP44Addresses found: ${addresses}`)
     }
 
     accountDataFromBlockchain = await AccountAPI.getAddressData(

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { BackHandler } from 'react-native'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import LoggingService from '../services/LoggingService'
 import {
   SetupWelcomeContainer,
   LargeText,
   UnderlineDivider
 } from '../components/setup'
-import { LargeButton, ParagraphText, FlashNotification } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { LargeButton, ParagraphText } from '../components/common'
 
 class SetupWelcome extends Component {
   constructor (props) {

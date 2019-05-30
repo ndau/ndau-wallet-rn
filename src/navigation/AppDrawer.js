@@ -8,13 +8,10 @@ import {
   DrawerContainer,
   DrawerEntryVersionItem
 } from '../components/drawer'
-import LoggingService from '../services/LoggingService'
-import rnfs from 'react-native-fs'
 import { DrawerBorder } from '../components/common'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import SettingsStore from '../stores/SettingsStore'
-
-const Mailer = require('NativeModules').RNMail
+import SupportEmailHelper from '../helpers/SupportEmailHelper'
 
 class AppDrawer extends React.Component {
   constructor (props) {
@@ -49,39 +46,11 @@ class AppDrawer extends React.Component {
 
   sendSupportEmail = async () => {
     this.closeDrawer()
-    const data = await LoggingService.getLoggingData()
-    var path = rnfs.DocumentDirectoryPath + '/ndau-wallet.log'
 
-    // The comments here should be removed.
-    // TODO: 1 of 2 Removing attachments as they are not working
-    // write the file and wait
-    // try {
-    //   await rnfs.writeFile(path, data, 'utf8')
-    // } catch (error) {
-    //   LoggingService.debug(error)
-    // }
-
-    Mailer.mail(
-      {
-        subject: `Wallet App Support - ${this.getVersion()} - ${this.getOs()} - ${this.getHardware()}`,
-        recipients: ['support@oneiro.freshdesk.com'],
-        body:
-          'Describe the problem or issue you are having.<br><br><code>' +
-          JSON.stringify(data) +
-          '</code>',
-        isHTML: true
-        // TODO: 2 of 2 Removing attachements as they are not working
-        // attachment: {
-        //   path, // The absolute path of the file from which to read data.
-        //   mimeType: 'log',
-        //   name: 'ndau-wallet.log'
-        // }
-      },
-      error => {
-        if (error) {
-          LoggingService.debug(error)
-        }
-      }
+    await SupportEmailHelper.sendSupportEmail(
+      this.getHardware(),
+      this.getOs(),
+      this.getVersion()
     )
   }
 

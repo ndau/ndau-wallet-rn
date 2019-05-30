@@ -3,13 +3,12 @@ import Key from '../model/Key'
 import Account from '../model/Account'
 import { NativeModules } from 'react-native'
 import AppConstants from '../AppConstants'
-import AppConfig from '../AppConfig'
 import AccountAPIHelper from './AccountAPIHelper'
 import FlashNotification from '../components/common/FlashNotification'
 import Wallet from '../model/Wallet'
 import DataFormatHelper from './DataFormatHelper'
 import KeyPathHelper from './KeyPathHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 
 /**
  * This function will return an array of addresses that can be
@@ -184,7 +183,7 @@ const createFirstTimeUser = async (
       user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
-    LoggingService.debug(`User initially created is: `, user)
+    LogStore.log(`User initially created is: ${user}`)
     return user
   } catch (error) {
     FlashNotification.showError(error.message)
@@ -260,7 +259,7 @@ const createWallet = async (
       )
     }
 
-    LoggingService.debug(`Wallet created is: `, wallet)
+    LogStore.log(`Wallet created is: ${wallet}`)
 
     return wallet
   } catch (error) {
@@ -634,7 +633,7 @@ const _createAccounts = async (
       recoveryPhraseBytes
     )
   }
-  LoggingService.debug(`Accounts created: `, wallet.accounts)
+  LogStore.log(`Accounts created: ${wallet.accounts}`)
 }
 
 export default {

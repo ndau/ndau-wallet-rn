@@ -7,7 +7,7 @@ import {
 } from '../components/account'
 
 import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import AccountStore from '../stores/AccountStore'
@@ -33,7 +33,7 @@ class AccountHistory extends Component {
         )
         this.setState({ accountHistory })
       } catch (error) {
-        LoggingService.debug(error)
+        LogStore.log(error)
         FlashNotification.showError(
           'Problem occured while getting account history from the blockchain.'
         )

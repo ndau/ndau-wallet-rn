@@ -5,7 +5,7 @@ import AppConstants from '../AppConstants'
 import { SetValidationTransaction } from '../transactions/SetValidationTransaction'
 import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import NodeAddressHelper from './NodeAddressHelper'
 import KeyPathHelper from './KeyPathHelper'
 import AppConfig from '../AppConfig'
@@ -112,7 +112,7 @@ const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
       account.addressData.balance > 0 &&
       !account.addressData.validationKeys
     ) {
-      LoggingService.debug(
+      LogStore.log(
         `Sending SetValidation transaction for ${account.addressData.nickname}`
       )
       Object.assign(SetValidationTransaction.prototype, Transaction)
@@ -124,9 +124,8 @@ const sendSetValidationTransactionIfNeeded = async (wallet, account) => {
     }
   } catch (error) {
     if (account.addressData.balance) {
-      LoggingService.debug(
-        `Issue encountered performing SetValidation: `,
-        error
+      LogStore.log(
+        `Issue encountered performing SetValidation: ${JSON.stringify(error)}`
       )
     }
   }
@@ -139,7 +138,7 @@ const sendDelegateTransactionIfNeeded = async (wallet, account) => {
       (account.addressData.validationKeys &&
         account.addressData.validationKeys.length > 0)
     ) {
-      LoggingService.debug(
+      LogStore.log(
         `Sending Delegate transaction for ${account.addressData.nickname}`
       )
       Object.assign(DelegateTransaction.prototype, Transaction)
@@ -151,7 +150,9 @@ const sendDelegateTransactionIfNeeded = async (wallet, account) => {
       await delegateTransaction.createSignPrevalidateSubmit()
     }
   } catch (error) {
-    LoggingService.debug(`Issue encountered perfroming Delegate: `, error)
+    LogStore.log(
+      `Issue encountered perfroming Delegate: ${JSON.stringify(error)}`
+    )
   }
 }
 
@@ -302,7 +303,7 @@ const lockBonusEAI = weightedAverageAgeInDays => {
   return 0
 }
 
-const accountTotalNapuAmount = (accounts) => {
+const accountTotalNapuAmount = accounts => {
   let totalNapu = 0
   Object.keys(accounts).forEach(accountKey => {
     if (
@@ -376,9 +377,7 @@ const getTotalNdauForSend = (
 }
 
 const currentPrice = (marketPrice, totalNdau) => {
-  LoggingService.debug(
-    `marketPrice is ${marketPrice} totalNdau is ${totalNdau}`
-  )
+  LogStore.log(`marketPrice is ${marketPrice} totalNdau is ${totalNdau}`)
 
   // why not use .toLocaleString you ask...here is why:
   // https://github.com/facebook/react-native/issues/15717
@@ -389,7 +388,7 @@ const currentPrice = (marketPrice, totalNdau) => {
         2
       )
     : '$0.00'
-  LoggingService.debug(`currentPrice: ${currentPrice}`)
+  LogStore.log(`currentPrice: ${currentPrice}`)
 
   return currentPrice
 }

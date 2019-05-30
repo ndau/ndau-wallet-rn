@@ -8,10 +8,10 @@ import {
   AccountDetailsLargerText,
   AccountBorder,
   AccountParagraphText,
-  AddressSharePanel,
   AccountConfirmationItem
 } from '../components/account'
-import { LoadingSpinner, FlashNotification } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { LoadingSpinner, TextLink } from '../components/common'
 import { View, ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
@@ -114,7 +114,7 @@ class AccountDetails extends Component {
     }
     const showAllAcctButtons =
       !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
-    const spendableNdauDisplayed = (new NdauNumber(spendableNdau)).toDetail()
+    const spendableNdauDisplayed = new NdauNumber(spendableNdau).toDetail()
     return (
       <AccountDetailsContainer
         goBack={this.goBack}
@@ -171,7 +171,10 @@ class AccountDetails extends Component {
               </AccountParagraphText>
             ) : null}
             <AccountParagraphText customIconName='usd-circle'>
-              {spendableNdauDisplayed} spendable
+              {spendableNdauDisplayed}{' '}
+              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
+                spendable
+              </TextLink>
             </AccountParagraphText>
           </AccountDetailsPanel>
           <AccountDetailsPanel secondPanel>

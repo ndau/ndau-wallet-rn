@@ -35,7 +35,6 @@ export default class NdauNumber {
       AppConfig.NDAU_SUMMARY_PRECISION,
       false
     )
-    console.log('Started with ', ndau)
     if (this.napu === 0) {
       ndau = '0.00'
     } else if (this.napu < AppConstants.QUANTA_PER_UNIT / 100) {

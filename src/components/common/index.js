@@ -37,7 +37,7 @@ export function LoginContainer ({ children }) {
         resizeMode='contain'
       />
       <FullScreenTripColorGradient>
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps='always'>
           <View style={styles.loginContainer}>{children}</View>
         </ScrollView>
       </FullScreenTripColorGradient>
@@ -168,7 +168,7 @@ export function LargeBorderButton (props) {
 
 export function BottomLinkText (props) {
   return (
-    <View style={[styles.centeredLinkContainer, { left: props.left }]}>
+    <View style={[styles.centeredLinkContainer]}>
       <H4 {...props} style={styles.centeredLinkText}>
         {props.children}
       </H4>

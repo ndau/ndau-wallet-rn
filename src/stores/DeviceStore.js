@@ -1,4 +1,4 @@
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 
 const instance = {
   _isOnline: null,
@@ -9,7 +9,7 @@ const instance = {
 
   online: () => {
     if (process.env.NODE_ENV === 'test') {
-      LoggingService.debug(
+      LogStore.log(
         'Returning true online status for testing environment.'
       )
       return true
