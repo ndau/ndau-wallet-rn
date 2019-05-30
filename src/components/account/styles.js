@@ -490,6 +490,13 @@ export default StyleSheet.create({
     marginBottom: hp('2.5%'),
     backgroundColor: '#0A1724'
   },
+  accountLockButtonTypeContainer: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%'),
+    backgroundColor: '#0A1724'
+  },
   accountSendButtonContainer: {
     position: 'absolute',
     bottom: 0,
@@ -752,7 +759,7 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     letterSpacing: 0.34,
-    lineHeight: 20,
+    lineHeight: 20
   },
   accountLockOptionHeaderText: {
     flex: 1.5,
@@ -762,7 +769,7 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     letterSpacing: 0.34,
-    lineHeight: 20,
+    lineHeight: 20
   },
   accountLockCheckbox: {
     paddingTop: hp('1.5%'),
@@ -784,7 +791,7 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 16,
     fontWeight: '400',
-    letterSpacing: 0.34,
+    letterSpacing: 0.34
   },
   accountLockOptionTextSmall: {
     flex: 0.5,
