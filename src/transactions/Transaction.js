@@ -37,7 +37,7 @@ export const Transaction = {
         throw Error('No validation keys present')
       }
       if (isNaN(this._account.addressData.sequence)) {
-        throw new ErrorsByMessage[Messages.SRC_NO_HISTORY]
+        throw ErrorsByMessage[Messages.SRC_NO_HISTORY]
       }
 
       const sequence = await AccountAPI.getNextSequence(this._account.address)

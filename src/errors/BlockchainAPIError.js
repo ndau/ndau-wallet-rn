@@ -43,14 +43,6 @@ export const MessagesByCode = APIErrors.reduce((a, c, i, s) => {
   return a
 }, {})
 
-// This allows errors to be referenced using easy to read constants.
-// e.g. throw new ErrorsByMessage[Messages.SRC_NO_HISTORY]
-export const ErrorsByMessage = APIErrors.reduce((a, c, i, s) => {
-  a[c.message] = c
-  return a
-}, {})
-
-
 // codeFromMessage should return an error code based on
 // returns null if not found
 function codeFromMessage (msg) {
@@ -135,5 +127,12 @@ class BlockchainAPIError extends Error {
     return null
   }
 }
+
+// This allows errors to be referenced using easy to read constants.
+// e.g. throw new ErrorsByMessage[Messages.SRC_NO_HISTORY]
+export const ErrorsByMessage = APIErrors.reduce((a, c, i, s) => {
+  a[c.message] = new BlockchainAPIError(c.code)
+  return a
+}, {})
 
 export default BlockchainAPIError
