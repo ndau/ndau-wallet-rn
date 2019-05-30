@@ -12,7 +12,11 @@ const loadUserData = async user => {
   NdauStore.setMarketPrice(await OrderAPI.getMarketPrice(user))
   // if marketPrice is falsey then we should use the one we have
   // stored within the user.defaults object
-  if (!NdauStore.getMarketPrice() && user.defaults) {
+  if (
+    !NdauStore.getMarketPrice() &&
+    user.defaults &&
+    user.defaults.marketPrice
+  ) {
     NdauStore.setMarketPrice(user.defaults.marketPrice)
   }
 

@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import {
   AccountSendContainer,
   AccountReceiveParagraphText,
-  AddressSharePanel,
-  AccountReceivePanel
+  AddressSharePanel
 } from '../components/account'
+import FlashNotification from '../components/common/FlashNotification'
 import { NdauQRCode, LoadingSpinner } from '../components/common'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
@@ -18,17 +18,13 @@ class AccountReceive extends Component {
       spinner: true,
       qrCode: {}
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
     this.setState({ account, wallet })
-
-    // new Promise(resolve => {
-    //   const qrCode = <NdauQRCode value={account.address} />
-    //   resolve(this.setState({ qrCode, spinner: false }))
-    // })
   }
 
   componentDidMount () {
@@ -45,14 +41,12 @@ class AccountReceive extends Component {
         {...this.props}
       >
         <LoadingSpinner spinner={this.state.spinner} />
-        <AccountReceivePanel>
-          <AccountReceiveParagraphText>
-            To receive ndau in your account, present this QR code or ndau
-            address to the sender.
-          </AccountReceiveParagraphText>
-          <NdauQRCode value={this.state.account.address} />
-        </AccountReceivePanel>
-        <AddressSharePanel address={this.state.account.address} />
+        <AccountReceiveParagraphText>
+          To receive ndau in your account, present this QR code or ndau address
+          to the sender.
+        </AccountReceiveParagraphText>
+        <NdauQRCode value={this.state.account.address} />
+        <AddressSharePanel scroll address={this.state.account.address} />
       </AccountSendContainer>
     )
   }

@@ -5,6 +5,23 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 
+
+const networkCommon = {
+  width: '100%',
+  zIndex: 9001,
+  textAlign: 'center',
+  color: 'white',
+  fontWeight: 'bold',
+  ...Platform.select({
+    ios: {
+      position: 'absolute',
+      top: 27,
+      padding: 5
+    }
+  })
+
+}
+
 export default StyleSheet.create({
   drawerText: {
     color: '#ffffff',
@@ -219,5 +236,12 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     marginLeft: wp('1%')
-  }
+  },
+  mainnetBarStyle: {},
+  testnetBarStyle: Object.assign({
+    backgroundColor: '#f05123',
+  }, networkCommon),
+  devnetBarStyle: Object.assign({
+    backgroundColor: '#4A90E2',
+  }, networkCommon)
 })

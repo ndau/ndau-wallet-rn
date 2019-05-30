@@ -3,7 +3,7 @@ import KeyMaster from '../helpers/KeyMaster'
 import TransactionAPI from '../api/TransactionAPI'
 import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/common/FlashNotification'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import AccountAPI from '../api/AccountAPI'
 import {ErrorsByMessage, Messages} from '../errors/BlockchainAPIError'
 import APIAddressHelper from '../helpers/APIAddressHelper'
@@ -93,7 +93,6 @@ export const Transaction = {
         base64EncodedPrepTx
       )
 
-      LoggingService.debug(`signature from KeyaddrManager.sign is ${signature}`)
       this.addSignatureToJsonTransaction(signature)
     } catch (error) {
       this.handleError(error.message)
@@ -158,8 +157,8 @@ export const Transaction = {
     )
     this._submitAddress = submitAddressPre + '/' + this.transactionType
 
-    LoggingService.debug(`Submit address is ${this._submitAddress}`)
-    LoggingService.debug(`Send type is ${this._sendType}`)
+    LogStore.log(`Submit address is ${this._submitAddress}`)
+    LogStore.log(`Send type is ${this._sendType}`)
   },
 
   async createPrevalidateAddress () {
@@ -169,7 +168,7 @@ export const Transaction = {
     this._prevalidateAddress =
       prevalidateAddressPre + '/' + this.transactionType
 
-    LoggingService.debug(`Prevalidate address is ${this._prevalidateAddress}`)
-    LoggingService.debug(`Send type is ${this._sendType}`)
+    LogStore.log(`Prevalidate address is ${this._prevalidateAddress}`)
+    LogStore.log(`Send type is ${this._sendType}`)
   }
 }

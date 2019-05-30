@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { SettingsContainer } from '../components/account'
+import FlashNotification from '../components/common/FlashNotification'
 import { ParagraphText, BooleanSetting } from '../components/common'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
@@ -12,6 +13,7 @@ class Settings extends Component {
       testnet: false,
       devnet: false
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   async componentWillMount () {

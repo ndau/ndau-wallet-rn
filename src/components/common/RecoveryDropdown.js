@@ -6,7 +6,7 @@ import {
   Text,
   Platform,
   NativeModules,
-  Keyboard
+  View
 } from 'react-native'
 import {
   widthPercentageToDP as wp,
@@ -15,7 +15,7 @@ import {
 import Autocomplete from 'react-native-autocomplete-input'
 import styleConstants from '../../css/styleConstants'
 import AppConstants from '../../AppConstants'
-import LoggingService from '../../services/LoggingService'
+import LogStore from '../../stores/LogStore'
 
 class RecoveryDropdown extends Component {
   constructor (props) {
@@ -30,9 +30,7 @@ class RecoveryDropdown extends Component {
     this.retrievedData = false
     this.autoCompleteRef = null
   }
-  // TODO: we are going to have to write them somewhere...
   onPress (title) {
-    // LoggingService.debug(`title selected is ${title}`)
     this.setState({ query: title, list: [] })
     this.props.addToRecoveryPhrase(title)
     this.props.setDisableArrows(false)
@@ -89,7 +87,6 @@ class RecoveryDropdown extends Component {
       )
       this.retrievedData = true
       const wordsArray = words.split(' ')
-      // LoggingService.debug(`words; ${words} textEntered: ${textEntered}`)
 
       this._checkIfArrowsNeedToBeDisabled(words, textEntered)
 
@@ -120,8 +117,7 @@ class RecoveryDropdown extends Component {
       color: this.state.textColor,
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
-      borderRadius: 3,
-      zIndex: 1
+      borderRadius: 3
     }
 
     return (

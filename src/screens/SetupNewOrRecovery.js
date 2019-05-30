@@ -4,9 +4,14 @@ import AppConstants from '../AppConstants'
 import UserStore from '../stores/UserStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import { SetupContainer } from '../components/setup'
-import { ProgressBar, LargeButtons, ParagraphText } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { LargeButtons, ParagraphText } from '../components/common'
 
 class SetupNewOrRecovery extends Component {
+  constructor (props) {
+    super(props)
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+  }
   componentWillUnmount () {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }

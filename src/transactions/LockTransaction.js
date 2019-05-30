@@ -1,6 +1,3 @@
-import APIAddressHelper from '../helpers/APIAddressHelper'
-import LoggingService from '../services/LoggingService'
-
 export class LockTransaction {
   constructor (wallet, account, period) {
     this._wallet = wallet

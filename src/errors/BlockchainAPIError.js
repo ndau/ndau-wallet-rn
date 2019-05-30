@@ -1,4 +1,3 @@
-
 const GENERIC_ERROR_CODE = 1001
 const SUCCESS_CODE = 0
 
@@ -7,7 +6,9 @@ export const Messages = {
   INSUFFICIENT_BALANCE: 'Insufficient balance in account',
   TX_ALREAD_COMMITTED: 'Transaction is already on the blockchain',
   SRC_NO_HISTORY: 'Source account has no history and no balance',
-  SRC_DEST_SAME: 'Cannot send and receive from the same account'
+  SRC_DEST_SAME: 'Cannot send and receive from the same account',
+  NOTIFIED_TRANSFER:
+    'Transfers into an account with an active countdown timer are invalid.'
 }
 const APIErrors = [
   {
@@ -36,6 +37,11 @@ const APIErrors = [
     message: Messages.INSUFFICIENT_BALANCE,
     re: new RegExp('insufficient available balance', 'i')
   },
+  {
+    code: 1007,
+    message: Messages.NOTIFIED_TRANSFER,
+    re: new RegExp('transfers into notified addresses are invalid', 'i')
+  }
 ]
 
 export const MessagesByCode = APIErrors.reduce((a, c, i, s) => {
@@ -110,7 +116,7 @@ class BlockchainAPIError extends Error {
       this.message = MessagesByCode[parsedCode]
     } else {
       const code = codeFromMessage(this.message)
-      const statusOrNot = this.status ? this.status : ' '
+      const statusOrNot = this.status ? `${this.status} ` : ' '
       if (code !== null) {
         this.message = MessagesByCode[code]
       } else {

@@ -1,13 +1,13 @@
 import APIAddressHelper from '../helpers/APIAddressHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 
 const _postTransaction = async (submitAddress, transaction) => {
-  LoggingService.debug(
-    'TransactionAPI._postTransaction: ',
-    submitAddress,
-    transaction
+  LogStore.log(
+    `TransactionAPI._postTransaction submitAddress: ${submitAddress} transaction: ${JSON.stringify(
+      transaction
+    )}`
   )
   try {
     return await APICommunicationHelper.post(
@@ -15,7 +15,7 @@ const _postTransaction = async (submitAddress, transaction) => {
       JSON.stringify(transaction)
     )
   } catch (error) {
-    LoggingService.error('TransactionAPI._postTransaction', error)
+    LogStore.log(`TransactionAPI._postTransaction ${JSON.stringify(error)}`)
     throw error
   }
 }
@@ -29,14 +29,16 @@ const submit = async (submitAddress, transaction) => {
 }
 
 const transactionByHash = async transactionHash => {
-  LoggingService.debug('TransactionAPI.transactionByHash', transactionHash)
+  LogStore.log(
+    `TransactionAPI.transactionByHash ${JSON.stringify(transactionHash)}`
+  )
   try {
     const transactionByHashAddress = await APIAddressHelper.getTransactionByHashAPIAddress(
       transactionHash
     )
     return await APICommunicationHelper.get(transactionByHashAddress)
   } catch (error) {
-    LoggingService.error('TransactionAPI.transactionByHash', error)
+    LogStore.log(`TransactionAPI.transactionByHash ${JSON.stringify(error)}`)
     throw new BlockchainAPIError(error)
   }
 }

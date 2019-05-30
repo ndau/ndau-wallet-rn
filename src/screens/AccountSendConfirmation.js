@@ -8,8 +8,8 @@ import {
   AccountSendButton
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { LargeButton, BarBorder } from '../components/common'
 import FlashNotification from '../components/common/FlashNotification'
+import { BarBorder } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
@@ -30,6 +30,7 @@ class AccountSendConfirmation extends Component {
       transactionFee: 0,
       sibFee: 0
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {
@@ -68,8 +69,7 @@ class AccountSendConfirmation extends Component {
         )
         await transferTransaction.createSignPrevalidateSubmit()
 
-        this.props.navigation.push('WalletOverview', {
-          wallet: this.state.wallet,
+        this.props.navigation.navigate('WalletOverview', {
           refresh: true
         })
       } catch (error) {
@@ -97,17 +97,17 @@ class AccountSendConfirmation extends Component {
             Please confirm the details below
           </AccountHeaderText>
           <AccountConfirmationItem
-            title={'To:'}
-            value={ndaujs.truncateAddress(this.state.address)}
-          />
+            style={{ marginRight: '3%' }}
+            value={this.state.address}
+          >
+            To:
+          </AccountConfirmationItem>
+          <BarBorder />
+          <AccountConfirmationItem value={this.state.amount}>
+            Amount to be sent:
+          </AccountConfirmationItem>
           <BarBorder />
           <AccountConfirmationItem
-            title={'Amount to be sent:'}
-            value={this.state.amount}
-          />
-          <BarBorder />
-          <AccountConfirmationItem
-            title={'Remaining balance:'}
             value={
               AccountAPIHelper.remainingBalanceNdau(
                 this.state.account.addressData,
@@ -116,21 +116,22 @@ class AccountSendConfirmation extends Component {
                 AppConfig.NDAU_DETAIL_PRECISION
               ) || 0
             }
-          />
+          >
+            Remaining balance:
+          </AccountConfirmationItem>
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
-          <AccountConfirmationItem
-            title={'Transaction fee:'}
-            value={this.state.transactionFee}
-          />
+          <AccountConfirmationItem value={this.state.transactionFee}>
+            Transaction fee:
+          </AccountConfirmationItem>
           <BarBorder />
-          <AccountConfirmationItem title={'SIB:'} value={this.state.sibFee} />
+          <AccountConfirmationItem value={this.state.sibFee}>
+            SIB:
+          </AccountConfirmationItem>
           <BarBorder />
-          <AccountConfirmationItem
-            largerText
-            title={'Total'}
-            value={this.state.total}
-          />
+          <AccountConfirmationItem largerText value={this.state.total}>
+            Total
+          </AccountConfirmationItem>
         </AccountDetailPanel>
         <AccountSendButton sideMargins onPress={() => this._confirm()}>
           Confirm {'&'} send

@@ -146,9 +146,6 @@ const getAccountEaiRateRequest = addressData => {
     const lock = account.lock
 
     if (lock) {
-      const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
-        addressData
-      )
       const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
         DateHelper.getDaysFromISODate(lock.noticePeriod)
       )
@@ -184,9 +181,6 @@ const getAccountEaiRateRequestForLock = account => {
   return Object.keys(AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES).map(
     period => {
       const weightedAverageAge = account.addressData.weightedAverageAge
-      const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
-        account.addressData
-      )
       const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
         DateHelper.getDaysFromISODate(period)
       )

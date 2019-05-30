@@ -3,7 +3,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import WalletStore from '../stores/WalletStore'
 
 const _ = require('lodash')
@@ -18,7 +18,7 @@ const getAddressData = async addresses => {
     await AsyncStorageHelper.setLastAccountData(accountData)
     return accountData
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     throw error
   }
 }
@@ -49,7 +49,7 @@ const isAddressDataNew = async addresses => {
     )
     return !_.isEqual(lastAccountData, accountData)
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     throw new BlockchainAPIError(error)
   }
 }
@@ -62,7 +62,7 @@ const getNextSequence = async address => {
     )
     return accountData[address].sequence ? accountData[address].sequence + 1 : 1
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     return 1
   }
 }
@@ -79,7 +79,7 @@ const getEaiRate = async addressData => {
       JSON.stringify(accountEaiRateRequestData)
     )
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     throw new BlockchainAPIError(error)
   }
 }
@@ -96,7 +96,7 @@ const getLockRates = async account => {
       JSON.stringify(accountEaiRateRequestData)
     )
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     throw new BlockchainAPIError(error)
   }
 }
@@ -108,7 +108,7 @@ const accountHistory = async address => {
   try {
     return await APICommunicationHelper.get(accountHistoryAddress)
   } catch (error) {
-    LoggingService.debug(error)
+    LogStore.log(error)
     throw new BlockchainAPIError(error)
   }
 }

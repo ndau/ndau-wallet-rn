@@ -1,6 +1,6 @@
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 import axios from 'axios'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import DeviceStore from '../stores/DeviceStore'
 import AppConfig from '../AppConfig'
 
@@ -22,24 +22,28 @@ const post = async (
       try {
         // don't make requests if the device is offline
         if (!DeviceStore.online()) {
-          LoggingService.debug(`Device offline. Can't POST to ${url}`)
+          LogStore.log(`Device offline. Can't POST to ${url}`)
           resolve()
         }
-        LoggingService.debug('APICommunicationHelper.post', {
-          url: url,
-          data: data
-        })
+        LogStore.log(
+          `APICommunicationHelper.post ${JSON.stringify({
+            url: url,
+            data: data
+          })}`
+        )
         const response = await axios.post(url, data, { timeout: timeoutMS })
-        LoggingService.debug(`${url} response: `, response.data)
+        LogStore.log(`${url} response: ${JSON.stringify(response.data)}`)
         resolve(response.data)
       } catch (error) {
         const safeStatus =
           error && error.response ? error.response.status : null
-        LoggingService.debug('APICommunicationHelper.post', {
-          status: safeStatus,
-          url: url,
-          response: JSON.stringify(error.response)
-        })
+        LogStore.log(
+          `APICommunicationHelper.post ${JSON.stringify({
+            status: safeStatus,
+            url: url,
+            response: error.response
+          })}`
+        )
         if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
           setTimeout(once, AppConfig.API_RETRY_DELAY_MS)
@@ -65,24 +69,26 @@ const get = async (url, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
       try {
         // don't make requests if the device is offline
         if (!DeviceStore.online()) {
-          LoggingService.debug(`Device offline. Can't GET ${url}`)
+          LogStore.log(`Device offline. Can't GET ${url}`)
           resolve()
         }
-        LoggingService.debug('APICommunicationHelper.get', { url: url })
+        LogStore.log(
+          `APICommunicationHelper.get ${JSON.stringify({ url: url })}`
+        )
         const response = await axios.get(url, { timeout: timeoutMS })
 
-        LoggingService.debug({
-          url: JSON.stringify(response, null, 2)
-        })
+        LogStore.log(`Response is: ${JSON.stringify(response)}`)
         resolve(response.data)
       } catch (error) {
         const safeStatus =
           error && error.response ? error.response.status : null
-        LoggingService.debug('APICommunicationHelper.get', {
-          status: safeStatus,
-          url: url,
-          response: JSON.stringify(error.response)
-        })
+        LogStore.log(
+          `APICommunicationHelper.get ${JSON.stringify({
+            status: safeStatus,
+            url: url,
+            response: error.response
+          })}`
+        )
         if (safeStatus >= 500 && retriesLeft) {
           retriesLeft--
           setTimeout(once, AppConfig.API_RETRY_DELAY_MS)

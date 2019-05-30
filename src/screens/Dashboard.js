@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
-import FlashNotification from '../components/common/FlashNotification'
-import OrderAPI from '../api/OrderAPI'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import LoggingService from '../services/LoggingService'
-import { AppContainer, NdauTotal } from '../components/common'
+import LogStore from '../stores/LogStore'
+import FlashNotification from '../components/common/FlashNotification'
+import { AppContainer, NdauTotal, TextLink } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardContainer,
@@ -18,7 +17,8 @@ import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
-import StringifyDataWriter from 'react-native-device-log'
+import NdauNumber from '../helpers/NdauNumber'
+import AppConfig from '../AppConfig'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -27,10 +27,13 @@ class Dashboard extends Component {
     this.state = {
       user: {},
       refreshing: false,
-      marketPrice: 0,
+      currentPrice: 0,
+      totalNdau: 0,
+      totalSpendableNdau: 0,
       spinner: false,
       appState: AppState.currentState
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillUnmount () {
@@ -62,11 +65,9 @@ class Dashboard extends Component {
       )
     }
 
-    const marketPrice = NdauStore.getMarketPrice(user)
+    this._loadMetricsAndSetState(user)
 
-    LoggingService.debug(`User to be drawn: `, user)
-
-    this.setState({ user, marketPrice })
+    LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
@@ -82,21 +83,43 @@ class Dashboard extends Component {
     this.setState({ spinner: true })
   }
 
-  _onRefresh = async () => {
-    FlashNotification.hideMessage()
-    this.setState({ refreshing: true })
-
-    const user = this.state.user
-    try {
-      await UserData.loadUserData(user)
-    } catch (error) {
-      FlashNotification.showError(error.message)
-    }
+  _loadMetricsAndSetState = user => {
+    const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
+    const totalNdau = new NdauNumber(
+      AccountAPIHelper.accountTotalNdauAmount(accounts)
+    ).toDetail()
+    const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
+      accounts,
+      false
+    )
+    const totalSpendableNdau = new NdauNumber(
+      AccountAPIHelper.totalSpendableNdau(accounts, totalNdauNumber)
+    ).toSummary()
+    const currentPrice = AccountAPIHelper.currentPrice(
+      NdauStore.getMarketPrice(),
+      totalNdauNumber
+    )
 
     this.setState({
       refreshing: false,
       user,
-      marketPrice: NdauStore.getMarketPrice()
+      currentPrice,
+      totalNdau,
+      totalSpendableNdau
+    })
+  }
+
+  _onRefresh = async () => {
+    FlashNotification.hideMessage()
+    this.setState({ refreshing: true }, async () => {
+      const user = this.state.user
+      try {
+        await UserData.loadUserData(user)
+      } catch (error) {
+        FlashNotification.showError(error.message)
+      }
+
+      this._loadMetricsAndSetState(user)
     })
   }
 
@@ -107,30 +130,10 @@ class Dashboard extends Component {
 
   render = () => {
     try {
-      const user = this.state.user
-      if (!user.wallets) {
-        return (
-          <AppContainer>
-            <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
-          </AppContainer>
-        )
-      }
+      const user = UserStore.getUser()
 
+      const { totalNdau, totalSpendableNdau, currentPrice } = this.state
       const wallets = Object.values(user.wallets)
-      const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
-      const totalNdau = AccountAPIHelper.accountTotalNdauAmount(accounts)
-      const totalNdauNumber = AccountAPIHelper.accountTotalNdauAmount(
-        accounts,
-        false
-      )
-      const totalSpendableNdau = AccountAPIHelper.totalSpendableNdau(
-        accounts,
-        totalNdauNumber
-      )
-      const currentPrice = AccountAPIHelper.currentPrice(
-        this.state.marketPrice,
-        totalNdauNumber
-      )
 
       return (
         <AppContainer>
@@ -145,7 +148,10 @@ class Dashboard extends Component {
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
-              <Text> {totalSpendableNdau} spendable </Text>
+              <Text>{totalSpendableNdau} </Text>
+              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
+                spendable
+              </TextLink>
             </DashboardLabelWithIcon>
             <DashboardContainer>
               <DashboardTotalPanel
@@ -169,7 +175,7 @@ class Dashboard extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LoggingService.debug(error)
+      LogStore.log(error)
       FlashNotification.showError(error.message)
     }
 

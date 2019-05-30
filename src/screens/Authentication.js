@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
-import { Alert, Keyboard } from 'react-native'
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  Keyboard
+} from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import RNExitApp from 'react-native-exit-app'
 import UserData from '../model/UserData'
 import AppConstants from '../AppConstants'
-import FlashNotification from '../components/common/FlashNotification'
-import OrderAPI from '../api/OrderAPI'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LoginContainer,
   LabelWithIcon,
@@ -17,8 +21,11 @@ import {
   LoginImage
 } from '../components/common'
 import UserStore from '../stores/UserStore'
-import NdauStore from '../stores/NdauStore'
-import KeyboardView from '../components/common/KeyboardView'
+
+const ANDROID_SHRINK_SIZE = '13%'
+const ANDROID_NORMAL_SIZE = '30%'
+const IOS_SHRINK_SIZE = '10%'
+const IOS_NORMAL_SIZE = '32%'
 
 class Authentication extends Component {
   constructor (props) {
@@ -28,10 +35,45 @@ class Authentication extends Component {
       password: '',
       showErrorText: false,
       loginAttempt: 1,
-      spinner: false
+      spinner: false,
+      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
+      lowerHeightIOS: IOS_NORMAL_SIZE
     }
 
     this.maxLoginAttempts = 10
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+  }
+
+  componentWillMount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub = Keyboard.addListener(
+        'keyboardWillShow',
+        this.keyboardWillShow
+      )
+      this.keyboardWillHideSub = Keyboard.addListener(
+        'keyboardWillHide',
+        this.keyboardWillHide
+      )
+    } else {
+      this.keyboardDidShowSub = Keyboard.addListener(
+        'keyboardDidShow',
+        this.keyboardWillShow
+      )
+      this.keyboardDidHideSub = Keyboard.addListener(
+        'keyboardDidHide',
+        this.keyboardWillHide
+      )
+    }
+  }
+
+  componentWillUnmount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub.remove()
+      this.keyboardWillHideSub.remove()
+    } else {
+      this.keyboardDidShowSub.remove()
+      this.keyboardDidHideSub.remove()
+    }
   }
 
   login = async () => {
@@ -42,7 +84,9 @@ class Authentication extends Component {
           FlashNotification.hideMessage()
           UserStore.setUser(user)
 
-          LoggingService.debug('User in Authentication found is', user)
+          LogStore.log(
+            `User in Authentication found is ${JSON.stringify(user)}`
+          )
 
           // cache the password
           UserStore.setPassword(this.state.password)
@@ -52,7 +96,7 @@ class Authentication extends Component {
             await UserData.loadUserData(user)
           } catch (error) {
             FlashNotification.showError(error.message)
-            LoggingService.debug(error)
+            LogStore.log(error)
             errorMessage = error.message
           }
 
@@ -66,7 +110,7 @@ class Authentication extends Component {
           this.setState({ spinner: false })
         }
       } catch (error) {
-        LoggingService.debug(error)
+        LogStore.log(error)
         this.showLoginError()
         this.setState({ spinner: false })
       }
@@ -131,34 +175,89 @@ class Authentication extends Component {
     })
   }
 
+  _getDuration = event => {
+    if (event) {
+      this.eventDuration = event.duration
+    }
+    return event ? event.duration : this.eventDuration
+  }
+
+  keyboardWillShow = event => {
+    this.setState({
+      lowerHeightAndroid: ANDROID_SHRINK_SIZE,
+      lowerHeightIOS: IOS_SHRINK_SIZE
+    })
+  }
+
+  keyboardWillHide = event => {
+    this.setState({
+      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
+      lowerHeightIOS: IOS_NORMAL_SIZE
+    })
+  }
+
   render () {
     const { textInputColor } = this.state
     return (
       <LoginContainer>
-        <KeyboardView>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
+          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
+        >
           <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-          <LoginImage />
-          <LabelWithIcon
-            onPress={this.showInformation}
-            fontAwesomeIconName='info-circle'
+          <View
+            style={{
+              ...Platform.select({
+                ios: {
+                  height: 'auto'
+                },
+                android: {
+                  height: '42%'
+                }
+              })
+            }}
           >
-            Password
-          </LabelWithIcon>
-          <TextInput
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholder='Enter your password...'
-            secureTextEntry
-            autoCapitalize='none'
-            onSubmitEditing={this.login}
-          />
-          <PasswordLinkText onPress={this.showPasswordReset}>
-            Forgot your password?
-          </PasswordLinkText>
-          <LargeButton scroll sideMargins onPress={this.login}>
-            Login
-          </LargeButton>
-        </KeyboardView>
+            <LoginImage />
+          </View>
+          <View style={{ minHeight: '30%' }}>
+            <LabelWithIcon
+              onPress={this.showInformation}
+              fontAwesomeIconName='info-circle'
+            >
+              Password
+            </LabelWithIcon>
+            <TextInput
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+              placeholder='Enter your password...'
+              secureTextEntry
+              autoCapitalize='none'
+              onSubmitEditing={this.login}
+            />
+            <PasswordLinkText onPress={this.showPasswordReset}>
+              Forgot your password?
+            </PasswordLinkText>
+          </View>
+
+          <View
+            style={{
+              ...Platform.select({
+                ios: {
+                  height: this.state.lowerHeightIOS
+                },
+                android: {
+                  height: this.state.lowerHeightAndroid
+                }
+              }),
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}
+          >
+            <LargeButton sideMargins onPress={this.login}>
+              Login
+            </LargeButton>
+          </View>
+        </KeyboardAvoidingView>
       </LoginContainer>
     )
   }

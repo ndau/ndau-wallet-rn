@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { PixelRatio, NativeModules, Alert } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
-import RNExitApp from 'react-native-exit-app'
 import SetupStore from '../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import AppConstants from '../AppConstants'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import {
   SetupContainer,
   RecoveryPhraseConfirmationTextOnly
 } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import { LargeButtons, ParagraphText } from '../components/common'
 
 var _ = require('lodash')
@@ -30,17 +30,16 @@ class SetupRecoveryPhrase extends Component {
     this.boxHeight = '14%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    LoggingService.debug(
-      `PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`
-    )
+    LogStore.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       this.boxWidth = '100%'
       this.boxHeight = '30%'
-      LoggingService.debug(
+      LogStore.log(
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentDidMount = () => {
@@ -76,7 +75,7 @@ class SetupRecoveryPhrase extends Component {
     if (!_(seedBytes).isEqual(SetupStore.entropy)) {
       this.showExitApp()
     } else {
-      LoggingService.debug(`the seedBytes and entropy are equal.`)
+      LogStore.log(`the seedBytes and entropy are equal.`)
     }
     const recoveryPhrase = seeds.split(/\s+/g)
     this.setState({ recoveryPhrase: recoveryPhrase })

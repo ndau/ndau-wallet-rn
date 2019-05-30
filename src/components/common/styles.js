@@ -88,8 +88,12 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   centeredLinkContainer: {
-    position: 'absolute',
-    bottom: 0
+    // position: 'absolute',
+    // bottom: 0
+    // justifyContent: 'flex-end',
+    // alignItems: 'center'
+    alignSelf: 'center',
+    minHeight: '6%'
   },
   centeredLinkText: {
     color: '#8DC84F',
@@ -113,6 +117,23 @@ export default StyleSheet.create({
     textAlign: 'center',
     alignSelf: 'flex-start',
     paddingVertical: 0
+  },
+  greenLinkText: {
+    color: '#4E957A',
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '200',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    paddingBottom: 0,
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    paddingVertical: 0,
+    textDecorationLine: 'underline',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 0,
+    shadowOpacity: 0,
+    textShadowColor: '#4E957A'
   },
   passwordLinkContainer: {
     flex: 1,
@@ -226,10 +247,11 @@ export default StyleSheet.create({
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     marginTop: hp('3%'),
     marginRight: wp('3%'),
-    marginBottom: hp('3%'),
+    marginBottom: hp('4%'),
     position: 'relative',
     width: 22,
     height: 22,
+    minHeight: 22,
     borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
@@ -266,9 +288,11 @@ export default StyleSheet.create({
     marginTop: hp('3%'),
     marginRight: wp('3%'),
     marginLeft: wp('4%'),
+    marginBottom: hp('1%'),
     position: 'relative',
     width: 22,
     height: 22,
+    minHeight: 22,
     borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
@@ -594,6 +618,19 @@ export default StyleSheet.create({
   fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {
     marginTop: hp('14%'),
-    alignSelf: 'center'
+    marginBottom: hp('16%'),
+    alignSelf: 'center',
+    padding: 10,
+    backgroundColor: '#FFFFFF'
+  },
+  smallParagraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.26,
+    lineHeight: 18,
+    textAlign: 'center',
+    marginLeft: wp('4%')
   }
 })

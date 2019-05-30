@@ -8,6 +8,7 @@ import {
 } from '../components/account'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import FlashNotification from '../components/common/FlashNotification'
 import { RadioButton } from '../components/common'
 import { ScrollView } from 'react-native'
 
@@ -24,6 +25,7 @@ class AccountLockChooseAccount extends Component {
       accountAddressForEAI: null,
       accountNicknameForEAI: null
     }
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {
