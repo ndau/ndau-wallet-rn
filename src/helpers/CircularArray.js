@@ -3,6 +3,7 @@ export default class CircularArray {
     this._array = new Array(size)
 
     this._head = 0
+    this._tail = 0
   }
 
   _next (n) {
@@ -23,6 +24,20 @@ export default class CircularArray {
    * @param {*} item
    */
   write (item) {
+    // this._array[this._tail] = item
+
+    // if (this._tail === this._head) {
+    //   this._array[this._tail] =
+    // }
+
+    // this._tail++
+
+    // if the tail is at the end of the array
+    // start pop it to the zeroith element
+    // if (this._tail === this._array.length - 1) {
+    //   this._tail = 0
+    // }
+
     this._head = this._next(this._head)
     this._array[this._head] = item
   }

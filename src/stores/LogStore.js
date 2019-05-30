@@ -103,7 +103,7 @@ class LogStore {
       })
       .join(',')
     // pull out ALL private keys
-    let scrubbedData = stringData.replace(/\b"npvt[^"]+"\b/g, '"a"')
+    let scrubbedData = stringData.replace(/"npvt[^"]+"/g, '"a"')
     return scrubbedData
   }
 }
