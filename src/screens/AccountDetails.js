@@ -182,23 +182,23 @@ class AccountDetails extends Component {
               {eaiValueForDisplay}% annualized incentive (EAI)
             </AccountDetailsLargerText>
             <AccountBorder />
-            <AccountConfirmationItem
-              title={'Weighted average age (WAA):'}
-              value={`${weightedAverageAgeInDays} days`}
-            />
-            <AccountConfirmationItem
-              title={'Current EAI based on WAA:'}
-              value={`${this.baseEAI}%`}
-            />
-            <AccountConfirmationItem
-              title={'Lock bonus EAI:'}
-              value={`${lockBonusEAI}%`}
-            />
+            <AccountConfirmationItem value={`${weightedAverageAgeInDays} days`}>
+              Weighted average age (WAA):
+            </AccountConfirmationItem>
+            <AccountConfirmationItem value={`${this.baseEAI}%`}>
+              Current{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>{' '}
+              based on WAA:
+            </AccountConfirmationItem>
+            <AccountConfirmationItem value={`${lockBonusEAI}%`}>
+              Lock bonus{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>:
+            </AccountConfirmationItem>
             {sendingEAITo ? (
-              <AccountConfirmationItem
-                title={'EAI being sent to:'}
-                value={sendingEAITo}
-              />
+              <AccountConfirmationItem value={sendingEAITo}>
+                <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>{' '}
+                being sent to:
+              </AccountConfirmationItem>
             ) : null}
           </AccountDetailsPanel>
         </ScrollView>

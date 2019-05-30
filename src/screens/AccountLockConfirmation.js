@@ -163,12 +163,15 @@ class AccountLockConfirmation extends Component {
               Lock {this.state.account.addressData.nickname}
             </AccountIconText>
             <AccountIconText>
-              Earn {this.state.lockInformation.bonus}% EAI bonus +{' '}
-              {this.state.lockInformation.base}% base ={' '}
+              Earn {this.state.lockInformation.bonus}%{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>{' '}
+              bonus + {this.state.lockInformation.base}% base ={' '}
               {this.state.lockInformation.total}% total
             </AccountIconText>
             <AccountIconText>
-              Sending EAI to {this.state.accountNicknameForEAI}
+              Sending{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink> to{' '}
+              {this.state.accountNicknameForEAI}
             </AccountIconText>
             <AccountIconText>
               Account will unlock in {this.state.lockInformation.lock}

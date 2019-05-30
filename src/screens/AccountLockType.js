@@ -8,10 +8,11 @@ import {
 } from '../components/account'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import { RadioButton } from '../components/common'
+import { RadioButton, TextLink } from '../components/common'
 import AccountHelper from '../helpers/AccountHelper'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import FlashNotification from '../components/common/FlashNotification'
+import AppConfig from '../AppConfig'
 
 const COMPOUND_TO_THIS_ACCOUNT = '1'
 const COMPOUND_TO_NEW_ACCOUNT = '2'
@@ -121,7 +122,9 @@ class AccountLockType extends Component {
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountLockDetailsPanel account={this.state.account}>
           <AccountLockLargerText>
-            Where do you want to send the EAI from this account?
+            Where do you want to send the{' '}
+            <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink> from
+            this account?
           </AccountLockLargerText>
           <RadioButton
             options={[
