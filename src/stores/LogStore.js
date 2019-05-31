@@ -14,6 +14,10 @@ class LogStore {
     return LogStore.instance
   }
 
+  /**
+   * Log data to CircularArray
+   * @param {*} logData
+   */
   log (logData) {
     logData = this._scrubData(logData)
 
@@ -23,6 +27,13 @@ class LogStore {
       timestamp: moment(),
       message: logData
     })
+  }
+
+  /**
+   * Clear the contents of the log
+   */
+  clear () {
+    this._logData.clear()
   }
 
   /**
@@ -60,12 +71,8 @@ class LogStore {
     }
 
     try {
-      this.log('Attemping to write ndau-wallet.log...')
-      await rnfs.writeFile(
-        path,
-        JSON.stringify(this._getLoggingData().filter(value => value !== null)),
-        'utf8'
-      )
+      this.log(`Attemping to write ${absolutePath}...`)
+      await this._logData.writeArrayToFile(rnfs, path)
     } catch (error) {
       this.log(error)
     }
@@ -75,19 +82,11 @@ class LogStore {
 
   async deleteLogFile (path) {
     try {
-      this.log('Attemping to remove ndau-wallet.log...')
+      this.log(`Attemping to remove ${path}...`)
       await rnfs.unlink(path)
     } catch (error) {
       this.log(error)
     }
-  }
-
-  /**
-   * This method is used ONLY for testing, which is why it is
-   * marked as private
-   */
-  _getLoggingData () {
-    return this._logData.read()
   }
 
   _scrubData = (...data) => {
