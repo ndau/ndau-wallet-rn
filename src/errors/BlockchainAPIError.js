@@ -1,5 +1,10 @@
+const GENERIC_ERROR_CODE = 1001
+const SUCCESS_CODE = 0
+
 export const Messages = {
+  INSUFFICIENT_BALANCE_FOR_TX: 'Insufficient balance in account to pay for transaction',
   INSUFFICIENT_BALANCE: 'Insufficient balance in account',
+  TX_ALREAD_COMMITTED: 'Transaction is already on the blockchain',
   SRC_NO_HISTORY: 'Source account has no history and no balance',
   SRC_DEST_SAME: 'Cannot send and receive from the same account',
   NOTIFIED_TRANSFER:
@@ -7,22 +12,33 @@ export const Messages = {
 }
 const APIErrors = [
   {
-    code: 1000,
-    message: Messages.INSUFFICIENT_BALANCE,
-    re: new RegExp('insufficient available balance', 'i')
+    // Code 1002 is in the backend
+    code: 1002,
+    message: Messages.TX_ALREAD_COMMITTED,
+    re: new RegExp('tx already committed', 'i')
   },
   {
-    code: 1001,
+    code: 1003,
     message: Messages.SRC_NO_HISTORY,
     re: new RegExp('no sequence found', 'i')
   },
   {
-    code: 1002,
+    code: 1004,
     message: Messages.SRC_DEST_SAME,
     re: new RegExp('source == destination', 'i')
   },
   {
-    code: 1003,
+    code: 1005,
+    message: Messages.INSUFFICIENT_BALANCE_FOR_TX,
+    re: new RegExp('insufficient available balance to pay for tx', 'i')
+  },
+  {
+    code: 1006,
+    message: Messages.INSUFFICIENT_BALANCE,
+    re: new RegExp('insufficient available balance', 'i')
+  },
+  {
+    code: 1007,
     message: Messages.NOTIFIED_TRANSFER,
     re: new RegExp('transfers into notified addresses are invalid', 'i')
   }
@@ -52,7 +68,9 @@ function codeFromMessage (msg) {
 const _getError = axiosErr => {
   if (axiosErr && axiosErr.response && axiosErr.response.data) {
     const data = axiosErr.response.data
-    if (data.err_code && data.err_code != -1) {
+    if (data.code && data.code !== GENERIC_ERROR_CODE && data.code !== SUCCESS_CODE ) {
+      return data.code
+    } else if (data.err_code && data.err_code !== -1) {
       return data.err_code // return a code, BlockchainAPIError's constructor will use it to look up a message
     } else {
       return data.err || data.msg || data
@@ -115,5 +133,12 @@ class BlockchainAPIError extends Error {
     return null
   }
 }
+
+// This allows errors to be referenced using easy to read constants.
+// e.g. throw new ErrorsByMessage[Messages.SRC_NO_HISTORY]
+export const ErrorsByMessage = APIErrors.reduce((a, c, i, s) => {
+  a[c.message] = new BlockchainAPIError(c.code)
+  return a
+}, {})
 
 export default BlockchainAPIError
