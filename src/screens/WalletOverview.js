@@ -189,6 +189,8 @@ class WalletOverview extends Component {
       const { totalNdau, totalSpendable, currentPrice } = this.state
       this.accountsCanRxEAI = {}
 
+      const walletName = DataFormatHelper.getWalletName(wallet)
+
       return (
         <AppContainer>
           <NavigationEvents onWillFocus={payload => this._onRefresh()} />
@@ -201,7 +203,7 @@ class WalletOverview extends Component {
           />
 
           <DrawerHeader {...this.props}>
-            {wallet ? DataFormatHelper.truncateString(wallet.walletName) : ''}
+            {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
           <WalletOverviewHeaderActions>
