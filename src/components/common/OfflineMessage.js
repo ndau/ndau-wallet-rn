@@ -23,7 +23,6 @@ class OfflineMessage extends PureComponent {
   }
 
   handleConnectivityChange = async isConnected => {
-    LogStore.log(`Connectivity changed: ${isConnected}`)
     if (isConnected) {
       FlashNotification.hideMessage()
       DeviceStore.setOnline(true)
