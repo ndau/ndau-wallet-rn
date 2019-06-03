@@ -5,7 +5,9 @@ import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
 import DataFormatHelper from './DataFormatHelper'
 import LogStore from '../stores/LogStore'
-import UserTestData from './UserTestData'
+// ATTENTION - DO NOT REMOVE THIS COMMENTED CODE!
+// IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT THIS
+// import UserTestData from './UserTestData'
 
 /**
  * This function will persist the user information after any setup is
@@ -145,9 +147,11 @@ const _internalSaveUser = async (
  * @param {string} encryptionPassword any password combination to get at phoneData
  */
 const getDefaultUser = async encryptionPassword => {
-  if (UserTestData.user) {
-    return UserTestData.user
-  }
+  // ATTENTION - DO NOT REMOVE THIS COMMENTED CODE!
+  // IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT THIS
+  // if (UserTestData && UserTestData.user) {
+  //   return UserTestData.user
+  // }
 
   const multiSafe = new MultiSafe()
   let user = null
