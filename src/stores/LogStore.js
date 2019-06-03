@@ -19,6 +19,8 @@ class LogStore {
    * @param {*} logData
    */
   log (logData) {
+    // DO NOT EVER REMOVE _scrubData!!!!
+    // this guy removes private keys...VERY important
     logData = this._scrubData(logData)
 
     if (__DEV__) console.log(logData)
@@ -101,8 +103,9 @@ class LogStore {
         }
       })
       .join(',')
-    // pull out ALL private keys
-    let scrubbedData = stringData.replace(/"npvt[^"]+"/g, '"a"')
+    // pull out ALL private keys with npvt with all chracters
+    // up until a non-alphanumeric
+    let scrubbedData = stringData.replace(/npvt[A-Za-z0-9]+/g, '*suppressed*')
     return scrubbedData
   }
 }

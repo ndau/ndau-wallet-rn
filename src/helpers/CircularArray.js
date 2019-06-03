@@ -9,17 +9,25 @@ export default class CircularArray {
    * at the front of the array.
    */
   _initializePointers () {
-    this._head = 1
+    this._head = 0
     this._tail = 0
   }
 
   /**
    * Write any type of item to this CircularArray.
-   * There is a head and tail moving around the array
-   * the item is always stored on the tail and we
-   * move around with the head. Once the head hits the
-   * end of the array we `_initializePointers()` which set us
-   * back to the start of the array.
+   * The algorithm in play here is:
+   * 1.) Always assign the item to the tail, so the tail
+   * always has the latest
+   * 2.) The head and tail start together...tail moves
+   * through the aray
+   * 3.) Once the tail hits the length it resets back to
+   * the beginning
+   * 4.) Tail eventually catches up with head and then they
+   * move together from now on.
+   *
+   * This algorithm prevents the need to filter out
+   * any emtpy entries. We can assume that between the head
+   * and the tail is where the data lives.
    *
    * See `writeArrayToFile` for how we have to write
    * the array out.
@@ -28,16 +36,10 @@ export default class CircularArray {
    */
   write (item) {
     this._array[this._tail] = item
-
-    // if the head is at the end of the array then
-    // we need to initialize and reset our pointers
-    if (this._head === this._array.length) {
-      this._initializePointers()
-      return
+    this._tail = (this._tail + 1) % this._array.length
+    if (this._tail === this._head) {
+      this._head = (this._head + 1) % this._array.length
     }
-
-    this._head++
-    this._tail++
   }
 
   /**
@@ -51,26 +53,34 @@ export default class CircularArray {
 
   /**
    * Write the information within the array out
-   * into a file. We send back the array data starting
-   * with the head to the end as this is the older
-   * data in the array (using `slice()`). We then `concat()`
-   * the start to the tail; this is always the most recent
-   * data in the array.
+   * into a file. We have 2 loops to get the older entries
+   * of the array and then the newer ones.
    *
-   * @param {*} fileIO a class that will writeFile, namely'
-   * the react-native-fs library
+   * @param {*} fileIO a class that must have an appendFile
+   * function, namely the react-native-fs library
    * @param {string} absolutePath absolute file to be written
    */
   async writeArrayToFile (fileIO, absolutePath) {
-    await fileIO.writeFile(
-      absolutePath,
-      JSON.stringify(
-        this._array
-          .slice(this._head - 1, this._array.length)
-          .concat(this._array.slice(0, this._tail))
-          .filter(data => data !== null)
-      ),
-      'utf8'
-    )
+    if (this._tail > this._head) {
+      // the array is not filled up yet...so we iterate between
+      // the head and tail
+      for (let i = this._head; i <= this._tail; i++) {
+        await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
+      }
+    } else {
+      // write the old entries
+      for (
+        let i = this._head ? this._head - 1 : 0;
+        i <= this._array.length - 1;
+        i++
+      ) {
+        await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
+      }
+
+      // write the new ones
+      for (let i = 0; i <= this._tail - 1; i++) {
+        await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
+      }
+    }
   }
 }

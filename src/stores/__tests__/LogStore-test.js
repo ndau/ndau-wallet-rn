@@ -3,14 +3,18 @@ import data from '../../api/data'
 
 test('Make sure we can log and get the data out', async () => {
   LogStore.clear()
-  LogStore.log('testing 1...')
-  LogStore.log('testing 1...2...')
+  LogStore.log('#1 testing 1...')
+  LogStore.log('#2 testing 1...2...')
 
   class FileIO {
-    async writeFile (path, data, encoding) {
-      const jsonData = JSON.parse(data)
-      expect(jsonData.length).toBe(2)
-      expect(jsonData[1].message).toEqual('testing 1...2...')
+    async appendFile (path, data, encoding) {
+      if (!data) return
+
+      if (data.message.indexOf('#1') !== -1) {
+        expect(data.message).toEqual('#1 testing 1...')
+      } else if (data.message.indexOf('#2') !== -1) {
+        expect(data.message).toEqual('#2 testing 1...2...')
+      }
     }
   }
 
@@ -20,19 +24,49 @@ test('Make sure we can log and get the data out', async () => {
 test('Make sure we DO NOT show private keys if they are present', async () => {
   LogStore.clear()
   LogStore.log(
-    'testing 1..."npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb"'
+    '#1 testing 1..."npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb"'
   )
   LogStore.log(
-    'testing "npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
+    '#2 testing "npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y346npvtb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
   )
 
   class FileIO {
-    async writeFile (path, data, encoding) {
-      const jsonData = JSON.parse(data)
-      expect(jsonData.length).toBe(2)
-      expect(jsonData[1].message).toEqual(
-        'testing "a" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
-      )
+    async appendFile (path, data, encoding) {
+      if (!data) return
+
+      if (data.message.indexOf('#1') !== -1) {
+        expect(data.message).toEqual('#1 testing 1..."*suppressed*"')
+      } else if (data.message.indexOf('#2') !== -1) {
+        expect(data.message).toBe(
+          `#2 testing \"*suppressed*\" and public \"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y346*suppressed*\"`
+        )
+      }
+    }
+  }
+
+  await LogStore._logData.writeArrayToFile(new FileIO(), '/')
+})
+
+test('Make sure we DO NOT show private even when they are just in there without quotes', async () => {
+  LogStore.clear()
+  LogStore.log(
+    '#1 testing 1...npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb'
+  )
+  LogStore.log(
+    '#2 testing npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y346npvtb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b'
+  )
+
+  class FileIO {
+    async appendFile (path, data, encoding) {
+      if (!data) return
+
+      if (data.message.indexOf('#1') !== -1) {
+        expect(data.message).toEqual('#1 testing 1...*suppressed*')
+      } else if (data.message.indexOf('#2') !== -1) {
+        expect(data.message).toBe(
+          '#2 testing *suppressed*" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y346*suppressed*'
+        )
+      }
     }
   }
 
@@ -42,19 +76,23 @@ test('Make sure we DO NOT show private keys if they are present', async () => {
 test('Make sure we DO NOT show private keys and careful to not remove npvt somwhere in teh string needlessly', async () => {
   LogStore.clear()
   LogStore.log(
-    'testing 1..."npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb"'
+    '#1 testing 1..."npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb"'
   )
   LogStore.log(
-    'testing "npvt" npvt "npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
+    '#2 testing "*suppressed*" *suppressed* "npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6nq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmidzkjbfrw628y7c5zit8vcz6x7hjuxgfeu4kqaqxb" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
   )
 
   class FileIO {
-    async writeFile (path, data, encoding) {
-      const jsonData = JSON.parse(data)
-      expect(jsonData.length).toBe(2)
-      expect(jsonData[1].message).toEqual(
-        'testing "npvt" npvt "a" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
-      )
+    async appendFile (path, data, encoding) {
+      if (!data) return
+
+      if (data.message.indexOf('#1') !== -1) {
+        expect(data.message).toEqual('#1 testing 1..."*suppressed*"')
+      } else if (data.message.indexOf('#2') !== -1) {
+        expect(data.message).toBe(
+          '#2 testing "*suppressed*" *suppressed* "*suppressed*" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
+        )
+      }
     }
   }
 
@@ -67,10 +105,10 @@ test('Use more realistic data', async () => {
   LogStore.log(data.testUser)
 
   class FileIO {
-    async writeFile (path, data, encoding) {
-      const jsonData = JSON.parse(data)
-      expect(jsonData[0].message.indexOf('npvt')).toBe(-1)
-      expect(jsonData[1].message.indexOf('npvt')).toBe(-1)
+    async appendFile (path, data, encoding) {
+      if (!data) return
+
+      expect(data.message.indexOf('npvt')).toBe(-1)
     }
   }
 
@@ -84,10 +122,13 @@ test('Make sure we do not go past the max', async () => {
   }
 
   class FileIO {
-    async writeFile (path, data, encoding) {
-      const jsonData = JSON.parse(data)
-      expect(jsonData.length).toBe(100)
-      expect(jsonData[0].message).toBe('entry for 250')
+    constructor () {
+      this._data = []
+    }
+    async appendFile (path, data, encoding) {
+      if (!data) return
+      this._data.push(data)
+      expect(this._data.length <= 100).toBe(true)
     }
   }
 
@@ -101,10 +142,33 @@ test('Make sure we do not go past the max', async () => {
   }
 
   class FileIO {
-    async writeFile (path, data, encoding) {
-      const jsonData = JSON.parse(data)
-      expect(jsonData.length).toBe(100)
-      expect(jsonData[0].message).toBe('entry for 4900')
+    constructor () {
+      this._data = []
+    }
+    async appendFile (path, data, encoding) {
+      if (!data) return
+      this._data.push(data)
+      expect(this._data.length <= 100).toBe(true)
+    }
+  }
+
+  await LogStore._logData.writeArrayToFile(new FileIO(), '/')
+})
+
+test('Make sure we do not go past the max', async () => {
+  LogStore.clear()
+  for (var i = 0; i < 10000; i++) {
+    LogStore.log(`entry for ${i}`)
+  }
+
+  class FileIO {
+    constructor () {
+      this._data = []
+    }
+    async appendFile (path, data, encoding) {
+      if (!data) return
+      this._data.push(data)
+      expect(this._data.length <= 100).toBe(true)
     }
   }
 
