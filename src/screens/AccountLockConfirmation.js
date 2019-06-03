@@ -19,7 +19,7 @@ import FlashNotification from '../components/common/FlashNotification'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import { TextLink } from '../components/common'
 import AppConfig from '../AppConfig'
-import KeyboardView from '../components/common/KeyboardView'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -151,8 +151,11 @@ class AccountLockConfirmation extends Component {
         navigation={this.props.nav}
         {...this.props}
       >
-        <KeyboardView>
-          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 100}
+          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
+        >
           <AccountLockDetailsPanel account={this.state.account}>
             <AccountLockLargerText>Confirmation</AccountLockLargerText>
             <AccountBorder sideMargins />
@@ -160,12 +163,15 @@ class AccountLockConfirmation extends Component {
               Lock {this.state.account.addressData.nickname}
             </AccountIconText>
             <AccountIconText>
-              Earn {this.state.lockInformation.bonus}% EAI bonus +{' '}
-              {this.state.lockInformation.base}% base ={' '}
+              Earn {this.state.lockInformation.bonus}%{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>{' '}
+              bonus + {this.state.lockInformation.base}% base ={' '}
               {this.state.lockInformation.total}% total
             </AccountIconText>
             <AccountIconText>
-              Sending EAI to {this.state.accountNicknameForEAI}
+              Sending{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink> to{' '}
+              {this.state.accountNicknameForEAI}
             </AccountIconText>
             <AccountIconText>
               Account will unlock in {this.state.lockInformation.lock}
@@ -194,7 +200,7 @@ class AccountLockConfirmation extends Component {
           >
             Confirm
           </AccountLockConfirmBottomPanel>
-        </KeyboardView>
+        </KeyboardAvoidingView>
       </AccountLockContainer>
     )
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { SettingsContainer } from '../components/account'
-import { ParagraphText, BooleanSetting, FlashNotification } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { ParagraphText, BooleanSetting } from '../components/common'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class Settings extends Component {

@@ -1,6 +1,6 @@
 import { PushNotificationIOS, Platform } from 'react-native'
 import PushNotification from 'react-native-push-notification'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 
 export default class NotificationService {
   constructor (onRegister, onNotification) {
@@ -14,7 +14,7 @@ export default class NotificationService {
 
       // (required) Called when a remote or local notification is opened or received
       onNotification: function (notification) {
-        LoggingService.debug('NOTIFICATION:', notification)
+        LogStore.log(`NOTIFICATION: ${notification}`)
 
         // process the notification
 

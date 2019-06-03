@@ -10,6 +10,7 @@ import {
   AccountSendPanel
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButton,
   TextInput,
@@ -17,8 +18,7 @@ import {
   OrBorder,
   LargeBorderButton,
   NdauQRCodeScanner,
-  BarBorder,
-  FlashNotification
+  BarBorder
 } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
@@ -26,7 +26,7 @@ import { Transaction } from '../transactions/Transaction'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import { Text, TouchableOpacity } from 'react-native'
+import { KeyboardAvoidingView, View, Platform } from 'react-native'
 import AppConfig from '../AppConfig'
 
 const _ = require('lodash')
@@ -242,29 +242,28 @@ class AccountSend extends Component {
               You do not have enough ndau in this account.
             </AccountSendErrorText>
           ) : null}
-          <AccountConfirmationItem
-            title='Remaining balance:'
-            value={remainingBalance}
-          />
+          <AccountConfirmationItem value={remainingBalance}>
+            Remaining balance:
+          </AccountConfirmationItem>
           <AccountHeaderText>Fees</AccountHeaderText>
           <BarBorder />
           <AccountConfirmationItem
-            title={'Transaction fee:'}
             value={this.state.transactionFee}
             url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}
-          />
+          >
+            Transaction fee:
+          </AccountConfirmationItem>
           <BarBorder />
           <AccountConfirmationItem
-            title={'SIB:'}
             value={this.state.sibFee}
             url={AppConfig.SIB_FEE_KNOWLEDGEBASE_URL}
-          />
+          >
+            SIB:
+          </AccountConfirmationItem>
           <BarBorder />
-          <AccountConfirmationItem
-            largerText
-            title={'Total'}
-            value={this.state.total}
-          />
+          <AccountConfirmationItem largerText value={this.state.total}>
+            Total
+          </AccountConfirmationItem>
         </AccountDetailPanel>
         <AccountSendButton
           sideMargins
@@ -307,29 +306,45 @@ class AccountSend extends Component {
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-        <AccountSendPanel>
-          <AccountHeaderText>Who are you sending to?</AccountHeaderText>
-          <Label noMargin>Address</Label>
-          <TextInput
-            onChangeText={this._setAddress}
-            value={this.state.address}
-            name='address'
-            placeholder='ndau address...'
-            autoCapitalize='none'
-            noSideMargins
-          />
-          <OrBorder />
-          <LargeBorderButton onPress={() => this._scan()}>
-            Scan QR Code
-          </LargeBorderButton>
-        </AccountSendPanel>
-        <AccountSendButton
-          sideMargins
-          disabled={!this.state.validAddress}
-          onPress={() => this._haveAddress()}
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : -110}
+          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
-          Next
-        </AccountSendButton>
+          <View style={{ height: '42%' }}>
+            <AccountSendPanel>
+              <AccountHeaderText>Who are you sending to?</AccountHeaderText>
+              <Label noMargin>Address</Label>
+              <TextInput
+                onChangeText={this._setAddress}
+                value={this.state.address}
+                name='address'
+                placeholder='ndau address...'
+                autoCapitalize='none'
+                noSideMargins
+              />
+              <OrBorder />
+              <LargeBorderButton onPress={() => this._scan()}>
+                Scan QR Code
+              </LargeBorderButton>
+            </AccountSendPanel>
+          </View>
+          <View
+            style={{
+              height: '56%',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              marginBottom: '4%'
+            }}
+          >
+            <AccountSendButton
+              sideMargins
+              disabled={!this.state.validAddress}
+              onPress={() => this._haveAddress()}
+            >
+              Next
+            </AccountSendButton>
+          </View>
+        </KeyboardAvoidingView>
       </AccountSendContainer>
     )
   }

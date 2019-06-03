@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import SetupStore from '../stores/SetupStore'
-import ndauDashboardApi from '../api/NdauDashboardAPI'
-import FlashNotification from '../components/common/FlashNotification'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
 import OrderAPI from '../api/OrderAPI'
@@ -10,18 +8,17 @@ import UserStore from '../stores/UserStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import AppConstants from '../AppConstants'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import { SetupContainerWithScrollView } from '../components/setup'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButton,
   CheckBox,
   LegalText,
   LegalTextHeading,
   MainLegalTextHeading,
-  LegalTextBold,
-  FlashNotification
+  LegalTextBold
 } from '../components/common'
-import NdauStore from '../stores/NdauStore'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -37,7 +34,7 @@ class SetupTermsOfService extends Component {
   finishSetup = async () => {
     this.setState({ spinner: true }, async () => {
       try {
-        LoggingService.debug('Finishing Setup...')
+        LogStore.log('Finishing Setup...')
 
         let user = UserStore.getUser()
 
@@ -80,41 +77,9 @@ class SetupTermsOfService extends Component {
     })
   }
 
-  sendAddressesToOneiro = user => {
-    LoggingService.debug(
-      `sending the following to the accountAddresses DB: ${user.addresses}`
-    )
-    return this.sendAccountAddresses(
-      SetupStore.userId,
-      user.addresses,
-      SetupStore.qrCode
-    )
-  }
-
-  sendAccountAddresses = (userId, addresses, token) => {
-    return new Promise((resolve, reject) => {
-      ndauDashboardApi
-        .sendAccountAddresses(userId, addresses, token)
-        .then(whatPersisted => {
-          LoggingService.debug(
-            `sendAccountAddresses persisted: ${whatPersisted}`
-          )
-          resolve(whatPersisted)
-        })
-        .catch(error => {
-          FlashNotification.showError(error.message)
-          reject(error)
-        })
-    })
-  }
-
-  sendingErrorOccured = () => {}
-
   checkedAgree = () => {
     this.setState({ agree: !this.state.agree })
   }
-
-  goBuyNdau = () => {}
 
   performFinishingAction = () => {
     let mode = this.props.navigation.getParam('mode', AppConstants.TOS_SETUP)

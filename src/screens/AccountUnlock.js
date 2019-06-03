@@ -5,16 +5,15 @@ import {
   AccountDetailPanel,
   AccountParagraphText
 } from '../components/account'
-import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
-import LoggingService from '../services/LoggingService'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { LargeButton, FlashNotification } from '../components/common'
+import { LargeButton, FlashNotification, TextLink } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import DateHelper from '../helpers/DateHelper'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
 import { Transaction } from '../transactions/Transaction'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import AppConfig from '../AppConfig'
 
 class AccountUnlock extends Component {
   constructor (props) {
@@ -65,8 +64,9 @@ class AccountUnlock extends Component {
         <AccountDetailPanel>
           <AccountParagraphText>
             Unlocking this account means you will be able to spend from it, but
-            it will no longer accrue bonus incentive (EAI). Are you sure you
-            want to unlock?
+            it will no longer accrue bonus incentive (
+            <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>). Are
+            you sure you want to unlock?
           </AccountParagraphText>
           <AccountParagraphText>
             Funds from this account will be available to you in{' '}

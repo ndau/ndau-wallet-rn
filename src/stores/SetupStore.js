@@ -1,6 +1,6 @@
 import { Alert } from 'react-native'
 import AppConstants from '../AppConstants'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 
 class SetupStore {
   constructor () {
@@ -26,7 +26,6 @@ class SetupStore {
   }
 
   get userId () {
-    LoggingService.debug(`SetupStore.userId ${this._userId}`)
     return this._userId
   }
 
@@ -35,9 +34,6 @@ class SetupStore {
   }
 
   get numberOfAccounts () {
-    LoggingService.debug(
-      `SetupStore.numberOfAccounts ${this._numberOfAccounts}`
-    )
     return this._numberOfAccounts
   }
 
@@ -46,7 +42,6 @@ class SetupStore {
   }
 
   get qrCode () {
-    LoggingService.debug(`SetupStore.qrCode ${this._qrCode}`)
     return this._qrCode
   }
 
@@ -55,9 +50,6 @@ class SetupStore {
   }
 
   get encryptionPassword () {
-    LoggingService.debug(
-      `SetupStore.encryptionPassword ${this._encryptionPassword}`
-    )
     return this._encryptionPassword
   }
 
@@ -66,7 +58,6 @@ class SetupStore {
   }
 
   get entropy () {
-    LoggingService.debug(`SetupStore.entropy ${this._entropy}`)
     return this._entropy
   }
 
@@ -75,7 +66,6 @@ class SetupStore {
   }
 
   get recoveryPhrase () {
-    LoggingService.debug(`SetupStore.recoveryPhrase ${this._recoveryPhrase}`)
     return this._recoveryPhrase
   }
 
@@ -84,7 +74,6 @@ class SetupStore {
   }
 
   get shuffledWords () {
-    LoggingService.debug(`SetupStore.shuffledWords ${this._shuffledWords}`)
     return this._shuffledWords
   }
 
@@ -93,7 +82,6 @@ class SetupStore {
   }
 
   get shuffledMap () {
-    LoggingService.debug(`SetupStore.shuffledMap ${this._shuffledMap}`)
     return this._shuffledMap
   }
 
@@ -115,7 +103,6 @@ class SetupStore {
   }
 
   get addressType () {
-    LoggingService.debug(`SetupStore.addressType ${this._addressType}`)
     return this._addressType
   }
 
@@ -124,19 +111,16 @@ class SetupStore {
   }
 
   get walletId () {
-    LoggingService.debug(`SetupStore.walletId ${this._walletId}`)
     return this._walletId
   }
 
   printData = () => {
-    LoggingService.debug(`SetupStore.userId ${this._userId}`)
-    LoggingService.debug(
-      `SetupStore.numberOfAccounts ${this._numberOfAccounts}`
-    )
-    LoggingService.debug(`SetupStore.qrCode ${this._qrCode}`)
-    LoggingService.debug(`SetupStore.entropy ${this._entropy}`)
-    LoggingService.debug(`SetupStore.walletId ${this._walletId}`)
-    LoggingService.debug(`SetupStore.addressType ${this._addressType}`)
+    LogStore.log(`SetupStore.userId ${this._userId}`)
+    LogStore.log(`SetupStore.numberOfAccounts ${this._numberOfAccounts}`)
+    LogStore.log(`SetupStore.qrCode ${this._qrCode}`)
+    LogStore.log(`SetupStore.entropy ${this._entropy}`)
+    LogStore.log(`SetupStore.walletId ${this._walletId}`)
+    LogStore.log(`SetupStore.addressType ${this._addressType}`)
   }
 
   reset = () => {

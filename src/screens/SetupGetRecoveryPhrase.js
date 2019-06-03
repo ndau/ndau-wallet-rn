@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import {
   View,
-  Keyboard,
+  KeyboardAvoidingView,
   Text,
   Linking,
   PixelRatio,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  Keyboard
 } from 'react-native'
 import groupIntoRows from '../helpers/groupIntoRows'
 import {
@@ -23,14 +24,13 @@ import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
-import KeyboardView from '../components/common/KeyboardView'
+import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButtons,
   ParagraphText,
-  BottomLinkText,
-  FlashNotification
+  BottomLinkText
 } from '../components/common'
 import cssStyles from '../css/styles'
 import UserStore from '../stores/UserStore'
@@ -38,6 +38,11 @@ import NdauStore from '../stores/NdauStore'
 
 const DEFAULT_ROW_LENGTH = 4
 const _ = require('lodash')
+
+const ANDROID_SHRINK_SIZE = '15%'
+const ANDROID_NORMAL_SIZE = '62%'
+const IOS_SHRINK_SIZE = '30%'
+const IOS_NORMAL_SIZE = '64%'
 
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
@@ -71,7 +76,9 @@ class SetupGetRecoveryPhrase extends Component {
       mode: AppConstants.NORMAL_MODE,
       recoveryIndex: 0,
       disableArrows: true,
-      spinner: false
+      spinner: false,
+      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
+      lowerHeightIOS: IOS_NORMAL_SIZE
     }
 
     this.index = 0
@@ -112,14 +119,12 @@ class SetupGetRecoveryPhrase extends Component {
     this.boxHeight = '13%'
     this.rowLength = DEFAULT_ROW_LENGTH
     // if someone has cranked up the font use 1 row instead
-    LoggingService.debug(
-      `PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`
-    )
+    LogStore.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
     if (PixelRatio.getFontScale() > 2) {
       this.rowLength = 1
       this.boxWidth = '100%'
       this.boxHeight = '30%'
-      LoggingService.debug(
+      LogStore.log(
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
@@ -128,6 +133,26 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   componentWillMount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub = Keyboard.addListener(
+        'keyboardWillShow',
+        this.keyboardWillShow
+      )
+      this.keyboardWillHideSub = Keyboard.addListener(
+        'keyboardWillHide',
+        this.keyboardWillHide
+      )
+    } else {
+      this.keyboardDidShowSub = Keyboard.addListener(
+        'keyboardDidShow',
+        this.keyboardWillShow
+      )
+      this.keyboardDidHideSub = Keyboard.addListener(
+        'keyboardDidHide',
+        this.keyboardWillHide
+      )
+    }
+
     const mode = this.props.navigation.getParam(
       'mode',
       AppConstants.NORMAL_MODE
@@ -146,6 +171,16 @@ class SetupGetRecoveryPhrase extends Component {
     this.setState({ mode, introductionText })
 
     this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
+  }
+
+  componentWillUnmount () {
+    if (Platform.OS === 'ios') {
+      this.keyboardWillShowSub.remove()
+      this.keyboardWillHideSub.remove()
+    } else {
+      this.keyboardDidShowSub.remove()
+      this.keyboardDidHideSub.remove()
+    }
   }
 
   addToRecoveryPhrase = value => {
@@ -275,7 +310,7 @@ class SetupGetRecoveryPhrase extends Component {
           FlashNotification.showError(this.NOT_ON_BLOCKCHAIN_MESSAGE, true)
         }
       } catch (error) {
-        LoggingService.debug(error)
+        LogStore.log(error)
         this.setState({
           textColor: AppConstants.WARNING_ICON_COLOR,
           confirmationError: true
@@ -308,6 +343,27 @@ class SetupGetRecoveryPhrase extends Component {
     }
   }
 
+  _getDuration = event => {
+    if (event) {
+      this.eventDuration = event.duration
+    }
+    return event ? event.duration : this.eventDuration
+  }
+
+  keyboardWillShow = event => {
+    this.setState({
+      lowerHeightAndroid: ANDROID_SHRINK_SIZE,
+      lowerHeightIOS: IOS_SHRINK_SIZE
+    })
+  }
+
+  keyboardWillHide = event => {
+    this.setState({
+      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
+      lowerHeightIOS: IOS_NORMAL_SIZE
+    })
+  }
+
   _renderAcquisition = () => {
     return (
       <SetupContainer
@@ -315,23 +371,30 @@ class SetupGetRecoveryPhrase extends Component {
         goBack={this.fromHamburger ? this.goBack : null}
         pageNumber={2 + this.state.stepNumber}
       >
-        <KeyboardView>
-          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-          <ParagraphText>{this.state.introductionText}</ParagraphText>
+        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
+        >
+          <View style={{ height: 'auto' }}>
+            <ParagraphText>{this.state.introductionText}</ParagraphText>
+          </View>
           <View
             style={{
               flex: 1,
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'flex-start',
-              height: hp('10%')
+              minHeight: '25%',
+              zIndex: 100
             }}
           >
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                minHeight: '15%'
               }}
             >
               <Text style={cssStyles.wizardText}>
@@ -347,7 +410,8 @@ class SetupGetRecoveryPhrase extends Component {
                 flex: 1,
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'flex-start'
+                justifyContent: 'flex-start',
+                minHeight: '30%'
               }}
             >
               <View
@@ -407,33 +471,46 @@ class SetupGetRecoveryPhrase extends Component {
               </View>
             </View>
           </View>
-          <BottomLinkText
-            left={Platform.OS === 'android' ? wp('20%') : wp('18%')}
-            onPress={this.noRecoveryPhrase}
-          >
-            I don't have my recovery phrase
-          </BottomLinkText>
-          <Dialog
+          <View
             style={{
-              fontSize: 18,
-              fontFamily: 'TitilliumWeb-Regular'
+              ...Platform.select({
+                ios: {
+                  height: this.state.lowerHeightIOS
+                },
+                android: {
+                  height: this.state.lowerHeightAndroid
+                }
+              }),
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              zIndex: 0
             }}
-            visible={this.state.dialogVisible}
-            // title="Missing Recovery Phrase"
-            onTouchOutside={() => this.setState({ dialogVisible: false })}
           >
-            <View>
-              <Text style={cssStyles.blackDialogText}>
-                Your recovery phrase is necessary to prove ownership of your
-                ndau. Your wallet cannot be restored without it. If you have
-                lost your recovery phrase please contact{' '}
-              </Text>
-              <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
-                Oneiro concierge support.
-              </Text>
-            </View>
-          </Dialog>
-        </KeyboardView>
+            <BottomLinkText onPress={this.noRecoveryPhrase}>
+              I don't have my recovery phrase
+            </BottomLinkText>
+          </View>
+        </KeyboardAvoidingView>
+        <Dialog
+          style={{
+            fontSize: 18,
+            fontFamily: 'TitilliumWeb-Regular'
+          }}
+          visible={this.state.dialogVisible}
+          // title="Missing Recovery Phrase"
+          onTouchOutside={() => this.setState({ dialogVisible: false })}
+        >
+          <View>
+            <Text style={cssStyles.blackDialogText}>
+              Your recovery phrase is necessary to prove ownership of your ndau.
+              Your wallet cannot be restored without it. If you have lost your
+              recovery phrase please contact{' '}
+            </Text>
+            <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
+              Oneiro concierge support.
+            </Text>
+          </View>
+        </Dialog>
       </SetupContainer>
     )
   }

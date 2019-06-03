@@ -1,6 +1,4 @@
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import APIAddressHelper from '../helpers/APIAddressHelper'
-import LoggingService from '../services/LoggingService'
 import AppConfig from '../AppConfig'
 
 export class DelegateTransaction {

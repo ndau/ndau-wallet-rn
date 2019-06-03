@@ -8,10 +8,10 @@ import {
   AccountDetailsLargerText,
   AccountBorder,
   AccountParagraphText,
-  AddressSharePanel,
   AccountConfirmationItem
 } from '../components/account'
-import { LoadingSpinner, FlashNotification } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { LoadingSpinner, TextLink } from '../components/common'
 import { View, ScrollView } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
@@ -114,7 +114,7 @@ class AccountDetails extends Component {
     }
     const showAllAcctButtons =
       !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
-    const spendableNdauDisplayed = (new NdauNumber(spendableNdau)).toDetail()
+    const spendableNdauDisplayed = new NdauNumber(spendableNdau).toDetail()
     return (
       <AccountDetailsContainer
         goBack={this.goBack}
@@ -171,7 +171,10 @@ class AccountDetails extends Component {
               </AccountParagraphText>
             ) : null}
             <AccountParagraphText customIconName='usd-circle'>
-              {spendableNdauDisplayed} spendable
+              {spendableNdauDisplayed}{' '}
+              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
+                spendable
+              </TextLink>
             </AccountParagraphText>
           </AccountDetailsPanel>
           <AccountDetailsPanel secondPanel>
@@ -179,23 +182,23 @@ class AccountDetails extends Component {
               {eaiValueForDisplay}% annualized incentive (EAI)
             </AccountDetailsLargerText>
             <AccountBorder />
-            <AccountConfirmationItem
-              title={'Weighted average age (WAA):'}
-              value={`${weightedAverageAgeInDays} days`}
-            />
-            <AccountConfirmationItem
-              title={'Current EAI based on WAA:'}
-              value={`${this.baseEAI}%`}
-            />
-            <AccountConfirmationItem
-              title={'Lock bonus EAI:'}
-              value={`${lockBonusEAI}%`}
-            />
+            <AccountConfirmationItem value={`${weightedAverageAgeInDays} days`}>
+              Weighted average age (WAA):
+            </AccountConfirmationItem>
+            <AccountConfirmationItem value={`${this.baseEAI}%`}>
+              Current{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>{' '}
+              based on WAA:
+            </AccountConfirmationItem>
+            <AccountConfirmationItem value={`${lockBonusEAI}%`}>
+              Lock bonus{' '}
+              <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>:
+            </AccountConfirmationItem>
             {sendingEAITo ? (
-              <AccountConfirmationItem
-                title={'EAI being sent to:'}
-                value={sendingEAITo}
-              />
+              <AccountConfirmationItem value={sendingEAITo}>
+                <TextLink url={AppConfig.EAI_KNOWLEDGEBASE_URL}>EAI</TextLink>{' '}
+                being sent to:
+              </AccountConfirmationItem>
             ) : null}
           </AccountDetailsPanel>
         </ScrollView>

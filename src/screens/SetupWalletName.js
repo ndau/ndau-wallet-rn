@@ -3,12 +3,13 @@ import SetupStore from '../stores/SetupStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import UserStore from '../stores/UserStore'
 import { SetupContainer } from '../components/setup'
-<<<<<<< HEAD
-import { LargeButtons, TextInput, ParagraphText } from '../components/common'
-import KeyboardView from '../components/common/KeyboardView'
-=======
-import { LargeButtons, TextInput, ParagraphText, FlashNotification } from '../components/common'
->>>>>>> 661f0c6053bf92da312b0e95e72e38e5ca6dfb19
+import {
+  LargeButtons,
+  TextInput,
+  ParagraphText,
+  FlashNotification
+} from '../components/common'
+import { KeyboardAvoidingView, View, Platform } from 'react-native'
 
 class SetupWalletName extends Component {
   constructor (props) {
@@ -88,25 +89,36 @@ class SetupWalletName extends Component {
   render () {
     return (
       <SetupContainer {...this.props} pageNumber={16}>
-        <KeyboardView>
-          <ParagraphText>Give this wallet a name.</ParagraphText>
-          <TextInput
-            value={this.state.value}
-            onChangeText={value => {
-              if (value) {
-                SetupStore.walletId = value
-              } else {
-                SetupStore.walletId = this.defaultWalletId
-              }
-              this.setState({ value })
-            }}
-            placeholder={`${SetupStore.walletId}`}
-            onSubmitEditing={this.showNextSetup}
-          />
-          <LargeButtons sideMargins bottom onPress={() => this.showNextSetup()}>
-            Next
-          </LargeButtons>
-        </KeyboardView>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 120 : 100}
+          behavior='padding'
+        >
+          <View style={{ height: '90%' }}>
+            <ParagraphText>Give this wallet a name.</ParagraphText>
+            <TextInput
+              value={this.state.value}
+              onChangeText={value => {
+                if (value) {
+                  SetupStore.walletId = value
+                } else {
+                  SetupStore.walletId = this.defaultWalletId
+                }
+                this.setState({ value })
+              }}
+              placeholder={`${SetupStore.walletId}`}
+              onSubmitEditing={this.showNextSetup}
+            />
+          </View>
+          <View style={{ height: '10%' }}>
+            <LargeButtons
+              sideMargins
+              bottom
+              onPress={() => this.showNextSetup()}
+            >
+              Next
+            </LargeButtons>
+          </View>
+        </KeyboardAvoidingView>
       </SetupContainer>
     )
   }

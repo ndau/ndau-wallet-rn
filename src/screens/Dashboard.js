@@ -3,8 +3,9 @@ import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import LoggingService from '../services/LoggingService'
-import { AppContainer, NdauTotal, FlashNotification } from '../components/common'
+import LogStore from '../stores/LogStore'
+import FlashNotification from '../components/common/FlashNotification'
+import { AppContainer, NdauTotal, TextLink } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardContainer,
@@ -17,6 +18,7 @@ import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 import WalletStore from '../stores/WalletStore'
 import NdauNumber from '../helpers/NdauNumber'
+import AppConfig from '../AppConfig'
 
 class Dashboard extends Component {
   constructor (props) {
@@ -65,7 +67,7 @@ class Dashboard extends Component {
 
     this._loadMetricsAndSetState(user)
 
-    LoggingService.debug(`User to be drawn: `, user)
+    LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
@@ -146,7 +148,10 @@ class Dashboard extends Component {
             <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
-              <Text> {totalSpendableNdau} spendable </Text>
+              <Text>{totalSpendableNdau} </Text>
+              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
+                spendable
+              </TextLink>
             </DashboardLabelWithIcon>
             <DashboardContainer>
               <DashboardTotalPanel
@@ -170,7 +175,7 @@ class Dashboard extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LoggingService.debug(error)
+      LogStore.log(error)
       FlashNotification.showError(error.message)
     }
 

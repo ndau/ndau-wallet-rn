@@ -1,10 +1,9 @@
-import LoggingService from '../services/LoggingService'
-
 export const Messages = {
   INSUFFICIENT_BALANCE: 'Insufficient balance in account',
   SRC_NO_HISTORY: 'Source account has no history and no balance',
   SRC_DEST_SAME: 'Cannot send and receive from the same account',
-  NOTIFIED_TRANSFER: 'Transfers into an account with an active countdown timer are invalid.'
+  NOTIFIED_TRANSFER:
+    'Transfers into an account with an active countdown timer are invalid.'
 }
 const APIErrors = [
   {

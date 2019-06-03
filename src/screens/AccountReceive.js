@@ -4,7 +4,8 @@ import {
   AccountReceiveParagraphText,
   AddressSharePanel
 } from '../components/account'
-import { NdauQRCode, LoadingSpinner, FlashNotification } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { NdauQRCode, LoadingSpinner } from '../components/common'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 

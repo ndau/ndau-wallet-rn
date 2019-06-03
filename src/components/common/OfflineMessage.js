@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { NetInfo } from 'react-native'
 import FlashNotification from './FlashNotification'
-import LoggingService from '../../services/LoggingService'
+import LogStore from '../../stores/LogStore'
 import DeviceStore from '../../stores/DeviceStore'
 
 class OfflineMessage extends PureComponent {
@@ -23,7 +23,7 @@ class OfflineMessage extends PureComponent {
   }
 
   handleConnectivityChange = async isConnected => {
-    LoggingService.debug(`Connectivity changed: ${isConnected}`)
+    LogStore.log(`Connectivity changed: ${isConnected}`)
     if (isConnected) {
       FlashNotification.hideMessage()
       DeviceStore.setOnline(true)

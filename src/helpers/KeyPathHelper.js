@@ -1,6 +1,6 @@
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
-import LoggingService from '../services/LoggingService'
+import LogStore from '../stores/LogStore'
 import AppConfig from '../AppConfig'
 import KeyMaster from '../helpers/KeyMaster'
 
@@ -82,7 +82,7 @@ const recoveryValidationKey = async (wallet, account, validationKeys) => {
     account.validationKeys &&
     validationKeys.length !== account.validationKeys.length
   ) {
-    LoggingService.debug(
+    LogStore.log(
       `Attempting to find the private key for the public validation key we have...`
     )
     for (const validationKey of validationKeys) {
@@ -146,7 +146,7 @@ const _checkValidationKeys = (
   const validationPublicKeys = Object.keys(validationKeys)
   for (const validationPublicKey of validationPublicKeys) {
     if (validationKey === validationPublicKey) {
-      LoggingService.debug(
+      LogStore.log(
         'Found a match, adding validation keys to the wallet'
       )
       KeyMaster.addThisValidationKey(

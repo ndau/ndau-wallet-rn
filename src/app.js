@@ -4,7 +4,6 @@ import AppNavigation from './navigation/AppNavigation'
 import FlashMessage from 'react-native-flash-message'
 import OfflineMessage from './components/common/OfflineMessage'
 import BackgroundTasks from './services/BackgroundTasks'
-import LoggingService from './services/LoggingService'
 import Styles from './css/styles'
 import SettingsStore from './stores/SettingsStore'
 import { ThemeProvider } from 'nachos-ui'
@@ -22,23 +21,21 @@ export default class App extends React.Component {
     super(props)
 
     BackgroundTasks.initialize()
-    LoggingService.initialize()
     this.state = {
       net: ''
     }
-    const updater = net=>this.setState({net:net})
+    const updater = net => this.setState({ net: net })
     SettingsStore.addListener(updater)
   }
 
   render () {
-    const {net} = this.state
+    const { net } = this.state
     return (
       <View style={{ flex: 1 }}>
         <ThemeProvider>
-          { net !== 'mainnet' && net !== '' ?
-          (<Text style={Styles[`${net}BarStyle`]}>
-              {net}
-          </Text> ) : null }
+          {net !== 'mainnet' && net !== '' ? (
+            <Text style={Styles[`${net}BarStyle`]}>{net}</Text>
+          ) : null}
           <AppNavigation />
           <FlashMessage position='top' />
           <OfflineMessage />

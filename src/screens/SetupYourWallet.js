@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 
 import EntropyHelper from '../helpers/EntropyHelper'
 import { SetupContainer } from '../components/setup'
-import { LargeButtons, ParagraphText, FlashNotification } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
+import { LargeButtons, ParagraphText } from '../components/common'
 
 class SetupYourWallet extends Component {
-  constructor(props) {
+  constructor (props) {
     super()
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
