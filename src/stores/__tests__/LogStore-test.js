@@ -1,5 +1,6 @@
 import LogStore from '../LogStore'
 import data from '../../api/data'
+import AppConfig from '../../AppConfig'
 
 test('Make sure we can log and get the data out', async () => {
   LogStore.clear()
@@ -128,7 +129,7 @@ test('Make sure we do not go past the max', async () => {
     async appendFile (path, data, encoding) {
       if (!data) return
       this._data.push(data)
-      expect(this._data.length <= 100).toBe(true)
+      expect(this._data.length <= AppConfig.MAX_LOG_ENTRIES).toBe(true)
     }
   }
 
@@ -148,7 +149,7 @@ test('Make sure we do not go past the max', async () => {
     async appendFile (path, data, encoding) {
       if (!data) return
       this._data.push(data)
-      expect(this._data.length <= 100).toBe(true)
+      expect(this._data.length <= AppConfig.MAX_LOG_ENTRIES).toBe(true)
     }
   }
 
@@ -168,7 +169,7 @@ test('Make sure we do not go past the max', async () => {
     async appendFile (path, data, encoding) {
       if (!data) return
       this._data.push(data)
-      expect(this._data.length <= 100).toBe(true)
+      expect(this._data.length <= AppConfig.MAX_LOG_ENTRIES).toBe(true)
     }
   }
 

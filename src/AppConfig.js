@@ -30,7 +30,7 @@ const SPENDABLE_KNOWLEDGEBASE_URL =
 const EAI_KNOWLEDGEBASE_URL =
   'https://ndaucollective.org/knowledge-base/ecosystem-alignment-incentive-eai/'
 
-const MAX_LOG_ENTRIES = 100
+const MAX_LOG_ENTRIES = 101
 
 export default {
   LOCALE,

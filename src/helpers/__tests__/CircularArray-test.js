@@ -1,7 +1,7 @@
 import CircularArray from '../CircularArray'
 
 test('handle the case were we have not taken up the full array yet', async () => {
-  const array = new CircularArray(10)
+  const array = new CircularArray(11)
   array.write(1)
   array.write(2)
   array.write(3)
@@ -26,7 +26,7 @@ test('handle the case were we have not taken up the full array yet', async () =>
 })
 
 test('handle the case were we have just filled the array', async () => {
-  const array = new CircularArray(5)
+  const array = new CircularArray(6)
   array.write(1)
   array.write(2)
   array.write(3)
@@ -48,7 +48,7 @@ test('handle the case were we have just filled the array', async () => {
 })
 
 test('do not grow the array as entries get added', async () => {
-  const array = new CircularArray(5)
+  const array = new CircularArray(6)
   array.write(1)
   array.write(2)
   array.write(3)
@@ -73,7 +73,7 @@ test('do not grow the array as entries get added', async () => {
 })
 
 test('do not grow the array with a small amount of entries get added', async () => {
-  const array = new CircularArray(5)
+  const array = new CircularArray(6)
   for (let i = 0; i < 10; i++) {
     array.write({ key: i })
   }
@@ -92,7 +92,7 @@ test('do not grow the array with a small amount of entries get added', async () 
 })
 
 test('do not grow the array with a medium amount of entries get added', async () => {
-  const array = new CircularArray(50)
+  const array = new CircularArray(51)
   for (let i = 0; i < 300; i++) {
     array.write({ key: i })
   }
@@ -111,7 +111,7 @@ test('do not grow the array with a medium amount of entries get added', async ()
 })
 
 test('do not grow the array with a large amount of entries get added', async () => {
-  const array = new CircularArray(1000)
+  const array = new CircularArray(1001)
   for (let i = 0; i < 7000; i++) {
     array.write({ key: i })
   }
@@ -130,7 +130,7 @@ test('do not grow the array with a large amount of entries get added', async () 
 })
 
 test('do not grow the array with an extra large amount of entries get added', async () => {
-  const array = new CircularArray(5000)
+  const array = new CircularArray(5001)
   for (let i = 0; i < 40000; i++) {
     array.write({ key: i })
   }
