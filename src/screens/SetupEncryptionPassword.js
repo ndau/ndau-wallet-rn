@@ -21,10 +21,6 @@ import {
   ParagraphText
 } from '../components/common'
 import LogStore from '../stores/LogStore'
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
@@ -46,7 +42,7 @@ class SetupEncryptionPassword extends Component {
       textInputColor: '#000000',
       mode: AppConstants.NEW_PASSWORD_MODE,
       instructionText: this.NEW_PASSWORD_MODE_TEXT,
-      lowerHeight: hp('29%')
+      lowerHeight: '29%'
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -69,11 +65,11 @@ class SetupEncryptionPassword extends Component {
   }
 
   keyboardWillShow = event => {
-    this.setState({ lowerHeight: hp('8%') })
+    this.setState({ lowerHeight: '8%' })
   }
 
   keyboardWillHide = event => {
-    this.setState({ lowerHeight: hp('29%') })
+    this.setState({ lowerHeight: '29%' })
   }
 
   componentWillMount () {
@@ -218,7 +214,7 @@ class SetupEncryptionPassword extends Component {
     return (
       <SetupContainer {...this.props} pageNumber={17}>
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 330 : -60}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -60}
           behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
           <View style={{ height: '25%' }}>
@@ -245,7 +241,7 @@ class SetupEncryptionPassword extends Component {
               onSubmitEditing={this.showNextSetup}
             />
           </View>
-          <View style={{ height: 'auto' }}>
+          <View style={{ minHeight: '10%' }}>
             <CheckBox
               onValueChange={this.checkedShowPasswords}
               checked={this.state.showPasswords}

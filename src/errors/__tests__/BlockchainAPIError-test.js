@@ -11,7 +11,7 @@ test('identify error from substrings', () => {
 
 test('identify error from code', () => {
   try {
-    throw new BlockchainAPIError("1002")
+    throw new BlockchainAPIError("1004")
   } catch (error) {
     expect(error.toString()).toEqual(`Error: ${Messages.SRC_DEST_SAME}`)
   }

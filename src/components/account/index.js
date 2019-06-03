@@ -498,7 +498,7 @@ export function AccountClosingBar (props) {
 
 export function AccountLockConfirmBottomPanel (props) {
   return (
-    <View style={styles.accountLockButtonContainer}>
+    <View style={styles.accountLockButtonTypeContainer}>
       <Label noMargin>Please enter the word 'Lock' to confirm</Label>
       <TextInput
         onChangeText={word => props.onChangeText(word)}
@@ -540,6 +540,24 @@ export function AccountSendButton (props) {
 export function AccountLockButton (props) {
   return (
     <View style={styles.accountLockButtonContainer}>
+      <View>
+        <H4 style={styles.lockSmallerText}>{props.smallText}</H4>
+      </View>
+      <Button
+        style={styles.accountLargeButton}
+        textStyle={styles.accountLargeButtonText}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
+export function AccountLockTypeButton (props) {
+  return (
+    <View style={styles.accountLockButtonTypeContainer}>
       <View>
         <H4 style={styles.lockSmallerText}>{props.smallText}</H4>
       </View>

@@ -490,6 +490,13 @@ export default StyleSheet.create({
     marginBottom: hp('2.5%'),
     backgroundColor: '#0A1724'
   },
+  accountLockButtonTypeContainer: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%'),
+    backgroundColor: '#0A1724'
+  },
   accountSendButtonContainer: {
     position: 'absolute',
     bottom: 0,
