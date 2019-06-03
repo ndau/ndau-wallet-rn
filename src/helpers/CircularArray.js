@@ -1,4 +1,11 @@
 export default class CircularArray {
+  /**
+   * Constructor to create the CircularArray
+   *
+   * @param {number} size the size of the array will be 1 off due
+   * to zero index of arrays and how this algorithm works.
+   * If you want 100 entries, then you should send 101 here.
+   */
   constructor (size) {
     this._arraySize = size
     this.clear()
@@ -69,18 +76,15 @@ export default class CircularArray {
       }
     } else {
       // write the old entries
-      for (
-        let i = this._head ? this._head - 1 : 0;
-        i <= this._array.length - 1;
-        i++
-      ) {
+      for (let i = this._head; i < this._array.length; i++) {
         await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
       }
 
       // write the new ones
-      for (let i = 0; i <= this._tail - 1; i++) {
+      for (let i = 0; i <= this._tail; i++) {
         await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
       }
     }
   }
 }
+;``
