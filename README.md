@@ -55,7 +55,8 @@ to include the following:
 ```
 
 Replace `YOUR-TOKEN-HERE` with the FontAwesomePro token. Please see
-KP for this. There is an examples file you can use in `examples/npmrc`, this is the file CircleCI uses.
+KP for this. There is an examples file of you can use in `examples/npmrc`, this is the file CircleCI uses. Make sure you call the file
+`.npmrc` and not `npmrc`. See the `.circleci/config.yml` for what it does.
 
 Next we npm/yarn install:
 
