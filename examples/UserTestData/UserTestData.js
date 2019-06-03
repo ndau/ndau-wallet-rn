@@ -7,6 +7,8 @@
 // you clean the device you are working on. This is not a terrible
 // thing at all if you are trying to recreate a customer problem
 // MAKE SURE that you set this back to null when finished
+//
+// this file must be put in src/helpers
 const user = null
 
 export default {
