@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { H4, P } from 'nachos-ui'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
@@ -31,23 +31,23 @@ export function DashboardPanel (props) {
       >
         <View style={styles.dashboardActionPanels}>
           <View style={styles.dashboardWalletName}>
-            <FontAwesome5Pro
+            <Icon
               name='wallet'
               size={36}
               color={AppConstants.ICON_BUTTON_COLOR}
-              style={styles.dashboardWallet}
-              light
+              containerStyle={styles.dashboardWallet}
+              type='light'
             />
             <H4 style={styles.dashboardActionTextPanel}>{props.walletName}</H4>
           </View>
           <View style={styles.dashboardActionPanel}>
             <TouchableOpacity {...props}>
-              <FontAwesome5Pro
+              <Icon
                 name='angle-right'
                 size={48}
                 color={AppConstants.ICON_BUTTON_COLOR}
-                style={styles.dashboardAngle}
-                light
+                containerStyle={styles.dashboardAngle}
+                type='light'
               />
             </TouchableOpacity>
           </View>
@@ -67,14 +67,16 @@ export function DashboardLabelWithIcon (props) {
       <P style={[styles.dashboardLabelTextWithIcon, greenFont]}>
         {props.children}
       </P>
-      <TouchableOpacity {...props}>
-        <FontAwesome5Pro
-          size={24}
-          name={props.fontAwesomeIconName}
-          color={AppConstants.ICON_BUTTON_COLOR}
-          light
-        />
-      </TouchableOpacity>
+      {props.fontAwesomeIconName ? (
+        <TouchableOpacity {...props}>
+          <Icon
+            size={24}
+            name={props.fontAwesomeIconName}
+            color={AppConstants.ICON_BUTTON_COLOR}
+            type='light'
+          />
+        </TouchableOpacity>
+      ) : null}
     </View>
   )
 }
@@ -84,11 +86,11 @@ export function WalletOverviewSpendable (props) {
     <View style={[styles.walletOverviewLabelWithIconContainer, props.style]}>
       <P style={[styles.dashboardLabelTextWithIcon]}>{props.children}</P>
       <TouchableOpacity {...props}>
-        <FontAwesome5Pro
+        <Icon
           size={24}
           name='info-circle'
           color={AppConstants.ICON_BUTTON_COLOR}
-          light
+          type='light'
         />
       </TouchableOpacity>
     </View>

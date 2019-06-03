@@ -186,8 +186,6 @@ subprojects {
     }
 }
 
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
-
 dependencies {
     implementation project(':react-native-mail')
     implementation project(':react-native-fs')
@@ -199,7 +197,6 @@ dependencies {
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-push-notification')
     implementation project(':react-native-securerandom')
-    implementation project(':react-native-vector-icons')
     implementation (project(':react-native-camera'))
     implementation ("com.android.support:support-v4:27.1.0") {
         force = true

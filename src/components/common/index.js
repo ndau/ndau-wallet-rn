@@ -12,7 +12,6 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
@@ -31,6 +30,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import Icon from 'react-native-fontawesome-pro'
 
 export function LoginContainer ({ children }) {
   return (
@@ -217,14 +217,13 @@ export function ProgressBar (props) {
   return (
     <View style={styles.progressBarContainer}>
       <View style={styles.backArrow}>
-        <TouchableOpacity onPress={props.goBack}>
-          <FontAwesome5Pro
-            size={32}
-            name='arrow-left'
-            color={AppConstants.ICON_BUTTON_COLOR}
-            light
-          />
-        </TouchableOpacity>
+        <Icon
+          size={32}
+          name='arrow-left'
+          color={AppConstants.ICON_BUTTON_COLOR}
+          onPress={props.goBack}
+          type='light'
+        />
       </View>
       <Progress
         progress={props.pageNumber ? props.pageNumber / SETUP_SCREEN_TOTAL : 0}
@@ -251,14 +250,13 @@ export function LabelWithIcon (props) {
   return (
     <View style={styles.labelWithIconContainer}>
       <P style={[styles.labelText, margin]}>{props.children}</P>
-      <TouchableOpacity {...props}>
-        <FontAwesome5Pro
-          size={24}
-          name={props.fontAwesomeIconName}
-          color={AppConstants.ICON_BUTTON_COLOR}
-          light
-        />
-      </TouchableOpacity>
+      <Icon
+        size={24}
+        name={props.fontAwesomeIconName}
+        color={AppConstants.ICON_BUTTON_COLOR}
+        type='light'
+        {...props}
+      />
     </View>
   )
 }
@@ -304,11 +302,11 @@ export function CheckBox (props) {
         {...props}
       >
         {isChecked && !checkComponent && (
-          <FontAwesome5Pro
+          <Icon
             color={AppConstants.TEXT_COLOR}
             name='check'
             size={18}
-            light
+            type='light'
           />
         )}
         {isChecked && checkComponent}
@@ -450,14 +448,13 @@ export function ContentContainer (props) {
 export function CloseForBar (props) {
   return (
     <View style={styles.closeForBar}>
-      <TouchableOpacity onPress={props.close}>
-        <FontAwesome5Pro
-          size={36}
-          name='times'
-          color={AppConstants.ICON_BUTTON_COLOR}
-          light
-        />
-      </TouchableOpacity>
+      <Icon
+        size={36}
+        name='times'
+        color={AppConstants.ICON_BUTTON_COLOR}
+        onPress={props.close}
+        type='light'
+      />
     </View>
   )
 }

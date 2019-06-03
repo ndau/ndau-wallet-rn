@@ -4,7 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 import Padding from './Padding'
 import styleConstants from '../../css/styleConstants'
 
@@ -37,15 +37,14 @@ class ModalDialog extends Component {
         <View style={[styles.outerView, this.props.outerViewStyle]}>
           <View style={[styles.innerView, this.props.innerViewStyle]}>
             <Padding top={0.5}>
-              <TouchableHighlight onPress={this.closeModal}>
-                <FontAwesome5Pro
-                  style={styles.closeButton}
-                  name='times'
-                  color={styleConstants.ICON_GRAY}
-                  size={20}
-                  light
-                />
-              </TouchableHighlight>
+              <Icon
+                containerStyle={styles.closeButton}
+                name='times'
+                color={styleConstants.ICON_GRAY}
+                size={20}
+                onPress={this.closeModal}
+                type='light'
+              />
             </Padding>
             {this.props.children}
           </View>

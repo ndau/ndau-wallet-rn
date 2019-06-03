@@ -46,6 +46,17 @@ nvm install v10
 nvm use v10
 ```
 
+Before we can run `npm install` you must make sure you have a `.npmrc` file in the `ndau-wallet-rn` folder. In that file make sure
+to include the following:
+
+```
+@fortawesome:registry=https://npm.fontawesome.com/
+//npm.fontawesome.com/:_authToken=YOUR-TOKEN-HERE
+```
+
+Replace `YOUR-TOKEN-HERE` with the FontAwesomePro token. Please see
+KP for this.
+
 Next we npm/yarn install:
 
 `npm install`

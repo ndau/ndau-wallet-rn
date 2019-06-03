@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import Padding from './Padding'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 
 class CommonButton extends Component {
   onPress () {
@@ -33,11 +33,7 @@ class CommonButton extends Component {
               {// "name" is required
                 this.props.iconProps && this.props.iconProps.name && (
                   <Text>
-                    <FontAwesome5Pro
-                      {...this.props.iconProps}
-                      color='#fff'
-                      light
-                    />
+                    <Icon {...this.props.iconProps} color='#fff' />
                     {'  '}
                   </Text>
                 )}
