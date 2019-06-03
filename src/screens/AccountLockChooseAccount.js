@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {
   AccountLockDetailsPanel,
   AccountLockContainer,
-  AccountLockButton,
+  AccountLockTypeButton,
   AccountLockLargerText
 } from '../components/account'
 import AccountStore from '../stores/AccountStore'
@@ -109,14 +109,14 @@ class AccountLockChooseAccount extends Component {
             />
           </AccountLockDetailsPanel>
 
-          <AccountLockButton
+          <AccountLockTypeButton
             smallText={
               'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal in this account while it is locked'
             }
             onPress={this._showLockConfirmation}
           >
             Continue
-          </AccountLockButton>
+          </AccountLockTypeButton>
         </ScrollView>
       </AccountLockContainer>
     )
