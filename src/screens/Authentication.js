@@ -80,6 +80,7 @@ class Authentication extends Component {
     this.setState({ spinner: true }, async () => {
       try {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
+        console.log(user)
         if (user) {
           FlashNotification.hideMessage()
           UserStore.setUser(user)

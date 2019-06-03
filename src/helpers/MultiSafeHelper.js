@@ -5,6 +5,7 @@ import { NativeModules } from 'react-native'
 import MultiSafe from '../model/MultiSafe'
 import DataFormatHelper from './DataFormatHelper'
 import LogStore from '../stores/LogStore'
+import UserTestData from './UserTestData'
 
 /**
  * This function will persist the user information after any setup is
@@ -138,12 +139,18 @@ const _internalSaveUser = async (
  * This passes back the default user. At this time the default user
  * is the first user in the phoneData object.
  *
+ * If you are in __DEV__ and UserTestData.user is defined then
+ * have the wallet use that as its user
+ *
  * @param {string} encryptionPassword any password combination to get at phoneData
  */
 const getDefaultUser = async encryptionPassword => {
+  if (UserTestData.user) {
+    return UserTestData.user
+  }
+
   const multiSafe = new MultiSafe()
   let user = null
-
   // get all storage keys and get the first one
   const storageKeys = await multiSafe.getStorageKeys()
   // TODO: storageKeys[0] is a workaround for single user
