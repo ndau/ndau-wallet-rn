@@ -35,8 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNMail(), new RNFSPackage(),
                     new RNDeviceInfo(), new AsyncStoragePackage(), new SvgPackage(), new RNVersionNumberPackage(),
                     new LinearGradientPackage(), new RNBackgroundFetchPackage(),
-                    new ReactNativePushNotificationPackage(), new VectorIconsPackage(), new KeyaddrPackage(),
-                    new RNCameraPackage(), new RNSecureRandomPackage());
+                    new ReactNativePushNotificationPackage(), new KeyaddrPackage(), new RNCameraPackage(),
+                    new RNSecureRandomPackage());
         }
 
         @Override
