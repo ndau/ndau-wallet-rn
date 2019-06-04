@@ -41,8 +41,8 @@ const _ = require('lodash')
 
 const ANDROID_SHRINK_SIZE = '15%'
 const ANDROID_NORMAL_SIZE = '62%'
-const IOS_SHRINK_SIZE = '30%'
-const IOS_NORMAL_SIZE = '64%'
+const IOS_SHRINK_SIZE = '28%'
+const IOS_NORMAL_SIZE = '55%'
 
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {

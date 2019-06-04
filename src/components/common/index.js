@@ -27,6 +27,10 @@ import QRCode from 'react-native-qrcode-svg'
 // https://github.com/nating/react-native-custom-qr-codes/issues/14
 // import QRCode from 'react-native-qrcode-svg'
 import Spinner from 'react-native-loading-spinner-overlay'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 
 export function LoginContainer ({ children }) {
   return (
@@ -549,7 +553,7 @@ export function NdauQRCodeScanner (props) {
 export function NdauQRCode (props) {
   return (
     <View style={styles.qrCode}>
-      <QRCode value={props.value} size={250} />
+      <QRCode value={props.value} size={hp('30%')} />
     </View>
   )
 }
