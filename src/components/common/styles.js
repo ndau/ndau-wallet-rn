@@ -352,10 +352,20 @@ export default StyleSheet.create({
     borderWidth: 1
   },
   setupContainerBackgroundImage: {
-    height: '150%',
+    opacity: 0.1,
     width: '150%',
-    bottom: 450,
-    right: 80
+    height: '150%',
+    overflow: 'visible',
+    marginTop: -100,
+    ...Platform.select({
+      ios: { // iOS needs both left and marginLeft for some reason
+        marginLeft: 50,
+        left: 100
+      },
+      android: {
+        left: 80
+      }
+    })
   },
   opaqueOverlay: {
     ...StyleSheet.absoluteFillObject,

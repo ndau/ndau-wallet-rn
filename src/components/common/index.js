@@ -35,11 +35,6 @@ import {
 export function LoginContainer ({ children }) {
   return (
     <MainContainer>
-      <ImageBackground
-        source={require('img/bloom.jpg')}
-        style={styles.setupContainerBackgroundImage}
-        resizeMode='contain'
-      />
       <FullScreenTripColorGradient>
         <ScrollView keyboardShouldPersistTaps='always'>
           <View style={styles.loginContainer}>{children}</View>
