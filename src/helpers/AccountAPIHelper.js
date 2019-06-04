@@ -11,6 +11,7 @@ import KeyPathHelper from './KeyPathHelper'
 import AppConfig from '../AppConfig'
 import KeyMaster from '../helpers/KeyMaster'
 import APIAddressHelper from './APIAddressHelper'
+import moment from 'moment'
 
 const populateWalletWithAddressData = async wallet => {
   _repairWalletObject(wallet)
@@ -223,6 +224,17 @@ const accountLockedUntil = account => {
   return null
 }
 
+const isAccountLocked = account => {
+  if (!account) return null
+
+  const lockedUntil = accountLockedUntil(account)
+  if (!lockedUntil) {
+    return false
+  }
+
+  return moment(lockedUntil).isAfter()
+}
+
 const accountNoticePeriod = account => {
   if (!account) return null
 
@@ -413,5 +425,6 @@ export default {
   spendableNapu,
   totalSpendableNdau,
   getTotalNdauForSend,
-  remainingBalanceNdau
+  remainingBalanceNdau,
+  isAccountLocked
 }

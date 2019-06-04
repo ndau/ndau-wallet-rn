@@ -49,7 +49,6 @@
 		9E255BD622152295004B2CFC /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BBF22152295004B2CFC /* TitilliumWeb-Light.ttf */; };
 		9E53E64A226118FF001390BF /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9F8C7F225ED2BE00250D25 /* libRNSVG.a */; };
 		9E5A792022642B5E0082F897 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5A791F22642B4B0082F897 /* libRNCAsyncStorage.a */; };
-		9E5A792A22642CEA0082F897 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5A792722642CD70082F897 /* libRNVectorIcons.a */; };
 		9E642FB9226196AF00E183AC /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E642F9A2261969900E183AC /* libReact.a */; };
 		9E647608225F7C8F00CA0AFC /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03071BBC21230D1B001E8652 /* libReactNativePermissions.a */; };
 		9E647609225F7C9D00CA0AFC /* libRNSecureRandom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0365337E210B7627002EEF95 /* libRNSecureRandom.a */; };
@@ -65,6 +64,7 @@
 		9EAA412E2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA412D2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m */; };
 		9EC12AC72264F16700E44F82 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC12AC62264F15000E44F82 /* libRNCamera.a */; };
 		9ECCCF1820F62323007AE393 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		9ED9BA5C22A6EC2300D04B7C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5A792722642CD70082F897 /* libRNVectorIcons.a */; };
 		9EE41A16220A015A00D9E32E /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EE419F3220A012800D9E32E /* libRCTPushNotification.a */; };
 		9EF436232247222800892250 /* ndau-0.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EF436222247222800892250 /* ndau-0.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -586,9 +586,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ED9BA5C22A6EC2300D04B7C /* libRNVectorIcons.a in Frameworks */,
 				DFB0F51D22663E6500C47464 /* libRNVersionNumber.a in Frameworks */,
 				9EC12AC72264F16700E44F82 /* libRNCamera.a in Frameworks */,
-				9E5A792A22642CEA0082F897 /* libRNVectorIcons.a in Frameworks */,
 				9E5A792022642B5E0082F897 /* libRNCAsyncStorage.a in Frameworks */,
 				9E9E77772262E98000F7A416 /* EventKitUI.framework in Frameworks */,
 				9E9E77732262E78800F7A416 /* JavaScriptCore.framework in Frameworks */,

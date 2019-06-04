@@ -86,10 +86,10 @@ class AccountDetails extends Component {
     const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
       account.addressData
     )
-    const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
+    const isAccountLocked = AccountAPIHelper.isAccountLocked(
       account.addressData
     )
-    const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
+    const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
       account.addressData
     )
     const accountNotLocked = AccountAPIHelper.accountNotLocked(
@@ -112,8 +112,7 @@ class AccountDetails extends Component {
         AppConfig.NDAU_DETAIL_PRECISION
       )
     }
-    const showAllAcctButtons =
-      !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
+    const showAllAcctButtons = !isAccountLocked && spendableNdau > 0
     const spendableNdauDisplayed = new NdauNumber(spendableNdau).toDetail()
     return (
       <AccountDetailsContainer
@@ -140,7 +139,7 @@ class AccountDetails extends Component {
           <AccountDetailsPanel firstPanel>
             <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
             <AccountBorder />
-            {accountLockedUntil || accountNoticePeriod ? (
+            {isAccountLocked ? (
               <AccountParagraphText customIconName='lock'>
                 Locked
               </AccountParagraphText>
@@ -149,7 +148,7 @@ class AccountDetails extends Component {
                 Unlocked
               </AccountParagraphText>
             )}
-            {accountLockedUntil ? (
+            {isAccountLocked ? (
               <View>
                 <AccountParagraphText customIconName='clock'>
                   Will unlock on {accountLockedUntil}
