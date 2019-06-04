@@ -21,11 +21,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start'
   },
-  accountTitlePanel: {
-    width: wp('100%'),
-    height: hp('2%'),
-    padding: 0
-  },
   accountDetailsTitlePanel: {
     width: wp('100%'),
     ...Platform.select({
