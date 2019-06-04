@@ -436,8 +436,8 @@ export function AccountDetailsPanel (props) {
 export function AccountDetailsBar (props) {
   return (
     <View style={styles.accountDetailsBarContainer}>
-      <View style={styles.backArrow}>
-        <TouchableOpacity onPress={props.goBack}>
+
+        <TouchableOpacity onPress={props.goBack} style={styles.backArrow}>
           <FontAwesome5Pro
             size={32}
             name='arrow-left'
@@ -446,7 +446,7 @@ export function AccountDetailsBar (props) {
             light
           />
         </TouchableOpacity>
-      </View>
+
       <H4 style={[styles.accountDetailsBarText]}>
         {props.account.addressData
           ? props.account.addressData.nickname
@@ -461,10 +461,6 @@ export function AccountDetailsBar (props) {
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountClosingBarContainer}>
-      <View>
-        <Text style={styles.testText}>TEST</Text>
-      </View>
-
       {props.backBar ? (
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <TouchableOpacity onPress={props.goBack}>

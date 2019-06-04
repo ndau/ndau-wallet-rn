@@ -429,16 +429,14 @@ export function ContentContainer (props) {
 
 export function CloseForBar (props) {
   return (
-    <View style={styles.closeForBar}>
-      <TouchableOpacity onPress={props.close}>
+      <TouchableOpacity style={styles.closeForBar} onPress={props.close}>
         <FontAwesome5Pro
           size={36}
           name='times'
           color={AppConstants.ICON_BUTTON_COLOR}
           light
-        />
+      />
       </TouchableOpacity>
-    </View>
   )
 }
 
