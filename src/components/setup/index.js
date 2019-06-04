@@ -19,7 +19,7 @@ export function SetupWelcomeContainer ({ children }) {
   return (
     <MainContainer>
       <ImageBackground
-        source={require('img/bloom.jpg')}
+        source={require('img/bloom.png')}
         style={styles.setupContainerBackgroundImage}
         resizeMode='contain'
       />
