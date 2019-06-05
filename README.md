@@ -51,10 +51,10 @@ to include the following:
 
 ```
 @fortawesome:registry=https://npm.fontawesome.com/
-//npm.fontawesome.com/:_authToken=YOUR-TOKEN-HERE
+//npm.fontawesome.com/:_authToken=YOUR_TOKEN_HERE
 ```
 
-Replace `YOUR-TOKEN-HERE` with the FontAwesomePro token. Please see
+Replace `YOUR_TOKEN_HERE` with the FontAwesomePro token. Please see
 KP for this. There is an examples file of you can use in `examples/npmrc`, this is the file CircleCI uses. Make sure you call the file
 `.npmrc` and not `npmrc`. See the `.circleci/config.yml` for what it does.
 

@@ -60,3 +60,7 @@ buck-out/
 /remote-content
 /assets/fonts
 /android/app/src/main/assets/fonts
+
+# make sure we never check in the user test data component
+/src/helpers/UserTestData.js
+.npmrc

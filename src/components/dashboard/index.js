@@ -19,6 +19,7 @@ export function DashboardContainer (props) {
 }
 
 export function DashboardPanel (props) {
+  console.log('testing')
   return (
     <View style={styles.dashboardPanel}>
       <LinearGradient

@@ -4,7 +4,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   View,
-  Keyboard
+  Keyboard,
+  ImageBackground
 } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
@@ -12,6 +13,8 @@ import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
+
+import styles from '../components/common/styles'
 import {
   LoginContainer,
   LabelWithIcon,
@@ -22,9 +25,9 @@ import {
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 
-const ANDROID_SHRINK_SIZE = '13%'
+const ANDROID_SHRINK_SIZE = '17%'
 const ANDROID_NORMAL_SIZE = '30%'
-const IOS_SHRINK_SIZE = '10%'
+const IOS_SHRINK_SIZE = '15%'
 const IOS_NORMAL_SIZE = '32%'
 
 class Authentication extends Component {
@@ -36,6 +39,7 @@ class Authentication extends Component {
       showErrorText: false,
       loginAttempt: 1,
       spinner: false,
+      keyboard: false,
       lowerHeightAndroid: ANDROID_NORMAL_SIZE,
       lowerHeightIOS: IOS_NORMAL_SIZE
     }
@@ -80,6 +84,7 @@ class Authentication extends Component {
     this.setState({ spinner: true }, async () => {
       try {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
+        console.log(user)
         if (user) {
           FlashNotification.hideMessage()
           UserStore.setUser(user)
@@ -184,6 +189,7 @@ class Authentication extends Component {
 
   keyboardWillShow = event => {
     this.setState({
+      keyboard: true,
       lowerHeightAndroid: ANDROID_SHRINK_SIZE,
       lowerHeightIOS: IOS_SHRINK_SIZE
     })
@@ -191,6 +197,7 @@ class Authentication extends Component {
 
   keyboardWillHide = event => {
     this.setState({
+      keyboard: false,
       lowerHeightAndroid: ANDROID_NORMAL_SIZE,
       lowerHeightIOS: IOS_NORMAL_SIZE
     })
@@ -200,6 +207,11 @@ class Authentication extends Component {
     const { textInputColor } = this.state
     return (
       <LoginContainer>
+      <ImageBackground
+      style={{}}
+      source={require('img/bloom.png')}
+      imageStyle={styles.setupContainerBackgroundImage}
+    >
         <KeyboardAvoidingView
           keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
           behavior={Platform.OS === 'ios' ? 'height' : 'position'}
@@ -207,14 +219,7 @@ class Authentication extends Component {
           <WaitingForBlockchainSpinner spinner={this.state.spinner} />
           <View
             style={{
-              ...Platform.select({
-                ios: {
-                  height: 'auto'
-                },
-                android: {
-                  height: '42%'
-                }
-              })
+              height: this.state.keyboard ? '42%' : '42%'
             }}
           >
             <LoginImage />
@@ -258,8 +263,11 @@ class Authentication extends Component {
             </LargeButton>
           </View>
         </KeyboardAvoidingView>
-      </LoginContainer>
+        </ImageBackground>
+        </LoginContainer>
+
     )
+
   }
 }
 

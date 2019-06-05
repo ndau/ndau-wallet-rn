@@ -464,10 +464,6 @@ export function AccountDetailsBar (props) {
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountClosingBarContainer}>
-      <View>
-        <Text style={styles.testText}>TEST</Text>
-      </View>
-
       {props.backBar ? (
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <Icon
