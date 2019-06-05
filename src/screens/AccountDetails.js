@@ -86,13 +86,10 @@ class AccountDetails extends Component {
     const receivingEAIFrom = AccountAPIHelper.receivingEAIFrom(
       account.addressData
     )
+    const isAccountLocked = AccountAPIHelper.isAccountLocked(
+      account.addressData
+    )
     const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-      account.addressData
-    )
-    const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-      account.addressData
-    )
-    const accountNotLocked = AccountAPIHelper.accountNotLocked(
       account.addressData
     )
     const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
@@ -105,15 +102,14 @@ class AccountDetails extends Component {
     )
     this.baseEAI = eaiValueForDisplay - lockBonusEAI
     let spendableNdau = 0
-    if (accountNotLocked) {
+    if (!isAccountLocked) {
       spendableNdau = AccountAPIHelper.spendableNdau(
         account.addressData,
         true,
         AppConfig.NDAU_DETAIL_PRECISION
       )
     }
-    const showAllAcctButtons =
-      !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
+    const showAllAcctButtons = !isAccountLocked && spendableNdau > 0
     const spendableNdauDisplayed = new NdauNumber(spendableNdau).toDetail()
     return (
       <AccountDetailsContainer
@@ -140,7 +136,7 @@ class AccountDetails extends Component {
           <AccountDetailsPanel firstPanel>
             <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
             <AccountBorder />
-            {accountLockedUntil || accountNoticePeriod ? (
+            {isAccountLocked ? (
               <AccountParagraphText customIconName='lock'>
                 Locked
               </AccountParagraphText>
@@ -149,11 +145,13 @@ class AccountDetails extends Component {
                 Unlocked
               </AccountParagraphText>
             )}
-            {accountLockedUntil ? (
+            {isAccountLocked ? (
               <View>
-                <AccountParagraphText customIconName='clock'>
-                  Will unlock on {accountLockedUntil}
-                </AccountParagraphText>
+                {accountLockedUntil ? (
+                  <AccountParagraphText customIconName='clock'>
+                    Will unlock on {accountLockedUntil}
+                  </AccountParagraphText>
+                ) : null}
                 <AccountParagraphText
                   customIconColor={AppConstants.WARNING_ICON_COLOR}
                   customIconName='exclamation-circle'

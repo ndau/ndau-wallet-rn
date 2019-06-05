@@ -160,12 +160,11 @@ class Dashboard extends Component {
               />
               <DashboardLabel>Your wallets</DashboardLabel>
               {wallets.map((wallet, index) => {
+                const walletName = DataFormatHelper.getWalletName(wallet)
                 return (
                   <DashboardPanel
                     key={index}
-                    walletName={DataFormatHelper.truncateString(
-                      wallet.walletName
-                    )}
+                    walletName={DataFormatHelper.truncateString(walletName)}
                     onPress={() => this._showWalletOverview(wallet)}
                   />
                 )

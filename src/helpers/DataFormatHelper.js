@@ -249,6 +249,19 @@ const formatUSDollarValue = number => {
   return numberToAddCommas.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
+/**
+ * Given a wallet either pull out the walletName if it exists
+ * or pull out the walletId. This is done as we use walletName
+ * going forward. However, there still could be data with only
+ * walletId. This is fixed up on a successful grab of the latest
+ * data.
+ *
+ * @param {string} wallet
+ */
+const getWalletName = wallet => {
+  return wallet.walletName ? wallet.walletName : wallet.walletId
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
@@ -262,5 +275,6 @@ export default {
   getAccountEaiRateRequestForLock,
   truncateString,
   formatUSDollarValue,
-  convertNanoCentsToDollars
+  convertNanoCentsToDollars,
+  getWalletName
 }
