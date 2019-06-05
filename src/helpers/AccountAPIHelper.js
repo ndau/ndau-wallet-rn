@@ -213,12 +213,18 @@ const accountNickname = account => {
   return account ? account.nickname : ''
 }
 
-const accountLockedUntil = account => {
+const accountLockedUntil = (account, iso) => {
   if (!account) return null
 
   const unlocksOn = account.lock ? account.lock.unlocksOn : null
   if (unlocksOn) {
-    return DateHelper.getDate(account.lock.unlocksOn)
+    if (iso) {
+      // The blockchain returns us a ISO formatted date with
+      // timezone information, so we can pass it along
+      return account.lock.unlocksOn
+    } else {
+      return DateHelper.getDate(account.lock.unlocksOn)
+    }
   }
 
   return null
@@ -228,11 +234,12 @@ const isAccountLocked = account => {
   if (!account) return null
   if (!account.lock) return false
 
-  const lockedUntil = accountLockedUntil(account)
+  const lockedUntil = accountLockedUntil(account, true)
 
   return (
     account.lock &&
-    (account.lock.unlocksOn === null || moment(lockedUntil).isAfter())
+    (account.lock.unlocksOn === null ||
+      moment(lockedUntil).isAfter(moment.utc().format()))
   )
 }
 
