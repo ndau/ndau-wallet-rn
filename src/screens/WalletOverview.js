@@ -266,6 +266,9 @@ class WalletOverview extends Component {
                       const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
                         wallet.accounts[accountKey].addressData
                       )
+                      const isAccountLocked = AccountAPIHelper.isAccountLocked(
+                        wallet.accounts[accountKey].addressData
+                      )
                       const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
                         wallet.accounts[accountKey].addressData
                       )
@@ -288,11 +291,7 @@ class WalletOverview extends Component {
                             )
                           }
                           account={wallet.accounts[accountKey]}
-                          icon={
-                            accountLockedUntil || accountNoticePeriod
-                              ? 'lock'
-                              : 'lock-open'
-                          }
+                          icon={isAccountLocked ? 'lock' : 'lock-open'}
                           accountLockedUntil={accountLockedUntil}
                           accountNoticePeriod={accountNoticePeriod}
                           {...this.props}

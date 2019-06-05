@@ -14,6 +14,11 @@ const getDate = date => {
   return moment(date).format(DATE_FORMAT)
 }
 
+const getISODateTime = date => {
+  console.log(`TESTING ${date} ${moment(date)}`)
+  return moment(date).format()
+}
+
 const getMicrosecondsSinceNdauEpoch = () => {
   return moment().diff(AppConstants.NDAU_EPOCH, 'milliseconds') * 1000
 }
@@ -125,5 +130,6 @@ export default {
   addDaysToToday,
   getDaysFromISODate,
   getMonthsFromISODate,
-  getYearsFromISODate
+  getYearsFromISODate,
+  getISODateTime
 }
