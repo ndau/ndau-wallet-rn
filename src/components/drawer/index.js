@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { H4 } from 'nachos-ui'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
 import { MainContainer, FullScreenDualColorGradient } from '../common'
 import AppConstants from '../../AppConstants'
@@ -27,7 +27,7 @@ export function DrawerExit (props) {
   return (
     <View style={styles.drawerExit}>
       <TouchableOpacity {...props}>
-        <FontAwesome5Pro size={36} name='times' color='#ffffff' light />
+        <Icon size={36} name='times' color='#ffffff' type='light' />
       </TouchableOpacity>
     </View>
   )
@@ -37,11 +37,11 @@ export function DrawerEntryItem (props) {
   return (
     <View style={styles.drawerEntry}>
       <TouchableOpacity {...props}>
-        <FontAwesome5Pro
+        <Icon
           size={22}
           name={props.fontAwesomeIconName}
           color={AppConstants.ICON_BUTTON_COLOR}
-          light
+          type='light'
         />
       </TouchableOpacity>
       <TouchableOpacity {...props}>
@@ -55,11 +55,11 @@ export function DrawerEntryVersionItem (props) {
   return (
     <View style={styles.drawerVersionEntry}>
       <TouchableOpacity {...props}>
-        <FontAwesome5Pro
+        <Icon
           size={22}
           name={props.fontAwesomeIconName}
           color={AppConstants.ICON_BUTTON_COLOR}
-          light
+          type='light'
         />
       </TouchableOpacity>
       <TouchableOpacity {...props}>
@@ -72,19 +72,16 @@ export function DrawerEntryVersionItem (props) {
 export const DrawerHeader = props => {
   return (
     <View style={styles.drawerHeaderContainer}>
-      <TouchableOpacity
+      <Icon
+        name='bars'
+        size={32}
+        color='#fff'
+        containerStyle={styles.drawerButton}
+        type='light'
         onPress={() => {
           props.navigation.openDrawer()
         }}
-      >
-        <FontAwesome5Pro
-          name='bars'
-          size={32}
-          color='#fff'
-          style={styles.drawerButton}
-          light
-        />
-      </TouchableOpacity>
+      />
       <H4 style={styles.drawerHeaderText}>{props.children}</H4>
     </View>
   )
@@ -98,12 +95,12 @@ export const DrawerHeaderForOverview = props => {
           props.navigation.openDrawer()
         }}
       >
-        <FontAwesome5Pro
+        <Icon
           name='bars'
           size={32}
           color='#fff'
-          style={styles.drawerButton}
-          light
+          containerStyle={styles.drawerButton}
+          type='light'
         />
       </TouchableOpacity>
       <H4 style={styles.drawerHeaderTextForOverview}>{props.children}</H4>

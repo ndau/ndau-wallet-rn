@@ -7,6 +7,7 @@ import BackgroundTasks from './services/BackgroundTasks'
 import Styles from './css/styles'
 import SettingsStore from './stores/SettingsStore'
 import { ThemeProvider } from 'nachos-ui'
+import { configureFontAwesomePro } from 'react-native-fontawesome-pro'
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
 
@@ -15,6 +16,8 @@ YellowBox.ignoreWarnings([
   'Module RCTImageLoader'
 ])
 YellowBox.ignoreWarnings(['Class RCTCxxModule'])
+
+configureFontAwesomePro('light')
 
 export default class App extends React.Component {
   constructor (props) {

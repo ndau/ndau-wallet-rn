@@ -552,7 +552,12 @@ export default StyleSheet.create({
   drawerBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
-    marginBottom: hp('3%')
+    marginBottom: hp('3%'),
+    ...Platform.select({
+      android: {
+        width: '68%'
+      }
+    })
   },
   barTitleLeft: {
     color: AppConstants.TEXT_COLOR,
