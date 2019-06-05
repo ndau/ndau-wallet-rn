@@ -92,9 +92,6 @@ class AccountDetails extends Component {
     const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
       account.addressData
     )
-    const accountNotLocked = AccountAPIHelper.accountNotLocked(
-      account.addressData
-    )
     const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
       account.addressData
     )
@@ -105,7 +102,7 @@ class AccountDetails extends Component {
     )
     this.baseEAI = eaiValueForDisplay - lockBonusEAI
     let spendableNdau = 0
-    if (accountNotLocked) {
+    if (!isAccountLocked) {
       spendableNdau = AccountAPIHelper.spendableNdau(
         account.addressData,
         true,
@@ -150,9 +147,11 @@ class AccountDetails extends Component {
             )}
             {isAccountLocked ? (
               <View>
-                <AccountParagraphText customIconName='clock'>
-                  Will unlock on {accountLockedUntil}
-                </AccountParagraphText>
+                {accountLockedUntil ? (
+                  <AccountParagraphText customIconName='clock'>
+                    Will unlock on {accountLockedUntil}
+                  </AccountParagraphText>
+                ) : null}
                 <AccountParagraphText
                   customIconColor={AppConstants.WARNING_ICON_COLOR}
                   customIconName='exclamation-circle'

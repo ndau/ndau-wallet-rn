@@ -226,13 +226,14 @@ const accountLockedUntil = account => {
 
 const isAccountLocked = account => {
   if (!account) return null
+  if (!account.lock) return false
 
   const lockedUntil = accountLockedUntil(account)
-  if (!lockedUntil) {
-    return false
-  }
 
-  return moment(lockedUntil).isAfter()
+  return (
+    account.lock &&
+    (account.lock.unlocksOn === null || moment(lockedUntil).isAfter())
+  )
 }
 
 const accountNoticePeriod = account => {
@@ -245,10 +246,6 @@ const accountNoticePeriod = account => {
   }
 
   return null
-}
-
-const accountNotLocked = account => {
-  return account && account.lock !== undefined ? !account.lock : false
 }
 
 const remainingBalanceNdau = (account, amount, addCommas = true, precision) => {
@@ -350,7 +347,7 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
   let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
 
   Object.keys(accounts).forEach(accountKey => {
-    if (accounts[accountKey].addressData.lock) {
+    if (isAccountLocked(accounts[accountKey].addressData)) {
       // subtract locked account value
       totalNapu -= accounts[accountKey].addressData.balance
     } else if (accounts[accountKey].addressData.holds) {
@@ -412,7 +409,6 @@ export default {
   accountTotalNdauAmount,
   currentPrice,
   accountNoticePeriod,
-  accountNotLocked,
   accountNickname,
   receivingEAIFrom,
   sendingEAITo,

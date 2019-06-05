@@ -477,7 +477,7 @@ test('make sure isAccountLocked sends false when lock information is present but
   expect(AccountAPIHelper.isAccountLocked(account)).toBe(false)
 })
 
-test('make sure isAccountLocked sends false when lock information is present but in the future', () => {
+test('make sure isAccountLocked sends true when lock information is present but in the future', () => {
   const account = {
     nickname: 'Account 1',
     balance: 420000000023,
@@ -491,6 +491,35 @@ test('make sure isAccountLocked sends false when lock information is present but
     lock: {
       noticePeriod: '1y2m29d',
       unlocksOn: '2119-02-11T00:00:00Z',
+      bonus: 30000000000
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
+    validationScript: AppConfig.GENESIS_USER_VALIDATION_SCRIPT
+  }
+
+  expect(AccountAPIHelper.isAccountLocked(account)).toBe(true)
+})
+
+test('make sure isAccountLocked sends true when lock information is present but unlockOn is null', () => {
+  const account = {
+    nickname: 'Account 1',
+    balance: 420000000023,
+    validationKeys: [
+      'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb361',
+      'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb362'
+    ],
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
+    delegationNode: null,
+    lock: {
+      noticePeriod: '1y2m29d',
+      unlocksOn: null,
       bonus: 30000000000
     },
     stake: null,
