@@ -35,11 +35,6 @@ import {
 export function LoginContainer ({ children }) {
   return (
     <MainContainer>
-      <ImageBackground
-        source={require('img/bloom.jpg')}
-        style={styles.setupContainerBackgroundImage}
-        resizeMode='contain'
-      />
       <FullScreenTripColorGradient>
         <ScrollView keyboardShouldPersistTaps='always'>
           <View style={styles.loginContainer}>{children}</View>
@@ -449,16 +444,14 @@ export function ContentContainer (props) {
 
 export function CloseForBar (props) {
   return (
-    <View style={styles.closeForBar}>
-      <TouchableOpacity onPress={props.close}>
+      <TouchableOpacity style={styles.closeForBar} onPress={props.close}>
         <FontAwesome5Pro
           size={36}
           name='times'
           color={AppConstants.ICON_BUTTON_COLOR}
           light
-        />
+      />
       </TouchableOpacity>
-    </View>
   )
 }
 

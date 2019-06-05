@@ -22,13 +22,13 @@ export default StyleSheet.create({
   closeForBar: {
     ...Platform.select({
       ios: {
-        marginTop: hp('1.1%')
+        paddingTop: '3%'
       },
       android: {
-        marginTop: hp('1%')
+        paddingTop: '2%'
       }
     }),
-    marginRight: wp('4%')
+    width: '10%'
   },
   setupButtonContainerBottom: {
     bottom: 0,
@@ -187,6 +187,23 @@ export default StyleSheet.create({
     letterSpacing: 0.51,
     lineHeight: 36
   },
+  backArrow: {
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1.4%'),
+      },
+      android: {
+        marginTop: hp('1%')
+      }
+    }),
+
+    marginLeft: '4%'
+  },
+  progressBar: {
+    marginTop: hp('2.9%'),
+    marginLeft: wp('3%'),
+    marginRight: wp('3%')
+  },
   progressBarContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -197,21 +214,20 @@ export default StyleSheet.create({
     backgroundColor: '#0A1724',
     color: '#000000'
   },
-  backArrow: {
+  progressNumber: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 22,
+    letterSpacing: 0.39,
+    lineHeight: 27,
+    paddingLeft: wp('1%'),
+    paddingRight: wp('1%'),
     ...Platform.select({
       ios: {
-        marginTop: hp('1.6%')
-      },
-      android: {
-        marginTop: hp('.8%')
+        marginTop: hp('.6%')
       }
     }),
-    marginLeft: wp('4%')
-  },
-  progressBar: {
-    marginTop: hp('2.9%'),
-    marginLeft: wp('3%'),
-    marginRight: wp('3%')
+    marginRight: wp('4%')
   },
   labelWithIconContainer: {
     flex: 1,
@@ -350,10 +366,20 @@ export default StyleSheet.create({
     borderWidth: 1
   },
   setupContainerBackgroundImage: {
-    height: '150%',
+    opacity: 0.1,
     width: '150%',
-    bottom: 450,
-    right: 80
+    height: '150%',
+    overflow: 'visible',
+    marginTop: -100,
+    ...Platform.select({
+      ios: { // iOS needs both left and marginLeft for some reason
+        marginLeft: 50,
+        left: 100
+      },
+      android: {
+        left: 80
+      }
+    })
   },
   opaqueOverlay: {
     ...StyleSheet.absoluteFillObject,
@@ -550,21 +576,6 @@ export default StyleSheet.create({
     letterSpacing: 0.39,
     lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'
-  },
-  progressNumber: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Titillium Web',
-    fontSize: 22,
-    letterSpacing: 0.39,
-    lineHeight: 27,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
-    ...Platform.select({
-      ios: {
-        marginTop: hp('.6%')
-      }
-    }),
-    marginRight: wp('4%')
   },
   orBorder: {
     borderBottomColor: '#455B82',

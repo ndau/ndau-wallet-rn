@@ -21,11 +21,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start'
   },
-  accountTitlePanel: {
-    width: wp('100%'),
-    height: hp('2%'),
-    padding: 0
-  },
   accountDetailsTitlePanel: {
     width: wp('100%'),
     ...Platform.select({
@@ -315,15 +310,8 @@ export default StyleSheet.create({
     marginTop: hp('1%')
   },
   accountAngle: {
-    ...Platform.select({
-      ios: {
-        paddingTop: hp('.5%')
-      },
-      android: {
-        paddingTop: hp('.5%')
-      }
-    }),
-    paddingRight: wp('4%')
+    paddingTop: hp('.5%'),
+    paddingRight: '4%'
   },
   accountDetailsIcons: {
     paddingTop: hp('1.5%'),
@@ -351,13 +339,7 @@ export default StyleSheet.create({
     lineHeight: 24,
     height: hp('8%'),
     textAlign: 'center',
-    marginTop: 4,
-    marginLeft: -20,
-    ...Platform.select({
-      ios: {
-        marginTop: 4
-      }
-    })
+    marginLeft: wp('-4%')
   },
   accountClosingBarText: {
     color: AppConstants.TEXT_COLOR,
@@ -367,8 +349,7 @@ export default StyleSheet.create({
     letterSpacing: 0.34,
     lineHeight: 24,
     height: hp('8%'),
-    marginTop: 4,
-    width: hp('20%')
+    marginTop: 4
   },
   testText: {
     display: 'none'
@@ -541,15 +522,8 @@ export default StyleSheet.create({
     bottom: 0
   },
   backArrow: {
-    ...Platform.select({
-      ios: {
-        marginTop: hp('1.2%')
-      },
-      android: {
-        marginTop: hp('.8%')
-      }
-    }),
-    width: wp('33%')
+    width: '10%',
+    paddingTop: 4
   },
   closeIcon: {
     ...Platform.select({
