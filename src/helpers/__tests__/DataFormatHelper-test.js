@@ -775,3 +775,15 @@ test('make sure nano cents conversion works correctly', async () => {
     '169.90'
   )
 })
+
+test('make sure we pass back a name of the wallet if walletName is not there', async () => {
+  const wallet1 = {
+    walletId: 'using ID'
+  }
+  const wallet2 = {
+    walletId: 'has both',
+    walletName: 'has both'
+  }
+  expect(DataFormatHelper.getWalletName(wallet1)).toBe('using ID')
+  expect(DataFormatHelper.getWalletName(wallet2)).toBe('has both')
+})

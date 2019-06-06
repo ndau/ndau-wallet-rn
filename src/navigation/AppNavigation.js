@@ -1,5 +1,9 @@
 import React from 'react'
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import {
+  createStackNavigator,
+  createSwitchNavigator,
+  createAppContainer
+} from 'react-navigation'
 import DashboardNavigation from './DashboardNavigation'
 import WalletOverviewNavigation from './WalletOverviewNavigation'
 import LoggingNavigation from './LoggingNavigation'
@@ -120,7 +124,7 @@ const SetupStack = createStackNavigator({
   SetupYourWallet: { screen: SetupYourWalletScreen }
 })
 
-export default createSwitchNavigator(
+const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
@@ -134,3 +138,5 @@ export default createSwitchNavigator(
     headerMode: 'node'
   }
 )
+
+export default createAppContainer(SwitchNavigator)
