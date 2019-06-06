@@ -80,11 +80,8 @@ const populateWalletWithAddressData = async wallet => {
       }
     }
 
-    // If we have a new account this will not be set yet, this will not every be reset
-    // notice above if we find it in the account we use it.
-    if (!account.addressData.nickname) {
-      account.addressData.nickname = `Account ${count}`
-    }
+    _nicknameAccount(account)
+
     // Same explanation as nickname for walletId
     if (!account.addressData.walletId) {
       account.addressData.walletId = wallet.walletId
@@ -96,12 +93,32 @@ const populateWalletWithAddressData = async wallet => {
   return addressDataKeys.length > 0
 }
 
+const _nicknameAccount = account => {
+  const accountNickname = `Account ${account.address.slice(
+    account.address.length - 4,
+    account.address.length
+  )}`
+  if (!account.addressData.nickname) {
+    account.addressData.nickname = accountNickname
+  }
+
+  // replace the older string if present. This is done
+  // every time because I don't see the harm. However,
+  // if the last 4 of an address is all numerics and
+  // first part is Account we will replace...but so be it.
+  account.addressData.nickname = account.addressData.nickname.replace(
+    /Account \d+\b/,
+    accountNickname
+  )
+}
+
 /**
  * This method will repair the wallet in terms of missing data
  *
  * @param {Wallet} wallet
  */
 const _repairWalletObject = wallet => {
+  // Add wallet name
   if (!wallet.walletName && wallet.walletId) {
     wallet.walletName = wallet.walletId
   }
@@ -429,5 +446,7 @@ export default {
   totalSpendableNdau,
   getTotalNdauForSend,
   remainingBalanceNdau,
-  isAccountLocked
+  isAccountLocked,
+
+  _nicknameAccount
 }

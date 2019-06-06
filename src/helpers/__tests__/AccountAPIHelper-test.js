@@ -169,13 +169,13 @@ test('make sure sending EAI has the nickname set correctly', async () => {
       wallet.accounts['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g']
         .addressData
     )
-  ).toBe('Account 3')
+  ).toBe('Account jf55')
   expect(
     AccountAPIHelper.sendingEAITo(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe('Account 1')
+  ).toBe('Account zcun')
 })
 
 test('make sure receiving EAI has the nickname set correctly', async () => {
@@ -189,13 +189,13 @@ test('make sure receiving EAI has the nickname set correctly', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe('Account 2 ')
+  ).toBe('Account 38vz ')
   expect(
     AccountAPIHelper.receivingEAIFrom(
       wallet.accounts['ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55']
         .addressData
     )
-  ).toBe('Account 4 ')
+  ).toBe('Account f67g ')
 })
 
 test('if we can get the correct EAI rate from what comes back, make sure we round it', async () => {
@@ -625,4 +625,35 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the future'
   }
 
   expect(AccountAPIHelper.isAccountLocked(account)).toBe(true)
+})
+
+test('make sure we are updating the account nickname', () => {
+  const account = {
+    address: 'ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun',
+    addressData: {
+      nickname: 'Account 1',
+      balance: 420000000023,
+      validationKeys: [
+        'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb361',
+        'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb362'
+      ],
+      rewardsTarget: null,
+      incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
+      delegationNode: null,
+      lock: null,
+      stake: null,
+      lastEAIUpdate: 589991567000000,
+      lastWAAUpdate: 589991567000000,
+      weightedAverageAge: 0,
+      sequence: 0,
+      holds: null,
+      recourseSettings: { period: 0, changesAt: null, next: null },
+      validationScript: AppConfig.GENESIS_USER_VALIDATION_SCRIPT
+    },
+    ownershipKey: 'b32d1dfb',
+    validationKeys: []
+  }
+
+  AccountAPIHelper._nicknameAccount(account)
+  expect(account.addressData.nickname).toEqual('Account zcun')
 })
