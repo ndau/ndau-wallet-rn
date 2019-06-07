@@ -31,10 +31,14 @@ export default class App extends React.Component {
   render () {
     const { net } = this.state
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: 'black' }}>
         <ThemeProvider>
           {net !== 'mainnet' && net !== '' ? (
-            <Text style={Styles[`${net}BarStyle`]}>{net}</Text>
+            <View style={Styles.networkContainer}>
+              <View style={Styles[`${net}BarStyle`]}>
+                <Text style={Styles.netBarText}>{net}</Text>
+              </View>
+            </View>
           ) : null}
           <AppNavigation />
           <FlashMessage position='top' />

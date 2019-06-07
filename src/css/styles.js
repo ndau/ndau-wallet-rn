@@ -7,19 +7,10 @@ import {
 
 
 const networkCommon = {
-  width: '100%',
   zIndex: 9001,
-  textAlign: 'center',
-  color: 'white',
-  fontWeight: 'bold',
-  ...Platform.select({
-    ios: {
-      position: 'absolute',
-      top: 27,
-      padding: 5
-    }
-  })
-
+  left:0,
+  right: 0,
+  width: '100%'
 }
 
 export default StyleSheet.create({
@@ -243,5 +234,18 @@ export default StyleSheet.create({
   }, networkCommon),
   devnetBarStyle: Object.assign({
     backgroundColor: '#4A90E2',
-  }, networkCommon)
+  }, networkCommon),
+  networkContainer: {
+    backgroundColor: 'transparent',
+    ...Platform.select({ios:{paddingTop: 27}}),
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    zIndex: 9005
+  },
+  netBarText: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold'
+  }
 })
