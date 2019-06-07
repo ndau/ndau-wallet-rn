@@ -11,8 +11,8 @@ import {
   AccountConfirmationItem
 } from '../components/account'
 import FlashNotification from '../components/common/FlashNotification'
-import { LoadingSpinner, TextLink } from '../components/common'
-import { View, ScrollView } from 'react-native'
+import { LoadingSpinner, TextLink, LargeButton } from '../components/common'
+import { View, ScrollView, Alert } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import WalletStore from '../stores/WalletStore'
 import AccountStore from '../stores/AccountStore'
@@ -20,6 +20,11 @@ import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import DateHelper from '../helpers/DateHelper'
 import NdauNumber from '../helpers/NdauNumber'
+import UserStore from '../stores/UserStore'
+import KeyMaster from '../helpers/KeyMaster'
+import { Transaction } from '../transactions/Transaction'
+import { NotifyTransaction } from '../transactions/NotifyTransaction'
+import UserData from '../model/UserData'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -54,6 +59,61 @@ class AccountDetails extends Component {
       accountsCanRxEAI: this.state.accountsCanRxEAI,
       baseEAI: this.baseEAI
     })
+  }
+
+  _notify = async (account, wallet) => {
+    Alert.alert(
+      'Unlock countdown',
+      'The unlock countdown will be started. The account will not be able to send or receive ndau until the countdown ends.',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            this.setState({ spinner: true }, async () => {
+              // First send out the Notify
+              Object.assign(NotifyTransaction.prototype, Transaction)
+              const notifyTransaction = new NotifyTransaction(wallet, account)
+              await notifyTransaction.createSignPrevalidateSubmit()
+
+              // Ok now we have to refresh data on this page
+              // So get the user from the store and load
+              const user = UserStore.getUser()
+
+              try {
+                await UserData.loadUserData(user)
+
+                const theWallet = KeyMaster.getWalletFromUser(
+                  user,
+                  wallet.walletId
+                )
+                const theAccount = KeyMaster.getAccountFromWallet(
+                  wallet,
+                  account.address
+                )
+                WalletStore.setWallet(theWallet)
+                AccountStore.setAccount(theAccount)
+
+                this.setState({
+                  spinner: false,
+                  account: theAccount,
+                  wallet: theWallet
+                })
+              } catch (error) {
+                FlashNotification.showError(error.message)
+                this.setState({
+                  spinner: false
+                })
+              }
+            })
+          }
+        }
+      ],
+      { cancelable: false }
+    )
   }
 
   showHistory = account => {
@@ -174,6 +234,17 @@ class AccountDetails extends Component {
                 spendable
               </TextLink>
             </AccountParagraphText>
+            {isAccountLocked && accountLockedUntil === null ? (
+              <LargeButton
+                onPress={() =>
+                  this._notify(this.state.account, this.state.wallet)
+                }
+                scroll
+                buttonStyle={{ marginTop: '3%' }}
+              >
+                Start countdown timer
+              </LargeButton>
+            ) : null}
           </AccountDetailsPanel>
           <AccountDetailsPanel secondPanel>
             <AccountDetailsLargerText>

@@ -249,7 +249,7 @@ const accountNoticePeriod = account => {
   const noticePeriod = account.lock ? account.lock.noticePeriod : null
   if (noticePeriod) {
     const duration = DateHelper.parseDurationToMicroseconds(noticePeriod)
-    return DateHelper.getDaysFromMicroseconds(duration)
+    return
   }
 
   return null

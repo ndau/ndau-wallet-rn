@@ -139,11 +139,12 @@ export function LargeButton (props) {
   }
   return (
     <View
-      style={
+      style={[
         props.scroll
           ? styles.setupButtonContainerScrollView
-          : styles.setupButtonContainerBottomNoBorder
-      }
+          : styles.setupButtonContainerBottomNoBorder,
+        props.buttonStyle
+      ]}
     >
       <Button
         style={[styles.largeButton, sideMargins, props.style]}
