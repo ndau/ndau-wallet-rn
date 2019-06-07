@@ -109,21 +109,19 @@ class SetupEncryptionPassword extends Component {
     this.onPushAnother(event)
   }
 
-  checkPasswordsExist = () => {
+  checkPasswordsMatch = () => {
     return this.state.password === this.state.confirmPassword
   }
 
-  checkPasswordsLength = () => {
+  checkPasswordLength = () => {
     return (
       this.state.password.length >=
-        SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH &&
-      this.state.confirmPassword.length >=
         SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH
     )
   }
 
   showNextSetup = async () => {
-    if (!this.checkPasswordsExist()) {
+    if (!this.checkPasswordsMatch()) {
       Alert.alert(
         'Error',
         'The passwords entered do not match.',
@@ -133,7 +131,7 @@ class SetupEncryptionPassword extends Component {
       this.setState({ textInputColor: AppConstants.WARNING_ICON_COLOR })
       return
     }
-    if (!this.checkPasswordsLength()) {
+    if (!this.checkPasswordLength()) {
       Alert.alert(
         'Error',
         'The password must be at least 8 characters',
@@ -163,26 +161,29 @@ class SetupEncryptionPassword extends Component {
   }
 
   resetPassword = async () => {
-    const recoveryPhraseString = this.props.navigation.getParam(
-      'recoveryPhraseString',
-      null
-    )
-
-    try {
-      await MultiSafeHelper.resetPassword(
-        recoveryPhraseString,
-        this.state.password
+    this.setState({ spinner: true }, async () => {
+      const recoveryPhraseString = this.props.navigation.getParam(
+        'recoveryPhraseString',
+        null
       )
-      const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
-      await UserStore.setPassword(this.state.password)
 
-      await UserData.loadUserData(user)
+      try {
+        await MultiSafeHelper.resetPassword(
+          recoveryPhraseString,
+          this.state.password
+        )
+        const user = await MultiSafeHelper.getDefaultUser(recoveryPhraseString)
+        await UserStore.setPassword(this.state.password)
 
-      this.props.navigation.navigate('Dashboard')
-    } catch (error) {
-      LogStore.log(error)
-      FlashNotification.showError(error.message, false, false)
-    }
+        await UserData.loadUserData(user)
+
+        this.props.navigation.navigate('Dashboard')
+      } catch (error) {
+        LogStore.log(error)
+        FlashNotification.showError(error.message, false, false)
+      }
+      this.setState({spinner: false})
+    })
   }
 
   checkedShowPasswords = () => {
@@ -209,7 +210,7 @@ class SetupEncryptionPassword extends Component {
   }
 
   render () {
-    const { textInputColor, progress } = this.state
+    const { progress } = this.state
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
