@@ -20,7 +20,7 @@ import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import SetupStore from '../stores/SetupStore'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
@@ -435,11 +435,11 @@ class SetupGetRecoveryPhrase extends Component {
                   }}
                   onPress={this._moveBackAWord}
                 >
-                  <FontAwesome5Pro
+                  <Icon
                     name='arrow-circle-left'
                     color={styleConstants.ICON_GRAY}
                     size={32}
-                    light
+                    type='light'
                   />
                 </TouchableOpacity>
                 <RecoveryDropdown
@@ -461,11 +461,11 @@ class SetupGetRecoveryPhrase extends Component {
                   onPress={this._moveToNextWord}
                   disabled={this.state.disableArrows}
                 >
-                  <FontAwesome5Pro
+                  <Icon
                     name='arrow-circle-right'
                     color={styleConstants.ICON_GRAY}
                     size={32}
-                    light
+                    type='light'
                   />
                 </TouchableOpacity>
               </View>

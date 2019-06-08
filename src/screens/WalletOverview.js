@@ -189,6 +189,8 @@ class WalletOverview extends Component {
       const { totalNdau, totalSpendable, currentPrice } = this.state
       this.accountsCanRxEAI = {}
 
+      const walletName = DataFormatHelper.getWalletName(wallet)
+
       return (
         <AppContainer>
           <NavigationEvents onWillFocus={payload => this._onRefresh()} />
@@ -201,7 +203,7 @@ class WalletOverview extends Component {
           />
 
           <DrawerHeader {...this.props}>
-            {wallet ? DataFormatHelper.truncateString(wallet.walletName) : ''}
+            {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
           <WalletOverviewHeaderActions>
@@ -264,6 +266,9 @@ class WalletOverview extends Component {
                       const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
                         wallet.accounts[accountKey].addressData
                       )
+                      const isAccountLocked = AccountAPIHelper.isAccountLocked(
+                        wallet.accounts[accountKey].addressData
+                      )
                       const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
                         wallet.accounts[accountKey].addressData
                       )
@@ -286,11 +291,7 @@ class WalletOverview extends Component {
                             )
                           }
                           account={wallet.accounts[accountKey]}
-                          icon={
-                            accountLockedUntil || accountNoticePeriod
-                              ? 'lock'
-                              : 'lock-open'
-                          }
+                          icon={isAccountLocked ? 'lock' : 'lock-open'}
                           accountLockedUntil={accountLockedUntil}
                           accountNoticePeriod={accountNoticePeriod}
                           {...this.props}

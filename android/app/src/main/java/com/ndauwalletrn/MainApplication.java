@@ -3,6 +3,7 @@ package com.ndauwalletrn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.chirag.RNMail.RNMail;
 import com.rnfs.RNFSPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -12,7 +13,6 @@ import com.horcrux.svg.SvgPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
@@ -33,11 +33,11 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNMail(), new RNFSPackage(),
-                    new RNDeviceInfo(), new AsyncStoragePackage(), new SvgPackage(), new RNVersionNumberPackage(),
-                    new LinearGradientPackage(), new RNBackgroundFetchPackage(),
-                    new ReactNativePushNotificationPackage(), new VectorIconsPackage(), new KeyaddrPackage(),
-                    new RNCameraPackage(), new RNSecureRandomPackage());
+            return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNGestureHandlerPackage(), new RNMail(),
+                    new RNFSPackage(), new RNDeviceInfo(), new AsyncStoragePackage(), new SvgPackage(),
+                    new RNVersionNumberPackage(), new LinearGradientPackage(), new RNBackgroundFetchPackage(),
+                    new ReactNativePushNotificationPackage(), new KeyaddrPackage(), new RNCameraPackage(),
+                    new RNSecureRandomPackage());
         }
 
         @Override

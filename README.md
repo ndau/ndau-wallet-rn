@@ -46,6 +46,18 @@ nvm install v10
 nvm use v10
 ```
 
+Before we can run `npm install` you must make sure you have a `.npmrc` file in the `ndau-wallet-rn` folder. In that file make sure
+to include the following:
+
+```
+@fortawesome:registry=https://npm.fontawesome.com/
+//npm.fontawesome.com/:_authToken=YOUR_TOKEN_HERE
+```
+
+Replace `YOUR_TOKEN_HERE` with the FontAwesomePro token. Please see
+KP for this. There is an examples file of you can use in `examples/npmrc`, this is the file CircleCI uses. Make sure you call the file
+`.npmrc` and not `npmrc`. See the `.circleci/config.yml` for what it does.
+
 Next we npm/yarn install:
 
 `npm install`
