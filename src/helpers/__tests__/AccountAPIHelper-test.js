@@ -595,9 +595,9 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the past', 
 })
 
 test('make sure isAccountLocked uses UTC time to check lock dates in the future', () => {
-  const utcTwoMinutesAhead = moment
+  const utcFiveMinutesAhead = moment
     .utc()
-    .add(2, 'minutes')
+    .add(5, 'minutes')
     .format()
   const account = {
     nickname: 'Account 1',
@@ -611,7 +611,7 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the future'
     delegationNode: null,
     lock: {
       noticePeriod: 't1m',
-      unlocksOn: utcTwoMinutesAhead,
+      unlocksOn: utcFiveMinutesAhead,
       bonus: 0
     },
     stake: null,
