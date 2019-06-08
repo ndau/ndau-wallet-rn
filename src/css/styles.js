@@ -10,7 +10,8 @@ const networkCommon = {
   zIndex: 9001,
   left:0,
   right: 0,
-  width: '100%'
+  width:'60%',
+  borderRadius: 5
 }
 
 export default StyleSheet.create({
