@@ -20,6 +20,8 @@ import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import DateHelper from '../helpers/DateHelper'
 import NdauNumber from '../helpers/NdauNumber'
+import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import ndaujs from 'ndaujs'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -44,6 +46,8 @@ class AccountDetails extends Component {
     )
 
     this.setState({ account, wallet, accountsCanRxEAI })
+    // fetch network asynchronously and update the state when it's done
+    AsyncStorageHelper.getNetwork().then((network)=>this.setState({network}))
   }
 
   lock = (account, wallet) => {
@@ -112,6 +116,9 @@ class AccountDetails extends Component {
         AppConfig.NDAU_DETAIL_PRECISION
       )
     }
+    const accountAddress = this.state.account.address
+    const addressTrunc = ndaujs.truncateAddress(accountAddress)
+    const explorerUrl = AppConfig.calcExplorerUrl(accountAddress, this.state.network)
     const showAllAcctButtons =
       !accountLockedUntil && !accountNoticePeriod && spendableNdau > 0
     const spendableNdauDisplayed = new NdauNumber(spendableNdau).toDetail()
@@ -200,6 +207,9 @@ class AccountDetails extends Component {
                 being sent to:
               </AccountConfirmationItem>
             ) : null}
+            <AccountConfirmationItem style={{marginTop: '4%'}} value={<TextLink url={explorerUrl}>{addressTrunc}</TextLink>}>
+              Account Address:
+            </AccountConfirmationItem>
           </AccountDetailsPanel>
         </ScrollView>
       </AccountDetailsContainer>
