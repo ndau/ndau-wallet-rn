@@ -68,7 +68,7 @@ export function AccountPanel (props) {
                     <FontAwesome5Pro
                       name='clock'
                       size={18}
-                      color='#CC8727'
+                      color={AppConstants.CAUTION_ICON_COLOR}
                       style={styles.accountNicknameIcon}
                       light
                     />

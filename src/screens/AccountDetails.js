@@ -79,11 +79,11 @@ class AccountDetails extends Component {
               const notifyTransaction = new NotifyTransaction(wallet, account)
               await notifyTransaction.createSignPrevalidateSubmit()
 
-              // Ok now we have to refresh data on this page
-              // So get the user from the store and load
-              const user = UserStore.getUser()
-
               try {
+                // Ok now we have to refresh data on this page
+                // So get the user from the store and load
+                const user = UserStore.getUser()
+
                 await UserData.loadUserData(user)
 
                 const theWallet = KeyMaster.getWalletFromUser(
