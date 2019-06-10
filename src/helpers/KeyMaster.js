@@ -271,6 +271,10 @@ const getWalletFromUser = (user, walletId) => {
   return user.wallets[DataFormatHelper.create8CharHash(walletId)]
 }
 
+const getAccountFromWallet = (wallet, accountAddress) => {
+  return wallet.accounts[accountAddress]
+}
+
 const setWalletInUser = (user, wallet) => {
   return (user.wallets[
     DataFormatHelper.create8CharHash(wallet.walletId)
@@ -652,5 +656,6 @@ export default {
   addThisValidationKey,
   generateLegacyValidationKey,
   generateValidationKey,
-  createAccountFromPath
+  createAccountFromPath,
+  getAccountFromWallet
 }
