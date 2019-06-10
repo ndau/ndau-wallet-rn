@@ -595,9 +595,9 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the past', 
 })
 
 test('make sure isAccountLocked uses UTC time to check lock dates in the future', () => {
-  const utcTwoMinutesAhead = moment
+  const utcFiveMinutesAhead = moment
     .utc()
-    .add(2, 'minutes')
+    .add(5, 'minutes')
     .format()
   const account = {
     nickname: 'Account 1',
@@ -611,7 +611,7 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the future'
     delegationNode: null,
     lock: {
       noticePeriod: 't1m',
-      unlocksOn: utcTwoMinutesAhead,
+      unlocksOn: utcFiveMinutesAhead,
       bonus: 0
     },
     stake: null,
@@ -625,4 +625,37 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the future'
   }
 
   expect(AccountAPIHelper.isAccountLocked(account)).toBe(true)
+})
+
+test('make sure accountNoticePeriod sends back time in days', () => {
+  const utcFiveMinutesAhead = moment
+    .utc()
+    .add(5, 'minutes')
+    .format()
+  const account = {
+    nickname: 'Account 1',
+    balance: 420000000023,
+    validationKeys: [
+      'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb361',
+      'npuba4jaftckeebbfznxrdsdk893xn64axz3fv5ayg8ygip6grpgeudqkfyij9kjbm2e4nw4waaaaaa6pmfcm6tvpiar9xgi3udqbbarv2g7i5dei6rj5ppw76zdjkyf5bqigdtzb362'
+    ],
+    rewardsTarget: null,
+    incomingRewardsFrom: ['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'],
+    delegationNode: null,
+    lock: {
+      noticePeriod: 't48h',
+      unlocksOn: utcFiveMinutesAhead,
+      bonus: 0
+    },
+    stake: null,
+    lastEAIUpdate: 589991567000000,
+    lastWAAUpdate: 589991567000000,
+    weightedAverageAge: 0,
+    sequence: 0,
+    holds: null,
+    recourseSettings: { period: 0, changesAt: null, next: null },
+    validationScript: AppConfig.GENESIS_USER_VALIDATION_SCRIPT
+  }
+
+  expect(AccountAPIHelper.accountNoticePeriod(account)).toBe(2)
 })

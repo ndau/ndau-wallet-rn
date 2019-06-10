@@ -63,12 +63,12 @@ export function AccountPanel (props) {
                   containerStyle={styles.accountNicknameIcon}
                   type='light'
                 />
-                {props.accountNoticePeriod ? (
-                  props.accountLockedUntil ? (
+                {props.isAccountLocked ? (
+                  props.accountLockedUntil === null ? (
                     <Icon
                       name='clock'
                       size={18}
-                      color={AppConstants.ICON_BUTTON_COLOR}
+                      color={AppConstants.CAUTION_ICON_COLOR}
                       containerStyle={styles.accountNicknameIcon}
                       type='light'
                     />
@@ -76,7 +76,7 @@ export function AccountPanel (props) {
                     <Icon
                       name='clock'
                       size={18}
-                      color='#CC8727'
+                      color={AppConstants.ICON_BUTTON_COLOR}
                       containerStyle={styles.accountNicknameIcon}
                       type='light'
                     />
