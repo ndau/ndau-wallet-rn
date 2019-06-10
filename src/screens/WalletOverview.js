@@ -294,6 +294,7 @@ class WalletOverview extends Component {
                           icon={isAccountLocked ? 'lock' : 'lock-open'}
                           accountLockedUntil={accountLockedUntil}
                           accountNoticePeriod={accountNoticePeriod}
+                          isAccountLocked={isAccountLocked}
                           {...this.props}
                         />
                       )

@@ -63,12 +63,12 @@ export function AccountPanel (props) {
                   style={styles.accountNicknameIcon}
                   light
                 />
-                {props.accountNoticePeriod ? (
-                  props.accountLockedUntil ? (
+                {props.isAccountLocked ? (
+                  props.accountLockedUntil === null ? (
                     <FontAwesome5Pro
                       name='clock'
                       size={18}
-                      color={AppConstants.ICON_BUTTON_COLOR}
+                      color={AppConstants.CAUTION_ICON_COLOR}
                       style={styles.accountNicknameIcon}
                       light
                     />
@@ -76,7 +76,7 @@ export function AccountPanel (props) {
                     <FontAwesome5Pro
                       name='clock'
                       size={18}
-                      color='#CC8727'
+                      color={AppConstants.ICON_BUTTON_COLOR}
                       style={styles.accountNicknameIcon}
                       light
                     />
