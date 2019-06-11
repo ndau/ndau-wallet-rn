@@ -25,10 +25,10 @@ export default StyleSheet.create({
     width: wp('100%'),
     ...Platform.select({
       ios: {
-        height: hp('8%')
+        height: hp('6%')
       },
       android: {
-        height: hp('9%')
+        height: hp('6%')
       }
     })
   },
@@ -349,6 +349,7 @@ export default StyleSheet.create({
     letterSpacing: 0.34,
     lineHeight: 24,
     height: hp('8%'),
+    textAlign: 'center',
     marginTop: 4
   },
   testText: {
