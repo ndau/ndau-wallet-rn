@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Animated, View, Text, TouchableHighlight } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 import styles from './styles'
 import { CollapsibleBarBorder } from '.'
 
@@ -139,8 +139,8 @@ class CollapsibleBar extends Component {
               name={icon}
               size={this.props.iconSize || iconSize}
               color={this.props.tintColor || tintColor}
-              style={[styles.icon, iconStyle]}
-              light
+              containerStyle={[styles.icon, iconStyle]}
+              type='light'
             />
           </View>
         </TouchableHighlight>
@@ -172,8 +172,8 @@ class CollapsibleBar extends Component {
             name={icon}
             size={this.props.iconSize || iconSize}
             color={this.props.tintColor || tintColor}
-            style={[styles.icon, iconStyle]}
-            light
+            containerStyle={[styles.icon, iconStyle]}
+            type='light'
           />
         </View>
       </TouchableHighlight>

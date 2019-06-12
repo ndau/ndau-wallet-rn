@@ -5,7 +5,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 import AppConstants from '../../AppConstants'
 
 class NumberPicker extends Component {
@@ -19,23 +19,21 @@ class NumberPicker extends Component {
             justifyContent: 'center'
           }}
         >
-          <TouchableOpacity onPress={this.props.subtractNumber}>
-            <FontAwesome5Pro
-              name='minus-circle'
-              color={AppConstants.NUMBER_PICKER_COLOR}
-              size={32}
-              light
-            />
-          </TouchableOpacity>
+          <Icon
+            name='minus-circle'
+            color={AppConstants.NUMBER_PICKER_COLOR}
+            size={32}
+            onPress={this.props.subtractNumber}
+            type='light'
+          />
           <Text style={styles.text}>{this.props.number}</Text>
-          <TouchableOpacity onPress={this.props.addNumber}>
-            <FontAwesome5Pro
-              name='plus-circle'
-              color={AppConstants.NUMBER_PICKER_COLOR}
-              size={32}
-              light
-            />
-          </TouchableOpacity>
+          <Icon
+            name='plus-circle'
+            color={AppConstants.NUMBER_PICKER_COLOR}
+            size={32}
+            onPress={this.props.addNumber}
+            type='light'
+          />
         </View>
       </View>
     )

@@ -12,6 +12,7 @@ jobs:
       - run:
           name: install node deps
           command: |
+            sed "s/YOUR_TOKEN_HERE/$FA_KEY/" ./examples/npmrc/npmrc > ./.npmrc
             npm install
 
       - run: npm run test-ci

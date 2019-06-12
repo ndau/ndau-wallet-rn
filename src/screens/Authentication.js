@@ -4,7 +4,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   View,
-  Keyboard
+  Keyboard,
+  ImageBackground
 } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
@@ -12,6 +13,8 @@ import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
+
+import styles from '../components/common/styles'
 import {
   LoginContainer,
   LabelWithIcon,
@@ -22,9 +25,9 @@ import {
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 
-const ANDROID_SHRINK_SIZE = '13%'
+const ANDROID_SHRINK_SIZE = '17%'
 const ANDROID_NORMAL_SIZE = '30%'
-const IOS_SHRINK_SIZE = '10%'
+const IOS_SHRINK_SIZE = '15%'
 const IOS_NORMAL_SIZE = '32%'
 
 class Authentication extends Component {
@@ -36,6 +39,7 @@ class Authentication extends Component {
       showErrorText: false,
       loginAttempt: 1,
       spinner: false,
+      keyboard: false,
       lowerHeightAndroid: ANDROID_NORMAL_SIZE,
       lowerHeightIOS: IOS_NORMAL_SIZE
     }
@@ -184,6 +188,7 @@ class Authentication extends Component {
 
   keyboardWillShow = event => {
     this.setState({
+      keyboard: true,
       lowerHeightAndroid: ANDROID_SHRINK_SIZE,
       lowerHeightIOS: IOS_SHRINK_SIZE
     })
@@ -191,6 +196,7 @@ class Authentication extends Component {
 
   keyboardWillHide = event => {
     this.setState({
+      keyboard: false,
       lowerHeightAndroid: ANDROID_NORMAL_SIZE,
       lowerHeightIOS: IOS_NORMAL_SIZE
     })
@@ -200,64 +206,63 @@ class Authentication extends Component {
     const { textInputColor } = this.state
     return (
       <LoginContainer>
-        <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
-          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
+        <ImageBackground
+          style={{}}
+          source={require('img/bloom.png')}
+          imageStyle={styles.setupContainerBackgroundImage}
         >
-          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-          <View
-            style={{
-              ...Platform.select({
-                ios: {
-                  height: 'auto'
-                },
-                android: {
-                  height: '42%'
-                }
-              })
-            }}
+          <KeyboardAvoidingView
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
+            behavior={Platform.OS === 'ios' ? 'height' : 'position'}
           >
-            <LoginImage />
-          </View>
-          <View style={{ minHeight: '30%' }}>
-            <LabelWithIcon
-              onPress={this.showInformation}
-              fontAwesomeIconName='info-circle'
+            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+            <View
+              style={{
+                height: this.state.keyboard ? '42%' : '42%'
+              }}
             >
-              Password
-            </LabelWithIcon>
-            <TextInput
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-              placeholder='Enter your password...'
-              secureTextEntry
-              autoCapitalize='none'
-              onSubmitEditing={this.login}
-            />
-            <PasswordLinkText onPress={this.showPasswordReset}>
-              Forgot your password?
-            </PasswordLinkText>
-          </View>
+              <LoginImage />
+            </View>
+            <View style={{ minHeight: '30%' }}>
+              <LabelWithIcon
+                onPress={this.showInformation}
+                fontAwesomeIconName='info-circle'
+              >
+                Password
+              </LabelWithIcon>
+              <TextInput
+                onChangeText={password => this.setState({ password })}
+                value={this.state.password}
+                placeholder='Enter your password...'
+                secureTextEntry
+                autoCapitalize='none'
+                onSubmitEditing={this.login}
+              />
+              <PasswordLinkText onPress={this.showPasswordReset}>
+                Forgot your password?
+              </PasswordLinkText>
+            </View>
 
-          <View
-            style={{
-              ...Platform.select({
-                ios: {
-                  height: this.state.lowerHeightIOS
-                },
-                android: {
-                  height: this.state.lowerHeightAndroid
-                }
-              }),
-              flexDirection: 'column',
-              justifyContent: 'flex-end'
-            }}
-          >
-            <LargeButton sideMargins onPress={this.login}>
-              Login
-            </LargeButton>
-          </View>
-        </KeyboardAvoidingView>
+            <View
+              style={{
+                ...Platform.select({
+                  ios: {
+                    height: this.state.lowerHeightIOS
+                  },
+                  android: {
+                    height: this.state.lowerHeightAndroid
+                  }
+                }),
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+              }}
+            >
+              <LargeButton sideMargins onPress={this.login}>
+                Login
+              </LargeButton>
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
       </LoginContainer>
     )
   }

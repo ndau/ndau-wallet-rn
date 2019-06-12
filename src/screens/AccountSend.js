@@ -132,6 +132,24 @@ class AccountSend extends Component {
         )
         canProceedFromAmount = true
       } catch (error) {
+
+        // Check to see if fee and sib info are passed back so they can be displayed.
+        if (error.error.response && error.error.response.data) {
+          const resp = error.error.response.data
+          if (resp.sib_napu) {
+            sibFee = DataFormatHelper.getNdauFromNapu(resp.sib_napu)
+          }
+          if (resp.fee_napu) {
+            transactionFee = DataFormatHelper.getNdauFromNapu(resp.fee_napu)
+          }
+          if (resp.sib_napu && resp.fee_napu) {
+            total = AccountAPIHelper.getTotalNdauForSend(
+              this.state.amount,
+              transactionFee,
+              sibFee
+            )
+          }
+        }
         canProceedFromAmount = false
         FlashNotification.showError(
           `Error occurred while sending ndau: ${error.message}`

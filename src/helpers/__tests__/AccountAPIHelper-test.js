@@ -169,13 +169,13 @@ test('make sure sending EAI has the nickname set correctly', async () => {
       wallet.accounts['ndanhgm5avd68gj9ufiwq7ttcsshxciupgz5i7nnzk68f67g']
         .addressData
     )
-  ).toBe('Account 3')
+  ).toBe('Account jf55')
   expect(
     AccountAPIHelper.sendingEAITo(
       wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
         .addressData
     )
-  ).toBe('Account 1')
+  ).toBe('Account zcun')
 })
 
 test('make sure receiving EAI has the nickname set correctly', async () => {
@@ -189,13 +189,13 @@ test('make sure receiving EAI has the nickname set correctly', async () => {
       wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
         .addressData
     )
-  ).toBe('Account 2 ')
+  ).toBe('Account 38vz ')
   expect(
     AccountAPIHelper.receivingEAIFrom(
       wallet.accounts['ndamm8kxzf9754axd24wrkh3agvj2cidx75wdfhjiufcjf55']
         .addressData
     )
-  ).toBe('Account 4 ')
+  ).toBe('Account f67g ')
 })
 
 test('if we can get the correct EAI rate from what comes back, make sure we round it', async () => {

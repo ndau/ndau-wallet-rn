@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, Share, Text, Linking } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
-import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro'
+import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
 import {
@@ -56,29 +56,29 @@ export function AccountPanel (props) {
                 <H4 style={styles.accountTitleTextPanel}>
                   {AccountAPIHelper.accountNickname(props.account.addressData)}
                 </H4>
-                <FontAwesome5Pro
+                <Icon
                   name={props.icon}
                   size={18}
                   color={AppConstants.ICON_BUTTON_COLOR}
-                  style={styles.accountNicknameIcon}
-                  light
+                  containerStyle={styles.accountNicknameIcon}
+                  type='light'
                 />
                 {props.isAccountLocked ? (
                   props.accountLockedUntil === null ? (
-                    <FontAwesome5Pro
+                    <Icon
                       name='clock'
                       size={18}
                       color={AppConstants.CAUTION_ICON_COLOR}
-                      style={styles.accountNicknameIcon}
-                      light
+                      containerStyle={styles.accountNicknameIcon}
+                      type='light'
                     />
                   ) : (
-                    <FontAwesome5Pro
+                    <Icon
                       name='clock'
                       size={18}
                       color={AppConstants.ICON_BUTTON_COLOR}
-                      style={styles.accountNicknameIcon}
-                      light
+                      containerStyle={styles.accountNicknameIcon}
+                      type='light'
                     />
                   )
                 ) : null}
@@ -107,12 +107,12 @@ export function AccountPanel (props) {
                 View account details {'&'} settings
               </H4>
               <TouchableOpacity {...props}>
-                <FontAwesome5Pro
+                <Icon
                   name='chevron-circle-right'
                   size={24}
                   color={AppConstants.ICON_BUTTON_COLOR}
-                  style={styles.accountAngle}
-                  light
+                  containerStyle={styles.accountAngle}
+                  type='light'
                 />
               </TouchableOpacity>
             </View>
@@ -133,13 +133,20 @@ export function AccountDetailsContainer (props) {
   goBack = () => {
     props.navigation.goBack()
   }
+  const title = props.account.addressData
+    ? props.account.addressData.nickname
+    : 'Account'
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
         <AccountDetailsTitleBarGradient>
           <View style={styles.accountDetailsTitlePanel}>
-            <AccountDetailsBar goBack={() => goBack()} {...props} />
-            <FullBarBorder />
+            <AccountClosingBar
+              backArrowStyle={styles.backArrowForLock}
+              title={title}
+              backBar
+              goBack={this.goBack}
+            />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
         </AccountDetailsTitleBarGradient>
@@ -295,11 +302,11 @@ export function AccountButton (props) {
         <View style={styles.accountButtonInnerPanel}>
           <Text style={styles.accountButtonText}>
             {props.children}{' '}
-            <FontAwesome5Pro
+            <Icon
               name={props.customIconName}
               size={18}
               color={AppConstants.ICON_BUTTON_COLOR}
-              light
+              type='light'
             />
           </Text>
         </View>
@@ -317,12 +324,12 @@ export function LargeAccountButton (props) {
       {...props}
     >
       {props.children}{' '}
-      <FontAwesome5Pro
+      <Icon
         name={props.customIconName}
         size={18}
         color={AppConstants.ICON_BUTTON_COLOR}
-        style={styles.accountAngle}
-        light
+        containerStyle={styles.accountAngle}
+        type='light'
       />
     </Button>
   )
@@ -404,15 +411,13 @@ export function AccountParagraphText (props) {
   return (
     <View style={styles.accountDetailsItemPanel}>
       {props.customIconName ? (
-        <View>
-          <FontAwesome5Pro
-            name={props.customIconName}
-            size={18}
-            color={props.customIconColor || AppConstants.ICON_BUTTON_COLOR}
-            style={styles.accountDetailsIcons}
-            light
-          />
-        </View>
+        <Icon
+          name={props.customIconName}
+          size={18}
+          color={props.customIconColor || AppConstants.ICON_BUTTON_COLOR}
+          containerStyle={styles.accountDetailsIcons}
+          type='light'
+        />
       ) : null}
       <View>
         <P style={styles.accountDetailsParagraphText}>{props.children}</P>
@@ -439,48 +444,18 @@ export function AccountDetailsPanel (props) {
   )
 }
 
-export function AccountDetailsBar (props) {
-  return (
-    <View style={styles.accountDetailsBarContainer}>
-      <View style={styles.backArrow}>
-        <TouchableOpacity onPress={props.goBack}>
-          <FontAwesome5Pro
-            size={32}
-            name='arrow-left'
-            color={AppConstants.ICON_BUTTON_COLOR}
-            style={styles.accountAngle}
-            light
-          />
-        </TouchableOpacity>
-      </View>
-      <H4 style={[styles.accountDetailsBarText]}>
-        {props.account.addressData
-          ? props.account.addressData.nickname
-          : 'Account'}{' '}
-        details
-      </H4>
-      <View style={styles.detailsBarCog} />
-    </View>
-  )
-}
-
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountClosingBarContainer}>
-      <View>
-        <Text style={styles.testText}>TEST</Text>
-      </View>
-
       {props.backBar ? (
         <View style={[styles.backArrow, props.backArrowStyle]}>
-          <TouchableOpacity onPress={props.goBack}>
-            <FontAwesome5Pro
-              size={32}
-              name='arrow-left'
-              color={AppConstants.ICON_BUTTON_COLOR}
-              light
-            />
-          </TouchableOpacity>
+          <Icon
+            size={32}
+            name='arrow-left'
+            color={AppConstants.ICON_BUTTON_COLOR}
+            onPress={props.goBack}
+            type='light'
+          />
         </View>
       ) : (
         <View style={styles.backArrow} />
@@ -490,7 +465,7 @@ export function AccountClosingBar (props) {
       {props.closeBar ? (
         <CloseForBar style={styles.closeIcon} {...props} />
       ) : (
-        <View />
+        <View style={styles.backArrow} />
       )}
     </View>
   )
@@ -615,13 +590,13 @@ export function AccountIconText (props) {
   return (
     <View style={styles.lockAccountTextPanelWithSmallText}>
       <View style={styles.lockAccountCheckmark}>
-        <FontAwesome5Pro
+        <Icon
           size={18}
           name={props.iconName ? props.iconName : 'check'}
           color={
             props.iconColor ? props.iconColor : AppConstants.CHECKBOX_COLOR
           }
-          light
+          type='light'
         />
       </View>
       <View>
@@ -825,12 +800,12 @@ export function AccountLockOption (props) {
         <P style={styles.accountLockOptionTextSmall} />
 
         {props.selected ? (
-          <FontAwesome5Pro
-            style={styles.accountLockCheckbox}
+          <Icon
+            containerStyle={styles.accountLockCheckbox}
             size={18}
             name='check'
             color='#85BE4D'
-            light
+            type='light'
           />
         ) : null}
       </View>

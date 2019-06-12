@@ -5,7 +5,7 @@ import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/common/FlashNotification'
 import LogStore from '../stores/LogStore'
 import AccountAPI from '../api/AccountAPI'
-import BlockchainAPIError from '../errors/BlockchainAPIError'
+import {ErrorsByMessage, Messages} from '../errors/BlockchainAPIError'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 
 export const Transaction = {
@@ -37,7 +37,7 @@ export const Transaction = {
         throw Error('No validation keys present')
       }
       if (isNaN(this._account.addressData.sequence)) {
-        throw new BlockchainAPIError('1001')
+        throw ErrorsByMessage[Messages.SRC_NO_HISTORY]
       }
 
       const sequence = await AccountAPI.getNextSequence(this._account.address)
@@ -55,11 +55,14 @@ export const Transaction = {
 
   handleError (msgOrErr) {
     LogStore.log(`Error from blockchain: ${msgOrErr}`)
-    FlashNotification.showError(
-      `Problem occurred sending a ${this.transactionType} for ${
-        this._account.addressData.nickname
-      }`
-    )
+    let msg = `Problem occurred sending a ${this.transactionType} for ${
+      this._account.addressData.nickname
+    }`
+    if (msgOrErr instanceof Error) {
+      // If it was an error, append the message to the flash message
+      msg += `: ${msgOrErr.message}`
+    }
+    FlashNotification.showError(msg)
     if (msgOrErr instanceof Error) {
       throw msgOrErr
     } else {
