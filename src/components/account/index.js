@@ -63,12 +63,12 @@ export function AccountPanel (props) {
                   containerStyle={styles.accountNicknameIcon}
                   type='light'
                 />
-                {props.accountNoticePeriod ? (
-                  props.accountLockedUntil ? (
+                {props.isAccountLocked ? (
+                  props.accountLockedUntil === null ? (
                     <Icon
                       name='clock'
                       size={18}
-                      color={AppConstants.ICON_BUTTON_COLOR}
+                      color={AppConstants.CAUTION_ICON_COLOR}
                       containerStyle={styles.accountNicknameIcon}
                       type='light'
                     />
@@ -76,7 +76,7 @@ export function AccountPanel (props) {
                     <Icon
                       name='clock'
                       size={18}
-                      color='#CC8727'
+                      color={AppConstants.ICON_BUTTON_COLOR}
                       containerStyle={styles.accountNicknameIcon}
                       type='light'
                     />
@@ -133,13 +133,20 @@ export function AccountDetailsContainer (props) {
   goBack = () => {
     props.navigation.goBack()
   }
+  const title = props.account.addressData
+    ? props.account.addressData.nickname
+    : 'Account'
   return (
     <MainContainer>
       <View style={{ flex: 1 }}>
         <AccountDetailsTitleBarGradient>
           <View style={styles.accountDetailsTitlePanel}>
-            <AccountDetailsBar goBack={() => goBack()} {...props} />
-            <FullBarBorder />
+            <AccountClosingBar
+              backArrowStyle={styles.backArrowForLock}
+              title={title}
+              backBar
+              goBack={this.goBack}
+            />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
         </AccountDetailsTitleBarGradient>
@@ -437,30 +444,6 @@ export function AccountDetailsPanel (props) {
   )
 }
 
-export function AccountDetailsBar (props) {
-  return (
-    <View style={styles.accountDetailsBarContainer}>
-      <View style={styles.backArrow}>
-        <Icon
-          size={32}
-          name='arrow-left'
-          color={AppConstants.ICON_BUTTON_COLOR}
-          containerStyle={styles.accountAngle}
-          onPress={props.goBack}
-          type='light'
-        />
-      </View>
-      <H4 style={[styles.accountDetailsBarText]}>
-        {props.account.addressData
-          ? props.account.addressData.nickname
-          : 'Account'}{' '}
-        details
-      </H4>
-      <View style={styles.detailsBarCog} />
-    </View>
-  )
-}
-
 export function AccountClosingBar (props) {
   return (
     <View style={styles.accountClosingBarContainer}>
@@ -482,7 +465,7 @@ export function AccountClosingBar (props) {
       {props.closeBar ? (
         <CloseForBar style={styles.closeIcon} {...props} />
       ) : (
-        <View />
+        <View style={styles.backArrow} />
       )}
     </View>
   )

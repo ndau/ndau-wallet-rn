@@ -84,7 +84,6 @@ class Authentication extends Component {
     this.setState({ spinner: true }, async () => {
       try {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
-        console.log(user)
         if (user) {
           FlashNotification.hideMessage()
           UserStore.setUser(user)
@@ -207,67 +206,65 @@ class Authentication extends Component {
     const { textInputColor } = this.state
     return (
       <LoginContainer>
-      <ImageBackground
-      style={{}}
-      source={require('img/bloom.png')}
-      imageStyle={styles.setupContainerBackgroundImage}
-    >
-        <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
-          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
+        <ImageBackground
+          style={{}}
+          source={require('img/bloom.png')}
+          imageStyle={styles.setupContainerBackgroundImage}
         >
-          <WaitingForBlockchainSpinner spinner={this.state.spinner} />
-          <View
-            style={{
-              height: this.state.keyboard ? '42%' : '42%'
-            }}
+          <KeyboardAvoidingView
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
+            behavior={Platform.OS === 'ios' ? 'height' : 'position'}
           >
-            <LoginImage />
-          </View>
-          <View style={{ minHeight: '30%' }}>
-            <LabelWithIcon
-              onPress={this.showInformation}
-              fontAwesomeIconName='info-circle'
+            <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+            <View
+              style={{
+                height: this.state.keyboard ? '42%' : '42%'
+              }}
             >
-              Password
-            </LabelWithIcon>
-            <TextInput
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-              placeholder='Enter your password...'
-              secureTextEntry
-              autoCapitalize='none'
-              onSubmitEditing={this.login}
-            />
-            <PasswordLinkText onPress={this.showPasswordReset}>
-              Forgot your password?
-            </PasswordLinkText>
-          </View>
+              <LoginImage />
+            </View>
+            <View style={{ minHeight: '30%' }}>
+              <LabelWithIcon
+                onPress={this.showInformation}
+                fontAwesomeIconName='info-circle'
+              >
+                Password
+              </LabelWithIcon>
+              <TextInput
+                onChangeText={password => this.setState({ password })}
+                value={this.state.password}
+                placeholder='Enter your password...'
+                secureTextEntry
+                autoCapitalize='none'
+                onSubmitEditing={this.login}
+              />
+              <PasswordLinkText onPress={this.showPasswordReset}>
+                Forgot your password?
+              </PasswordLinkText>
+            </View>
 
-          <View
-            style={{
-              ...Platform.select({
-                ios: {
-                  height: this.state.lowerHeightIOS
-                },
-                android: {
-                  height: this.state.lowerHeightAndroid
-                }
-              }),
-              flexDirection: 'column',
-              justifyContent: 'flex-end'
-            }}
-          >
-            <LargeButton sideMargins onPress={this.login}>
-              Login
-            </LargeButton>
-          </View>
-        </KeyboardAvoidingView>
+            <View
+              style={{
+                ...Platform.select({
+                  ios: {
+                    height: this.state.lowerHeightIOS
+                  },
+                  android: {
+                    height: this.state.lowerHeightAndroid
+                  }
+                }),
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+              }}
+            >
+              <LargeButton sideMargins onPress={this.login}>
+                Login
+              </LargeButton>
+            </View>
+          </KeyboardAvoidingView>
         </ImageBackground>
-        </LoginContainer>
-
+      </LoginContainer>
     )
-
   }
 }
 

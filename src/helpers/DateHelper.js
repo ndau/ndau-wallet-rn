@@ -15,7 +15,6 @@ const getDate = date => {
 }
 
 const getISODateTime = date => {
-  console.log(`TESTING ${date} ${moment(date)}`)
   return moment(date).format()
 }
 
