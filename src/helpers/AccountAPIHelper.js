@@ -7,9 +7,8 @@ import { DelegateTransaction } from '../transactions/DelegateTransaction'
 import { Transaction } from '../transactions/Transaction'
 import LogStore from '../stores/LogStore'
 import NodeAddressHelper from './NodeAddressHelper'
-import KeyPathHelper from './KeyPathHelper'
 import AppConfig from '../AppConfig'
-import KeyMaster from '../helpers/KeyMaster'
+import ValidationKeyMaster from '../helpers/ValidationKeyMaster'
 import APIAddressHelper from './APIAddressHelper'
 import moment from 'moment'
 
@@ -187,7 +186,7 @@ const addPrivateValidationKeyIfNotPresent = async (wallet, account) => {
       !account.validationKeys ||
       (account.validationKeys && account.validationKeys.length === 0)
     ) {
-      await KeyMaster.addValidationKey(wallet, account)
+      await ValidationKeyMaster.addValidationKey(wallet, account)
     }
 
     Object.assign(SetValidationTransaction.prototype, Transaction)
@@ -198,7 +197,7 @@ const addPrivateValidationKeyIfNotPresent = async (wallet, account) => {
     )
     await setValidationTransaction.createSignPrevalidateSubmit()
   } else {
-    await KeyPathHelper.recoveryValidationKey(
+    await ValidationKeyMaster.recoveryValidationKey(
       wallet,
       account,
       account.addressData.validationKeys
