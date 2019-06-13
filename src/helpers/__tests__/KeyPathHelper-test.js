@@ -456,7 +456,7 @@ const user = {
   }
 }
 
-test('test getRootAccountValidationKeyPath', async () => {
+test('test getLegacy2RootAccountValidationKeyPath', async () => {
   const wallet = user.wallets['2c963f83']
   const account1 =
     wallet.accounts['ndaabymd5p86e5bixjzh7zm45uin4yv64dmtqhzfpepvw922']
@@ -465,53 +465,53 @@ test('test getRootAccountValidationKeyPath', async () => {
   const account3 =
     wallet.accounts['ndanai5i3atctzm4w5mxjp24zxyk6aeihtf297i23rc3hs54']
 
-  expect(KeyPathHelper.getRootAccountValidationKeyPath(wallet, account1)).toBe(
-    `/44'/20036'/100/10000/7`
-  )
-  expect(KeyPathHelper.getRootAccountValidationKeyPath(wallet, account2)).toBe(
-    `/44'/20036'/100/10000/8`
-  )
-  expect(KeyPathHelper.getRootAccountValidationKeyPath(wallet, account3)).toBe(
-    `/44'/20036'/100/10000/12`
-  )
-})
-
-test('test getAccountValidationKeyPath', async () => {
-  const wallet = user.wallets['2c963f83']
-  const account1 =
-    wallet.accounts['ndaabymd5p86e5bixjzh7zm45uin4yv64dmtqhzfpepvw922']
-  const account2 =
-    wallet.accounts['ndamiu8mr8s4taux33r8eacmc9ahd6fz9wjf95shr7bedjrv']
-  const account3 =
-    wallet.accounts['ndanai5i3atctzm4w5mxjp24zxyk6aeihtf297i23rc3hs54']
-
-  expect(KeyPathHelper.getAccountValidationKeyPath(wallet, account1)).toBe(
-    `/44'/20036'/100/10000/7/1`
-  )
-  expect(KeyPathHelper.getAccountValidationKeyPath(wallet, account2)).toBe(
-    `/44'/20036'/100/10000/8/1`
-  )
-  expect(KeyPathHelper.getAccountValidationKeyPath(wallet, account3)).toBe(
-    `/44'/20036'/100/10000/12/1`
-  )
-})
-
-test('test getAccountValidationKeyPath with index', async () => {
-  const wallet = user.wallets['2c963f83']
-  const account1 =
-    wallet.accounts['ndaabymd5p86e5bixjzh7zm45uin4yv64dmtqhzfpepvw922']
-  const account2 =
-    wallet.accounts['ndamiu8mr8s4taux33r8eacmc9ahd6fz9wjf95shr7bedjrv']
-  const account3 =
-    wallet.accounts['ndanai5i3atctzm4w5mxjp24zxyk6aeihtf297i23rc3hs54']
-
-  expect(KeyPathHelper.getAccountValidationKeyPath(wallet, account1, 23)).toBe(
-    `/44'/20036'/100/10000/7/23`
-  )
-  expect(KeyPathHelper.getAccountValidationKeyPath(wallet, account2, 500)).toBe(
-    `/44'/20036'/100/10000/8/500`
-  )
   expect(
-    KeyPathHelper.getAccountValidationKeyPath(wallet, account3, 10000000)
+    KeyPathHelper.getLegacy2RootAccountValidationKeyPath(wallet, account1)
+  ).toBe(`/44'/20036'/100/10000/7`)
+  expect(
+    KeyPathHelper.getLegacy2RootAccountValidationKeyPath(wallet, account2)
+  ).toBe(`/44'/20036'/100/10000/8`)
+  expect(
+    KeyPathHelper.getLegacy2RootAccountValidationKeyPath(wallet, account3)
+  ).toBe(`/44'/20036'/100/10000/12`)
+})
+
+test('test getLegacy2AccountValidationKeyPath', async () => {
+  const wallet = user.wallets['2c963f83']
+  const account1 =
+    wallet.accounts['ndaabymd5p86e5bixjzh7zm45uin4yv64dmtqhzfpepvw922']
+  const account2 =
+    wallet.accounts['ndamiu8mr8s4taux33r8eacmc9ahd6fz9wjf95shr7bedjrv']
+  const account3 =
+    wallet.accounts['ndanai5i3atctzm4w5mxjp24zxyk6aeihtf297i23rc3hs54']
+
+  expect(
+    KeyPathHelper.getLegacy2AccountValidationKeyPath(wallet, account1)
+  ).toBe(`/44'/20036'/100/10000/7/1`)
+  expect(
+    KeyPathHelper.getLegacy2AccountValidationKeyPath(wallet, account2)
+  ).toBe(`/44'/20036'/100/10000/8/1`)
+  expect(
+    KeyPathHelper.getLegacy2AccountValidationKeyPath(wallet, account3)
+  ).toBe(`/44'/20036'/100/10000/12/1`)
+})
+
+test('test getLegacy2AccountValidationKeyPath with index', async () => {
+  const wallet = user.wallets['2c963f83']
+  const account1 =
+    wallet.accounts['ndaabymd5p86e5bixjzh7zm45uin4yv64dmtqhzfpepvw922']
+  const account2 =
+    wallet.accounts['ndamiu8mr8s4taux33r8eacmc9ahd6fz9wjf95shr7bedjrv']
+  const account3 =
+    wallet.accounts['ndanai5i3atctzm4w5mxjp24zxyk6aeihtf297i23rc3hs54']
+
+  expect(
+    KeyPathHelper.getLegacy2AccountValidationKeyPath(wallet, account1, 23)
+  ).toBe(`/44'/20036'/100/10000/7/23`)
+  expect(
+    KeyPathHelper.getLegacy2AccountValidationKeyPath(wallet, account2, 500)
+  ).toBe(`/44'/20036'/100/10000/8/500`)
+  expect(
+    KeyPathHelper.getLegacy2AccountValidationKeyPath(wallet, account3, 10000000)
   ).toBe(`/44'/20036'/100/10000/12/10000000`)
 })

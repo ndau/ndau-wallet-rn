@@ -26,6 +26,10 @@ deriveFrom
   .withArgs('*suppressed*', `/44'/20036'/100`, `/44'/20036'/100/10000`)
   .returns('root')
 
+deriveFrom
+  .withArgs('*suppressed*', `/44'/20036'/100`, `/44'/20036'/100/10000'`)
+  .returns('root')
+
 const testWallet7MP4FVStart = {
   walletId: 'Wallet 1',
   accountCreationKeyHash: '308c3bc3',
@@ -153,6 +157,41 @@ const testWallet7MP4FVStart = {
       },
       ownershipKey: 'f2fb495a',
       validationKeys: []
+    },
+    ndagxwdab8xcqugwnsyg6nzvvw9faun6ah5fx6w7r7ee98h6: {
+      address: 'ndagxwdab8xcqugwnsyg6nzvvw9faun6ah5fx6w7r7ee98h6',
+      addressData: {
+        balance: 200000000,
+        validationKeys: null,
+        validationScript: null,
+        rewardsTarget: null,
+        incomingRewardsFrom: null,
+        delegationNode: null,
+        lock: null,
+        lastEAIUpdate: '2019-06-13T13:55:18Z',
+        lastWAAUpdate: '2019-06-13T13:55:18Z',
+        weightedAverageAge: 't3m56s998031us',
+        sequence: 0,
+        stake_rules: null,
+        costakers: {},
+        holds: [
+          {
+            qty: 200000000,
+            expiry: '2019-06-13T14:55:18Z',
+            tx_hash: '14lNHI2fLRuAk4RnCpl6NQ',
+            stake: null
+          }
+        ],
+        recourseSettings: { period: 't1h', changes_at: null, next: null },
+        currencySeatDate: null,
+        parent: null,
+        progenitor: null,
+        nickname: 'Account 98h6',
+        walletId: 'Wallet 4',
+        eaiValueForDisplay: 0
+      },
+      ownershipKey: '569f6154',
+      validationKeys: []
     }
   },
   keys: {
@@ -190,12 +229,21 @@ const testWallet7MP4FVStart = {
       privateKey: '*suppressed*',
       path: "/44'/20036'/100/3",
       derivedFromRoot: 'yes'
+    },
+    '569f6154': {
+      publicKey:
+        'npuba4jaftckeebpwg4zs7zknwftppzazp5etsm9d44fndf5z7xyeb3g4ipn23xxpxaebgfnuaaaaadcaiadxhwk5wth3hg58v82suv99p5ck3pheqk6hrzjqbkps9v9bti76nhkfa35',
+      privateKey: '*suppressed*',
+      path: "/44'/20036'/100/6",
+      derivedFromRoot: 'yes'
     }
   }
 }
 
-test('addValidationKey test for no validationKey', async () => {
-  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+const cloneOf7MP4FVStart = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+
+test('addValidationKey test for no validationKey and make sure we index properly', async () => {
+  const wallet = cloneOf7MP4FVStart
   const account =
     wallet.accounts['ndafxgxquvuzrmrungp3kgn5jnsgptxd7th67ymxxwsscech']
   const keysLength = Object.keys(wallet.keys).length
@@ -203,7 +251,7 @@ test('addValidationKey test for no validationKey', async () => {
   expect(account.validationKeys.length).toBe(0)
 
   deriveFrom
-    .withArgs('root', `/44'/20036'/100/10000/4`, `/44'/20036'/100/10000/4/1`)
+    .withArgs('root', `/44'/20036'/100/10000'`, `/44'/20036'/100/10000'/4'/1`)
     .returns('validation1')
   toPublic.withArgs('validation1').returns('pubVal1')
 
@@ -215,8 +263,31 @@ test('addValidationKey test for no validationKey', async () => {
   expect(wallet.keys['c9a80d6d'].publicKey).toBe('pubVal1')
 })
 
-test('addValidationKey test an account which will be recovered', async () => {
-  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+test('addValidationKey test for no validationKey and make sure we index properly', async () => {
+  // THIS time do not create a new instance and make sure that
+  // we index the validation key propertly
+  const wallet = cloneOf7MP4FVStart
+  const account =
+    wallet.accounts['ndagxwdab8xcqugwnsyg6nzvvw9faun6ah5fx6w7r7ee98h6']
+  const keysLength = Object.keys(wallet.keys).length
+
+  expect(account.validationKeys.length).toBe(0)
+
+  deriveFrom
+    .withArgs('root', `/44'/20036'/100/10000'`, `/44'/20036'/100/10000'/6'/1`)
+    .returns('validation6')
+  toPublic.withArgs('validation6').returns('pubVal6')
+
+  await ValidationKeyMaster.addValidationKey(wallet, account)
+
+  expect(account.validationKeys.length).toBe(1)
+  expect(Object.keys(wallet.keys).length).toBe(keysLength + 1)
+  expect(wallet.keys['c4b2f182'].privateKey).toBe('validation6')
+  expect(wallet.keys['c4b2f182'].publicKey).toBe('pubVal6')
+})
+
+test('addValidationKey test an account which will be recovered, this is just to test gen', async () => {
+  const wallet = cloneOf7MP4FVStart
   const account =
     wallet.accounts['ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3']
   const keysLength = Object.keys(wallet.keys).length
@@ -224,19 +295,79 @@ test('addValidationKey test an account which will be recovered', async () => {
   expect(account.validationKeys.length).toBe(0)
 
   deriveFrom
-    .withArgs('root', `/44'/20036'/100/10000/3`, `/44'/20036'/100/10000/3/1`)
-    .returns('validation2')
-  toPublic.withArgs('validation2').returns('pubVal2')
+    .withArgs('root', `/44'/20036'/100/10000'`, `/44'/20036'/100/10000'/3'/1`)
+    .returns('validation3')
+  toPublic.withArgs('validation3').returns('pubVal3')
 
   await ValidationKeyMaster.addValidationKey(wallet, account)
 
   expect(account.validationKeys.length).toBe(1)
   expect(Object.keys(wallet.keys).length).toBe(keysLength + 1)
-  expect(wallet.keys['8860ffd9'].privateKey).toBe('validation2')
-  expect(wallet.keys['8860ffd9'].publicKey).toBe('pubVal2')
+  expect(wallet.keys['1f973fb8'].privateKey).toBe('validation3')
+  expect(wallet.keys['1f973fb8'].publicKey).toBe('pubVal3')
 })
 
-test('recoverValidationKeys with a genesis account', async () => {
+test('recoverValidationKeys with a genesis account found in legacy1', async () => {
+  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+  const account =
+    wallet.accounts['ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4']
+
+  // mock out legacy 1
+  for (let i = 0; i < 30; i++) {
+    if (i === 28) {
+      deriveFrom
+        .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
+        .returns(`validationRoot${i}`)
+      toPublic
+        .withArgs(`validationRoot${i}`)
+        .returns(
+          `npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi`
+        )
+    } else {
+      deriveFrom
+        .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
+        .returns(`validationRoot${i}`)
+      toPublic.withArgs(`validationRoot${i}`).returns(`pubVal${i}`)
+    }
+  }
+
+  // mock out legacy 2
+  for (let i = 0; i < 30; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000/1`,
+        `/44'/20036'/100/10000/1/${i}`
+      )
+      .returns(`validation${i}`)
+    toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
+  }
+
+  // mock out hardened and current
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000'`,
+        `/44'/20036'/100/10000'/1'/${i}`
+      )
+      .returns(`validation${i}`)
+    toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
+  }
+
+  await ValidationKeyMaster.recoveryValidationKey(
+    wallet,
+    account,
+    account.addressData.validationKeys
+  )
+
+  expect(wallet.keys['ec2761b6'].privateKey).toBe('validationRoot28')
+  expect(wallet.keys['ec2761b6'].path).toBe(
+    `/44'/20036'/100/1/44'/20036'/2000/28`
+  )
+})
+
+test('recoverValidationKeys with a genesis account found in legacy2', async () => {
   const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
   const account =
     wallet.accounts['ndac6k7vxp5majxe8ed2wagp2dw8ip8ce3mwxeuttym9c9ze']
@@ -256,9 +387,9 @@ test('recoverValidationKeys with a genesis account', async () => {
           `/44'/20036'/100/10000/2`,
           `/44'/20036'/100/10000/2/${i}`
         )
-        .returns(`validation${i}`)
+        .returns(`validationLegacy${i}`)
       toPublic
-        .withArgs(`validation${i}`)
+        .withArgs(`validationLegacy${i}`)
         .returns(
           `npuba4jaftckeeba47fzizq3gs2vnnawj329tkiuh4xi2u8gurh3y2vu8jgbvndeh9sieut3eaaaaaaxrtumjidjk2y6fcdsb6rdy5gc9yfptsexhan92ch373d52z7y8izmz8j7rddg`
         )
@@ -268,6 +399,76 @@ test('recoverValidationKeys with a genesis account', async () => {
           'root',
           `/44'/20036'/100/10000/2`,
           `/44'/20036'/100/10000/2/${i}`
+        )
+        .returns(`validationLegacy${i}`)
+      toPublic.withArgs(`validationLegacy${i}`).returns(`pubValLegacy${i}`)
+    }
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000'`,
+        `/44'/20036'/100/10000'/2'/${i}`
+      )
+      .returns(`validation${i}`)
+    toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
+  }
+
+  await ValidationKeyMaster.recoveryValidationKey(
+    wallet,
+    account,
+    account.addressData.validationKeys
+  )
+
+  expect(wallet.keys['f5663a94'].privateKey).toBe('validationLegacy5')
+  expect(wallet.keys['f5663a94'].path).toBe(`/44'/20036'/100/10000/2/5`)
+})
+
+test('recoverValidationKeys with a genesis account found in current', async () => {
+  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+  const account =
+    wallet.accounts['ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4']
+
+  for (let i = 0; i < 30; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
+      .returns(`validationRoot${i}`)
+    toPublic.withArgs(`validationRoot${i}`).returns(`pubVal${i}`)
+  }
+
+  for (let i = 0; i < 30; i++) {
+    deriveFrom
+      .withArgs(
+        '*suppressed*',
+        `/44'/20036'/100/10000/1`,
+        `/44'/20036'/100/10000/1/${i}`
+      )
+      .returns(`validationLegacy${i}`)
+    toPublic.withArgs(`validationLegacy${i}`).returns(`pubValLegacy${i}`)
+  }
+
+  for (let i = 0; i < 50; i++) {
+    if (i === 43) {
+      deriveFrom
+        .withArgs(
+          'root',
+          `/44'/20036'/100/10000'`,
+          `/44'/20036'/100/10000'/1'/${i}`
+        )
+        .returns(`validation${i}`)
+      toPublic
+        .withArgs(`validation${i}`)
+        .returns(
+          `npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi`
+        )
+    } else {
+      deriveFrom
+        .withArgs(
+          'root',
+          `/44'/20036'/100/10000'`,
+          `/44'/20036'/100/10000'/1'/${i}`
         )
         .returns(`validation${i}`)
       toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
@@ -280,54 +481,8 @@ test('recoverValidationKeys with a genesis account', async () => {
     account.addressData.validationKeys
   )
 
-  expect(wallet.keys['b837699c'].privateKey).toBe('validation5')
-  expect(wallet.keys['b837699c'].path).toBe(`/44'/20036'/100/10000/2/5`)
-})
-
-test('recoverValidationKeys with a genesis account', async () => {
-  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
-  const account =
-    wallet.accounts['ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4']
-
-  for (let i = 0; i < 30; i++) {
-    if (i === 28) {
-      deriveFrom
-        .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
-        .returns(`validationRoot${i}`)
-      toPublic
-        .withArgs(`validationRoot${i}`)
-        .returns(
-          `npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi`
-        )
-    } else {
-      deriveFrom
-        .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
-        .returns(`validationRoot${i}`)
-      toPublic.withArgs(`validationRoot${i}`).returns(`pubVal${i}`)
-    }
-  }
-
-  for (let i = 0; i < 30; i++) {
-    deriveFrom
-      .withArgs(
-        'root',
-        `/44'/20036'/100/10000/1`,
-        `/44'/20036'/100/10000/1/${i}`
-      )
-      .returns(`validation${i}`)
-    toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
-  }
-
-  await ValidationKeyMaster.recoveryValidationKey(
-    wallet,
-    account,
-    account.addressData.validationKeys
-  )
-
-  expect(wallet.keys['ec2761b6'].privateKey).toBe('validationRoot28')
-  expect(wallet.keys['ec2761b6'].path).toBe(
-    `/44'/20036'/100/1/44'/20036'/2000/28`
-  )
+  expect(wallet.keys['85845653'].privateKey).toBe('validation43')
+  expect(wallet.keys['85845653'].path).toBe(`/44'/20036'/100/10000'/1'/43`)
 })
 
 test('recoverValidationKeys with a new account', async () => {
@@ -345,7 +500,7 @@ test('recoverValidationKeys with a new account', async () => {
   for (let i = 0; i < 10; i++) {
     deriveFrom
       .withArgs(
-        'root',
+        '*suppressed*',
         `/44'/20036'/100/10000/4`,
         `/44'/20036'/100/10000/4/${i}`
       )
@@ -364,7 +519,7 @@ test('recoverValidationKeys with a new account', async () => {
   expect(wallet.keys.length).toBe(keyLength)
 })
 
-test('recoverValidationKeys with a simple account (only one validation key)', async () => {
+test('recoverValidationKeys with a simple account (only one validation key) finding legacy 2', async () => {
   const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
   const account =
     wallet.accounts['ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3']
@@ -402,6 +557,76 @@ test('recoverValidationKeys with a simple account (only one validation key)', as
     }
   }
 
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000'`,
+        `/44'/20036'/100/10000'/3'/${i}`
+      )
+      .returns(`validationCurrent${i}`)
+    toPublic.withArgs(`validationCurrent${i}`).returns(`pubValCurrent${i}`)
+  }
+
+  await ValidationKeyMaster.recoveryValidationKey(
+    wallet,
+    account,
+    account.addressData.validationKeys
+  )
+
+  expect(wallet.keys['b837699c'].privateKey).toBe('validation5')
+  expect(wallet.keys['b837699c'].path).toBe(`/44'/20036'/100/10000/3/5`)
+})
+
+test('recoverValidationKeys with a simple account (only one validation key) finding current', async () => {
+  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+  const account =
+    wallet.accounts['ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3']
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
+      .returns(`validationRoot${i}`)
+    toPublic.withArgs(`validationRoot${i}`).returns(`pubValRoot${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000/3`,
+        `/44'/20036'/100/10000/3/${i}`
+      )
+      .returns(`validation${i}`)
+    toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    if (i === 5) {
+      deriveFrom
+        .withArgs(
+          'root',
+          `/44'/20036'/100/10000'`,
+          `/44'/20036'/100/10000'/3'/${i}`
+        )
+        .returns(`validationCurrent${i}`)
+      toPublic
+        .withArgs(`validationCurrent${i}`)
+        .returns(
+          `npuba4jaftckeeb4v85jps39h79f8kfw8tnje2mx2b7496e99s5e3dk5mq8fefsfffsfzti4gaaaaaa3k3zqrfz6pe9gde3pa5yxjc9dz6aet25zpuyryy986fybetmgn9u224i4jp5t`
+        )
+    } else {
+      deriveFrom
+        .withArgs(
+          'root',
+          `/44'/20036'/100/10000'`,
+          `/44'/20036'/100/10000'/3'/${i}`
+        )
+        .returns(`validationCurrent${i}`)
+      toPublic.withArgs(`validationCurrent${i}`).returns(`pubValCurrent${i}`)
+    }
+  }
+
   await ValidationKeyMaster.recoveryValidationKey(
     wallet,
     account,
@@ -410,6 +635,47 @@ test('recoverValidationKeys with a simple account (only one validation key)', as
 
   console.log(`HERE: ${JSON.stringify(wallet, null, 2)}`)
 
-  expect(wallet.keys['b837699c'].privateKey).toBe('validation5')
-  expect(wallet.keys['b837699c'].path).toBe(`/44'/20036'/100/10000/3/5`)
+  // IT IS IMPORTANT to note that I used ndsh to check if generation of the
+  // new hardened key is the same key we generate, and it is. I ran this:
+  //   ndaab5bw9pc2x2xtm463bxquvmmt3vm6a3xmggfjtjdt2gwt (/44'/20036'/100/5):
+  // ndsh> show h6
+  // ndagxwdab8xcqugwnsyg6nzvvw9faun6ah5fx6w7r7ee98h6 (/44'/20036'/100/6):
+  // {
+  //   "balance": 195360000,
+  //   "validationKeys": [
+  //     "npuba4jaftckeebts34fs49p5k9i9nuadgtrimx74ny22hgnmeueenynjq6wbhte842ghgr2qaaaaaa4pmetm8hbj62sr72k5atac2vfr86brc9y5x4y5fgi4c7e76xvuaq5yr6sawc5"
+  //   ],
+  //   "validationScript": null,
+  //   "rewardsTarget": null,
+  //   "incomingRewardsFrom": null,
+  //   "delegationNode": "ndaq3nqhez3vvxn8rx4m6s6n3kv7k9js8i3xw8hqnwvi2ete",
+  //   "lock": null,
+  //   "lastEAIUpdate": "2019-06-13T16:17:05Z",
+  //   "lastWAAUpdate": "2019-06-13T13:55:18Z",
+  //   "weightedAverageAge": "t2h32m57s620523us",
+  //   "sequence": 2,
+  //   "stake_rules": null,
+  //   "costakers": {},
+  //   "holds": null,
+  //   "recourseSettings": {
+  //     "period": "t1h",
+  //     "changes_at": null,
+  //     "next": null
+  //   },
+  //   "currencySeatDate": null,
+  //   "parent": null,
+  //   "progenitor": null
+  // }
+
+  // THEN the key generated in the wallet looks like this:
+  // '62c75ff6': {
+  //     publicKey:
+  //     'npuba4jaftckeebts34fs49p5k9i9nuadgtrimx74ny22hgnmeueenynjq6wbhte842ghgr2qaaaaaa4pmetm8hbj62sr72k5atac2vfr86brc9y5x4y5fgi4c7e76xvuaq5yr6sawc5',
+  //   privateKey: '*suppressed*',
+  //   path: "/44'/20036'/100/10000'/6'/1",
+  //   derivedFromRoot: 'yes'
+  // },
+
+  expect(wallet.keys['dfda6dc7'].privateKey).toBe('validationCurrent5')
+  expect(wallet.keys['dfda6dc7'].path).toBe(`/44'/20036'/100/10000'/3'/5`)
 })

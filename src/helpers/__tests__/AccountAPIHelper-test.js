@@ -529,9 +529,9 @@ test('make sure isAccountLocked sends false when lock information is present but
 })
 
 test('make sure isAccountLocked uses UTC time to check lock dates in the past', () => {
-  const utcTwoMinutesAgo = moment
+  const utcFiveMinutesAgo = moment
     .utc()
-    .subtract(2, 'minutes')
+    .subtract(5, 'minutes')
     .format('YYYY-MM-DDTHH:MM:SSZ')
   const account = {
     nickname: 'Account 1',
@@ -545,7 +545,7 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the past', 
     delegationNode: null,
     lock: {
       noticePeriod: 't1m',
-      unlocksOn: utcTwoMinutesAgo,
+      unlocksOn: utcFiveMinutesAgo,
       bonus: 0
     },
     stake: null,
@@ -566,6 +566,7 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the future'
     .utc()
     .add(5, 'minutes')
     .format()
+  console.log(`UTCFIVEAHEAD: ${utcFiveMinutesAhead}`)
   const account = {
     nickname: 'Account 1',
     balance: 420000000023,

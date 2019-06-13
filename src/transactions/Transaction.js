@@ -25,8 +25,8 @@ export const Transaction = {
       // change in the future, but for now, we only create one validation
       // key per account here
       if (
-        (this._account.validationKeys &&
-          this._account.validationKeys.length === 0) ||
+        this._account.validationKeys &&
+        this._account.validationKeys.length === 0 &&
         (this._account.addressData &&
           this._account.addressData.validationKeys === null)
       ) {

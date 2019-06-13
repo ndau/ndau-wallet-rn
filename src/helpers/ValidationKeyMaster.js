@@ -4,11 +4,12 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import { NativeModules } from 'react-native'
 import AppConfig from '../AppConfig'
 import LogStore from '../stores/LogStore'
+import FlashNotification from '../components/common/FlashNotification'
 
 /**
  * This method will generate a key object based on either
  * the nextIndex or a passed in index. This function MUST be used
- * when recovering legacy validation keys. As of the 1.8 ndau wallet
+ * when recovering first gen legacy validation keys. As of the 1.8 ndau wallet
  * we started to SetValidation (or now SetValidation). In doing this
  * we generate a validation key. The key generated in this method
  * is what was used initially. The path of the keys are:
@@ -22,14 +23,14 @@ import LogStore from '../stores/LogStore'
  * @param {Account} account
  * @param {number} index
  */
-const _generateLegacyValidationKey = async (wallet, account, index) => {
+const _generateLegacy1ValidationKey = async (wallet, account, index) => {
   if (!index) {
     index = DataFormatHelper.getNextPathIndex(
       wallet,
-      KeyPathHelper.legacyValidationKeyPath()
+      KeyPathHelper.legacyValidationKeyPath1()
     )
   }
-  const keyPath = KeyPathHelper.legacyValidationKeyPath() + `/${index}`
+  const keyPath = KeyPathHelper.legacyValidationKeyPath1() + `/${index}`
 
   const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
     wallet.keys[account.ownershipKey].privateKey,
@@ -50,10 +51,48 @@ const _generateLegacyValidationKey = async (wallet, account, index) => {
 }
 
 /**
+ * This is the correct method to use for generating the second generation of
+ * validation keys. The path for a validation key is as follows:
+ *
+ * `/44'/20036'/100/10000/x/y
+ *
+ * where x is the accounts index and y will be the validation key index
+ *
+ * @param {Wallet} wallet
+ * @param {Account} account
+ * @param {number} index
+ */
+const _generateLegacy2ValidationKey = async (wallet, account, index) => {
+  const privateValidationRootKey = await NativeModules.KeyaddrManager.deriveFrom(
+    wallet.keys[wallet.accountCreationKeyHash].privateKey,
+    KeyPathHelper.accountCreationKeyPath(),
+    KeyPathHelper.legacyValidationKeyPath2()
+  )
+
+  const keyPath = KeyPathHelper.getLegacy2AccountValidationKeyPath(
+    wallet,
+    account,
+    index
+  )
+
+  const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
+    privateValidationRootKey,
+    KeyPathHelper.getLegacy2RootAccountValidationKeyPath(wallet, account),
+    keyPath
+  )
+
+  const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
+    validationPrivateKey
+  )
+
+  return KeyMaster.createKey(validationPrivateKey, validationPublicKey, keyPath)
+}
+
+/**
  * This is the correct method to use for generating validation keys.
  * The path for a validation key is as follows:
  *
- * `/44'/20036'/100/10000/x/y
+ * `/44'/20036'/100/10000'/x'/y
  *
  * where x is the accounts index and y will be the validation key index
  *
@@ -76,7 +115,7 @@ const _generateValidationKey = async (wallet, account, index) => {
 
   const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
     privateValidationRootKey,
-    KeyPathHelper.getRootAccountValidationKeyPath(wallet, account),
+    KeyPathHelper.validationKeyPath(),
     keyPath
   )
 
@@ -111,9 +150,9 @@ const addThisValidationKey = (
   if (!keyPath) {
     const nextIndex = DataFormatHelper.getNextPathIndex(
       wallet,
-      KeyPathHelper.validationKeyPath()
+      KeyPathHelper.getRootAccountValidationKeyPath()
     )
-    keyPath = KeyPathHelper.validationKeyPath() + `/${nextIndex}`
+    keyPath = KeyPathHelper.getRootAccountValidationKeyPath() + `/${nextIndex}`
   }
   const validationKeyHash = DataFormatHelper.create8CharHash(
     validationPrivateKey
@@ -153,8 +192,11 @@ const getValidationKeys = async (
   try {
     for (let i = startIndex; i <= endIndex; i++) {
       if (legacy) {
-        const key = await _generateLegacyValidationKey(wallet, account, i)
-        keys[key.publicKey] = key
+        const key1 = await _generateLegacy1ValidationKey(wallet, account, i)
+        keys[key1.publicKey] = key1
+
+        const key2 = await _generateLegacy2ValidationKey(wallet, account, i)
+        keys[key2.publicKey] = key2
       } else {
         const key = await _generateValidationKey(wallet, account, i)
         keys[key.publicKey] = key
