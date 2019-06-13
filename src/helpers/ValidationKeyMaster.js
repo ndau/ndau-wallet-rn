@@ -54,7 +54,7 @@ const _generateLegacy1ValidationKey = async (wallet, account, index) => {
  * This is the correct method to use for generating the second generation of
  * validation keys. The path for a validation key is as follows:
  *
- * `/44'/20036'/100/10000/x/y
+ * `/44'/20036'/100/10000/y
  *
  * where x is the accounts index and y will be the validation key index
  *
