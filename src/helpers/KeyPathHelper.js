@@ -18,10 +18,6 @@ const validationKeyPath = () => {
   return accountCreationKeyPath() + '/' + AppConstants.VALIDATION_KEY + "'"
 }
 
-const legacyValidationKeyPath2 = () => {
-  return accountCreationKeyPath() + '/' + AppConstants.VALIDATION_KEY
-}
-
 const legacyValidationKeyPath1 = () => {
   return (
     '/' +
@@ -35,6 +31,18 @@ const legacyValidationKeyPath1 = () => {
   )
 }
 
+const legacyValidationKeyPath2 = () => {
+  return accountCreationKeyPath() + '/' + AppConstants.VALIDATION_KEY
+}
+
+const legacyValidationKeyPath3 = () => {
+  return accountCreationKeyPath() + '/' + AppConstants.VALIDATION_KEY
+}
+
+const legacyValidationKeyPath4 = () => {
+  return accountCreationKeyPath() + '/' + AppConstants.VALIDATION_KEY
+}
+
 const getRootAccountValidationKeyPath = (wallet, account) => {
   const accountPath = wallet.keys[account.ownershipKey].path
   const accountChildIndex = accountPath.substring(
@@ -45,7 +53,7 @@ const getRootAccountValidationKeyPath = (wallet, account) => {
   return `${validationKeyPath()}/${accountChildIndex}'`
 }
 
-const getLegacy2RootAccountValidationKeyPath = (wallet, account) => {
+const getLegacy2Thru4RootAccountValidationKeyPath = (wallet, account) => {
   const accountPath = wallet.keys[account.ownershipKey].path
   const accountChildIndex = accountPath.substring(
     accountCreationKeyPath().length + 1,
@@ -55,8 +63,8 @@ const getLegacy2RootAccountValidationKeyPath = (wallet, account) => {
   return `${legacyValidationKeyPath2()}/${accountChildIndex}`
 }
 
-const getLegacy2AccountValidationKeyPath = (wallet, account, index) => {
-  const rootAccountValidationPath = getLegacy2RootAccountValidationKeyPath(
+const getLegacy2Thru4AccountValidationKeyPath = (wallet, account, index) => {
+  const rootAccountValidationPath = getLegacy2Thru4RootAccountValidationKeyPath(
     wallet,
     account
   )
@@ -80,10 +88,12 @@ const getAccountValidationKeyPath = (wallet, account, index) => {
 export default {
   accountCreationKeyPath,
   validationKeyPath,
-  getLegacy2RootAccountValidationKeyPath,
-  getLegacy2AccountValidationKeyPath,
+  getLegacy2Thru4RootAccountValidationKeyPath,
+  getLegacy2Thru4AccountValidationKeyPath,
   legacyValidationKeyPath1,
   legacyValidationKeyPath2,
+  legacyValidationKeyPath3,
+  legacyValidationKeyPath4,
   getAccountValidationKeyPath,
   getRootAccountValidationKeyPath
 }

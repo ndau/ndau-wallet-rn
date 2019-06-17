@@ -355,6 +355,20 @@ test('recoverValidationKeys with a genesis account found in legacy1', async () =
     toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
   }
 
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('root', `/44'/20036'/100/10000`, `/44'/20036'/100/10000/1/${i}`)
+      .returns(`validationLegacy3${i}`)
+    toPublic.withArgs(`validationLegacy3${i}`).returns(`pubValLegacy3${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/1/${i}`)
+      .returns(`validationLegacy4${i}`)
+    toPublic.withArgs(`validationLegacy4${i}`).returns(`pubValLegacy4${i}`)
+  }
+
   await ValidationKeyMaster.recoveryValidationKey(
     wallet,
     account,
@@ -416,6 +430,20 @@ test('recoverValidationKeys with a genesis account found in legacy2', async () =
     toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
   }
 
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('root', `/44'/20036'/100/10000`, `/44'/20036'/100/10000/2/${i}`)
+      .returns(`validationLegacy3${i}`)
+    toPublic.withArgs(`validationLegacy3${i}`).returns(`pubValLegacy3${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/2/${i}`)
+      .returns(`validationLegacy4${i}`)
+    toPublic.withArgs(`validationLegacy4${i}`).returns(`pubValLegacy4${i}`)
+  }
+
   await ValidationKeyMaster.recoveryValidationKey(
     wallet,
     account,
@@ -475,6 +503,20 @@ test('recoverValidationKeys with a genesis account found in current', async () =
     }
   }
 
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('root', `/44'/20036'/100/10000`, `/44'/20036'/100/10000/1/${i}`)
+      .returns(`validationLegacy3${i}`)
+    toPublic.withArgs(`validationLegacy3${i}`).returns(`pubValLegacy3${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/1/${i}`)
+      .returns(`validationLegacy4${i}`)
+    toPublic.withArgs(`validationLegacy4${i}`).returns(`pubValLegacy4${i}`)
+  }
+
   await ValidationKeyMaster.recoveryValidationKey(
     wallet,
     account,
@@ -506,6 +548,20 @@ test('recoverValidationKeys with a new account', async () => {
       )
       .returns(`validation${i}`)
     toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('root', `/44'/20036'/100/10000`, `/44'/20036'/100/10000/4/${i}`)
+      .returns(`validationLegacy3${i}`)
+    toPublic.withArgs(`validationLegacy3${i}`).returns(`pubValLegacy3${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/4/${i}`)
+      .returns(`validationLegacy4${i}`)
+    toPublic.withArgs(`validationLegacy4${i}`).returns(`pubValLegacy4${i}`)
   }
 
   const keyLength = wallet.keys.length
@@ -568,6 +624,20 @@ test('recoverValidationKeys with a simple account (only one validation key) find
     toPublic.withArgs(`validationCurrent${i}`).returns(`pubValCurrent${i}`)
   }
 
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('root', `/44'/20036'/100/10000`, `/44'/20036'/100/10000/3/${i}`)
+      .returns(`validationLegacy3${i}`)
+    toPublic.withArgs(`validationLegacy3${i}`).returns(`pubValLegacy3${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/3/${i}`)
+      .returns(`validationLegacy4${i}`)
+    toPublic.withArgs(`validationLegacy4${i}`).returns(`pubValLegacy4${i}`)
+  }
+
   await ValidationKeyMaster.recoveryValidationKey(
     wallet,
     account,
@@ -576,6 +646,156 @@ test('recoverValidationKeys with a simple account (only one validation key) find
 
   expect(wallet.keys['b837699c'].privateKey).toBe('validation5')
   expect(wallet.keys['b837699c'].path).toBe(`/44'/20036'/100/10000/3/5`)
+})
+
+test('recoverValidationKeys with a simple account (only one validation key) finding legacy 3', async () => {
+  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+  const account =
+    wallet.accounts['ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3']
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
+      .returns(`validationRoot${i}`)
+    toPublic.withArgs(`validationRoot${i}`).returns(`pubValRoot${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000/3`,
+        `/44'/20036'/100/10000/3/${i}`
+      )
+      .returns(`validationLegacy2${i}`)
+    toPublic.withArgs(`validationLegacy2${i}`).returns(`pubValLegacy2${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000'`,
+        `/44'/20036'/100/10000'/3'/${i}`
+      )
+      .returns(`validationCurrent${i}`)
+    toPublic.withArgs(`validationCurrent${i}`).returns(`pubValCurrent${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    if (i === 5) {
+      deriveFrom
+        .withArgs(
+          'root',
+          `/44'/20036'/100/10000`,
+          `/44'/20036'/100/10000/3/${i}`
+        )
+        .returns(`validation${i}`)
+      toPublic
+        .withArgs(`validation${i}`)
+        .returns(
+          `npuba4jaftckeeb4v85jps39h79f8kfw8tnje2mx2b7496e99s5e3dk5mq8fefsfffsfzti4gaaaaaa3k3zqrfz6pe9gde3pa5yxjc9dz6aet25zpuyryy986fybetmgn9u224i4jp5t`
+        )
+    } else {
+      deriveFrom
+        .withArgs(
+          'root',
+          `/44'/20036'/100/10000`,
+          `/44'/20036'/100/10000/3/${i}`
+        )
+        .returns(`validation${i}`)
+      toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
+    }
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/3/${i}`)
+      .returns(`validationLegacy4${i}`)
+    toPublic.withArgs(`validationLegacy4${i}`).returns(`pubValLegacy4${i}`)
+  }
+
+  await ValidationKeyMaster.recoveryValidationKey(
+    wallet,
+    account,
+    account.addressData.validationKeys
+  )
+
+  expect(wallet.keys['b837699c'].privateKey).toBe('validation5')
+  expect(wallet.keys['b837699c'].path).toBe(`/44'/20036'/100/10000/3/5`)
+})
+
+test('recoverValidationKeys with a simple account (only one validation key) finding legacy 4', async () => {
+  const wallet = JSON.parse(JSON.stringify(testWallet7MP4FVStart))
+  const account =
+    wallet.accounts['ndajh3pt3appxib22sjf4ec6deu7mwgqph2jjd26i63iepp3']
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('*suppressed*', `/`, `/44'/20036'/2000/${i}`)
+      .returns(`validationRoot${i}`)
+    toPublic.withArgs(`validationRoot${i}`).returns(`pubValRoot${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000/3`,
+        `/44'/20036'/100/10000/3/${i}`
+      )
+      .returns(`validationLegacy2${i}`)
+    toPublic.withArgs(`validationLegacy2${i}`).returns(`pubValLegacy2${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs(
+        'root',
+        `/44'/20036'/100/10000'`,
+        `/44'/20036'/100/10000'/3'/${i}`
+      )
+      .returns(`validationCurrent${i}`)
+    toPublic.withArgs(`validationCurrent${i}`).returns(`pubValCurrent${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    deriveFrom
+      .withArgs('root', `/44'/20036'/100/10000`, `/44'/20036'/100/10000/3/${i}`)
+      .returns(`validationLegacy3${i}`)
+    toPublic.withArgs(`validationLegacy3${i}`).returns(`pubValLegacy3${i}`)
+  }
+
+  for (let i = 0; i < 10; i++) {
+    if (i === 5) {
+      deriveFrom
+        .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/3/${i}`)
+        .returns(`validation${i}`)
+      toPublic
+        .withArgs(`validation${i}`)
+        .returns(
+          `npuba4jaftckeeb4v85jps39h79f8kfw8tnje2mx2b7496e99s5e3dk5mq8fefsfffsfzti4gaaaaaa3k3zqrfz6pe9gde3pa5yxjc9dz6aet25zpuyryy986fybetmgn9u224i4jp5t`
+        )
+    } else {
+      deriveFrom
+        .withArgs('*suppressed*', `/`, `/44'/20036'/100/10000/3/${i}`)
+        .returns(`validation${i}`)
+      toPublic.withArgs(`validation${i}`).returns(`pubVal${i}`)
+    }
+  }
+
+  await ValidationKeyMaster.recoveryValidationKey(
+    wallet,
+    account,
+    account.addressData.validationKeys
+  )
+
+  console.log(`HERE: ${JSON.stringify(wallet, null, 2)}`)
+
+  expect(wallet.keys['b837699c'].privateKey).toBe('validation5')
+  expect(wallet.keys['b837699c'].path).toBe(
+    `/44'/20036'/100/3/44'/20036'/100/10000/3/5`
+  )
 })
 
 test('recoverValidationKeys with a simple account (only one validation key) finding current', async () => {
@@ -632,8 +852,6 @@ test('recoverValidationKeys with a simple account (only one validation key) find
     account,
     account.addressData.validationKeys
   )
-
-  console.log(`HERE: ${JSON.stringify(wallet, null, 2)}`)
 
   // IT IS IMPORTANT to note that I used ndsh to check if generation of the
   // new hardened key is the same key we generate, and it is. I ran this:

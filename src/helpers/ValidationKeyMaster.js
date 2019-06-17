@@ -51,7 +51,7 @@ const _generateLegacy1ValidationKey = async (wallet, account, index) => {
 }
 
 /**
- * This is the correct method to use for generating the second generation of
+ * This is the correct method to use for creating the second generation of
  * validation keys. The path for a validation key is as follows:
  *
  * `/44'/20036'/100/10000/y
@@ -69,7 +69,7 @@ const _generateLegacy2ValidationKey = async (wallet, account, index) => {
     KeyPathHelper.legacyValidationKeyPath2()
   )
 
-  const keyPath = KeyPathHelper.getLegacy2AccountValidationKeyPath(
+  const keyPath = KeyPathHelper.getLegacy2Thru4AccountValidationKeyPath(
     wallet,
     account,
     index
@@ -77,7 +77,7 @@ const _generateLegacy2ValidationKey = async (wallet, account, index) => {
 
   const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
     privateValidationRootKey,
-    KeyPathHelper.getLegacy2RootAccountValidationKeyPath(wallet, account),
+    KeyPathHelper.getLegacy2Thru4RootAccountValidationKeyPath(wallet, account),
     keyPath
   )
 
@@ -86,6 +86,84 @@ const _generateLegacy2ValidationKey = async (wallet, account, index) => {
   )
 
   return KeyMaster.createKey(validationPrivateKey, validationPublicKey, keyPath)
+}
+
+/**
+ * This is the correct method to use for creating the third generation of
+ * validation keys. This is a variation of the first and was the correct way
+ * to do the former validation key. The path for a validation key is as follows:
+ *
+ * `/44'/20036'/100/10000/x/y
+ *
+ * where x is the accounts index and y will be the validation key index
+ *
+ * @param {Wallet} wallet
+ * @param {Account} account
+ * @param {number} index
+ */
+const _generateLegacy3ValidationKey = async (wallet, account, index) => {
+  const privateValidationRootKey = await NativeModules.KeyaddrManager.deriveFrom(
+    wallet.keys[wallet.accountCreationKeyHash].privateKey,
+    KeyPathHelper.accountCreationKeyPath(),
+    KeyPathHelper.legacyValidationKeyPath3()
+  )
+
+  const keyPath = KeyPathHelper.getLegacy2Thru4AccountValidationKeyPath(
+    wallet,
+    account,
+    index
+  )
+
+  const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
+    privateValidationRootKey,
+    KeyPathHelper.legacyValidationKeyPath3(),
+    keyPath
+  )
+
+  const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
+    validationPrivateKey
+  )
+
+  return KeyMaster.createKey(validationPrivateKey, validationPublicKey, keyPath)
+}
+
+/**
+ * This is the correct method to use for creating a forth generation
+ * validation key. This is to address a ndautool bug that was present.
+ * It is a variation of the ndau bug generated in the first generation.
+ *
+ * /44'/20036'/100/x/44'/20036'/100/10000/x/y
+ *
+ * where x is the accounts index and y will be the validation key
+ * index.
+ *
+ * @param {Wallet} wallet
+ * @param {Account} account
+ * @param {number} index
+ */
+const _generateLegacy4ValidationKey = async (wallet, account, index) => {
+  const keyPath = KeyPathHelper.getLegacy2Thru4AccountValidationKeyPath(
+    wallet,
+    account,
+    index
+  )
+
+  const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
+    wallet.keys[account.ownershipKey].privateKey,
+    '/',
+    keyPath
+  )
+
+  const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
+    validationPrivateKey
+  )
+
+  const actualPath = wallet.keys[account.ownershipKey].path + keyPath
+  return KeyMaster.createKey(
+    validationPrivateKey,
+    validationPublicKey,
+    actualPath
+  )
 }
 
 /**
@@ -178,29 +256,26 @@ const addThisValidationKey = (
  * start searching for validation keys
  * @param {number} endIndex what index in the derivation path to
  * end the search for validation keys
- * @param {boolean} legacy
  */
-const getValidationKeys = async (
-  wallet,
-  account,
-  startIndex,
-  endIndex,
-  legacy
-) => {
+const getValidationKeys = async (wallet, account, startIndex, endIndex) => {
   const keys = {}
 
   try {
     for (let i = startIndex; i <= endIndex; i++) {
-      if (legacy) {
-        const key1 = await _generateLegacy1ValidationKey(wallet, account, i)
-        keys[key1.publicKey] = key1
+      const legacyKey1 = await _generateLegacy1ValidationKey(wallet, account, i)
+      keys[legacyKey1.publicKey] = legacyKey1
 
-        const key2 = await _generateLegacy2ValidationKey(wallet, account, i)
-        keys[key2.publicKey] = key2
-      } else {
-        const key = await _generateValidationKey(wallet, account, i)
-        keys[key.publicKey] = key
-      }
+      const legacyKey2 = await _generateLegacy2ValidationKey(wallet, account, i)
+      keys[legacyKey2.publicKey] = legacyKey2
+
+      const legacyKey3 = await _generateLegacy3ValidationKey(wallet, account, i)
+      keys[legacyKey3.publicKey] = legacyKey3
+
+      const legacyKey4 = await _generateLegacy4ValidationKey(wallet, account, i)
+      keys[legacyKey4.publicKey] = legacyKey4
+
+      const currentKey = await _generateValidationKey(wallet, account, i)
+      keys[currentKey.publicKey] = currentKey
     }
   } catch (error) {
     FlashNotification.showError(
@@ -217,18 +292,19 @@ const getValidationKeys = async (
 /**
  * Given the validation keys passed in, iterate the wallet to recover
  * the private keys if not present. The search firsts looks in the
- * legacy validation location:
+ * legacy validation locations:
  *
  * /44'/20036'/100/x/44'/20036'/2000/y
+ * /44'/20036'/100/10000/y
+ * /44'/20036'/100/x/44'/20036'/100/10000/x/y
+ * /44'/20036'/100/10000/x/y
  *
  * where x is the accounts index and y will be the validation key
  * index.
  *
- * We then search in the proper/current validation location:
+ * The most recent and correct path to check is:
  *
- * `/44'/20036'/100/10000/x/y
- *
- * where x is the accounts index and y will be the validation key index
+ * /44'/20036'/100/10000'/x'/y
  *
  * @param {Wallet} wallet
  * @param {Account} account
@@ -239,11 +315,12 @@ const recoveryValidationKey = async (wallet, account, validationKeys) => {
   if (
     validationKeys &&
     account.validationKeys &&
-    validationKeys.length !== account.validationKeys.length
+    account.validationKeys.length === 0
   ) {
     LogStore.log(
       `Attempting to find the private key for the public validation key we have...`
     )
+    LogStore.log(`This is for ${wallet.walletId} address ${account.address}`)
     for (const validationKey of validationKeys) {
       let startIndex = AppConfig.VALIDATION_KEY_SEARCH_START_INDEX
       let endIndex = AppConfig.NUMBER_OF_KEYS_TO_GRAB_ON_RECOVERY
@@ -257,22 +334,6 @@ const recoveryValidationKey = async (wallet, account, validationKeys) => {
           account,
           startIndex,
           endIndex
-        )
-        found = _checkValidationKeys(
-          wallet,
-          account,
-          validationKeys,
-          validationKey,
-          found
-        )
-
-        // NOW check the legacy keys
-        validationKeys = await getValidationKeys(
-          wallet,
-          account,
-          startIndex,
-          endIndex,
-          true
         )
         found = _checkValidationKeys(
           wallet,
