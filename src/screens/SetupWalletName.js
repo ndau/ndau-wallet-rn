@@ -3,8 +3,12 @@ import SetupStore from '../stores/SetupStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import UserStore from '../stores/UserStore'
 import { SetupContainer } from '../components/setup'
-import FlashNotification from '../components/common/FlashNotification'
-import { LargeButtons, TextInput, ParagraphText } from '../components/common'
+import {
+  LargeButtons,
+  TextInput,
+  ParagraphText,
+  FlashNotification
+} from '../components/common'
 import { KeyboardAvoidingView, View, Platform } from 'react-native'
 
 class SetupWalletName extends Component {

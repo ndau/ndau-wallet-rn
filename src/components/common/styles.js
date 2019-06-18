@@ -31,7 +31,6 @@ export default StyleSheet.create({
     width: '10%'
   },
   setupButtonContainerBottom: {
-    position: 'absolute',
     bottom: 0,
     borderRadius: 4,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
@@ -47,7 +46,6 @@ export default StyleSheet.create({
     maxHeight: hp('7%')
   },
   setupButtonContainerBottomNoBorder: {
-    position: 'absolute',
     bottom: hp('2%')
   },
   setupButtonContainerScrollView: {

@@ -102,7 +102,6 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   recoveryConfirmationContainer: {
-    position: 'absolute',
     top: hp('9%'),
     left: 0,
     right: 0,
