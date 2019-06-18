@@ -17,7 +17,7 @@ test('handle the case were we have not taken up the full array yet', async () =>
       fileData.push(data)
       if (data == '8') {
         expect(fileData.length).toBe(8)
-        expect(fileData).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
+        expect(fileData).toEqual(['1', '2', '3', '4', '5', '6', '7', '8'])
       }
     }
   }
@@ -39,7 +39,7 @@ test('handle the case were we have just filled the array', async () => {
       fileData.push(data)
       if (data == '5') {
         expect(fileData.length).toBe(5)
-        expect(fileData).toEqual([1, 2, 3, 4, 5])
+        expect(fileData).toEqual(['1', '2', '3', '4', '5'])
       }
     }
   }
@@ -64,7 +64,7 @@ test('do not grow the array as entries get added', async () => {
       fileData.push(data)
       if (data == '8') {
         expect(fileData.length).toBe(5)
-        expect(fileData).toEqual([4, 5, 6, 7, 8])
+        expect(fileData).toEqual(['4', '5', '6', '7', '8'])
       }
     }
   }

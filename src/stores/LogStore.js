@@ -73,7 +73,7 @@ class LogStore {
     }
 
     try {
-      this.log(`Attemping to write ${absolutePath}...`)
+      this.log(`Attempting to write ${path}...`)
       await this._logData.writeArrayToFile(rnfs, path)
     } catch (error) {
       this.log(error)
@@ -84,7 +84,7 @@ class LogStore {
 
   async deleteLogFile (path) {
     try {
-      this.log(`Attemping to remove ${path}...`)
+      this.log(`Attempting to remove ${path}...`)
       await rnfs.unlink(path)
     } catch (error) {
       this.log(error)
