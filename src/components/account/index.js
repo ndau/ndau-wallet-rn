@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  View,
-  TouchableOpacity,
-  Share,
-  Text,
-  Linking,
-  Platform
-} from 'react-native'
+import { View, TouchableOpacity, Text, Linking, Platform } from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -29,6 +22,8 @@ import ndaujs from 'ndaujs'
 import AppConfig from '../../AppConfig'
 import NdauNumber from '../../helpers/NdauNumber'
 import { DrawerHeader } from '../drawer'
+import Share from 'react-native-share'
+import LogStore from '../../stores/LogStore'
 
 export function AccountPanel (props) {
   const accountAmount = new NdauNumber(
@@ -845,17 +840,15 @@ export function AddressSharePanel (props) {
   const address = props.address
   const truncatedAddress = ndaujs.truncateAddress(address)
 
-  share = address => {
-    Share.share(
-      {
+  share = async address => {
+    try {
+      await Share.open({
         message: address,
-        title: 'ndau address',
-        url: '/'
-      },
-      {
-        dialogTitle: 'ndau address'
-      }
-    )
+        title: 'ndau address'
+      })
+    } catch (error) {
+      LogStore.log(error)
+    }
   }
 
   let transparentBackground = {}

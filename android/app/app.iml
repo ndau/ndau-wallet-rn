@@ -174,17 +174,18 @@
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.15.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0@jar" level="project" />
-    <orderEntry type="module" module-name="react-native-securerandom" />
-    <orderEntry type="module" module-name="react-native-mail" />
     <orderEntry type="module" module-name="react-native-linear-gradient" />
     <orderEntry type="module" module-name="react-native-svg" />
-    <orderEntry type="module" module-name="react-native-version-number" />
-    <orderEntry type="module" module-name="react-native-gesture-handler" />
-    <orderEntry type="module" module-name="react-native-camera" />
     <orderEntry type="module" module-name="react-native-fs" />
-    <orderEntry type="module" module-name="@react-native-community_async-storage" />
     <orderEntry type="module" module-name="react-native-push-notification" />
     <orderEntry type="module" module-name="react-native-device-info" />
     <orderEntry type="module" module-name="react-native-background-fetch" />
+    <orderEntry type="module" module-name="react-native-securerandom" />
+    <orderEntry type="module" module-name="react-native-mail" />
+    <orderEntry type="module" module-name="react-native-share" />
+    <orderEntry type="module" module-name="react-native-version-number" />
+    <orderEntry type="module" module-name="react-native-gesture-handler" />
+    <orderEntry type="module" module-name="react-native-camera" />
+    <orderEntry type="module" module-name="@react-native-community_async-storage" />
   </component>
 </module>
