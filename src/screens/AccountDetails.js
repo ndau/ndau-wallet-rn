@@ -219,12 +219,21 @@ class AccountDetails extends Component {
                     Will unlock on {accountLockedUntil}
                   </AccountParagraphText>
                 ) : null}
-                <AccountParagraphText
-                  customIconColor={AppConstants.WARNING_ICON_COLOR}
-                  customIconName='exclamation-circle'
-                >
-                  You cannot send or receive
-                </AccountParagraphText>
+                {isAccountLocked && accountLockedUntil === null ? (
+                  <AccountParagraphText
+                    customIconColor={AppConstants.WARNING_ICON_COLOR}
+                    customIconName='exclamation-circle'
+                  >
+                    You cannot send
+                  </AccountParagraphText>
+                ) : (
+                  <AccountParagraphText
+                    customIconColor={AppConstants.WARNING_ICON_COLOR}
+                    customIconName='exclamation-circle'
+                  >
+                    You cannot send or receive
+                  </AccountParagraphText>
+                )}
               </View>
             ) : null}
             {receivingEAIFrom ? (

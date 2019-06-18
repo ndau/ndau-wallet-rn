@@ -72,17 +72,29 @@ export default class CircularArray {
       // the array is not filled up yet...so we iterate between
       // the head and tail
       for (let i = this._head; i <= this._tail; i++) {
-        await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
+        await fileIO.appendFile(
+          absolutePath,
+          JSON.stringify(this._array[i]),
+          'utf8'
+        )
       }
     } else {
       // write the old entries
       for (let i = this._head; i < this._array.length; i++) {
-        await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
+        await fileIO.appendFile(
+          absolutePath,
+          JSON.stringify(this._array[i]),
+          'utf8'
+        )
       }
 
       // write the new ones
       for (let i = 0; i <= this._tail; i++) {
-        await fileIO.appendFile(absolutePath, this._array[i], 'utf8')
+        await fileIO.appendFile(
+          absolutePath,
+          JSON.stringify(this._array[i]),
+          'utf8'
+        )
       }
     }
   }
