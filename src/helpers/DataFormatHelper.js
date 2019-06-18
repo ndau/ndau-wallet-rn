@@ -4,6 +4,7 @@ import sha256 from 'crypto-js/sha256'
 import AccountAPIHelper from './AccountAPIHelper'
 import ndaujs from 'ndaujs'
 import DateHelper from './DateHelper'
+import KeyPathHelper from './KeyPathHelper'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_ID
@@ -59,19 +60,18 @@ const getNextPathIndex = (wallet, path) => {
     const key = keys[theKey]
     if (key.path && key.path.includes(path)) {
       let pathLengthAdder = path === '/' ? 0 : 1
-      let nextPossibility = parseInt(
-        key.path.substring(path.length + pathLengthAdder, key.path.length)
+      const leftOverPath = key.path.substring(
+        path.length + pathLengthAdder,
+        key.path.length
       )
+      // If we have a left over path then we are
+      // NOT on a key we care to use in the index calculation
+      if (!leftOverPath.includes('/')) {
+        let nextPossibility = parseInt(leftOverPath)
 
-      // We check below if we are att the validationKey inded
-      // This is at 10000. If we hit that we want to just ignore that
-      // altogether
-      if (
-        !isNaN(nextPossibility) &&
-        nextPossibility >= nextAddress &&
-        nextPossibility !== AppConstants.VALIDATION_KEY
-      ) {
-        nextAddress = nextPossibility + 1
+        if (!isNaN(nextPossibility) && nextPossibility >= nextAddress) {
+          nextAddress = nextPossibility + 1
+        }
       }
     }
   })

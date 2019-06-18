@@ -198,22 +198,6 @@ const test7MP4FVUserData = {
           path: "/44'/20036'/100/3",
           derivedFromRoot: 'yes'
         },
-        '227f6338': {
-          publicKey:
-            'npuba4jaftckeeba47fzizq3gs2vnnawj329tkiuh4xi2u8gurh3y2vu8jgbvndeh9sieut3eaaaaaaxrtumjidjk2y6fcdsb6rdy5gc9yfptsexhan92ch373d52z7y8izmz8j7rddg',
-          privateKey:
-            'npvta8jaftcjedxhayq87234me66xt657hca8jxsrikmtxmeypbcv253u63zkty4ycbewqjaaaaaafm6nu4ka4kyfzbis6ard27y3sz7tmnnbfj2dh8at8rqi88f9pzufg4nc6x56bqu',
-          path: "/44'/20036'/2000/1",
-          derivedFromRoot: 'yes'
-        },
-        d6762b70: {
-          publicKey:
-            'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi',
-          privateKey:
-            'npvta8jaftcjebyviquy2y3h5njiyvez2xwqyy324b6nzj73z2pa5p4bgh7eha2skca35wfsaaaaaibjrzr4wqr3n4i9mdemwwix76yb49ezn59qnwwpgjvupjdw3xup3zxpkms67qb7',
-          path: "/44'/20036'/2000/2",
-          derivedFromRoot: 'yes'
-        },
         '71e9485e': {
           publicKey:
             'npuba4jaftckeeb8jb8gzn7n9v7sw82yyhhekvvg4f8at9zrzxads6hf9tya8bfnxbiipfnqqaaaaabw4wez2ritu7za8fep9ajxqy8x4j6bkpdyruwb8fqzk2s6rt2qr5cbwkkmjpa3',

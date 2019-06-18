@@ -356,19 +356,31 @@ export default StyleSheet.create({
     display: 'none'
   },
   accountButtonText: {
-    width: wp('30%'),
+    ...Platform.select({
+      ios: {
+        width: wp('30%')
+      },
+      android: {
+        width: '50%'
+      }
+    }),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24,
     textAlign: 'center'
   },
   accountButtonInnerPanel: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: hp('.6%')
+    ...Platform.select({
+      ios: {
+        paddingTop: hp('.2%')
+      },
+      android: {
+        paddingTop: hp('.6%')
+      }
+    })
   },
   accountDetailsTextPanelWithButton: {
     margin: wp('4%'),

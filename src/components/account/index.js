@@ -1,5 +1,12 @@
 import React from 'react'
-import { View, TouchableOpacity, Share, Text, Linking } from 'react-native'
+import {
+  View,
+  TouchableOpacity,
+  Share,
+  Text,
+  Linking,
+  Platform
+} from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -302,13 +309,23 @@ export function AccountButton (props) {
         <View style={styles.accountButtonInnerPanel}>
           <Text style={styles.accountButtonText}>
             {props.children}{' '}
+            {Platform.OS === 'ios' ? (
+              <Icon
+                name={props.customIconName}
+                size={18}
+                color={AppConstants.ICON_BUTTON_COLOR}
+                type='light'
+              />
+            ) : null}
+          </Text>
+          {Platform.OS === 'android' ? (
             <Icon
               name={props.customIconName}
               size={18}
               color={AppConstants.ICON_BUTTON_COLOR}
               type='light'
             />
-          </Text>
+          ) : null}
         </View>
       </TouchableOpacity>
     </View>

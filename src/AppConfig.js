@@ -32,7 +32,8 @@ const EAI_KNOWLEDGEBASE_URL =
 
 const MAX_LOG_ENTRIES = 101
 
-const calcExplorerUrl = (address,network) => `https://explorer.service.ndau.tech/account/${address}/?node=${network}`
+const calcExplorerUrl = (address, network) =>
+  `https://explorer.service.ndau.tech/account/${address}/?node=${network}`
 
 export default {
   calcExplorerUrl,
