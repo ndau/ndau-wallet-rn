@@ -262,20 +262,20 @@ const getValidationKeys = async (wallet, account, startIndex, endIndex) => {
 
   try {
     for (let i = startIndex; i <= endIndex; i++) {
-      const legacyKey1 = await _generateLegacy1ValidationKey(wallet, account, i)
-      keys[legacyKey1.publicKey] = legacyKey1
-
-      const legacyKey2 = await _generateLegacy2ValidationKey(wallet, account, i)
-      keys[legacyKey2.publicKey] = legacyKey2
-
-      const legacyKey3 = await _generateLegacy3ValidationKey(wallet, account, i)
-      keys[legacyKey3.publicKey] = legacyKey3
+      const currentKey = await _generateValidationKey(wallet, account, i)
+      keys[currentKey.publicKey] = currentKey
 
       const legacyKey4 = await _generateLegacy4ValidationKey(wallet, account, i)
       keys[legacyKey4.publicKey] = legacyKey4
 
-      const currentKey = await _generateValidationKey(wallet, account, i)
-      keys[currentKey.publicKey] = currentKey
+      const legacyKey3 = await _generateLegacy3ValidationKey(wallet, account, i)
+      keys[legacyKey3.publicKey] = legacyKey3
+
+      const legacyKey2 = await _generateLegacy2ValidationKey(wallet, account, i)
+      keys[legacyKey2.publicKey] = legacyKey2
+
+      const legacyKey1 = await _generateLegacy1ValidationKey(wallet, account, i)
+      keys[legacyKey1.publicKey] = legacyKey1
     }
   } catch (error) {
     FlashNotification.showError(
