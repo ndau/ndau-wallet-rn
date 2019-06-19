@@ -212,7 +212,7 @@ class Authentication extends Component {
           imageStyle={styles.setupContainerBackgroundImage}
         >
           <KeyboardAvoidingView
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : -130}
             behavior={Platform.OS === 'ios' ? 'height' : 'position'}
           >
             <WaitingForBlockchainSpinner spinner={this.state.spinner} />

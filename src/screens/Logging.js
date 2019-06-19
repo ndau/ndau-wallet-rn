@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { LogView } from 'react-native-device-log'
-import { AppContainer, FlashNotification } from '../components/common'
+import { AppContainer } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
 import { DrawerHeader } from '../components/drawer'
 
 class Logging extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }

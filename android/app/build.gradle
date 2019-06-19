@@ -119,8 +119,8 @@ android {
         applicationId "com.ndauwalletrn"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 204000
-        versionName "2.0.4.000"
+        versionCode 204030
+        versionName "2.0.4.030"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -199,13 +199,15 @@ dependencies {
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-push-notification')
     implementation project(':react-native-securerandom')
-    implementation project(':react-native-camera')
-    implementation ('androidx.legacy:legacy-support-v4:1.0.0')
+    implementation (project(':react-native-camera'))
+    implementation ("com.android.support:support-v4:27.1.0") {
+        force = true
+    }
     implementation 'com.facebook.fresco:fresco:1.5.0'
     implementation 'com.facebook.fresco:animated-gif:1.5.0'
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation "com.android.support:appcompat-v7:27.0.2"
+    implementation 'com.android.support:design:27.1.1'
     implementation "com.facebook.react:react-native:+"
     implementation project(':keyaddr')
  }
