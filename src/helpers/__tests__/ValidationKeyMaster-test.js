@@ -790,7 +790,7 @@ test('recoverValidationKeys with a simple account (only one validation key) find
     account.addressData.validationKeys
   )
 
-  console.log(`HERE: ${JSON.stringify(wallet, null, 2)}`)
+  // console.log(`HERE: ${JSON.stringify(wallet, null, 2)}`)
 
   expect(wallet.keys['b837699c'].privateKey).toBe('validation5')
   expect(wallet.keys['b837699c'].path).toBe(

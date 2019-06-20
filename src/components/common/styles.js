@@ -31,6 +31,7 @@ export default StyleSheet.create({
     width: '10%'
   },
   setupButtonContainerBottom: {
+    position: 'absolute',
     bottom: 0,
     borderRadius: 4,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
@@ -46,6 +47,7 @@ export default StyleSheet.create({
     maxHeight: hp('7%')
   },
   setupButtonContainerBottomNoBorder: {
+    position: 'absolute',
     bottom: hp('2%')
   },
   setupButtonContainerScrollView: {
@@ -190,7 +192,7 @@ export default StyleSheet.create({
   backArrow: {
     ...Platform.select({
       ios: {
-        marginTop: hp('1.4%'),
+        marginTop: hp('1.4%')
       },
       android: {
         marginTop: hp('1%')
@@ -372,7 +374,8 @@ export default StyleSheet.create({
     overflow: 'visible',
     marginTop: -100,
     ...Platform.select({
-      ios: { // iOS needs both left and marginLeft for some reason
+      ios: {
+        // iOS needs both left and marginLeft for some reason
         marginLeft: 50,
         left: 100
       },

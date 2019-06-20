@@ -15,6 +15,8 @@ import FlashNotification from '../components/common/FlashNotification'
  * is what was used initially. The path of the keys are:
  *
  * /44'/20036'/100/x/44'/20036'/2000/y
+ * or
+ * /x/44'/20036'/2000/y (for root accounts)
  *
  * where x is the accounts index and y will be the validation key
  * index.
@@ -54,7 +56,9 @@ const _generateLegacy1ValidationKey = async (wallet, account, index) => {
  * This is the correct method to use for creating the second generation of
  * validation keys. The path for a validation key is as follows:
  *
- * `/44'/20036'/100/10000/y
+ * /44'/20036'/100/10000/y
+ * or
+ * /x/10000/y (for root accounts)
  *
  * where x is the accounts index and y will be the validation key index
  *
@@ -93,7 +97,9 @@ const _generateLegacy2ValidationKey = async (wallet, account, index) => {
  * validation keys. This is a variation of the first and was the correct way
  * to do the former validation key. The path for a validation key is as follows:
  *
- * `/44'/20036'/100/10000/x/y
+ * /44'/20036'/100/10000/x/y
+ * or
+ * /x/10000/x/y (for root accounts)
  *
  * where x is the accounts index and y will be the validation key index
  *
@@ -133,6 +139,8 @@ const _generateLegacy3ValidationKey = async (wallet, account, index) => {
  * It is a variation of the ndau bug generated in the first generation.
  *
  * /44'/20036'/100/x/44'/20036'/100/10000/x/y
+ * or
+ * /x/44'/20036'/100/10000/x/y (for root accounts)
  *
  * where x is the accounts index and y will be the validation key
  * index.
@@ -170,7 +178,9 @@ const _generateLegacy4ValidationKey = async (wallet, account, index) => {
  * This is the correct method to use for generating validation keys.
  * The path for a validation key is as follows:
  *
- * `/44'/20036'/100/10000'/x'/y
+ * /44'/20036'/100/10000'/x'/y
+ * or
+ * /x/10000'/x'/y
  *
  * where x is the accounts index and y will be the validation key index
  *
@@ -262,20 +272,20 @@ const getValidationKeys = async (wallet, account, startIndex, endIndex) => {
 
   try {
     for (let i = startIndex; i <= endIndex; i++) {
-      const legacyKey1 = await _generateLegacy1ValidationKey(wallet, account, i)
-      keys[legacyKey1.publicKey] = legacyKey1
-
-      const legacyKey2 = await _generateLegacy2ValidationKey(wallet, account, i)
-      keys[legacyKey2.publicKey] = legacyKey2
-
-      const legacyKey3 = await _generateLegacy3ValidationKey(wallet, account, i)
-      keys[legacyKey3.publicKey] = legacyKey3
+      const currentKey = await _generateValidationKey(wallet, account, i)
+      keys[currentKey.publicKey] = currentKey
 
       const legacyKey4 = await _generateLegacy4ValidationKey(wallet, account, i)
       keys[legacyKey4.publicKey] = legacyKey4
 
-      const currentKey = await _generateValidationKey(wallet, account, i)
-      keys[currentKey.publicKey] = currentKey
+      const legacyKey3 = await _generateLegacy3ValidationKey(wallet, account, i)
+      keys[legacyKey3.publicKey] = legacyKey3
+
+      const legacyKey2 = await _generateLegacy2ValidationKey(wallet, account, i)
+      keys[legacyKey2.publicKey] = legacyKey2
+
+      const legacyKey1 = await _generateLegacy1ValidationKey(wallet, account, i)
+      keys[legacyKey1.publicKey] = legacyKey1
     }
   } catch (error) {
     FlashNotification.showError(
