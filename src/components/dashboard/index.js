@@ -20,40 +20,40 @@ export function DashboardContainer (props) {
 
 export function DashboardPanel (props) {
   return (
-    <View style={styles.dashboardPanel}>
-      <LinearGradient
-        useAngle
-        angle={135}
-        angleCenter={{ x: 0.5, y: 0.5 }}
-        locations={[0, 1.0]}
-        colors={['#0F2748', '#293E63']}
-        style={[styles.opaqueOverlay]}
-      >
-        <View style={styles.dashboardActionPanels}>
-          <View style={styles.dashboardWalletName}>
-            <Icon
-              name='wallet'
-              size={36}
-              color={AppConstants.ICON_BUTTON_COLOR}
-              containerStyle={styles.dashboardWallet}
-              type='light'
-            />
-            <H4 style={styles.dashboardActionTextPanel}>{props.walletName}</H4>
-          </View>
-          <View style={styles.dashboardActionPanel}>
-            <TouchableOpacity {...props}>
+    <TouchableOpacity onPress={props.onPress}>
+      <View style={styles.dashboardPanel}>
+        <LinearGradient
+          useAngle
+          angle={135}
+          angleCenter={{ x: 0.5, y: 0.5 }}
+          locations={[0, 1.0]}
+          colors={['#0F2748', '#293E63']}
+          style={[styles.opaqueOverlay]}
+        >
+          <View style={styles.dashboardActionPanels}>
+            <View style={styles.dashboardWalletName}>
               <Icon
-                name='angle-right'
-                size={48}
+                name='wallet'
+                size={36}
                 color={AppConstants.ICON_BUTTON_COLOR}
-                containerStyle={styles.dashboardAngle}
+                containerStyle={styles.dashboardWallet}
                 type='light'
               />
-            </TouchableOpacity>
+              <H4 style={styles.dashboardActionTextPanel}>{props.walletName}</H4>
+            </View>
+            <View style={styles.dashboardActionPanel}>
+              <Icon
+                  name='angle-right'
+                  size={48}
+                  color={AppConstants.ICON_BUTTON_COLOR}
+                  containerStyle={styles.dashboardAngle}
+                  type='light'
+                />
+            </View>
           </View>
-        </View>
-      </LinearGradient>
-    </View>
+        </LinearGradient>
+      </View>
+    </TouchableOpacity>
   )
 }
 
