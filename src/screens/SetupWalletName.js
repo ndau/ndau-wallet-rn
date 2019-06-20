@@ -6,9 +6,9 @@ import { SetupContainer } from '../components/setup'
 import {
   LargeButtons,
   TextInput,
-  ParagraphText,
-  FlashNotification
+  ParagraphText
 } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
 import { KeyboardAvoidingView, View, Platform } from 'react-native'
 
 class SetupWalletName extends Component {

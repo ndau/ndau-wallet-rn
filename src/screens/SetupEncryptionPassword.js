@@ -4,7 +4,8 @@ import {
   KeyboardAvoidingView,
   View,
   Platform,
-  Keyboard
+  Keyboard,
+  ScrollView
 } from 'react-native'
 import SetupStore from '../stores/SetupStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
@@ -214,53 +215,39 @@ class SetupEncryptionPassword extends Component {
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
-        <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -60}
-          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
-        >
-          <View style={{ height: '25%' }}>
-            <ParagraphText>{this.state.instructionText}</ParagraphText>
-          </View>
-          <View style={{ minHeight: '15%' }}>
-            <Label>Password</Label>
-            <TextInput
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-              placeholder='Enter a password...'
-              secureTextEntry={!this.state.showPasswords}
-              autoCapitalize='none'
-            />
-          </View>
-          <View style={{ minHeight: '15%' }}>
-            <Label>Confirm Password</Label>
-            <TextInput
-              onChangeText={this.updateComfirmPassword}
-              value={this.state.confirmPassword}
-              placeholder='Confirm your password...'
-              secureTextEntry={!this.state.showPasswords}
-              autoCapitalize='none'
-              onSubmitEditing={this.showNextSetup}
-            />
-          </View>
-          <View style={{ minHeight: '10%' }}>
-            <CheckBox
-              onValueChange={this.checkedShowPasswords}
-              checked={this.state.showPasswords}
-              label='Hide/show passwords'
-            />
-          </View>
-          <View style={{ height: this.state.lowerHeight }}>
-            <LargeButtons
-              sideMargins
-              bottom
-              onPress={() => this.showNextSetup()}
-              disabled={!progress}
-            >
-              Next
-            </LargeButtons>
-          </View>
-          <View style={{ flex: 1 }} />
-        </KeyboardAvoidingView>
+        <ScrollView>
+          <ParagraphText>{this.state.instructionText}</ParagraphText>
+          <Label>Password</Label>
+          <TextInput
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            placeholder='Enter a password...'
+            secureTextEntry={!this.state.showPasswords}
+            autoCapitalize='none'
+          />
+          <Label>Confirm Password</Label>
+          <TextInput
+            onChangeText={this.updateComfirmPassword}
+            value={this.state.confirmPassword}
+            placeholder='Confirm your password...'
+            secureTextEntry={!this.state.showPasswords}
+            autoCapitalize='none'
+            onSubmitEditing={this.showNextSetup}
+          />
+          <CheckBox
+            onValueChange={this.checkedShowPasswords}
+            checked={this.state.showPasswords}
+            label='Hide/show passwords'
+          />
+          <LargeButtons
+            sideMargins
+            bottom
+            onPress={() => this.showNextSetup()}
+            disabled={!progress}
+          >
+            Next
+          </LargeButtons>
+        </ScrollView>
       </SetupContainer>
     )
   }
