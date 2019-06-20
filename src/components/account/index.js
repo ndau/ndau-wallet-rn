@@ -840,7 +840,7 @@ export function AddressSharePanel (props) {
   const address = props.address
   const truncatedAddress = ndaujs.truncateAddress(address)
 
-  share = async address => {
+  const share = async address => {
     try {
       await Share.open({
         message: address,

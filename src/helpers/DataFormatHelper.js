@@ -45,11 +45,23 @@ const create8CharHash = toHash => {
 }
 
 /**
- * This function will find the next available path index
- * within a derived path of a given wallet.
+ * The function is used to get the next path index within the
+ * `wallet` passed in. For example, if I have the following
+ * key paths:
  *
- * @param {Wallet} wallet
- * @param {string} path
+ * `/44'/20036'/100/2`
+ * `/44'/20036'/100/4`
+ * `/44'/20036'/100/90`
+ *
+ * If `path` is `/44'/20036'/100` then the result of this
+ * function is 91. If the `path` is instead `/` the result
+ * would be 1.
+ *
+ * @param {Wallet} wallet contains the keys we will iterate over
+ * @param {string} path is the key path MINUS the index. This is
+ * used to check if we should consider the key path being iterated
+ * contains contains `path` in it. If it does, then it needs to
+ * be considered as the highest value.
  */
 const getNextPathIndex = (wallet, path) => {
   const keys = wallet.keys
@@ -59,16 +71,20 @@ const getNextPathIndex = (wallet, path) => {
   Object.keys(keys).forEach(theKey => {
     const key = keys[theKey]
     if (key.path && key.path.includes(path)) {
-      let pathLengthAdder = path === '/' ? 0 : 1
-      const leftOverPath = key.path.substring(
-        path.length + pathLengthAdder,
-        key.path.length
-      )
-      // If we have a left over path then we are
-      // NOT on a key we care to use in the index calculation
-      if (!leftOverPath.includes('/')) {
-        let nextPossibility = parseInt(leftOverPath)
+      // Get the start index
+      const start = (path === '/' ? 0 : 1) + path.length
+      // using the path passed in get what is left over from
+      // the wallet key path we are iterating over
+      const walletKeyPathRemainder = key.path.substring(start, key.path.length)
+      // if there is remaining slashes in the path then we are
+      // looking at a key path in the wallet that should not be
+      // considered for this calculation
+      if (!walletKeyPathRemainder.includes('/')) {
+        // We have a index to increment
+        let nextPossibility = parseInt(walletKeyPathRemainder)
 
+        // is it highter than what we have looked at so far...
+        // yes...then increment it and use it
         if (!isNaN(nextPossibility) && nextPossibility >= nextAddress) {
           nextAddress = nextPossibility + 1
         }

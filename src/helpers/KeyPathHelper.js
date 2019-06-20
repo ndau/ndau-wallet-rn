@@ -36,11 +36,11 @@ const legacyValidationKeyPath2 = () => {
 }
 
 const legacyValidationKeyPath3 = () => {
-  return accountCreationKeyPath() + '/' + AppConstants.VALIDATION_KEY
+  return legacyValidationKeyPath2()
 }
 
 const legacyValidationKeyPath4 = () => {
-  return accountCreationKeyPath() + '/' + AppConstants.VALIDATION_KEY
+  return legacyValidationKeyPath2()
 }
 
 const getRootAccountValidationKeyPath = (wallet, account) => {
