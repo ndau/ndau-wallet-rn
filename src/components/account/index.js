@@ -105,9 +105,11 @@ export function AccountPanel (props) {
                 alignItems: 'center'
               }}
             >
-              <H4 style={styles.accountActionTextPanel}>
-                View account details {'&'} settings
-              </H4>
+              <TouchableOpacity {...props}>
+                <H4 style={styles.accountActionTextPanel}>
+                  View account details {'&'} settings
+                </H4>
+              </TouchableOpacity>
               <TouchableOpacity {...props}>
                 <Icon
                   name='chevron-circle-right'
