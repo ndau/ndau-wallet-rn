@@ -6,7 +6,8 @@ import {
   AccountParagraphText
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { LargeButton, FlashNotification, TextLink } from '../components/common'
+import { LargeButton, TextLink } from '../components/common'
+import FlashNotification from '../components/common/FlashNotification'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import DateHelper from '../helpers/DateHelper'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'

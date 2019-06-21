@@ -38,7 +38,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
   }
 
   const bip44Accounts = await checkAddresses(recoveryPhraseBytes)
-  LogStore.log(`BIP44 accounts found: ${bip44Accounts}`)
+  LogStore.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts)}`)
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     for (const accountPath in bip44Accounts) {
       await KeyMaster.createAccountFromPath(
@@ -47,11 +47,13 @@ const recoverUser = async (recoveryPhraseString, user) => {
         bip44Accounts[accountPath]
       )
     }
-    LogStore.log(`Recovered user containing BIP44 accounts: ${user}`)
+    LogStore.log(
+      `Recovered user containing BIP44 accounts: ${JSON.stringify(user)}`
+    )
   }
 
   const rootAccounts = await checkAddresses(recoveryPhraseBytes, true)
-  LogStore.log(`root accounts found: ${rootAccounts}`)
+  LogStore.log(`root accounts found: ${JSON.stringify(rootAccounts)}`)
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
     const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
       recoveryPhraseBytes
@@ -64,7 +66,9 @@ const recoverUser = async (recoveryPhraseString, user) => {
         rootPrivateKey
       )
     }
-    LogStore.log(`Recovered user containing root accounts now: ${user}`)
+    LogStore.log(
+      `Recovered user containing root accounts now: ${JSON.stringify(user)}`
+    )
   }
 
   return user
@@ -92,14 +96,18 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
         startIndex,
         endIndex
       )
-      LogStore.log(`KeyMaster.getRootAddresses found: ${addresses}`)
+      LogStore.log(
+        `KeyMaster.getRootAddresses found: ${JSON.stringify(addresses)}`
+      )
     } else {
       addresses = await KeyMaster.getBIP44Addresses(
         recoveryPhraseBytes,
         startIndex,
         endIndex
       )
-      LogStore.log(`KeyMaster.getBIP44Addresses found: ${addresses}`)
+      LogStore.log(
+        `KeyMaster.getBIP44Addresses found: ${JSON.stringify(addresses)}`
+      )
     }
 
     accountDataFromBlockchain = await AccountAPI.getAddressData(

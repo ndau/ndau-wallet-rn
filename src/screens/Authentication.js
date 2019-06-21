@@ -152,9 +152,8 @@ class Authentication extends Component {
   showInformation = () => {
     Alert.alert(
       'Information',
-      'Please enter the password you chose to encrypt this app. ' +
-        'This is not the same thing as your six-character ID or key ' +
-        'recovery phrase.',
+      'Please enter the password you chose to encrypt this application. ' +
+        'This is not the same as your 12-word recovery phrase.',
       [{ text: 'OK', onPress: () => {} }],
       { cancelable: false }
     )
@@ -212,7 +211,7 @@ class Authentication extends Component {
           imageStyle={styles.setupContainerBackgroundImage}
         >
           <KeyboardAvoidingView
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -130}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : -130}
             behavior={Platform.OS === 'ios' ? 'height' : 'position'}
           >
             <WaitingForBlockchainSpinner spinner={this.state.spinner} />

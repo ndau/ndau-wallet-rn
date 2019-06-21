@@ -1,11 +1,12 @@
 import { NativeModules } from 'react-native'
 import KeyMaster from '../helpers/KeyMaster'
+import ValidationKeyMaster from '../helpers/ValidationKeyMaster'
 import TransactionAPI from '../api/TransactionAPI'
 import TxSignPrep from '../model/TxSignPrep'
 import FlashNotification from '../components/common/FlashNotification'
 import LogStore from '../stores/LogStore'
 import AccountAPI from '../api/AccountAPI'
-import {ErrorsByMessage, Messages} from '../errors/BlockchainAPIError'
+import { ErrorsByMessage, Messages } from '../errors/BlockchainAPIError'
 import APIAddressHelper from '../helpers/APIAddressHelper'
 
 export const Transaction = {
@@ -25,9 +26,11 @@ export const Transaction = {
       // key per account here
       if (
         this._account.validationKeys &&
-        this._account.validationKeys.length === 0
+        this._account.validationKeys.length === 0 &&
+        (this._account.addressData &&
+          this._account.addressData.validationKeys === null)
       ) {
-        await KeyMaster.addValidationKey(this._wallet, this._account)
+        await ValidationKeyMaster.addValidationKey(this._wallet, this._account)
       }
 
       if (

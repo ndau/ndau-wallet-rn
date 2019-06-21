@@ -2,11 +2,11 @@ import AccountAPIHelper from '../AccountAPIHelper'
 import data from '../../api/data'
 import MockHelper from '../MockHelper'
 import { NativeModules } from 'react-native'
-import KeyMaster from '../KeyMaster'
 import sinon from 'sinon'
 import AppConfig from '../../AppConfig'
 import KeyPathHelper from '../KeyPathHelper'
 import moment from 'moment'
+import ValidationKeyMaster from '../ValidationKeyMaster'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -218,39 +218,6 @@ test('if we can get a null if not present', async () => {
   const account = {}
 
   expect(AccountAPIHelper.eaiValueForDisplay(account)).toBeFalsy()
-})
-
-test('make sure we can populate validation keys if not present', async () => {
-  const keyMaster = jest.spyOn(KeyMaster, 'getValidationKeys')
-  keyMaster.mockReturnValue({
-    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi: {
-      publicKey:
-        'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi',
-      privateKey: 'pvtblah',
-      path: `/44'/20036/blah`
-    },
-    npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry123: {
-      publicKey:
-        'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi',
-      privateKey: 'pvtnope',
-      path: `/44'/20036/nope`
-    }
-  })
-  MockHelper.mockAccountsAPI(data.test7MP4FVAddressData)
-  MockHelper.mockAccountAPI()
-  const wallet = data.test7MP4FVUserData.wallets['2c963f83']
-
-  await AccountAPIHelper.populateWalletWithAddressData(wallet)
-
-  const validationKeys =
-    wallet.accounts['ndae2m6h32eee2qci9fjhzmfxtpni6pizmks839npbqz8yq4']
-      .validationKeys
-  expect(wallet).toBeDefined()
-  expect(validationKeys.length).toBe(2)
-  expect(wallet.keys[validationKeys[0]].publicKey).toBe(
-    'npuba4jaftckeebijwfxqwdyk3nt9bjxek7dq2mx2kjfgpbkq7dmrpa3rep5bsp3362idhqsyaaaaabaff879kt39fvjd7nntqutczzu2hm6u7vr73uutw3gqjxeqvgyjzf2es8ry7fi'
-  )
-  expect(wallet.keys[validationKeys[0]].privateKey).toBe('pvtblah')
 })
 
 test('make sure that lockBonusEAI sends back the correct percentage', async () => {
@@ -562,9 +529,9 @@ test('make sure isAccountLocked sends false when lock information is present but
 })
 
 test('make sure isAccountLocked uses UTC time to check lock dates in the past', () => {
-  const utcTwoMinutesAgo = moment
+  const utcFiveMinutesAgo = moment
     .utc()
-    .subtract(2, 'minutes')
+    .subtract(5, 'minutes')
     .format('YYYY-MM-DDTHH:MM:SSZ')
   const account = {
     nickname: 'Account 1',
@@ -578,7 +545,7 @@ test('make sure isAccountLocked uses UTC time to check lock dates in the past', 
     delegationNode: null,
     lock: {
       noticePeriod: 't1m',
-      unlocksOn: utcTwoMinutesAgo,
+      unlocksOn: utcFiveMinutesAgo,
       bonus: 0
     },
     stake: null,

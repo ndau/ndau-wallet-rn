@@ -104,50 +104,6 @@ const getBIP44Addresses = async (recoveryBytes, startIndex, endIndex) => {
 }
 
 /**
- * This function will return possible validation keys within a
- * keys object. This is used during recovery of validation keys
- *
- *
- * @param {Wallet} wallet
- * @param {Account} account
- * @param {number} startIndex what index in the derivation path to
- * start searching for validation keys
- * @param {number} endIndex what index in the derivation path to
- * end the search for validation keys
- * @param {boolean} legacy
- */
-const getValidationKeys = async (
-  wallet,
-  account,
-  startIndex,
-  endIndex,
-  legacy
-) => {
-  const keys = {}
-
-  try {
-    for (let i = startIndex; i <= endIndex; i++) {
-      if (legacy) {
-        const key = await generateLegacyValidationKey(wallet, account, i)
-        keys[key.publicKey] = key
-      } else {
-        const key = await generateValidationKey(wallet, account, i)
-        keys[key.publicKey] = key
-      }
-    }
-  } catch (error) {
-    FlashNotification.showError(
-      `problem encountered creating object of validation public and private keys: ${
-        error.message
-      }`
-    )
-    throw error
-  }
-
-  return keys
-}
-
-/**
  * This function will create the initial User. If no userId is passed
  * in then you do not get any wallets created.
  *
@@ -183,7 +139,7 @@ const createFirstTimeUser = async (
       user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
-    LogStore.log(`User initially created is: ${user}`)
+    LogStore.log(`User initially created is: ${JSON.stringify(user)}`)
     return user
   } catch (error) {
     FlashNotification.showError(error.message)
@@ -259,7 +215,7 @@ const createWallet = async (
       )
     }
 
-    LogStore.log(`Wallet created is: ${wallet}`)
+    LogStore.log(`Wallet created is: ${JSON.stringify(wallet)}`)
 
     return wallet
   } catch (error) {
@@ -340,123 +296,6 @@ const createNewAccount = async (wallet, numberOfAccounts = 1) => {
 }
 
 /**
- * This method will generate a key object based on either
- * the nextIndex or a passed in index. This function MUST be used
- * when recovering legacy validation keys. As of the 1.8 ndau wallet
- * we started to SetValidation (or now SetValidation). In doing this
- * we generate a validation key. The key generated in this method
- * is what was used initially. The path of the keys are:
- *
- * /44'/20036'/100/x/44'/20036'/2000/y
- *
- * where x is the accounts index and y will be the validation key
- * index.
- *
- * @param {Wallet} wallet
- * @param {Account} account
- * @param {number} index
- */
-const generateLegacyValidationKey = async (wallet, account, index) => {
-  if (!index) {
-    index = DataFormatHelper.getNextPathIndex(
-      wallet,
-      KeyPathHelper.legacyValidationKeyPath()
-    )
-  }
-  const keyPath = KeyPathHelper.legacyValidationKeyPath() + `/${index}`
-
-  const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
-    wallet.keys[account.ownershipKey].privateKey,
-    '/',
-    keyPath
-  )
-
-  const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
-    validationPrivateKey
-  )
-
-  const actualPath = wallet.keys[account.ownershipKey].path + keyPath
-  return _createKey(validationPrivateKey, validationPublicKey, actualPath)
-}
-
-/**
- * This is the correct method to use for generating validation keys.
- * The path for a validation key is as follows:
- *
- * `/44'/20036'/100/10000/x/y
- *
- * where x is the accounts index and y will be the validation key index
- *
- * @param {Wallet} wallet
- * @param {Account} account
- * @param {number} index
- */
-const generateValidationKey = async (wallet, account, index) => {
-  const privateValidationRootKey = await NativeModules.KeyaddrManager.deriveFrom(
-    wallet.keys[wallet.accountCreationKeyHash].privateKey,
-    KeyPathHelper.accountCreationKeyPath(),
-    KeyPathHelper.validationKeyPath()
-  )
-
-  const keyPath = KeyPathHelper.getAccountValidationKeyPath(
-    wallet,
-    account,
-    index
-  )
-
-  const validationPrivateKey = await NativeModules.KeyaddrManager.deriveFrom(
-    privateValidationRootKey,
-    KeyPathHelper.getRootAccountValidationKeyPath(wallet, account),
-    keyPath
-  )
-
-  const validationPublicKey = await NativeModules.KeyaddrManager.toPublic(
-    validationPrivateKey
-  )
-
-  return _createKey(validationPrivateKey, validationPublicKey, keyPath)
-}
-
-/**
- * Create a validation key given the wallet and account passed in.
- * The wallet is updated directly in this function so there is no need
- * for a return arguement.
- *
- * @param {Wallet} wallet
- * @param {Account} account
- */
-const addValidationKey = async (wallet, account) => {
-  const key = await generateValidationKey(wallet, account)
-
-  addThisValidationKey(account, wallet, key.privateKey, key.publicKey, key.path)
-}
-
-const addThisValidationKey = (
-  account,
-  wallet,
-  validationPrivateKey,
-  validationPublicKey,
-  keyPath
-) => {
-  if (!keyPath) {
-    const nextIndex = DataFormatHelper.getNextPathIndex(
-      wallet,
-      KeyPathHelper.validationKeyPath()
-    )
-    keyPath = KeyPathHelper.validationKeyPath() + `/${nextIndex}`
-  }
-  const validationKeyHash = DataFormatHelper.create8CharHash(
-    validationPrivateKey
-  )
-  wallet.keys[validationKeyHash] = _createKey(
-    validationPrivateKey,
-    validationPublicKey,
-    keyPath
-  )
-  account.validationKeys.push(validationKeyHash)
-}
-
-/**
  * Given the wallet and the key hash, this function will pass back
  * the string representation of the public key found.
  *
@@ -494,16 +333,14 @@ const _createInitialKeys = async (wallet, accountCreationKey) => {
   const accountCreationPublicKey = await NativeModules.KeyaddrManager.toPublic(
     accountCreationKey
   )
-  wallet.keys[
-    DataFormatHelper.create8CharHash(accountCreationKey)
-  ] = _createKey(
+  wallet.keys[DataFormatHelper.create8CharHash(accountCreationKey)] = createKey(
     accountCreationKey,
     accountCreationPublicKey,
     KeyPathHelper.accountCreationKeyPath()
   )
 }
 
-const _createKey = (privateKey, publicKey, path) => {
+const createKey = (privateKey, publicKey, path) => {
   const newKey = new Key()
   if (privateKey) newKey.privateKey = privateKey
   if (publicKey) newKey.publicKey = publicKey
@@ -551,7 +388,7 @@ const _createAccount = async (
     privateKeyForAddress
   )
 
-  const newKey = _createKey(privateKeyForAddress, publicKey, childPath)
+  const newKey = createKey(privateKeyForAddress, publicKey, childPath)
   wallet.keys[privateKeyHash] = newKey
 
   const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey)
@@ -606,7 +443,7 @@ const createAccountFromPath = async (
     privateDerivedKey
   )
 
-  const newKey = _createKey(privateDerivedKey, publicKey, derivedPath)
+  const newKey = createKey(privateDerivedKey, publicKey, derivedPath)
   wallet.keys[privateKeyHash] = newKey
 
   const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey)
@@ -647,15 +484,12 @@ export default {
   getRootAddresses,
   getBIP44Addresses,
   addAccounts,
-  addValidationKey,
   getPublicKeyFromHash,
   getPrivateKeyFromHash,
   getWalletFromUser,
   setWalletInUser,
-  getValidationKeys,
-  addThisValidationKey,
-  generateLegacyValidationKey,
-  generateValidationKey,
   createAccountFromPath,
-  getAccountFromWallet
+  getAccountFromWallet,
+
+  createKey
 }
