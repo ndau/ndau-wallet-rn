@@ -20,14 +20,7 @@ export default StyleSheet.create({
     backgroundColor: '#0A1724'
   },
   closeForBar: {
-    ...Platform.select({
-      ios: {
-        paddingTop: '3%'
-      },
-      android: {
-        paddingTop: '2%'
-      }
-    }),
+    paddingTop: '1%',
     width: '10%'
   },
   setupButtonContainerBottom: {
@@ -235,25 +228,14 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    ...Platform.select({
-      ios: {
-        maxHeight: hp('4%'),
-        minHeight: hp('4%')
-      },
-      android: {
-        maxHeight: hp('5%'),
-        minHeight: hp('5%')
-      }
-    })
+    maxHeight: hp('7%'),
+    minHeight: hp('7%')
   },
   labelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24,
-    marginRight: wp('2%'),
-    paddingTop: 0
+    marginRight: wp('2%')
   },
   labelTextMarginRight: {
     marginLeft: wp('4%')

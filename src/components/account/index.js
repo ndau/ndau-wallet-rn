@@ -142,7 +142,7 @@ export function AccountDetailsContainer (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <AccountDetailsTitleBarGradient>
-          <View style={styles.accountDetailsTitlePanel}>
+          <View style={styles.accountTitlePanel}>
             <AccountClosingBar
               backArrowStyle={styles.backArrowForLock}
               title={title}
@@ -477,7 +477,7 @@ export function AccountClosingBar (props) {
       {props.closeBar ? (
         <CloseForBar style={styles.closeIcon} {...props} />
       ) : (
-        <View style={styles.backArrow} />
+        <View style={styles.closeIcon} />
       )}
     </View>
   )

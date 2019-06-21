@@ -251,6 +251,7 @@ export function LabelWithIcon (props) {
         name={props.fontAwesomeIconName}
         color={AppConstants.ICON_BUTTON_COLOR}
         type='light'
+        containerStyle={{ alignSelf: 'center' }}
         {...props}
       />
     </View>
