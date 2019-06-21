@@ -198,7 +198,8 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
     paddingLeft: wp('4%'),
-    paddingRight: wp('4%')
+    paddingRight: wp('4%'),
+    marginBottom: '2%'
   },
   accountDetailsItemPanel: {
     flexDirection: 'row',
@@ -219,14 +220,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: wp('100%'),
-    height: 70,
     backgroundColor: '#293E63',
     overflow: 'hidden',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
-    padding: wp('4%'),
+    padding: wp('3%'),
     ...Platform.select({
       android: {
         paddingTop: hp('2%')
