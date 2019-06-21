@@ -117,7 +117,6 @@ class SetupRecoveryPhrase extends Component {
       }
     }
 
-    let count = 1
     return (
       <SetupContainer {...this.props} pageNumber={15}>
         <ParagraphText>

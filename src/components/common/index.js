@@ -2,7 +2,7 @@ import React from 'react'
 import {
   View,
   StatusBar,
-  ImageBackground,
+  KeyboardAvoidingView,
   TouchableOpacity,
   Text,
   Image,
@@ -31,6 +31,17 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import Icon from 'react-native-fontawesome-pro'
+
+export function KeyboardScroller (props) {
+  return (
+    <KeyboardAvoidingView behavior='padding'>
+      <ScrollView>
+        {props.children}
+        <View style={{ height: 70 }} />
+      </ScrollView>
+    </KeyboardAvoidingView>
+  )
+}
 
 export function LoginContainer ({ children }) {
   return (

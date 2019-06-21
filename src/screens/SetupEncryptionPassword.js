@@ -19,7 +19,8 @@ import {
   Label,
   CheckBox,
   TextInput,
-  ParagraphText
+  ParagraphText,
+  KeyboardScroller
 } from '../components/common'
 import LogStore from '../stores/LogStore'
 
@@ -117,7 +118,7 @@ class SetupEncryptionPassword extends Component {
   checkPasswordLength = () => {
     return (
       this.state.password.length >=
-        SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH
+      SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH
     )
   }
 
@@ -183,7 +184,7 @@ class SetupEncryptionPassword extends Component {
         LogStore.log(error)
         FlashNotification.showError(error.message, false, false)
       }
-      this.setState({spinner: false})
+      this.setState({ spinner: false })
     })
   }
 
@@ -215,7 +216,7 @@ class SetupEncryptionPassword extends Component {
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
-        <ScrollView>
+        <KeyboardScroller>
           <ParagraphText>{this.state.instructionText}</ParagraphText>
           <Label>Password</Label>
           <TextInput
@@ -247,7 +248,7 @@ class SetupEncryptionPassword extends Component {
           >
             Next
           </LargeButtons>
-        </ScrollView>
+        </KeyboardScroller>
       </SetupContainer>
     )
   }
