@@ -10,7 +10,7 @@ export default StyleSheet.create({
     width: wp('100%'),
     ...Platform.select({
       ios: {
-        height: hp('17%')
+        height: hp('15.5%')
       },
       android: {
         height: hp('17%')
