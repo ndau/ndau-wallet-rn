@@ -81,10 +81,6 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   centeredLinkContainer: {
-    // position: 'absolute',
-    // bottom: 0
-    // justifyContent: 'flex-end',
-    // alignItems: 'center'
     alignSelf: 'center',
     minHeight: '6%'
   },
@@ -93,8 +89,6 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 0.34,
-    lineHeight: 24,
     textAlign: 'center'
   },
   linkContainer: {
@@ -134,7 +128,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     marginRight: wp('4%'),
     paddingVertical: 0,
-    minHeight: hp('7%')
+    minHeight: hp('10%'),
+    marginBottom: hp('3%')
   },
   ndauTotalContainer: {
     ...Platform.select({

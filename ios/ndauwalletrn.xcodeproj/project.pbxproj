@@ -55,6 +55,8 @@
 		9E647609225F7C9D00CA0AFC /* libRNSecureRandom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0365337E210B7627002EEF95 /* libRNSecureRandom.a */; };
 		9E6DA47120F053B400B347DE /* Keyaddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6DA47020F053B400B347DE /* Keyaddr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9E6DA47420F2E15800B347DE /* KeyaddrManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DA47320F2E15800B347DE /* KeyaddrManager.m */; };
+		9E99C08122C280CD00170E81 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E99C04622C280CD00170E81 /* Social.framework */; };
+		9E99C08322C280EA00170E81 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E99C08222C280EA00170E81 /* MessageUI.framework */; };
 		9E9E77732262E78800F7A416 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9E773F2262E78800F7A416 /* JavaScriptCore.framework */; };
 		9E9E77772262E98000F7A416 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9E77762262E98000F7A416 /* EventKitUI.framework */; };
 		9E9E77782262EA8100F7A416 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E642F9A2261969900E183AC /* libReact.a */; };
@@ -64,7 +66,6 @@
 		9EAA412E2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA412D2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m */; };
 		9EC12AC72264F16700E44F82 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC12AC62264F15000E44F82 /* libRNCamera.a */; };
 		9ECCCF1820F62323007AE393 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		9ED9BA5C22A6EC2300D04B7C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		9EE41A16220A015A00D9E32E /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EE419F3220A012800D9E32E /* libRCTPushNotification.a */; };
 		9EF436232247222800892250 /* ndau-0.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EF436222247222800892250 /* ndau-0.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -406,13 +407,6 @@
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
 		};
-		9E7963F622A5FFBA00285977 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0A831AC6F80A40E28ED34010 /* RNMail.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
-			remoteInfo = RNMailTests;
-		};
 		9E79640122A5FFBB00285977 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 99EB56F151454243AA4F1167 /* RNGestureHandler.xcodeproj */;
@@ -565,6 +559,8 @@
 		9E6DA47220F2E10700B347DE /* KeyaddrManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyaddrManager.h; sourceTree = "<group>"; };
 		9E6DA47320F2E15800B347DE /* KeyaddrManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyaddrManager.m; sourceTree = "<group>"; };
 		9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/TSBackgroundFetch.framework"; sourceTree = "<group>"; };
+		9E99C04622C280CD00170E81 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		9E99C08222C280EA00170E81 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9E9E773F2262E78800F7A416 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		9E9E77742262E92500F7A416 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		9E9E77762262E98000F7A416 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -604,7 +600,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9ED9BA5C22A6EC2300D04B7C /* (null) in Frameworks */,
+				9E99C08322C280EA00170E81 /* MessageUI.framework in Frameworks */,
+				9E99C08122C280CD00170E81 /* Social.framework in Frameworks */,
 				DFB0F51D22663E6500C47464 /* libRNVersionNumber.a in Frameworks */,
 				9EC12AC72264F16700E44F82 /* libRNCamera.a in Frameworks */,
 				9E5A792022642B5E0082F897 /* libRNCAsyncStorage.a in Frameworks */,
@@ -784,6 +781,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E99C08222C280EA00170E81 /* MessageUI.framework */,
+				9E99C04622C280CD00170E81 /* Social.framework */,
 				9E9E77762262E98000F7A416 /* EventKitUI.framework */,
 				9E9E77742262E92500F7A416 /* EventKit.framework */,
 				9E9E773F2262E78800F7A416 /* JavaScriptCore.framework */,
@@ -905,7 +904,6 @@
 			isa = PBXGroup;
 			children = (
 				9E1295742270DB0F000CE957 /* libRNMail.a */,
-				9E7963F722A5FFBA00285977 /* RNMailTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1620,13 +1618,6 @@
 			fileType = archive.ar;
 			path = "libjsiexecutor-tvOS.a";
 			remoteRef = 9E642FB72261969900E183AC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9E7963F722A5FFBA00285977 /* RNMailTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RNMailTests.xctest;
-			remoteRef = 9E7963F622A5FFBA00285977 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9E79640222A5FFBB00285977 /* libRNGestureHandler.a */ = {

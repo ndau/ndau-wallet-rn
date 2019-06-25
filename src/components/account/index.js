@@ -897,7 +897,7 @@ export function AddressSharePanel (props) {
               style={styles.addressShareButton}
               textStyle={styles.addressButtonText}
               uppercase={false}
-              onPress={() => this.share(props.address)}
+              onPress={() => share(props.address)}
               {...props}
             >
               Share
