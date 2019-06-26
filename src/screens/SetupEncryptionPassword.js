@@ -65,11 +65,11 @@ class SetupEncryptionPassword extends Component {
   }
 
   keyboardWillShow = event => {
-    this.setState({ upperHeight: '-5%' })
+    this.setState({ upperHeight: '0%' })
   }
 
   keyboardWillHide = event => {
-    this.setState({ upperHeight: '36%' })
+    this.setState({ upperHeight: '35%' })
   }
 
   componentWillMount () {
