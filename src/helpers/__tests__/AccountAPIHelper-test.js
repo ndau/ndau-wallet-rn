@@ -238,7 +238,7 @@ test('make sure totalSpendableNdau subtracts the holds correctly', async () => {
     totalNdau,
     false
   )
-  expect(totalSpendable).toEqual('0.14')
+  expect(totalSpendable).toEqual('1.17')
 })
 
 test('make sure spendableNdau subtracts the holds correctly', async () => {
