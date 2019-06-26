@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  Platform,
   ScrollView,
   Switch,
   Linking
@@ -37,7 +38,7 @@ export function KeyboardScroller (props) {
     <KeyboardAvoidingView behavior='padding'>
       <ScrollView>
         {props.children}
-        <View style={{ height: 70 }} />
+        <View style={{ height: Platform.OS === 'ios' ? 90 : 20 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   )
