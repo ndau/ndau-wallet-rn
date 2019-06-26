@@ -67,8 +67,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 36,
     fontWeight: '600',
-    letterSpacing: 0.77,
-    lineHeight: 54,
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
     marginLeft: wp('4%')
@@ -88,17 +86,14 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 16,
     fontWeight: '400',
-    letterSpacing: 0.34,
-    lineHeight: 24,
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: 0
   },
   recoveryConfirmationTextOnly: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
     fontWeight: '700',
-    letterSpacing: 0.39,
-    lineHeight: 27,
     textAlign: 'center'
   },
   recoveryConfirmationContainer: {
@@ -122,7 +117,8 @@ export default StyleSheet.create({
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
-    justifyContent: 'center',
+    paddingTop: 0,
+    justifyContent: 'space-around',
     alignItems: 'center'
   },
   recoveryConfirmationButtonBox: {

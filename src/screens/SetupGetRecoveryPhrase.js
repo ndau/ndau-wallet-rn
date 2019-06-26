@@ -88,31 +88,17 @@ class SetupGetRecoveryPhrase extends Component {
     this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
     // this.recoveryPhrase = [
     //   'crouch',
-    //   'like',
-    //   'blue',
-    //   'heavy',
-    //   'fatal',
-    //   'board',
-    //   'night',
-    //   'protect',
-    //   'cushion',
-    //   'bag',
-    //   'sun',
-    //   'grace'
-    // ]
-    // this.recoveryPhrase = [
-    //   'great',
-    //   'permit',
-    //   'assault',
-    //   'grocery',
-    //   'creek',
-    //   'bright',
-    //   'talk',
-    //   'chat',
-    //   'deal',
-    //   'predict',
-    //   'smoke',
-    //   'shoot'
+    //   'loan',
+    //   'escape',
+    //   'idea',
+    //   'drop',
+    //   'blush',
+    //   'silver',
+    //   'history',
+    //   'gentle',
+    //   'pave',
+    //   'office',
+    //   'ginger'
     // ]
 
     this.boxWidth = '30%'

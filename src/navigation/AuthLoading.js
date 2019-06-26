@@ -30,7 +30,7 @@ class AuthLoadingScreen extends React.Component {
       } else if (multiSafes) {
         this.props.navigation.navigate('Authentication')
       } else {
-        this.props.navigation.navigate('SetupWelcome')
+        this.props.navigation.navigate('SetupEncryptionPassword')
       }
     } catch (error) {
       FlashNotification.showError(`Problem encountered: ${error.message}`)

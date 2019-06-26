@@ -3,9 +3,10 @@ import {
   View,
   ScrollView,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  Text
 } from 'react-native'
-import { H4, Progress, P, Input } from 'nachos-ui'
+import { Progress } from 'nachos-ui'
 import {
   ProgressBar,
   MainContainer,
@@ -74,7 +75,7 @@ export function SetupContainerWithScrollView (props) {
 }
 
 export function LargeText ({ children }) {
-  return <H4 style={[styles.largeText]}>{children}</H4>
+  return <Text style={[styles.largeText]}>{children}</Text>
 }
 
 export function UnderlineDivider ({ children }) {
@@ -83,17 +84,17 @@ export function UnderlineDivider ({ children }) {
 
 export function RecoveryConfirmationText (props) {
   return (
-    <P style={[styles.recoveryConfirmationText]} {...props}>
+    <Text style={[styles.recoveryConfirmationText]} {...props}>
       {props.children}
-    </P>
+    </Text>
   )
 }
 
 export function RecoveryConfirmationTextOnly (props) {
   return (
-    <P style={[styles.recoveryConfirmationTextOnly]} {...props}>
+    <Text style={[styles.recoveryConfirmationTextOnly]} {...props}>
       {props.children}
-    </P>
+    </Text>
   )
 }
 

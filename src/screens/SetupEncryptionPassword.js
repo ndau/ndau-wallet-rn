@@ -14,7 +14,7 @@ import UserStore from '../stores/UserStore'
 import { SetupContainer } from '../components/setup'
 import FlashNotification from '../components/common/FlashNotification'
 import {
-  LargeButtons,
+  LargeButton,
   Label,
   CheckBox,
   TextInput,
@@ -42,7 +42,7 @@ class SetupEncryptionPassword extends Component {
       textInputColor: '#000000',
       mode: AppConstants.NEW_PASSWORD_MODE,
       instructionText: this.NEW_PASSWORD_MODE_TEXT,
-      lowerHeight: '29%'
+      upperHeight: '36%'
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -65,11 +65,11 @@ class SetupEncryptionPassword extends Component {
   }
 
   keyboardWillShow = event => {
-    this.setState({ lowerHeight: '8%' })
+    this.setState({ upperHeight: '-5%' })
   }
 
   keyboardWillHide = event => {
-    this.setState({ lowerHeight: '29%' })
+    this.setState({ upperHeight: '36%' })
   }
 
   componentWillMount () {
@@ -116,7 +116,7 @@ class SetupEncryptionPassword extends Component {
   checkPasswordLength = () => {
     return (
       this.state.password.length >=
-        SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH
+      SetupEncryptionPassword.MINIMUM_PASSWORD_LENGTH
     )
   }
 
@@ -182,7 +182,7 @@ class SetupEncryptionPassword extends Component {
         LogStore.log(error)
         FlashNotification.showError(error.message, false, false)
       }
-      this.setState({spinner: false})
+      this.setState({ spinner: false })
     })
   }
 
@@ -215,13 +215,13 @@ class SetupEncryptionPassword extends Component {
     return (
       <SetupContainer {...this.props} pageNumber={17}>
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 300 : -60}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 30 : -60}
           behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
-          <View style={{ height: '25%' }}>
+          <View style={{ height: this.state.upperHeight }}>
             <ParagraphText>{this.state.instructionText}</ParagraphText>
           </View>
-          <View style={{ minHeight: '15%' }}>
+          <View style={{ height: '55%', alignSelf: 'baseline' }}>
             <Label>Password</Label>
             <TextInput
               onChangeText={password => this.setState({ password })}
@@ -230,8 +230,6 @@ class SetupEncryptionPassword extends Component {
               secureTextEntry={!this.state.showPasswords}
               autoCapitalize='none'
             />
-          </View>
-          <View style={{ minHeight: '15%' }}>
             <Label>Confirm Password</Label>
             <TextInput
               onChangeText={this.updateComfirmPassword}
@@ -241,23 +239,21 @@ class SetupEncryptionPassword extends Component {
               autoCapitalize='none'
               onSubmitEditing={this.showNextSetup}
             />
-          </View>
-          <View style={{ minHeight: '10%' }}>
+
             <CheckBox
               onValueChange={this.checkedShowPasswords}
               checked={this.state.showPasswords}
               label='Hide/show passwords'
             />
-          </View>
-          <View style={{ height: this.state.lowerHeight }}>
-            <LargeButtons
+
+            <LargeButton
               sideMargins
-              bottom
+              scroll
               onPress={() => this.showNextSetup()}
               disabled={!progress}
             >
               Next
-            </LargeButtons>
+            </LargeButton>
           </View>
           <View style={{ flex: 1 }} />
         </KeyboardAvoidingView>
