@@ -33,7 +33,6 @@
 		2DCD954D1E0B4F2C00145EB5 /* ndauwalletrnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ndauwalletrnTests.m */; };
 		3B6B4B637B8949BDB36939FA /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F28A7F1A49498C92309E31 /* libRNFS.a */; };
 		3E407451B47E49E8A4A00279 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 287E465B4573448F94BC9387 /* libz.tbd */; };
-		50D17D64EDFF47D789B29058 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D53D2D7807154B2F98154F57 /* libRNMail.a */; };
 		6B85CE8807E14492BD48D13B /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F15DD7B8509449ABAED54A7 /* libRNGestureHandler-tvOS.a */; };
 		7579BFE30F0649418747EFCD /* RNMailTests.xctest in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DBA5F186AFA46C39D68B46E /* RNMailTests.xctest */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -64,6 +63,7 @@
 		9EAA412B2211F5E900529729 /* libRNBackgroundFetch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAA412A2211F5DF00529729 /* libRNBackgroundFetch.a */; };
 		9EAA412C2211FB9D00529729 /* TSBackgroundFetch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E75AE48220A528D0020BDF2 /* TSBackgroundFetch.framework */; };
 		9EAA412E2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA412D2211FC1900529729 /* RNBackgroundFetch+AppDelegate.m */; };
+		9EBC890E22C3B1C00074E3D0 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E1295742270DB0F000CE957 /* libRNMail.a */; };
 		9EC12AC72264F16700E44F82 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC12AC62264F15000E44F82 /* libRNCamera.a */; };
 		9ECCCF1820F62323007AE393 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		9EE41A16220A015A00D9E32E /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EE419F3220A012800D9E32E /* libRCTPushNotification.a */; };
@@ -449,13 +449,6 @@
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RNCamera;
 		};
-		9EDB573B22BACC84003D4767 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3E6E4927CF294CF38B95D820 /* RNShare.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNShare;
-		};
 		9EE419F2220A012800D9E32E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9EE419E1220A012700D9E32E /* RCTPushNotification.xcodeproj */;
@@ -607,6 +600,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EBC890E22C3B1C00074E3D0 /* libRNMail.a in Frameworks */,
 				9E99C08322C280EA00170E81 /* MessageUI.framework in Frameworks */,
 				9E99C08122C280CD00170E81 /* Social.framework in Frameworks */,
 				DFB0F51D22663E6500C47464 /* libRNVersionNumber.a in Frameworks */,
@@ -638,7 +632,6 @@
 				3E407451B47E49E8A4A00279 /* libz.tbd in Frameworks */,
 				D6CAA3153B264BDBB703D241 /* libRNDeviceInfo.a in Frameworks */,
 				3B6B4B637B8949BDB36939FA /* libRNFS.a in Frameworks */,
-				50D17D64EDFF47D789B29058 /* libRNMail.a in Frameworks */,
 				7579BFE30F0649418747EFCD /* RNMailTests.xctest in Frameworks */,
 				BCDC54B3F1FD442FB1BDBF88 /* libRNGestureHandler.a in Frameworks */,
 				87DF0768C34A4D548EDF375C /* libRNShare.a in Frameworks */,
@@ -1010,14 +1003,6 @@
 			isa = PBXGroup;
 			children = (
 				9EC12AC62264F15000E44F82 /* libRNCamera.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9EDB573822BACC84003D4767 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9EDB573C22BACC84003D4767 /* libRNShare.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1677,13 +1662,6 @@
 			remoteRef = 9EC12AC52264F15000E44F82 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9EDB573C22BACC84003D4767 /* libRNShare.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNShare.a;
-			remoteRef = 9EDB573B22BACC84003D4767 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9EE419F3220A012800D9E32E /* libRCTPushNotification.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1979,6 +1957,7 @@
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ndauwalletrn/ndauwalletrn.entitlements;
@@ -2032,6 +2011,7 @@
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ndauwalletrn/ndauwalletrn.entitlements;
