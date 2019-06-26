@@ -449,6 +449,13 @@
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RNCamera;
 		};
+		9EDB573B22BACC84003D4767 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E6E4927CF294CF38B95D820 /* RNShare.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNShare;
+		};
 		9EE419F2220A012800D9E32E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9EE419E1220A012700D9E32E /* RCTPushNotification.xcodeproj */;
@@ -1007,6 +1014,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9EDB573822BACC84003D4767 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9EDB573C22BACC84003D4767 /* libRNShare.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9EE419E2220A012700D9E32E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1282,7 +1297,7 @@
 					ProjectRef = B9800CBAA9914504A4422D8E /* RNSecureRandom.xcodeproj */;
 				},
 				{
-					ProductGroup = 9E046D6C22BC5FF700331F4F /* Products */;
+					ProductGroup = 9EDB573822BACC84003D4767 /* Products */;
 					ProjectRef = 3E6E4927CF294CF38B95D820 /* RNShare.xcodeproj */;
 				},
 				{
@@ -1662,6 +1677,13 @@
 			remoteRef = 9EC12AC52264F15000E44F82 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9EDB573C22BACC84003D4767 /* libRNShare.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNShare.a;
+			remoteRef = 9EDB573B22BACC84003D4767 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9EE419F3220A012800D9E32E /* libRCTPushNotification.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1768,7 +1790,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
