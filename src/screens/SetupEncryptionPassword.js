@@ -4,7 +4,8 @@ import {
   KeyboardAvoidingView,
   View,
   Platform,
-  Keyboard
+  Keyboard,
+  ScrollView
 } from 'react-native'
 import SetupStore from '../stores/SetupStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
@@ -18,12 +19,14 @@ import {
   Label,
   CheckBox,
   TextInput,
-  ParagraphText
+  ParagraphText,
+  KeyboardScroller
 } from '../components/common'
 import LogStore from '../stores/LogStore'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
+  static TEXT_HEIGHT_NO_KEYBOARD = '41%'
 
   constructor (props) {
     super(props)
@@ -42,7 +45,7 @@ class SetupEncryptionPassword extends Component {
       textInputColor: '#000000',
       mode: AppConstants.NEW_PASSWORD_MODE,
       instructionText: this.NEW_PASSWORD_MODE_TEXT,
-      upperHeight: '36%'
+      upperHeight: SetupEncryptionPassword.TEXT_HEIGHT_NO_KEYBOARD
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -65,11 +68,22 @@ class SetupEncryptionPassword extends Component {
   }
 
   keyboardWillShow = event => {
-    this.setState({ upperHeight: '0%' })
+    this.setState({
+      ...Platform.select({
+        ios: {
+          upperHeight: '0%'
+        },
+        android: {
+          upperHeight: '10%'
+        }
+      })
+    })
   }
 
   keyboardWillHide = event => {
-    this.setState({ upperHeight: '35%' })
+    this.setState({
+      upperHeight: SetupEncryptionPassword.TEXT_HEIGHT_NO_KEYBOARD
+    })
   }
 
   componentWillMount () {
@@ -215,10 +229,10 @@ class SetupEncryptionPassword extends Component {
     return (
       <SetupContainer {...this.props} pageNumber={17}>
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 30 : -60}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -200}
           behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
-          <View style={{ height: this.state.upperHeight }}>
+          <View style={{ overflow: 'hidden', height: this.state.upperHeight }}>
             <ParagraphText>{this.state.instructionText}</ParagraphText>
           </View>
           <View style={{ height: '55%', alignSelf: 'baseline' }}>
@@ -255,7 +269,6 @@ class SetupEncryptionPassword extends Component {
               Next
             </LargeButton>
           </View>
-          <View style={{ flex: 1 }} />
         </KeyboardAvoidingView>
       </SetupContainer>
     )

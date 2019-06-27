@@ -2,10 +2,11 @@ import React from 'react'
 import {
   View,
   StatusBar,
-  ImageBackground,
+  KeyboardAvoidingView,
   TouchableOpacity,
   Text,
   Image,
+  Platform,
   ScrollView,
   Switch,
   Linking
@@ -31,6 +32,17 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import Icon from 'react-native-fontawesome-pro'
+
+export function KeyboardScroller (props) {
+  return (
+    <KeyboardAvoidingView behavior='padding'>
+      <ScrollView>
+        {props.children}
+        <View style={{ height: Platform.OS === 'ios' ? 90 : 20 }} />
+      </ScrollView>
+    </KeyboardAvoidingView>
+  )
+}
 
 export function LoginContainer ({ children }) {
   return (
@@ -295,7 +307,7 @@ export function CheckBox (props) {
       <TouchableOpacity
         activeOpacity={0.8}
         style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
-        onPress={() => onValueChange(!checked)}
+        onPress={() => props.onValueChange(!checked)}
         {...props}
       >
         {isChecked && !checkComponent && (

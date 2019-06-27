@@ -34,7 +34,7 @@ export default StyleSheet.create({
   },
   setupContainerOverlay: {
     position: 'absolute',
-    top: hp('7%'),
+    top: '6.5%',
     left: 0,
     right: 0,
     bottom: 0
@@ -49,9 +49,7 @@ export default StyleSheet.create({
       android: {
         height: hp('84%')
       }
-    }),
-    marginTop: hp('2%'),
-    marginBottom: hp('2.5%')
+    })
   },
   setupContainerWithScrollView: {
     flex: 1,
@@ -130,23 +128,16 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   recoveryConfirmationButtonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     width: wp('100%'),
     height: hp('30%'),
-    paddingTop: hp('3%')
+    marginTop: '30%'
   },
   recoveryConfirmationContainerTextOnly: {
-    position: 'absolute',
-    top: hp('15%'),
-    left: 0,
-    right: 0,
     width: wp('100%'),
     height: hp('30%'),
     backgroundColor: '#293e63',
-    paddingTop: hp('3%')
+    marginTop: '10%',
+    paddingTop: '8%'
   },
 
   recoveryConfirmationRowViewTextOnly: {
