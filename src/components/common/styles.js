@@ -43,9 +43,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: hp('2%')
   },
-  setupButtonContainerScrollView: {
-    // marginTop: hp('1%')
-  },
+  setupButtonContainerScrollView: {},
   setupButtonContainerTop: {
     // Due to how we have to fill the LinearGradient we
     // unfortunately lose flexbox, so we have to resort to
@@ -79,8 +77,8 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   centeredLinkContainer: {
-    alignSelf: 'center',
-    minHeight: '6%'
+    alignSelf: 'flex-start',
+    marginLeft: wp('4%')
   },
   centeredLinkText: {
     color: '#8DC84F',
@@ -308,9 +306,7 @@ export default StyleSheet.create({
     backgroundColor: '#EDEAEA',
     fontFamily: 'Open Sans',
     zIndex: 5,
-    fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24
+    fontSize: 16
   },
   inputBottomMargin: {
     marginBottom: hp('2%')

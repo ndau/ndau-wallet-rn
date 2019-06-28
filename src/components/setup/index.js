@@ -11,10 +11,13 @@ import {
   ProgressBar,
   MainContainer,
   FullScreenTripColorGradient,
-  FullScreenDualColorGradient
+  FullScreenDualColorGradient,
+  TextInput
 } from '../common'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
+import Icon from 'react-native-fontawesome-pro'
+import cssStyles from '../../css/styles'
 
 export function SetupWelcomeContainer ({ children }) {
   return (
@@ -43,8 +46,12 @@ export function SetupContainer (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <ProgressBar goBack={goBack} pageNumber={props.pageNumber} />
+
         <FullScreenDualColorGradient style={styles.setupContainerOverlay}>
-          <ScrollView keyboardShouldPersistTaps='always'>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps='always'
+          >
             <View style={styles.setupContainer}>{props.children}</View>
           </ScrollView>
         </FullScreenDualColorGradient>
@@ -90,6 +97,14 @@ export function RecoveryConfirmationText (props) {
   )
 }
 
+export function RecoveryWordsText (props) {
+  return (
+    <Text style={[styles.recoveryConfirmationText]} {...props}>
+      {props.children}
+    </Text>
+  )
+}
+
 export function RecoveryConfirmationTextOnly (props) {
   return (
     <Text style={[styles.recoveryConfirmationTextOnly]} {...props}>
@@ -108,6 +123,26 @@ export function RecoveryPhraseConfirmation (props) {
               return (
                 <View key={index} style={[styles.recoveryConfirmationBox]}>
                   <RecoveryConfirmationText>{item}</RecoveryConfirmationText>
+                </View>
+              )
+            })}
+          </View>
+        )
+      })}
+    </View>
+  )
+}
+
+export function RecoveryWords (props) {
+  return (
+    <View style={styles.recoveryConfirmationContainer}>
+      {props.words.map((row, rowIndex) => {
+        return (
+          <View key={rowIndex} style={styles.recoveryConfirmationRowView}>
+            {row.map((item, index) => {
+              return (
+                <View key={index} style={[styles.recoveryConfirmationBox]}>
+                  <RecoveryWordsText>{item}</RecoveryWordsText>
                 </View>
               )
             })}
@@ -186,6 +221,49 @@ export function RecoveryPhraseConfirmationTextOnly (props) {
           </View>
         )
       })}
+    </View>
+  )
+}
+
+export const RecoveryWordInput = props => {
+  return (
+    <View style={{ flex: 2, justifyContent: 'flex-end' }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <Text style={cssStyles.wizardText}>{props.recoveryIndex + 1}</Text>
+        <Text style={cssStyles.wizardText}>{' of '}</Text>
+        <Text style={cssStyles.wizardText}>{props.recoveryPhrase.length}</Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          margin: '4%'
+        }}
+      >
+        <Icon
+          name='arrow-square-left'
+          color={AppConstants.ICON_BUTTON_COLOR}
+          size={48}
+          type='light'
+        />
+        <TextInput
+          style={{ marginLeft: '4%', marginRight: '4%', flexGrow: 1 }}
+        />
+        <Icon
+          name='arrow-square-right'
+          color={AppConstants.ICON_BUTTON_COLOR}
+          size={48}
+          type='light'
+        />
+      </View>
+      {props.keyboardShown ? <RecoveryWords words={[]} /> : null}
     </View>
   )
 }

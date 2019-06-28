@@ -33,23 +33,10 @@ export default StyleSheet.create({
     marginBottom: hp('3%')
   },
   setupContainerOverlay: {
-    position: 'absolute',
-    top: '6.5%',
-    left: 0,
-    right: 0,
-    bottom: 0
+    marginTop: '12%'
   },
   setupContainer: {
-    flex: 1,
-    width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('79%')
-      },
-      android: {
-        height: hp('84%')
-      }
-    })
+    flex: 1
   },
   setupContainerWithScrollView: {
     flex: 1,
@@ -95,9 +82,6 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   recoveryConfirmationContainer: {
-    top: hp('9%'),
-    left: 0,
-    right: 0,
     width: wp('100%'),
     height: hp('30%'),
     backgroundColor: '#293e63',

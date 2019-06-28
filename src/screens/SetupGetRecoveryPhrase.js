@@ -20,12 +20,14 @@ import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import SetupStore from '../stores/SetupStore'
-import Icon from 'react-native-fontawesome-pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LogStore from '../stores/LogStore'
-import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
+import {
+  SetupContainer,
+  RecoveryPhraseConfirmation,
+  RecoveryWordInput
+} from '../components/setup'
 import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButtons,
@@ -47,9 +49,7 @@ const IOS_NORMAL_SIZE = '55%'
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
-    this.NORMAL_MODE_TEXT =
-      `To recover your wallet, please verify your twelve-word recovery phrase. ` +
-      `Start typing in the box below, then pick the correct suggestion.`
+    this.NORMAL_MODE_TEXT = `Type your 12 word recovery phrase below to recovery your wallet.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
@@ -78,7 +78,8 @@ class SetupGetRecoveryPhrase extends Component {
       disableArrows: true,
       spinner: false,
       lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
+      lowerHeightIOS: IOS_NORMAL_SIZE,
+      keyboardShown: false
     }
 
     this.index = 0
@@ -338,15 +339,13 @@ class SetupGetRecoveryPhrase extends Component {
 
   keyboardWillShow = event => {
     this.setState({
-      lowerHeightAndroid: ANDROID_SHRINK_SIZE,
-      lowerHeightIOS: IOS_SHRINK_SIZE
+      keyboardShown: true
     })
   }
 
   keyboardWillHide = event => {
     this.setState({
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
+      keyboardShown: false
     })
   }
 
@@ -357,125 +356,27 @@ class SetupGetRecoveryPhrase extends Component {
         goBack={this.fromHamburger ? this.goBack : null}
         pageNumber={2 + this.state.stepNumber}
       >
-        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 30 : 0}
+          style={{ flexGrow: 1 }}
+          behavior='padding'
         >
-          <View style={{ height: 'auto' }}>
-            <ParagraphText>{this.state.introductionText}</ParagraphText>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              minHeight: '25%',
-              zIndex: 100
-            }}
-          >
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '15%'
-              }}
-            >
-              <Text style={cssStyles.wizardText}>
-                {this.state.recoveryIndex + 1}
-              </Text>
-              <Text style={cssStyles.wizardText}>{' of '}</Text>
-              <Text style={cssStyles.wizardText}>
-                {this.recoveryPhrase.length}
-              </Text>
+          {!this.state.keyboardShown ? (
+            <View style={{ flex: 1 }}>
+              <ParagraphText>{this.state.introductionText}</ParagraphText>
+              <BottomLinkText onPress={this.noRecoveryPhrase}>
+                I don't have my recovery phrase
+              </BottomLinkText>
             </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                minHeight: '30%'
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center'
-                }}
-              >
-                <TouchableOpacity
-                  style={{
-                    marginLeft: wp('5%'),
-                    marginTop: hp('.8%'),
-                    ...Platform.select({
-                      ios: {
-                        marginRight: hp('1.6%')
-                      },
-                      android: {
-                        marginRight: hp('6%')
-                      }
-                    })
-                  }}
-                  onPress={this._moveBackAWord}
-                >
-                  <Icon
-                    name='arrow-circle-left'
-                    color={styleConstants.ICON_GRAY}
-                    size={32}
-                    type='light'
-                  />
-                </TouchableOpacity>
-                <RecoveryDropdown
-                  addToRecoveryPhrase={this.addToRecoveryPhrase}
-                  setAcquisitionError={this.setAcquisitionError}
-                  recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
-                  setDisableArrows={this.setDisableArrows}
-                  moveToNextWord={this._moveToNextWord}
-                  ref={input => {
-                    this.recoveryDropdownRef = input
-                  }}
-                />
-                <TouchableOpacity
-                  style={{
-                    marginTop: hp('.5%'),
-                    marginLeft: wp('3%'),
-                    marginRight: wp('5%')
-                  }}
-                  onPress={this._moveToNextWord}
-                  disabled={this.state.disableArrows}
-                >
-                  <Icon
-                    name='arrow-circle-right'
-                    color={styleConstants.ICON_GRAY}
-                    size={32}
-                    type='light'
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          <View
-            style={{
-              ...Platform.select({
-                ios: {
-                  height: this.state.lowerHeightIOS
-                },
-                android: {
-                  height: this.state.lowerHeightAndroid
-                }
-              }),
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              zIndex: 0
-            }}
-          >
-            <BottomLinkText onPress={this.noRecoveryPhrase}>
-              I don't have my recovery phrase
-            </BottomLinkText>
-          </View>
+          ) : (
+            <View style={{ flex: 1 }} />
+          )}
+
+          <RecoveryWordInput
+            recoveryIndex={this.state.recoveryIndex}
+            recoveryPhrase={this.recoveryPhrase}
+            keyboardShown={this.state.keyboardShown}
+          />
         </KeyboardAvoidingView>
         <Dialog
           style={{
@@ -483,7 +384,6 @@ class SetupGetRecoveryPhrase extends Component {
             fontFamily: 'TitilliumWeb-Regular'
           }}
           visible={this.state.dialogVisible}
-          // title="Missing Recovery Phrase"
           onTouchOutside={() => this.setState({ dialogVisible: false })}
         >
           <View>
