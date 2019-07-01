@@ -36,7 +36,9 @@ const loadUserData = async user => {
     // have other problems.
     // Also make sure that you have found data, if not we stand the risk
     // of blowing away data that is present
-    if (user && password && dataFound) {
+    // ATTENTION - DO NOT REMOVE THIS COMMENTED CODE!
+    // IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT THIS
+    if (/*! UserTestData.user && */ user && password && dataFound) {
       await MultiSafeHelper.saveUser(user, password)
     }
   }

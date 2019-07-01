@@ -149,8 +149,8 @@ const _internalSaveUser = async (
 const getDefaultUser = async encryptionPassword => {
   // ATTENTION - DO NOT REMOVE THIS COMMENTED CODE!
   // IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT THIS
-  // if (UserTestData) {
-  //   return UserTestData
+  // if (UserTestData.user) {
+  //   return UserTestData.user
   // }
 
   const multiSafe = new MultiSafe()
