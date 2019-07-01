@@ -84,7 +84,6 @@ export default StyleSheet.create({
   recoveryConfirmationContainer: {
     width: wp('100%'),
     height: hp('30%'),
-    backgroundColor: '#293e63',
     paddingTop: hp('3%')
   },
   recoveryConfirmationRowView: {
@@ -135,5 +134,13 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0
+  },
+  smallErrorText: {
+    color: AppConstants.ERROR_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+    fontWeight: '200',
+    paddingBottom: 0,
+    marginLeft: '4%'
   }
 })

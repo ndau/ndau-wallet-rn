@@ -12,7 +12,8 @@ import {
   MainContainer,
   FullScreenTripColorGradient,
   FullScreenDualColorGradient,
-  TextInput
+  TextInput,
+  FullBarBorder
 } from '../common'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
@@ -133,26 +134,6 @@ export function RecoveryPhraseConfirmation (props) {
   )
 }
 
-export function RecoveryWords (props) {
-  return (
-    <View style={styles.recoveryConfirmationContainer}>
-      {props.words.map((row, rowIndex) => {
-        return (
-          <View key={rowIndex} style={styles.recoveryConfirmationRowView}>
-            {row.map((item, index) => {
-              return (
-                <View key={index} style={[styles.recoveryConfirmationBox]}>
-                  <RecoveryWordsText>{item}</RecoveryWordsText>
-                </View>
-              )
-            })}
-          </View>
-        )
-      })}
-    </View>
-  )
-}
-
 export function RecoveryPhraseConfirmationButtons (props) {
   return (
     <View style={styles.recoveryConfirmationButtonContainer}>
@@ -225,20 +206,46 @@ export function RecoveryPhraseConfirmationTextOnly (props) {
   )
 }
 
+export function RecoveryWords (props) {
+  return (
+    <View style={styles.recoveryConfirmationContainer}>
+      <Text style={cssStyles.wizardText}>Suggested words</Text>
+      <FullBarBorder />
+      {props.words.map((row, rowIndex) => {
+        return (
+          <View key={rowIndex} style={styles.recoveryConfirmationRowView}>
+            {row.map((item, index) => {
+              return (
+                <View key={index} style={[styles.recoveryConfirmationBox]}>
+                  <RecoveryWordsText>{item}</RecoveryWordsText>
+                </View>
+              )
+            })}
+          </View>
+        )
+      })}
+    </View>
+  )
+}
+
 export const RecoveryWordInput = props => {
   return (
     <View style={{ flex: 2, justifyContent: 'flex-end' }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <Text style={cssStyles.wizardText}>{props.recoveryIndex + 1}</Text>
-        <Text style={cssStyles.wizardText}>{' of '}</Text>
-        <Text style={cssStyles.wizardText}>{props.recoveryPhrase.length}</Text>
-      </View>
+      {props.keyboardShown ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Text style={cssStyles.wizardText}>{props.recoveryIndex + 1}</Text>
+          <Text style={cssStyles.wizardText}>{' of '}</Text>
+          <Text style={cssStyles.wizardText}>
+            {props.recoveryPhrase.length}
+          </Text>
+        </View>
+      ) : null}
 
       <View
         style={{
@@ -253,9 +260,26 @@ export const RecoveryWordInput = props => {
           size={48}
           type='light'
         />
-        <TextInput
-          style={{ marginLeft: '4%', marginRight: '4%', flexGrow: 1 }}
-        />
+        <View
+          style={{
+            flex: 3,
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+          }}
+        >
+          <View>
+            <TextInput
+              style={{ marginLeft: '4%', marginRight: '4%', flexGrow: 1 }}
+              autoCapitalize='none'
+              error={props.error}
+            />
+          </View>
+          <View>
+            {props.error ? (
+              <Text style={[styles.smallErrorText]}>{props.errorText}</Text>
+            ) : null}
+          </View>
+        </View>
         <Icon
           name='arrow-square-right'
           color={AppConstants.ICON_BUTTON_COLOR}

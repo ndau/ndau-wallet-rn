@@ -57,6 +57,7 @@ class Dashboard extends Component {
 
     if (Object.keys(user.wallets).length <= 1) {
       WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
+      console.warn('Wallet is: ', WalletStore.getWallet())
       this.props.navigation.navigate('WalletOverview')
       return (
         <AppContainer>

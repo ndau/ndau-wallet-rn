@@ -357,7 +357,7 @@ class SetupGetRecoveryPhrase extends Component {
         pageNumber={2 + this.state.stepNumber}
       >
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 30 : 0}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
           style={{ flexGrow: 1 }}
           behavior='padding'
         >
@@ -376,6 +376,8 @@ class SetupGetRecoveryPhrase extends Component {
             recoveryIndex={this.state.recoveryIndex}
             recoveryPhrase={this.recoveryPhrase}
             keyboardShown={this.state.keyboardShown}
+            error={this.state.acquisitionError}
+            errorText='please enter a valid word'
           />
         </KeyboardAvoidingView>
         <Dialog
