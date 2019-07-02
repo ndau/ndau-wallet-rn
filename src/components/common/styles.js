@@ -503,6 +503,9 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: hp('2%')
   },
+  fullBarBorderBottomWidth: {
+    marginBottom: hp('2%')
+  },
   drawerBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
@@ -578,12 +581,17 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
     marginRight: wp('4%'),
     marginLeft: wp('4%')
+  },
+  paragraphTextNoPaddingOrMargin: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    marginLeft: wp('4%'),
+    padding: 0
   },
   fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {

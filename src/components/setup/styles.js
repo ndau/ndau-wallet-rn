@@ -86,10 +86,26 @@ export default StyleSheet.create({
     height: hp('30%'),
     paddingTop: hp('3%')
   },
+  recoveryWordsContainer: {
+    width: wp('100%'),
+    height: hp('20%')
+  },
   recoveryConfirmationRowView: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  recoveryAcquisitionRowView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  recoveryConfirmationRowViewForExisting: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-start',
+    padding: '4%'
   },
   recoveryConfirmationBox: {
     width: wp('21%'),

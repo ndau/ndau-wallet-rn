@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   ScrollView,
   ImageBackground,
   TouchableOpacity,
-  Text
+  Text,
+  NativeModules
 } from 'react-native'
 import { Progress } from 'nachos-ui'
 import {
@@ -13,12 +14,14 @@ import {
   FullScreenTripColorGradient,
   FullScreenDualColorGradient,
   TextInput,
-  FullBarBorder
+  FullBarBorder,
+  ParagraphText
 } from '../common'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
 import Icon from 'react-native-fontawesome-pro'
 import cssStyles from '../../css/styles'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
 
 export function SetupWelcomeContainer ({ children }) {
   return (
@@ -134,6 +137,26 @@ export function RecoveryPhraseConfirmation (props) {
   )
 }
 
+export function RecoveryPhraseAcqusition (props) {
+  return (
+    <View style={styles.recoveryWordsContainer}>
+      {props.words.map((row, rowIndex) => {
+        return (
+          <View key={rowIndex} style={styles.recoveryAcquisitionRowView}>
+            {row.map((item, index) => {
+              return item !== '' ? (
+                <View key={index} style={[styles.recoveryConfirmationBox]}>
+                  <RecoveryConfirmationText>{item}</RecoveryConfirmationText>
+                </View>
+              ) : null
+            })}
+          </View>
+        )
+      })}
+    </View>
+  )
+}
+
 export function RecoveryPhraseConfirmationButtons (props) {
   return (
     <View style={styles.recoveryConfirmationButtonContainer}>
@@ -208,27 +231,18 @@ export function RecoveryPhraseConfirmationTextOnly (props) {
 
 export function RecoveryWords (props) {
   return (
-    <View style={styles.recoveryConfirmationContainer}>
-      <Text style={cssStyles.wizardText}>Suggested words</Text>
-      <FullBarBorder />
-      {props.words.map((row, rowIndex) => {
-        return (
-          <View key={rowIndex} style={styles.recoveryConfirmationRowView}>
-            {row.map((item, index) => {
-              return (
-                <View key={index} style={[styles.recoveryConfirmationBox]}>
-                  <RecoveryWordsText>{item}</RecoveryWordsText>
-                </View>
-              )
-            })}
-          </View>
-        )
-      })}
+    <View style={styles.recoveryWordsContainer}>
+      <ParagraphText noPaddingOrMargin>Suggested words</ParagraphText>
+      <FullBarBorder marginBottom />
+      <RecoveryPhraseAcqusition {...props} />
     </View>
   )
 }
 
 export const RecoveryWordInput = props => {
+  const [input, setInput] = useState('')
+  const [wordsArray, setWordsArray] = useState([])
+
   return (
     <View style={{ flex: 2, justifyContent: 'flex-end' }}>
       {props.keyboardShown ? (
@@ -259,6 +273,7 @@ export const RecoveryWordInput = props => {
           color={AppConstants.ICON_BUTTON_COLOR}
           size={48}
           type='light'
+          onPress={props.moveBackAWord}
         />
         <View
           style={{
@@ -272,6 +287,18 @@ export const RecoveryWordInput = props => {
               style={{ marginLeft: '4%', marginRight: '4%', flexGrow: 1 }}
               autoCapitalize='none'
               error={props.error}
+              onChangeText={async text => {
+                const words = await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
+                  AppConstants.APP_LANGUAGE,
+                  text,
+                  6
+                )
+                setWordsArray(
+                  DataFormatHelper.groupArrayIntoRows(words.split(/\s+/g), 3)
+                )
+                setInput(text)
+              }}
+              value={input}
             />
           </View>
           <View>
@@ -285,9 +312,10 @@ export const RecoveryWordInput = props => {
           color={AppConstants.ICON_BUTTON_COLOR}
           size={48}
           type='light'
+          onPress={props.moveToNextWord}
         />
       </View>
-      {props.keyboardShown ? <RecoveryWords words={[]} /> : null}
+      {props.keyboardShown ? <RecoveryWords words={wordsArray} /> : null}
     </View>
   )
 }

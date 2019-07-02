@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   Keyboard
 } from 'react-native'
-import groupIntoRows from '../helpers/groupIntoRows'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -350,6 +349,23 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   _renderAcquisition = () => {
+    const words = DataFormatHelper.groupArrayIntoRows(
+      this.recoveryPhrase,
+      this.rowLength
+    )
+    const styles = {
+      rowTextView: {
+        height: hp(this.boxHeight),
+        width: wp(this.boxWidth)
+      },
+      textStyle: {
+        color: this.state.textColor,
+        fontSize: 20,
+        fontFamily: 'TitilliumWeb-Regular',
+        textAlign: 'center'
+      }
+    }
+
     return (
       <SetupContainer
         {...this.props}
@@ -357,7 +373,7 @@ class SetupGetRecoveryPhrase extends Component {
         pageNumber={2 + this.state.stepNumber}
       >
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 20}
           style={{ flexGrow: 1 }}
           behavior='padding'
         >
@@ -378,6 +394,10 @@ class SetupGetRecoveryPhrase extends Component {
             keyboardShown={this.state.keyboardShown}
             error={this.state.acquisitionError}
             errorText='please enter a valid word'
+            moveBackAWord={this._moveBackAWord}
+            moveToNextWord={this._moveToNextWord}
+            words={words}
+            rowTextView={styles.rowTextView}
           />
         </KeyboardAvoidingView>
         <Dialog
@@ -404,7 +424,10 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   _renderConfirmation = () => {
-    const words = groupIntoRows(this.recoveryPhrase, this.rowLength)
+    const words = DataFormatHelper.groupArrayIntoRows(
+      this.recoveryPhrase,
+      this.rowLength
+    )
     const styles = {
       rowTextView: {
         height: hp(this.boxHeight),
@@ -417,7 +440,6 @@ class SetupGetRecoveryPhrase extends Component {
         textAlign: 'center'
       }
     }
-    let count = 1
 
     return (
       <SetupContainer
