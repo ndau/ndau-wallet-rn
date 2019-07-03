@@ -64,7 +64,7 @@ class WalletOverview extends Component {
     if (this.props.navigation.getParam('refresh')) {
       this._onRefresh()
     } else {
-      const wallet = this._loadMetricsAndSetState(this._getWallet())
+      const wallet = await this._loadMetricsAndSetState(this._getWallet())
       if (wallet) {
         WalletStore.setWallet(wallet)
       }
@@ -77,33 +77,39 @@ class WalletOverview extends Component {
   }
 
   _loadMetricsAndSetState = wallet => {
-    if (wallet) {
-      // throw new Error(Object.prototype.toString.call(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)))
-      totalNdau = new NdauNumber(
-        AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
-      ).toDetail()
-      totalNdauNumber = new NdauNumber(
-        AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
-      ).toDetail()
-      totalSpendable = new NdauNumber(
-        AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
-      ).toSummary()
-    } else {
-      totalNdau = '0'
-      totalNdauNumber = '0'
-      totalSpendable = '0'
-    }
-    const currentPrice = AccountAPIHelper.currentPrice(
-      NdauStore.getMarketPrice(),
-      totalNdauNumber
-    )
+    return new Promise(resolve => {
+      if (wallet) {
+        // throw new Error(Object.prototype.toString.call(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)))
+        totalNdau = new NdauNumber(
+          AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
+        ).toDetail()
+        totalNdauNumber = new NdauNumber(
+          AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
+        ).toDetail()
+        totalSpendable = new NdauNumber(
+          AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
+        ).toSummary()
+      } else {
+        totalNdau = '0'
+        totalNdauNumber = '0'
+        totalSpendable = '0'
+      }
+      const currentPrice = AccountAPIHelper.currentPrice(
+        NdauStore.getMarketPrice(),
+        totalNdauNumber
+      )
 
-    this.setState({
-      refreshing: false,
-      wallet,
-      currentPrice,
-      totalNdau,
-      totalSpendable
+      this.setState(
+        {
+          refreshing: false,
+          currentPrice,
+          totalNdau,
+          totalSpendable
+        },
+        () => {
+          resolve(wallet)
+        }
+      )
     })
   }
 
@@ -145,6 +151,8 @@ class WalletOverview extends Component {
   }
 
   _onRefresh = async () => {
+    if (this.state.refreshing) return
+
     FlashNotification.hideMessage()
     this.setState({ refreshing: true }, async () => {
       const password = await UserStore.getPassword()
@@ -153,14 +161,13 @@ class WalletOverview extends Component {
       let wallet = this._getWallet()
       try {
         await UserData.loadUserData(user)
-
-        wallet = KeyMaster.getWalletFromUser(user, wallet.walletId)
       } catch (error) {
         FlashNotification.showError(error.message)
       }
 
       if (wallet) WalletStore.setWallet(wallet)
-      this._loadMetricsAndSetState(wallet)
+
+      await this._loadMetricsAndSetState(wallet)
     })
   }
 
@@ -173,11 +180,7 @@ class WalletOverview extends Component {
   }
 
   _getWallet = () => {
-    let { wallet } = this.state
-    if (!wallet) {
-      wallet = WalletStore.getWallet()
-    }
-    return wallet
+    return WalletStore.getWallet()
   }
 
   render = () => {

@@ -55,6 +55,8 @@ class Dashboard extends Component {
 
     const user = UserStore.getUser()
 
+    LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
+
     if (Object.keys(user.wallets).length <= 1) {
       WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
       this.props.navigation.navigate('WalletOverview')
@@ -66,8 +68,6 @@ class Dashboard extends Component {
     }
 
     this._loadMetricsAndSetState(user)
-
-    LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
 
     const error = this.props.navigation.getParam('error', null)
     if (error) {
@@ -110,6 +110,8 @@ class Dashboard extends Component {
   }
 
   _onRefresh = async () => {
+    if (this.state.refreshing) return
+
     FlashNotification.hideMessage()
     this.setState({ refreshing: true }, async () => {
       const user = this.state.user
@@ -131,7 +133,6 @@ class Dashboard extends Component {
   render = () => {
     try {
       const user = UserStore.getUser()
-
       const { totalNdau, totalSpendableNdau, currentPrice } = this.state
       const wallets = Object.values(user.wallets)
 
