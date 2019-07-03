@@ -243,6 +243,18 @@ export const RecoveryWordInput = props => {
   const [input, setInput] = useState('')
   const [wordsArray, setWordsArray] = useState([])
 
+  const nextWord = () => {
+    props.moveToNextWord
+    setInput('')
+    setWordsArray([])
+  }
+
+  const prevWord = () => {
+    props.moveBackAWord
+    setInput('')
+    setWordsArray([])
+  }
+
   return (
     <View style={{ flex: 2, justifyContent: 'flex-end' }}>
       {props.keyboardShown ? (
@@ -273,7 +285,7 @@ export const RecoveryWordInput = props => {
           color={AppConstants.ICON_BUTTON_COLOR}
           size={48}
           type='light'
-          onPress={props.moveBackAWord}
+          onPress={prevWord}
         />
         <View
           style={{
@@ -297,8 +309,13 @@ export const RecoveryWordInput = props => {
                   DataFormatHelper.groupArrayIntoRows(words.split(/\s+/g), 3)
                 )
                 setInput(text)
+
+                props.checkIfArrowsNeedToBeDisabled(words, text)
+                props.setAcquisitionError(!words.length)
+                props.addToRecoveryPhrase(text)
               }}
-              value={input}
+              value={input || props.recoveryWord}
+              autoFocus
             />
           </View>
           <View>
@@ -312,7 +329,7 @@ export const RecoveryWordInput = props => {
           color={AppConstants.ICON_BUTTON_COLOR}
           size={48}
           type='light'
-          onPress={props.moveToNextWord}
+          onPress={nextWord}
         />
       </View>
       {props.keyboardShown ? <RecoveryWords words={wordsArray} /> : null}

@@ -114,7 +114,6 @@ class SetupGetRecoveryPhrase extends Component {
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
-    this.recoveryDropdownRef = null
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
@@ -171,6 +170,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   addToRecoveryPhrase = value => {
     this.recoveryPhrase[this.state.recoveryIndex] = value
+    console.warn(this.recoveryPhrase)
   }
 
   noRecoveryPhrase = () => {
@@ -198,10 +198,6 @@ class SetupGetRecoveryPhrase extends Component {
         },
         () => {
           this.adjustStepNumber(this.state.recoveryIndex)
-          if (this.recoveryDropdownRef) {
-            this.recoveryDropdownRef.clearWord()
-            this.recoveryDropdownRef.focus()
-          }
         }
       )
     }
@@ -218,10 +214,6 @@ class SetupGetRecoveryPhrase extends Component {
         },
         () => {
           this.adjustStepNumber(this.state.recoveryIndex)
-          if (this.recoveryDropdownRef) {
-            this.recoveryDropdownRef.clearWord()
-            this.recoveryDropdownRef.focus()
-          }
         }
       )
     }
@@ -237,6 +229,29 @@ class SetupGetRecoveryPhrase extends Component {
 
   setDisableArrows = value => {
     this.setState({ disableArrows: value })
+  }
+
+  _checkIfArrowsNeedToBeDisabled = (words, textEntered) => {
+    const wordsArray = words.split(' ')
+    let disableArrows = true
+
+    if (words === textEntered) {
+      // if the textEntered matches the full words string then
+      // we have an exact match, so we are all done. this happens
+      // when someone types the whole word
+      disableArrows = false
+    } else if (wordsArray.indexOf(textEntered) >= 0) {
+      // if we have a word that matches in the array of words
+      // then they have typed a word in there which is present
+      // 2 times. For example, if someone types in 'pig', you will
+      // see 'pig' and 'pigeon' in the list. The word 'pig' is a
+      // match, so they can move on...hence we enable the arrows
+      disableArrows = false
+    }
+
+    this.setDisableArrows(disableArrows)
+
+    return disableArrows
   }
 
   setAcquisitionError = value => {
@@ -398,6 +413,10 @@ class SetupGetRecoveryPhrase extends Component {
             moveToNextWord={this._moveToNextWord}
             words={words}
             rowTextView={styles.rowTextView}
+            addToRecoveryPhrase={this.addToRecoveryPhrase}
+            setAcquisitionError={this.setAcquisitionError}
+            recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
+            checkIfArrowsNeedToBeDisabled={this._checkIfArrowsNeedToBeDisabled}
           />
         </KeyboardAvoidingView>
         <Dialog
