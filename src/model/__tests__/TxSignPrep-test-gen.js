@@ -103,9 +103,9 @@ describe('ReleaseFromEndowment object prepare tests', () => {
     )
   })
 })
-describe('ChangeSettlementPeriod object prepare tests', () => {
-  it('should build an object for ChangeSettlementPeriod and convert to known b64', () => {
-    var changesettlementperiodtx = {
+describe('ChangeRecoursePeriod object prepare tests', () => {
+  it('should build an object for ChangeRecoursePeriod and convert to known b64', () => {
+    var changerecourseperiodtx = {
       target: 'ndaf32uravwb5vysyb7zdw4x7pcz4ze2n5ug6cz7st33gia8',
       period: '11m25dt14h35m49s167320us',
       sequence: 1912297565323361,
@@ -114,20 +114,20 @@ describe('ChangeSettlementPeriod object prepare tests', () => {
       ]
     }
 
-    var bb = new TxSignPrep().prepare(changesettlementperiodtx)
+    var bb = new TxSignPrep().prepare(changerecourseperiodtx)
     var b64 = bb.b64encode()
     expect(b64).toEqual(
       'MTFtMjVkdDE0aDM1bTQ5czE2NzMyMHVzAAbLOXkWAGFuZGFmMzJ1cmF2d2I1dnlzeWI3emR3NHg3cGN6NHplMm41dWc2Y3o3c3QzM2dpYTg='
     )
   })
-  it('should build an object for ChangeSettlementPeriod without signatures and convert to known b64', () => {
-    var changesettlementperiodtx = {
+  it('should build an object for ChangeRecoursePeriod without signatures and convert to known b64', () => {
+    var changerecourseperiodtx = {
       period: '11m25dt14h35m49s167320us',
       sequence: 1912297565323361,
       target: 'ndaf32uravwb5vysyb7zdw4x7pcz4ze2n5ug6cz7st33gia8'
     }
 
-    var bb = new TxSignPrep().prepare(changesettlementperiodtx)
+    var bb = new TxSignPrep().prepare(changerecourseperiodtx)
     var b64 = bb.b64encode()
     expect(b64).toEqual(
       'MTFtMjVkdDE0aDM1bTQ5czE2NzMyMHVzAAbLOXkWAGFuZGFmMzJ1cmF2d2I1dnlzeWI3emR3NHg3cGN6NHplMm41dWc2Y3o3c3QzM2dpYTg='
