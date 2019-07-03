@@ -141,7 +141,7 @@ const _internalSaveUser = async (
  * This passes back the default user. At this time the default user
  * is the first user in the phoneData object.
  *
- * If you are in UserTestData.user is defined then
+ * If UserTestData.user is defined then
  * have the wallet use that as its user
  *
  * @param {string} encryptionPassword any password combination to get at phoneData

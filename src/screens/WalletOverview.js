@@ -77,7 +77,7 @@ class WalletOverview extends Component {
   }
 
   _loadMetricsAndSetState = wallet => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       if (wallet) {
         // throw new Error(Object.prototype.toString.call(AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)))
         totalNdau = new NdauNumber(
