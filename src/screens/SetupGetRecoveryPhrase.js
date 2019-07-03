@@ -6,14 +6,12 @@ import {
   Linking,
   PixelRatio,
   Platform,
-  TouchableOpacity,
   Keyboard
 } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import RecoveryDropdown from '../components/common/RecoveryDropdown'
 import { Dialog } from 'react-native-simple-dialogs'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
@@ -35,15 +33,8 @@ import {
 } from '../components/common'
 import cssStyles from '../css/styles'
 import UserStore from '../stores/UserStore'
-import NdauStore from '../stores/NdauStore'
 
 const DEFAULT_ROW_LENGTH = 4
-const _ = require('lodash')
-
-const ANDROID_SHRINK_SIZE = '15%'
-const ANDROID_NORMAL_SIZE = '62%'
-const IOS_SHRINK_SIZE = '28%'
-const IOS_NORMAL_SIZE = '55%'
 
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
@@ -66,7 +57,6 @@ class SetupGetRecoveryPhrase extends Component {
       size: { width: wp('100%'), height: hp('50%') },
       dialogVisible: false,
       recoverPhraseFull: false,
-      // recoverPhraseFull: true,
       textColor: '#ffffff',
       confirmationError: false,
       acquisitionError: false,
@@ -76,8 +66,6 @@ class SetupGetRecoveryPhrase extends Component {
       recoveryIndex: 0,
       disableArrows: true,
       spinner: false,
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE,
       keyboardShown: false
     }
 
@@ -170,7 +158,6 @@ class SetupGetRecoveryPhrase extends Component {
 
   addToRecoveryPhrase = value => {
     this.recoveryPhrase[this.state.recoveryIndex] = value
-    console.warn(this.recoveryPhrase)
   }
 
   noRecoveryPhrase = () => {
@@ -183,24 +170,27 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
-  _moveToNextWord = () => {
-    // this allows a second prevention to move to the next
-    // word if there are problems, mainly for when keyboard
-    // stays up and user uses return key to progress
-    if (this.state.disableArrows) return
+  _moveToNextWord = async () => {
+    return new Promise(resolve => {
+      // this allows a second prevention to move to the next
+      // word if there are problems, mainly for when keyboard
+      // stays up and user uses return key to progress
+      if (this.state.disableArrows) return
 
-    if (this.state.recoveryIndex <= 11) {
-      const newRecoveryIndex = this.state.recoveryIndex + 1
-      this.setState(
-        {
-          recoveryIndex: newRecoveryIndex,
-          disableArrows: this.recoveryPhrase[newRecoveryIndex] === ''
-        },
-        () => {
-          this.adjustStepNumber(this.state.recoveryIndex)
-        }
-      )
-    }
+      if (this.state.recoveryIndex <= 11) {
+        const newRecoveryIndex = this.state.recoveryIndex + 1
+        this.setState(
+          {
+            recoveryIndex: newRecoveryIndex,
+            disableArrows: this.recoveryPhrase[newRecoveryIndex] === ''
+          },
+          () => {
+            this.adjustStepNumber(this.state.recoveryIndex)
+            resolve(true)
+          }
+        )
+      }
+    })
     FlashNotification.hideMessage()
   }
 
@@ -227,7 +217,7 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
-  setDisableArrows = value => {
+  _setDisableArrows = value => {
     this.setState({ disableArrows: value })
   }
 
@@ -249,7 +239,7 @@ class SetupGetRecoveryPhrase extends Component {
       disableArrows = false
     }
 
-    this.setDisableArrows(disableArrows)
+    this._setDisableArrows(disableArrows)
 
     return disableArrows
   }

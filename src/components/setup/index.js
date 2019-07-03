@@ -5,7 +5,8 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
-  NativeModules
+  NativeModules,
+  LayoutAnimation
 } from 'react-native'
 import { Progress } from 'nachos-ui'
 import {
@@ -145,9 +146,14 @@ export function RecoveryPhraseAcqusition (props) {
           <View key={rowIndex} style={styles.recoveryAcquisitionRowView}>
             {row.map((item, index) => {
               return item !== '' ? (
-                <View key={index} style={[styles.recoveryConfirmationBox]}>
-                  <RecoveryConfirmationText>{item}</RecoveryConfirmationText>
-                </View>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => props.handleWordClick(item)}
+                >
+                  <View style={[styles.recoveryConfirmationBox]}>
+                    <RecoveryConfirmationText>{item}</RecoveryConfirmationText>
+                  </View>
+                </TouchableOpacity>
               ) : null
             })}
           </View>
@@ -243,16 +249,47 @@ export const RecoveryWordInput = props => {
   const [input, setInput] = useState('')
   const [wordsArray, setWordsArray] = useState([])
 
-  const nextWord = () => {
-    props.moveToNextWord
+  const nextWord = async () => {
+    LayoutAnimation.easeInEaseOut()
+    if (await props.moveToNextWord()) {
+      setInput('')
+      setWordsArray([])
+    }
+  }
+
+  const prevWord = () => {
+    LayoutAnimation.easeInEaseOut()
+    props.moveBackAWord()
     setInput('')
     setWordsArray([])
   }
 
-  const prevWord = () => {
-    props.moveBackAWord
-    setInput('')
-    setWordsArray([])
+  const handleWords = async text => {
+    const words = await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
+      AppConstants.APP_LANGUAGE,
+      text,
+      6
+    )
+    setWordsArray(DataFormatHelper.groupArrayIntoRows(words.split(/\s+/g), 3))
+
+    props.checkIfArrowsNeedToBeDisabled(words, text)
+    props.setAcquisitionError(!words.length)
+    props.addToRecoveryPhrase(text)
+  }
+
+  const handleWordClick = async text => {
+    LayoutAnimation.easeInEaseOut()
+    const words = await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
+      AppConstants.APP_LANGUAGE,
+      text,
+      6
+    )
+
+    setInput(text)
+
+    props.checkIfArrowsNeedToBeDisabled(words, text)
+    props.addToRecoveryPhrase(text)
+    nextWord()
   }
 
   return (
@@ -299,23 +336,15 @@ export const RecoveryWordInput = props => {
               style={{ marginLeft: '4%', marginRight: '4%', flexGrow: 1 }}
               autoCapitalize='none'
               error={props.error}
-              onChangeText={async text => {
-                const words = await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
-                  AppConstants.APP_LANGUAGE,
-                  text,
-                  6
-                )
-                setWordsArray(
-                  DataFormatHelper.groupArrayIntoRows(words.split(/\s+/g), 3)
-                )
+              onChangeText={text => {
+                LayoutAnimation.easeInEaseOut()
+                handleWords(text)
                 setInput(text)
-
-                props.checkIfArrowsNeedToBeDisabled(words, text)
-                props.setAcquisitionError(!words.length)
-                props.addToRecoveryPhrase(text)
               }}
               value={input || props.recoveryWord}
               autoFocus
+              blurOnSubmit={false}
+              onSubmitEditing={nextWord}
             />
           </View>
           <View>
@@ -332,7 +361,9 @@ export const RecoveryWordInput = props => {
           onPress={nextWord}
         />
       </View>
-      {props.keyboardShown ? <RecoveryWords words={wordsArray} /> : null}
+      {props.keyboardShown ? (
+        <RecoveryWords words={wordsArray} handleWordClick={handleWordClick} />
+      ) : null}
     </View>
   )
 }
