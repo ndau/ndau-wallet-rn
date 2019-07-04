@@ -28,7 +28,7 @@ class AuthLoadingScreen extends React.Component {
           mode: AppConstants.GENESIS_MODE
         })
       } else if (multiSafes) {
-        this.props.navigation.navigate('SetupGetRecoveryPhrase')
+        this.props.navigation.navigate('Authentication')
       } else {
         this.props.navigation.navigate('SetupWelcome')
       }

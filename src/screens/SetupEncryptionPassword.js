@@ -26,7 +26,7 @@ import LogStore from '../stores/LogStore'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
-  static TEXT_HEIGHT_NO_KEYBOARD = '41%'
+  static TEXT_HEIGHT_NO_KEYBOARD = '30%'
 
   constructor (props) {
     super(props)
@@ -74,7 +74,7 @@ class SetupEncryptionPassword extends Component {
           upperHeight: '0%'
         },
         android: {
-          upperHeight: '10%'
+          upperHeight: '8%'
         }
       })
     })
@@ -235,7 +235,7 @@ class SetupEncryptionPassword extends Component {
           <View style={{ overflow: 'hidden', height: this.state.upperHeight }}>
             <ParagraphText>{this.state.instructionText}</ParagraphText>
           </View>
-          <View style={{ height: '55%', alignSelf: 'baseline' }}>
+          <View style={{ height: '70%', alignSelf: 'baseline' }}>
             <Label>Password</Label>
             <TextInput
               onChangeText={password => this.setState({ password })}

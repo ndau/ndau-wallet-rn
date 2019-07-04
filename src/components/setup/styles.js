@@ -36,7 +36,8 @@ export default StyleSheet.create({
     marginTop: '12%'
   },
   setupContainer: {
-    flex: 1
+    flex: 1,
+    paddingTop: '2%'
   },
   setupContainerWithScrollView: {
     flex: 1,

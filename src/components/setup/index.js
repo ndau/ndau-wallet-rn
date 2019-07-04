@@ -265,11 +265,14 @@ export const RecoveryWordInput = props => {
   }
 
   const handleWords = async text => {
-    const words = await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
-      AppConstants.APP_LANGUAGE,
-      text,
-      6
-    )
+    const words =
+      text !== ''
+        ? await NativeModules.KeyaddrManager.keyaddrWordsFromPrefix(
+          AppConstants.APP_LANGUAGE,
+          text,
+          6
+        )
+        : ' '
     setWordsArray(DataFormatHelper.groupArrayIntoRows(words.split(/\s+/g), 3))
 
     props.checkIfArrowsNeedToBeDisabled(words, text)
@@ -342,7 +345,6 @@ export const RecoveryWordInput = props => {
                 setInput(text)
               }}
               value={input || props.recoveryWord}
-              autoFocus
               blurOnSubmit={false}
               onSubmitEditing={nextWord}
             />

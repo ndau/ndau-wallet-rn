@@ -191,7 +191,6 @@ class SetupGetRecoveryPhrase extends Component {
         )
       }
     })
-    FlashNotification.hideMessage()
   }
 
   _moveBackAWord = () => {
@@ -207,7 +206,6 @@ class SetupGetRecoveryPhrase extends Component {
         }
       )
     }
-    FlashNotification.hideMessage()
   }
 
   _recoverUser = async () => {
@@ -246,10 +244,7 @@ class SetupGetRecoveryPhrase extends Component {
 
   setAcquisitionError = value => {
     if (value) {
-      FlashNotification.showError('Please select a valid word.', true)
       this.setState({ disableArrows: value })
-    } else {
-      FlashNotification.hideMessage()
     }
     this.setState({ acquisitionError: value })
   }
