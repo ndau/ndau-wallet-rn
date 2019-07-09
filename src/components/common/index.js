@@ -64,6 +64,17 @@ export function TextLink (props) {
   )
 }
 
+export function ModalTextLink (props) {
+  return (
+    <Text
+      onPress={() => Linking.openURL(props.url)}
+      style={styles.greenLinkTextForModal}
+    >
+      {props.children}
+    </Text>
+  )
+}
+
 export function SmallParagraphText (props) {
   return (
     <P style={[styles.smallParagraphText]} {...props}>

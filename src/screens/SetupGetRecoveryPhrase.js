@@ -12,7 +12,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import { Dialog } from 'react-native-simple-dialogs'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
@@ -33,6 +32,7 @@ import {
 } from '../components/common'
 import cssStyles from '../css/styles'
 import UserStore from '../stores/UserStore'
+import { CustomOneButtonAlert } from '../components/alerts'
 
 const DEFAULT_ROW_LENGTH = 4
 
@@ -404,25 +404,15 @@ class SetupGetRecoveryPhrase extends Component {
             checkIfArrowsNeedToBeDisabled={this._checkIfArrowsNeedToBeDisabled}
           />
         </KeyboardAvoidingView>
-        <Dialog
-          style={{
-            fontSize: 18,
-            fontFamily: 'TitilliumWeb-Regular'
+        <CustomOneButtonAlert
+          message='Your recovery phrase is necessary to prove ownership of your ndau. Your wallet cannot be restored without it. If you have lost your recovery phrase please contact'
+          isVisible={this.state.dialogVisible}
+          buttonTitle='Oneiro concierge support'
+          buttonHandler={() => {
+            this.setState({ dialogVisible: !this.state.dialogVisible })
+            this.sendEmail()
           }}
-          visible={this.state.dialogVisible}
-          onTouchOutside={() => this.setState({ dialogVisible: false })}
-        >
-          <View>
-            <Text style={cssStyles.blackDialogText}>
-              Your recovery phrase is necessary to prove ownership of your ndau.
-              Your wallet cannot be restored without it. If you have lost your
-              recovery phrase please contact{' '}
-            </Text>
-            <Text onPress={this.sendEmail} style={[cssStyles.blueLinkText]}>
-              Oneiro concierge support.
-            </Text>
-          </View>
-        </Dialog>
+        />
       </SetupContainer>
     )
   }

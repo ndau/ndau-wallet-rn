@@ -27,6 +27,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import NdauNumber from '../helpers/NdauNumber'
 import { NavigationEvents } from 'react-navigation'
 import AppConfig from '../AppConfig'
+import { FeeAlert } from '../components/alerts'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -142,7 +143,7 @@ class WalletOverview extends Component {
         this.state.number
       )
 
-      this.setState({ wallet })
+      this.setState({ wallet, showFeesModal: true })
     } catch (error) {
       FlashNotification.showError(
         `Problem adding new account: ${error.message}`
@@ -196,6 +197,18 @@ class WalletOverview extends Component {
 
       return (
         <AppContainer>
+          <FeeAlert
+            title='ndau new account fees'
+            message='The first deposit received by a newly created account is subject to a small fee that supports the operation of the ndau network.'
+            fees={[
+              'Delegate fee - 0.005 ndau',
+              'SetValidation fee - 0.005 ndau'
+            ]}
+            isVisible={this.state.showFeesModal}
+            setVisible={visible => {
+              this.setState({ showFeesModal: visible })
+            }}
+          />
           <NavigationEvents onWillFocus={payload => this._onRefresh()} />
           <NewAccountModalDialog
             number={this.state.number}

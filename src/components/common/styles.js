@@ -118,6 +118,17 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     textShadowColor: '#4E957A'
   },
+  greenLinkTextForModal: {
+    color: '#4E957A',
+    paddingBottom: 0,
+    textAlign: 'center',
+    paddingVertical: '5%',
+    textDecorationLine: 'underline',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 0,
+    shadowOpacity: 0,
+    textShadowColor: '#4E957A'
+  },
   passwordLinkContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -595,7 +606,7 @@ export default StyleSheet.create({
   },
   fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {
-    marginTop: hp('14%'),
+    marginTop: hp('10%'),
     marginBottom: hp('16%'),
     alignSelf: 'center',
     padding: 10,

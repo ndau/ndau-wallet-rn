@@ -26,8 +26,15 @@ import { Transaction } from '../transactions/Transaction'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import { KeyboardAvoidingView, View, Platform } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  View,
+  Platform,
+  Button,
+  Text
+} from 'react-native'
 import AppConfig from '../AppConfig'
+import { FeeAlert } from '../components/alerts'
 
 const _ = require('lodash')
 
@@ -47,7 +54,8 @@ class AccountSend extends Component {
       validAddress: false,
       transactionFee: 0,
       sibFee: 0,
-      total: 0
+      total: 0,
+      isModalVisible: false
     }
 
     this.debounceRequestTransactionFee = _.debounce(
@@ -62,6 +70,10 @@ class AccountSend extends Component {
     const wallet = WalletStore.getWallet()
 
     this.setState({ account, wallet })
+  }
+
+  componentDidMount = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible })
   }
 
   // TODO: we will be getting a better version of this that
@@ -132,7 +144,6 @@ class AccountSend extends Component {
         )
         canProceedFromAmount = true
       } catch (error) {
-
         // Check to see if fee and sib info are passed back so they can be displayed.
         if (error.error.response && error.error.response.data) {
           const resp = error.error.response.data
@@ -324,6 +335,13 @@ class AccountSend extends Component {
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <FeeAlert
+          title='ndau send fees'
+          message='Transactions are subject to a small fee that supports the operation of the ndau network.'
+          fees={['Transfer fee - 0.005 ndau']}
+          isVisible={this.state.isModalVisible}
+          setVisible={visible => this.setState({ isModalVisible: visible })}
+        />
         <KeyboardAvoidingView
           keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : -110}
           behavior={Platform.OS === 'ios' ? 'height' : 'position'}

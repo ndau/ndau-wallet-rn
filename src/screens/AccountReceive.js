@@ -8,6 +8,7 @@ import FlashNotification from '../components/common/FlashNotification'
 import { NdauQRCode, LoadingSpinner } from '../components/common'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
+import { FeeAlert } from '../components/alerts'
 
 class AccountReceive extends Component {
   constructor (props) {
@@ -16,7 +17,8 @@ class AccountReceive extends Component {
       account: {},
       wallet: {},
       spinner: true,
-      qrCode: {}
+      qrCode: {},
+      showFeesModal: false
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -28,7 +30,12 @@ class AccountReceive extends Component {
   }
 
   componentDidMount () {
-    this.setState({ spinner: false })
+    this.setState({
+      spinner: false,
+      showFeesModal:
+        !this.state.account.addressData ||
+        !this.state.account.addressData.balance
+    })
   }
 
   render () {
@@ -40,6 +47,13 @@ class AccountReceive extends Component {
         account={this.state.account}
         {...this.props}
       >
+        <FeeAlert
+          title='ndau receive fees'
+          message='The first deposit received by a newly created account is subject to a small fee that supports the operation of the ndau network.'
+          fees={['Delegate fee - 0.005 ndau', 'SetValidation fee - 0.005 ndau']}
+          isVisible={this.state.showFeesModal}
+          setVisible={visible => this.setState({ showFeesModal: visible })}
+        />
         <LoadingSpinner spinner={this.state.spinner} />
         <AccountReceiveParagraphText>
           To receive ndau in your account, present this QR code or ndau address
