@@ -307,7 +307,7 @@ export function CheckBox (props) {
       <TouchableOpacity
         activeOpacity={0.8}
         style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
-        onPress={() => props.onValueChange(!checked)}
+        onPress={() => onValueChange(!checked)}
         {...props}
       >
         {isChecked && !checkComponent && (
