@@ -65,9 +65,7 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
-    fontWeight: '600',
-    letterSpacing: 0.43,
-    padding: 0
+    fontWeight: '600'
   },
   largeButton: {
     width: wp('92%'),
@@ -178,29 +176,19 @@ export default StyleSheet.create({
     lineHeight: 36
   },
   backArrow: {
-    ...Platform.select({
-      ios: {
-        marginTop: hp('1.4%')
-      },
-      android: {
-        marginTop: hp('1%')
-      }
-    }),
-
-    marginLeft: '4%'
+    width: '6%'
   },
   progressBar: {
-    marginTop: hp('2.9%'),
+    marginTop: '4%',
     marginLeft: wp('3%'),
-    marginRight: wp('3%')
+    marginRight: wp('10%')
   },
   progressBarContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'stretch',
     width: wp('100%'),
-    height: hp('5%'),
     backgroundColor: '#0A1724',
     color: '#000000'
   },
@@ -208,16 +196,8 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 22,
-    letterSpacing: 0.39,
-    lineHeight: 27,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
-    ...Platform.select({
-      ios: {
-        marginTop: hp('.6%')
-      }
-    }),
-    marginRight: wp('4%')
+    paddingVertical: 0,
+    marginLeft: '-10%'
   },
   labelWithIconContainer: {
     flex: 1,

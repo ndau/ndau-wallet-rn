@@ -15,7 +15,7 @@ import UserStore from '../stores/UserStore'
 import { SetupContainer } from '../components/setup'
 import FlashNotification from '../components/common/FlashNotification'
 import {
-  LargeButtons,
+  LargeButton,
   Label,
   CheckBox,
   TextInput,
@@ -26,6 +26,7 @@ import LogStore from '../stores/LogStore'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8
+  static TEXT_HEIGHT_NO_KEYBOARD = '41%'
 
   constructor (props) {
     super(props)
@@ -44,7 +45,7 @@ class SetupEncryptionPassword extends Component {
       textInputColor: '#000000',
       mode: AppConstants.NEW_PASSWORD_MODE,
       instructionText: this.NEW_PASSWORD_MODE_TEXT,
-      lowerHeight: '29%'
+      upperHeight: SetupEncryptionPassword.TEXT_HEIGHT_NO_KEYBOARD
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -67,11 +68,22 @@ class SetupEncryptionPassword extends Component {
   }
 
   keyboardWillShow = event => {
-    this.setState({ lowerHeight: '8%' })
+    this.setState({
+      ...Platform.select({
+        ios: {
+          upperHeight: '0%'
+        },
+        android: {
+          upperHeight: '10%'
+        }
+      })
+    })
   }
 
   keyboardWillHide = event => {
-    this.setState({ lowerHeight: '29%' })
+    this.setState({
+      upperHeight: SetupEncryptionPassword.TEXT_HEIGHT_NO_KEYBOARD
+    })
   }
 
   componentWillMount () {
@@ -216,39 +228,48 @@ class SetupEncryptionPassword extends Component {
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
-        <KeyboardScroller>
-          <ParagraphText>{this.state.instructionText}</ParagraphText>
-          <Label>Password</Label>
-          <TextInput
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholder='Enter a password...'
-            secureTextEntry={!this.state.showPasswords}
-            autoCapitalize='none'
-          />
-          <Label>Confirm Password</Label>
-          <TextInput
-            onChangeText={this.updateComfirmPassword}
-            value={this.state.confirmPassword}
-            placeholder='Confirm your password...'
-            secureTextEntry={!this.state.showPasswords}
-            autoCapitalize='none'
-            onSubmitEditing={this.showNextSetup}
-          />
-          <CheckBox
-            onValueChange={this.checkedShowPasswords}
-            checked={this.state.showPasswords}
-            label='Hide/show passwords'
-          />
-          <LargeButtons
-            sideMargins
-            bottom
-            onPress={() => this.showNextSetup()}
-            disabled={!progress}
-          >
-            Next
-          </LargeButtons>
-        </KeyboardScroller>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -200}
+          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
+        >
+          <View style={{ overflow: 'hidden', height: this.state.upperHeight }}>
+            <ParagraphText>{this.state.instructionText}</ParagraphText>
+          </View>
+          <View style={{ height: '55%', alignSelf: 'baseline' }}>
+            <Label>Password</Label>
+            <TextInput
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+              placeholder='Enter a password...'
+              secureTextEntry={!this.state.showPasswords}
+              autoCapitalize='none'
+            />
+            <Label>Confirm Password</Label>
+            <TextInput
+              onChangeText={this.updateComfirmPassword}
+              value={this.state.confirmPassword}
+              placeholder='Confirm your password...'
+              secureTextEntry={!this.state.showPasswords}
+              autoCapitalize='none'
+              onSubmitEditing={this.showNextSetup}
+            />
+
+            <CheckBox
+              onValueChange={this.checkedShowPasswords}
+              checked={this.state.showPasswords}
+              label='Hide/show passwords'
+            />
+
+            <LargeButton
+              sideMargins
+              scroll
+              onPress={() => this.showNextSetup()}
+              disabled={!progress}
+            >
+              Next
+            </LargeButton>
+          </View>
+        </KeyboardAvoidingView>
       </SetupContainer>
     )
   }
