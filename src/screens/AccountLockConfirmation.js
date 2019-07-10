@@ -20,6 +20,8 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import { TextLink } from '../components/common'
 import AppConfig from '../AppConfig'
 import { KeyboardAvoidingView, Platform } from 'react-native'
+import { NdauNumber } from '../helpers/NdauNumber'
+import BlockchainAPIError from '../errors/BlockchainAPIError'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {
@@ -33,7 +35,7 @@ class AccountLockConfirmation extends Component {
       confirmed: false,
       word: null,
       spinner: false,
-      transactionFee: 0
+      transactionFee: '(loading...)'
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -55,7 +57,7 @@ class AccountLockConfirmation extends Component {
     )
 
     this.setState({ spinner: true }, async () => {
-      let transactionFee = 0
+      let transactionFee = ''
       try {
         Object.assign(LockTransaction.prototype, Transaction)
         const lockTransaction = new LockTransaction(
@@ -66,18 +68,19 @@ class AccountLockConfirmation extends Component {
         await lockTransaction.create()
         await lockTransaction.sign()
         const data = await lockTransaction.prevalidate()
-        transactionFee = DataFormatHelper.getNdauFromNapu(data.fee_napu)
-      } catch (error) {
+        transactionFee = new NdauNumber(data.fee_napu).toDetail()
         this.setState({
           spinner: false,
           transactionFee
         })
-        throw error
+      } catch (error) {
+        const err = new BlockchainAPIError(error)
+        FlashNotification.showError(err.message, false)
+        this.setState({
+          spinner: false,
+          transactionFee: '[error]'
+        })
       }
-      this.setState({
-        spinner: false,
-        transactionFee
-      })
     })
 
     this.setState({
