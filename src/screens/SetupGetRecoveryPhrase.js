@@ -39,7 +39,7 @@ const DEFAULT_ROW_LENGTH = 4
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
-    this.NORMAL_MODE_TEXT = `Type your 12 word recovery phrase below to recovery your wallet.`
+    this.NORMAL_MODE_TEXT = `Type your 12 word recovery phrase below to recover your wallet.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
