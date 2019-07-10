@@ -89,7 +89,7 @@ export default StyleSheet.create({
   },
   recoveryWordsContainer: {
     width: wp('100%'),
-    height: hp('20%')
+    height: hp('25%')
   },
   recoveryConfirmationRowView: {
     flex: 1,
@@ -99,7 +99,8 @@ export default StyleSheet.create({
   recoveryAcquisitionRowView: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-around',
+    alignItems: 'flex-start'
   },
   recoveryConfirmationRowViewForExisting: {
     flex: 1,

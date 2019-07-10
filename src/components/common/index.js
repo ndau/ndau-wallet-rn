@@ -529,11 +529,12 @@ export function AccountDetailsTitleBarGradient (props) {
 export function ParagraphText (props) {
   return (
     <Text
-      style={
+      style={[
         props.noPaddingOrMargin
           ? styles.paragraphTextNoPaddingOrMargin
-          : styles.paragraphText
-      }
+          : styles.paragraphText,
+        props.textStyle
+      ]}
       {...props}
     >
       {props.children}

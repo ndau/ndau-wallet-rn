@@ -336,13 +336,13 @@ class SetupGetRecoveryPhrase extends Component {
     return event ? event.duration : this.eventDuration
   }
 
-  keyboardWillShow = event => {
+  keyboardWillShow = () => {
     this.setState({
       keyboardShown: true
     })
   }
 
-  keyboardWillHide = event => {
+  keyboardWillHide = () => {
     this.setState({
       keyboardShown: false
     })
@@ -373,7 +373,7 @@ class SetupGetRecoveryPhrase extends Component {
         pageNumber={2 + this.state.stepNumber}
       >
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 20}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 20}
           style={{ flexGrow: 1 }}
           behavior='padding'
         >
