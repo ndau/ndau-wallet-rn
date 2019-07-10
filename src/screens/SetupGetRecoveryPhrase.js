@@ -39,7 +39,7 @@ const DEFAULT_ROW_LENGTH = 4
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
-    this.NORMAL_MODE_TEXT = `Type your 12 word recovery phrase below to recovery your wallet.`
+    this.NORMAL_MODE_TEXT = `Type your 12 word recovery phrase below to recover your wallet.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
@@ -336,13 +336,13 @@ class SetupGetRecoveryPhrase extends Component {
     return event ? event.duration : this.eventDuration
   }
 
-  keyboardWillShow = event => {
+  keyboardWillShow = () => {
     this.setState({
       keyboardShown: true
     })
   }
 
-  keyboardWillHide = event => {
+  keyboardWillHide = () => {
     this.setState({
       keyboardShown: false
     })
@@ -373,7 +373,7 @@ class SetupGetRecoveryPhrase extends Component {
         pageNumber={2 + this.state.stepNumber}
       >
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 20}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 20}
           style={{ flexGrow: 1 }}
           behavior='padding'
         >

@@ -318,7 +318,7 @@ export function CheckBox (props) {
       <TouchableOpacity
         activeOpacity={0.8}
         style={props.scroll ? styles.checkboxInScrollView : styles.checkbox}
-        onPress={() => props.onValueChange(!checked)}
+        onPress={() => onValueChange(!checked)}
         {...props}
       >
         {isChecked && !checkComponent && (
@@ -540,11 +540,12 @@ export function AccountDetailsTitleBarGradient (props) {
 export function ParagraphText (props) {
   return (
     <Text
-      style={
+      style={[
         props.noPaddingOrMargin
           ? styles.paragraphTextNoPaddingOrMargin
-          : styles.paragraphText
-      }
+          : styles.paragraphText,
+        props.textStyle
+      ]}
       {...props}
     >
       {props.children}

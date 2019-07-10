@@ -23,6 +23,10 @@ import AppConstants from '../../AppConstants'
 import Icon from 'react-native-fontawesome-pro'
 import cssStyles from '../../css/styles'
 import DataFormatHelper from '../../helpers/DataFormatHelper'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 
 export function SetupWelcomeContainer ({ children }) {
   return (
@@ -238,7 +242,9 @@ export function RecoveryPhraseConfirmationTextOnly (props) {
 export function RecoveryWords (props) {
   return (
     <View style={styles.recoveryWordsContainer}>
-      <ParagraphText noPaddingOrMargin>Suggested words</ParagraphText>
+      <ParagraphText noPaddingOrMargin textStyle={{ marginLeft: wp('6%') }}>
+        Suggested words
+      </ParagraphText>
       <FullBarBorder marginBottom />
       <RecoveryPhraseAcqusition {...props} />
     </View>
@@ -296,7 +302,7 @@ export const RecoveryWordInput = props => {
   }
 
   return (
-    <View style={{ flex: 2, justifyContent: 'flex-end' }}>
+    <View style={{ flexGrow: 1, justifyContent: 'flex-end' }}>
       {props.keyboardShown ? (
         <View
           style={{
@@ -317,7 +323,7 @@ export const RecoveryWordInput = props => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
-          margin: '4%'
+          margin: wp('6%')
         }}
       >
         <Icon
@@ -336,7 +342,11 @@ export const RecoveryWordInput = props => {
         >
           <View>
             <TextInput
-              style={{ marginLeft: '4%', marginRight: '4%', flexGrow: 1 }}
+              style={{
+                marginLeft: wp('4%'),
+                marginRight: wp('4%'),
+                flexGrow: 1
+              }}
               autoCapitalize='none'
               error={props.error}
               onChangeText={text => {
@@ -347,6 +357,7 @@ export const RecoveryWordInput = props => {
               value={input || props.recoveryWord}
               blurOnSubmit={false}
               onSubmitEditing={nextWord}
+              autoCorrect={false}
             />
           </View>
           <View>
