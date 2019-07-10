@@ -33,23 +33,11 @@ export default StyleSheet.create({
     marginBottom: hp('3%')
   },
   setupContainerOverlay: {
-    position: 'absolute',
-    top: '6.5%',
-    left: 0,
-    right: 0,
-    bottom: 0
+    marginTop: '12%'
   },
   setupContainer: {
     flex: 1,
-    width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('79%')
-      },
-      android: {
-        height: hp('84%')
-      }
-    })
+    paddingTop: '2%'
   },
   setupContainerWithScrollView: {
     flex: 1,
@@ -95,18 +83,31 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   recoveryConfirmationContainer: {
-    top: hp('9%'),
-    left: 0,
-    right: 0,
     width: wp('100%'),
     height: hp('30%'),
-    backgroundColor: '#293e63',
     paddingTop: hp('3%')
+  },
+  recoveryWordsContainer: {
+    width: wp('100%'),
+    height: hp('25%')
   },
   recoveryConfirmationRowView: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  recoveryAcquisitionRowView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start'
+  },
+  recoveryConfirmationRowViewForExisting: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-start',
+    padding: '4%'
   },
   recoveryConfirmationBox: {
     width: wp('21%'),
@@ -151,5 +152,13 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0
+  },
+  smallErrorText: {
+    color: AppConstants.ERROR_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+    fontWeight: '200',
+    paddingBottom: 0,
+    marginLeft: '4%'
   }
 })

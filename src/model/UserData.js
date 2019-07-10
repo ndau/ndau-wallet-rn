@@ -4,7 +4,7 @@ import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserStore from '../stores/UserStore'
 import NdauStore from '../stores/NdauStore'
 // ATTENTION - DO NOT REMOVE THIS COMMENTED CODE!
-// IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT
+// IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT THIS
 // import UserTestData from '../helpers/UserTestData'
 
 const loadUserData = async user => {
@@ -37,7 +37,7 @@ const loadUserData = async user => {
     // Also make sure that you have found data, if not we stand the risk
     // of blowing away data that is present
     // ATTENTION - DO NOT REMOVE THIS COMMENTED CODE!
-    // IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT
+    // IF YOU WOULD LIKE TO TEST LOG USER DATA UNCOMMENT THIS
     if (/*! UserTestData.user && */ user && password && dataFound) {
       await MultiSafeHelper.saveUser(user, password)
     }

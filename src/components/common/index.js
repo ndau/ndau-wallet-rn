@@ -418,7 +418,14 @@ export function CollapsibleBarBorder (props) {
 }
 
 export function FullBarBorder (props) {
-  return <View style={styles.fullBarBorder} />
+  return (
+    <View
+      style={[
+        styles.fullBarBorder,
+        props.marginBottom ? styles.fullBarBorderBottomWidth : {}
+      ]}
+    />
+  )
 }
 
 export function DrawerBorder (props) {
@@ -521,9 +528,17 @@ export function AccountDetailsTitleBarGradient (props) {
 
 export function ParagraphText (props) {
   return (
-    <P style={[styles.paragraphText]} {...props}>
+    <Text
+      style={[
+        props.noPaddingOrMargin
+          ? styles.paragraphTextNoPaddingOrMargin
+          : styles.paragraphText,
+        props.textStyle
+      ]}
+      {...props}
+    >
       {props.children}
-    </P>
+    </Text>
   )
 }
 

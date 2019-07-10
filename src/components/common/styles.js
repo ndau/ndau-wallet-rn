@@ -43,9 +43,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: hp('2%')
   },
-  setupButtonContainerScrollView: {
-    // marginTop: hp('1%')
-  },
+  setupButtonContainerScrollView: {},
   setupButtonContainerTop: {
     // Due to how we have to fill the LinearGradient we
     // unfortunately lose flexbox, so we have to resort to
@@ -79,8 +77,8 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   centeredLinkContainer: {
-    alignSelf: 'center',
-    minHeight: '6%'
+    alignSelf: 'flex-start',
+    marginLeft: wp('4%')
   },
   centeredLinkText: {
     color: '#8DC84F',
@@ -308,9 +306,7 @@ export default StyleSheet.create({
     backgroundColor: '#EDEAEA',
     fontFamily: 'Open Sans',
     zIndex: 5,
-    fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24
+    fontSize: 16
   },
   inputBottomMargin: {
     marginBottom: hp('2%')
@@ -507,6 +503,9 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: hp('2%')
   },
+  fullBarBorderBottomWidth: {
+    marginBottom: hp('2%')
+  },
   drawerBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
@@ -582,12 +581,17 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
     marginRight: wp('4%'),
     marginLeft: wp('4%')
+  },
+  paragraphTextNoPaddingOrMargin: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    marginLeft: wp('4%'),
+    padding: 0
   },
   fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BackHandler } from 'react-native'
+import { BackHandler, View } from 'react-native'
 import AppConstants from '../AppConstants'
 import UserStore from '../stores/UserStore'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'

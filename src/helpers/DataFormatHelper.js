@@ -278,6 +278,21 @@ const getWalletName = wallet => {
   return wallet.walletName ? wallet.walletName : wallet.walletId
 }
 
+/**
+ * Given the array passed in, create a new array that
+ * contains rows.
+ *
+ * @param {Array} arr array to group into rows based on length
+ * @param {number} length row length
+ */
+const groupArrayIntoRows = (arr = [], length) => {
+  let res = []
+  for (let i = 0; i < arr.length; i += length) {
+    res.push(arr.slice(i, i + length))
+  }
+  return res
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
@@ -292,5 +307,6 @@ export default {
   truncateString,
   formatUSDollarValue,
   convertNanoCentsToDollars,
-  getWalletName
+  getWalletName,
+  groupArrayIntoRows
 }
