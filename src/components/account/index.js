@@ -358,11 +358,9 @@ export function AccountTotalPanel (props) {
     )
   ).toDetail()
   return (
-    <View style={styles.accountTotalPanel}>
-      <View style={styles.ndauTotalContainerMedium}>
-        <P style={styles.ndauMedium}>n</P>
-        <H4 style={styles.accountTotalPanelText}>{amount}</H4>
-      </View>
+    <View style={styles.ndauTotalContainerMedium}>
+      <P style={styles.ndauMedium}>n</P>
+      <H4 style={styles.accountTotalPanelText}>{amount}</H4>
     </View>
   )
 }

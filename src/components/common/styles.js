@@ -56,10 +56,10 @@ export default StyleSheet.create({
     width: wp('91%'),
     height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: 'transparent',
-    padding: 0
+    backgroundColor: 'transparent'
   },
   largeButtonText: {
+    height: hp('5%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
@@ -69,8 +69,7 @@ export default StyleSheet.create({
     width: wp('92%'),
     height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
-    padding: 0
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
   },
   largeButtonMargin: {
     marginLeft: wp('4%'),
@@ -95,8 +94,6 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 0.34,
-    lineHeight: 24,
     textAlign: 'center',
     alignSelf: 'flex-start',
     paddingVertical: 0
@@ -106,8 +103,6 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '200',
-    letterSpacing: 0.26,
-    lineHeight: 18,
     paddingBottom: 0,
     textAlign: 'center',
     alignSelf: 'flex-start',
@@ -134,12 +129,13 @@ export default StyleSheet.create({
         marginBottom: hp('4%')
       }
     }),
-    flex: 1,
+    flexShrink: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    maxHeight: hp('8%'),
-    padding: 0
+    height: hp('9%'),
+    padding: 0,
+    overflow: 'visible'
   },
   ndauTotalText: {
     color: '#8CC74F',
@@ -150,28 +146,22 @@ export default StyleSheet.create({
     textShadowRadius: 5,
     shadowOpacity: 0,
     textShadowColor: 'rgba(78, 149, 122, 1)',
-    letterSpacing: 0.77,
-    lineHeight: 54,
     textAlign: 'center',
-    alignSelf: 'flex-start',
-    paddingVertical: 0
+    alignSelf: 'flex-start'
   },
   ndauLarge: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 33,
-    letterSpacing: 0.77,
-    lineHeight: 66,
     alignSelf: 'flex-start',
     paddingRight: 4,
-    paddingVertical: 0
+    paddingVertical: 0,
+    marginTop: hp('3%')
   },
   ndauSmall: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
-    fontSize: 12,
-    letterSpacing: 0.51,
-    lineHeight: 36
+    fontSize: 12
   },
   backArrow: {
     width: '6%'
@@ -240,16 +230,12 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '200',
-    letterSpacing: 0.34,
-    lineHeight: 24,
     paddingTop: 0
   },
   checkboxLabel: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24,
     marginTop: hp('1.6%'),
     marginRight: wp('4%')
   },
@@ -272,31 +258,23 @@ export default StyleSheet.create({
   legalText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 18,
-    letterSpacing: 0.39,
-    lineHeight: 27
+    fontSize: 18
   },
   mainLegalTextHeading: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 20,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     fontWeight: 'bold'
   },
   legalTextHeading: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
-    fontSize: 22,
-    letterSpacing: 0.39,
-    lineHeight: 27
+    fontSize: 22
   },
   legalTextBold: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     fontWeight: 'bold'
   },
   input: {
@@ -362,9 +340,7 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 12,
-    fontWeight: '300',
-    letterSpacing: 0.26,
-    lineHeight: 18
+    fontWeight: '300'
   },
   dropdownDetailsTextPanel: {
     marginLeft: wp('4%'),
@@ -412,8 +388,6 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(78,149,122,1)',
     fontSize: 18,
     fontWeight: '300',
-    letterSpacing: 0.39,
-    lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light',
     textAlign: 'center'
   },
@@ -423,8 +397,6 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'
   },
   collapsiblePanelBody: {
@@ -475,8 +447,6 @@ export default StyleSheet.create({
     flex: 1,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24,
     paddingLeft: wp('4%')
   },
   titleLeft: {
@@ -484,8 +454,6 @@ export default StyleSheet.create({
     flex: 1,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24,
     paddingRight: wp('1%')
   },
   barBorder: {
@@ -521,24 +489,18 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '400',
-    letterSpacing: 0.39,
-    lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'
   },
   barTitleMiddle: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'
   },
   barTitleRight: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     fontFamily: 'TitilliumWeb-Light'
   },
   orBorder: {
@@ -551,7 +513,6 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 20,
-    letterSpacing: 0.43,
     marginLeft: wp('2%'),
     marginRight: wp('2%')
   },
@@ -570,7 +531,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 20,
     fontWeight: '600',
-    letterSpacing: 0.43,
     padding: 0
   },
   orBorderPanel: {
@@ -606,8 +566,6 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 12,
     fontWeight: '400',
-    letterSpacing: 0.26,
-    lineHeight: 18,
     textAlign: 'center',
     marginLeft: wp('4%')
   }
