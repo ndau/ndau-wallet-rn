@@ -6,7 +6,6 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native'
-import groupIntoRows from '../helpers/groupIntoRows'
 import SetupStore from '../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
@@ -90,12 +89,18 @@ class SetupConfirmRecoveryPhrase extends Component {
 
   render () {
     const shuffledWords = SetupStore.shuffledWords
-    const words = groupIntoRows(shuffledWords, this.rowLength)
+    const words = DataFormatHelper.groupArrayIntoRows(
+      shuffledWords,
+      this.rowLength
+    )
 
     const selectedWords = this.state.selected.map(selectedIndex => {
       return shuffledWords[selectedIndex]
     })
-    const formattedSelectedWords = groupIntoRows(selectedWords, this.rowLength)
+    const formattedSelectedWords = DataFormatHelper.groupArrayIntoRows(
+      selectedWords,
+      this.rowLength
+    )
 
     // lookup table for word highlights
     const selected = this.state.selected.reduce((arr, cur) => {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { PixelRatio, NativeModules, Alert } from 'react-native'
-import groupIntoRows from '../helpers/groupIntoRows'
 import SetupStore from '../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
@@ -109,7 +108,10 @@ class SetupRecoveryPhrase extends Component {
 
   render () {
     // chop the words into DEFAULT_ROW_LENGTH-tuples
-    const words = groupIntoRows(this.state.recoveryPhrase, this.rowLength)
+    const words = DataFormatHelper.groupArrayIntoRows(
+      this.state.recoveryPhrase,
+      this.rowLength
+    )
     const styles = {
       rowTextView: {
         height: hp(this.boxHeight),

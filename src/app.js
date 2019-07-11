@@ -1,5 +1,5 @@
 import React from 'react'
-import { YellowBox, View, Text } from 'react-native'
+import { YellowBox, View, Text, NativeModules } from 'react-native'
 import AppNavigation from './navigation/AppNavigation'
 import FlashMessage from 'react-native-flash-message'
 import OfflineMessage from './components/common/OfflineMessage'
@@ -18,6 +18,10 @@ YellowBox.ignoreWarnings([
 YellowBox.ignoreWarnings(['Class RCTCxxModule'])
 
 configureFontAwesomePro('light')
+
+const { UIManager } = NativeModules
+UIManager.setLayoutAnimationEnabledExperimental &&
+  UIManager.setLayoutAnimationEnabledExperimental(true)
 
 export default class App extends React.Component {
   constructor (props) {

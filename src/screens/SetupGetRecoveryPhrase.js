@@ -6,26 +6,25 @@ import {
   Linking,
   PixelRatio,
   Platform,
-  TouchableOpacity,
   Keyboard
 } from 'react-native'
-import groupIntoRows from '../helpers/groupIntoRows'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import RecoveryDropdown from '../components/common/RecoveryDropdown'
 import { Dialog } from 'react-native-simple-dialogs'
 import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import SetupStore from '../stores/SetupStore'
-import Icon from 'react-native-fontawesome-pro'
 import DataFormatHelper from '../helpers/DataFormatHelper'
-import styleConstants from '../css/styleConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import LogStore from '../stores/LogStore'
-import { SetupContainer, RecoveryPhraseConfirmation } from '../components/setup'
+import {
+  SetupContainer,
+  RecoveryPhraseConfirmation,
+  RecoveryWordInput
+} from '../components/setup'
 import FlashNotification from '../components/common/FlashNotification'
 import {
   LargeButtons,
@@ -34,22 +33,13 @@ import {
 } from '../components/common'
 import cssStyles from '../css/styles'
 import UserStore from '../stores/UserStore'
-import NdauStore from '../stores/NdauStore'
 
 const DEFAULT_ROW_LENGTH = 4
-const _ = require('lodash')
-
-const ANDROID_SHRINK_SIZE = '15%'
-const ANDROID_NORMAL_SIZE = '62%'
-const IOS_SHRINK_SIZE = '28%'
-const IOS_NORMAL_SIZE = '55%'
 
 class SetupGetRecoveryPhrase extends Component {
   constructor (props) {
     super(props)
-    this.NORMAL_MODE_TEXT =
-      `To recover your wallet, please verify your twelve-word recovery phrase. ` +
-      `Start typing in the box below, then pick the correct suggestion.`
+    this.NORMAL_MODE_TEXT = `Type your 12 word recovery phrase below to recover your wallet.`
     this.PASSWORD_RESET_MODE_TEXT =
       'To reset your password, please verify your ' +
       'twelve-word recovery phrase. Start typing in the box below, then pick the ' +
@@ -67,7 +57,6 @@ class SetupGetRecoveryPhrase extends Component {
       size: { width: wp('100%'), height: hp('50%') },
       dialogVisible: false,
       recoverPhraseFull: false,
-      // recoverPhraseFull: true,
       textColor: '#ffffff',
       confirmationError: false,
       acquisitionError: false,
@@ -77,8 +66,7 @@ class SetupGetRecoveryPhrase extends Component {
       recoveryIndex: 0,
       disableArrows: true,
       spinner: false,
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
+      keyboardShown: false
     }
 
     this.index = 0
@@ -88,31 +76,17 @@ class SetupGetRecoveryPhrase extends Component {
     this.recoveryPhrase = ['', '', '', '', '', '', '', '', '', '', '', '']
     // this.recoveryPhrase = [
     //   'crouch',
-    //   'like',
-    //   'blue',
-    //   'heavy',
-    //   'fatal',
-    //   'board',
-    //   'night',
-    //   'protect',
-    //   'cushion',
-    //   'bag',
-    //   'sun',
-    //   'grace'
-    // ]
-    // this.recoveryPhrase = [
-    //   'great',
-    //   'permit',
-    //   'assault',
-    //   'grocery',
-    //   'creek',
-    //   'bright',
-    //   'talk',
-    //   'chat',
-    //   'deal',
-    //   'predict',
-    //   'smoke',
-    //   'shoot'
+    //   'loan',
+    //   'escape',
+    //   'idea',
+    //   'drop',
+    //   'blush',
+    //   'silver',
+    //   'history',
+    //   'gentle',
+    //   'pave',
+    //   'office',
+    //   'ginger'
     // ]
 
     this.boxWidth = '30%'
@@ -128,7 +102,6 @@ class SetupGetRecoveryPhrase extends Component {
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
-    this.recoveryDropdownRef = null
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
@@ -197,29 +170,27 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
-  _moveToNextWord = () => {
-    // this allows a second prevention to move to the next
-    // word if there are problems, mainly for when keyboard
-    // stays up and user uses return key to progress
-    if (this.state.disableArrows) return
+  _moveToNextWord = async () => {
+    return new Promise(resolve => {
+      // this allows a second prevention to move to the next
+      // word if there are problems, mainly for when keyboard
+      // stays up and user uses return key to progress
+      if (this.state.disableArrows) return
 
-    if (this.state.recoveryIndex <= 11) {
-      const newRecoveryIndex = this.state.recoveryIndex + 1
-      this.setState(
-        {
-          recoveryIndex: newRecoveryIndex,
-          disableArrows: this.recoveryPhrase[newRecoveryIndex] === ''
-        },
-        () => {
-          this.adjustStepNumber(this.state.recoveryIndex)
-          if (this.recoveryDropdownRef) {
-            this.recoveryDropdownRef.clearWord()
-            this.recoveryDropdownRef.focus()
+      if (this.state.recoveryIndex <= 11) {
+        const newRecoveryIndex = this.state.recoveryIndex + 1
+        this.setState(
+          {
+            recoveryIndex: newRecoveryIndex,
+            disableArrows: this.recoveryPhrase[newRecoveryIndex] === ''
+          },
+          () => {
+            this.adjustStepNumber(this.state.recoveryIndex)
+            resolve(true)
           }
-        }
-      )
-    }
-    FlashNotification.hideMessage()
+        )
+      }
+    })
   }
 
   _moveBackAWord = () => {
@@ -232,14 +203,9 @@ class SetupGetRecoveryPhrase extends Component {
         },
         () => {
           this.adjustStepNumber(this.state.recoveryIndex)
-          if (this.recoveryDropdownRef) {
-            this.recoveryDropdownRef.clearWord()
-            this.recoveryDropdownRef.focus()
-          }
         }
       )
     }
-    FlashNotification.hideMessage()
   }
 
   _recoverUser = async () => {
@@ -249,16 +215,36 @@ class SetupGetRecoveryPhrase extends Component {
     )
   }
 
-  setDisableArrows = value => {
+  _setDisableArrows = value => {
     this.setState({ disableArrows: value })
+  }
+
+  _checkIfArrowsNeedToBeDisabled = (words, textEntered) => {
+    const wordsArray = words.split(' ')
+    let disableArrows = true
+
+    if (words === textEntered) {
+      // if the textEntered matches the full words string then
+      // we have an exact match, so we are all done. this happens
+      // when someone types the whole word
+      disableArrows = false
+    } else if (wordsArray.indexOf(textEntered) >= 0) {
+      // if we have a word that matches in the array of words
+      // then they have typed a word in there which is present
+      // 2 times. For example, if someone types in 'pig', you will
+      // see 'pig' and 'pigeon' in the list. The word 'pig' is a
+      // match, so they can move on...hence we enable the arrows
+      disableArrows = false
+    }
+
+    this._setDisableArrows(disableArrows)
+
+    return disableArrows
   }
 
   setAcquisitionError = value => {
     if (value) {
-      FlashNotification.showError('Please select a valid word.', true)
       this.setState({ disableArrows: value })
-    } else {
-      FlashNotification.hideMessage()
     }
     this.setState({ acquisitionError: value })
   }
@@ -350,146 +336,73 @@ class SetupGetRecoveryPhrase extends Component {
     return event ? event.duration : this.eventDuration
   }
 
-  keyboardWillShow = event => {
+  keyboardWillShow = () => {
     this.setState({
-      lowerHeightAndroid: ANDROID_SHRINK_SIZE,
-      lowerHeightIOS: IOS_SHRINK_SIZE
+      keyboardShown: true
     })
   }
 
-  keyboardWillHide = event => {
+  keyboardWillHide = () => {
     this.setState({
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
+      keyboardShown: false
     })
   }
 
   _renderAcquisition = () => {
+    const words = DataFormatHelper.groupArrayIntoRows(
+      this.recoveryPhrase,
+      this.rowLength
+    )
+    const styles = {
+      rowTextView: {
+        height: hp(this.boxHeight),
+        width: wp(this.boxWidth)
+      },
+      textStyle: {
+        color: this.state.textColor,
+        fontSize: 20,
+        fontFamily: 'TitilliumWeb-Regular',
+        textAlign: 'center'
+      }
+    }
+
     return (
       <SetupContainer
         {...this.props}
         goBack={this.fromHamburger ? this.goBack : null}
         pageNumber={2 + this.state.stepNumber}
       >
-        <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 20}
+          style={{ flexGrow: 1 }}
+          behavior='padding'
         >
-          <View style={{ height: 'auto' }}>
-            <ParagraphText>{this.state.introductionText}</ParagraphText>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              minHeight: '25%',
-              zIndex: 100
-            }}
-          >
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '15%'
-              }}
-            >
-              <Text style={cssStyles.wizardText}>
-                {this.state.recoveryIndex + 1}
-              </Text>
-              <Text style={cssStyles.wizardText}>{' of '}</Text>
-              <Text style={cssStyles.wizardText}>
-                {this.recoveryPhrase.length}
-              </Text>
+          {!this.state.keyboardShown ? (
+            <View style={{ flex: 1 }}>
+              <ParagraphText>{this.state.introductionText}</ParagraphText>
+              <BottomLinkText onPress={this.noRecoveryPhrase}>
+                I don't have my recovery phrase
+              </BottomLinkText>
             </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                minHeight: '30%'
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center'
-                }}
-              >
-                <TouchableOpacity
-                  style={{
-                    marginLeft: wp('5%'),
-                    marginTop: hp('.8%'),
-                    ...Platform.select({
-                      ios: {
-                        marginRight: hp('1.6%')
-                      },
-                      android: {
-                        marginRight: hp('6%')
-                      }
-                    })
-                  }}
-                  onPress={this._moveBackAWord}
-                >
-                  <Icon
-                    name='arrow-circle-left'
-                    color={styleConstants.ICON_GRAY}
-                    size={32}
-                    type='light'
-                  />
-                </TouchableOpacity>
-                <RecoveryDropdown
-                  addToRecoveryPhrase={this.addToRecoveryPhrase}
-                  setAcquisitionError={this.setAcquisitionError}
-                  recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
-                  setDisableArrows={this.setDisableArrows}
-                  moveToNextWord={this._moveToNextWord}
-                  ref={input => {
-                    this.recoveryDropdownRef = input
-                  }}
-                />
-                <TouchableOpacity
-                  style={{
-                    marginTop: hp('.5%'),
-                    marginLeft: wp('3%'),
-                    marginRight: wp('5%')
-                  }}
-                  onPress={this._moveToNextWord}
-                  disabled={this.state.disableArrows}
-                >
-                  <Icon
-                    name='arrow-circle-right'
-                    color={styleConstants.ICON_GRAY}
-                    size={32}
-                    type='light'
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          <View
-            style={{
-              ...Platform.select({
-                ios: {
-                  height: this.state.lowerHeightIOS
-                },
-                android: {
-                  height: this.state.lowerHeightAndroid
-                }
-              }),
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              zIndex: 0
-            }}
-          >
-            <BottomLinkText onPress={this.noRecoveryPhrase}>
-              I don't have my recovery phrase
-            </BottomLinkText>
-          </View>
+          ) : (
+            <View style={{ flex: 1 }} />
+          )}
+
+          <RecoveryWordInput
+            recoveryIndex={this.state.recoveryIndex}
+            recoveryPhrase={this.recoveryPhrase}
+            keyboardShown={this.state.keyboardShown}
+            error={this.state.acquisitionError}
+            errorText='please enter a valid word'
+            moveBackAWord={this._moveBackAWord}
+            moveToNextWord={this._moveToNextWord}
+            words={words}
+            rowTextView={styles.rowTextView}
+            addToRecoveryPhrase={this.addToRecoveryPhrase}
+            setAcquisitionError={this.setAcquisitionError}
+            recoveryWord={this.recoveryPhrase[this.state.recoveryIndex]}
+            checkIfArrowsNeedToBeDisabled={this._checkIfArrowsNeedToBeDisabled}
+          />
         </KeyboardAvoidingView>
         <Dialog
           style={{
@@ -497,7 +410,6 @@ class SetupGetRecoveryPhrase extends Component {
             fontFamily: 'TitilliumWeb-Regular'
           }}
           visible={this.state.dialogVisible}
-          // title="Missing Recovery Phrase"
           onTouchOutside={() => this.setState({ dialogVisible: false })}
         >
           <View>
@@ -516,7 +428,10 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   _renderConfirmation = () => {
-    const words = groupIntoRows(this.recoveryPhrase, this.rowLength)
+    const words = DataFormatHelper.groupArrayIntoRows(
+      this.recoveryPhrase,
+      this.rowLength
+    )
     const styles = {
       rowTextView: {
         height: hp(this.boxHeight),
@@ -529,7 +444,6 @@ class SetupGetRecoveryPhrase extends Component {
         textAlign: 'center'
       }
     }
-    let count = 1
 
     return (
       <SetupContainer
