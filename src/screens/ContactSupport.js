@@ -129,6 +129,7 @@ class ContactSupport extends Component {
             <LargeButton
               sideMargins
               disabled={sendDisabled}
+              scroll
               onPress={() => {
                 this.onSubmit()
               }}
