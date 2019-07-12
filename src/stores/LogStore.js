@@ -39,6 +39,14 @@ class LogStore {
   }
 
   /**
+   * Get a linearized array
+   */
+  toLinear () {
+    this._logData.toLinear()
+    return this._logData
+  }
+
+  /**
    * Using the log data, write a file and pass back the
    * path to be used by the caller
    */

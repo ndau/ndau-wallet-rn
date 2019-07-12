@@ -629,7 +629,6 @@ export default StyleSheet.create({
     fontWeight: '400',
     letterSpacing: 0.26,
     lineHeight: 18,
-    textAlign: 'center',
     marginLeft: wp('4%')
   }
 })

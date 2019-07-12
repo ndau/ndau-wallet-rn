@@ -124,7 +124,7 @@ class AppDrawer extends React.Component {
           </DrawerEntryItem>
 
           <DrawerEntryItem
-            onPress={() => this.sendSupportEmail()}
+            onPress={() => this.props.navigation.navigate('ContactSupport')}
             fontAwesomeIconName='comment'
           >
             Contact support
