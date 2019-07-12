@@ -24,8 +24,9 @@ import {
   LoginImage
 } from '../components/common'
 import UserStore from '../stores/UserStore'
+import { heightPercentageToDP } from 'react-native-responsive-screen'
 
-const ANDROID_SHRINK_SIZE = '17%'
+const ANDROID_SHRINK_SIZE = '18%'
 const ANDROID_NORMAL_SIZE = '30%'
 const IOS_SHRINK_SIZE = '15%'
 const IOS_NORMAL_SIZE = '32%'
@@ -202,7 +203,6 @@ class Authentication extends Component {
   }
 
   render () {
-    const { textInputColor } = this.state
     return (
       <LoginContainer>
         <ImageBackground
@@ -211,18 +211,36 @@ class Authentication extends Component {
           imageStyle={styles.setupContainerBackgroundImage}
         >
           <KeyboardAvoidingView
-            keyboardVerticalOffset={Platform.OS === 'ios' ? -20 : -150}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : -110}
             behavior={Platform.OS === 'ios' ? 'height' : 'position'}
           >
             <WaitingForBlockchainSpinner spinner={this.state.spinner} />
             <View
               style={{
-                height: this.state.keyboard ? '42%' : '42%'
+                ...Platform.select({
+                  ios: {
+                    height: this.state.keyboard ? '35%' : '39%'
+                  },
+                  android: {
+                    height: this.state.keyboard ? '40%' : '40%'
+                  }
+                })
               }}
             >
               <LoginImage />
             </View>
-            <View style={{ minHeight: '30%' }}>
+            <View
+              style={{
+                ...Platform.select({
+                  ios: {
+                    height: this.state.keyboard ? '32%' : '33%'
+                  },
+                  android: {
+                    height: this.state.keyboard ? '33%' : '32%'
+                  }
+                })
+              }}
+            >
               <LabelWithIcon
                 onPress={this.showInformation}
                 fontAwesomeIconName='info-circle'

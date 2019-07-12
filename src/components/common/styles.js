@@ -43,9 +43,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: hp('2%')
   },
-  setupButtonContainerScrollView: {
-    // marginTop: hp('1%')
-  },
+  setupButtonContainerScrollView: {},
   setupButtonContainerTop: {
     // Due to how we have to fill the LinearGradient we
     // unfortunately lose flexbox, so we have to resort to
@@ -65,9 +63,7 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
-    fontWeight: '600',
-    letterSpacing: 0.43,
-    padding: 0
+    fontWeight: '600'
   },
   largeButton: {
     width: wp('92%'),
@@ -81,20 +77,14 @@ export default StyleSheet.create({
     marginRight: wp('4%')
   },
   centeredLinkContainer: {
-    // position: 'absolute',
-    // bottom: 0
-    // justifyContent: 'flex-end',
-    // alignItems: 'center'
-    alignSelf: 'center',
-    minHeight: '6%'
+    alignSelf: 'flex-start',
+    marginLeft: wp('4%')
   },
   centeredLinkText: {
     color: '#8DC84F',
     fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 0.34,
-    lineHeight: 24,
     textAlign: 'center'
   },
   linkContainer: {
@@ -134,7 +124,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     marginRight: wp('4%'),
     paddingVertical: 0,
-    minHeight: hp('7%')
+    minHeight: hp('10%'),
+    marginBottom: hp('3%')
   },
   ndauTotalContainer: {
     ...Platform.select({
@@ -183,29 +174,19 @@ export default StyleSheet.create({
     lineHeight: 36
   },
   backArrow: {
-    ...Platform.select({
-      ios: {
-        marginTop: hp('1.4%')
-      },
-      android: {
-        marginTop: hp('1%')
-      }
-    }),
-
-    marginLeft: '4%'
+    width: '6%'
   },
   progressBar: {
-    marginTop: hp('2.9%'),
+    marginTop: '4%',
     marginLeft: wp('3%'),
-    marginRight: wp('3%')
+    marginRight: wp('10%')
   },
   progressBarContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'stretch',
     width: wp('100%'),
-    height: hp('5%'),
     backgroundColor: '#0A1724',
     color: '#000000'
   },
@@ -213,16 +194,8 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 22,
-    letterSpacing: 0.39,
-    lineHeight: 27,
-    paddingLeft: wp('1%'),
-    paddingRight: wp('1%'),
-    ...Platform.select({
-      ios: {
-        marginTop: hp('.6%')
-      }
-    }),
-    marginRight: wp('4%')
+    paddingVertical: 0,
+    marginLeft: '-10%'
   },
   labelWithIconContainer: {
     flex: 1,
@@ -333,9 +306,7 @@ export default StyleSheet.create({
     backgroundColor: '#EDEAEA',
     fontFamily: 'Open Sans',
     zIndex: 5,
-    fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24
+    fontSize: 16
   },
   inputBottomMargin: {
     marginBottom: hp('2%')
@@ -532,6 +503,9 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: hp('2%')
   },
+  fullBarBorderBottomWidth: {
+    marginBottom: hp('2%')
+  },
   drawerBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1,
@@ -607,12 +581,17 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
-    letterSpacing: 0.39,
-    lineHeight: 27,
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
     marginRight: wp('4%'),
     marginLeft: wp('4%')
+  },
+  paragraphTextNoPaddingOrMargin: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 18,
+    marginLeft: wp('4%'),
+    padding: 0
   },
   fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {

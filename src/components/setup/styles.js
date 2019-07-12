@@ -33,25 +33,11 @@ export default StyleSheet.create({
     marginBottom: hp('3%')
   },
   setupContainerOverlay: {
-    position: 'absolute',
-    top: hp('7%'),
-    left: 0,
-    right: 0,
-    bottom: 0
+    marginTop: '12%'
   },
   setupContainer: {
     flex: 1,
-    width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('79%')
-      },
-      android: {
-        height: hp('84%')
-      }
-    }),
-    marginTop: hp('2%'),
-    marginBottom: hp('2.5%')
+    paddingTop: '2%'
   },
   setupContainerWithScrollView: {
     flex: 1,
@@ -67,8 +53,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 36,
     fontWeight: '600',
-    letterSpacing: 0.77,
-    lineHeight: 54,
     paddingLeft: wp('1%'),
     paddingRight: wp('1%'),
     marginLeft: wp('4%')
@@ -88,32 +72,42 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 16,
     fontWeight: '400',
-    letterSpacing: 0.34,
-    lineHeight: 24,
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: 0
   },
   recoveryConfirmationTextOnly: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
     fontWeight: '700',
-    letterSpacing: 0.39,
-    lineHeight: 27,
     textAlign: 'center'
   },
   recoveryConfirmationContainer: {
-    top: hp('9%'),
-    left: 0,
-    right: 0,
     width: wp('100%'),
     height: hp('30%'),
-    backgroundColor: '#293e63',
     paddingTop: hp('3%')
+  },
+  recoveryWordsContainer: {
+    width: wp('100%'),
+    height: hp('25%')
   },
   recoveryConfirmationRowView: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly'
+  },
+  recoveryAcquisitionRowView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start'
+  },
+  recoveryConfirmationRowViewForExisting: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-start',
+    padding: '4%'
   },
   recoveryConfirmationBox: {
     width: wp('21%'),
@@ -122,7 +116,8 @@ export default StyleSheet.create({
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
-    justifyContent: 'center',
+    paddingTop: 0,
+    justifyContent: 'space-around',
     alignItems: 'center'
   },
   recoveryConfirmationButtonBox: {
@@ -134,23 +129,16 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   recoveryConfirmationButtonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     width: wp('100%'),
     height: hp('30%'),
-    paddingTop: hp('3%')
+    marginTop: '30%'
   },
   recoveryConfirmationContainerTextOnly: {
-    position: 'absolute',
-    top: hp('15%'),
-    left: 0,
-    right: 0,
     width: wp('100%'),
     height: hp('30%'),
     backgroundColor: '#293e63',
-    paddingTop: hp('3%')
+    marginTop: '10%',
+    paddingTop: '8%'
   },
 
   recoveryConfirmationRowViewTextOnly: {
@@ -164,5 +152,13 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0
+  },
+  smallErrorText: {
+    color: AppConstants.ERROR_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+    fontWeight: '200',
+    paddingBottom: 0,
+    marginLeft: '4%'
   }
 })
