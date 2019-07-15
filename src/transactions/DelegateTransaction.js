@@ -24,6 +24,10 @@ export class DelegateTransaction {
     this._jsonTransaction.node = this._node
   }
 
+  getSignature = () => {
+    return this._jsonTransaction.signatures
+  }
+
   async createSignPrevalidateSubmit () {
     await this.create()
     await this.sign()

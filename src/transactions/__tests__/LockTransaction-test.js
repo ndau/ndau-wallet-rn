@@ -3,7 +3,7 @@ import { Transaction } from '../Transaction'
 import MockHelper from '../../helpers/MockHelper'
 import { NativeModules } from 'react-native'
 import data from '../../api/data'
-import { Messages }from '../../errors/BlockchainAPIError'
+import { Messages } from '../../errors/BlockchainAPIError'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -282,4 +282,54 @@ test('failure of any transaction around submit', async () => {
   } catch (error) {
     expect(error.toString()).toEqual('Error: error being sent')
   }
+})
+
+test('creation and signature of a lock transaction and make sure that we do NOT resequence if create is called again', async () => {
+  MockHelper.mockAccountAPI(
+    data.testSingleAddressData,
+    'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+  )
+
+  NativeModules.KeyaddrManager = {
+    keyaddrWordsToBytes: jest.fn(),
+    newKey: jest.fn(),
+    child: jest.fn(),
+    hardenedChild: jest.fn(),
+    ndauAddress: jest.fn(),
+    deriveFrom: jest.fn(),
+    toPublic: jest.fn(),
+    sign: jest.fn().mockReturnValue('asdfjklasdfjkl')
+  }
+  const theLockTransaction = {
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    sequence: 3830689465,
+    signatures: ['asdfjklasdfjkl'],
+    period: '12m'
+  }
+
+  Object.assign(LockTransaction.prototype, Transaction)
+
+  const lockTransaction = new LockTransaction(
+    user.wallets.c79af3b6,
+    user.wallets.c79af3b6.accounts[
+      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+    ],
+    '12m'
+  )
+
+  let createdLockTransaction = await lockTransaction.create()
+  await lockTransaction.sign()
+
+  expect(createdLockTransaction).toEqual(theLockTransaction)
+  expect(createdLockTransaction.sequence).toEqual(theLockTransaction.sequence)
+
+  // simulate incrementing of sequence...transaction went through
+  data.testSingleAddressData.tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb.sequence =
+    data.testSingleAddressData.tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb
+      .sequence + 1
+  createdLockTransaction = await lockTransaction.create()
+  await lockTransaction.sign()
+
+  expect(createdLockTransaction).toEqual(theLockTransaction)
+  expect(createdLockTransaction.sequence).toEqual(theLockTransaction.sequence)
 })
