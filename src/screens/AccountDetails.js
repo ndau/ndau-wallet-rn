@@ -27,6 +27,7 @@ import KeyMaster from '../helpers/KeyMaster'
 import { Transaction } from '../transactions/Transaction'
 import { NotifyTransaction } from '../transactions/NotifyTransaction'
 import UserData from '../model/UserData'
+import { FeeAlert } from '../components/alerts'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -35,7 +36,8 @@ class AccountDetails extends Component {
       account: {},
       wallet: {},
       accountsCanRxEAI: {},
-      spinner: false
+      spinner: false,
+      showFeesModal: false
     }
 
     this.baseEAI = 0
@@ -65,59 +67,44 @@ class AccountDetails extends Component {
     })
   }
 
+  _presentFees = () => {
+    this.setState({ showFeesModal: !this.state.showFeelsModal })
+  }
+
   _notify = async (account, wallet) => {
-    Alert.alert(
-      'Unlock countdown',
-      'The unlock countdown will be started. The account will not be able to send or receive ndau until the countdown ends.',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel'
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            this.setState({ spinner: true }, async () => {
-              // First send out the Notify
-              Object.assign(NotifyTransaction.prototype, Transaction)
-              const notifyTransaction = new NotifyTransaction(wallet, account)
-              await notifyTransaction.createSignPrevalidateSubmit()
+    this.setState({ spinner: true }, async () => {
+      // First send out the Notify
+      Object.assign(NotifyTransaction.prototype, Transaction)
+      const notifyTransaction = new NotifyTransaction(wallet, account)
+      await notifyTransaction.createSignPrevalidateSubmit()
 
-              try {
-                // Ok now we have to refresh data on this page
-                // So get the user from the store and load
-                const user = UserStore.getUser()
+      try {
+        // Ok now we have to refresh data on this page
+        // So get the user from the store and load
+        const user = UserStore.getUser()
 
-                await UserData.loadUserData(user)
+        await UserData.loadUserData(user)
 
-                const theWallet = KeyMaster.getWalletFromUser(
-                  user,
-                  wallet.walletId
-                )
-                const theAccount = KeyMaster.getAccountFromWallet(
-                  wallet,
-                  account.address
-                )
-                WalletStore.setWallet(theWallet)
-                AccountStore.setAccount(theAccount)
+        const theWallet = KeyMaster.getWalletFromUser(user, wallet.walletId)
+        const theAccount = KeyMaster.getAccountFromWallet(
+          wallet,
+          account.address
+        )
+        WalletStore.setWallet(theWallet)
+        AccountStore.setAccount(theAccount)
 
-                this.setState({
-                  spinner: false,
-                  account: theAccount,
-                  wallet: theWallet
-                })
-              } catch (error) {
-                FlashNotification.showError(error.message)
-                this.setState({
-                  spinner: false
-                })
-              }
-            })
-          }
-        }
-      ],
-      { cancelable: false }
-    )
+        this.setState({
+          spinner: false,
+          account: theAccount,
+          wallet: theWallet
+        })
+      } catch (error) {
+        FlashNotification.showError(error.message)
+        this.setState({
+          spinner: false
+        })
+      }
+    })
   }
 
   showHistory = account => {
@@ -187,6 +174,17 @@ class AccountDetails extends Component {
         account={this.state.account}
         {...this.props}
       >
+        <FeeAlert
+          title='ndau lock fees'
+          message='Transactions are subject to a small fee that supports the operation of the ndau network.'
+          fees={['Start Countdown Timer fee - 0.005 ndau']}
+          postMessage='The unlock countdown will be started. The account will not be able to send or receive ndau until the countdown ends.'
+          isVisible={this.state.showFeesModal}
+          setVisibleHandler={visible =>
+            this.setState({ showFeesModal: visible })
+          }
+          confirm={() => this._notify(this.state.account, this.state.wallet)}
+        />
         <LoadingSpinner spinner={this.state.spinner} />
         <AccountTotalPanel
           account={this.state.account}
@@ -207,11 +205,11 @@ class AccountDetails extends Component {
             <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
             <AccountBorder />
             {isAccountLocked ? (
-              <AccountParagraphText customIconName='lock'>
+              <AccountParagraphText iconType='solid' customIconName='lock'>
                 Locked
               </AccountParagraphText>
             ) : (
-              <AccountParagraphText customIconName='lock-open'>
+              <AccountParagraphText iconType='solid' customIconName='lock-open'>
                 Unlocked
               </AccountParagraphText>
             )}
@@ -255,9 +253,7 @@ class AccountDetails extends Component {
             </AccountParagraphText>
             {isAccountLocked && accountLockedUntil === null ? (
               <LargeButton
-                onPress={() =>
-                  this._notify(this.state.account, this.state.wallet)
-                }
+                onPress={() => this._presentFees()}
                 scroll
                 buttonStyle={{ marginTop: '3%' }}
               >

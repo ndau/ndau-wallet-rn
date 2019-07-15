@@ -63,7 +63,7 @@ export function AccountPanel (props) {
                   size={18}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   containerStyle={styles.accountNicknameIcon}
-                  type='light'
+                  type='solid'
                 />
                 {props.isAccountLocked ? (
                   props.accountLockedUntil === null ? (
@@ -116,7 +116,7 @@ export function AccountPanel (props) {
                   size={24}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   containerStyle={styles.accountAngle}
-                  type='light'
+                  type='solid'
                 />
               </TouchableOpacity>
             </View>
@@ -430,7 +430,7 @@ export function AccountParagraphText (props) {
           size={18}
           color={props.customIconColor || AppConstants.ICON_BUTTON_COLOR}
           containerStyle={styles.accountDetailsIcons}
-          type='light'
+          type={props.iconType || 'light'}
         />
       ) : null}
       <View>
