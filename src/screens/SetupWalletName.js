@@ -3,11 +3,7 @@ import SetupStore from '../stores/SetupStore'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import UserStore from '../stores/UserStore'
 import { SetupContainer } from '../components/setup'
-import {
-  LargeButtons,
-  TextInput,
-  ParagraphText
-} from '../components/common'
+import { LargeButtons, TextInput, ParagraphText } from '../components/common'
 import FlashNotification from '../components/common/FlashNotification'
 import { KeyboardAvoidingView, View, Platform } from 'react-native'
 
@@ -31,17 +27,22 @@ class SetupWalletName extends Component {
     SetupStore.walletId = this.defaultWalletId
   }
 
-  checkIfWalletAlreadyExists = user => {
-    if (
-      DataFormatHelper.checkIfWalletAlreadyExists(user, SetupStore.walletId)
-    ) {
-      FlashNotification.showError(
-        `There is already a wallet named "${
-          SetupStore.walletId
-        }". Please choose another name.`
-      )
-      return true
-    }
+  checkIfWalletAlreadyExists = async () => {
+    try {
+      const password = await UserStore.getPassword()
+      const user = await MultiSafeHelper.getDefaultUser(password)
+
+      if (
+        DataFormatHelper.checkIfWalletAlreadyExists(user, SetupStore.walletId)
+      ) {
+        FlashNotification.showError(
+          `There is already a wallet named "${
+            SetupStore.walletId
+          }". Please choose another name.`
+        )
+        return true
+      }
+    } catch (error) {}
 
     return false
   }
@@ -50,7 +51,7 @@ class SetupWalletName extends Component {
     const { navigation } = this.props
     const user = UserStore.getUser()
 
-    if (this.checkIfWalletAlreadyExists(user)) {
+    if (await this.checkIfWalletAlreadyExists()) {
       return
     }
 

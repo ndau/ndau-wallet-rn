@@ -90,6 +90,7 @@
     "react-native-linear-gradient": "2.5.4",
     "react-native-loading-spinner-overlay": "1.0.1",
     "react-native-mail": "3.0.7",
+    "react-native-modal": "^11.1.0",
     "react-native-modal-dropdown": "0.6.2",
     "react-native-permissions": "1.1.1",
     "react-native-push-notification": "github:oneiro-ndev/react-native-push-notification#kp-specificgoogleversion",
@@ -97,7 +98,6 @@
     "react-native-responsive-screen": "1.2.2",
     "react-native-securerandom": "0.3.1",
     "react-native-share": "1.2.1",
-    "react-native-simple-dialogs": "1.1.0",
     "react-native-svg": "9.5.1",
     "react-native-version-number": "0.3.6",
     "react-navigation": "3.11.0"

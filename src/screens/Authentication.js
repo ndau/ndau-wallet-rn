@@ -24,7 +24,6 @@ import {
   LoginImage
 } from '../components/common'
 import UserStore from '../stores/UserStore'
-import { heightPercentageToDP } from 'react-native-responsive-screen'
 
 const ANDROID_SHRINK_SIZE = '18%'
 const ANDROID_NORMAL_SIZE = '30%'
