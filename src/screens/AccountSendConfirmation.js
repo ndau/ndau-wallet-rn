@@ -57,17 +57,20 @@ class AccountSendConfirmation extends Component {
     })
   }
 
+  componentDidMount () {
+    Object.assign(TransferTransaction.prototype, Transaction)
+    this.transferTransaction = new TransferTransaction(
+      this.state.wallet,
+      this.state.account,
+      this.state.address,
+      this.state.amount
+    )
+  }
+
   _confirm = () => {
     this.setState({ spinner: true }, async () => {
       try {
-        Object.assign(TransferTransaction.prototype, Transaction)
-        const transferTransaction = new TransferTransaction(
-          this.state.wallet,
-          this.state.account,
-          this.state.address,
-          this.state.amount
-        )
-        await transferTransaction.createSignPrevalidateSubmit()
+        await this.transferTransaction.createSignPrevalidateSubmit()
 
         this.props.navigation.navigate('WalletOverview', {
           refresh: true
