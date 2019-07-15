@@ -204,7 +204,7 @@ class WalletOverview extends Component {
               'SetValidation fee - 0.005 ndau'
             ]}
             isVisible={this.state.showFeesModal}
-            setVisible={visible => {
+            setVisibleHandler={visible => {
               this.setState({ showFeesModal: visible })
             }}
           />

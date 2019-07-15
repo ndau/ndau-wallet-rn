@@ -52,7 +52,7 @@ class AccountReceive extends Component {
           message='The first deposit received by a newly created account is subject to a small fee that supports the operation of the ndau network.'
           fees={['Delegate fee - 0.005 ndau', 'SetValidation fee - 0.005 ndau']}
           isVisible={this.state.showFeesModal}
-          setVisible={visible => this.setState({ showFeesModal: visible })}
+          setVisibleHandler={visible => this.setState({ showFeesModal: visible })}
         />
         <LoadingSpinner spinner={this.state.spinner} />
         <AccountReceiveParagraphText>

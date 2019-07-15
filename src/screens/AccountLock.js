@@ -117,7 +117,7 @@ class AccountLock extends Component {
           ]}
           postMessage='* Only if the user chooses to have earned EAI sent to a different account'
           isVisible={this.state.isModalVisible}
-          setVisible={visible => this.setState({ isModalVisible: visible })}
+          setVisibleHandler={visible => this.setState({ isModalVisible: visible })}
         />
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountLockDetailsPanel account={this.state.account}>

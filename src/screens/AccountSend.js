@@ -340,7 +340,7 @@ class AccountSend extends Component {
           message='Transactions are subject to a small fee that supports the operation of the ndau network.'
           fees={['Transfer fee - 0.005 ndau']}
           isVisible={this.state.isModalVisible}
-          setVisible={visible => this.setState({ isModalVisible: visible })}
+          setVisibleHandler={visible => this.setState({ isModalVisible: visible })}
         />
         <KeyboardAvoidingView
           keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : -110}

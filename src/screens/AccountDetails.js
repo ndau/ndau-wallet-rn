@@ -180,7 +180,9 @@ class AccountDetails extends Component {
           fees={['Start Countdown Timer fee - 0.005 ndau']}
           postMessage='The unlock countdown will be started. The account will not be able to send or receive ndau until the countdown ends.'
           isVisible={this.state.showFeesModal}
-          setVisible={visible => this.setState({ showFeesModal: visible })}
+          setVisibleHandler={visible =>
+            this.setState({ showFeesModal: visible })
+          }
           confirm={() => this._notify(this.state.account, this.state.wallet)}
         />
         <LoadingSpinner spinner={this.state.spinner} />

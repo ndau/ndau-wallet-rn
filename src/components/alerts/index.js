@@ -73,10 +73,13 @@ export function FeeAlert (props) {
                 justifyContent: 'space-evenly'
               }}
             >
-              <Button onPress={() => props.setVisible(false)} title='Cancel' />
+              <Button
+                onPress={() => props.setVisibleHandler(false)}
+                title='Cancel'
+              />
               <Button
                 onPress={() => {
-                  props.setVisible(false)
+                  props.setVisibleHandler(false)
                   props.confirm()
                 }}
                 title='Confirm'
@@ -84,7 +87,7 @@ export function FeeAlert (props) {
             </View>
           ) : (
             <Button
-              onPress={() => props.setVisible(false)}
+              onPress={() => props.setVisibleHandler(false)}
               title='I understand'
             />
           )}
