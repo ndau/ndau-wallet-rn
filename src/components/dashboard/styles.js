@@ -88,7 +88,7 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 12,
-    fontWeight: '300',
+    fontWeight: '300'
   },
   dashboardWalletName: {
     flex: 1,
@@ -112,14 +112,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontWeight: '600',
     textAlign: 'center',
-    ...Platform.select({
-      ios: {
-        marginTop: hp('1%')
-      },
-      android: {
-        marginTop: hp('.5%')
-      }
-    }),
     marginLeft: wp('4%')
   },
   dashboardActionPanel: {
