@@ -18,7 +18,7 @@ class FlashNotification extends Component {
       fontFamily: 'TitilliumWeb-Regular',
       duration: 10000,
       hideOnPress,
-      description: !autoHide ? 'Please tap to continue...' : null,
+      description: !autoHide ? 'Please tap to continue...' : '',
       onPress: onPressCallback
     })
   }
@@ -38,7 +38,7 @@ class FlashNotification extends Component {
       fontFamily: 'TitilliumWeb-Regular',
       duration: 10000,
       hideOnPress,
-      description: !autoHide ? 'Please tap to continue...' : null,
+      description: !autoHide ? 'Please tap to continue...' : '',
       onPress: onPressCallback
     })
   }

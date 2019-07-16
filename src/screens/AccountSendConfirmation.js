@@ -16,7 +16,6 @@ import { Transaction } from '../transactions/Transaction'
 import ndaujs from 'ndaujs'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import AppConfig from '../AppConfig'
 
 class AccountSendConfirmation extends Component {
   constructor (props) {
@@ -58,6 +57,7 @@ class AccountSendConfirmation extends Component {
   }
 
   componentDidMount () {
+    console.warn('This happened')
     Object.assign(TransferTransaction.prototype, Transaction)
     this.transferTransaction = new TransferTransaction(
       this.state.wallet,
