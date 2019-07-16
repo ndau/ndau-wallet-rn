@@ -26,8 +26,8 @@ class LogStore {
     if (__DEV__) console.log(logData)
 
     this._logData.write({
-      timestamp: moment(),
-      message: logData
+      ts: moment(),
+      msg: logData
     })
   }
 
@@ -39,10 +39,9 @@ class LogStore {
   }
 
   /**
-   * Get a linearized array
+   * returns the raw logdata array
    */
-  toLinear () {
-    this._logData.toLinear()
+  getLogData () {
     return this._logData
   }
 

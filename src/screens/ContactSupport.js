@@ -66,11 +66,11 @@ class ContactSupport extends Component {
       return
     }
 
-    const logs = this.state.includeLogs ? LogStore.toLinear() : []
+    const logs = this.state.includeLogs ? LogStore.getLogData() : []
     const ax = axios.create({
       headers: { 'x-api-key': AppConfig.FRESHDESK_INTEGRATION_API_KEY }
     })
-    ax.post('https://support.ndau.tech/default/freshdesk-integration', {
+    ax.post(AppConfig.FRESHDESK_TICKET_ENDPOINT, {
       email: this.state.email,
       description: this.state.description,
       logs: logs._array
@@ -96,7 +96,7 @@ class ContactSupport extends Component {
 
   render () {
     const { includeLogs, sent, description, email, sending } = this.state
-    const sendDisabled = sending // don't let'em send when already sending
+    const sendDisabled = sending // don't let'em press send when already sending
     return (
       <AppContainer>
         <WaitingForBlockchainSpinner

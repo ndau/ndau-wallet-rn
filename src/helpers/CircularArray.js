@@ -98,22 +98,4 @@ export default class CircularArray {
       }
     }
   }
-
-  /**
-   * Make a string with JSON stringified log entries
-   */
-  toLinear () {
-    const linear = new Array(this._arraySize)
-    if (this._tail > this._head) {
-      // the array is not filled up yet...so we iterate between
-      // the head and tail
-      linear.splice(0, 0, this._array.slice(this._head, this._tail))
-    } else {
-      // write the old entries
-      linear.splice(0, 0, this._array.slice(this._head, this._array.length))
-      // write the new ones
-      linear.splice(this._head, 0, this._array.slice(0, this._head - 1))
-    }
-    return linear
-  }
 }

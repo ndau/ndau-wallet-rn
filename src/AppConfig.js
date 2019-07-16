@@ -36,6 +36,8 @@ const calcExplorerUrl = (address, network) =>
   `https://explorer.service.ndau.tech/account/${address}/?node=${network}`
 
 const FRESHDESK_INTEGRATION_API_KEY = 'WfxQlzgny92866U26BCxvshY2nCf8kO531Yyfdkj'
+const FRESHDESK_TICKET_ENDPOINT =
+  'https://support.ndau.tech/default/freshdesk-integration'
 
 export default {
   calcExplorerUrl,
@@ -57,5 +59,6 @@ export default {
   MAX_LOG_ENTRIES,
   SPENDABLE_KNOWLEDGEBASE_URL,
   EAI_KNOWLEDGEBASE_URL,
-  FRESHDESK_INTEGRATION_API_KEY
+  FRESHDESK_INTEGRATION_API_KEY,
+  FRESHDESK_TICKET_ENDPOINT
 }
