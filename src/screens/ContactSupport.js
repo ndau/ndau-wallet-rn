@@ -31,7 +31,7 @@ class ContactSupport extends Component {
   }
 
   validate () {
-    msgs = []
+    const msgs = []
     if (!this.state.email.match(/.@.*\.../) || this.state.email.length < 6) {
       msgs.push('enter a valid email address')
     }
