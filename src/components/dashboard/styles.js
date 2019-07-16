@@ -14,8 +14,6 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24,
     marginRight: wp('2%'),
     marginLeft: wp('4%')
   },
@@ -30,8 +28,6 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
-    letterSpacing: 0.34,
-    lineHeight: 24,
     marginRight: wp('2%'),
     marginLeft: wp('4%'),
     color: '#8CC74F',
@@ -44,8 +40,6 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 18,
-    letterSpacing: 0.34,
-    lineHeight: 24,
     marginTop: wp('2%'),
     marginBottom: wp('2%'),
     marginLeft: wp('4%')
@@ -95,8 +89,6 @@ export default StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 12,
     fontWeight: '300',
-    letterSpacing: 0.26,
-    lineHeight: 18
   },
   dashboardWalletName: {
     flex: 1,
@@ -119,8 +111,6 @@ export default StyleSheet.create({
     fontSize: 21,
     fontFamily: 'Titillium Web',
     fontWeight: '600',
-    letterSpacing: 0.45,
-    lineHeight: 32,
     textAlign: 'center',
     ...Platform.select({
       ios: {

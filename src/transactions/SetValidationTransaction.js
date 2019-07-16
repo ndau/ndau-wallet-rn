@@ -45,6 +45,10 @@ export class SetValidationTransaction {
     this._jsonTransaction.signature = signature
   }
 
+  getSignature = () => {
+    return this._jsonTransaction.signature
+  }
+
   async createSignPrevalidateSubmit () {
     await this.create()
     await this.sign()

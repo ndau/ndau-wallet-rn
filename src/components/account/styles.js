@@ -125,25 +125,25 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   ndauTotalContainerMedium: {
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingLeft: wp('4%')
   },
   ndauSmall: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 17,
-    letterSpacing: 0.51,
-    lineHeight: 36,
-    paddingRight: 4
+    paddingRight: 4,
+    marginTop: hp('1.5%')
   },
   ndauMedium: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 18,
-    letterSpacing: 0.51,
-    lineHeight: 27
+    paddingRight: 4,
+    marginTop: hp('1.5%')
   },
   accountTotalPanelText: {
     color: '#8CC74F',
@@ -153,8 +153,6 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(78,149,122,1)',
     fontSize: 24,
     fontWeight: '300',
-    letterSpacing: 0.51,
-    lineHeight: 27,
     fontFamily: 'Titillium Web',
     textAlign: 'center'
   },
@@ -175,16 +173,12 @@ export default StyleSheet.create({
   accountTotalPanel: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: wp('100%'),
-    height: hp('7%'),
+    height: hp('8%'),
     backgroundColor: 'transparent',
-    overflow: 'hidden',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.5)',
-    paddingLeft: wp('4%'),
-    paddingRight: wp('4%')
+    shadowColor: 'rgba(0, 0, 0, 0.5)'
   },
   accountDetailsItemPanel: {
     flexDirection: 'row',
@@ -454,6 +448,7 @@ export default StyleSheet.create({
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
   },
   accountLargeButtonText: {
+    height: hp('6%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,

@@ -19,6 +19,10 @@ export class NotifyTransaction {
     this._jsonTransaction.target = this._account.address
   }
 
+  getSignature = () => {
+    return this._jsonTransaction.signatures
+  }
+
   async createSignPrevalidateSubmit () {
     try {
       await this.create()

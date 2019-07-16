@@ -355,3 +355,61 @@ test('failure of any transaction around submit', async () => {
     expect(error.toString()).toEqual('Error: error being sent')
   }
 })
+
+test('creation and signature of a SetValidation transaction and make sure that we do NOT resequence if create is called again', async () => {
+  MockHelper.mockAccountAPI(
+    data.testSingleAddressData,
+    'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+  )
+
+  NativeModules.KeyaddrManager = {
+    keyaddrWordsToBytes: jest.fn(),
+    newKey: jest.fn(),
+    child: jest.fn(),
+    hardenedChild: jest.fn(),
+    ndauAddress: jest.fn(),
+    deriveFrom: jest.fn(),
+    toPublic: jest.fn(),
+    sign: jest.fn().mockReturnValue('asdfjklasdfjkl')
+  }
+  const theSetValidationTransaction = {
+    ownership:
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b',
+    validation_keys: [
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44g',
+      'npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44h'
+    ],
+    target: 'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb',
+    sequence: 3830689465,
+    signature: 'asdfjklasdfjkl'
+  }
+
+  Object.assign(SetValidationTransaction.prototype, Transaction)
+
+  const setValidationTransaction = new SetValidationTransaction(
+    user.wallets.c79af3b6,
+    user.wallets.c79af3b6.accounts[
+      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb'
+    ]
+  )
+
+  let createdSetValidationTransaction = await setValidationTransaction.create()
+  await setValidationTransaction.sign()
+
+  expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
+  expect(createdSetValidationTransaction.sequence).toEqual(
+    theSetValidationTransaction.sequence
+  )
+
+  // simulate incrementing of sequence...transaction went through
+  data.testSingleAddressData.tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb.sequence =
+    data.testSingleAddressData.tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyacb
+      .sequence + 1
+  createdSetValidationTransaction = await setValidationTransaction.create()
+  await setValidationTransaction.sign()
+
+  expect(createdSetValidationTransaction).toEqual(theSetValidationTransaction)
+  expect(createdSetValidationTransaction.sequence).toEqual(
+    theSetValidationTransaction.sequence
+  )
+})

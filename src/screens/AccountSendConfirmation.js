@@ -16,7 +16,6 @@ import { Transaction } from '../transactions/Transaction'
 import ndaujs from 'ndaujs'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import AppConfig from '../AppConfig'
 
 class AccountSendConfirmation extends Component {
   constructor (props) {
@@ -57,17 +56,21 @@ class AccountSendConfirmation extends Component {
     })
   }
 
+  componentDidMount () {
+    console.warn('This happened')
+    Object.assign(TransferTransaction.prototype, Transaction)
+    this.transferTransaction = new TransferTransaction(
+      this.state.wallet,
+      this.state.account,
+      this.state.address,
+      this.state.amount
+    )
+  }
+
   _confirm = () => {
     this.setState({ spinner: true }, async () => {
       try {
-        Object.assign(TransferTransaction.prototype, Transaction)
-        const transferTransaction = new TransferTransaction(
-          this.state.wallet,
-          this.state.account,
-          this.state.address,
-          this.state.amount
-        )
-        await transferTransaction.createSignPrevalidateSubmit()
+        await this.transferTransaction.createSignPrevalidateSubmit()
 
         this.props.navigation.navigate('WalletOverview', {
           refresh: true
