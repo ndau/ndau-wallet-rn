@@ -5,6 +5,7 @@ import {
   createAppContainer
 } from 'react-navigation'
 import DashboardNavigation from './DashboardNavigation'
+import ContactSupportNavigation from './ContactSupportNavigation'
 import WalletOverviewNavigation from './WalletOverviewNavigation'
 import LoggingNavigation from './LoggingNavigation'
 import SetupWelcome from '../screens/SetupWelcome'
@@ -19,6 +20,7 @@ import SetupYourWallet from '../screens/SetupYourWallet'
 import Authentication from '../screens/Authentication'
 import AuthLoading from './AuthLoading'
 import SettingsNavigation from './SettingsNavigation'
+import ContactSupport from '../screens/ContactSupport'
 
 const AuthenticationScreen = ({ navigation }) => (
   <Authentication navigation={navigation} />
@@ -111,6 +113,13 @@ LoggingNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
+const ContactSupportScreen = ({ navigation }) => (
+  <ContactSupport navigation={navigation} />
+)
+ContactSupportScreen.navigationOptions = ({ navigation }) => ({
+  header: null
+})
+
 const SetupStack = createStackNavigator({
   Authentication: { screen: AuthenticationScreen },
   SetupWelcome: { screen: SetupWelcomeScreen },
@@ -128,6 +137,8 @@ const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
+
+    ContactSupport: ContactSupportNavigation,
     Logging: LoggingNavigation,
     WalletOverview: WalletOverviewNavigation,
     Setup: SetupStack,
