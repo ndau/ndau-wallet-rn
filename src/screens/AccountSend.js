@@ -130,11 +130,15 @@ class AccountSend extends Component {
         const prevalidateData = await transferTransaction.prevalidate()
         if (prevalidateData.fee_napu) {
           transactionFee = DataFormatHelper.getNdauFromNapu(
-            prevalidateData.fee_napu
+            prevalidateData.fee_napu,
+            AppConfig.NDAU_DETAIL_PRECISION
           )
         }
         if (prevalidateData.sib_napu) {
-          sibFee = DataFormatHelper.getNdauFromNapu(prevalidateData.sib_napu)
+          sibFee = DataFormatHelper.getNdauFromNapu(
+            prevalidateData.sib_napu,
+            AppConfig.NDAU_DETAIL_PRECISION
+          )
         }
 
         total = AccountAPIHelper.getTotalNdauForSend(
@@ -340,7 +344,9 @@ class AccountSend extends Component {
           message='Transactions are subject to a small fee that supports the operation of the ndau network.'
           fees={['Transfer fee - 0.005 ndau']}
           isVisible={this.state.isModalVisible}
-          setVisibleHandler={visible => this.setState({ isModalVisible: visible })}
+          setVisibleHandler={visible =>
+            this.setState({ isModalVisible: visible })
+          }
         />
         <KeyboardAvoidingView
           keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : -110}

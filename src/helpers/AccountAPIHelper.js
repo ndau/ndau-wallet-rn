@@ -397,9 +397,18 @@ const getTotalNdauForSend = (
   sibFee,
   addCommas = true
 ) => {
-  const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
-  const transactionFeeNapu = DataFormatHelper.getNapuFromNdau(transactionFee)
-  const sibFeeNapu = DataFormatHelper.getNapuFromNdau(sibFee)
+  const amountNapu = DataFormatHelper.getNapuFromNdau(
+    amount,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
+  const transactionFeeNapu = DataFormatHelper.getNapuFromNdau(
+    transactionFee,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
+  const sibFeeNapu = DataFormatHelper.getNapuFromNdau(
+    sibFee,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
   const totalNapu = amountNapu + transactionFeeNapu + sibFeeNapu
   return DataFormatHelper.getNdauFromNapu(
     totalNapu,
