@@ -443,7 +443,7 @@ export default StyleSheet.create({
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
   },
   accountLargeButtonText: {
-    height: hp('6%'),
+    height: hp('5%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
