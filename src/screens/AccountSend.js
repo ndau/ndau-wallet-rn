@@ -54,6 +54,8 @@ class AccountSend extends Component {
       validAddress: false,
       transactionFee: 0,
       sibFee: 0,
+      transactionFeeNapu: 0,
+      sibFeeNapu: 0,
       total: 0,
       isModalVisible: false
     }
@@ -113,6 +115,8 @@ class AccountSend extends Component {
     this.setState({ spinner: true }, async () => {
       let transactionFee = 0
       let sibFee = 0
+      let transactionFeeNapu = 0
+      let sibFeeNapu = 0
       let total = this.state.total
       let canProceedFromAmount = this.state.canProceedFromAmount
 
@@ -128,23 +132,26 @@ class AccountSend extends Component {
         await transferTransaction.create()
         await transferTransaction.sign()
         const prevalidateData = await transferTransaction.prevalidate()
+
         if (prevalidateData.fee_napu) {
           transactionFee = DataFormatHelper.getNdauFromNapu(
             prevalidateData.fee_napu,
             AppConfig.NDAU_DETAIL_PRECISION
           )
+          transactionFeeNapu = prevalidateData.fee_napu
         }
         if (prevalidateData.sib_napu) {
           sibFee = DataFormatHelper.getNdauFromNapu(
             prevalidateData.sib_napu,
             AppConfig.NDAU_DETAIL_PRECISION
           )
+          sibFeeNapu = prevalidateData.sib_napu
         }
 
         total = AccountAPIHelper.getTotalNdauForSend(
           this.state.amount,
-          transactionFee,
-          sibFee
+          prevalidateData.fee_napu,
+          prevalidateData.sib_napu
         )
         canProceedFromAmount = true
       } catch (error) {
@@ -153,16 +160,20 @@ class AccountSend extends Component {
           const resp = error.error.response.data
           if (resp.sib_napu) {
             sibFee = DataFormatHelper.getNdauFromNapu(resp.sib_napu)
+            sibFeeNapu = resp.sib_napu
           }
           if (resp.fee_napu) {
             transactionFee = DataFormatHelper.getNdauFromNapu(resp.fee_napu)
+            transactionFeeNapu = resp.fee_napu
           }
           if (resp.sib_napu && resp.fee_napu) {
             total = AccountAPIHelper.getTotalNdauForSend(
               this.state.amount,
-              transactionFee,
-              sibFee
+              resp.fee_napu,
+              resp.sib_napu
             )
+            sibFeeNapu = resp.sib_napu
+            transactionFeeNapu = resp.fee_napu
           }
         }
         canProceedFromAmount = false
@@ -175,6 +186,8 @@ class AccountSend extends Component {
         spinner: false,
         transactionFee,
         sibFee,
+        transactionFeeNapu,
+        sibFeeNapu,
         total,
         canProceedFromAmount
       })
@@ -218,11 +231,11 @@ class AccountSend extends Component {
   }
 
   _getTotalNdau (amount) {
-    let { transactionFee, sibFee } = this.state
+    let { transactionFeeNapu, sibFeeNapu } = this.state
     const totalNdau = AccountAPIHelper.getTotalNdauForSend(
       amount,
-      transactionFee,
-      sibFee
+      transactionFeeNapu,
+      sibFeeNapu
     )
     return totalNdau
   }
@@ -297,14 +310,14 @@ class AccountSend extends Component {
           <AccountConfirmationItem largerText value={this.state.total}>
             Total
           </AccountConfirmationItem>
+          <AccountSendButton
+            sideMargins
+            disabled={!this.state.canProceedFromAmount}
+            onPress={() => this._next()}
+          >
+            Next
+          </AccountSendButton>
         </AccountDetailPanel>
-        <AccountSendButton
-          sideMargins
-          disabled={!this.state.canProceedFromAmount}
-          onPress={() => this._next()}
-        >
-          Next
-        </AccountSendButton>
       </AccountSendContainer>
     )
   }
@@ -352,40 +365,38 @@ class AccountSend extends Component {
           keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : -110}
           behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
-          <View style={{ height: '42%' }}>
-            <AccountSendPanel>
-              <AccountHeaderText>Who are you sending to?</AccountHeaderText>
-              <Label noMargin>Address</Label>
-              <TextInput
-                onChangeText={this._setAddress}
-                value={this.state.address}
-                name='address'
-                placeholder='ndau address...'
-                autoCapitalize='none'
-                noSideMargins
-              />
-              <OrBorder />
-              <LargeBorderButton onPress={() => this._scan()}>
-                Scan QR Code
-              </LargeBorderButton>
-            </AccountSendPanel>
-          </View>
-          <View
-            style={{
-              height: '56%',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              marginBottom: '4%'
-            }}
-          >
-            <AccountSendButton
-              sideMargins
-              disabled={!this.state.validAddress}
-              onPress={() => this._haveAddress()}
+          <AccountSendPanel>
+            <AccountHeaderText>Who are you sending to?</AccountHeaderText>
+            <Label noMargin>Address</Label>
+            <TextInput
+              onChangeText={this._setAddress}
+              value={this.state.address}
+              name='address'
+              placeholder='ndau address...'
+              autoCapitalize='none'
+              noSideMargins
+            />
+            <OrBorder />
+            <LargeBorderButton onPress={() => this._scan()}>
+              Scan QR Code
+            </LargeBorderButton>
+            <View
+              style={{
+                flexGrow: 1,
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                marginBottom: '4%'
+              }}
             >
-              Next
-            </AccountSendButton>
-          </View>
+              <AccountSendButton
+                sideMargins
+                disabled={!this.state.validAddress}
+                onPress={() => this._haveAddress()}
+              >
+                Next
+              </AccountSendButton>
+            </View>
+          </AccountSendPanel>
         </KeyboardAvoidingView>
       </AccountSendContainer>
     )

@@ -1,5 +1,12 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, Linking, Platform } from 'react-native'
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Linking,
+  Platform,
+  ScrollView
+} from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -233,7 +240,9 @@ export function AccountSendContainer (props) {
             />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
-            {props.children}
+            <ScrollView keyboardShouldPersistTaps='always'>
+              {props.children}
+            </ScrollView>
           </ContentContainer>
         </TitleBarGradient>
       </View>
@@ -884,11 +893,12 @@ export function AddressSharePanel (props) {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}
         >
           <View>
-            <P style={styles.addressCopyPanelText}>{truncatedAddress}</P>
+            <Text style={styles.addressCopyPanelText}>{truncatedAddress}</Text>
           </View>
           <View>
             <Button

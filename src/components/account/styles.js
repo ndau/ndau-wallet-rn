@@ -225,14 +225,12 @@ export default StyleSheet.create({
   },
   accountReceivePanel: {
     width: wp('100%'),
-    height: hp('100%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
   },
   accountSendPanel: {
     width: wp('100%'),
-    height: hp('100%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -427,9 +425,6 @@ export default StyleSheet.create({
     backgroundColor: '#0A1724'
   },
   accountSendButtonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    marginLeft: wp('4%'),
     marginBottom: hp('2.5%')
   },
   accountButtonLargeButton: {
@@ -724,13 +719,12 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 14,
-    fontWeight: '200',
-    lineHeight: 24
+    fontWeight: '200'
   },
   addressShareButton: {
     alignSelf: 'center',
     width: wp('20%'),
-    height: hp('4%'),
+    height: hp('4.3%'),
     borderRadius: 4,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
