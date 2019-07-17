@@ -126,12 +126,17 @@ export default StyleSheet.create({
   },
   passwordLinkContainer: {
     flex: 1,
+    flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginRight: wp('4%'),
     paddingVertical: 0,
     minHeight: hp('10%'),
     marginBottom: hp('3%')
+  },
+  authenticationLinkText: {
+    width: '100%',
+    textAlign: 'right'
   },
   ndauTotalContainer: {
     ...Platform.select({
@@ -572,12 +577,20 @@ export default StyleSheet.create({
     padding: 10,
     backgroundColor: '#FFFFFF'
   },
-  smallParagraphText: {
+  smallButtonText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 12,
     fontWeight: '400',
     textAlign: 'center',
+    marginLeft: wp('4%')
+  },
+  smallParagraphText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: '400',
+    textAlign: 'left',
     marginLeft: wp('4%')
   }
 })

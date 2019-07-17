@@ -75,6 +75,14 @@ export function ModalTextLink (props) {
   )
 }
 
+export function SmallButtonText (props) {
+  return (
+    <P style={[styles.smallButtonText]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
 export function SmallParagraphText (props) {
   return (
     <P style={[styles.smallParagraphText]} {...props}>
@@ -132,7 +140,7 @@ export function LargeButtons (props) {
       }
     >
       {props.text ? (
-        <SmallParagraphText>{props.text}</SmallParagraphText>
+        <SmallButtonText>{props.text}</SmallButtonText>
       ) : null}
       <Button
         style={
@@ -209,13 +217,18 @@ export function LinkText (props) {
   )
 }
 
+export function PasswordLinkContainer (props) {
+  return <View style={[styles.passwordLinkContainer]}>{props.children}</View>
+}
+
 export function PasswordLinkText (props) {
   return (
-    <View style={[styles.passwordLinkContainer]}>
-      <H4 {...props} style={[styles.linkText]}>
-        {props.children}
-      </H4>
-    </View>
+    <H4
+      onPress={props.onPress}
+      style={[styles.linkText, styles.authenticationLinkText]}
+    >
+      {props.children}
+    </H4>
   )
 }
 

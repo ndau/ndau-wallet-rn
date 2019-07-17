@@ -5,7 +5,7 @@ import {
 } from 'react-native-responsive-screen'
 import AppConstants from '../../AppConstants'
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   opaqueOverlay: {
     ...StyleSheet.absoluteFillObject,
     opacity: 0.9
@@ -86,3 +86,15 @@ export default StyleSheet.create({
     paddingTop: 4
   }
 })
+
+styles.contactSupportHeaderStyle = Object.assign(
+  {
+    marginLeft: '-10%',
+    zIndex: -1,
+    textAlign: 'left',
+    flex: 1
+  },
+  styles.drawerHeaderText
+)
+
+export default styles

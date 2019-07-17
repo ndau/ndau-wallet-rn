@@ -122,6 +122,7 @@ ContactSupportScreen.navigationOptions = ({ navigation }) => ({
 
 const SetupStack = createStackNavigator({
   Authentication: { screen: AuthenticationScreen },
+  ContactSupport: { screen: ContactSupportScreen },
   SetupWelcome: { screen: SetupWelcomeScreen },
   SetupWalletName: { screen: SetupWalletNameScreen },
   SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },

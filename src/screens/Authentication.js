@@ -20,6 +20,7 @@ import {
   LabelWithIcon,
   TextInput,
   PasswordLinkText,
+  PasswordLinkContainer,
   LargeButton,
   LoginImage
 } from '../components/common'
@@ -172,6 +173,13 @@ class Authentication extends Component {
     })
   }
 
+  showContactSupport = () => {
+    FlashNotification.hideMessage()
+    this.props.navigation.navigate('ContactSupport', {
+      drawerDisabled: true
+    })
+  }
+
   dropDownSelected = (index, value) => {
     this.setState({
       userId: value
@@ -254,9 +262,14 @@ class Authentication extends Component {
                 autoCapitalize='none'
                 onSubmitEditing={this.login}
               />
-              <PasswordLinkText onPress={this.showPasswordReset}>
-                Forgot your password?
-              </PasswordLinkText>
+              <PasswordLinkContainer>
+                <PasswordLinkText onPress={this.showPasswordReset}>
+                  Forgot your password?
+                </PasswordLinkText>
+                <PasswordLinkText onPress={this.showContactSupport}>
+                  Contact support
+                </PasswordLinkText>
+              </PasswordLinkContainer>
             </View>
 
             <View
