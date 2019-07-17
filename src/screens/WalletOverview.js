@@ -162,7 +162,7 @@ class WalletOverview extends Component {
       try {
         await UserData.loadUserData(user)
       } catch (error) {
-        FlashNotification.showError(error.message)
+        FlashNotification.showError(error)
       }
 
       if (wallet) WalletStore.setWallet(wallet)
@@ -321,8 +321,7 @@ class WalletOverview extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LogStore.log(error)
-      FlashNotification.showError(error.message)
+      FlashNotification.showError(error)
     }
 
     return (

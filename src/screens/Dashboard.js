@@ -118,7 +118,7 @@ class Dashboard extends Component {
       try {
         await UserData.loadUserData(user)
       } catch (error) {
-        FlashNotification.showError(error.message)
+        FlashNotification.showError(error)
       }
 
       this._loadMetricsAndSetState(user)
@@ -175,8 +175,7 @@ class Dashboard extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LogStore.log(error)
-      FlashNotification.showError(error.message)
+      FlashNotification.showError(error)
     }
 
     return (

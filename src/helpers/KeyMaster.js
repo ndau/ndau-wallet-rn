@@ -142,7 +142,7 @@ const createFirstTimeUser = async (
     LogStore.log(`User initially created is: ${JSON.stringify(user)}`)
     return user
   } catch (error) {
-    FlashNotification.showError(error.message)
+    FlashNotification.showError(error)
   }
 }
 
@@ -219,7 +219,7 @@ const createWallet = async (
 
     return wallet
   } catch (error) {
-    FlashNotification.showError(error.message)
+    FlashNotification.showError(error)
   }
 }
 
