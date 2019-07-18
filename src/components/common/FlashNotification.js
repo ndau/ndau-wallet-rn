@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LogStore from '../../stores/LogStore'
 import { showMessage, hideMessage } from 'react-native-flash-message'
+import AppConstants from '../../AppConstants'
 
 const _ = require('lodash')
 
@@ -40,8 +41,8 @@ class FlashNotification extends Component {
     showMessage({
       message,
       autoHide,
-      backgroundColor: '#c7f3e2',
-      color: '#4e957a',
+      backgroundColor: AppConstants.FLASH_MESSAGE_BACKGROUND_COLOR,
+      color: AppConstants.FLASH_MESSAGE_COLOR,
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
       duration: 10000,
