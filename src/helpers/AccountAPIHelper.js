@@ -409,7 +409,7 @@ const getTotalNdauForSend = (
   addCommas = true
 ) => {
   const amountNapu = DataFormatHelper.getNapuFromNdau(
-    amount,
+    amountNdau,
     AppConfig.NDAU_DETAIL_PRECISION
   )
   const totalNapu = amountNapu + transactionFeeNapu + sibFeeNapu
