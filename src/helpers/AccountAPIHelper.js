@@ -436,7 +436,6 @@ export default {
   receivingEAIFrom,
   sendingEAITo,
   eaiValueForDisplay: getEaiValueForDisplay,
-  sendDelegateTransactionIfNeeded,
   addPrivateValidationKeyIfNotPresent,
   weightedAverageAgeInDays,
   lockBonusEAI,
