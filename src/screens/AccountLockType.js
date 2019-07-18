@@ -111,6 +111,17 @@ class AccountLockType extends Component {
   }
 
   render () {
+    const showChoose = Object.keys(this.state.wallet.accounts).length > 1
+    const opts = [
+      `Compound to this account (${this.state.account.addressData.nickname})`,
+      `Create new account`
+    ]
+    const vals = [COMPOUND_TO_THIS_ACCOUNT, COMPOUND_TO_NEW_ACCOUNT]
+
+    if (showChoose) {
+      opts.push('Choose account on the next screen')
+      vals.push(CHOOSE_ON_NEXT_SCREEN)
+    }
     return (
       <AccountLockContainer
         title='Lock account'
@@ -127,18 +138,8 @@ class AccountLockType extends Component {
             this account?
           </AccountLockLargerText>
           <RadioButton
-            options={[
-              `Compound to this account (${
-                this.state.account.addressData.nickname
-              })`,
-              `Create new account`,
-              `Choose account on the next screen`
-            ]}
-            values={[
-              COMPOUND_TO_THIS_ACCOUNT,
-              COMPOUND_TO_NEW_ACCOUNT,
-              CHOOSE_ON_NEXT_SCREEN
-            ]}
+            options={opts}
+            values={vals}
             defaultSelected={COMPOUND_TO_THIS_ACCOUNT}
             onChange={value => {
               this.setState({ lockType: value })
@@ -148,7 +149,7 @@ class AccountLockType extends Component {
 
         <AccountLockTypeButton
           smallText={
-            'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal inthis account while it is locked'
+            'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal in this account while it is locked.'
           }
           onPress={this._handleAccountSelection}
         >
