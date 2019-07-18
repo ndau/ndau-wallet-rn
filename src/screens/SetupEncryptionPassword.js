@@ -193,7 +193,7 @@ class SetupEncryptionPassword extends Component {
 
         this.props.navigation.navigate('Dashboard')
       } catch (error) {
-        LogStore.log(error)
+        LogStore.error(error)
         FlashNotification.showError(error.message, false, false)
       }
       this.setState({ spinner: false })

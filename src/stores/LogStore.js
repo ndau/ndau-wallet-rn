@@ -32,6 +32,17 @@ class LogStore {
   }
 
   /**
+   * Log an error that is passed in. just
+   * put an indicator in front of it, still
+   * calls log and scrubs data.
+   *
+   * @param {Error} error
+   */
+  error (error) {
+    this.log(`ERROR: ${JSON.stringify(error)}`)
+  }
+
+  /**
    * Clear the contents of the log
    */
   clear () {

@@ -100,7 +100,7 @@ class Authentication extends Component {
           try {
             await UserData.loadUserData(user)
           } catch (error) {
-            FlashNotification.showError(error.message)
+            FlashNotification.showError(error)
             LogStore.log(error)
             errorMessage = error.message
           }
