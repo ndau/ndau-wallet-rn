@@ -403,7 +403,7 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
  * @param {boolean} addCommas
  */
 const getTotalNdauForSend = (
-  amount,
+  amountNdau,
   transactionFeeNapu,
   sibFeeNapu,
   addCommas = true
