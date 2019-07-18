@@ -6,6 +6,7 @@ import {
   TextInput,
   LargeButton
 } from '../components/common'
+import { H4 } from 'nachos-ui'
 import { DrawerHeader } from '../components/drawer'
 import axios from 'axios'
 import React, { Component } from 'react'
@@ -14,6 +15,9 @@ import FlashNotification from '../components/common/FlashNotification'
 import LogStore from '../stores/LogStore'
 import AppConfig from '../AppConfig'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
+import styles from '../components/drawer/styles'
+import AppConstants from '../AppConstants'
+import Icon from 'react-native-fontawesome-pro'
 
 class ContactSupport extends Component {
   constructor (props) {
@@ -28,6 +32,10 @@ class ContactSupport extends Component {
       sending: false
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+  }
+
+  onBack () {
+    this.props.navigation.navigate('Authentication')
   }
 
   validate () {
@@ -97,13 +105,29 @@ class ContactSupport extends Component {
   render () {
     const { includeLogs, sent, description, email, sending } = this.state
     const sendDisabled = sending // don't let'em press send when already sending
+    const drawerDisabled = this.props.navigation.getParam('drawerDisabled')
+    console.warn('params', this.props.navigation.state)
     return (
       <AppContainer>
         <WaitingForBlockchainSpinner
           spinner={this.state.sending}
           label='Sending...'
         />
-        <DrawerHeader {...this.props}>Contact Support</DrawerHeader>
+        {drawerDisabled ? (
+          <View style={{ flexDirection: 'row', marginLeft: '4%' }}>
+            <Icon
+              size={32}
+              name='arrow-left'
+              color={AppConstants.ICON_BUTTON_COLOR}
+              onPress={() => this.onBack()}
+              type='light'
+              style={{ flex: 2 }}
+            />
+            <H4 style={styles.contactSupportHeaderStyle}>Contact Support</H4>
+          </View>
+        ) : (
+          <DrawerHeader {...this.props}>Contact Support</DrawerHeader>
+        )}
         <Text style={{ marginTop: '4%' }} />
         {sent ? (
           <ParagraphText>
