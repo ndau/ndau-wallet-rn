@@ -391,15 +391,27 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
     : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
+/**
+ * The amount is passed in ndau. However, the fee's are what is
+ * sent from the API which is already napu. We calculate using
+ * napu and then convert to ndau for the return value, using
+ * detail precision when converting.
+ *
+ * @param {number} amountNdau
+ * @param {number} transactionFeeNapu
+ * @param {number} sibFeeNapu
+ * @param {boolean} addCommas
+ */
 const getTotalNdauForSend = (
-  amount,
-  transactionFee,
-  sibFee,
+  amountNdau,
+  transactionFeeNapu,
+  sibFeeNapu,
   addCommas = true
 ) => {
-  const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
-  const transactionFeeNapu = DataFormatHelper.getNapuFromNdau(transactionFee)
-  const sibFeeNapu = DataFormatHelper.getNapuFromNdau(sibFee)
+  const amountNapu = DataFormatHelper.getNapuFromNdau(
+    amountNdau,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
   const totalNapu = amountNapu + transactionFeeNapu + sibFeeNapu
   return DataFormatHelper.getNdauFromNapu(
     totalNapu,
