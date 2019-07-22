@@ -252,7 +252,7 @@ class WalletOverview extends Component {
                 />
               }
             >
-              <View>
+              <View style={{ flex: 1 }}>
                 {wallet
                   ? Object.keys(wallet.accounts)
                     .sort((a, b) => {
