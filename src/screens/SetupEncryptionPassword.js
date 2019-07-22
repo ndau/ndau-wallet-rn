@@ -69,14 +69,7 @@ class SetupEncryptionPassword extends Component {
 
   keyboardWillShow = event => {
     this.setState({
-      ...Platform.select({
-        ios: {
-          upperHeight: '0%'
-        },
-        android: {
-          upperHeight: '8%'
-        }
-      })
+      upperHeight: '0%'
     })
   }
 
@@ -228,10 +221,7 @@ class SetupEncryptionPassword extends Component {
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
-        <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -200}
-          behavior={Platform.OS === 'ios' ? 'height' : 'position'}
-        >
+        <KeyboardAvoidingView behavior='height'>
           <View style={{ overflow: 'hidden', height: this.state.upperHeight }}>
             <ParagraphText>{this.state.instructionText}</ParagraphText>
           </View>
