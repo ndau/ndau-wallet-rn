@@ -403,13 +403,13 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
  * @param {boolean} addCommas
  */
 const getTotalNdauForSend = (
-  amount,
+  amountNdau,
   transactionFeeNapu,
   sibFeeNapu,
   addCommas = true
 ) => {
   const amountNapu = DataFormatHelper.getNapuFromNdau(
-    amount,
+    amountNdau,
     AppConfig.NDAU_DETAIL_PRECISION
   )
   const totalNapu = amountNapu + transactionFeeNapu + sibFeeNapu

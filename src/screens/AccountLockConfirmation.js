@@ -20,7 +20,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import { TextLink } from '../components/common'
 import AppConfig from '../AppConfig'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import { NdauNumber } from '../helpers/NdauNumber'
+import NdauNumber from '../helpers/NdauNumber'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 
 class AccountLockConfirmation extends Component {
@@ -118,8 +118,11 @@ class AccountLockConfirmation extends Component {
         // process.
         await this.notifyTransaction.createSignPrevalidateSubmit()
 
-        // Now make sure we send the EAI where it belongs
-        await this.setRewardsDestinationTransaction.createSignPrevalidateSubmit()
+        // Now make sure we send the EAI where it belongs if it is different
+        // than the account address
+        if (this.state.account.address !== this.state.accountAddressForEAI) {
+          await this.setRewardsDestinationTransaction.createSignPrevalidateSubmit()
+        }
 
         this.props.navigation.navigate('WalletOverview', {
           refresh: true
