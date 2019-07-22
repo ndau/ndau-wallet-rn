@@ -65,7 +65,7 @@ class WalletOverview extends Component {
     if (this.props.navigation.getParam('refresh')) {
       await this._onRefresh()
     } else {
-      await this._loadMetricsAndSetState(WalletStore.getWallet())
+      this._loadMetricsAndSetState(WalletStore.getWallet())
     }
 
     const error = this.props.navigation.getParam('error', null)
