@@ -114,13 +114,13 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-s
+
     defaultConfig {
         applicationId "com.ndauwalletrn"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 204115
-        versionName "2.0.4.115"
+        versionCode 204133
+        versionName "2.0.4.133"
         ndk {
             abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
