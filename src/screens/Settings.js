@@ -99,6 +99,7 @@ class Settings extends Component {
         <LargeButton
           scroll
           sideMargins
+          buttonStyle={{ marginBottom: '12%' }}
           onPress={() => {
             this.accountScan()
           }}
@@ -107,7 +108,7 @@ class Settings extends Component {
         </LargeButton>
         {found !== null ? (
           <ParagraphText>
-            {found} accounts found and added to wallet.
+            {found} accounts were found and added to your wallet.
           </ParagraphText>
         ) : null}
         <LoadingSpinner

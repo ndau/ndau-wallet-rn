@@ -139,9 +139,7 @@ export function LargeButtons (props) {
           : styles.setupButtonContainerTop
       }
     >
-      {props.text ? (
-        <SmallButtonText>{props.text}</SmallButtonText>
-      ) : null}
+      {props.text ? <SmallButtonText>{props.text}</SmallButtonText> : null}
       <Button
         style={
           props.secondary
@@ -159,10 +157,8 @@ export function LargeButtons (props) {
 }
 
 export function LargeButton (props) {
-  let sideMargins = {}
-  if (props.sideMargins) {
-    sideMargins = styles.largeButtonMargin
-  }
+  const sideMargins = props.sideMargins ? styles.largeButtonMargin : {}
+
   return (
     <View
       style={[
