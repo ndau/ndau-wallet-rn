@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native'
 import sinon from 'sinon'
-import RecoveryPhaseHelper from '../RecoveryPhaseHelper'
+import RecoveryPhraseHelper from '../RecoveryPhraseHelper'
 import data from '../../api/data'
 import MockHelper from '../MockHelper'
 
@@ -160,7 +160,7 @@ test('recoverUser test', async () => {
     wallets: {}
   }
 
-  const firstTimeUser = await RecoveryPhaseHelper.recoverUser(
+  const firstTimeUser = await RecoveryPhraseHelper.recoverUser(
     recoveryPhraseString,
     user
   )
@@ -180,7 +180,7 @@ test('checkAddresses gets the correct format for BIP44 addresses', async () => {
   MockHelper.mockAccountsAPIReplyOnce(data.testAddressData)
   MockHelper.mockAccountsAPIReplyOnce()
 
-  const bip44Addresses = await RecoveryPhaseHelper.checkAddresses(
+  const bip44Addresses = await RecoveryPhraseHelper.checkAddresses(
     recoveryPhraseString
   )
 

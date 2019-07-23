@@ -12,7 +12,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import RecoveryPhaseHelper from '../helpers/RecoveryPhaseHelper'
+import RecoveryPhraseHelper from '../helpers/RecoveryPhraseHelper'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import AppConstants from '../AppConstants'
 import SetupStore from '../stores/SetupStore'
@@ -209,7 +209,7 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   _recoverUser = async () => {
-    return await RecoveryPhaseHelper.recoverUser(
+    return await RecoveryPhraseHelper.recoverUser(
       DataFormatHelper.convertRecoveryArrayToString(this.recoveryPhrase),
       UserStore.getUser()
     )

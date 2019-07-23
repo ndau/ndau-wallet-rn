@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import { SettingsContainer } from '../components/account'
 import FlashNotification from '../components/common/FlashNotification'
-import { ParagraphText, BooleanSetting } from '../components/common'
+import {
+  ParagraphText,
+  BooleanSetting,
+  LoadingSpinner
+} from '../components/common'
+import { View } from 'react-native'
+import acctStyles from '../components/account/styles'
+import { LargeButton } from '../components/common'
+import LogStore from '../stores/LogStore'
+
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class Settings extends Component {
@@ -11,7 +20,9 @@ class Settings extends Component {
     this.state = {
       mainnet: true,
       testnet: false,
-      devnet: false
+      devnet: false,
+      spinner: false,
+      found: null
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -39,9 +50,25 @@ class Settings extends Component {
     this.setState({ testnet: false, mainnet: false, devnet: true })
   }
 
+  accountScan () {
+    this.setState({ spinner: true }, async () => {
+      try {
+        const found = await RecoveryPhraseHelper.accountScan()
+        this.setState({ found })
+        this.props.navigation.navigate('Dashboard')
+      } catch (e) {
+        LogStore.error(`Could not recover deleted accounts: ${e}`)
+      } finally {
+        this.setState({ spinner: false })
+      }
+    })
+  }
+
   render () {
+    const found = this.state.found
     return (
       <SettingsContainer {...this.props} title='Settings'>
+        <LoadingSpinner spinner={this.state.spinner} />
         <ParagraphText>
           Select which node environment you would like to use.
         </ParagraphText>
@@ -61,6 +88,29 @@ class Settings extends Component {
           title={AsyncStorageHelper.DEV_NET}
           value={this.state.devnet}
         />
+
+        <View
+          style={[
+            acctStyles.accountDetailsPanelBorder,
+            acctStyles.accountSideMargins,
+            { marginTop: '4%', marginBottom: '4%' }
+          ]}
+        />
+
+        <LargeButton
+          scroll
+          sideMargins
+          onPress={() => {
+            this.accountScan()
+          }}
+        >
+          Scan for my accounts
+        </LargeButton>
+        {found !== null ? (
+          <ParagraphText>
+            `${found} accounts found and added to wallet.`
+          </ParagraphText>
+        ) : null}
       </SettingsContainer>
     )
   }

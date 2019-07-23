@@ -4,7 +4,9 @@ import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
 import DataFormatHelper from './DataFormatHelper'
 import LogStore from '../stores/LogStore'
+import UserStore from '../stores/UserStore'
 import AppConfig from '../AppConfig'
+import UserData from '../model/UserData'
 
 /**
  * First we check to see if there are a variable number of accounts existent
@@ -37,7 +39,11 @@ const recoverUser = async (recoveryPhraseString, user) => {
     wallet = user.wallets[Object.keys(user.wallets)[0]]
   }
 
-  const bip44Accounts = await checkAddresses(recoveryPhraseBytes)
+  const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
+    recoveryPhraseBytes
+  )
+
+  const bip44Accounts = await checkAddresses(rootPrivateKey)
   LogStore.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts)}`)
   if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
     for (const accountPath in bip44Accounts) {
@@ -52,12 +58,9 @@ const recoverUser = async (recoveryPhraseString, user) => {
     )
   }
 
-  const rootAccounts = await checkAddresses(recoveryPhraseBytes, true)
+  const rootAccounts = await checkAddresses(rootPrivateKey, true)
   LogStore.log(`root accounts found: ${JSON.stringify(rootAccounts)}`)
   if (rootAccounts && Object.keys(rootAccounts).length > 0) {
-    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-      recoveryPhraseBytes
-    )
     for (const accountPath in rootAccounts) {
       await KeyMaster.createAccountFromPath(
         wallet,
@@ -74,6 +77,80 @@ const recoverUser = async (recoveryPhraseString, user) => {
   return user
 }
 
+/**
+ * Scans the blockchain for accounts like recoverUser and adds any new accounts
+ * to Multisafe.
+ * @return {number} number of new accounts found.
+ */
+const accountScan = async () => {
+  const user = UserStore.getUser()
+  const accountsBefore = user.wallets
+    .map(el => el.keys.length)
+    .reduce((a, c) => a + c)
+
+  for (let k in user.wallets) {
+    const wallet = user.wallets[k]
+    const creationKey = wallet.accountCreationKeyHash
+    const rootPrivateKey = wallet.keys[creationKey].privateKey
+    let bip44Accounts
+    try {
+      bip44Accounts = await checkAddresses(rootPrivateKey)
+    } catch (e) {
+      LogStore.error(`could not check non-root addresses: ${e}`)
+    }
+
+    LogStore.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts)}`)
+    if (bip44Accounts && Object.keys(bip44Accounts).length > 0) {
+      for (const accountPath in bip44Accounts) {
+        try {
+          await KeyMaster.createAccountFromPath(
+            wallet,
+            accountPath,
+            bip44Accounts[accountPath]
+          )
+        } catch (e) {
+          LogStore.error(`could not create account from path: ${e}`)
+        }
+      }
+      LogStore.log(
+        `Recovered user containing BIP44 accounts: ${JSON.stringify(user)}`
+      )
+    }
+
+    let rootAccounts
+    try {
+      rootAccounts = await checkAddresses(rootPrivateKey, true)
+    } catch (e) {
+      LogStore.error(`could not get root accounts ${e}`)
+    }
+    LogStore.log(`root accounts found: ${JSON.stringify(rootAccounts)}`)
+    if (rootAccounts && Object.keys(rootAccounts).length > 0) {
+      for (const accountPath in rootAccounts) {
+        try {
+          await KeyMaster.createAccountFromPath(
+            wallet,
+            accountPath,
+            rootAccounts[accountPath],
+            rootPrivateKey
+          )
+        } catch (e) {
+          console.log('could not createAccountFromPath', e)
+        }
+      }
+      LogStore.log(
+        `Recovered user containing root accounts now: ${JSON.stringify(user)}`
+      )
+    }
+  }
+
+  UserData.loadUserData(user)
+  UserStore.setUser(user)
+  const accountsAfter = user.wallets
+    .map(el => el.keys.length)
+    .reduce((a, c) => a + c)
+  return accountsAfter - accountsBefore
+}
+
 const _getRecoveryStringAsBytes = async recoveryPhraseString => {
   return await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
     AppConstants.APP_LANGUAGE,
@@ -81,7 +158,7 @@ const _getRecoveryStringAsBytes = async recoveryPhraseString => {
   )
 }
 
-const checkAddresses = async (recoveryPhraseBytes, root) => {
+const checkAddresses = async (rootPrivateKey, root = false) => {
   let accountData = {}
   let accountDataFromBlockchain = {}
   let addresses = []
@@ -92,7 +169,7 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
     accountDataFromBlockchain = {}
     if (root) {
       addresses = await KeyMaster.getRootAddresses(
-        recoveryPhraseBytes,
+        rootPrivateKey,
         startIndex,
         endIndex
       )
@@ -101,7 +178,7 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
       )
     } else {
       addresses = await KeyMaster.getBIP44Addresses(
-        recoveryPhraseBytes,
+        rootPrivateKey,
         startIndex,
         endIndex
       )
@@ -134,5 +211,6 @@ const checkAddresses = async (recoveryPhraseBytes, root) => {
 
 export default {
   recoverUser,
-  checkAddresses
+  checkAddresses,
+  accountScan
 }
