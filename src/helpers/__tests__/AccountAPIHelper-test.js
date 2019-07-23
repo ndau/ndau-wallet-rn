@@ -645,7 +645,7 @@ test('make sure we are updating the account nickname', () => {
     validationKeys: []
   }
 
-  AccountAPIHelper._nicknameAccount(account)
+  AccountAPIHelper.nicknameAccount(account)
   expect(account.addressData.nickname).toEqual('Account zcun')
 })
 

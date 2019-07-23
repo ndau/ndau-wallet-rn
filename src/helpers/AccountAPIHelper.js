@@ -79,7 +79,7 @@ const populateWalletWithAddressData = async wallet => {
       }
     }
 
-    _nicknameAccount(account)
+    nicknameAccount(account)
 
     // Same explanation as nickname for walletId
     if (!account.addressData.walletId) {
@@ -92,7 +92,7 @@ const populateWalletWithAddressData = async wallet => {
   return addressDataKeys.length > 0
 }
 
-const _nicknameAccount = account => {
+const nicknameAccount = account => {
   const accountNickname = `Account ${account.address.slice(
     account.address.length - 4,
     account.address.length
@@ -458,5 +458,5 @@ export default {
   remainingBalanceNdau,
   isAccountLocked,
 
-  _nicknameAccount
+  nicknameAccount
 }
