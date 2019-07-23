@@ -84,8 +84,9 @@ const recoverUser = async (recoveryPhraseString, user) => {
  */
 const accountScan = async () => {
   const user = UserStore.getUser()
-  const accountsBefore = user.wallets
-    .map(el => el.keys.length)
+
+  const accountsBefore = Object.keys(user.wallets)
+    .map(el => user.wallets[el].keys.length)
     .reduce((a, c) => a + c)
 
   for (let k in user.wallets) {
@@ -96,7 +97,7 @@ const accountScan = async () => {
     try {
       bip44Accounts = await checkAddresses(rootPrivateKey)
     } catch (e) {
-      LogStore.error(`could not check non-root addresses: ${e}`)
+      LogStore.log(`could not check non-root addresses: ${e}`)
     }
 
     LogStore.log(`BIP44 accounts found: ${JSON.stringify(bip44Accounts)}`)
@@ -109,7 +110,7 @@ const accountScan = async () => {
             bip44Accounts[accountPath]
           )
         } catch (e) {
-          LogStore.error(`could not create account from path: ${e}`)
+          LogStore.log(`could not create account from path: ${e}`)
         }
       }
       LogStore.log(
@@ -121,7 +122,7 @@ const accountScan = async () => {
     try {
       rootAccounts = await checkAddresses(rootPrivateKey, true)
     } catch (e) {
-      LogStore.error(`could not get root accounts ${e}`)
+      LogStore.log(`could not get root accounts ${e}`)
     }
     LogStore.log(`root accounts found: ${JSON.stringify(rootAccounts)}`)
     if (rootAccounts && Object.keys(rootAccounts).length > 0) {
@@ -145,8 +146,8 @@ const accountScan = async () => {
 
   UserData.loadUserData(user)
   UserStore.setUser(user)
-  const accountsAfter = user.wallets
-    .map(el => el.keys.length)
+  const accountsAfter = Object.keys(user.wallets)
+    .map(el => user.wallets[el].keys.length)
     .reduce((a, c) => a + c)
   return accountsAfter - accountsBefore
 }

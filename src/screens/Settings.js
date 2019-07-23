@@ -10,6 +10,7 @@ import { View } from 'react-native'
 import acctStyles from '../components/account/styles'
 import { LargeButton } from '../components/common'
 import LogStore from '../stores/LogStore'
+import RecoveryPhraseHelper from '../helpers/RecoveryPhraseHelper'
 
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
@@ -57,7 +58,7 @@ class Settings extends Component {
         this.setState({ found })
         this.props.navigation.navigate('Dashboard')
       } catch (e) {
-        LogStore.error(`Could not recover deleted accounts: ${e}`)
+        LogStore.log(`Could not recover deleted accounts: ${e}`)
       } finally {
         this.setState({ spinner: false })
       }
