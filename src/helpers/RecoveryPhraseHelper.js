@@ -144,7 +144,7 @@ const accountScan = async () => {
     }
   }
 
-  UserData.loadUserData(user)
+  await UserData.loadUserData(user)
   UserStore.setUser(user)
   const accountsAfter = Object.keys(user.wallets)
     .map(el => user.wallets[el].keys.length)
