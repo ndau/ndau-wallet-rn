@@ -43,8 +43,8 @@ const numberOfAccounts = 5
 const chainId = 'tn'
 const errorString = 'Error: you MUST pass recoveryPhrase to this method'
 const errorNewAccountUser = `Error: The user's wallet passed in has no accountCreationKeyHash`
-const errorGetRootAddresses = 'Error: you MUST pass recoveryBytes'
-const errorGetBIP44Addresses = 'Error: you MUST pass recoveryBytes'
+const errorGetRootAddresses = 'Error: you MUST pass rootPrivateKey'
+const errorGetBIP44Addresses = 'Error: you MUST pass rootPrivateKey'
 let recoveryPhraseString =
   'goat amount liar amount expire adjust cage candy arch gather drum buyer'
 const bytes = 'ZWEQAwQFBgcICQoLDA0ODw=='
