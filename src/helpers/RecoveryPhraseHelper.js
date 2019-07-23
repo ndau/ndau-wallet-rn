@@ -85,9 +85,7 @@ const recoverUser = async (recoveryPhraseString, user) => {
 const accountScan = async () => {
   const user = UserStore.getUser()
 
-  const accountsBefore = Object.keys(user.wallets)
-    .map(el => user.wallets[el].keys.length)
-    .reduce((a, c) => a + c)
+  const accountsBefore = _countAccounts(user.wallets)
 
   for (let k in user.wallets) {
     const wallet = user.wallets[k]
@@ -146,10 +144,28 @@ const accountScan = async () => {
 
   await UserData.loadUserData(user)
   UserStore.setUser(user)
-  const accountsAfter = Object.keys(user.wallets)
-    .map(el => user.wallets[el].keys.length)
-    .reduce((a, c) => a + c)
-  return accountsAfter - accountsBefore
+  const accountsAfter = _countAccounts(user.wallets)
+  return accountsBefore - accountsAfter
+}
+
+/**
+ * Returns how many accounts are in a wallet
+ * @param {Object} wallet
+ * @return {Number} How many accounts are in the wallet.
+ */
+let _countAccounts = wallet => {
+  let count = 0
+  for (const k in wallet) {
+    const w = wallet[k]
+    for (const key in w.keys) {
+      const path = w.keys[key].path
+      const regMatch = path.match(/\/44'\/20036'\/100\/(\d{0,10})/)
+      if (regMatch && regMatch !== 10000) {
+        count++
+      }
+    }
+  }
+  return count
 }
 
 const _getRecoveryStringAsBytes = async recoveryPhraseString => {

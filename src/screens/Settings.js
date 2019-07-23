@@ -56,7 +56,6 @@ class Settings extends Component {
       try {
         const found = await RecoveryPhraseHelper.accountScan()
         this.setState({ found })
-        this.props.navigation.navigate('Dashboard')
       } catch (e) {
         LogStore.log(`Could not recover deleted accounts: ${e}`)
       } finally {
@@ -69,7 +68,6 @@ class Settings extends Component {
     const found = this.state.found
     return (
       <SettingsContainer {...this.props} title='Settings'>
-        <LoadingSpinner spinner={this.state.spinner} />
         <ParagraphText>
           Select which node environment you would like to use.
         </ParagraphText>
@@ -109,9 +107,13 @@ class Settings extends Component {
         </LargeButton>
         {found !== null ? (
           <ParagraphText>
-            `${found} accounts found and added to wallet.`
+            {found} accounts found and added to wallet.
           </ParagraphText>
         ) : null}
+        <LoadingSpinner
+          spinner={this.state.spinner}
+          text='Scanning blockchain...'
+        />
       </SettingsContainer>
     )
   }
