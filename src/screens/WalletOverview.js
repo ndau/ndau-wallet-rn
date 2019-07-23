@@ -54,7 +54,7 @@ class WalletOverview extends Component {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      this._onRefresh()
+      await this._onRefresh()
     }
     this.setState({ appState: nextAppState })
   }
@@ -63,9 +63,9 @@ class WalletOverview extends Component {
     AppState.addEventListener('change', this._handleAppStateChange)
 
     if (this.props.navigation.getParam('refresh')) {
-      this._onRefresh()
+      await this._onRefresh()
     } else {
-      const wallet = await this._loadMetricsAndSetState(this._getWallet())
+      const wallet = await this._loadMetricsAndSetState(WalletStore.getWallet())
       if (wallet) {
         WalletStore.setWallet(wallet)
       }
@@ -138,7 +138,7 @@ class WalletOverview extends Component {
   addNewAccount = async () => {
     try {
       const wallet = await AccountHelper.createAccounts(
-        this._getWallet(),
+        WalletStore.getWallet(),
         this.state.number
       )
 
@@ -155,19 +155,22 @@ class WalletOverview extends Component {
 
     FlashNotification.hideMessage()
     this.setState({ refreshing: true }, async () => {
-      const password = await UserStore.getPassword()
-      const user = await MultiSafeHelper.getDefaultUser(password)
+      const user = UserStore.getUser()
 
-      let wallet = this._getWallet()
+      let wallet = WalletStore.getWallet()
       try {
         await UserData.loadUserData(user)
+        wallet = user.wallets[wallet.walletId]
       } catch (error) {
-        FlashNotification.showError(error.message)
+        FlashNotification.showError(error)
       }
 
-      if (wallet) WalletStore.setWallet(wallet)
+      if (wallet) {
+        WalletStore.setWallet(wallet)
+        this._loadMetricsAndSetState(wallet)
+      }
 
-      await this._loadMetricsAndSetState(wallet)
+      this.setState({ refreshing: false })
     })
   }
 
@@ -179,13 +182,9 @@ class WalletOverview extends Component {
     })
   }
 
-  _getWallet = () => {
-    return WalletStore.getWallet()
-  }
-
   render = () => {
     try {
-      const wallet = this._getWallet()
+      const wallet = WalletStore.getWallet()
 
       LogStore.log(`Rendering wallet: ${JSON.stringify(wallet)}`)
 
@@ -253,7 +252,7 @@ class WalletOverview extends Component {
                 />
               }
             >
-              <View>
+              <View style={{ flex: 1 }}>
                 {wallet
                   ? Object.keys(wallet.accounts)
                     .sort((a, b) => {
@@ -321,8 +320,7 @@ class WalletOverview extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LogStore.log(error)
-      FlashNotification.showError(error.message)
+      FlashNotification.showError(error)
     }
 
     return (

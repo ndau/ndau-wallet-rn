@@ -13,7 +13,7 @@ import { BarBorder } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
-import ndaujs from 'ndaujs'
+import AppConfig from '../AppConfig'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
 
@@ -57,7 +57,6 @@ class AccountSendConfirmation extends Component {
   }
 
   componentDidMount () {
-    console.warn('This happened')
     Object.assign(TransferTransaction.prototype, Transaction)
     this.transferTransaction = new TransferTransaction(
       this.state.wallet,
@@ -135,10 +134,10 @@ class AccountSendConfirmation extends Component {
           <AccountConfirmationItem largerText value={this.state.total}>
             Total
           </AccountConfirmationItem>
+          <AccountSendButton sideMargins onPress={() => this._confirm()}>
+            Confirm {'&'} send
+          </AccountSendButton>
         </AccountDetailPanel>
-        <AccountSendButton sideMargins onPress={() => this._confirm()}>
-          Confirm {'&'} send
-        </AccountSendButton>
       </AccountSendContainer>
     )
   }

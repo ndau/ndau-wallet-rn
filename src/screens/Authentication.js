@@ -20,6 +20,7 @@ import {
   LabelWithIcon,
   TextInput,
   PasswordLinkText,
+  PasswordLinkContainer,
   LargeButton,
   LoginImage
 } from '../components/common'
@@ -99,7 +100,7 @@ class Authentication extends Component {
           try {
             await UserData.loadUserData(user)
           } catch (error) {
-            FlashNotification.showError(error.message)
+            FlashNotification.showError(error)
             LogStore.log(error)
             errorMessage = error.message
           }
@@ -169,6 +170,13 @@ class Authentication extends Component {
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
       user: user,
       mode: AppConstants.PASSWORD_RESET_MODE
+    })
+  }
+
+  showContactSupport = () => {
+    FlashNotification.hideMessage()
+    this.props.navigation.navigate('ContactSupport', {
+      drawerDisabled: true
     })
   }
 
@@ -254,9 +262,14 @@ class Authentication extends Component {
                 autoCapitalize='none'
                 onSubmitEditing={this.login}
               />
-              <PasswordLinkText onPress={this.showPasswordReset}>
-                Forgot your password?
-              </PasswordLinkText>
+              <PasswordLinkContainer>
+                <PasswordLinkText onPress={this.showPasswordReset}>
+                  Forgot your password?
+                </PasswordLinkText>
+                <PasswordLinkText onPress={this.showContactSupport}>
+                  Contact support
+                </PasswordLinkText>
+              </PasswordLinkContainer>
             </View>
 
             <View

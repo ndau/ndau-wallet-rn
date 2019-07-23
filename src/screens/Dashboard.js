@@ -25,7 +25,6 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      user: {},
       refreshing: false,
       currentPrice: 0,
       totalNdau: 0,
@@ -45,14 +44,12 @@ class Dashboard extends Component {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      this._onRefresh()
+      await this._onRefresh()
     }
     this.setState({ appState: nextAppState })
   }
 
-  componentWillMount = async () => {
-    AppState.addEventListener('change', this._handleAppStateChange)
-
+  componentDidMount () {
     const user = UserStore.getUser()
 
     LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
@@ -60,19 +57,22 @@ class Dashboard extends Component {
     if (Object.keys(user.wallets).length <= 1) {
       WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
       this.props.navigation.navigate('WalletOverview')
-      return (
-        <AppContainer>
-          <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
-        </AppContainer>
-      )
-    }
+    } else {
+      this._loadMetricsAndSetState(user)
 
-    this._loadMetricsAndSetState(user)
-
-    const error = this.props.navigation.getParam('error', null)
-    if (error) {
-      FlashNotification.showError(error)
+      const error = this.props.navigation.getParam('error', null)
+      if (error) {
+        FlashNotification.showError(error)
+      }
     }
+  }
+
+  componentWillMount = async () => {
+    AppState.addEventListener('change', this._handleAppStateChange)
+  }
+
+  componentWillUnmount = async () => {
+    AppState.removeEventListener('change')
   }
 
   stopSpinner = () => {
@@ -102,7 +102,6 @@ class Dashboard extends Component {
 
     this.setState({
       refreshing: false,
-      user,
       currentPrice,
       totalNdau,
       totalSpendableNdau
@@ -114,14 +113,16 @@ class Dashboard extends Component {
 
     FlashNotification.hideMessage()
     this.setState({ refreshing: true }, async () => {
-      const user = this.state.user
+      const user = UserStore.getUser()
       try {
         await UserData.loadUserData(user)
       } catch (error) {
-        FlashNotification.showError(error.message)
+        FlashNotification.showError(error)
       }
 
       this._loadMetricsAndSetState(user)
+
+      this.setState({ refreshing: false })
     })
   }
 
@@ -175,8 +176,7 @@ class Dashboard extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LogStore.log(error)
-      FlashNotification.showError(error.message)
+      FlashNotification.showError(error)
     }
 
     return (

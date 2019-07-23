@@ -1,5 +1,13 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, Linking, Platform } from 'react-native'
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Linking,
+  Platform,
+  ScrollView,
+  Clipboard
+} from 'react-native'
 import { H4, H3, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -24,105 +32,130 @@ import NdauNumber from '../../helpers/NdauNumber'
 import { DrawerHeader } from '../drawer'
 import Share from 'react-native-share'
 import LogStore from '../../stores/LogStore'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 
 export function AccountPanel (props) {
   const accountAmount = new NdauNumber(
     AccountAPIHelper.accountNdauAmount(props.account.addressData)
   )
+  const truncatedAddress = ndaujs.truncateAddress(props.account.address)
+
   return (
-    <View style={styles.accountMainPanel}>
+    <View style={styles.accountPanels}>
       <LinearGradient
         useAngle
         angle={135}
         angleCenter={{ x: 0.5, y: 0.5 }}
         locations={[0, 1.0]}
         colors={['#0F2748', '#293E63']}
-        style={[styles.opaqueOverlay]}
       >
-        <View style={styles.accountPanels}>
-          <View style={styles.accountTitlePanel}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                justifyContent: 'flex-start',
                 alignItems: 'center'
               }}
             >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center'
-                }}
+              <Text style={styles.accountTitleTextPanel}>
+                {AccountAPIHelper.accountNickname(props.account.addressData)}
+              </Text>
+              <Icon
+                name={props.icon}
+                size={18}
+                color={AppConstants.ICON_BUTTON_COLOR}
+                containerStyle={styles.accountNicknameIcon}
+                type='solid'
+              />
+              {props.isAccountLocked ? (
+                props.accountLockedUntil === null ? (
+                  <Icon
+                    name='clock'
+                    size={18}
+                    color={AppConstants.CAUTION_ICON_COLOR}
+                    containerStyle={styles.accountNicknameIcon}
+                    type='light'
+                  />
+                ) : (
+                  <Icon
+                    name='clock'
+                    size={18}
+                    color={AppConstants.ICON_BUTTON_COLOR}
+                    containerStyle={styles.accountNicknameIcon}
+                    type='light'
+                  />
+                )
+              ) : null}
+            </View>
+            <View style={styles.ndauTotalContainer}>
+              <View>
+                <P style={styles.ndauSmall}>n</P>
+              </View>
+              <View>
+                <H4 style={styles.accountPanelTotal}>
+                  {accountAmount.toSummary()}
+                </H4>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <View
+              style={{
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingLeft: wp('4%'),
+                paddingBottom: hp('1%')
+              }}
+            >
+              <Text style={styles.addressCopyPanelTextOnDetail}>
+                {truncatedAddress}
+              </Text>
+            </View>
+            <View style={styles.addressCopyButtonContainer}>
+              <Button
+                style={styles.addressCopyButton}
+                textStyle={styles.addressCopyButtonText}
+                uppercase={false}
+                onPress={() => Clipboard.setString(props.account.address)}
               >
-                <H4 style={styles.accountTitleTextPanel}>
-                  {AccountAPIHelper.accountNickname(props.account.addressData)}
-                </H4>
-                <Icon
-                  name={props.icon}
-                  size={18}
-                  color={AppConstants.ICON_BUTTON_COLOR}
-                  containerStyle={styles.accountNicknameIcon}
-                  type='solid'
-                />
-                {props.isAccountLocked ? (
-                  props.accountLockedUntil === null ? (
-                    <Icon
-                      name='clock'
-                      size={18}
-                      color={AppConstants.CAUTION_ICON_COLOR}
-                      containerStyle={styles.accountNicknameIcon}
-                      type='light'
-                    />
-                  ) : (
-                    <Icon
-                      name='clock'
-                      size={18}
-                      color={AppConstants.ICON_BUTTON_COLOR}
-                      containerStyle={styles.accountNicknameIcon}
-                      type='light'
-                    />
-                  )
-                ) : null}
-              </View>
-              <View style={styles.ndauTotalContainer}>
-                <View>
-                  <P style={styles.ndauSmall}>n</P>
-                </View>
-                <View>
-                  <H4 style={styles.accountPanelTotal}>
-                    {accountAmount.toSummary()}
-                  </H4>
-                </View>
-              </View>
+                Copy
+              </Button>
             </View>
           </View>
-          <View style={styles.accountActionPanel}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}
-            >
-              <TouchableOpacity {...props}>
-                <H4 style={styles.accountActionTextPanel}>
-                  View account details {'&'} settings
-                </H4>
-              </TouchableOpacity>
-              <TouchableOpacity {...props}>
-                <Icon
-                  name='chevron-circle-right'
-                  size={24}
-                  color={AppConstants.ICON_BUTTON_COLOR}
-                  containerStyle={styles.accountAngle}
-                  type='solid'
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
       </LinearGradient>
+      <View style={styles.accountActionPanel}>
+        <View>
+          <TouchableOpacity {...props}>
+            <H4 style={styles.accountActionTextPanel}>View account details</H4>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+          <TouchableOpacity {...props}>
+            <Icon
+              name='chevron-right'
+              color={AppConstants.TEXT_COLOR}
+              containerStyle={styles.accountAngle}
+              type='light'
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   )
 }
@@ -144,7 +177,7 @@ export function AccountDetailsContainer (props) {
     <MainContainer>
       <View style={{ flex: 1 }}>
         <AccountDetailsTitleBarGradient>
-          <View style={styles.accountTitlePanel}>
+          <View style={styles.accountDetailsTitlePanel}>
             <AccountClosingBar
               backArrowStyle={styles.backArrowForLock}
               title={title}
@@ -233,7 +266,9 @@ export function AccountSendContainer (props) {
             />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
-            {props.children}
+            <ScrollView keyboardShouldPersistTaps='always'>
+              {props.children}
+            </ScrollView>
           </ContentContainer>
         </TitleBarGradient>
       </View>
@@ -726,7 +761,7 @@ export function DashboardTotalPanel (props) {
       iconCollapsed='angle-down'
       iconActive='angle-down'
       iconOpened='angle-up'
-      tintColor={AppConstants.ICON_BUTTON_COLOR}
+      tintColor={AppConstants.TEXT_COLOR}
       upperBorder
     >
       <View style={styles.dashboardTotalPanelTextContainer}>
@@ -884,11 +919,12 @@ export function AddressSharePanel (props) {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}
         >
           <View>
-            <P style={styles.addressCopyPanelText}>{truncatedAddress}</P>
+            <Text style={styles.addressCopyPanelText}>{truncatedAddress}</Text>
           </View>
           <View>
             <Button

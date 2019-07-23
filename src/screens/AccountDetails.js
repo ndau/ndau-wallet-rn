@@ -99,7 +99,7 @@ class AccountDetails extends Component {
           wallet: theWallet
         })
       } catch (error) {
-        FlashNotification.showError(error.message)
+        FlashNotification.showError(error)
         this.setState({
           spinner: false
         })

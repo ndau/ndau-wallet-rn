@@ -23,15 +23,13 @@ export default StyleSheet.create({
     marginTop: hp('3%')
   },
   accountPanels: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start'
+    marginTop: hp('4%')
   },
   accountTitlePanel: {
     width: wp('100%'),
     height: hp('7%')
   },
+  accountDetailsTitlePanel: { width: wp('100%'), height: hp('7%') },
   accountButtonPanel: {
     width: wp('94%'),
     ...Platform.select({
@@ -72,9 +70,9 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   accountActionPanel: {
-    width: wp('100%'),
-    height: 46,
-    backgroundColor: '#0F2748'
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   walletOverviewHeaderActions: {
     flexDirection: 'row',
@@ -84,20 +82,15 @@ export default StyleSheet.create({
   accountActionTextPanel: {
     color: AppConstants.TEXT_COLOR,
     fontSize: 16,
-    fontFamily: 'Titillium Web',
+    fontFamily: 'Open Sans',
     textAlign: 'left',
     marginLeft: wp('4%')
   },
   accountTitleTextPanel: {
     color: AppConstants.TEXT_COLOR,
-    fontSize: 21,
+    fontSize: 22,
     fontFamily: 'Titillium Web',
     textAlign: 'left',
-    ...Platform.select({
-      ios: {
-        paddingTop: 5
-      }
-    }),
     marginLeft: wp('4%')
   },
   accountPanelBorder: {
@@ -123,6 +116,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center'
+  },
+  addressCopyButtonContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginRight: wp('4%'),
+    marginBottom: hp('2%')
   },
   ndauTotalContainerMedium: {
     flexGrow: 1,
@@ -225,14 +226,12 @@ export default StyleSheet.create({
   },
   accountReceivePanel: {
     width: wp('100%'),
-    height: hp('100%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
   },
   accountSendPanel: {
     width: wp('100%'),
-    height: hp('100%'),
     backgroundColor: '#0A1724',
     paddingHorizontal: wp('4%'),
     paddingTop: 0
@@ -277,8 +276,7 @@ export default StyleSheet.create({
     marginTop: '1%'
   },
   accountAngle: {
-    paddingTop: hp('.5%'),
-    paddingRight: '4%'
+    paddingRight: wp('4%')
   },
   accountDetailsIcons: {
     paddingTop: '4%',
@@ -427,9 +425,6 @@ export default StyleSheet.create({
     backgroundColor: '#0A1724'
   },
   accountSendButtonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    marginLeft: wp('4%'),
     marginBottom: hp('2.5%')
   },
   accountButtonLargeButton: {
@@ -448,7 +443,7 @@ export default StyleSheet.create({
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
   },
   accountLargeButtonText: {
-    height: hp('6%'),
+    height: hp('5%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
@@ -724,27 +719,51 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 14,
-    fontWeight: '200',
-    lineHeight: 24
+    fontWeight: '200'
+  },
+  addressCopyPanelTextOnDetail: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16
   },
   addressShareButton: {
     alignSelf: 'center',
     width: wp('20%'),
-    height: hp('4%'),
+    height: hp('4.3%'),
     borderRadius: 4,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
     borderStyle: 'solid',
     borderWidth: 2,
     backgroundColor: 'transparent',
     marginTop: hp('1%'),
+    paddingHorizontal: 0,
+    padding: 0
+  },
+  addressCopyButton: {
+    alignSelf: 'center',
+    width: wp('18%'),
+    height: hp('5%'),
+    borderRadius: 5,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    backgroundColor: 'transparent',
+    marginTop: hp('1%'),
+    paddingHorizontal: 0,
     padding: 0
   },
   addressButtonText: {
-    width: wp('12%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 14,
     fontWeight: '200',
+    paddingHorizontal: 0,
+    textAlign: 'center'
+  },
+  addressCopyButtonText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
     paddingHorizontal: 0
   }
 })

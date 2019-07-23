@@ -252,38 +252,38 @@ test('make sure spendableNdau subtracts the holds correctly', async () => {
 
 test('make sure we get the correct total for send with all values', async () => {
   const amount = 23
-  const transactionFee = 1
-  const sibFee = 1
+  const transactionFeeNapu = 100000000
+  const sibFee = 100000000
   const totalNdau = AccountAPIHelper.getTotalNdauForSend(
     amount,
-    transactionFee,
+    transactionFeeNapu,
     sibFee
   )
-  expect(totalNdau).toEqual('25.00000000')
+  expect(totalNdau).toBe('25.00000000')
 })
 
 test('make sure we get the correct total with sib not tx fee', async () => {
   const amount = 23
   const transactionFee = 0
-  const sibFee = 7
+  const sibFee = 700000000
   const totalNdau = AccountAPIHelper.getTotalNdauForSend(
     amount,
     transactionFee,
     sibFee
   )
-  expect(totalNdau).toEqual('30.00000000')
+  expect(totalNdau).toBe('30.00000000')
 })
 
 test('make sure we get the correct total with tx fee not sib', async () => {
-  const amount = 23
-  const transactionFee = 7
+  const amount = 23.01
+  const transactionFee = 700000000
   const sibFee = 0
   const totalNdau = AccountAPIHelper.getTotalNdauForSend(
     amount,
     transactionFee,
     sibFee
   )
-  expect(totalNdau).toEqual('30.00000000')
+  expect(totalNdau).toBe('30.01000000')
 })
 
 test('make sure we get the correct total for send with no tx fees', async () => {
@@ -295,7 +295,31 @@ test('make sure we get the correct total for send with no tx fees', async () => 
     transactionFee,
     sibFee
   )
-  expect(totalNdau).toEqual('23.00000000')
+  expect(totalNdau).toBe('23.00000000')
+})
+
+test('make sure we get the correct total for send with transfer tx fees', async () => {
+  const amount = 20.333
+  const transactionFee = 500000
+  const sibFee = 0
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    transactionFee,
+    sibFee
+  )
+  expect(totalNdau).toBe('20.33800000')
+})
+
+test('make sure we get the correct total for send with transfer tx fees and large sib', async () => {
+  const amount = 20.12
+  const transactionFee = 500000
+  const sibFee = 1000000000
+  const totalNdau = AccountAPIHelper.getTotalNdauForSend(
+    amount,
+    transactionFee,
+    sibFee
+  )
+  expect(totalNdau).toBe('30.12500000')
 })
 
 test('remainingBalanceNdau returns value', async () => {
