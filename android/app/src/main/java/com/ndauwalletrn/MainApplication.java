@@ -1,7 +1,11 @@
 package com.ndauwalletrn;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.facebook.react.PackageList;
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
+import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
 import com.chirag.RNMail.RNMail;
 import cl.json.RNSharePackage;
@@ -20,6 +24,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,12 +39,15 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNSharePackage(),
-                    new RNGestureHandlerPackage(), new RNMail(), new RNFSPackage(), new RNDeviceInfo(),
-                    new AsyncStoragePackage(), new SvgPackage(), new RNVersionNumberPackage(),
-                    new LinearGradientPackage(), new RNBackgroundFetchPackage(),
-                    new ReactNativePushNotificationPackage(), new KeyaddrPackage(), new RNCameraPackage(),
-                    new RNSecureRandomPackage());
+
+            @SuppressWarnings("UnnecessaryLocalVariable")
+            List<ReactPackage> packages = new PackageList(this).getPackages();
+
+            // Packages that cannot be autolinked yet can be added manually here.
+            packages.add(new KeyaddrPackage());
+
+            return packages;
+
         }
 
         @Override

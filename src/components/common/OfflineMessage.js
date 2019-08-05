@@ -1,22 +1,19 @@
 import React, { PureComponent } from 'react'
-import { NetInfo } from 'react-native'
+import NetInfo from '@react-native-community/netinfo'
 import FlashNotification from './FlashNotification'
 import LogStore from '../../stores/LogStore'
 import DeviceStore from '../../stores/DeviceStore'
 
 class OfflineMessage extends PureComponent {
   componentDidMount () {
-    NetInfo.isConnected.fetch().then(isConnected => {
+    NetInfo.fetch().then(isConnected => {
       this.handleConnectivityChange(isConnected)
     })
-    NetInfo.isConnected.addEventListener(
-      'connectionChange',
-      this.handleConnectivityChange
-    )
+    NetInfo.addEventListener('connectionChange', this.handleConnectivityChange)
   }
 
   componentWillUnmount () {
-    NetInfo.isConnected.removeEventListener(
+    NetInfo.removeEventListener(
       'connectionChange',
       this.handleConnectivityChange
     )

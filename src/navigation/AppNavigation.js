@@ -6,7 +6,6 @@ import {
 } from 'react-navigation'
 import DashboardNavigation from './DashboardNavigation'
 import WalletOverviewNavigation from './WalletOverviewNavigation'
-import LoggingNavigation from './LoggingNavigation'
 import SetupWelcome from '../screens/SetupWelcome'
 import SetupWalletName from '../screens/SetupWalletName'
 import SetupNewOrRecovery from '../screens/SetupNewOrRecovery'
@@ -104,13 +103,6 @@ WalletOverviewNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
-const LoggingNavigationScreen = ({ navigation }) => (
-  <LoggingNavigation navigation={navigation} />
-)
-LoggingNavigationScreen.navigationOptions = ({ navigation }) => ({
-  header: null
-})
-
 const SetupStack = createStackNavigator({
   Authentication: { screen: AuthenticationScreen },
   SetupWelcome: { screen: SetupWelcomeScreen },
@@ -128,7 +120,6 @@ const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
-    Logging: LoggingNavigation,
     WalletOverview: WalletOverviewNavigation,
     Setup: SetupStack,
     Settings: SettingsNavigation
