@@ -26,9 +26,20 @@ class LogStore {
     if (__DEV__) console.log(logData)
 
     this._logData.write({
-      timestamp: moment(),
-      message: logData
+      ts: moment(),
+      msg: logData
     })
+  }
+
+  /**
+   * Log an error that is passed in. just
+   * put an indicator in front of it, still
+   * calls log and scrubs data.
+   *
+   * @param {Error} error
+   */
+  error (error) {
+    this.log(`ERROR: ${JSON.stringify(error)}`)
   }
 
   /**
@@ -36,6 +47,13 @@ class LogStore {
    */
   clear () {
     this._logData.clear()
+  }
+
+  /**
+   * returns the raw logdata array
+   */
+  getLogData () {
+    return this._logData
   }
 
   /**

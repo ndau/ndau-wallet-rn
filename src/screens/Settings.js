@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import { SettingsContainer } from '../components/account'
 import FlashNotification from '../components/common/FlashNotification'
-import { ParagraphText, BooleanSetting } from '../components/common'
+import {
+  ParagraphText,
+  BooleanSetting,
+  LoadingSpinner
+} from '../components/common'
+import { View } from 'react-native'
+import acctStyles from '../components/account/styles'
+import { LargeButton } from '../components/common'
+import LogStore from '../stores/LogStore'
+import RecoveryPhraseHelper from '../helpers/RecoveryPhraseHelper'
+
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 
 class Settings extends Component {
@@ -11,7 +21,9 @@ class Settings extends Component {
     this.state = {
       mainnet: true,
       testnet: false,
-      devnet: false
+      devnet: false,
+      spinner: false,
+      found: null
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -39,7 +51,21 @@ class Settings extends Component {
     this.setState({ testnet: false, mainnet: false, devnet: true })
   }
 
+  accountScan () {
+    this.setState({ spinner: true }, async () => {
+      try {
+        const found = await RecoveryPhraseHelper.accountScan()
+        this.setState({ found })
+      } catch (e) {
+        LogStore.log(`Could not recover deleted accounts: ${e}`)
+      } finally {
+        this.setState({ spinner: false })
+      }
+    })
+  }
+
   render () {
+    const found = this.state.found
     return (
       <SettingsContainer {...this.props} title='Settings'>
         <ParagraphText>
@@ -60,6 +86,34 @@ class Settings extends Component {
           onValueChange={this.useDevnet}
           title={AsyncStorageHelper.DEV_NET}
           value={this.state.devnet}
+        />
+
+        <View
+          style={[
+            acctStyles.accountDetailsPanelBorder,
+            acctStyles.accountSideMargins,
+            { marginTop: '4%', marginBottom: '4%' }
+          ]}
+        />
+
+        <LargeButton
+          scroll
+          sideMargins
+          buttonStyle={{ marginBottom: '12%' }}
+          onPress={() => {
+            this.accountScan()
+          }}
+        >
+          Scan for my accounts
+        </LargeButton>
+        {found !== null ? (
+          <ParagraphText>
+            {found} accounts were found and added to your wallet.
+          </ParagraphText>
+        ) : null}
+        <LoadingSpinner
+          spinner={this.state.spinner}
+          text='Scanning blockchain...'
         />
       </SettingsContainer>
     )

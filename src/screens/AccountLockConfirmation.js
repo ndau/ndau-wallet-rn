@@ -20,7 +20,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import { TextLink } from '../components/common'
 import AppConfig from '../AppConfig'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import { NdauNumber } from '../helpers/NdauNumber'
+import NdauNumber from '../helpers/NdauNumber'
 import BlockchainAPIError from '../errors/BlockchainAPIError'
 
 class AccountLockConfirmation extends Component {
@@ -60,14 +60,14 @@ class AccountLockConfirmation extends Component {
       let transactionFee = ''
       try {
         Object.assign(LockTransaction.prototype, Transaction)
-        const lockTransaction = new LockTransaction(
+        this.lockTransaction = new LockTransaction(
           this.state.wallet,
           account,
           `${this.state.lockInformation.lockISO}`
         )
-        await lockTransaction.create()
-        await lockTransaction.sign()
-        const data = await lockTransaction.prevalidate()
+        await this.lockTransaction.create()
+        await this.lockTransaction.sign()
+        const data = await this.lockTransaction.prevalidate()
         transactionFee = new NdauNumber(data.fee_napu).toDetail()
         this.setState({
           spinner: false,
@@ -92,35 +92,37 @@ class AccountLockConfirmation extends Component {
     })
   }
 
+  componentDidMount () {
+    Object.assign(NotifyTransaction.prototype, Transaction)
+    this.notifyTransaction = new NotifyTransaction(
+      this.state.wallet,
+      this.state.account
+    )
+
+    // Now make sure we send the EAI where it belongs
+    Object.assign(SetRewardsDestinationTransaction.prototype, Transaction)
+    this.setRewardsDestinationTransaction = new SetRewardsDestinationTransaction(
+      this.state.wallet,
+      this.state.account,
+      this.state.accountAddressForEAI
+    )
+  }
+
   _lock = async () => {
     this.setState({ spinner: true }, async () => {
       try {
-        Object.assign(LockTransaction.prototype, Transaction)
-        const lockTransaction = new LockTransaction(
-          this.state.wallet,
-          this.state.account,
-          `${this.state.lockInformation.lockISO}`
-        )
-        await lockTransaction.createSignPrevalidateSubmit()
+        await this.lockTransaction.createSignPrevalidateSubmit()
 
         // Alright, we are locked...now send a Notify
         // This was done in version 2.0 to simplify the lock
         // process.
-        Object.assign(NotifyTransaction.prototype, Transaction)
-        const notifyTransaction = new NotifyTransaction(
-          this.state.wallet,
-          this.state.account
-        )
-        await notifyTransaction.createSignPrevalidateSubmit()
+        await this.notifyTransaction.createSignPrevalidateSubmit()
 
-        // Now make sure we send the EAI where it belongs
-        Object.assign(SetRewardsDestinationTransaction.prototype, Transaction)
-        const setRewardsDestinationTransaction = new SetRewardsDestinationTransaction(
-          this.state.wallet,
-          this.state.account,
-          this.state.accountAddressForEAI
-        )
-        await setRewardsDestinationTransaction.createSignPrevalidateSubmit()
+        // Now make sure we send the EAI where it belongs if it is different
+        // than the account address
+        if (this.state.account.address !== this.state.accountAddressForEAI) {
+          await this.setRewardsDestinationTransaction.createSignPrevalidateSubmit()
+        }
 
         this.props.navigation.navigate('WalletOverview', {
           refresh: true

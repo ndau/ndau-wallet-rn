@@ -21,6 +21,10 @@ export class SetRewardsDestinationTransaction {
     this._jsonTransaction.destination = this._destination
   }
 
+  getSignature = () => {
+    return this._jsonTransaction.signatures
+  }
+
   async createSignPrevalidateSubmit () {
     try {
       await this.create()

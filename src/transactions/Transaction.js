@@ -43,9 +43,21 @@ export const Transaction = {
         throw ErrorsByMessage[Messages.SRC_NO_HISTORY]
       }
 
-      const sequence = await AccountAPI.getNextSequence(this._account.address)
-      this._jsonTransaction = {
-        sequence
+      // If we have already done a create we have generated
+      // a sequence. If this object is sent again we do not
+      // want to genereate a new sequence as it will try to perform
+      // the transaction again. Doing this prevents a duplicate transaction
+      // from being accepted because the signature is the same.
+      // If you want a new sequence you simply create a new instance of
+      // a transaction. So you will need to `new TransferTransaction(...)` if
+      // you want another transaction. The UI codebase does that as it
+      // holds the local instance of signatures. Take a look at `AccountSendConfirmation`
+      // to see how this is used.
+      if (!this.getSignature()) {
+        const sequence = await AccountAPI.getNextSequence(this._account.address)
+        this._jsonTransaction = {
+          sequence
+        }
       }
 
       this.addToJsonTransaction()

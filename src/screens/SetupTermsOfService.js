@@ -71,7 +71,7 @@ class SetupTermsOfService extends Component {
           this.props.navigation.navigate('Dashboard')
         })
       } catch (error) {
-        FlashNotification.showError(error.message)
+        FlashNotification.showError(error)
         this.setState({ spinner: false })
       }
     })

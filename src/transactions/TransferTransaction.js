@@ -28,6 +28,10 @@ export class TransferTransaction {
     this._jsonTransaction.source = this._account.address
   }
 
+  getSignature = () => {
+    return this._jsonTransaction.signatures
+  }
+
   async createSignPrevalidateSubmit () {
     try {
       await this.create()

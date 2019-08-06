@@ -19,6 +19,7 @@ import AppConstants from '../AppConstants'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import FlashNotification from '../components/common/FlashNotification'
 import { TextLink } from '../components/common'
+import { FeeAlert } from '../components/alerts'
 import AppConfig from '../AppConfig'
 
 class AccountLock extends Component {
@@ -36,7 +37,8 @@ class AccountLock extends Component {
       accountsCanRxEAI: {},
       accountAddressForEAI: null,
       accountNicknameForEAI: null,
-      baseEAI: 0
+      baseEAI: 0,
+      isModalVisible: false
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -79,6 +81,10 @@ class AccountLock extends Component {
     })
   }
 
+  componentDidMount = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible })
+  }
+
   handleLockSelection = index => {
     this.setState({ selectedIndex: index })
   }
@@ -101,6 +107,18 @@ class AccountLock extends Component {
         navigation={this.props.nav}
         {...this.props}
       >
+        <FeeAlert
+          title='ndau lock fees'
+          message='Transactions are subject to a small fee that supports the operation of the ndau network.'
+          fees={[
+            'Lock fee - 0.005 ndau',
+            'Notify fee - 0.005 ndau',
+            'SetDestination fee - 0.005 ndau*'
+          ]}
+          postMessage='* Only if the user chooses to have earned EAI sent to a different account'
+          isVisible={this.state.isModalVisible}
+          setVisibleHandler={visible => this.setState({ isModalVisible: visible })}
+        />
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
         <AccountLockDetailsPanel account={this.state.account}>
           <ScrollView>

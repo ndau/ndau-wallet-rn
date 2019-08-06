@@ -18,23 +18,19 @@ import LogStore from '../stores/LogStore'
  * @deprecated since version 1.8 - this should ONLY be used by the code
  * that is checking fot the older existence of keys
  * @returns {Object} of address:path (ex. {'abcd123':"/44'/20036'/100/1"})
- * @param {string} recoveryBytes string of bytes
+ * @param {string} rootPrivateKey string of bytes
  * @param {number} startIndex what index in the derivation path to
  * start searching for addresses
  * @param {number} endIndex what index in the derivation path to
  * end the search for an addresses
  */
-const getRootAddresses = async (recoveryBytes, startIndex, endIndex) => {
-  if (!recoveryBytes) {
-    throw new Error('you MUST pass recoveryBytes')
+const getRootAddresses = async (rootPrivateKey, startIndex, endIndex) => {
+  if (!rootPrivateKey) {
+    throw new Error('you MUST pass rootPrivateKey')
   }
   const addresses = []
 
   try {
-    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-      recoveryBytes
-    )
-
     for (let i = startIndex; i <= endIndex; i++) {
       const derivedKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
@@ -64,22 +60,19 @@ const getRootAddresses = async (recoveryBytes, startIndex, endIndex) => {
  * for the existence of an address on the blockchain.
  *
  * @returns {Object} of address:path (ex. {'abcd123':"/44'/20036'/100/1"})
- * @param {string} recoveryBytes string of bytes
+ * @param {string} rootPrivateKey string of bytes
  * @param {number} startIndex what index in the derivation path to
  * start searching for addresses
  * @param {number} endIndex what index in the derivation path to
  * end the search for an addresses
  */
-const getBIP44Addresses = async (recoveryBytes, startIndex, endIndex) => {
-  if (!recoveryBytes) {
-    throw new Error('you MUST pass recoveryBytes')
+const getBIP44Addresses = async (rootPrivateKey, startIndex, endIndex) => {
+  if (!rootPrivateKey) {
+    throw new Error('you MUST pass rootPrivateKey')
   }
   const addresses = {}
 
   try {
-    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-      recoveryBytes
-    )
     for (let i = startIndex; i <= endIndex; i++) {
       const derivedKey = await NativeModules.KeyaddrManager.deriveFrom(
         rootPrivateKey,
@@ -142,7 +135,7 @@ const createFirstTimeUser = async (
     LogStore.log(`User initially created is: ${JSON.stringify(user)}`)
     return user
   } catch (error) {
-    FlashNotification.showError(error.message)
+    FlashNotification.showError(error)
   }
 }
 
@@ -219,7 +212,7 @@ const createWallet = async (
 
     return wallet
   } catch (error) {
-    FlashNotification.showError(error.message)
+    FlashNotification.showError(error)
   }
 }
 
@@ -490,6 +483,5 @@ export default {
   setWalletInUser,
   createAccountFromPath,
   getAccountFromWallet,
-
   createKey
 }

@@ -26,8 +26,15 @@ import { Transaction } from '../transactions/Transaction'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import { KeyboardAvoidingView, View, Platform } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  View,
+  Platform,
+  Button,
+  Text
+} from 'react-native'
 import AppConfig from '../AppConfig'
+import { FeeAlert } from '../components/alerts'
 
 const _ = require('lodash')
 
@@ -47,7 +54,10 @@ class AccountSend extends Component {
       validAddress: false,
       transactionFee: 0,
       sibFee: 0,
-      total: 0
+      transactionFeeNapu: 0,
+      sibFeeNapu: 0,
+      total: 0,
+      isModalVisible: false
     }
 
     this.debounceRequestTransactionFee = _.debounce(
@@ -62,6 +72,10 @@ class AccountSend extends Component {
     const wallet = WalletStore.getWallet()
 
     this.setState({ account, wallet })
+  }
+
+  componentDidMount = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible })
   }
 
   // TODO: we will be getting a better version of this that
@@ -101,6 +115,8 @@ class AccountSend extends Component {
     this.setState({ spinner: true }, async () => {
       let transactionFee = 0
       let sibFee = 0
+      let transactionFeeNapu = 0
+      let sibFeeNapu = 0
       let total = this.state.total
       let canProceedFromAmount = this.state.canProceedFromAmount
 
@@ -116,38 +132,48 @@ class AccountSend extends Component {
         await transferTransaction.create()
         await transferTransaction.sign()
         const prevalidateData = await transferTransaction.prevalidate()
+
         if (prevalidateData.fee_napu) {
           transactionFee = DataFormatHelper.getNdauFromNapu(
-            prevalidateData.fee_napu
+            prevalidateData.fee_napu,
+            AppConfig.NDAU_DETAIL_PRECISION
           )
+          transactionFeeNapu = prevalidateData.fee_napu
         }
         if (prevalidateData.sib_napu) {
-          sibFee = DataFormatHelper.getNdauFromNapu(prevalidateData.sib_napu)
+          sibFee = DataFormatHelper.getNdauFromNapu(
+            prevalidateData.sib_napu,
+            AppConfig.NDAU_DETAIL_PRECISION
+          )
+          sibFeeNapu = prevalidateData.sib_napu
         }
 
         total = AccountAPIHelper.getTotalNdauForSend(
           this.state.amount,
-          transactionFee,
-          sibFee
+          prevalidateData.fee_napu,
+          prevalidateData.sib_napu
         )
         canProceedFromAmount = true
       } catch (error) {
-
         // Check to see if fee and sib info are passed back so they can be displayed.
         if (error.error.response && error.error.response.data) {
           const resp = error.error.response.data
           if (resp.sib_napu) {
             sibFee = DataFormatHelper.getNdauFromNapu(resp.sib_napu)
+            sibFeeNapu = resp.sib_napu
           }
           if (resp.fee_napu) {
             transactionFee = DataFormatHelper.getNdauFromNapu(resp.fee_napu)
+            transactionFeeNapu = resp.fee_napu
           }
           if (resp.sib_napu && resp.fee_napu) {
             total = AccountAPIHelper.getTotalNdauForSend(
               this.state.amount,
-              transactionFee,
-              sibFee
+              resp.fee_napu,
+              resp.sib_napu
             )
+            sibFeeNapu = resp.sib_napu
+            transactionFeeNapu = resp.fee_napu
           }
         }
         canProceedFromAmount = false
@@ -160,6 +186,8 @@ class AccountSend extends Component {
         spinner: false,
         transactionFee,
         sibFee,
+        transactionFeeNapu,
+        sibFeeNapu,
         total,
         canProceedFromAmount
       })
@@ -203,11 +231,11 @@ class AccountSend extends Component {
   }
 
   _getTotalNdau (amount) {
-    let { transactionFee, sibFee } = this.state
+    let { transactionFeeNapu, sibFeeNapu } = this.state
     const totalNdau = AccountAPIHelper.getTotalNdauForSend(
       amount,
-      transactionFee,
-      sibFee
+      transactionFeeNapu,
+      sibFeeNapu
     )
     return totalNdau
   }
@@ -282,14 +310,14 @@ class AccountSend extends Component {
           <AccountConfirmationItem largerText value={this.state.total}>
             Total
           </AccountConfirmationItem>
+          <AccountSendButton
+            sideMargins
+            disabled={!this.state.canProceedFromAmount}
+            onPress={() => this._next()}
+          >
+            Next
+          </AccountSendButton>
         </AccountDetailPanel>
-        <AccountSendButton
-          sideMargins
-          disabled={!this.state.canProceedFromAmount}
-          onPress={() => this._next()}
-        >
-          Next
-        </AccountSendButton>
       </AccountSendContainer>
     )
   }
@@ -324,44 +352,51 @@ class AccountSend extends Component {
         {...this.props}
       >
         <WaitingForBlockchainSpinner spinner={this.state.spinner} />
+        <FeeAlert
+          title='ndau send fees'
+          message='Transactions are subject to a small fee that supports the operation of the ndau network.'
+          fees={['Transfer fee - 0.005 ndau']}
+          isVisible={this.state.isModalVisible}
+          setVisibleHandler={visible =>
+            this.setState({ isModalVisible: visible })
+          }
+        />
         <KeyboardAvoidingView
           keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : -110}
           behavior={Platform.OS === 'ios' ? 'height' : 'position'}
         >
-          <View style={{ height: '42%' }}>
-            <AccountSendPanel>
-              <AccountHeaderText>Who are you sending to?</AccountHeaderText>
-              <Label noMargin>Address</Label>
-              <TextInput
-                onChangeText={this._setAddress}
-                value={this.state.address}
-                name='address'
-                placeholder='ndau address...'
-                autoCapitalize='none'
-                noSideMargins
-              />
-              <OrBorder />
-              <LargeBorderButton onPress={() => this._scan()}>
-                Scan QR Code
-              </LargeBorderButton>
-            </AccountSendPanel>
-          </View>
-          <View
-            style={{
-              height: '56%',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              marginBottom: '4%'
-            }}
-          >
-            <AccountSendButton
-              sideMargins
-              disabled={!this.state.validAddress}
-              onPress={() => this._haveAddress()}
+          <AccountSendPanel>
+            <AccountHeaderText>Who are you sending to?</AccountHeaderText>
+            <Label noMargin>Address</Label>
+            <TextInput
+              onChangeText={this._setAddress}
+              value={this.state.address}
+              name='address'
+              placeholder='ndau address...'
+              autoCapitalize='none'
+              noSideMargins
+            />
+            <OrBorder />
+            <LargeBorderButton onPress={() => this._scan()}>
+              Scan QR Code
+            </LargeBorderButton>
+            <View
+              style={{
+                flexGrow: 1,
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                marginBottom: '4%'
+              }}
             >
-              Next
-            </AccountSendButton>
-          </View>
+              <AccountSendButton
+                sideMargins
+                disabled={!this.state.validAddress}
+                onPress={() => this._haveAddress()}
+              >
+                Next
+              </AccountSendButton>
+            </View>
+          </AccountSendPanel>
         </KeyboardAvoidingView>
       </AccountSendContainer>
     )

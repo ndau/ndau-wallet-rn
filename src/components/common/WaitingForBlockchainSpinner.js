@@ -6,7 +6,7 @@ class WaitingForBlockchainSpinner extends Component {
     return (
       <Spinner
         visible={this.props.spinner}
-        textContent={'Talking to blockchain...'}
+        textContent={this.props.label || 'Talking to blockchain...'}
         textStyle={{
           color: '#ffffff',
           fontSize: 20,

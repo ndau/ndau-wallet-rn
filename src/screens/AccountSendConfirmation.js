@@ -13,10 +13,9 @@ import { BarBorder } from '../components/common'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import { TransferTransaction } from '../transactions/TransferTransaction'
 import { Transaction } from '../transactions/Transaction'
-import ndaujs from 'ndaujs'
+import AppConfig from '../AppConfig'
 import AccountStore from '../stores/AccountStore'
 import WalletStore from '../stores/WalletStore'
-import AppConfig from '../AppConfig'
 
 class AccountSendConfirmation extends Component {
   constructor (props) {
@@ -57,17 +56,20 @@ class AccountSendConfirmation extends Component {
     })
   }
 
+  componentDidMount () {
+    Object.assign(TransferTransaction.prototype, Transaction)
+    this.transferTransaction = new TransferTransaction(
+      this.state.wallet,
+      this.state.account,
+      this.state.address,
+      this.state.amount
+    )
+  }
+
   _confirm = () => {
     this.setState({ spinner: true }, async () => {
       try {
-        Object.assign(TransferTransaction.prototype, Transaction)
-        const transferTransaction = new TransferTransaction(
-          this.state.wallet,
-          this.state.account,
-          this.state.address,
-          this.state.amount
-        )
-        await transferTransaction.createSignPrevalidateSubmit()
+        await this.transferTransaction.createSignPrevalidateSubmit()
 
         this.props.navigation.navigate('WalletOverview', {
           refresh: true
@@ -132,10 +134,10 @@ class AccountSendConfirmation extends Component {
           <AccountConfirmationItem largerText value={this.state.total}>
             Total
           </AccountConfirmationItem>
+          <AccountSendButton sideMargins onPress={() => this._confirm()}>
+            Confirm {'&'} send
+          </AccountSendButton>
         </AccountDetailPanel>
-        <AccountSendButton sideMargins onPress={() => this._confirm()}>
-          Confirm {'&'} send
-        </AccountSendButton>
       </AccountSendContainer>
     )
   }

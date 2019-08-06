@@ -64,6 +64,25 @@ export function TextLink (props) {
   )
 }
 
+export function ModalTextLink (props) {
+  return (
+    <Text
+      onPress={() => Linking.openURL(props.url)}
+      style={styles.greenLinkTextForModal}
+    >
+      {props.children}
+    </Text>
+  )
+}
+
+export function SmallButtonText (props) {
+  return (
+    <P style={[styles.smallButtonText]} {...props}>
+      {props.children}
+    </P>
+  )
+}
+
 export function SmallParagraphText (props) {
   return (
     <P style={[styles.smallParagraphText]} {...props}>
@@ -120,9 +139,7 @@ export function LargeButtons (props) {
           : styles.setupButtonContainerTop
       }
     >
-      {props.text ? (
-        <SmallParagraphText>{props.text}</SmallParagraphText>
-      ) : null}
+      {props.text ? <SmallButtonText>{props.text}</SmallButtonText> : null}
       <Button
         style={
           props.secondary
@@ -140,10 +157,8 @@ export function LargeButtons (props) {
 }
 
 export function LargeButton (props) {
-  let sideMargins = {}
-  if (props.sideMargins) {
-    sideMargins = styles.largeButtonMargin
-  }
+  const sideMargins = props.sideMargins ? styles.largeButtonMargin : {}
+
   return (
     <View
       style={[
@@ -198,13 +213,18 @@ export function LinkText (props) {
   )
 }
 
+export function PasswordLinkContainer (props) {
+  return <View style={[styles.passwordLinkContainer]}>{props.children}</View>
+}
+
 export function PasswordLinkText (props) {
   return (
-    <View style={[styles.passwordLinkContainer]}>
-      <H4 {...props} style={[styles.linkText]}>
-        {props.children}
-      </H4>
-    </View>
+    <H4
+      onPress={props.onPress}
+      style={[styles.linkText, styles.authenticationLinkText]}
+    >
+      {props.children}
+    </H4>
   )
 }
 

@@ -27,6 +27,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import NdauNumber from '../helpers/NdauNumber'
 import { NavigationEvents } from 'react-navigation'
 import AppConfig from '../AppConfig'
+import { FeeAlert } from '../components/alerts'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -53,7 +54,7 @@ class WalletOverview extends Component {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      this._onRefresh()
+      await this._onRefresh()
     }
     this.setState({ appState: nextAppState })
   }
@@ -62,12 +63,9 @@ class WalletOverview extends Component {
     AppState.addEventListener('change', this._handleAppStateChange)
 
     if (this.props.navigation.getParam('refresh')) {
-      this._onRefresh()
+      await this._onRefresh()
     } else {
-      const wallet = await this._loadMetricsAndSetState(this._getWallet())
-      if (wallet) {
-        WalletStore.setWallet(wallet)
-      }
+      this._loadMetricsAndSetState(WalletStore.getWallet())
     }
 
     const error = this.props.navigation.getParam('error', null)
@@ -77,38 +75,31 @@ class WalletOverview extends Component {
   }
 
   _loadMetricsAndSetState = wallet => {
-    return new Promise(resolve => {
-      if (wallet) {
-        totalNdau = new NdauNumber(
-          AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
-        ).toDetail()
-        totalNdauNumber = new NdauNumber(
-          AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
-        ).toDetail()
-        totalSpendable = new NdauNumber(
-          AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
-        ).toSummary()
-      } else {
-        totalNdau = '0'
-        totalNdauNumber = '0'
-        totalSpendable = '0'
-      }
-      const currentPrice = AccountAPIHelper.currentPrice(
-        NdauStore.getMarketPrice(),
-        totalNdauNumber
-      )
+    if (wallet) {
+      totalNdau = new NdauNumber(
+        AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
+      ).toDetail()
+      totalNdauNumber = new NdauNumber(
+        AccountAPIHelper.accountTotalNdauAmount(wallet.accounts, false)
+      ).toDetail()
+      totalSpendable = new NdauNumber(
+        AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
+      ).toSummary()
+    } else {
+      totalNdau = '0'
+      totalNdauNumber = '0'
+      totalSpendable = '0'
+    }
+    const currentPrice = AccountAPIHelper.currentPrice(
+      NdauStore.getMarketPrice(),
+      totalNdauNumber
+    )
 
-      this.setState(
-        {
-          refreshing: false,
-          currentPrice,
-          totalNdau,
-          totalSpendable
-        },
-        () => {
-          resolve(wallet)
-        }
-      )
+    this.setState({
+      refreshing: false,
+      currentPrice,
+      totalNdau,
+      totalSpendable
     })
   }
 
@@ -137,11 +128,11 @@ class WalletOverview extends Component {
   addNewAccount = async () => {
     try {
       const wallet = await AccountHelper.createAccounts(
-        this._getWallet(),
+        WalletStore.getWallet(),
         this.state.number
       )
 
-      this.setState({ wallet })
+      this.setState({ wallet, showFeesModal: true })
     } catch (error) {
       FlashNotification.showError(
         `Problem adding new account: ${error.message}`
@@ -154,19 +145,20 @@ class WalletOverview extends Component {
 
     FlashNotification.hideMessage()
     this.setState({ refreshing: true }, async () => {
-      const password = await UserStore.getPassword()
-      const user = await MultiSafeHelper.getDefaultUser(password)
+      const user = UserStore.getUser()
 
-      let wallet = this._getWallet()
+      let wallet = WalletStore.getWallet()
       try {
         await UserData.loadUserData(user)
+        WalletStore.setWallet(
+          user.wallets[DataFormatHelper.create8CharHash(wallet.walletId)]
+        )
+        this._loadMetricsAndSetState(WalletStore.getWallet())
       } catch (error) {
-        FlashNotification.showError(error.message)
+        FlashNotification.showError(error)
       }
 
-      if (wallet) WalletStore.setWallet(wallet)
-
-      await this._loadMetricsAndSetState(wallet)
+      this.setState({ refreshing: false })
     })
   }
 
@@ -178,13 +170,9 @@ class WalletOverview extends Component {
     })
   }
 
-  _getWallet = () => {
-    return WalletStore.getWallet()
-  }
-
   render = () => {
     try {
-      const wallet = this._getWallet()
+      const wallet = WalletStore.getWallet()
 
       LogStore.log(`Rendering wallet: ${JSON.stringify(wallet)}`)
 
@@ -195,6 +183,18 @@ class WalletOverview extends Component {
 
       return (
         <AppContainer>
+          <FeeAlert
+            title='ndau new account fees'
+            message='The first deposit received by a newly created account is subject to a small fee that supports the operation of the ndau network.'
+            fees={[
+              'Delegate fee - 0.005 ndau',
+              'SetValidation fee - 0.005 ndau'
+            ]}
+            isVisible={this.state.showFeesModal}
+            setVisibleHandler={visible => {
+              this.setState({ showFeesModal: visible })
+            }}
+          />
           <NavigationEvents onWillFocus={payload => this._onRefresh()} />
           <NewAccountModalDialog
             number={this.state.number}
@@ -240,7 +240,7 @@ class WalletOverview extends Component {
                 />
               }
             >
-              <View>
+              <View style={{ flex: 1 }}>
                 {wallet
                   ? Object.keys(wallet.accounts)
                     .sort((a, b) => {
@@ -308,8 +308,7 @@ class WalletOverview extends Component {
         </AppContainer>
       )
     } catch (error) {
-      LogStore.log(error)
-      FlashNotification.showError(error.message)
+      FlashNotification.showError(error)
     }
 
     return (

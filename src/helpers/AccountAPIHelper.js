@@ -79,7 +79,7 @@ const populateWalletWithAddressData = async wallet => {
       }
     }
 
-    _nicknameAccount(account)
+    nicknameAccount(account)
 
     // Same explanation as nickname for walletId
     if (!account.addressData.walletId) {
@@ -92,7 +92,7 @@ const populateWalletWithAddressData = async wallet => {
   return addressDataKeys.length > 0
 }
 
-const _nicknameAccount = account => {
+const nicknameAccount = account => {
   const accountNickname = `Account ${account.address.slice(
     account.address.length - 4,
     account.address.length
@@ -391,15 +391,27 @@ const totalSpendableNdau = (accounts, totalNdau, withCommas = true) => {
     : DataFormatHelper.getNdauFromNapu(totalNapu)
 }
 
+/**
+ * The amount is passed in ndau. However, the fee's are what is
+ * sent from the API which is already napu. We calculate using
+ * napu and then convert to ndau for the return value, using
+ * detail precision when converting.
+ *
+ * @param {number} amountNdau
+ * @param {number} transactionFeeNapu
+ * @param {number} sibFeeNapu
+ * @param {boolean} addCommas
+ */
 const getTotalNdauForSend = (
-  amount,
-  transactionFee,
-  sibFee,
+  amountNdau,
+  transactionFeeNapu,
+  sibFeeNapu,
   addCommas = true
 ) => {
-  const amountNapu = DataFormatHelper.getNapuFromNdau(amount)
-  const transactionFeeNapu = DataFormatHelper.getNapuFromNdau(transactionFee)
-  const sibFeeNapu = DataFormatHelper.getNapuFromNdau(sibFee)
+  const amountNapu = DataFormatHelper.getNapuFromNdau(
+    amountNdau,
+    AppConfig.NDAU_DETAIL_PRECISION
+  )
   const totalNapu = amountNapu + transactionFeeNapu + sibFeeNapu
   return DataFormatHelper.getNdauFromNapu(
     totalNapu,
@@ -436,7 +448,6 @@ export default {
   receivingEAIFrom,
   sendingEAITo,
   eaiValueForDisplay: getEaiValueForDisplay,
-  sendDelegateTransactionIfNeeded,
   addPrivateValidationKeyIfNotPresent,
   weightedAverageAgeInDays,
   lockBonusEAI,
@@ -447,5 +458,5 @@ export default {
   remainingBalanceNdau,
   isAccountLocked,
 
-  _nicknameAccount
+  nicknameAccount
 }

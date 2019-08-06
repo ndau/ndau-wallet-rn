@@ -13,10 +13,10 @@ test('Make sure we can log and get the data out', async () => {
 
       const dataToUse = JSON.parse(data)
 
-      if (dataToUse.message.indexOf('#1') !== -1) {
-        expect(dataToUse.message).toEqual('#1 testing 1...')
-      } else if (dataToUse.message.indexOf('#2') !== -1) {
-        expect(dataToUse.message).toEqual('#2 testing 1...2...')
+      if (dataToUse.msg.indexOf('#1') !== -1) {
+        expect(dataToUse.msg).toEqual('#1 testing 1...')
+      } else if (dataToUse.msg.indexOf('#2') !== -1) {
+        expect(dataToUse.msg).toEqual('#2 testing 1...2...')
       }
     }
   }
@@ -39,10 +39,10 @@ test('Make sure we DO NOT show private keys if they are present', async () => {
 
       const dataToUse = JSON.parse(data)
 
-      if (dataToUse.message.indexOf('#1') !== -1) {
-        expect(dataToUse.message).toEqual('#1 testing 1..."*suppressed*"')
-      } else if (dataToUse.message.indexOf('#2') !== -1) {
-        expect(dataToUse.message).toBe(
+      if (dataToUse.msg.indexOf('#1') !== -1) {
+        expect(dataToUse.msg).toEqual('#1 testing 1..."*suppressed*"')
+      } else if (dataToUse.msg.indexOf('#2') !== -1) {
+        expect(dataToUse.msg).toBe(
           `#2 testing \"*suppressed*\" and public \"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y346*suppressed*\"`
         )
       }
@@ -67,10 +67,10 @@ test('Make sure we DO NOT show private even when they are just in there without 
 
       const dataToUse = JSON.parse(data)
 
-      if (dataToUse.message.indexOf('#1') !== -1) {
-        expect(dataToUse.message).toEqual('#1 testing 1...*suppressed*')
-      } else if (dataToUse.message.indexOf('#2') !== -1) {
-        expect(dataToUse.message).toBe(
+      if (dataToUse.msg.indexOf('#1') !== -1) {
+        expect(dataToUse.msg).toEqual('#1 testing 1...*suppressed*')
+      } else if (dataToUse.msg.indexOf('#2') !== -1) {
+        expect(dataToUse.msg).toBe(
           '#2 testing *suppressed*" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y346*suppressed*'
         )
       }
@@ -95,10 +95,10 @@ test('Make sure we DO NOT show private keys and careful to not remove npvt somwh
 
       const dataToUse = JSON.parse(data)
 
-      if (dataToUse.message.indexOf('#1') !== -1) {
-        expect(dataToUse.message).toEqual('#1 testing 1..."*suppressed*"')
-      } else if (dataToUse.message.indexOf('#2') !== -1) {
-        expect(dataToUse.message).toBe(
+      if (dataToUse.msg.indexOf('#1') !== -1) {
+        expect(dataToUse.msg).toEqual('#1 testing 1..."*suppressed*"')
+      } else if (dataToUse.msg.indexOf('#2') !== -1) {
+        expect(dataToUse.msg).toBe(
           '#2 testing "*suppressed*" *suppressed* "*suppressed*" and public "npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj44b"'
         )
       }
@@ -119,7 +119,7 @@ test('Use more realistic data', async () => {
 
       const dataToUse = JSON.parse(data)
 
-      expect(dataToUse.message.indexOf('npvt')).toBe(-1)
+      expect(dataToUse.msg.indexOf('npvt')).toBe(-1)
     }
   }
 

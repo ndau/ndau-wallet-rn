@@ -5,6 +5,7 @@ import {
   createAppContainer
 } from 'react-navigation'
 import DashboardNavigation from './DashboardNavigation'
+import ContactSupportNavigation from './ContactSupportNavigation'
 import WalletOverviewNavigation from './WalletOverviewNavigation'
 import SetupWelcome from '../screens/SetupWelcome'
 import SetupWalletName from '../screens/SetupWalletName'
@@ -120,6 +121,8 @@ const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
+
+    ContactSupport: ContactSupportNavigation,
     WalletOverview: WalletOverviewNavigation,
     Setup: SetupStack,
     Settings: SettingsNavigation
