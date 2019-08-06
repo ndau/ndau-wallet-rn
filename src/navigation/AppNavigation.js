@@ -130,6 +130,8 @@ const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
+
+    ContactSupport: ContactSupportNavigation,
     WalletOverview: WalletOverviewNavigation,
     Setup: SetupStack,
     Settings: SettingsNavigation

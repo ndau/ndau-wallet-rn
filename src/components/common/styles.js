@@ -59,11 +59,12 @@ export default StyleSheet.create({
     backgroundColor: 'transparent'
   },
   largeButtonText: {
-    height: hp('5%'),
+    flexGrow: 1,
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
-    fontWeight: '600'
+    fontWeight: '600',
+    textAlign: 'center'
   },
   largeButton: {
     width: wp('92%'),
