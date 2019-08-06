@@ -59,7 +59,11 @@ export default StyleSheet.create({
     backgroundColor: 'transparent'
   },
   largeButtonText: {
-    flexGrow: 1,
+    ...Platform.select({
+      ios: {
+        height: hp('6%')
+      }
+    }),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
