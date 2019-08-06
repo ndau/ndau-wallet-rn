@@ -7,7 +7,7 @@ const _ = require('lodash')
 
 class FlashNotification extends Component {
   static showError (message, autoHide = true, hideOnPress = true) {
-    if (_.isError(message)) {
+    if (_.isError(message) && message.message) {
       const errorMessage = message.message
       showMessage({
         errorMessage,
@@ -17,12 +17,10 @@ class FlashNotification extends Component {
         fontSize: 20,
         fontFamily: 'TitilliumWeb-Regular',
         duration: 10000,
-        hideOnPress,
-        description: autoHide ? 'Please tap to continue...' : '',
-        onPress: onPressCallback
+        hideOnPress
       })
       LogStore.error(message)
-    } else {
+    } else if (message) {
       showMessage({
         message,
         autoHide,

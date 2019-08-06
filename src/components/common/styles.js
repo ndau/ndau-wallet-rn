@@ -61,7 +61,7 @@ export default StyleSheet.create({
   largeButtonText: {
     ...Platform.select({
       ios: {
-        height: hp('6%')
+        height: hp('5%')
       }
     }),
     color: AppConstants.TEXT_COLOR,
