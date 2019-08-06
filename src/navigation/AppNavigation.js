@@ -21,6 +21,13 @@ import AuthLoading from './AuthLoading'
 import SettingsNavigation from './SettingsNavigation'
 import ContactSupport from '../screens/ContactSupport'
 
+const ContactSupportScreen = ({ navigation }) => (
+  <ContactSupport navigation={navigation} />
+)
+ContactSupportScreen.navigationOptions = {
+  header: null
+}
+
 const AuthenticationScreen = ({ navigation }) => (
   <Authentication navigation={navigation} />
 )
