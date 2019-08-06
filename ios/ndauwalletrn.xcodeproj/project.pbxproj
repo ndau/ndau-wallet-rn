@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* ndauwalletrnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ndauwalletrnTests.m */; };
+		038A457B22F9BC0200525AA9 /* libRNCNetInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 038A456822F9BAC800525AA9 /* libRNCNetInfo.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -133,6 +134,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNSecureRandom;
+		};
+		038A456722F9BAC800525AA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 038A453622F9BAC800525AA9 /* RNCNetInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCNetInfo;
+		};
+		038A456922F9BAC800525AA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 038A453622F9BAC800525AA9 /* RNCNetInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5027B1B2237B30F00F1AABA;
+			remoteInfo = "RNCNetInfo-tvOS";
+		};
+		038A457322F9BAC800525AA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE6173CB2AC54698AA54560B /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -510,6 +532,7 @@
 		00E356EE1AD99517003FC87E /* ndauwalletrnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ndauwalletrnTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ndauwalletrnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ndauwalletrnTests.m; sourceTree = "<group>"; };
+		038A453622F9BAC800525AA9 /* RNCNetInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCNetInfo.xcodeproj; path = "../node_modules/@react-native-community/netinfo/ios/RNCNetInfo.xcodeproj"; sourceTree = "<group>"; };
 		0EFEA6BE1DE441B098248A69 /* RNFS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -600,6 +623,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038A457B22F9BC0200525AA9 /* libRNCNetInfo.a in Frameworks */,
 				9E99C08322C280EA00170E81 /* MessageUI.framework in Frameworks */,
 				9E99C08122C280CD00170E81 /* Social.framework in Frameworks */,
 				DFB0F51D22663E6500C47464 /* libRNVersionNumber.a in Frameworks */,
@@ -741,6 +765,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		038A453722F9BAC800525AA9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				038A456822F9BAC800525AA9 /* libRNCNetInfo.a */,
+				038A456A22F9BAC800525AA9 /* libRNCNetInfo-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -817,6 +850,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				038A453622F9BAC800525AA9 /* RNCNetInfo.xcodeproj */,
 				DFB0F4E322663E3C00C47464 /* RNVersionNumber.xcodeproj */,
 				9EC12AC12264F15000E44F82 /* RNCamera.xcodeproj */,
 				9E5A791822642B4B0082F897 /* RNCAsyncStorage.xcodeproj */,
@@ -995,6 +1029,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB6BF6322C5325700E04E91 /* libRNMail.a */,
+				038A457422F9BAC800525AA9 /* RNMailTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1262,6 +1297,10 @@
 					ProjectRef = 9E5A791822642B4B0082F897 /* RNCAsyncStorage.xcodeproj */;
 				},
 				{
+					ProductGroup = 038A453722F9BAC800525AA9 /* Products */;
+					ProjectRef = 038A453622F9BAC800525AA9 /* RNCNetInfo.xcodeproj */;
+				},
+				{
 					ProductGroup = DFB0F5B5226FA41400C47464 /* Products */;
 					ProjectRef = 689AC58780C94FFDB3E6EBBE /* RNDeviceInfo.xcodeproj */;
 				},
@@ -1352,6 +1391,27 @@
 			fileType = archive.ar;
 			path = libRNSecureRandom.a;
 			remoteRef = 0365337D210B7627002EEF95 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		038A456822F9BAC800525AA9 /* libRNCNetInfo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCNetInfo.a;
+			remoteRef = 038A456722F9BAC800525AA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		038A456A22F9BAC800525AA9 /* libRNCNetInfo-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNCNetInfo-tvOS.a";
+			remoteRef = 038A456922F9BAC800525AA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		038A457422F9BAC800525AA9 /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = 038A457322F9BAC800525AA9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
