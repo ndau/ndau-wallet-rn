@@ -7,7 +7,6 @@ import {
 import DashboardNavigation from './DashboardNavigation'
 import ContactSupportNavigation from './ContactSupportNavigation'
 import WalletOverviewNavigation from './WalletOverviewNavigation'
-import LoggingNavigation from './LoggingNavigation'
 import SetupWelcome from '../screens/SetupWelcome'
 import SetupWalletName from '../screens/SetupWalletName'
 import SetupNewOrRecovery from '../screens/SetupNewOrRecovery'
@@ -106,20 +105,6 @@ WalletOverviewNavigationScreen.navigationOptions = ({ navigation }) => ({
   header: null
 })
 
-const LoggingNavigationScreen = ({ navigation }) => (
-  <LoggingNavigation navigation={navigation} />
-)
-LoggingNavigationScreen.navigationOptions = ({ navigation }) => ({
-  header: null
-})
-
-const ContactSupportScreen = ({ navigation }) => (
-  <ContactSupport navigation={navigation} />
-)
-ContactSupportScreen.navigationOptions = ({ navigation }) => ({
-  header: null
-})
-
 const SetupStack = createStackNavigator({
   Authentication: { screen: AuthenticationScreen },
   ContactSupport: { screen: ContactSupportScreen },
@@ -138,9 +123,6 @@ const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoading,
     App: DashboardNavigation,
-
-    ContactSupport: ContactSupportNavigation,
-    Logging: LoggingNavigation,
     WalletOverview: WalletOverviewNavigation,
     Setup: SetupStack,
     Settings: SettingsNavigation
