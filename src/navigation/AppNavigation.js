@@ -19,6 +19,14 @@ import SetupYourWallet from '../screens/SetupYourWallet'
 import Authentication from '../screens/Authentication'
 import AuthLoading from './AuthLoading'
 import SettingsNavigation from './SettingsNavigation'
+import ContactSupport from '../screens/ContactSupport'
+
+const ContactSupportScreen = ({ navigation }) => (
+  <ContactSupport navigation={navigation} />
+)
+ContactSupportScreen.navigationOptions = {
+  header: null
+}
 
 const AuthenticationScreen = ({ navigation }) => (
   <Authentication navigation={navigation} />
@@ -106,6 +114,7 @@ WalletOverviewNavigationScreen.navigationOptions = ({ navigation }) => ({
 
 const SetupStack = createStackNavigator({
   Authentication: { screen: AuthenticationScreen },
+  ContactSupport: { screen: ContactSupportScreen },
   SetupWelcome: { screen: SetupWelcomeScreen },
   SetupWalletName: { screen: SetupWalletNameScreen },
   SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },
