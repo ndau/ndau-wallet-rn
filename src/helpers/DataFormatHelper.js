@@ -151,7 +151,7 @@ const truncateString = (string, maxLength = 20) => {
 
 /**
  * Given a wallet send back the format for the
- * request to /account/eai/rate RESTful API call
+ * request to /system/eai/rate RESTful API call
  *
  * @param {string} addressData
  */

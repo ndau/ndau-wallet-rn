@@ -54,12 +54,11 @@ export default StyleSheet.create({
   },
   largeButtonSecondary: {
     width: wp('91%'),
-    height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    padding: 0
   },
   largeButtonText: {
-    height: hp('5%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,
@@ -67,9 +66,9 @@ export default StyleSheet.create({
   },
   largeButton: {
     width: wp('92%'),
-    height: hp('6%'),
     borderRadius: 4,
-    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    padding: 0
   },
   largeButtonMargin: {
     marginLeft: wp('4%'),

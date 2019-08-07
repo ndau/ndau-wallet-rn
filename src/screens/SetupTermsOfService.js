@@ -71,7 +71,11 @@ class SetupTermsOfService extends Component {
           this.props.navigation.navigate('Dashboard')
         })
       } catch (error) {
-        FlashNotification.showError(error)
+        FlashNotification.showError(
+          error.message
+            ? error.message
+            : 'Error occurred communicating with the blockchian'
+        )
         this.setState({ spinner: false })
       }
     })
