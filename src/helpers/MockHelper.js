@@ -44,7 +44,7 @@ const mockMarketPriceAPI = () => {
 
 const mockEaiRate = () => {
   mock
-    .onPost('https://api.ndau.tech:31300/account/eai/rate')
+    .onPost('https://api.ndau.tech:31300/system/eai/rate')
     .reply(200, data.eaiValueForDisplayResponse)
 }
 

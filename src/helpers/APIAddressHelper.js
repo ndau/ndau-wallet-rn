@@ -32,7 +32,7 @@ const getAccountAPIAddress = async () => {
 }
 
 const getEaiRateAPIAddress = async () => {
-  return (await getNodeAddress()) + '/account/eai/rate'
+  return (await getNodeAddress()) + '/system/eai/rate'
 }
 
 const getMarketPriceAPIAddress = async () => {
