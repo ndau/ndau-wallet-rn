@@ -579,7 +579,7 @@ export function NdauQRCodeScanner (props) {
   return (
     <View
       style={{
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#000'
       }}
     >
@@ -588,6 +588,7 @@ export function NdauQRCodeScanner (props) {
           flex: 1
         }}
         {...props}
+        captureAudio={false}
       >
         <BarcodeMask width={250} height={250} showAnimatedLine={false} />
         {props.children}

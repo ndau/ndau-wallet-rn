@@ -52,92 +52,92 @@ export function AccountPanel (props) {
         locations={[0, 1.0]}
         colors={['#0F2748', '#293E63']}
       >
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'flex-start',
               alignItems: 'center'
             }}
           >
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'center'
-              }}
-            >
-              <Text style={styles.accountTitleTextPanel}>
-                {AccountAPIHelper.accountNickname(props.account.addressData)}
-              </Text>
-              <Icon
-                name={props.icon}
-                size={18}
-                color={AppConstants.ICON_BUTTON_COLOR}
-                containerStyle={styles.accountNicknameIcon}
-                type='solid'
-              />
-              {props.isAccountLocked ? (
-                props.accountLockedUntil === null ? (
-                  <Icon
-                    name='clock'
-                    size={18}
-                    color={AppConstants.CAUTION_ICON_COLOR}
-                    containerStyle={styles.accountNicknameIcon}
-                    type='light'
-                  />
-                ) : (
-                  <Icon
-                    name='clock'
-                    size={18}
-                    color={AppConstants.ICON_BUTTON_COLOR}
-                    containerStyle={styles.accountNicknameIcon}
-                    type='light'
-                  />
-                )
-              ) : null}
+            <Text style={styles.accountTitleTextPanel}>
+              {AccountAPIHelper.accountNickname(props.account.addressData)}
+            </Text>
+            <Icon
+              name={props.icon}
+              size={18}
+              color={AppConstants.ICON_BUTTON_COLOR}
+              containerStyle={styles.accountNicknameIcon}
+              type='solid'
+            />
+            {props.isAccountLocked ? (
+              props.accountLockedUntil === null ? (
+                <Icon
+                  name='clock'
+                  size={18}
+                  color={AppConstants.CAUTION_ICON_COLOR}
+                  containerStyle={styles.accountNicknameIcon}
+                  type='light'
+                />
+              ) : (
+                <Icon
+                  name='clock'
+                  size={18}
+                  color={AppConstants.ICON_BUTTON_COLOR}
+                  containerStyle={styles.accountNicknameIcon}
+                  type='light'
+                />
+              )
+            ) : null}
+          </View>
+          <View style={styles.ndauTotalContainer}>
+            <View>
+              <P style={styles.ndauSmall}>n</P>
             </View>
-            <View style={styles.ndauTotalContainer}>
-              <View>
-                <P style={styles.ndauSmall}>n</P>
-              </View>
-              <View>
-                <H4 style={styles.accountPanelTotal}>
-                  {accountAmount.toSummary()}
-                </H4>
-              </View>
+            <View>
+              <H4 style={styles.accountPanelTotal}>
+                {accountAmount.toSummary()}
+              </H4>
             </View>
           </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center'
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingLeft: wp('4%'),
+              paddingBottom: hp('1%')
             }}
           >
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                paddingLeft: wp('4%'),
-                paddingBottom: hp('1%')
-              }}
-            >
-              <Text style={styles.addressCopyPanelTextOnDetail}>
-                {truncatedAddress}
-              </Text>
-            </View>
-            <View style={styles.addressCopyButtonContainer}>
-              <Button
-                style={styles.addressCopyButton}
-                textStyle={styles.addressCopyButtonText}
-                uppercase={false}
-                onPress={() => Clipboard.setString(props.account.address)}
-              >
-                Copy
-              </Button>
-            </View>
+            <Text style={styles.addressCopyPanelTextOnDetail}>
+              {truncatedAddress}
+            </Text>
           </View>
+          <View style={styles.addressCopyButtonContainer}>
+            <Button
+              style={styles.addressCopyButton}
+              textStyle={styles.addressCopyButtonText}
+              uppercase={false}
+              onPress={() => Clipboard.setString(props.account.address)}
+            >
+              Copy
+            </Button>
+          </View>
+        </View>
       </LinearGradient>
       <View style={styles.accountActionPanel}>
         <View>
@@ -269,6 +269,33 @@ export function AccountSendContainer (props) {
             <ScrollView keyboardShouldPersistTaps='always'>
               {props.children}
             </ScrollView>
+          </ContentContainer>
+        </TitleBarGradient>
+      </View>
+    </MainContainer>
+  )
+}
+
+export function AccountScanContainer (props) {
+  close = () => {
+    props.navigation.navigate('AccountDetails', {
+      wallet: props.wallet,
+      account: props.account
+    })
+  }
+  return (
+    <MainContainer>
+      <View style={{ flex: 1 }}>
+        <TitleBarGradient>
+          <View style={styles.accountTitlePanel}>
+            <AccountClosingBar
+              title={props.title}
+              closeBar
+              close={this.close}
+            />
+          </View>
+          <ContentContainer style={styles.accountContentPanel}>
+            {props.children}
           </ContentContainer>
         </TitleBarGradient>
       </View>
