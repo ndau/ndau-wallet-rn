@@ -7,7 +7,8 @@ import {
   AccountHeaderText,
   AccountConfirmationItem,
   AccountSendErrorText,
-  AccountSendPanel
+  AccountSendPanel,
+  AccountScanContainer
 } from '../components/account'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import FlashNotification from '../components/common/FlashNotification'
@@ -324,7 +325,7 @@ class AccountSend extends Component {
 
   _renderScanning () {
     return (
-      <AccountSendContainer
+      <AccountScanContainer
         title='Send'
         navigation={this.props.nav}
         wallet={this.state.wallet}
@@ -338,7 +339,7 @@ class AccountSend extends Component {
         <LargeButton sideMargins onPress={() => this._flipCamera()}>
           Flip camera
         </LargeButton>
-      </AccountSendContainer>
+      </AccountScanContainer>
     )
   }
 

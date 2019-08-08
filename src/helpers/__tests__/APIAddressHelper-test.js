@@ -33,7 +33,7 @@ test('getMarketPriceAPIAddress sends back the correct address', async () => {
 test('getEaiRateAPIAddress sends back the correct address', async () => {
   const eaiValueForDisplayUrl = await APIAddressHelper.getEaiRateAPIAddress()
   expect(
-    eaiValueForDisplayUrl.indexOf('api.ndau.tech:31300/account/eai/rate') !== -1
+    eaiValueForDisplayUrl.indexOf('api.ndau.tech:31300/system/eai/rate') !== -1
   ).toBe(true)
 })
 

@@ -249,7 +249,6 @@ export default StyleSheet.create({
   },
   accountScan: {
     width: wp('100%'),
-    height: hp('26%'),
     backgroundColor: '#0A1724',
     paddingTop: 0
   },

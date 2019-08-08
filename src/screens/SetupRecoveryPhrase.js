@@ -13,6 +13,7 @@ import {
 } from '../components/setup'
 import FlashNotification from '../components/common/FlashNotification'
 import { LargeButtons, ParagraphText } from '../components/common'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 
 var _ = require('lodash')
 

@@ -199,6 +199,7 @@ class AccountDetails extends Component {
           wallet={this.state.wallet}
           disableLock={!showAllAcctButtons}
           disableSend={!showAllAcctButtons}
+          disabledReceive={isAccountLocked && accountLockedUntil !== null}
         />
         <ScrollView>
           <AccountDetailsPanel firstPanel>
@@ -242,7 +243,7 @@ class AccountDetails extends Component {
                 customIconColor='#8CC74F'
                 customIconName='arrow-alt-down'
               >
-                Receiving incentive from {receivingEAIFrom}
+                Receiving EAI from {receivingEAIFrom}
               </AccountParagraphText>
             ) : null}
             <AccountParagraphText customIconName='usd-circle'>
