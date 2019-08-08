@@ -199,6 +199,7 @@ class AccountDetails extends Component {
           wallet={this.state.wallet}
           disableLock={!showAllAcctButtons}
           disableSend={!showAllAcctButtons}
+          disabledReceive={isAccountLocked && accountLockedUntil !== null}
         />
         <ScrollView>
           <AccountDetailsPanel firstPanel>
