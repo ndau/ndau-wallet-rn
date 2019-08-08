@@ -53,6 +53,7 @@ export default StyleSheet.create({
     marginLeft: wp('4%')
   },
   largeButtonSecondary: {
+    zIndex: 100,
     width: wp('91%'),
     borderRadius: 4,
     backgroundColor: 'transparent',
@@ -65,6 +66,7 @@ export default StyleSheet.create({
     fontWeight: '600'
   },
   largeButton: {
+    zIndex: 100,
     width: wp('92%'),
     borderRadius: 4,
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
