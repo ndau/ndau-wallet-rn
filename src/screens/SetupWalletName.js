@@ -91,8 +91,8 @@ class SetupWalletName extends Component {
     return (
       <SetupContainer {...this.props} pageNumber={16}>
         <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 120 : 100}
-          behavior='padding'
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 120 : 0}
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
         >
           <View style={{ height: '90%' }}>
             <ParagraphText>Give this wallet a name.</ParagraphText>

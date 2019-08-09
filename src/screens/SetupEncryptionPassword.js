@@ -221,7 +221,10 @@ class SetupEncryptionPassword extends Component {
     // debugger
     return (
       <SetupContainer {...this.props} pageNumber={17}>
-        <KeyboardAvoidingView behavior='height'>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'android' ? -50 : 0}
+          behavior='height'
+        >
           <View style={{ overflow: 'hidden', height: this.state.upperHeight }}>
             <ParagraphText>{this.state.instructionText}</ParagraphText>
           </View>
