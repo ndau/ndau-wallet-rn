@@ -541,7 +541,8 @@ export default StyleSheet.create({
     borderRadius: 4,
     borderWidth: 2,
     backgroundColor: 'transparent',
-    marginTop: wp('3%')
+    marginTop: wp('3%'),
+    padding: 0
   },
   largeBorderButtonText: {
     color: AppConstants.TEXT_COLOR,
