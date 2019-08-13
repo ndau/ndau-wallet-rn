@@ -43,22 +43,40 @@ const legacyValidationKeyPath4 = () => {
   return legacyValidationKeyPath2()
 }
 
+const isBIP44 = address => {
+  return address.startsWith('/44')
+}
+
 const getRootAccountValidationKeyPath = (wallet, account) => {
   const accountPath = wallet.keys[account.ownershipKey].path
-  const accountChildIndex = accountPath.substring(
-    accountCreationKeyPath().length + 1,
-    accountPath.length
-  )
+  let accountChildIndex = ''
+  if (isBIP44(accountPath)) {
+    accountChildIndex = accountPath.substring(
+      accountCreationKeyPath().length + 1,
+      accountPath.length
+    )
+  } else {
+    // we have an old root account. So make sure you just get
+    // that one.
+    accountChildIndex = accountPath.substring(1, accountPath.length)
+  }
 
   return `${validationKeyPath()}/${accountChildIndex}'`
 }
 
 const getLegacy2Thru4RootAccountValidationKeyPath = (wallet, account) => {
   const accountPath = wallet.keys[account.ownershipKey].path
-  const accountChildIndex = accountPath.substring(
-    accountCreationKeyPath().length + 1,
-    accountPath.length
-  )
+  let accountChildIndex = ''
+  if (isBIP44(accountPath)) {
+    accountChildIndex = accountPath.substring(
+      accountCreationKeyPath().length + 1,
+      accountPath.length
+    )
+  } else {
+    // we have an old root account. So make sure you just get
+    // that one.
+    accountChildIndex = accountPath.substring(1, accountPath.length)
+  }
 
   return `${legacyValidationKeyPath2()}/${accountChildIndex}`
 }
