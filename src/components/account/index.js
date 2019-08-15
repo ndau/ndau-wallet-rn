@@ -43,31 +43,6 @@ export function AccountPanel (props) {
   )
   const truncatedAddress = ndaujs.truncateAddress(props.account.address)
 
-  /* deleteAccount was used for testing and will delete the current account from the wallet.
-  // It requires the following imports.
-  import UserStore from '../../stores/UserStore'
-  import WalletStore from '../../stores/WalletStore'
-  import UserData from '../../model/UserData'
-
-  const deleteAccount = async () => {
-    const walletId = WalletStore.getWallet().walletId
-    const user = UserStore.getUser()
-    for (let walletKey in user.wallets) {
-      const wallet = user.wallets[walletKey]
-      if (wallet.walletId === walletId) {
-        delete wallet.keys[props.account.ownershipKey]
-        props.account.validationKeys.forEach(k => {
-          delete wallet.keys[k]
-        })
-        delete wallet.accounts[props.account.address]
-        user.wallets[walletKey] = wallet
-        await UserData.loadUserData(user)
-        UserStore.setUser(user)
-      }
-    }
-  }
-  */
-
   return (
     <View style={styles.accountPanels}>
       <LinearGradient

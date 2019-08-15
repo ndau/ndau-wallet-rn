@@ -128,6 +128,34 @@ class AccountDetails extends Component {
     this.props.navigation.goBack()
   }
 
+  removeAccount = async () => {
+    this.setState({ removeAcctSpinner: true })
+    try {
+      const walletId = WalletStore.getWallet().walletId
+      const user = UserStore.getUser()
+      for (let walletKey in user.wallets) {
+        const wallet = user.wallets[walletKey]
+        if (wallet.walletId === walletId) {
+          delete wallet.keys[this.state.account.ownershipKey]
+          this.state.account.validationKeys.forEach(k => {
+            delete wallet.keys[k]
+          })
+          delete wallet.accounts[this.state.account.address]
+          user.wallets[walletKey] = wallet
+          await UserData.loadUserData(user)
+          UserStore.setUser(user)
+        }
+      }
+      this.props.navigation.navigate('WalletOverview', {
+        refresh: true
+      })
+    } catch (err) {
+      FlashNotification.showError(err)
+    } finally {
+      this.setState({ removeAcctSpinner: false })
+    }
+  }
+
   render () {
     const { account } = this.state
     const eaiValueForDisplay = AccountAPIHelper.eaiValueForDisplay(
@@ -174,6 +202,20 @@ class AccountDetails extends Component {
         account={this.state.account}
         {...this.props}
       >
+        <LoadingSpinner
+          spinner={this.state.removeAcctSpinner}
+          text='Removing account...'
+        />
+        <FeeAlert
+          title='Remove account'
+          message='Are you sure you want to remove this account from your wallet? This will not remove this account from the blockchain if it contains ndau. The account can be added back to your wallet by going to the Settings screen and taping "Scan for my accounts."'
+          fees={[]}
+          isVisible={this.state.showRemoveModal}
+          setVisibleHandler={visible =>
+            this.setState({ showRemoveModal: visible })
+          }
+          confirm={() => this.removeAccount()}
+        />
         <FeeAlert
           title='ndau lock fees'
           message='Transactions are subject to a small fee that supports the operation of the ndau network.'
@@ -291,6 +333,12 @@ class AccountDetails extends Component {
             >
               Account Address:
             </AccountConfirmationItem>
+            <LargeButton
+              scroll
+              onPress={() => this.setState({ showRemoveModal: true })}
+            >
+              Remove account
+            </LargeButton>
           </AccountDetailsPanel>
         </ScrollView>
       </AccountDetailsContainer>

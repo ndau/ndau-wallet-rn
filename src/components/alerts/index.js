@@ -60,10 +60,11 @@ export function FeeAlert (props) {
               {props.postMessage}
             </Text>
           ) : null}
-
-          <ModalTextLink url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}>
-            Read more about fees...
-          </ModalTextLink>
+          {props.fees && props.fees.length > 0 ? (
+            <ModalTextLink url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}>
+              Read more about fees...
+            </ModalTextLink>
+          ) : null}
         </View>
         <View style={{ paddingTop: hp('2%') }}>
           {props.confirm ? (
