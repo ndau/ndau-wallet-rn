@@ -208,7 +208,7 @@ class AccountDetails extends Component {
         />
         <FeeAlert
           title='Remove account'
-          message='Are you sure you want to remove this account from your wallet? This will not remove this account from the blockchain if it contains ndau. The account can be added back to your wallet by going to the Settings screen and taping "Scan for my accounts."'
+          message='Are you sure you want to remove this account from your wallet? This will not remove this account from the blockchain if it contains ndau. The account can be added back to your wallet by going to the Settings screen and tapping "Scan for my accounts."'
           fees={[]}
           isVisible={this.state.showRemoveModal}
           setVisibleHandler={visible =>
