@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn.svg?style=svg&circle-token=78d92a0e256f79e59d9ca0b2b7617b910db81323)](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn)
+[![CircleCI](https://circleci.com/gh/ndau/ndau-wallet-rn.svg?style=svg&circle-token=78d92a0e256f79e59d9ca0b2b7617b910db81323)](https://circleci.com/gh/ndau/ndau-wallet-rn)
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app). The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
@@ -113,7 +113,7 @@ This project is set up to use [jest](https://facebook.github.io/jest/) for tests
 
 ## Circle-CI integration
 
-This project has been configured through CircleCI's GitHub integration to run tests on every commit. To view or change those settings, you may visit this repo's [CircleCI page](https://circleci.com/gh/oneiro-ndev/ndau-wallet-rn). If you log in with your GitHub account, and you have appropriate privleges you will be able to change the build settings.
+This project has been configured through CircleCI's GitHub integration to run tests on every commit. To view or change those settings, you may visit this repo's [CircleCI page](https://circleci.com/gh/ndau/ndau-wallet-rn). If you log in with your GitHub account, and you have appropriate privleges you will be able to change the build settings.
 
 To run the CircleCI tests locally, you can execute the script `./.circleci/local.sh`. It will install the [CircleCI CLI](https://circleci.com/docs/2.0/local-cli/) tool, if you don't already have it.
 

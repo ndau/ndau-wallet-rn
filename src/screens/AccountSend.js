@@ -90,7 +90,7 @@ class AccountSend extends Component {
   }
 
   // TODO: we will be getting a better version of this that
-  // TODO: we will have to get out of keyaddr (oneiro-ndev/ndaumath#71)
+  // TODO: we will have to get out of keyaddr (ndau/ndaumath#71)
   _validAddress = address => {
     if (address.substr(0, 2) === 'nd') {
       return true
