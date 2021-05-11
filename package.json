@@ -71,7 +71,7 @@
     "crypto-js": "3.1.9-1",
     "events": "3.0.0",
     "jetifier": "^1.6.3",
-    "lodash": "4.17.11",
+    "lodash": "4.17.21",
     "metro-react-native-babel-preset": "0.54.1",
     "moment": "2.24.0",
     "nachos-ui": "0.2.0-beta.1",
