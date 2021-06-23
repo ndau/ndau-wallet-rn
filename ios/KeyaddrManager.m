@@ -138,7 +138,7 @@ RCT_REMAP_METHOD(sign,key:(NSString*)key msgstr:(NSString*)msgstr resolver:(RCTP
   //RCTLogInfo(@"sign call with key:%@ and msgstr:%@", key, msgstr);
   NSError *__autoreleasing *error = NULL;
   KeyaddrKey *keyAddrKey = KeyaddrFromString(key, error);
-  KeyaddrSignature *sig = [keyAddrKey sign:msgstr error:error];
+  KeyaddrSignature *sig = [keyAddrKey signSecP:msgstr error:error];
   RCTLogInfo(@"sign call created signature %@", sig);
 
   if (error) {
