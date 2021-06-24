@@ -105,12 +105,6 @@
     "react-native-version-number": "0.3.6",
     "react-navigation": "3.11.0"
   },
-  "rnpm": {
-    "assets": [
-      "assets/fonts",
-      "./assets/fonts"
-    ]
-  },
   "react-native": {
     "zlib": "browserify-zlib",
     "console": "console-browserify",
