@@ -132,6 +132,15 @@ PODS:
     - React-jsiexecutor (= 0.64.2)
     - React-perflogger (= 0.64.2)
     - Yoga
+  - React-Core/RCTPushNotificationHeaders (0.64.2):
+    - glog
+    - RCT-Folly (= 2020.01.13.00)
+    - React-Core/Default
+    - React-cxxreact (= 0.64.2)
+    - React-jsi (= 0.64.2)
+    - React-jsiexecutor (= 0.64.2)
+    - React-perflogger (= 0.64.2)
+    - Yoga
   - React-Core/RCTSettingsHeaders (0.64.2):
     - glog
     - RCT-Folly (= 2020.01.13.00)
@@ -257,6 +266,12 @@ PODS:
     - React-Core/RCTNetworkHeaders (= 0.64.2)
     - React-jsi (= 0.64.2)
     - ReactCommon/turbomodule/core (= 0.64.2)
+  - React-RCTPushNotification (0.64.2):
+    - FBReactNativeSpec (= 0.64.2)
+    - RCTTypeSafety (= 0.64.2)
+    - React-Core/RCTPushNotificationHeaders (= 0.64.2)
+    - React-jsi (= 0.64.2)
+    - ReactCommon/turbomodule/core (= 0.64.2)
   - React-RCTSettings (0.64.2):
     - FBReactNativeSpec (= 0.64.2)
     - RCT-Folly (= 2020.01.13.00)
@@ -287,7 +302,15 @@ PODS:
     - React
   - RNBackgroundFetch (2.6.0):
     - React
+  - RNCAsyncStorage (1.15.5):
+    - React-Core
   - RNDeviceInfo (2.1.2):
+    - React
+  - RNFS (2.18.0):
+    - React
+  - RNGestureHandler (1.10.3):
+    - React-Core
+  - RNSecureRandom (1.0.0):
     - React
   - RNShare (1.2.1):
     - React
@@ -325,6 +348,7 @@ DEPENDENCIES:
   - React-RCTImage (from `../node_modules/react-native/Libraries/Image`)
   - React-RCTLinking (from `../node_modules/react-native/Libraries/LinkingIOS`)
   - React-RCTNetwork (from `../node_modules/react-native/Libraries/Network`)
+  - React-RCTPushNotification (from `../node_modules/react-native/Libraries/PushNotificationIOS`)
   - React-RCTSettings (from `../node_modules/react-native/Libraries/Settings`)
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
@@ -332,7 +356,11 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativePermissions (from `../node_modules/react-native-permissions`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNFS (from `../node_modules/react-native-fs`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNSecureRandom (from `../node_modules/react-native-securerandom`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -396,6 +424,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/LinkingIOS"
   React-RCTNetwork:
     :path: "../node_modules/react-native/Libraries/Network"
+  React-RCTPushNotification:
+    :path: "../node_modules/react-native/Libraries/PushNotificationIOS"
   React-RCTSettings:
     :path: "../node_modules/react-native/Libraries/Settings"
   React-RCTText:
@@ -410,8 +440,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions"
   RNBackgroundFetch:
     :path: "../node_modules/react-native-background-fetch"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNSecureRandom:
+    :path: "../node_modules/react-native-securerandom"
   RNShare:
     :path: "../node_modules/react-native-share"
   RNSVG:
@@ -424,7 +462,7 @@ SPEC CHECKSUMS:
   BVLinearGradient: 8cbc5155c978f2e43098818c91d206d07aae6d30
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: df48fdffb36319e7b230cf9f659df6be9a46784f
+  FBReactNativeSpec: a084c8312aed0f430d9d2f07d1d3cf2ad5f6e70e
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
@@ -437,10 +475,10 @@ SPEC CHECKSUMS:
   React-jsi: 67747b9722f6dab2ffe15b011bcf6b3f2c3f1427
   React-jsiexecutor: 80c46bd381fd06e418e0d4f53672dc1d1945c4c3
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
-  react-native-camera: 89f0367c52e3ed70dd042c6362891cf7869f8e1c
+  react-native-camera: ea85f74cf2e501d2a91a3da7092ecdac082f18df
   react-native-mail: 021d8ee60e374609f5689ef354dc8e36839a9ba6
-  react-native-netinfo: ddaca8bbb9e6e914b1a23787ccb879bc642931c9
-  react-native-version-number: b415bbec6a13f2df62bf978e85bc0d699462f37f
+  react-native-netinfo: 3dd993921571d01b78a8f91f1caaffcab7a1e1c7
+  react-native-version-number: 15563dc4145a94aabfc1faab2a9af10174a4204e
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
   React-RCTAnimation: 6a2e76ab50c6f25b428d81b76a5a45351c4d77aa
@@ -448,18 +486,23 @@ SPEC CHECKSUMS:
   React-RCTImage: ce5bf8e7438f2286d9b646a05d6ab11f38b0323d
   React-RCTLinking: ccd20742de14e020cb5f99d5c7e0bf0383aefbd9
   React-RCTNetwork: dfb9d089ab0753e5e5f55fc4b1210858f7245647
+  React-RCTPushNotification: e4e8febc556ee8dfa8d6f12deb22a0e8a240e863
   React-RCTSettings: b14aef2d83699e48b410fb7c3ba5b66cd3291ae2
   React-RCTText: 41a2e952dd9adc5caf6fb68ed46b275194d5da5f
   React-RCTVibration: 24600e3b1aaa77126989bc58b6747509a1ba14f3
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
-  ReactNativePermissions: b64e084dff6a5cad51587d38c306f09246246384
-  RNBackgroundFetch: ca8f7de08300d9b9a68e045577d2b896aba3c323
-  RNDeviceInfo: 75dac2d7cd6b638b512cc9266ce48a39661fed0e
+  ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
+  RNBackgroundFetch: 7cffcc445ef3614487ea506d4fa5a7dda47328d3
+  RNCAsyncStorage: 8324611026e8dc3706f829953aa6e3899f581589
+  RNDeviceInfo: fd8296de6fca8b743cdc499b896f48e8a9f1faf5
+  RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
+  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNSecureRandom: 0dcee021fdb3d50cd5cee5db0ebf583c42f5af0e
   RNShare: 48cf88cadf9ca2143cdaa557c1ec7f8808040ffc
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
-PODFILE CHECKSUM: ba56b8342a07771b1955bd65be8c71cca244cbfc
+PODFILE CHECKSUM: 82bf6f34ca4c4e3ddd538d7b196febd11676f706
 
 COCOAPODS: 1.10.1

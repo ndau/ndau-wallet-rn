@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import CryptoJS from 'crypto-js'
 import EntropyHelper from '../helpers/EntropyHelper'
 import LogStore from '../stores/LogStore'

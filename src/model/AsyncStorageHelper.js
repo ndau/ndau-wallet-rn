@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import ServiceDiscovery from '../api/ServiceDiscovery'
 import SettingsStore from '../stores/SettingsStore'
 
