@@ -140,9 +140,22 @@ There are a few steps you may want to take to troubleshoot these kinds of errors
 2. Open Xcode's Preferences, the Locations tab, and make sure that the `Command Line Tools` menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run `npm/yarn run ios` after doing so.
 3. If that doesn't work, open the Simulator, and under the app menu select `Reset Contents and Settings...`. After that has finished, quit the Simulator, and re-run `npm/yarn run ios`.
 
-Updates:
+## Updates:
 
 npm dependency updates (audit)
-componentWillMount => componentDidMount
-RNCNetInfo -- deprecated API
+
+Warning: componentWillMount has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details.
+* Move code with side effects to componentDidMount, and set initial state in the constructor.
+* Rename componentWillMount to UNSAFE_componentWillMount to suppress this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. To rename all deprecated lifecycles to their new names, you can run `npx react-codemod rename-unsafe-lifecycles` in your project source folder.
+
+Warning: RNCNetInfo - You are using the deprecated API. It will still work, but you must upgrade to the new API to receive the new features. The old API will be removed in the future
+
 Can't perform a React state update on an unmounted component -- to fix, cancel all subscriptions and asynchronous tasks in "a useEffect cleanup function" in RecoveryWordInput (at SetupGetRecoveryPhrase.js:401)
+
+Please update the following components: %s Authentication
+
+currentlyFocusedField is deprecated and will be removed in a future release. Use currentlyFocusedInput 
+
+PushNotificationIOS has been extracted from react-native core and will be removed in a future release. It can now be installed and imported from '@react-native-community/push-notification-ios' instead of 'react-native'. See https://github.com/react-native-push-notification-ios/push-notification-ios
+
+ WARN  YellowBox has been replaced with LogBox. Please call LogBox.ignoreLogs() instead.
