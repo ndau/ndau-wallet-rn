@@ -9,7 +9,8 @@
  */
 
 import React from 'react'
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createStackNavigator } from 'react-navigation-stack'
 import Settings from '../screens/Settings'
 import AppDrawer from './AppDrawer'
 

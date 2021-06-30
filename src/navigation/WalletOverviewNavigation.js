@@ -9,7 +9,8 @@
  */
 
 import React from 'react'
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createStackNavigator } from 'react-navigation-stack'
 import WalletOverview from '../screens/WalletOverview'
 import AppDrawer from './AppDrawer'
 import AccountDetails from '../screens/AccountDetails'

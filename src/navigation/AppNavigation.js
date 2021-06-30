@@ -10,10 +10,10 @@
 
 import React from 'react'
 import {
-  createStackNavigator,
   createSwitchNavigator,
   createAppContainer
 } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 import DashboardNavigation from './DashboardNavigation'
 import ContactSupportNavigation from './ContactSupportNavigation'
 import WalletOverviewNavigation from './WalletOverviewNavigation'

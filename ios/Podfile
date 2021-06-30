@@ -36,7 +36,7 @@ target 'ndauwalletrn' do
 
   # pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
-  pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
+  # pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
   pod 'React', :path => '../node_modules/react-native/'
 
   config = use_native_modules!
