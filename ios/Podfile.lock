@@ -224,8 +224,10 @@ PODS:
     - React
   - react-native-mail (3.0.7):
     - React
-  - react-native-netinfo (4.7.0):
-    - React
+  - react-native-netinfo (6.0.0):
+    - React-Core
+  - react-native-safe-area-context (3.2.0):
+    - React-Core
   - react-native-version-number (0.3.6):
     - React
   - React-perflogger (0.64.2)
@@ -304,12 +306,19 @@ PODS:
     - React
   - RNCAsyncStorage (1.15.5):
     - React-Core
+  - RNCClipboard (1.8.2):
+    - React-Core
   - RNDeviceInfo (2.1.2):
     - React
   - RNFS (2.18.0):
     - React
   - RNGestureHandler (1.10.3):
     - React-Core
+  - RNReanimated (1.13.1):
+    - React
+  - RNScreens (3.4.0):
+    - React-Core
+    - React-RCTImage
   - RNSecureRandom (1.0.0):
     - React
   - RNShare (1.2.1):
@@ -340,6 +349,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-mail (from `../node_modules/react-native-mail`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-version-number (from `../node_modules/react-native-version-number`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -357,9 +367,12 @@ DEPENDENCIES:
   - ReactNativePermissions (from `../node_modules/react-native-permissions`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNSecureRandom (from `../node_modules/react-native-securerandom`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -408,6 +421,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-mail"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-version-number:
     :path: "../node_modules/react-native-version-number"
   React-perflogger:
@@ -442,12 +457,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-fetch"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFS:
     :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNSecureRandom:
     :path: "../node_modules/react-native-securerandom"
   RNShare:
@@ -462,7 +483,7 @@ SPEC CHECKSUMS:
   BVLinearGradient: 8cbc5155c978f2e43098818c91d206d07aae6d30
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: a084c8312aed0f430d9d2f07d1d3cf2ad5f6e70e
+  FBReactNativeSpec: df48fdffb36319e7b230cf9f659df6be9a46784f
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
@@ -477,7 +498,8 @@ SPEC CHECKSUMS:
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-camera: ea85f74cf2e501d2a91a3da7092ecdac082f18df
   react-native-mail: 021d8ee60e374609f5689ef354dc8e36839a9ba6
-  react-native-netinfo: 3dd993921571d01b78a8f91f1caaffcab7a1e1c7
+  react-native-netinfo: 34f4d7a42f49157f3b45c14217d256bce7dc9682
+  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
   react-native-version-number: 15563dc4145a94aabfc1faab2a9af10174a4204e
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
@@ -495,9 +517,12 @@ SPEC CHECKSUMS:
   ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
   RNBackgroundFetch: 7cffcc445ef3614487ea506d4fa5a7dda47328d3
   RNCAsyncStorage: 8324611026e8dc3706f829953aa6e3899f581589
+  RNCClipboard: 879d10980df1c0a241d4d52aa15f14fae7af5f2c
   RNDeviceInfo: fd8296de6fca8b743cdc499b896f48e8a9f1faf5
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
+  RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
   RNSecureRandom: 0dcee021fdb3d50cd5cee5db0ebf583c42f5af0e
   RNShare: 48cf88cadf9ca2143cdaa557c1ec7f8808040ffc
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681

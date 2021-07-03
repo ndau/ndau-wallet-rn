@@ -38,7 +38,7 @@ class AccountLockChooseAccount extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount = async () => {
+  UNSAFE_componentWillMount = async () => {
     const accountsCanRxEAI = this.props.navigation.getParam(
       'accountsCanRxEAI',
       {}

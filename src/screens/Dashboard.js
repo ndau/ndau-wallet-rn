@@ -59,7 +59,7 @@ class Dashboard extends Component {
     this.setState({ appState: nextAppState })
   }
 
-  componentDidMount () {
+  UNSAFE_componentWillMount () {
     const user = UserStore.getUser()
 
     LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
@@ -77,7 +77,7 @@ class Dashboard extends Component {
     }
   }
 
-  componentWillMount = async () => {
+  UNSAFE_componentWillMount = async () => {
     AppState.addEventListener('change', this._handleAppStateChange)
   }
 

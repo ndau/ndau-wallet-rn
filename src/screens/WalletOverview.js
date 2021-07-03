@@ -69,7 +69,7 @@ class WalletOverview extends Component {
     this.setState({ appState: nextAppState })
   }
 
-  componentWillMount = async () => {
+  UNSAFE_componentWillMount = async () => {
     AppState.addEventListener('change', this._handleAppStateChange)
 
     if (this.props.navigation.getParam('refresh')) {

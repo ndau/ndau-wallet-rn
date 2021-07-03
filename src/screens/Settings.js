@@ -38,7 +38,7 @@ class Settings extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     const mainnet = await AsyncStorageHelper.isMainNet()
     const devnet = await AsyncStorageHelper.isDevNet()
     const testnet = await AsyncStorageHelper.isTestNet()

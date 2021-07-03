@@ -25,7 +25,7 @@ class SetupYourWallet extends Component {
     this.props.navigation.navigate('SetupRecoveryPhrase')
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
   }
 

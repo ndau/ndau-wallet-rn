@@ -115,7 +115,7 @@ class SetupGetRecoveryPhrase extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount () {
+  UNSAFE_componentWillMount () {
     if (Platform.OS === 'ios') {
       this.keyboardWillShowSub = Keyboard.addListener(
         'keyboardWillShow',

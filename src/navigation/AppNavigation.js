@@ -10,10 +10,10 @@
 
 import React from 'react'
 import {
-  createStackNavigator,
   createSwitchNavigator,
   createAppContainer
 } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 import DashboardNavigation from './DashboardNavigation'
 import ContactSupportNavigation from './ContactSupportNavigation'
 import WalletOverviewNavigation from './WalletOverviewNavigation'
@@ -35,91 +35,91 @@ const ContactSupportScreen = ({ navigation }) => (
   <ContactSupport navigation={navigation} />
 )
 ContactSupportScreen.navigationOptions = {
-  header: null
+    headerShown: false
 }
 
 const AuthenticationScreen = ({ navigation }) => (
   <Authentication navigation={navigation} />
 )
 AuthenticationScreen.navigationOptions = {
-  header: null
+    headerShown: false
 }
 
 const SetupWelcomeScreen = ({ navigation }) => (
   <SetupWelcome navigation={navigation} />
 )
 SetupWelcomeScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupWalletNameScreen = ({ navigation }) => (
   <SetupWalletName navigation={navigation} />
 )
 SetupWalletNameScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupNewOrRecoveryScreen = ({ navigation }) => (
   <SetupNewOrRecovery navigation={navigation} />
 )
 SetupNewOrRecoveryScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupEncryptionPasswordScreen = ({ navigation }) => (
   <SetupEncryptionPassword navigation={navigation} />
 )
 SetupEncryptionPasswordScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupConfirmRecoveryPhraseScreen = ({ navigation }) => (
   <SetupConfirmRecoveryPhrase navigation={navigation} />
 )
 SetupConfirmRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupRecoveryPhraseScreen = ({ navigation }) => (
   <SetupRecoveryPhrase navigation={navigation} />
 )
 SetupRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupGetRecoveryPhraseScreen = ({ navigation }) => (
   <SetupGetRecoveryPhrase navigation={navigation} />
 )
 SetupGetRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupTermsOfServiceScreen = ({ navigation }) => (
   <SetupTermsOfService navigation={navigation} />
 )
 SetupTermsOfServiceScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupYourWalletScreen = ({ navigation }) => (
   <SetupYourWallet navigation={navigation} />
 )
 SetupYourWalletScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const DashboardNavigationScreen = ({ navigation }) => (
   <DashboardNavigation navigation={navigation} />
 )
 DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const WalletOverviewNavigationScreen = ({ navigation }) => (
   <WalletOverviewNavigation navigation={navigation} />
 )
 WalletOverviewNavigationScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const SetupStack = createStackNavigator({

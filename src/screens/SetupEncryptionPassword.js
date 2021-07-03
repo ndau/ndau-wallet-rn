@@ -89,7 +89,7 @@ class SetupEncryptionPassword extends Component {
     })
   }
 
-  componentWillMount () {
+  componentDidMount () {
     if (Platform.OS === 'ios') {
       this.keyboardWillShowSub = Keyboard.addListener(
         'keyboardWillShow',
