@@ -33,7 +33,11 @@ class AccountLockChooseAccount extends Component {
       lockInformation: null,
       accountsCanRxEAI: {},
       accountAddressForEAI: null,
-      accountNicknameForEAI: null
+      accountNicknameForEAI: null,
+      isLock: props.navigation.getParam(
+        'isLock',
+        null
+      )
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -81,6 +85,15 @@ class AccountLockChooseAccount extends Component {
     })
   }
 
+  _showSetEAIConfirmation = () => {
+    this.props.navigation.navigate('AccountSetEAIConfirmation', {
+      account: this.state.account,
+      wallet: this.state.wallet,
+      accountAddressForEAI: this.state.accountAddressForEAI,
+      accountNicknameForEAI: this.state.accountNicknameForEAI
+    })
+  }
+
   handleLockSelection = index => {
     this.setState({ selectedIndex: index })
   }
@@ -88,7 +101,7 @@ class AccountLockChooseAccount extends Component {
   render () {
     return (
       <AccountLockContainer
-        title='Lock account'
+        title={this.state.isLock ? 'Lock account' : 'Set EAI Destination'}
         account={this.state.account}
         wallet={this.state.wallet}
         navigation={this.props.nav}
@@ -123,7 +136,7 @@ class AccountLockChooseAccount extends Component {
             smallText={
               'Note: You will not be able to deposit into, spend, transfer, or otherwise access the principal in this account while it is locked'
             }
-            onPress={this._showLockConfirmation}
+            onPress={this.state.isLock ? this._showLockConfirmation : this._showSetEAIConfirmation}
           >
             Continue
           </AccountLockTypeButton>

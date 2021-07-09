@@ -77,6 +77,18 @@ class AccountDetails extends Component {
     })
   }
 
+  setEAI = (account, wallet) => {
+    AccountStore.setAccount(account)
+    WalletStore.setWallet(wallet)
+    this.props.navigation.navigate('AccountEAIType', {
+        account: this.state.account,
+        wallet: this.state.wallet,
+        lockInformation: null,
+        accountsCanRxEAI: this.state.accountsCanRxEAI,
+        isLock: false
+      })
+  }
+
   _presentFees = () => {
     this.setState({ showFeesModal: !this.state.showFeelsModal })
   }
@@ -247,6 +259,7 @@ class AccountDetails extends Component {
           lock={this.lock}
           send={this.send}
           receive={this.receive}
+          setEAI={this.setEAI}
           account={this.state.account}
           wallet={this.state.wallet}
           disableLock={!showAllAcctButtons}

@@ -455,7 +455,7 @@ export function AccountDetailsButtonPanel (props) {
           onPress={() => props.receive(props.account, props.wallet)}
           customIconName='arrow-alt-down'
         >
-          Receive
+          Recv
         </AccountButton>
       </View>
       <View>
@@ -465,6 +465,15 @@ export function AccountDetailsButtonPanel (props) {
           customIconName='lock'
         >
           Lock
+        </AccountButton>
+      </View>
+      <View>
+        <AccountButton
+          disabled={props.disableLock}
+          onPress={() => props.setEAI(props.account, props.wallet)}
+          customIconName='usd-circle'
+        >
+          SetEAI
         </AccountButton>
       </View>
     </View>
@@ -556,29 +565,52 @@ export function AccountClosingBar (props) {
 }
 
 export function AccountLockConfirmBottomPanel (props) {
-  return (
-    <View style={styles.accountLockButtonTypeContainer}>
-      <Label noMargin>Please enter the word 'Lock' to confirm</Label>
-      <TextInput
-        onChangeText={word => props.onChangeText(word)}
-        placeholder='Enter the word...'
-        value={props.word}
-        autoCapitalize='none'
-        noSideMargins
-      />
-      <Button
-        style={styles.accountLargeButton}
-        textStyle={styles.accountLargeButtonText}
-        uppercase={false}
-        {...props}
-      >
-        {props.children}
-      </Button>
-    </View>
-  )
-}
-
-export function AccountSendButton (props) {
+    return (
+      <View style={styles.accountLockButtonTypeContainer}>
+        <Label noMargin>Please enter the word 'Lock' to confirm</Label>
+        <TextInput
+          onChangeText={word => props.onChangeText(word)}
+          placeholder='Enter the word...'
+          value={props.word}
+          autoCapitalize='none'
+          noSideMargins
+        />
+        <Button
+          style={styles.accountLargeButton}
+          textStyle={styles.accountLargeButtonText}
+          uppercase={false}
+          {...props}
+        >
+          {props.children}
+        </Button>
+      </View>
+    )
+  }
+  
+  export function AccountSetEAIConfirmBottomPanel (props) {
+    return (
+      <View style={styles.accountLockButtonTypeContainer}>
+        <Label noMargin>Please enter the word 'SetEAI' to confirm</Label>
+        <TextInput
+          onChangeText={word => props.onChangeText(word)}
+          placeholder='Enter the word...'
+          value={props.word}
+          autoCapitalize='none'
+          noSideMargins
+        />
+        <Button
+          style={styles.accountLargeButton}
+          textStyle={styles.accountLargeButtonText}
+          uppercase={false}
+          {...props}
+        >
+          {props.children}
+        </Button>
+      </View>
+    )
+  }
+  
+  export function AccountSendButton (props) {
   return (
     <View style={styles.accountSendButtonContainer}>
       <View>

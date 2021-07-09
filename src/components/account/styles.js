@@ -68,7 +68,7 @@ export default StyleSheet.create({
     })
   },
   accountButton: {
-    width: wp('30%'),
+    width: wp('20%'),
     height: hp('5%'),
     borderRadius: 22,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,

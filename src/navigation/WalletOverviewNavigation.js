@@ -15,7 +15,7 @@ import WalletOverview from '../screens/WalletOverview'
 import AppDrawer from './AppDrawer'
 import AccountDetails from '../screens/AccountDetails'
 import AccountLock from '../screens/AccountLock'
-import AccountLockType from '../screens/AccountLockType'
+import AccountEAIType from '../screens/AccountEAIType'
 import AccountLockChooseAccount from '../screens/AccountLockChooseAccount'
 import AccountUnlock from '../screens/AccountUnlock'
 import AccountSend from '../screens/AccountSend'
@@ -23,6 +23,7 @@ import AccountReceive from '../screens/AccountReceive'
 import AccountSendConfirmation from '../screens/AccountSendConfirmation'
 import AccountHistory from '../screens/AccountHistory'
 import AccountLockConfirmation from '../screens/AccountLockConfirmation'
+import AccountSetEAIConfirmation from '../screens/AccountSetEAIConfirmation'
 
 const WalletOverviewScreen = ({ navigation }) => (
   <WalletOverview navigation={navigation} />
@@ -45,10 +46,10 @@ AccountLockScreen.navigationOptions = ({ navigation }) => ({
     headerShown: false
 })
 
-const AccountLockTypeScreen = ({ navigation }) => (
-  <AccountLockType navigation={navigation} />
+const AccountEAITypeScreen = ({ navigation }) => (
+  <AccountEAIType navigation={navigation} />
 )
-AccountLockTypeScreen.navigationOptions = ({ navigation }) => ({
+AccountEAITypeScreen.navigationOptions = ({ navigation }) => ({
     headerShown: false
 })
 
@@ -95,24 +96,32 @@ AccountHistoryScreen.navigationOptions = ({ navigation }) => ({
 })
 
 const AccountLockConfirmationScreen = ({ navigation }) => (
-  <AccountLockConfirmation navigation={navigation} />
+    <AccountLockConfirmation navigation={navigation} />
 )
 AccountLockConfirmationScreen.navigationOptions = ({ navigation }) => ({
     headerShown: false
 })
-
+  
+const AccountSetEAIConfirmationScreen = ({ navigation }) => (
+    <AccountSetEAIConfirmation navigation={navigation} />
+)
+AccountSetEAIConfirmationScreen.navigationOptions = ({ navigation }) => ({
+    headerShown: false
+})
+  
 const WalletOverviewStack = createStackNavigator({
   WalletOverview: { screen: WalletOverviewScreen },
   AccountDetails: { screen: AccountDetailsScreen },
   AccountLock: { screen: AccountLockScreen },
-  AccountLockType: { screen: AccountLockTypeScreen },
+  AccountEAIType: { screen: AccountEAITypeScreen },
   AccountLockChooseAccount: { screen: AccountLockChooseAccountScreen },
   AccountUnlock: { screen: AccountUnlockScreen },
   AccountSend: { screen: AccountSendScreen },
   AccountReceive: { screen: AccountReceiveScreen },
   AccountSendConfirmation: { screen: AccountSendConfirmationScreen },
   AccountHistory: { screen: AccountHistoryScreen },
-  AccountLockConfirmation: { screen: AccountLockConfirmationScreen }
+  AccountLockConfirmation: { screen: AccountLockConfirmationScreen },
+  AccountSetEAIConfirmation: { screen: AccountSetEAIConfirmationScreen }
 })
 
 const WalletOverviewNavigation = createDrawerNavigator(

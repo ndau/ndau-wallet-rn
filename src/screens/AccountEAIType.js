@@ -30,7 +30,7 @@ const COMPOUND_TO_THIS_ACCOUNT = '1'
 const COMPOUND_TO_NEW_ACCOUNT = '2'
 const CHOOSE_ON_NEXT_SCREEN = '3'
 
-class AccountLockType extends Component {
+class AccountEAIType extends Component {
   constructor (props) {
     super(props)
     const account = AccountStore.getAccount()
@@ -49,7 +49,11 @@ class AccountLockType extends Component {
         'lockInformation',
         null
       ),
-      spinner: false
+      spinner: false,
+      isLock: props.navigation.getParam(
+        'isLock',
+        null
+      ),
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
@@ -91,20 +95,23 @@ class AccountLockType extends Component {
         account: this.state.account,
         wallet: this.state.wallet,
         lockInformation: this.state.lockInformation,
-        accountsCanRxEAI: this.state.accountsCanRxEAI
+        accountsCanRxEAI: this.state.accountsCanRxEAI,
+        isLock: this.state.isLock
       })
     } else if (this.state.lockType === COMPOUND_TO_NEW_ACCOUNT) {
       this._createNewAccount()
     } else {
-      this._showLockConfirmation()
+      if (this.state.isLock) {
+        this._showLockConfirmation()
+      } else {
+        this._showSetEAIConfirmation()
+      }
     }
   }
 
   _createNewAccount = async () => {
     this.setState({ spinner: true }, async () => {
-      LogStore.log(
-        `spinner 1 = ${this.state.spinner}`
-      )
+      LogStore.log(`spinner 1 = ${this.state.spinner}`)
         
       const wallet = await AccountHelper.createAccounts(this.state.wallet)
       const newAccountIndex = Object.keys(wallet.accounts).length - 1
@@ -117,19 +124,17 @@ class AccountLockType extends Component {
           spinner: false
         },
         () => {
-          LogStore.log(
-            `spinner 2 = ${this.state.spinner}`
-          )
+            LogStore.log(`spinner 2 = ${this.state.spinner}`)
         
-          this._showLockConfirmation()
-          LogStore.log(
-            `spinner 3 = ${this.state.spinner}`
-          )
+            if (this.state.isLock) {
+                this._showLockConfirmation()
+            } else {
+                this._showSetEAIConfirmation()
+            }
+            LogStore.log(`spinner 3 = ${this.state.spinner}`)
         }
       )
-      LogStore.log(
-        `spinner 4 = ${this.state.spinner}`
-      )
+      LogStore.log(`spinner 4 = ${this.state.spinner}`)
     })
   }
 
@@ -138,6 +143,15 @@ class AccountLockType extends Component {
       account: this.state.account,
       wallet: this.state.wallet,
       lockInformation: this.state.lockInformation,
+      accountAddressForEAI: this.state.accountAddressForEAI,
+      accountNicknameForEAI: this.state.accountNicknameForEAI
+    })
+  }
+
+  _showSetEAIConfirmation = () => {
+    this.props.navigation.navigate('AccountSetEAIConfirmation', {
+      account: this.state.account,
+      wallet: this.state.wallet,
       accountAddressForEAI: this.state.accountAddressForEAI,
       accountNicknameForEAI: this.state.accountNicknameForEAI
     })
@@ -157,7 +171,7 @@ class AccountLockType extends Component {
     }
     return (
       <AccountLockContainer
-        title='Lock account'
+        title='Set EAI Destination'
         account={this.state.account}
         wallet={this.state.wallet}
         navigation={this.props.nav}
@@ -193,4 +207,4 @@ class AccountLockType extends Component {
   }
 }
 
-export default AccountLockType
+export default AccountEAIType

@@ -100,11 +100,12 @@ class AccountLock extends Component {
   }
 
   _selectAccountToSendEAI = () => {
-    this.props.navigation.navigate('AccountLockType', {
+    this.props.navigation.navigate('AccountEAIType', {
       account: this.state.account,
       wallet: this.state.wallet,
       lockInformation: this.state.possibleLocks[this.state.selectedIndex],
-      accountsCanRxEAI: this.state.accountsCanRxEAI
+      accountsCanRxEAI: this.state.accountsCanRxEAI,
+      isLock: true
     })
   }
 
