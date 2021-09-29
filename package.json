@@ -78,7 +78,7 @@
     "ndaujs": "github:ndau/ndaujs",
     "prop-types": "15.7.2",
     "react": "16.8.6",
-    "react-native": "0.60.4",
+    "react-native": "0.62.3",
     "react-native-autocomplete-input": "3.6.0",
     "react-native-background-fetch": "2.6.0",
     "react-native-barcode-mask": "1.0.5",
