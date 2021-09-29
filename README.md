@@ -2,18 +2,16 @@
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app). The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
-Below you will find instructions on how to get ndau wallet running in both Android and iOS. Please make sure to follow the [Getting Started](#getting-started) link first as there are quite a few things that need to be installed before you can start. Please also if you find something missing feel free to update! :)
-
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
-- [Mandatory Scripts](#mandatory-scripts)
-- [Available Scripts](#available-scripts)
+- [Build Instructions](#mandatory-scripts)
+- [Additional Build and Test Options](#available-scripts)
     - [`npm start`](#npm-start)
-        - [`npm test`](#npm-test)
-        - [`npm run ios`](#npm-run-ios)
-        - [`npm run android`](#npm-run-android)
+    - [`npm test`](#npm-test)
+    - [`npm run ios`](#npm-run-ios)
+    - [`npm run android`](#npm-run-android)
 - [Writing and Running Tests](#writing-and-running-tests)
 - [Circle-CI integration](#circle-ci-integration)
 - [Deployment](#deployment)
@@ -24,64 +22,69 @@ Below you will find instructions on how to get ndau wallet running in both Andro
 
 ## Getting Started
 
-The best place to start is the [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html) guide within the React Native documentation. Click on the Build Projects with Native Code link and go through both the iOS and Android sections. Here is an overall list you will need to install, the link gives more detail on each:
+Be sure you're familiar with the [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html) guide within the React Native documentation.
+
+Install the following tools:
 
 - `node` via `brew`
 - `watchman` via `brew`
   - `brew install watchman`
+- [nvm](https://github.com/creationix/nvm)
 - [`react-native-cli` via `npm`](https://www.npmjs.com/package/react-native-cli) - be sure to install it globally.
   - `npm install -g react-native-cli`
 - [Java SE Development Kit (JDK) 8 or newer](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
 - [Android Studio](https://developer.android.com/studio/)
+- [Cocoapods](https://cocoapods.org/)
+## Software Versions
 
-## Mandatory Scripts
+These instructions are current as of the following releases:
+ - macOS 11.6 (Big Sur)
+ - Xcode 13.0
+ - nvm 0.38.0
+ - node v14.18.0
+ - npm 6.14.15
+ - Cocoapods 1.11.2
+## Build Instructions
 
-You must run the following scripts before you can begin using this application.
-
-We installed node...but that gets the latest we want verison 10. First navigate to the [nvm](https://github.com/creationix/nvm) site to install nvm. Then execuite the commands below after a successful installation.
-
+Use `nvm` to install `Node.js`:
 ```
-nvm install v10
-nvm use v10
+nvm install v14.18.0
 ```
-
-Before we can run `npm install` you must make sure you have a `.npmrc` file in the `ndau-wallet-rn` folder. In that file make sure
-to include the following:
-
+The font assets used by the ndau wallet app are specified in the `.npmrc` file in the `ndau-wallet-rn` folder. As these are licensed fonts they are not included here. Contact a member of the core team to get the access token you will need.
 ```
 @fortawesome:registry=https://npm.fontawesome.com/
 //npm.fontawesome.com/:_authToken=YOUR_TOKEN_HERE
 ```
-
-Replace `YOUR_TOKEN_HERE` with the FontAwesomePro token. Please see
-KP for this. There is an examples file of you can use in `examples/npmrc`, this is the file CircleCI uses. Make sure you call the file
-`.npmrc` and not `npmrc`. See the `.circleci/config.yml` for what it does.
-
-Next we npm/yarn install:
-
-`npm install`
-`yarn install` (just incase you use yarn)
-
-Once this completes you must also make sure to run this command. This one sets up iOS and Android projects pointing to all the correct node_module libraries we use:
-
-`react-native link`
-
-After the above is run you MUST now run the following commands:
-
-`npm install`
-`yarn install` (just incase you use yarn)
-
-Next make sure you run the following command to get all the
-fonts used within the ndau wallet app
-
-`npm run load-assets`
-`yarn load-assets`
-
-## Available Scripts
-
-If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
-
+Replace `YOUR_TOKEN_HERE` with the FontAwesomePro token. The text above is correct - `@fortawesome` is not a typo.
+Now npm install:
+```
+npm install
+```
+Set up iOS and Android projects with the correct `node_module` libraries:
+```
+react-native link
+```
+Re-run `npm install` and load all assets:
+```
+npm install
+npm run load-assets
+```
+With `npm` running, load all required iOS pods. In a separate Terminal shell:
+```
+npm start
+```
+Leave it running and return to the original shell:
+```
+cd ios
+pod install
+```
+Build the wallet app and run it in the iOS Simulator:
+```
+cd ..
+npx react-native run-ios --simulator='iPhone 11'
+```
+## Additional build and test options
 ### `npm start`
 
 Runs your app in development mode.
