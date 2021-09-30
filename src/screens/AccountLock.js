@@ -53,7 +53,7 @@ class AccountLock extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount = async () => {
+  UNSAFE_componentWillMount = async () => {
     this.setState({ spinner: true }, async () => {
       const accountsCanRxEAI = this.props.navigation.getParam(
         'accountsCanRxEAI',

@@ -28,7 +28,7 @@ class SetupWalletName extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     const user = UserStore.getUser()
     if (user) {
       this.walletCount = Object.keys(user.wallets).length

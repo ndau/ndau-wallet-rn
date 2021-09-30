@@ -23,6 +23,8 @@ import AccountHelper from '../helpers/AccountHelper'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
 import FlashNotification from '../components/common/FlashNotification'
 import AppConfig from '../AppConfig'
+import LogStore from '../stores/LogStore'
+
 
 const COMPOUND_TO_THIS_ACCOUNT = '1'
 const COMPOUND_TO_NEW_ACCOUNT = '2'
@@ -31,46 +33,53 @@ const CHOOSE_ON_NEXT_SCREEN = '3'
 class AccountLockType extends Component {
   constructor (props) {
     super(props)
+    const account = AccountStore.getAccount()
     this.state = {
-      account: {},
-      wallet: {},
+      account: account,
+      wallet: WalletStore.getWallet(),
       whereToSendEAI: null,
       lockType: COMPOUND_TO_THIS_ACCOUNT,
-      accountsCanRxEAI: {},
-      accountAddressForEAI: null,
-      accountNicknameForEAI: null,
-      lockInformation: null,
+      accountsCanRxEAI: props.navigation.getParam(
+        'accountsCanRxEAI',
+        null
+      ),
+      accountAddressForEAI: account.address,
+      accountNicknameForEAI: account.addressData.nickname,
+      lockInformation: props.navigation.getParam(
+        'lockInformation',
+        null
+      ),
       spinner: false
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount = async () => {
-    const accountsCanRxEAI = this.props.navigation.getParam(
-      'accountsCanRxEAI',
-      null
-    )
-    const account = AccountStore.getAccount()
-    const wallet = WalletStore.getWallet()
-    const lockInformation = this.props.navigation.getParam(
-      'lockInformation',
-      null
-    )
+//   UNSAFE_componentWillMount = async () => {
+//     const accountsCanRxEAI = this.props.navigation.getParam(
+//       'accountsCanRxEAI',
+//       null
+//     )
+//     const account = AccountStore.getAccount()
+//     const wallet = WalletStore.getWallet()
+//     const lockInformation = this.props.navigation.getParam(
+//       'lockInformation',
+//       null
+//     )
 
-    const accountAddressForEAI = account.address
-    const accountNicknameForEAI = account.addressData.nickname
+//     const accountAddressForEAI = account.address
+//     const accountNicknameForEAI = account.addressData.nickname
 
-    this.setState({
-      spinner: false,
-      account,
-      wallet,
-      possibleLocks,
-      accountsCanRxEAI,
-      lockInformation,
-      accountAddressForEAI,
-      accountNicknameForEAI
-    })
-  }
+//     this.setState({
+//       spinner: false,
+//       account,
+//       wallet,
+//       possibleLocks,
+//       accountsCanRxEAI,
+//       lockInformation,
+//       accountAddressForEAI,
+//       accountNicknameForEAI
+//     })
+//   }
 
   _selectAccountToSendEAI = () => {
     this.setState({ whereToSendEAI: true })
@@ -93,6 +102,10 @@ class AccountLockType extends Component {
 
   _createNewAccount = async () => {
     this.setState({ spinner: true }, async () => {
+      LogStore.log(
+        `spinner 1 = ${this.state.spinner}`
+      )
+        
       const wallet = await AccountHelper.createAccounts(this.state.wallet)
       const newAccountIndex = Object.keys(wallet.accounts).length - 1
       this.setState(
@@ -104,8 +117,18 @@ class AccountLockType extends Component {
           spinner: false
         },
         () => {
+          LogStore.log(
+            `spinner 2 = ${this.state.spinner}`
+          )
+        
           this._showLockConfirmation()
+          LogStore.log(
+            `spinner 3 = ${this.state.spinner}`
+          )
         }
+      )
+      LogStore.log(
+        `spinner 4 = ${this.state.spinner}`
       )
     })
   }

@@ -15,9 +15,9 @@ import {
   Text,
   Linking,
   Platform,
-  ScrollView,
-  Clipboard
+  ScrollView
 } from 'react-native'
+import Clipboard from '@react-native-clipboard/clipboard';
 import { H4, H3, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'

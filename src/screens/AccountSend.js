@@ -78,7 +78,7 @@ class AccountSend extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
 

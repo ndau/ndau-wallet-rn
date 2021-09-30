@@ -54,7 +54,7 @@ class AccountDetails extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount = () => {
+  UNSAFE_componentWillMount = () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
     const accountsCanRxEAI = this.props.navigation.getParam(

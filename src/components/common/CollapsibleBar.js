@@ -37,7 +37,7 @@ class CollapsibleBar extends Component {
     iconSize: 32
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const {
       collapsible,
       clickable,
@@ -62,7 +62,7 @@ class CollapsibleBar extends Component {
           iconCollapsed,
           iconOpened
         },
-        Animated.timing(fadeAnim, { toValue: 1 }).start()
+        Animated.timing(fadeAnim, { toValue: 1, useNativeDriver: true }).start()
       )
     }
   }

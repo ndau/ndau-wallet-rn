@@ -33,7 +33,7 @@ class AccountReceive extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount = async () => {
+  UNSAFE_componentWillMount = async () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
     this.setState({ account, wallet })

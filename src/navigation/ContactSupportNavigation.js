@@ -9,7 +9,8 @@
  */
 
 import React from 'react'
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createStackNavigator } from 'react-navigation-stack'
 import ContactSupport from '../screens/ContactSupport'
 import AppDrawer from './AppDrawer'
 
@@ -17,7 +18,7 @@ const ContactSupportScreen = ({ navigation }) => (
   <ContactSupport navigation={navigation} />
 )
 ContactSupportScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const ContactSupportStack = createStackNavigator({

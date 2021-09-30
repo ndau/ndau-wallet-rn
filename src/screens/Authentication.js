@@ -59,7 +59,7 @@ class Authentication extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     if (Platform.OS === 'ios') {
       this.keyboardWillShowSub = Keyboard.addListener(
         'keyboardWillShow',

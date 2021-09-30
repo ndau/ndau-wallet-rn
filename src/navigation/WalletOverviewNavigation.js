@@ -9,7 +9,8 @@
  */
 
 import React from 'react'
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createStackNavigator } from 'react-navigation-stack'
 import WalletOverview from '../screens/WalletOverview'
 import AppDrawer from './AppDrawer'
 import AccountDetails from '../screens/AccountDetails'
@@ -27,77 +28,77 @@ const WalletOverviewScreen = ({ navigation }) => (
   <WalletOverview navigation={navigation} />
 )
 WalletOverviewScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountDetailsScreen = ({ navigation }) => (
   <AccountDetails navigation={navigation} />
 )
 AccountDetailsScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountLockScreen = ({ navigation }) => (
   <AccountLock navigation={navigation} />
 )
 AccountLockScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountLockTypeScreen = ({ navigation }) => (
   <AccountLockType navigation={navigation} />
 )
 AccountLockTypeScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountLockChooseAccountScreen = ({ navigation }) => (
   <AccountLockChooseAccount navigation={navigation} />
 )
 AccountLockChooseAccountScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountUnlockScreen = ({ navigation }) => (
   <AccountUnlock navigation={navigation} />
 )
 AccountUnlockScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountSendScreen = ({ navigation }) => (
   <AccountSend navigation={navigation} />
 )
 AccountSendScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountReceiveScreen = ({ navigation }) => (
   <AccountReceive navigation={navigation} />
 )
 AccountReceiveScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountSendConfirmationScreen = ({ navigation }) => (
   <AccountSendConfirmation navigation={navigation} />
 )
 AccountSendConfirmationScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountHistoryScreen = ({ navigation }) => (
   <AccountHistory navigation={navigation} />
 )
 AccountHistoryScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const AccountLockConfirmationScreen = ({ navigation }) => (
   <AccountLockConfirmation navigation={navigation} />
 )
 AccountLockConfirmationScreen.navigationOptions = ({ navigation }) => ({
-  header: null
+    headerShown: false
 })
 
 const WalletOverviewStack = createStackNavigator({

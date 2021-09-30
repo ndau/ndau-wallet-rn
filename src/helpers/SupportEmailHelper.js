@@ -10,7 +10,8 @@
 
 import LogStore from '../stores/LogStore'
 
-const Mailer = require('NativeModules').RNMail
+// const Mailer = require('NativeModules').RNMail
+import Mailer from 'react-native-mail';
 
 const sendSupportEmail = async (hardware, os, version) => {
   const path = await LogStore.writeLogFile()
