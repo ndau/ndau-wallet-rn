@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ndauwalletrnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ndauwalletrnTests.m */; };
-		02EB021EFFBF26C0486F8F3E /* libPods-ndauwalletrn-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C9A9CC53B7BE070109CFD8 /* libPods-ndauwalletrn-tvOS.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -24,7 +23,6 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* ndauwalletrnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ndauwalletrnTests.m */; };
 		3E407451B47E49E8A4A00279 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 287E465B4573448F94BC9387 /* libz.tbd */; };
-		4E8EF5C16A3449673025914A /* libPods-ndauwalletrn-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E1EA13E3D3E0DF04409A6F /* libPods-ndauwalletrn-tvOSTests.a */; };
 		9E255BC622152295004B2CFC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BAF22152294004B2CFC /* OpenSans-Bold.ttf */; };
 		9E255BC722152295004B2CFC /* TitilliumWeb-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BB022152294004B2CFC /* TitilliumWeb-Bold.ttf */; };
 		9E255BC922152295004B2CFC /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E255BB222152295004B2CFC /* OpenSans-Light.ttf */; };
@@ -353,18 +351,14 @@
 		2BAB778F815B70CED93A8F60 /* Pods-ndauwalletrn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrn.debug.xcconfig"; path = "Target Support Files/Pods-ndauwalletrn/Pods-ndauwalletrn.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* ndauwalletrn-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ndauwalletrn-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* ndauwalletrn-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ndauwalletrn-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		43E1EA13E3D3E0DF04409A6F /* libPods-ndauwalletrn-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ndauwalletrn-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47DAB571754742EBB9F53B6D /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		5A5CE278EB7D4DF499955694 /* libRNOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNOS.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		60739E1CEF8CE592681CC69A /* Pods-ndauwalletrn-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrn-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ndauwalletrn-tvOSTests/Pods-ndauwalletrn-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6350E27C2E6D4D5E87D2B311 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		6A4FF7953A9FF6FBFFDD3CEE /* Pods-ndauwalletrnTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrnTests.release.xcconfig"; path = "Target Support Files/Pods-ndauwalletrnTests/Pods-ndauwalletrnTests.release.xcconfig"; sourceTree = "<group>"; };
 		6D0DA73254563595FACE6B64 /* Pods-ndauwalletrn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrn.release.xcconfig"; path = "Target Support Files/Pods-ndauwalletrn/Pods-ndauwalletrn.release.xcconfig"; sourceTree = "<group>"; };
 		7609B7F7FE439BF49A6153EC /* libPods-ndauwalletrn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ndauwalletrn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		76AE36E5059EA78503B3B8D1 /* Pods-ndauwalletrn-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrn-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ndauwalletrn-tvOSTests/Pods-ndauwalletrn-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		81C9A9CC53B7BE070109CFD8 /* libPods-ndauwalletrn-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ndauwalletrn-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		877BFDB66FB8D0510AED7598 /* libPods-ndauwalletrnTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ndauwalletrnTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E255BAF22152294004B2CFC /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -395,12 +389,10 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C4C4CF2A8A9C319CF075CA88 /* Pods-ndauwalletrnTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrnTests.debug.xcconfig"; path = "Target Support Files/Pods-ndauwalletrnTests/Pods-ndauwalletrnTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D06263A25C844CAB9E1DB9C6 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
-		D107F8B68E5611FF0C4E0BCA /* Pods-ndauwalletrn-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrn-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ndauwalletrn-tvOS/Pods-ndauwalletrn-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DD58BF74CDBE463E9A40423D /* libRNRandomBytes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRandomBytes.a; sourceTree = "<group>"; };
 		DF0E38B9ECE24379833E53B9 /* libUdpSockets.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libUdpSockets.a; sourceTree = "<group>"; };
 		E14BCF54247349239FC1CD54 /* libRNRandomBytes-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNRandomBytes-tvOS.a"; sourceTree = "<group>"; };
 		E87C00B44758447C8C1408D4 /* libTcpSockets.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTcpSockets.a; sourceTree = "<group>"; };
-		F2790A1A8357B1412EC2E172 /* Pods-ndauwalletrn-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrn-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ndauwalletrn-tvOS/Pods-ndauwalletrn-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -441,7 +433,6 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				E00C51ECBF9C458287708D8F /* libRNRandomBytes-tvOS.a in Frameworks */,
-				02EB021EFFBF26C0486F8F3E /* libPods-ndauwalletrn-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +440,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E8EF5C16A3449673025914A /* libPods-ndauwalletrn-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,10 +502,6 @@
 			children = (
 				2BAB778F815B70CED93A8F60 /* Pods-ndauwalletrn.debug.xcconfig */,
 				6D0DA73254563595FACE6B64 /* Pods-ndauwalletrn.release.xcconfig */,
-				D107F8B68E5611FF0C4E0BCA /* Pods-ndauwalletrn-tvOS.debug.xcconfig */,
-				F2790A1A8357B1412EC2E172 /* Pods-ndauwalletrn-tvOS.release.xcconfig */,
-				60739E1CEF8CE592681CC69A /* Pods-ndauwalletrn-tvOSTests.debug.xcconfig */,
-				76AE36E5059EA78503B3B8D1 /* Pods-ndauwalletrn-tvOSTests.release.xcconfig */,
 				C4C4CF2A8A9C319CF075CA88 /* Pods-ndauwalletrnTests.debug.xcconfig */,
 				6A4FF7953A9FF6FBFFDD3CEE /* Pods-ndauwalletrnTests.release.xcconfig */,
 			);
@@ -573,8 +559,6 @@
 				47DAB571754742EBB9F53B6D /* libc++.tbd */,
 				287E465B4573448F94BC9387 /* libz.tbd */,
 				7609B7F7FE439BF49A6153EC /* libPods-ndauwalletrn.a */,
-				81C9A9CC53B7BE070109CFD8 /* libPods-ndauwalletrn-tvOS.a */,
-				43E1EA13E3D3E0DF04409A6F /* libPods-ndauwalletrn-tvOSTests.a */,
 				877BFDB66FB8D0510AED7598 /* libPods-ndauwalletrnTests.a */,
 			);
 			name = Frameworks;
@@ -774,7 +758,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ndauwalletrn-tvOS" */;
 			buildPhases = (
-				B97000A6D6F2137DC4E9B25B /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -794,7 +777,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ndauwalletrn-tvOSTests" */;
 			buildPhases = (
-				5F78A7EAB8CBD26BF00A6D64 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -1298,28 +1280,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5F78A7EAB8CBD26BF00A6D64 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ndauwalletrn-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9E5A202F21060EE80050CBD0 /* Increment Build */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1347,28 +1307,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
-		};
-		B97000A6D6F2137DC4E9B25B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ndauwalletrn-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		CF5341F4CF48EBCAFDCF4D0A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1474,6 +1412,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1504,6 +1443,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1606,7 +1546,6 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D107F8B68E5611FF0C4E0BCA /* Pods-ndauwalletrn-tvOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1647,7 +1586,6 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2790A1A8357B1412EC2E172 /* Pods-ndauwalletrn-tvOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1688,7 +1626,6 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60739E1CEF8CE592681CC69A /* Pods-ndauwalletrn-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1727,7 +1664,6 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 76AE36E5059EA78503B3B8D1 /* Pods-ndauwalletrn-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
