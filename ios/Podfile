@@ -46,21 +46,7 @@ target 'ndauwalletrn' do
     :hermes_enabled => false
   )
 
-
   target 'ndauwalletrnTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
-
-target 'ndauwalletrn-tvOS' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
-
-  # Pods for ndauwalletrn-tvOS
-
-  target 'ndauwalletrn-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
