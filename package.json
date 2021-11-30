@@ -68,7 +68,7 @@
     "events": "3.0.0",
     "jetifier": "^1.6.3",
     "lodash": "^4.17.21",
-    "metro-react-native-babel-preset": "0.54.1",
+    "metro-react-native-babel-preset": "^0.66.2",
     "moment": "2.24.0",
     "nachos-ui": "^0.2.0-beta.1",
     "ndaujs": "github:ndau/ndaujs",
