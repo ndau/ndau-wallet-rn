@@ -223,7 +223,7 @@ PODS:
     - React
   - react-native-netinfo (6.0.0):
     - React-Core
-  - react-native-safe-area-context (3.2.0):
+  - react-native-safe-area-context (3.3.2):
     - React-Core
   - react-native-version-number (0.3.6):
     - React
@@ -308,9 +308,9 @@ PODS:
     - React
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNReanimated (1.13.1):
-    - React
-  - RNScreens (3.4.0):
+  - RNReanimated (1.13.3):
+    - React-Core
+  - RNScreens (3.10.0):
     - React-Core
     - React-RCTImage
   - RNSecureRandom (1.0.0):
@@ -501,7 +501,7 @@ SPEC CHECKSUMS:
   react-native-camera: ea85f74cf2e501d2a91a3da7092ecdac082f18df
   react-native-mail: 021d8ee60e374609f5689ef354dc8e36839a9ba6
   react-native-netinfo: 34f4d7a42f49157f3b45c14217d256bce7dc9682
-  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
+  react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
   react-native-version-number: 15563dc4145a94aabfc1faab2a9af10174a4204e
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
@@ -523,8 +523,8 @@ SPEC CHECKSUMS:
   RNDeviceInfo: fd8296de6fca8b743cdc499b896f48e8a9f1faf5
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
-  RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
+  RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
+  RNScreens: 03ba504f8c98607ad1f07808e71040e0afa335ec
   RNSecureRandom: 0dcee021fdb3d50cd5cee5db0ebf583c42f5af0e
   RNShare: 48cf88cadf9ca2143cdaa557c1ec7f8808040ffc
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
