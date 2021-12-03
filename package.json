@@ -63,7 +63,6 @@
     "@react-native-community/netinfo": "^6.0.0",
     "@react-native-community/push-notification-ios": "^1.10.1",
     "axios": "^0.21.4",
-    "babel-preset-react-native": "4.0.1",
     "base-64": "0.1.0",
     "crypto-js": "3.1.9-1",
     "events": "3.0.0",
