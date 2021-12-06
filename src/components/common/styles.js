@@ -165,7 +165,7 @@ export default StyleSheet.create({
     overflow: 'visible'
   },
   ndauTotalText: {
-    color: '#8CC74F',
+    color: AppConstants.LIGHT_GREEN_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 36,
     fontWeight: '300',
@@ -408,7 +408,7 @@ export default StyleSheet.create({
   collapsiblePanelTitleLeft: {
     marginTop: hp('1%'),
     marginBottom: hp('1%'),
-    color: '#8CC74F',
+    color: AppConstants.LIGHT_GREEN_COLOR,
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 5,
     shadowOpacity: 0,

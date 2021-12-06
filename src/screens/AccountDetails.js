@@ -292,7 +292,7 @@ class AccountDetails extends Component {
             ) : null}
             {receivingEAIFrom ? (
               <AccountParagraphText
-                customIconColor='#8CC74F'
+                customIconColor={AppConstants.LIGHT_GREEN_COLOR}
                 customIconName='arrow-alt-down'
               >
                 Receiving EAI from {receivingEAIFrom}
