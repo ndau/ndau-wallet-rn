@@ -34,9 +34,6 @@ target 'ndauwalletrn' do
   # pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   # pod 'RCT-Folly', :podspec => '../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec'
 
-  # pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
-
-  pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
   pod 'React', :path => '../node_modules/react-native/'
 
   config = use_native_modules!
@@ -45,8 +42,6 @@ target 'ndauwalletrn' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
-
-  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
   target 'ndauwalletrnTests' do
     inherit! :search_paths

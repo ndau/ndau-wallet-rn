@@ -135,15 +135,6 @@ PODS:
     - React-jsiexecutor (= 0.66.3)
     - React-perflogger (= 0.66.3)
     - Yoga
-  - React-Core/RCTPushNotificationHeaders (0.66.3):
-    - glog
-    - RCT-Folly (= 2021.06.28.00-v2)
-    - React-Core/Default
-    - React-cxxreact (= 0.66.3)
-    - React-jsi (= 0.66.3)
-    - React-jsiexecutor (= 0.66.3)
-    - React-perflogger (= 0.66.3)
-    - Yoga
   - React-Core/RCTSettingsHeaders (0.66.3):
     - glog
     - RCT-Folly (= 2021.06.28.00-v2)
@@ -232,7 +223,7 @@ PODS:
     - React
   - react-native-netinfo (6.0.0):
     - React-Core
-  - react-native-safe-area-context (3.2.0):
+  - react-native-safe-area-context (3.3.2):
     - React-Core
   - react-native-version-number (0.3.6):
     - React
@@ -274,12 +265,6 @@ PODS:
     - React-Core/RCTNetworkHeaders (= 0.66.3)
     - React-jsi (= 0.66.3)
     - ReactCommon/turbomodule/core (= 0.66.3)
-  - React-RCTPushNotification (0.66.3):
-    - FBReactNativeSpec (= 0.66.3)
-    - RCTTypeSafety (= 0.66.3)
-    - React-Core/RCTPushNotificationHeaders (= 0.66.3)
-    - React-jsi (= 0.66.3)
-    - ReactCommon/turbomodule/core (= 0.66.3)
   - React-RCTSettings (0.66.3):
     - FBReactNativeSpec (= 0.66.3)
     - RCT-Folly (= 2021.06.28.00-v2)
@@ -315,15 +300,17 @@ PODS:
     - React-Core
   - RNCClipboard (1.8.2):
     - React-Core
+  - RNCPushNotificationIOS (1.10.1):
+    - React-Core
   - RNDeviceInfo (2.1.2):
     - React
   - RNFS (2.18.0):
     - React
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNReanimated (1.13.1):
-    - React
-  - RNScreens (3.4.0):
+  - RNReanimated (1.13.3):
+    - React-Core
+  - RNScreens (3.10.0):
     - React-Core
     - React-RCTImage
   - RNSecureRandom (1.0.0):
@@ -367,7 +354,6 @@ DEPENDENCIES:
   - React-RCTImage (from `../node_modules/react-native/Libraries/Image`)
   - React-RCTLinking (from `../node_modules/react-native/Libraries/LinkingIOS`)
   - React-RCTNetwork (from `../node_modules/react-native/Libraries/Network`)
-  - React-RCTPushNotification (from `../node_modules/react-native/Libraries/PushNotificationIOS`)
   - React-RCTSettings (from `../node_modules/react-native/Libraries/Settings`)
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
@@ -377,6 +363,7 @@ DEPENDENCIES:
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -452,8 +439,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/LinkingIOS"
   React-RCTNetwork:
     :path: "../node_modules/react-native/Libraries/Network"
-  React-RCTPushNotification:
-    :path: "../node_modules/react-native/Libraries/PushNotificationIOS"
   React-RCTSettings:
     :path: "../node_modules/react-native/Libraries/Settings"
   React-RCTText:
@@ -472,6 +457,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFS:
@@ -514,7 +501,7 @@ SPEC CHECKSUMS:
   react-native-camera: ea85f74cf2e501d2a91a3da7092ecdac082f18df
   react-native-mail: 021d8ee60e374609f5689ef354dc8e36839a9ba6
   react-native-netinfo: 34f4d7a42f49157f3b45c14217d256bce7dc9682
-  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
+  react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
   react-native-version-number: 15563dc4145a94aabfc1faab2a9af10174a4204e
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
@@ -523,7 +510,6 @@ SPEC CHECKSUMS:
   React-RCTImage: f990d6b272c7e89ff864caf0bccfb620ab3ca5d0
   React-RCTLinking: 2280ed0d5ffb78954b484b90228d597b5f941c5f
   React-RCTNetwork: 1359fa853c216616e711b810dcb8682a6a8e7564
-  React-RCTPushNotification: 2442f0fcbba9c30d69519a3beda0723fab7e56a6
   React-RCTSettings: 84958860aaa3639f0249e751ea7702c62eb67188
   React-RCTText: 196cf06b8cb6229d8c6dd9fc9057bdf97db5d3fb
   React-RCTVibration: 50cfe7049167cfc7e83ac5542c6fff0c76791a9b
@@ -533,16 +519,17 @@ SPEC CHECKSUMS:
   RNBackgroundFetch: 7cffcc445ef3614487ea506d4fa5a7dda47328d3
   RNCAsyncStorage: 8324611026e8dc3706f829953aa6e3899f581589
   RNCClipboard: 879d10980df1c0a241d4d52aa15f14fae7af5f2c
+  RNCPushNotificationIOS: 089da3b657e1e3d464f38195fd2e3069608ef5af
   RNDeviceInfo: fd8296de6fca8b743cdc499b896f48e8a9f1faf5
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
-  RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
+  RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
+  RNScreens: 03ba504f8c98607ad1f07808e71040e0afa335ec
   RNSecureRandom: 0dcee021fdb3d50cd5cee5db0ebf583c42f5af0e
   RNShare: 48cf88cadf9ca2143cdaa557c1ec7f8808040ffc
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
 
-PODFILE CHECKSUM: bacd0492c62593d59605332b6997ae5c541363c8
+PODFILE CHECKSUM: 07557e6e9d98ed602f793223610978a69a41c58d
 
 COCOAPODS: 1.11.2

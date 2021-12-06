@@ -9,7 +9,7 @@
  */
 
 import React from 'react'
-import { YellowBox, View, Text, NativeModules } from 'react-native'
+import { LogBox, View, Text, NativeModules } from 'react-native'
 import AppNavigation from './navigation/AppNavigation'
 import FlashMessage from 'react-native-flash-message'
 import OfflineMessage from './components/common/OfflineMessage'
@@ -21,11 +21,11 @@ import { configureFontAwesomePro } from 'react-native-fontawesome-pro'
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
 
-YellowBox.ignoreWarnings([
+LogBox.ignoreLogs([
   'Warning: isMounted(...) is deprecated',
   'Module RCTImageLoader'
 ])
-YellowBox.ignoreWarnings(['Class RCTCxxModule'])
+LogBox.ignoreLogs(['Class RCTCxxModule'])
 
 configureFontAwesomePro('light')
 
