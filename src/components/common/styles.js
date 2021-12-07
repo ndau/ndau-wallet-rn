@@ -422,7 +422,6 @@ export default StyleSheet.create({
     marginTop: hp('1%'),
     marginBottom: hp('1%'),
     color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
     fontSize: 18,
     fontFamily: 'TitilliumWeb-Light'
   },
@@ -513,20 +512,17 @@ export default StyleSheet.create({
   },
   barTitleLeft: {
     color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: '400',
     fontFamily: 'TitilliumWeb-Light'
   },
   barTitleMiddle: {
     color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
     fontSize: 16,
     fontFamily: 'TitilliumWeb-Light'
   },
   barTitleRight: {
     color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
     fontSize: 16,
     fontFamily: 'TitilliumWeb-Light'
   },

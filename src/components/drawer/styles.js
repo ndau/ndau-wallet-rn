@@ -103,7 +103,6 @@ export default (styles = StyleSheet.create({
     fontWeight: '200',
     width: wp('76%'),
     height: hp('6%'),
-    textAlign: 'center',
     paddingTop: 4,
     marginLeft: '-10%',
     zIndex: -1,

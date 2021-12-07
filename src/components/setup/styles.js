@@ -30,10 +30,6 @@ export default StyleSheet.create({
     bottom: 450,
     right: 80
   },
-  outerDrawerContainer: {
-    flex: 1,
-    height: hp('100%')
-  },
   setupWelcomeContainer: {
     flex: 1,
     width: wp('100%'),

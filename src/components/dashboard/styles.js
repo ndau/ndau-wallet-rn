@@ -35,7 +35,6 @@ export default StyleSheet.create({
     textShadowColor: 'rgba(78,149,122,1)'
   },
   walletOverviewSpendable: {
-    color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
     marginRight: wp('2%'),
