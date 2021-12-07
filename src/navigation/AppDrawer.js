@@ -54,16 +54,6 @@ class AppDrawer extends React.Component {
     this.props.navigation.navigate('Settings')
   }
 
-  sendSupportEmail = async () => {
-    this.closeDrawer()
-
-    await SupportEmailHelper.sendSupportEmail(
-      this.getHardware(),
-      this.getOs(),
-      this.getVersion()
-    )
-  }
-
   getHardware () {
     return DeviceInfo.getManufacturer() + ' ' + DeviceInfo.getModel()
   }

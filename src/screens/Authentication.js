@@ -170,11 +170,6 @@ class Authentication extends Component {
     )
   }
 
-  showSetup = async () => {
-    FlashNotification.hideMessage()
-    this.props.navigation.navigate('SetupWelcome')
-  }
-
   showPasswordReset = user => {
     FlashNotification.hideMessage()
     this.props.navigation.navigate('SetupGetRecoveryPhrase', {
@@ -194,13 +189,6 @@ class Authentication extends Component {
     this.setState({
       userId: value
     })
-  }
-
-  _getDuration = event => {
-    if (event) {
-      this.eventDuration = event.duration
-    }
-    return event ? event.duration : this.eventDuration
   }
 
   keyboardWillShow = event => {

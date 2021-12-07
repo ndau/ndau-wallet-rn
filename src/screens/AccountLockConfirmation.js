@@ -181,10 +181,6 @@ class AccountLockConfirmation extends Component {
     })
   }
 
-  _goBack = () => {
-    this.props.navigation.goBack()
-  }
-
   _checkWord = word => {
     let confirmed = false
     if (word === 'Lock') {

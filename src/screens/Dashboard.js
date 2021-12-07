@@ -85,14 +85,6 @@ class Dashboard extends Component {
     AppState.removeEventListener('change')
   }
 
-  stopSpinner = () => {
-    this.setState({ spinner: false })
-  }
-
-  startSpinner = () => {
-    this.setState({ spinner: true })
-  }
-
   _loadMetricsAndSetState = user => {
     const accounts = DataFormatHelper.getObjectWithAllAccounts(user)
     const totalNdau = new NdauNumber(

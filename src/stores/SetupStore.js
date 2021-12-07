@@ -26,7 +26,6 @@ class SetupStore {
     this._entropy = ''
     this._recoveryPhrase = ''
     this._shuffledMap = []
-    this._shuffledWord = []
     this._addressType = AppConstants.MAINNET_ADDRESS
     this._walletId = ''
   }
@@ -95,23 +94,6 @@ class SetupStore {
     return this._shuffledMap
   }
 
-  toggleAddressType () {
-    const oldAddressType = this._addressType
-    const newAddressType =
-      this._addressType === AppConstants.MAINNET_ADDRESS
-        ? AppConstants.TESTNET_ADDRESS
-        : AppConstants.MAINNET_ADDRESS
-
-    Alert.alert(
-      'Information',
-      `Old address type was ${oldAddressType} which has been moved to ${newAddressType}`,
-      [{ text: 'OK', onPress: () => {} }],
-      { cancelable: false }
-    )
-
-    this._addressType = newAddressType
-  }
-
   get addressType () {
     return this._addressType
   }
@@ -141,7 +123,6 @@ class SetupStore {
     this._entropy = ''
     this._recoveryPhrase = ''
     this._shuffledMap = []
-    this._shuffledWord = []
     this._addressType = AppConstants.MAINNET_ADDRESS
     this._walletId = ''
   }

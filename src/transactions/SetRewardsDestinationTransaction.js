@@ -16,8 +16,6 @@ export class SetRewardsDestinationTransaction {
     this._destination = destination
     this._keys = wallet.keys
     this._jsonTransaction = {}
-    this._submitAddress = ''
-    this._prevalidateAddress = ''
 
     if (!this._wallet || !this._account) {
       throw new Error('You must pass wallet and account')

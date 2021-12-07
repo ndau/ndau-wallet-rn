@@ -96,24 +96,3 @@ export const DrawerHeader = props => {
     </View>
   )
 }
-
-export const DrawerHeaderForOverview = props => {
-  return (
-    <View style={styles.drawerHeaderContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.openDrawer()
-        }}
-      >
-        <Icon
-          name='bars'
-          size={32}
-          color='#fff'
-          containerStyle={styles.drawerButton}
-          type='light'
-        />
-      </TouchableOpacity>
-      <H4 style={styles.drawerHeaderTextForOverview}>{props.children}</H4>
-    </View>
-  )
-}

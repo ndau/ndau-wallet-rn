@@ -30,14 +30,6 @@ export default class NdauNumber {
     }
   }
 
-  setNdau (ndau) {
-    this.napu = DataFormatHelper.getNapuFromNdau(ndau)
-  }
-
-  setNapu (napu) {
-    this.napu = napu
-  }
-
   // returns a string formatted for a summary display of ndau
   toSummary () {
     let ndau = ndaujs.formatNapuForDisplay(
