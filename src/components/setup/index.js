@@ -31,7 +31,7 @@ import {
 import styles from './styles'
 import AppConstants from '../../AppConstants'
 import Icon from 'react-native-fontawesome-pro'
-import cssStyles from '../../css/styles'
+import cssStyles from '../../styles/styles'
 import DataFormatHelper from '../../helpers/DataFormatHelper'
 import {
   widthPercentageToDP as wp,

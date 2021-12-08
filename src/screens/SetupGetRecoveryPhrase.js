@@ -40,7 +40,6 @@ import {
   ParagraphText,
   BottomLinkText
 } from '../components/common'
-import cssStyles from '../css/styles'
 import UserStore from '../stores/UserStore'
 import { CustomOneButtonAlert } from '../components/alerts'
 
