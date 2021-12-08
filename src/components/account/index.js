@@ -401,26 +401,6 @@ export function AccountButton (props) {
   )
 }
 
-export function LargeAccountButton (props) {
-  return (
-    <Button
-      style={styles.largeAccountButton}
-      textStyle={styles.accountButtonText}
-      uppercase={false}
-      {...props}
-    >
-      {props.children}{' '}
-      <Icon
-        name={props.customIconName}
-        size={18}
-        color={AppConstants.ICON_BUTTON_COLOR}
-        containerStyle={styles.accountAngle}
-        type='light'
-      />
-    </Button>
-  )
-}
-
 export function AccountTotalPanel (props) {
   const amount = new NdauNumber(
     AccountAPIHelper.accountNdauAmount(
@@ -690,14 +670,6 @@ export function AccountIconText (props) {
   )
 }
 
-export function AccountLockSmallerText (props) {
-  return (
-    <View>
-      <H4 style={styles.lockSmallerTextBold}>{props.children}</H4>
-    </View>
-  )
-}
-
 export function AccountHistoryPanel (props) {
   return <View style={styles.accountHistoryPanel}>{props.children}</View>
 }
@@ -706,16 +678,8 @@ export function AccountDetailPanel (props) {
   return <View style={styles.accountDetailsPanel}>{props.children}</View>
 }
 
-export function AccountReceivePanel (props) {
-  return <View style={styles.accountReceivePanel}>{props.children}</View>
-}
-
 export function AccountSendPanel (props) {
   return <View style={styles.accountSendPanel}>{props.children}</View>
-}
-
-export function AccountScanPanel (props) {
-  return <View style={styles.accountScan}>{props.children}</View>
 }
 
 export function AccountHistoryPanels (props) {

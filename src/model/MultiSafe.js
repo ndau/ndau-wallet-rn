@@ -68,7 +68,7 @@ class MultiSafe {
     try {
       const keys = await AsyncStorage.getAllKeys()
       const newKeys = keys.filter(
-        key => key.slice(0, MULTISAFE_PREFIX.length) == MULTISAFE_PREFIX
+        key => key.slice(0, MULTISAFE_PREFIX.length) === MULTISAFE_PREFIX
       )
       return newKeys
     } catch (error) {

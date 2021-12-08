@@ -339,13 +339,6 @@ class SetupGetRecoveryPhrase extends Component {
     }
   }
 
-  _getDuration = event => {
-    if (event) {
-      this.eventDuration = event.duration
-    }
-    return event ? event.duration : this.eventDuration
-  }
-
   keyboardWillShow = () => {
     this.setState({
       keyboardShown: true

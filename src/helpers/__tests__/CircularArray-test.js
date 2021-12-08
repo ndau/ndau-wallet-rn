@@ -25,7 +25,7 @@ test('handle the case were we have not taken up the full array yet', async () =>
   class FileIO {
     async appendFile (path, data, encoding) {
       fileData.push(data)
-      if (data == '8') {
+      if (data === '8') {
         expect(fileData.length).toBe(8)
         expect(fileData).toEqual(['1', '2', '3', '4', '5', '6', '7', '8'])
       }
@@ -47,7 +47,7 @@ test('handle the case were we have just filled the array', async () => {
   class FileIO {
     async appendFile (path, data, encoding) {
       fileData.push(data)
-      if (data == '5') {
+      if (data === '5') {
         expect(fileData.length).toBe(5)
         expect(fileData).toEqual(['1', '2', '3', '4', '5'])
       }
@@ -72,7 +72,7 @@ test('do not grow the array as entries get added', async () => {
   class FileIO {
     async appendFile (path, data, encoding) {
       fileData.push(data)
-      if (data == '8') {
+      if (data === '8') {
         expect(fileData.length).toBe(5)
         expect(fileData).toEqual(['4', '5', '6', '7', '8'])
       }
@@ -92,7 +92,7 @@ test('do not grow the array with a small amount of entries get added', async () 
   class FileIO {
     async appendFile (path, data, encoding) {
       fileData.push(data)
-      if (data.key == '9') {
+      if (data.key === '9') {
         expect(fileData.length).toBe(5)
       }
     }
@@ -111,7 +111,7 @@ test('do not grow the array with a medium amount of entries get added', async ()
   class FileIO {
     async appendFile (path, data, encoding) {
       fileData.push(data)
-      if (data.key == '299') {
+      if (data.key === '299') {
         expect(fileData.length).toBe(50)
       }
     }
@@ -130,7 +130,7 @@ test('do not grow the array with a large amount of entries get added', async () 
   class FileIO {
     async appendFile (path, data, encoding) {
       fileData.push(data)
-      if (data.key == '6999') {
+      if (data.key === '6999') {
         expect(fileData.length).toBe(1000)
       }
     }
@@ -149,7 +149,7 @@ test('do not grow the array with an extra large amount of entries get added', as
   class FileIO {
     async appendFile (path, data, encoding) {
       fileData.push(data)
-      if (data.key == '39999') {
+      if (data.key === '39999') {
         expect(fileData.length).toBe(5000)
       }
     }

@@ -26,9 +26,6 @@ class APINodeStore {
     this._apiNodeStore[0].node[node] = 0
   }
 
-  getSortedNode = () => {
-    return this._apiNodeStore[0]
-  }
 }
 
 const instance = new APINodeStore()

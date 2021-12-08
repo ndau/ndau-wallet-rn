@@ -90,19 +90,3 @@ export function DashboardLabelWithIcon (props) {
     </View>
   )
 }
-
-export function WalletOverviewSpendable (props) {
-  return (
-    <View style={[styles.walletOverviewLabelWithIconContainer, props.style]}>
-      <P style={[styles.dashboardLabelTextWithIcon]}>{props.children}</P>
-      <TouchableOpacity {...props}>
-        <Icon
-          size={24}
-          name='info-circle'
-          color={AppConstants.ICON_BUTTON_COLOR}
-          type='light'
-        />
-      </TouchableOpacity>
-    </View>
-  )
-}

@@ -70,13 +70,6 @@ class SetupEncryptionPassword extends Component {
     }
   }
 
-  _getDuration = event => {
-    if (event) {
-      this.eventDuration = event.duration
-    }
-    return event ? event.duration : this.eventDuration
-  }
-
   keyboardWillShow = event => {
     this.setState({
       upperHeight: '0%'
@@ -212,18 +205,6 @@ class SetupEncryptionPassword extends Component {
       confirmPassword,
       progress: confirmPassword.length > 0
     })
-  }
-
-  showInformation = () => {
-    Alert.alert(
-      'Information',
-      'We use encryption to protect your data. This password protects ' +
-        'this app on your mobile only. This is not the same thing as your ' +
-        'recovery phrase, which is the key to your wallet. We ' +
-        'recommend you use a strong password which you do not use anywhere else.',
-      [{ text: 'OK', onPress: () => {} }],
-      { cancelable: false }
-    )
   }
 
   render () {

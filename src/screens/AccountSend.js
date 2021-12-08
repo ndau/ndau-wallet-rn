@@ -113,10 +113,6 @@ class AccountSend extends Component {
     this.setState({ requestingAmount: true })
   }
 
-  _haveAmount = async () => {
-    this.setState({ requestingAmount: false })
-  }
-
   _requestTransactionFee = () => {
     // If we don't have a number or if the amount is zero then
     // we should short circuit here as there is nothing to

@@ -88,10 +88,10 @@ class TxSignPrep {
       c = this._lookup(s, i++)
       d = this._lookup(s, i++)
       t.push(((a << 2) & 0xfc) | ((b >> 4) & 0x03))
-      if (c != 64) {
+      if (c !== 64) {
         t.push(((b << 4) & 0xf0) | ((c >> 2) & 0x0f))
       }
-      if (d != 64) {
+      if (d !== 64) {
         t.push(((c << 6) & 0xc0) | (d & 0x3f))
       }
       this._bytes = t

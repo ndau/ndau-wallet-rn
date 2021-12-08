@@ -123,14 +123,6 @@ class WalletOverview extends Component {
     this.setState({ number: (this.state.number += 1) })
   }
 
-  stopSpinner = () => {
-    this.setState({ spinner: false })
-  }
-
-  startSpinner = () => {
-    this.setState({ spinner: true })
-  }
-
   launchAddNewAccountDialog = () => {
     this._newAccountModal.showModal()
   }

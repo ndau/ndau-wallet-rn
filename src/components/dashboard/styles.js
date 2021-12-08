@@ -28,19 +28,18 @@ export default StyleSheet.create({
     marginLeft: wp('4%')
   },
   walletOverviewGreenFont: {
-    color: '#8CC74F',
+    color: AppConstants.LIGHT_GREEN_COLOR,
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 5,
     shadowOpacity: 0,
     textShadowColor: 'rgba(78,149,122,1)'
   },
   walletOverviewSpendable: {
-    color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
     fontSize: 16,
     marginRight: wp('2%'),
     marginLeft: wp('4%'),
-    color: '#8CC74F',
+    color: AppConstants.LIGHT_GREEN_COLOR,
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 5,
     shadowOpacity: 0,
@@ -89,10 +88,6 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
     marginBottom: hp('3%')
-  },
-  opaqueOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    opacity: 0.9
   },
   dashboardTextVerySmallWhite: {
     color: AppConstants.TEXT_COLOR,

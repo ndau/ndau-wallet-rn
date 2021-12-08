@@ -111,7 +111,7 @@ export default StyleSheet.create({
   },
   accountPanelTotal: {
     marginRight: wp('4%'),
-    color: '#8CC74F',
+    color: AppConstants.LIGHT_GREEN_COLOR,
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 5,
     shadowOpacity: 0,
@@ -157,7 +157,7 @@ export default StyleSheet.create({
     marginTop: hp('1.5%')
   },
   accountTotalPanelText: {
-    color: '#8CC74F',
+    color: AppConstants.LIGHT_GREEN_COLOR,
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 5,
     shadowOpacity: 0,
@@ -590,7 +590,7 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   dashboardTotalTitleLeft: {
-    color: '#8CC74F',
+    color: AppConstants.LIGHT_GREEN_COLOR,
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 5,
     shadowOpacity: 0,

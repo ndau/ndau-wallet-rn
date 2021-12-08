@@ -20,7 +20,6 @@ export class SetValidationTransaction {
 
     this._keys = wallet.keys
     this._jsonTransaction = {}
-    this._submitAddress = ''
     this._prevalidateAddress = ''
 
     if (!this._wallet || !this._account) {
@@ -49,10 +48,6 @@ export class SetValidationTransaction {
       this._wallet,
       this._account.ownershipKey
     )
-  }
-
-  addSignatureToJsonTransaction = signature => {
-    this._jsonTransaction.signature = signature
   }
 
   getSignature = () => {

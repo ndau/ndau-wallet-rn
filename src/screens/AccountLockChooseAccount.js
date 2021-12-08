@@ -81,10 +81,6 @@ class AccountLockChooseAccount extends Component {
     })
   }
 
-  handleLockSelection = index => {
-    this.setState({ selectedIndex: index })
-  }
-
   render () {
     return (
       <AccountLockContainer

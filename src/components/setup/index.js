@@ -116,14 +116,6 @@ export function RecoveryConfirmationText (props) {
   )
 }
 
-export function RecoveryWordsText (props) {
-  return (
-    <Text style={[styles.recoveryConfirmationText]} {...props}>
-      {props.children}
-    </Text>
-  )
-}
-
 export function RecoveryConfirmationTextOnly (props) {
   return (
     <Text style={[styles.recoveryConfirmationTextOnly]} {...props}>

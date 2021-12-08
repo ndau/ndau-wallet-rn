@@ -507,12 +507,6 @@ export function CloseForBar (props) {
   )
 }
 
-export function CollapsablePanelText (props) {
-  return (
-    <Text style={styles.collapsibleTextVerySmallWhite}>{props.children}</Text>
-  )
-}
-
 const NDAU = require('img/ndau_orange_logo.png')
 
 export function LoginImage (props) {

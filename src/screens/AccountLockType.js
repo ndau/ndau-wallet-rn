@@ -81,10 +81,6 @@ class AccountLockType extends Component {
 //     })
 //   }
 
-  _selectAccountToSendEAI = () => {
-    this.setState({ whereToSendEAI: true })
-  }
-
   _handleAccountSelection = () => {
     if (this.state.lockType === CHOOSE_ON_NEXT_SCREEN) {
       this.props.navigation.navigate('AccountLockChooseAccount', {

@@ -96,7 +96,6 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderColor: '#4d9678',
     backgroundColor: '#4d9678',
-    borderRadius: 3,
     fontFamily: 'TitilliumWeb-Light',
     marginLeft: wp('0.5%'),
     marginRight: wp('0.5%'),
