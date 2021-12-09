@@ -54,33 +54,6 @@ class AccountLockType extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-//   UNSAFE_componentWillMount = async () => {
-//     const accountsCanRxEAI = this.props.navigation.getParam(
-//       'accountsCanRxEAI',
-//       null
-//     )
-//     const account = AccountStore.getAccount()
-//     const wallet = WalletStore.getWallet()
-//     const lockInformation = this.props.navigation.getParam(
-//       'lockInformation',
-//       null
-//     )
-
-//     const accountAddressForEAI = account.address
-//     const accountNicknameForEAI = account.addressData.nickname
-
-//     this.setState({
-//       spinner: false,
-//       account,
-//       wallet,
-//       possibleLocks,
-//       accountsCanRxEAI,
-//       lockInformation,
-//       accountAddressForEAI,
-//       accountNicknameForEAI
-//     })
-//   }
-
   _handleAccountSelection = () => {
     if (this.state.lockType === CHOOSE_ON_NEXT_SCREEN) {
       this.props.navigation.navigate('AccountLockChooseAccount', {

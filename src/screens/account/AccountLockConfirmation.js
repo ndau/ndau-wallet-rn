@@ -59,58 +59,6 @@ class AccountLockConfirmation extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-//   componentDidMount = () => {
-//     const account = AccountStore.getAccount()
-//     const wallet = WalletStore.getWallet()
-//     const lockInformation = this.props.navigation.getParam(
-//       'lockInformation',
-//       null
-//     )
-//     const accountAddressForEAI = this.props.navigation.getParam(
-//       'accountAddressForEAI',
-//       null
-//     )
-//     const accountNicknameForEAI = this.props.navigation.getParam(
-//       'accountNicknameForEAI',
-//       null
-//     )
-
-//     this.setState({ spinner: true }, async () => {
-//       let transactionFee = ''
-//       try {
-//         Object.assign(LockTransaction.prototype, Transaction)
-//         this.lockTransaction = new LockTransaction(
-//           this.state.wallet,
-//           account,
-//           `${this.state.lockInformation.lockISO}`
-//         )
-//         await this.lockTransaction.create()
-//         await this.lockTransaction.sign()
-//         const data = await this.lockTransaction.prevalidate()
-//         transactionFee = new NdauNumber(data.fee_napu).toDetail()
-//         this.setState({
-//           spinner: false,
-//           transactionFee
-//         })
-//       } catch (error) {
-//         const err = new BlockchainAPIError(error)
-//         FlashNotification.showError(err.message, false)
-//         this.setState({
-//           spinner: false,
-//           transactionFee: '[error]'
-//         })
-//       }
-//     })
-
-//     this.setState({
-//       account,
-//       wallet,
-//       lockInformation,
-//       accountAddressForEAI,
-//       accountNicknameForEAI
-//     })
-//   }
-
   componentDidMount () {
     Object.assign(NotifyTransaction.prototype, Transaction)
     this.notifyTransaction = new NotifyTransaction(
