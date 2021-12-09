@@ -9,12 +9,12 @@
  */
 
 import React, { Component } from 'react'
-import SetupStore from '../stores/SetupStore'
-import DataFormatHelper from '../helpers/DataFormatHelper'
-import UserStore from '../stores/UserStore'
-import { SetupContainer } from '../components/setup'
-import { LargeButtons, TextInput, ParagraphText } from '../components/common'
-import FlashNotification from '../components/common/FlashNotification'
+import SetupStore from '../../stores/SetupStore'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import UserStore from '../../stores/UserStore'
+import { SetupContainer } from '../../components/setup'
+import { LargeButtons, TextInput, ParagraphText } from '../../components/common'
+import FlashNotification from '../../components/common/FlashNotification'
 import { KeyboardAvoidingView, View, Platform } from 'react-native'
 
 class SetupWalletName extends Component {

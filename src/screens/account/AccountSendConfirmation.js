@@ -16,16 +16,16 @@ import {
   AccountHeaderText,
   AccountConfirmationItem,
   AccountSendButton
-} from '../components/account'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import FlashNotification from '../components/common/FlashNotification'
-import { BarBorder } from '../components/common'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import { TransferTransaction } from '../transactions/TransferTransaction'
-import { Transaction } from '../transactions/Transaction'
-import AppConfig from '../AppConfig'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
+} from '../../components/account'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../../components/common/FlashNotification'
+import { BarBorder } from '../../components/common'
+import AccountAPIHelper from '../../helpers/AccountAPIHelper'
+import { TransferTransaction } from '../../transactions/TransferTransaction'
+import { Transaction } from '../../transactions/Transaction'
+import AppConfig from '../../AppConfig'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
 
 class AccountSendConfirmation extends Component {
   constructor (props) {

@@ -14,13 +14,13 @@ import {
   AccountHistoryContainer,
   AccountHistoryPanel,
   AccountHistoryPanels
-} from '../components/account'
+} from '../../components/account'
 
-import AccountHistoryHelper from '../helpers/AccountHistoryHelper'
-import LogStore from '../stores/LogStore'
-import FlashNotification from '../components/common/FlashNotification'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import AccountStore from '../stores/AccountStore'
+import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
+import LogStore from '../../stores/LogStore'
+import FlashNotification from '../../components/common/FlashNotification'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import AccountStore from '../../stores/AccountStore'
 
 class AccountHistory extends Component {
   constructor (props) {

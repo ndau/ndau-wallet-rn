@@ -16,22 +16,22 @@ import {
   AccountBorder,
   AccountIconText,
   AccountLockConfirmBottomPanel
-} from '../components/account'
-import { LockTransaction } from '../transactions/LockTransaction'
-import { Transaction } from '../transactions/Transaction'
-import { NotifyTransaction } from '../transactions/NotifyTransaction'
-import { SetRewardsDestinationTransaction } from '../transactions/SetRewardsDestinationTransaction'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
-import AppConstants from '../AppConstants'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import FlashNotification from '../components/common/FlashNotification'
-import DataFormatHelper from '../helpers/DataFormatHelper'
-import { TextLink } from '../components/common'
-import AppConfig from '../AppConfig'
+} from '../../components/account'
+import { LockTransaction } from '../../transactions/LockTransaction'
+import { Transaction } from '../../transactions/Transaction'
+import { NotifyTransaction } from '../../transactions/NotifyTransaction'
+import { SetRewardsDestinationTransaction } from '../../transactions/SetRewardsDestinationTransaction'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
+import AppConstants from '../../AppConstants'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../../components/common/FlashNotification'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import { TextLink } from '../../components/common'
+import AppConfig from '../../AppConfig'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import NdauNumber from '../helpers/NdauNumber'
-import BlockchainAPIError from '../errors/BlockchainAPIError'
+import NdauNumber from '../../helpers/NdauNumber'
+import BlockchainAPIError from '../../errors/BlockchainAPIError'
 
 class AccountLockConfirmation extends Component {
   constructor (props) {

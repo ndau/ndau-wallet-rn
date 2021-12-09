@@ -10,17 +10,17 @@
 
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import SetupStore from '../stores/SetupStore'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import UserData from '../model/UserData'
-import OrderAPI from '../api/OrderAPI'
-import UserStore from '../stores/UserStore'
-import DataFormatHelper from '../helpers/DataFormatHelper'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import AppConstants from '../AppConstants'
-import LogStore from '../stores/LogStore'
-import { SetupContainerWithScrollView } from '../components/setup'
-import FlashNotification from '../components/common/FlashNotification'
+import SetupStore from '../../stores/SetupStore'
+import MultiSafeHelper from '../../helpers/MultiSafeHelper'
+import UserData from '../../model/UserData'
+import OrderAPI from '../../api/OrderAPI'
+import UserStore from '../../stores/UserStore'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import AppConstants from '../../AppConstants'
+import LogStore from '../../stores/LogStore'
+import { SetupContainerWithScrollView } from '../../components/setup'
+import FlashNotification from '../../components/common/FlashNotification'
 import {
   LargeButton,
   CheckBox,
@@ -28,7 +28,7 @@ import {
   LegalTextHeading,
   MainLegalTextHeading,
   LegalTextBold
-} from '../components/common'
+} from '../../components/common'
 
 class SetupTermsOfService extends Component {
   constructor (props) {

@@ -10,12 +10,12 @@
 
 import React, { Component } from 'react'
 import { BackHandler, View } from 'react-native'
-import AppConstants from '../AppConstants'
-import UserStore from '../stores/UserStore'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import { SetupContainer } from '../components/setup'
-import FlashNotification from '../components/common/FlashNotification'
-import { LargeButtons, ParagraphText } from '../components/common'
+import AppConstants from '../../AppConstants'
+import UserStore from '../../stores/UserStore'
+import MultiSafeHelper from '../../helpers/MultiSafeHelper'
+import { SetupContainer } from '../../components/setup'
+import FlashNotification from '../../components/common/FlashNotification'
+import { LargeButtons, ParagraphText } from '../../components/common'
 
 class SetupNewOrRecovery extends Component {
   constructor (props) {

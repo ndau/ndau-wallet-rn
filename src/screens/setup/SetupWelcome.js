@@ -10,14 +10,14 @@
 
 import React, { Component } from 'react'
 import { BackHandler } from 'react-native'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import AsyncStorageHelper from '../../model/AsyncStorageHelper'
 import {
   SetupWelcomeContainer,
   LargeText,
   UnderlineDivider
-} from '../components/setup'
-import FlashNotification from '../components/common/FlashNotification'
-import { LargeButton, ParagraphText } from '../components/common'
+} from '../../components/setup'
+import FlashNotification from '../../components/common/FlashNotification'
+import { LargeButton, ParagraphText } from '../../components/common'
 
 class SetupWelcome extends Component {
   constructor (props) {

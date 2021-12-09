@@ -14,17 +14,17 @@ import {
   AccountUnlockContainer,
   AccountDetailPanel,
   AccountParagraphText
-} from '../components/account'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import { LargeButton, TextLink } from '../components/common'
-import FlashNotification from '../components/common/FlashNotification'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import DateHelper from '../helpers/DateHelper'
-import { NotifyTransaction } from '../transactions/NotifyTransaction'
-import { Transaction } from '../transactions/Transaction'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
-import AppConfig from '../AppConfig'
+} from '../../components/account'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import { LargeButton, TextLink } from '../../components/common'
+import FlashNotification from '../../components/common/FlashNotification'
+import AccountAPIHelper from '../../helpers/AccountAPIHelper'
+import DateHelper from '../../helpers/DateHelper'
+import { NotifyTransaction } from '../../transactions/NotifyTransaction'
+import { Transaction } from '../../transactions/Transaction'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
+import AppConfig from '../../AppConfig'
 
 class AccountUnlock extends Component {
   constructor (props) {

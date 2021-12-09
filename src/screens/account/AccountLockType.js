@@ -15,15 +15,15 @@ import {
   AccountLockContainer,
   AccountLockTypeButton,
   AccountLockLargerText
-} from '../components/account'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
-import { RadioButton, TextLink } from '../components/common'
-import AccountHelper from '../helpers/AccountHelper'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import FlashNotification from '../components/common/FlashNotification'
-import AppConfig from '../AppConfig'
-import LogStore from '../stores/LogStore'
+} from '../../components/account'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
+import { RadioButton, TextLink } from '../../components/common'
+import AccountHelper from '../../helpers/AccountHelper'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../../components/common/FlashNotification'
+import AppConfig from '../../AppConfig'
+import LogStore from '../../stores/LogStore'
 
 
 const COMPOUND_TO_THIS_ACCOUNT = '1'
