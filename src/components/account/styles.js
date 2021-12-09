@@ -16,22 +16,6 @@ import {
 import AppConstants from '../../AppConstants'
 
 export default StyleSheet.create({
-  accountMainPanel: {
-    width: wp('100%'),
-    ...Platform.select({
-      ios: {
-        height: hp('15.5%')
-      },
-      android: {
-        height: hp('17%')
-      }
-    }),
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.5)',
-    marginTop: hp('3%')
-  },
   accountPanels: {
     marginTop: hp('4%')
   },
@@ -40,33 +24,6 @@ export default StyleSheet.create({
     height: hp('7%')
   },
   accountDetailsTitlePanel: { width: wp('100%'), height: hp('7%') },
-  accountButtonPanel: {
-    width: wp('94%'),
-    ...Platform.select({
-      ios: {
-        height: hp('8%')
-      },
-      android: {
-        height: hp('9%')
-      }
-    }),
-    marginLeft: wp('4%'),
-    marginTop: hp('1%')
-  },
-  largeAccountButton: {
-    height: hp('4.95%'),
-    width: wp('43.86%'),
-    borderRadius: 22,
-    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    backgroundColor: 'transparent',
-    ...Platform.select({
-      android: {
-        marginTop: hp('1%')
-      }
-    })
-  },
   accountButton: {
     width: wp('30%'),
     height: hp('5%'),
@@ -102,12 +59,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     textAlign: 'left',
     marginLeft: wp('4%')
-  },
-  accountPanelBorder: {
-    borderBottomColor: '#455B82',
-    borderBottomWidth: 1,
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
   },
   accountPanelTotal: {
     marginRight: wp('4%'),
@@ -167,30 +118,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     textAlign: 'center'
   },
-  historyAccountPanelText: {
-    color: AppConstants.TEXT_COLOR,
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 5,
-    shadowOpacity: 0,
-    textShadowColor: 'rgba(78,149,122,1)',
-    fontSize: 16,
-    fontWeight: '300',
-    fontFamily: 'Titillium Web',
-    textAlign: 'center',
-    alignSelf: 'center',
-    paddingBottom: hp('1%'),
-    marginRight: wp('2%')
-  },
-  accountTotalPanel: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: hp('8%'),
-    backgroundColor: 'transparent',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.5)'
-  },
   accountDetailsItemPanel: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -234,12 +161,6 @@ export default StyleSheet.create({
     paddingHorizontal: wp('4%'),
     paddingTop: 0
   },
-  accountReceivePanel: {
-    width: wp('100%'),
-    backgroundColor: '#0A1724',
-    paddingHorizontal: wp('4%'),
-    paddingTop: 0
-  },
   accountSendPanel: {
     width: wp('100%'),
     backgroundColor: '#0A1724',
@@ -253,11 +174,6 @@ export default StyleSheet.create({
     paddingTop: 0
   },
   accountLockOptionsPanel: {
-    width: wp('100%'),
-    backgroundColor: '#0A1724',
-    paddingTop: 0
-  },
-  accountScan: {
     width: wp('100%'),
     backgroundColor: '#0A1724',
     paddingTop: 0
@@ -277,10 +193,6 @@ export default StyleSheet.create({
     backgroundColor: '#0A1724',
     height: hp('100%')
   },
-  accountDetailsTextPanel: {
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
-  },
   accountDetailsTextPanelTopMargin: {
     marginTop: '1%'
   },
@@ -292,25 +204,8 @@ export default StyleSheet.create({
     paddingRight: '2%',
     alignItems: 'center'
   },
-  viewHistoryAngle: {
-    ...Platform.select({
-      ios: {
-        paddingTop: hp('1%')
-      },
-      android: {
-        paddingTop: hp('.5%')
-      }
-    })
-  },
   accountNicknameIcon: {
     paddingLeft: wp('3%')
-  },
-  accountDetailsBarText: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 18,
-    fontWeight: '200',
-    textAlign: 'center'
   },
   accountClosingBarText: {
     color: AppConstants.TEXT_COLOR,
@@ -318,9 +213,6 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: '200',
     textAlign: 'center'
-  },
-  testText: {
-    display: 'none'
   },
   accountButtonText: {
     ...Platform.select({
@@ -339,17 +231,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  accountDetailsTextPanelWithButton: {
-    margin: wp('4%'),
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  accountDetailsTextPanelWithSmallText: {
-    marginLeft: wp('4%'),
-    marginRight: wp('4%'),
-    flexDirection: 'row',
-    justifyContent: 'space-between'
   },
   lockAccountTextPanelWithSmallText: {
     marginLeft: wp('4%'),
@@ -391,13 +272,6 @@ export default StyleSheet.create({
     fontWeight: '200',
     paddingBottom: 0
   },
-  accountDetailsSmallerTextBold: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 12,
-    fontWeight: '400',
-    paddingBottom: 0
-  },
   accountDetailsPanelBorder: {
     borderBottomColor: '#455B82',
     borderBottomWidth: 1
@@ -409,17 +283,6 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
     color: '#000000',
     paddingRight: '4%'
-  },
-  accountDetailsBarContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: wp('100%'),
-    height: hp('6%'),
-    backgroundColor: 'transparent',
-    color: '#000000',
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
   },
   accountLockButtonContainer: {
     marginLeft: wp('4%'),
@@ -436,15 +299,6 @@ export default StyleSheet.create({
   accountSendButtonContainer: {
     marginBottom: hp('2.5%')
   },
-  accountButtonLargeButton: {
-    width: wp('92%'),
-    height: hp('6%'),
-    borderRadius: 22,
-    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    marginLeft: wp('4%')
-  },
   accountLargeButton: {
     width: wp('92%'),
     height: hp('6%'),
@@ -457,21 +311,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 20,
     fontWeight: '600'
-  },
-  outerDrawerContainer: {
-    flex: 1,
-    height: hp('100%')
-  },
-  opaqueOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    opacity: 0.9
-  },
-  appContainerOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
   },
   backArrow: {
     width: '10%'
@@ -501,18 +340,6 @@ export default StyleSheet.create({
     }),
     marginLeft: wp('4%')
   },
-  detailsBarCog: {
-    ...Platform.select({
-      ios: {
-        marginTop: hp('2%')
-      },
-      android: {
-        marginTop: hp('1.6%')
-      }
-    }),
-    marginRight: wp('4%'),
-    width: wp('40%')
-  },
   accountLockDetailsTextPanel: {
     marginLeft: wp('4%'),
     marginRight: wp('4%')
@@ -520,14 +347,6 @@ export default StyleSheet.create({
   lockAccountCheckmark: {
     marginTop: hp('1.4%'),
     marginRight: wp('3%')
-  },
-  lockSmallerTextBold: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 12,
-    fontWeight: '400',
-    marginTop: hp('2%'),
-    textAlign: 'center'
   },
   lockSmallerText: {
     color: AppConstants.TEXT_COLOR,
@@ -708,21 +527,6 @@ export default StyleSheet.create({
     fontFamily: 'Titillium Web',
     fontSize: 16,
     fontWeight: '400'
-  },
-  accountLockOptionTextWithBorder: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Titillium Web',
-    fontSize: 14,
-    fontWeight: '400',
-    width: wp('16%'),
-    borderRadius: 4,
-    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    textAlign: 'center',
-    paddingTop: 0,
-    marginTop: hp('1%'),
-    marginBottom: hp('1%')
   },
   addressCopyPanelText: {
     color: AppConstants.TEXT_COLOR,

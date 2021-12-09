@@ -252,13 +252,6 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     paddingTop: hp('1%')
   },
-  radioButtonText: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 16,
-    fontWeight: '200',
-    paddingTop: 0
-  },
   checkboxLabel: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -363,27 +356,6 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0
   },
-  collapsibleTextVerySmallWhite: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 12,
-    fontWeight: '300'
-  },
-  dropdownDetailsTextPanel: {
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
-  },
-
-  dropdownDetailsTextPanelWithSmallText: {
-    marginLeft: wp('4%'),
-    marginRight: wp('4%'),
-    flexDirection: 'row',
-    justifyContent: 'flex-start'
-  },
-  dropdownCheckmark: {
-    marginTop: hp('1.4%'),
-    marginRight: wp('3%')
-  },
   loginImageView: {
     justifyContent: 'center',
     alignItems: 'center'
@@ -391,51 +363,6 @@ export default StyleSheet.create({
   loginImage: {
     width: wp('40%'),
     height: hp('35%')
-  },
-  collapsiblePanelContainer: {
-    backgroundColor: '#293E63',
-    overflow: 'hidden',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0,
-    shadowColor: 'rgba(0, 0, 0, 0.5)'
-  },
-  collapsiblePanelTitleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  collapsiblePanelTitleLeft: {
-    marginTop: hp('1%'),
-    marginBottom: hp('1%'),
-    color: AppConstants.LIGHT_GREEN_COLOR,
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 5,
-    shadowOpacity: 0,
-    textShadowColor: 'rgba(78,149,122,1)',
-    fontSize: 18,
-    fontWeight: '300',
-    fontFamily: 'TitilliumWeb-Light',
-    textAlign: 'center'
-  },
-  collapsiblePanelTitleRight: {
-    marginTop: hp('1%'),
-    marginBottom: hp('1%'),
-    color: AppConstants.TEXT_COLOR,
-    fontSize: 18,
-    fontFamily: 'TitilliumWeb-Light'
-  },
-  collapsiblePanelBody: {
-    padding: wp('2%'),
-    marginLeft: wp('2%'),
-    marginRight: wp('2%')
-  },
-  collapsiblePanelBorder: {
-    borderBottomColor: 'white',
-    borderBottomWidth: 1,
-    marginLeft: wp('4%'),
-    marginRight: wp('4%'),
-    opacity: 0.2
   },
   bar: {
     alignItems: 'center',
@@ -550,13 +477,6 @@ export default StyleSheet.create({
     marginTop: wp('3%'),
     padding: 0
   },
-  largeBorderButtonText: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Titillium Web',
-    fontSize: 20,
-    fontWeight: '600',
-    padding: 0
-  },
   orBorderPanel: {
     width: wp('92%'),
     height: hp('8%')
@@ -577,7 +497,6 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     padding: 0
   },
-  fullWidthAndHeight: { width: wp('100%'), height: hp('100%') },
   qrCode: {
     marginTop: hp('10%'),
     marginBottom: hp('16%'),
