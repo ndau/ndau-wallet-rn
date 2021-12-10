@@ -8,29 +8,10 @@
  * - -- --- ---- -----
  */
 
-import AppConfig from '../AppConfig'
 import ServiceDiscovery from '../api/ServiceDiscovery'
-import LogStore from '../stores/LogStore'
-
-const BLOCKCHAIN = 1
-const RECOVERY = 2
-
-const PROTOCOL = 'https'
-
-const getBlockchainNode = async () => {
-  return await ServiceDiscovery.getBlockchainServiceNodeURL()
-}
-
-const getRecoveryNode = async () => {
-  const node = await ServiceDiscovery.getRecoveryServiceNodeURL()
-  LogStore.log(`Using Recovery Service node: ${node}`)
-  return node
-}
 
 const getNodeAddress = async type => {
-  const node =
-    type === RECOVERY ? await getRecoveryNode() : await getBlockchainNode()
-  return PROTOCOL + '://' + node
+  return await ServiceDiscovery.getNodeAddress(type)
 }
 
 const getAccountsAPIAddress = async () => {
@@ -76,7 +57,5 @@ export default {
   getTransactionPrevalidateAPIAddress,
   getTransactionSubmitAPIAddress,
   getAccountHistoryAPIAddress,
-  getTransactionByHashAPIAddress,
-  BLOCKCHAIN,
-  RECOVERY
+  getTransactionByHashAPIAddress
 }

@@ -13,7 +13,11 @@ import SettingsStore from '../stores/SettingsStore'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import LogStore from '../stores/LogStore'
 import moment from 'moment'
-import APIAddressHelper from '../helpers/APIAddressHelper'
+
+const BLOCKCHAIN = 1
+const RECOVERY = 2
+
+const PROTOCOL = 'https'
 
 const AWS_S3_SERVICE_JSON =
   'https://s3.us-east-2.amazonaws.com/ndau-json/services.json'
@@ -28,6 +32,12 @@ const blockchainCache = {
 const recoveryCache = {
   lastChecked: moment(0), // moment date. starts a 0 to immediately invalidate the cache
   nodes: []
+}
+
+const getNodeAddress = async type => {
+  const node =
+    type === RECOVERY ? await getRecoveryServiceNodeURL() : await getBlockchainServiceNodeURL()
+  return PROTOCOL + '://' + node
 }
 
 const getBlockchainServiceNodeURL = async () => {
@@ -58,7 +68,7 @@ const getRecoveryServiceNodeURL = async () => {
       const response = await APICommunicationHelper.get(AWS_S3_SERVICE_JSON)
       recoveryCache.nodes = await _parseServicesForNodes(
         response,
-        APIAddressHelper.RECOVERY
+        RECOVERY
       )
       recoveryCache.lastChecked = moment()
     }
@@ -87,7 +97,7 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
     environment = await SettingsStore.getApplicationNetwork()
   }
 
-  if (type === APIAddressHelper.RECOVERY) {
+  if (type === RECOVERY) {
     for (const node of Object.values(
       serviceDiscovery.recovery[environment].nodes
     )) {
@@ -106,5 +116,6 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
 export default {
   getBlockchainServiceNodeURL,
   getRecoveryServiceNodeURL,
-  invalidateCache
+  invalidateCache,
+  getNodeAddress
 }
