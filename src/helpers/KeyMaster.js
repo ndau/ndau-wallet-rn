@@ -13,7 +13,6 @@ import Key from '../model/Key'
 import Account from '../model/Account'
 import { NativeModules } from 'react-native'
 import AppConstants from '../AppConstants'
-import AccountAPIHelper from './AccountAPIHelper'
 import FlashNotification from '../components/common/FlashNotification'
 import Wallet from '../model/Wallet'
 import DataFormatHelper from './DataFormatHelper'
@@ -267,36 +266,6 @@ const addAccounts = async (
   )
 }
 
-/**
- * create a new account(s) and send back the address created
- * this method must get a valid wallet which has been retrieved from
- * MultiSafeHelper. Ideally this should be coming from the a
- * navigation property passed around.
- *
- * @param  {Wallet} wallet
- * @param  {number} numberOfAccounts=1
- */
-const createNewAccount = async (wallet, numberOfAccounts = 1) => {
-  if (!wallet.accountCreationKeyHash) {
-    throw new Error(`The user's wallet passed in has no accountCreationKeyHash`)
-  }
-
-  const accountCreationKey =
-    wallet.keys[wallet.accountCreationKeyHash].privateKey
-  const pathIndexIncrementor = DataFormatHelper.getNextPathIndex(
-    wallet,
-    KeyPathHelper.accountCreationKeyPath()
-  )
-
-  for (let i = 0; i < numberOfAccounts; i++) {
-    const pathIndex = i + pathIndexIncrementor
-    await _createAccount(accountCreationKey, pathIndex, wallet)
-  }
-
-  await AccountAPIHelper.populateWalletWithAddressData(wallet)
-
-  return wallet
-}
 
 /**
  * Given the wallet and the key hash, this function will pass back
@@ -350,54 +319,6 @@ const createKey = (privateKey, publicKey, path) => {
   newKey.derivedFromRoot = AppConstants.DERIVED_ROOT_YES
   newKey.path = path
   return newKey.toJSON()
-}
-
-const _createAccount = async (
-  accountCreationKey,
-  childIndex,
-  wallet,
-  rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
-  chainId = AppConstants.MAINNET_ADDRESS,
-  recoveryPhraseBytes
-) => {
-  if (childIndex < 0) {
-    throw new Error('You cannot create an index less than zero')
-  }
-  const account = new Account()
-
-  let correctAccountCreationKey = accountCreationKey
-  // So if rootDerivedPath is the empty string ('') then
-  // we need to generate accounts at the root of the tree.
-  // This was because in version 1.6 we genereated keys at root
-  // and not at BIP44. This was fixed in 1.7 and most of our users
-  // will have BIP44 addresses. However, there are about 40 or so
-  // out there that do have their genesis accounts generated at root
-  if (rootDerivedPath === '') {
-    const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-      recoveryPhraseBytes
-    )
-    correctAccountCreationKey = rootPrivateKey
-  }
-
-  const childPath = rootDerivedPath + '/' + childIndex
-  const privateKeyForAddress = await NativeModules.KeyaddrManager.child(
-    correctAccountCreationKey,
-    childIndex
-  )
-  account.ownershipKey = DataFormatHelper.create8CharHash(privateKeyForAddress)
-
-  const privateKeyHash = DataFormatHelper.create8CharHash(privateKeyForAddress)
-  const publicKey = await NativeModules.KeyaddrManager.toPublic(
-    privateKeyForAddress
-  )
-
-  const newKey = createKey(privateKeyForAddress, publicKey, childPath)
-  wallet.keys[privateKeyHash] = newKey
-
-  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey)
-  account.address = address
-
-  wallet.accounts[address] = account
 }
 
 /**
@@ -483,7 +404,6 @@ const _createAccounts = async (
 export default {
   createFirstTimeUser,
   createWallet,
-  createNewAccount,
   getRootAddresses,
   getBIP44Addresses,
   addAccounts,
