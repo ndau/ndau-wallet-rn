@@ -923,3 +923,12 @@ test('make sure we pass back a name of the wallet if walletName is not there', a
   expect(DataFormatHelper.getWalletName(wallet1)).toBe('using ID')
   expect(DataFormatHelper.getWalletName(wallet2)).toBe('has both')
 })
+
+test('make sure that lockBonusEAI sends back the correct percentage', async () => {
+  expect(DataFormatHelper.lockBonusEAI(45)).toBe(0)
+  expect(DataFormatHelper.lockBonusEAI(91)).toBe(1)
+  expect(DataFormatHelper.lockBonusEAI(199)).toBe(2)
+  expect(DataFormatHelper.lockBonusEAI(390)).toBe(3)
+  expect(DataFormatHelper.lockBonusEAI(734)).toBe(4)
+  expect(DataFormatHelper.lockBonusEAI(1098)).toBe(5)
+})

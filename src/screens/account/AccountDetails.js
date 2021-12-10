@@ -29,6 +29,7 @@ import AccountStore from '../../stores/AccountStore'
 import AppConstants from '../../AppConstants'
 import AppConfig from '../../AppConfig'
 import DateHelper from '../../helpers/DateHelper'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
 import NdauNumber from '../../helpers/NdauNumber'
 import SettingsStore from '../../stores/SettingsStore'
 import ndaujs from 'ndaujs'
@@ -184,7 +185,7 @@ class AccountDetails extends Component {
     const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
       account.addressData
     )
-    const lockBonusEAI = AccountAPIHelper.lockBonusEAI(
+    const lockBonusEAI = DataFormatHelper.lockBonusEAI(
       DateHelper.getDaysFromISODate(
         account.addressData.lock ? account.addressData.lock.noticePeriod : 0
       )

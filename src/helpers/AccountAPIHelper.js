@@ -325,26 +325,6 @@ const spendableNdau = (addressData, addCommas = true, precision) => {
   )
 }
 
-const lockBonusEAI = weightedAverageAgeInDays => {
-  if (!weightedAverageAgeInDays) return 0
-
-  if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('3y')) {
-    return 5
-  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('2y')) {
-    return 4
-  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('1y')) {
-    return 3
-  } else if (
-    weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('180d')
-  ) {
-    return 2
-  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('90d')) {
-    return 1
-  }
-
-  return 0
-}
-
 const accountTotalNapuAmount = accounts => {
   let totalNapu = 0
   Object.keys(accounts).forEach(accountKey => {
@@ -460,7 +440,6 @@ export default {
   eaiValueForDisplay: getEaiValueForDisplay,
   addPrivateValidationKeyIfNotPresent,
   weightedAverageAgeInDays,
-  lockBonusEAI,
   spendableNdau,
   spendableNapu,
   totalSpendableNdau,
