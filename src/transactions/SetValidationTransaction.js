@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 import AppConfig from '../AppConfig'
 import KeyMaster from '../helpers/KeyMaster'
 
@@ -61,7 +61,7 @@ export class SetValidationTransaction {
       await this.prevalidate()
       await this.submit()
     } catch (error) {
-      const spendableNapu = AccountAPIHelper.spendableNapu(
+      const spendableNapu = DataFormatHelper.spendableNapu(
         this._account.addressData,
         true,
         AppConfig.NDAU_DETAIL_PRECISION

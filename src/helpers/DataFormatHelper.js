@@ -322,6 +322,26 @@ const groupArrayIntoRows = (arr = [], length) => {
   return res
 }
 
+const spendableNapu = (addressData, addCommas = true, precision) => {
+  const totalNdau = accountNdauAmount(addressData, addCommas, precision)
+  let totalNapu = getNapuFromNdau(totalNdau)
+  const holds = addressData.holds
+
+  if (!holds) return totalNapu
+
+  for (const hold of holds) {
+    totalNapu -= hold.qty
+  }
+
+  return totalNapu
+}
+
+const accountNdauAmount = (account, addCommas = true, precision) => {
+  return account && account.balance
+    ? getNdauFromNapu(account.balance, precision, addCommas)
+    : 0
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
@@ -338,5 +358,7 @@ export default {
   formatUSDollarValue,
   convertNanoCentsToDollars,
   getWalletName,
-  groupArrayIntoRows
+  groupArrayIntoRows,
+  accountNdauAmount,
+  spendableNapu
 }

@@ -102,26 +102,6 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
   ).toEqual(['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'])
 })
 
-test('make sure we can get the amount of ndau per account', async () => {
-  const wallet = data.testUser.wallets['7MP-4FV']
-
-  await AccountAPIHelper.populateWalletWithAddressData(wallet)
-
-  expect(wallet).toBeDefined()
-  expect(
-    AccountAPIHelper.accountNdauAmount(
-      wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
-        .addressData
-    )
-  ).toBe('4,200.00')
-  expect(
-    AccountAPIHelper.accountNdauAmount(
-      wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
-        .addressData
-    )
-  ).toBe('2,000.00')
-})
-
 test('make sure we can get the locked until date of ndau per account', async () => {
   const wallet = data.testUser.wallets['7MP-4FV']
 

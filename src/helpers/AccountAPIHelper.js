@@ -294,33 +294,13 @@ const remainingBalanceNdau = (account, amount, addCommas = true, precision) => {
   )
 }
 
-const accountNdauAmount = (account, addCommas = true, precision) => {
-  return account && account.balance
-    ? DataFormatHelper.getNdauFromNapu(account.balance, precision, addCommas)
-    : 0
-}
-
 const weightedAverageAgeInDays = account => {
   return account ? DateHelper.getDaysFromISODate(account.weightedAverageAge) : 0
 }
 
-const spendableNapu = (addressData, addCommas = true, precision) => {
-  const totalNdau = accountNdauAmount(addressData, addCommas, precision)
-  let totalNapu = DataFormatHelper.getNapuFromNdau(totalNdau)
-  const holds = addressData.holds
-
-  if (!holds) return totalNapu
-
-  for (const hold of holds) {
-    totalNapu -= hold.qty
-  }
-
-  return totalNapu
-}
-
 const spendableNdau = (addressData, addCommas = true, precision) => {
   return DataFormatHelper.getNdauFromNapu(
-    spendableNapu(addressData, addCommas, precision),
+    DataFormatHelper.spendableNapu(addressData, addCommas, precision),
     precision
   )
 }
@@ -430,7 +410,6 @@ const currentPrice = (marketPrice, totalNdau) => {
 export default {
   populateWalletWithAddressData,
   accountLockedUntil,
-  accountNdauAmount,
   accountTotalNdauAmount,
   currentPrice,
   accountNoticePeriod,
@@ -441,7 +420,6 @@ export default {
   addPrivateValidationKeyIfNotPresent,
   weightedAverageAgeInDays,
   spendableNdau,
-  spendableNapu,
   totalSpendableNdau,
   getTotalNdauForSend,
   remainingBalanceNdau,
