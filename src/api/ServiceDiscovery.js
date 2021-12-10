@@ -9,7 +9,7 @@
  */
 
 import ServiceDiscoveryError from '../errors/ServiceDiscoveryError'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import SettingsStore from '../stores/SettingsStore'
 import APICommunicationHelper from '../helpers/APICommunicationHelper'
 import LogStore from '../stores/LogStore'
 import moment from 'moment'
@@ -80,11 +80,11 @@ const invalidateCache = () => {
 
 const _parseServicesForNodes = async (serviceDiscovery, type) => {
   let nodes = []
-  let environment = await AsyncStorageHelper.getNetwork()
+  let environment = await SettingsStore.getApplicationNetwork()
   // if we are in simulators then force to testnet
   if (__DEV__) {
-    await AsyncStorageHelper.useTestNet()
-    environment = await AsyncStorageHelper.getNetwork()
+    await SettingsStore.useTestNet()
+    environment = await SettingsStore.getApplicationNetwork()
   }
 
   if (type === APIAddressHelper.RECOVERY) {

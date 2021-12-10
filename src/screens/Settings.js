@@ -22,7 +22,7 @@ import { LargeButton } from '../components/common'
 import LogStore from '../stores/LogStore'
 import RecoveryPhraseHelper from '../helpers/RecoveryPhraseHelper'
 
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import SettingsStore, { TEST_NET, MAIN_NET, DEV_NET } from '../stores/SettingsStore'
 
 class Settings extends Component {
   constructor (props) {
@@ -39,25 +39,25 @@ class Settings extends Component {
   }
 
   async componentDidMount () {
-    const mainnet = await AsyncStorageHelper.isMainNet()
-    const devnet = await AsyncStorageHelper.isDevNet()
-    const testnet = await AsyncStorageHelper.isTestNet()
+    const mainnet = await SettingsStore.isMainNet()
+    const devnet = await SettingsStore.isDevNet()
+    const testnet = await SettingsStore.isTestNet()
 
     this.setState({ mainnet, devnet, testnet })
   }
 
   useMainnet = async () => {
-    await AsyncStorageHelper.useMainNet()
+    await SettingsStore.useMainNet()
     this.setState({ testnet: false, mainnet: true, devnet: false })
   }
 
   useTestnet = async () => {
-    await AsyncStorageHelper.useTestNet()
+    await SettingsStore.useTestNet()
     this.setState({ testnet: true, mainnet: false, devnet: false })
   }
 
   useDevnet = async () => {
-    await AsyncStorageHelper.useDevNet()
+    await SettingsStore.useDevNet()
     this.setState({ testnet: false, mainnet: false, devnet: true })
   }
 
@@ -83,18 +83,18 @@ class Settings extends Component {
         </ParagraphText>
         <BooleanSetting
           onValueChange={this.useMainnet}
-          title={AsyncStorageHelper.MAIN_NET}
+          title={MAIN_NET}
           value={this.state.mainnet}
         />
         <BooleanSetting
           onValueChange={this.useTestnet}
-          title={AsyncStorageHelper.TEST_NET}
+          title={TEST_NET}
           value={this.state.testnet}
         />
 
         <BooleanSetting
           onValueChange={this.useDevnet}
-          title={AsyncStorageHelper.DEV_NET}
+          title={DEV_NET}
           value={this.state.devnet}
         />
 

@@ -12,6 +12,13 @@ import { Platform, StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import StyleConstants from './styleConstants'
 
+const networkCommon = {
+  zIndex: 9001,
+  left:0,
+  right: 0,
+  width:'60%',
+  borderRadius: 5
+}
 
 export default StyleSheet.create({
   container: {
@@ -28,6 +35,13 @@ export default StyleSheet.create({
     paddingLeft: wp('6%'),
     paddingRight: wp('6%')
   },
+  mainnetBarStyle: {},
+  testnetBarStyle: Object.assign({
+    backgroundColor: '#f05123',
+  }, networkCommon),
+  devnetBarStyle: Object.assign({
+    backgroundColor: '#4A90E2',
+  }, networkCommon),
   networkContainer: {
     backgroundColor: 'transparent',
     ...Platform.select({ios:{paddingTop: 27}}),

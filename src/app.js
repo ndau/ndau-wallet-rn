@@ -16,6 +16,7 @@ import OfflineMessage from './components/common/OfflineMessage'
 import BackgroundTasks from './services/BackgroundTasks'
 import Styles from './styles/styles'
 import SettingsStore from './stores/SettingsStore'
+import ServiceDiscovery from './api/ServiceDiscovery'
 import { ThemeProvider } from 'nachos-ui'
 import { configureFontAwesomePro } from 'react-native-fontawesome-pro'
 // TODO theme provider is not used but appears to be required by some sub component.
@@ -41,7 +42,10 @@ export default class App extends React.Component {
     this.state = {
       net: ''
     }
-    const updater = net => this.setState({ net: net })
+    const updater = net => {
+      this.setState({ net: net })
+      ServiceDiscovery.invalidateCache()
+    }
     SettingsStore.addListener(updater)
   }
 

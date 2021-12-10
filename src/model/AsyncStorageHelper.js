@@ -9,8 +9,6 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import ServiceDiscovery from '../api/ServiceDiscovery'
-import SettingsStore from '../stores/SettingsStore'
 
 const STORAGE_KEY_PREFIX = '@NdauAsyncStorage:'
 const CURRENT_USER_KEY = '@CurrentUserKey'
@@ -20,10 +18,6 @@ const APPLICATION_NETWORK = '@ApplicationNetwork'
 const DEBUG_ROWS = 'debug-rows'
 
 const LAST_ACCOUNT_DATA = '@LastAccountData'
-
-const TEST_NET = 'testnet'
-const MAIN_NET = 'mainnet'
-const DEV_NET = 'devnet'
 
 /**
  * Cache the last call to address data so we can check to see if we
@@ -43,88 +37,19 @@ const getLastAccountData = async () => {
   return JSON.parse(lastAccountData)
 }
 
-/**
- * Application will be using mainnet
+/** Cache the network which is used
+ *
+ * @param {string} network
  */
-const useMainNet = async () => {
-  ServiceDiscovery.invalidateCache()
-  SettingsStore.setApplicationNetwork(MAIN_NET)
-  await AsyncStorage.setItem(APPLICATION_NETWORK, MAIN_NET)
+const setApplicationNetwork = async network => {
+  await AsyncStorage.setItem(APPLICATION_NETWORK, network)
 }
 
 /**
- * Application will be using testnet
- */
-const useTestNet = async () => {
-  ServiceDiscovery.invalidateCache()
-  SettingsStore.setApplicationNetwork(TEST_NET)
-  await AsyncStorage.setItem(APPLICATION_NETWORK, TEST_NET)
-}
-
-/**
- * Application will be using devnet
- */
-const useDevNet = async () => {
-  ServiceDiscovery.invalidateCache()
-  SettingsStore.setApplicationNetwork(DEV_NET)
-  await AsyncStorage.setItem(APPLICATION_NETWORK, DEV_NET)
-}
-
-const _ifNetworkNotSetDefaultIt = async () => {
-  let network = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  if (!network) {
-    await useMainNet()
-    network = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  }
-
-  // This is to change the 1.8.1 version of ndau wallet to the newest format
-  if (network === 'MainNet') {
-    await useMainNet()
-  }
-
-  // make sure too that we have the SettingsStore populated with the
-  // correct value
-  SettingsStore.setApplicationNetwork(network)
-}
-
-/**
- * Is the application using mainnet
- */
-const isMainNet = async () => {
-  await _ifNetworkNotSetDefaultIt()
-
-  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork && applicationNetwork.toLowerCase() === MAIN_NET
-}
-
-/**
- * Is the application using testnet
- */
-const isTestNet = async () => {
-  await _ifNetworkNotSetDefaultIt()
-
-  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork && applicationNetwork.toLowerCase() === TEST_NET
-}
-
-/**
- * Is the application using devnet
- */
-const isDevNet = async () => {
-  await _ifNetworkNotSetDefaultIt()
-
-  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork && applicationNetwork.toLowerCase() === DEV_NET
-}
-
-/**
- * Send back the network being used
- */
-const getNetwork = async () => {
-  await _ifNetworkNotSetDefaultIt()
-
-  const applicationNetwork = await AsyncStorage.getItem(APPLICATION_NETWORK)
-  return applicationNetwork
+* Get the cached application network out of AsyncStorage
+*/
+const getApplicationNetwork = async () => {
+  return await AsyncStorage.getItem(APPLICATION_NETWORK)
 }
 
 /**
@@ -157,14 +82,6 @@ export default {
   getAllKeys,
   setLastAccountData,
   getLastAccountData,
-  useMainNet,
-  useTestNet,
-  useDevNet,
-  isMainNet,
-  isTestNet,
-  isDevNet,
-  getNetwork,
-  TEST_NET,
-  MAIN_NET,
-  DEV_NET
+  setApplicationNetwork,
+  getApplicationNetwork
 }

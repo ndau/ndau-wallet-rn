@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react'
 import { BackHandler } from 'react-native'
-import AsyncStorageHelper from '../../model/AsyncStorageHelper'
+import SettingsStore from '../../stores/SettingsStore'
 import {
   SetupWelcomeContainer,
   LargeText,
@@ -40,7 +40,7 @@ class SetupWelcome extends Component {
 
   componentDidMount = async () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
-    await AsyncStorageHelper.useMainNet()
+    await SettingsStore.useMainNet()
   }
 
   showNextSetup = () => {

@@ -30,7 +30,7 @@ import AppConstants from '../../AppConstants'
 import AppConfig from '../../AppConfig'
 import DateHelper from '../../helpers/DateHelper'
 import NdauNumber from '../../helpers/NdauNumber'
-import AsyncStorageHelper from '../../model/AsyncStorageHelper'
+import SettingsStore from '../../stores/SettingsStore'
 import ndaujs from 'ndaujs'
 import UserStore from '../../stores/UserStore'
 import KeyMaster from '../../helpers/KeyMaster'
@@ -64,7 +64,7 @@ class AccountDetails extends Component {
 
     this.setState({ account, wallet, accountsCanRxEAI })
     // fetch network asynchronously and update the state when it's done
-    AsyncStorageHelper.getNetwork().then(network => this.setState({ network }))
+    SettingsStore.getApplicationNetwork().then(network => this.setState({ network }))
   }
 
   lock = (account, wallet) => {
