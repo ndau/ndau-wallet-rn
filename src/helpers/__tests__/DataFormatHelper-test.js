@@ -12,6 +12,7 @@ import DataFormatHelper from '../DataFormatHelper'
 import AppConstants from '../../AppConstants'
 import KeyPathHelper from '../KeyPathHelper'
 import AppConfig from '../../AppConfig'
+import AccountAPIHelper from '../AccountAPIHelper'
 
 test('moveTempUserToWalletName must do the needful', async () => {
   const key = DataFormatHelper.create8CharHash(AppConstants.TEMP_ID)
@@ -931,4 +932,24 @@ test('make sure that lockBonusEAI sends back the correct percentage', async () =
   expect(DataFormatHelper.lockBonusEAI(390)).toBe(3)
   expect(DataFormatHelper.lockBonusEAI(734)).toBe(4)
   expect(DataFormatHelper.lockBonusEAI(1098)).toBe(5)
+})
+
+test('make sure we can get the amount of ndau per account', async () => {
+  const wallet = data.testUser.wallets['7MP-4FV']
+
+  await AccountAPIHelper.populateWalletWithAddressData(wallet)
+
+  expect(wallet).toBeDefined()
+  expect(
+    DataFormatHelper.accountNdauAmount(
+      wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
+        .addressData
+    )
+  ).toBe('4,200.00')
+  expect(
+    DataFormatHelper.accountNdauAmount(
+      wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
+        .addressData
+    )
+  ).toBe('2,000.00')
 })
