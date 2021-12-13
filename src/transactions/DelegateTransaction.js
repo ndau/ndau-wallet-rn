@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
+import DataFormatHelper from '../helpers/DataFormatHelper'
 import AppConfig from '../AppConfig'
 
 export class DelegateTransaction {
@@ -43,7 +43,7 @@ export class DelegateTransaction {
       await this.prevalidate()
       await this.submit()
     } catch (error) {
-      const spendableNapu = AccountAPIHelper.spendableNapu(
+      const spendableNapu = DataFormatHelper.spendableNapu(
         this._account.addressData,
         true,
         AppConfig.NDAU_DETAIL_PRECISION

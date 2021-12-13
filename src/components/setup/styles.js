@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -16,14 +16,6 @@ import {
 import AppConstants from '../../AppConstants'
 
 export default StyleSheet.create({
-  opaqueOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    opacity: 0.9
-  },
-  outerDrawerContainer: {
-    flex: 1,
-    height: hp('100%')
-  },
   setupContainerBackgroundImage: {
     height: '150%',
     width: '150%',
@@ -108,13 +100,6 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'flex-start'
   },
-  recoveryConfirmationRowViewForExisting: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'flex-start',
-    padding: '4%'
-  },
   recoveryConfirmationBox: {
     width: wp('21%'),
     height: hp('5.5%'),
@@ -146,18 +131,10 @@ export default StyleSheet.create({
     marginTop: '10%',
     paddingTop: '8%'
   },
-
   recoveryConfirmationRowViewTextOnly: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center'
-  },
-  appContainerOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
   },
   smallErrorText: {
     color: AppConstants.ERROR_COLOR,

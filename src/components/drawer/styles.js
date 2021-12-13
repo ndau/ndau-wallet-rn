@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet } from 'react-native'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -16,10 +16,6 @@ import {
 import AppConstants from '../../AppConstants'
 
 export default (styles = StyleSheet.create({
-  opaqueOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    opacity: 0.9
-  },
   outerDrawerContainer: {
     flex: 1,
     height: hp('100%')
@@ -59,14 +55,6 @@ export default (styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: wp('4%'),
     marginBottom: hp('2.5%')
-  },
-  drawerTextBottom: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 18,
-    fontWeight: '200',
-    marginLeft: wp('2%'),
-    paddingBottom: 0
   },
   drawerText: {
     color: AppConstants.TEXT_COLOR,

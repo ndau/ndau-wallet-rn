@@ -17,7 +17,7 @@ import {
 } from 'react-native-responsive-screen'
 import ModalDialog from './ModalDialog'
 import CommonButton from './CommonButton'
-import cssStyles from '../../css/styles'
+import cssStyles from '../../styles/styles'
 import NumberPicker from './NumberPicker'
 
 class NewAccountModalDialog extends Component {

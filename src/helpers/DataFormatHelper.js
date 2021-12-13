@@ -11,10 +11,8 @@
 import AppConstants from '../AppConstants'
 import AppConfig from '../AppConfig'
 import sha256 from 'crypto-js/sha256'
-import AccountAPIHelper from './AccountAPIHelper'
 import ndaujs from 'ndaujs'
 import DateHelper from './DateHelper'
-import KeyPathHelper from './KeyPathHelper'
 
 /**
  * This method will check to see if there is a AppConstants.TEMP_ID
@@ -172,7 +170,7 @@ const getAccountEaiRateRequest = addressData => {
     const lock = account.lock
 
     if (lock) {
-      const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
+      const theLockEAIBonus = lockBonusEAI(
         DateHelper.getDaysFromISODate(lock.noticePeriod)
       )
       lock.bonus = theLockEAIBonus * 10000000000
@@ -207,7 +205,7 @@ const getAccountEaiRateRequestForLock = account => {
   return Object.keys(AppConstants.LOCK_ACCOUNT_POSSIBLE_TIMEFRAMES).map(
     period => {
       const weightedAverageAge = account.addressData.weightedAverageAge
-      const theLockEAIBonus = AccountAPIHelper.lockBonusEAI(
+      const theLockEAIBonus = lockBonusEAI(
         DateHelper.getDaysFromISODate(period)
       )
       const lock = {}
@@ -224,6 +222,27 @@ const getAccountEaiRateRequestForLock = account => {
     }
   )
 }
+
+const lockBonusEAI = weightedAverageAgeInDays => {
+  if (!weightedAverageAgeInDays) return 0
+
+  if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('3y')) {
+    return 5
+  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('2y')) {
+    return 4
+  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('1y')) {
+    return 3
+  } else if (
+    weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('180d')
+  ) {
+    return 2
+  } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('90d')) {
+    return 1
+  }
+
+  return 0
+}
+
 const convertRecoveryArrayToString = recoveryPhrase => {
   return recoveryPhrase
     .join()
@@ -303,6 +322,26 @@ const groupArrayIntoRows = (arr = [], length) => {
   return res
 }
 
+const spendableNapu = (addressData, addCommas = true, precision) => {
+  const totalNdau = accountNdauAmount(addressData, addCommas, precision)
+  let totalNapu = getNapuFromNdau(totalNdau)
+  const holds = addressData.holds
+
+  if (!holds) return totalNapu
+
+  for (const hold of holds) {
+    totalNapu -= hold.qty
+  }
+
+  return totalNapu
+}
+
+const accountNdauAmount = (account, addCommas = true, precision) => {
+  return account && account.balance
+    ? getNdauFromNapu(account.balance, precision, addCommas)
+    : 0
+}
+
 export default {
   moveTempUserToWalletName,
   getNextPathIndex,
@@ -314,9 +353,12 @@ export default {
   create8CharHash,
   getNapuFromNdau,
   getAccountEaiRateRequestForLock,
+  lockBonusEAI,
   truncateString,
   formatUSDollarValue,
   convertNanoCentsToDollars,
   getWalletName,
-  groupArrayIntoRows
+  groupArrayIntoRows,
+  accountNdauAmount,
+  spendableNapu
 }

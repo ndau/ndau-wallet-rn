@@ -15,15 +15,15 @@ import {
   AccountLockContainer,
   AccountLockTypeButton,
   AccountLockLargerText
-} from '../components/account'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
-import { RadioButton, TextLink } from '../components/common'
-import AccountHelper from '../helpers/AccountHelper'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import FlashNotification from '../components/common/FlashNotification'
-import AppConfig from '../AppConfig'
-import LogStore from '../stores/LogStore'
+} from '../../components/account'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
+import { RadioButton, TextLink } from '../../components/common'
+import AccountHelper from '../../helpers/AccountHelper'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../../components/common/FlashNotification'
+import AppConfig from '../../AppConfig'
+import LogStore from '../../stores/LogStore'
 
 
 const COMPOUND_TO_THIS_ACCOUNT = '1'
@@ -53,33 +53,6 @@ class AccountLockType extends Component {
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
-
-//   UNSAFE_componentWillMount = async () => {
-//     const accountsCanRxEAI = this.props.navigation.getParam(
-//       'accountsCanRxEAI',
-//       null
-//     )
-//     const account = AccountStore.getAccount()
-//     const wallet = WalletStore.getWallet()
-//     const lockInformation = this.props.navigation.getParam(
-//       'lockInformation',
-//       null
-//     )
-
-//     const accountAddressForEAI = account.address
-//     const accountNicknameForEAI = account.addressData.nickname
-
-//     this.setState({
-//       spinner: false,
-//       account,
-//       wallet,
-//       possibleLocks,
-//       accountsCanRxEAI,
-//       lockInformation,
-//       accountAddressForEAI,
-//       accountNicknameForEAI
-//     })
-//   }
 
   _handleAccountSelection = () => {
     if (this.state.lockType === CHOOSE_ON_NEXT_SCREEN) {

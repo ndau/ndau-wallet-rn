@@ -19,7 +19,6 @@ import {
   DrawerEntryVersionItem
 } from '../components/drawer'
 import { DrawerBorder } from '../components/common'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import SettingsStore from '../stores/SettingsStore'
 import SupportEmailHelper from '../helpers/SupportEmailHelper'
 
@@ -142,8 +141,7 @@ class AppDrawer extends React.Component {
               <DrawerBorder />
               <DrawerEntryItem
                 fontAwesomeIconName={
-                  SettingsStore.getApplicationNetwork() ===
-                  AsyncStorageHelper.TEST_NET
+                  SettingsStore.isTestNet()
                     ? 'flask'
                     : 'laptop-code'
                 }

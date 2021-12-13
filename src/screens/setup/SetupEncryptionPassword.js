@@ -17,13 +17,13 @@ import {
   Keyboard,
   ScrollView
 } from 'react-native'
-import SetupStore from '../stores/SetupStore'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import AppConstants from '../AppConstants'
-import UserData from '../model/UserData'
-import UserStore from '../stores/UserStore'
-import { SetupContainer } from '../components/setup'
-import FlashNotification from '../components/common/FlashNotification'
+import SetupStore from '../../stores/SetupStore'
+import MultiSafeHelper from '../../helpers/MultiSafeHelper'
+import AppConstants from '../../AppConstants'
+import UserData from '../../model/UserData'
+import UserStore from '../../stores/UserStore'
+import { SetupContainer } from '../../components/setup'
+import FlashNotification from '../../components/common/FlashNotification'
 import {
   LargeButton,
   Label,
@@ -31,8 +31,8 @@ import {
   TextInput,
   ParagraphText,
   KeyboardScroller
-} from '../components/common'
-import LogStore from '../stores/LogStore'
+} from '../../components/common'
+import LogStore from '../../stores/LogStore'
 
 class SetupEncryptionPassword extends Component {
   static MINIMUM_PASSWORD_LENGTH = 8

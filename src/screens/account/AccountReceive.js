@@ -13,12 +13,12 @@ import {
   AccountSendContainer,
   AccountReceiveParagraphText,
   AddressSharePanel
-} from '../components/account'
-import FlashNotification from '../components/common/FlashNotification'
-import { NdauQRCode, LoadingSpinner } from '../components/common'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
-import { FeeAlert } from '../components/alerts'
+} from '../../components/account'
+import FlashNotification from '../../components/common/FlashNotification'
+import { NdauQRCode, LoadingSpinner } from '../../components/common'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
+import { FeeAlert } from '../../components/alerts'
 
 class AccountReceive extends Component {
   constructor (props) {

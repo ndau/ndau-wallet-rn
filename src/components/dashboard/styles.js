@@ -34,17 +34,6 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     textShadowColor: 'rgba(78,149,122,1)'
   },
-  walletOverviewSpendable: {
-    fontFamily: 'Open Sans',
-    fontSize: 16,
-    marginRight: wp('2%'),
-    marginLeft: wp('4%'),
-    color: AppConstants.LIGHT_GREEN_COLOR,
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 5,
-    shadowOpacity: 0,
-    textShadowColor: 'rgba(78,149,122,1)'
-  },
   dashboardLabelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -53,18 +42,7 @@ export default StyleSheet.create({
     marginBottom: wp('2%'),
     marginLeft: wp('4%')
   },
-
   dashboardLabelWithIconContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: hp('6.5%'),
-    maxHeight: hp('6.5%'),
-    marginTop: wp('2%'),
-    marginBottom: wp('2%')
-  },
-  walletOverviewLabelWithIconContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -88,12 +66,6 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     shadowColor: 'rgba(0, 0, 0, 0.5)',
     marginBottom: hp('3%')
-  },
-  dashboardTextVerySmallWhite: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 12,
-    fontWeight: '300'
   },
   dashboardWalletName: {
     flex: 1,
@@ -140,9 +112,5 @@ export default StyleSheet.create({
     alignSelf: 'center',
     paddingTop: hp('1%'),
     marginLeft: wp('4%')
-  },
-  outerDrawerContainer: {
-    flex: 1,
-    height: hp('100%')
   }
 })

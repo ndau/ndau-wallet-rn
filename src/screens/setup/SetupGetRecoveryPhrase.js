@@ -22,27 +22,26 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import RecoveryPhraseHelper from '../helpers/RecoveryPhraseHelper'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import AppConstants from '../AppConstants'
-import SetupStore from '../stores/SetupStore'
-import DataFormatHelper from '../helpers/DataFormatHelper'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import LogStore from '../stores/LogStore'
+import RecoveryPhraseHelper from '../../helpers/RecoveryPhraseHelper'
+import MultiSafeHelper from '../../helpers/MultiSafeHelper'
+import AppConstants from '../../AppConstants'
+import SetupStore from '../../stores/SetupStore'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import LogStore from '../../stores/LogStore'
 import {
   SetupContainer,
   RecoveryPhraseConfirmation,
   RecoveryWordInput
-} from '../components/setup'
-import FlashNotification from '../components/common/FlashNotification'
+} from '../../components/setup'
+import FlashNotification from '../../components/common/FlashNotification'
 import {
   LargeButtons,
   ParagraphText,
   BottomLinkText
-} from '../components/common'
-import cssStyles from '../css/styles'
-import UserStore from '../stores/UserStore'
-import { CustomOneButtonAlert } from '../components/alerts'
+} from '../../components/common'
+import UserStore from '../../stores/UserStore'
+import { CustomOneButtonAlert } from '../../components/alerts'
 
 const DEFAULT_ROW_LENGTH = 4
 

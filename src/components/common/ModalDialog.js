@@ -16,7 +16,7 @@ import {
 } from 'react-native-responsive-screen'
 import Icon from 'react-native-fontawesome-pro'
 import Padding from './Padding'
-import styleConstants from '../../css/styleConstants'
+import styleConstants from '../../styles/styleConstants'
 
 class ModalDialog extends Component {
   constructor (props) {

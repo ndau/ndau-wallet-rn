@@ -10,20 +10,20 @@
 
 import React, { Component } from 'react'
 import { PixelRatio, NativeModules, Alert } from 'react-native'
-import SetupStore from '../stores/SetupStore'
+import SetupStore from '../../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import AppConstants from '../AppConstants'
-import LogStore from '../stores/LogStore'
+import AppConstants from '../../AppConstants'
+import LogStore from '../../stores/LogStore'
 import {
   SetupContainer,
   RecoveryPhraseConfirmationTextOnly
-} from '../components/setup'
-import FlashNotification from '../components/common/FlashNotification'
-import { LargeButtons, ParagraphText } from '../components/common'
-import DataFormatHelper from '../helpers/DataFormatHelper'
+} from '../../components/setup'
+import FlashNotification from '../../components/common/FlashNotification'
+import { LargeButtons, ParagraphText } from '../../components/common'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
 
 var _ = require('lodash')
 

@@ -11,10 +11,6 @@
 import { NativeModules } from 'react-native'
 import sinon from 'sinon'
 import KeyMaster from '../KeyMaster'
-import ValidationKeyMaster from '../ValidationKeyMaster'
-import User from '../../model/User'
-import AppConfig from '../../AppConfig'
-import Wallet from '../../model/Wallet'
 import MockHelper from '../MockHelper'
 import AppConstants from '../../AppConstants'
 
@@ -456,38 +452,6 @@ test('createFirstTimeUser no bytes', async () => {
     await KeyMaster.createFirstTimeUser(null, userId, chainId)
   } catch (error) {
     expect(error.toString()).toBe(errorString)
-  }
-})
-
-test('createNewAccount test', async () => {
-  const firstTimeUser = await KeyMaster.createFirstTimeUser(
-    bytes,
-    userId,
-    chainId,
-    numberOfAccounts
-  )
-
-  expect(firstTimeUser).toBeDefined()
-  expect(Object.keys(firstTimeUser.wallets['c79af3b6'].accounts).length).toBe(5)
-
-  await KeyMaster.createNewAccount(firstTimeUser.wallets['c79af3b6'])
-  expect(Object.keys(firstTimeUser.wallets['c79af3b6'].accounts).length).toBe(6)
-  expect(
-    firstTimeUser.wallets['c79af3b6'].accounts[
-      'tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6'
-    ].address
-  ).toBe('tnaq9cjf54ct59bmua78iuv6gtpjtdunc78q8jebwgmxyac6')
-})
-
-test('createNewAccount has bogus user', async () => {
-  try {
-    const user = new User()
-    user.userId = 'blahblah'
-    const wallet = new Wallet()
-    user.wallets[user.userId] = wallet
-    await KeyMaster.createNewAccount(user.wallets[user.userId])
-  } catch (error) {
-    expect(error.toString()).toBe(errorNewAccountUser)
   }
 })
 

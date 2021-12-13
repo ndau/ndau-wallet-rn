@@ -19,25 +19,26 @@ import {
   AccountBorder,
   AccountParagraphText,
   AccountConfirmationItem
-} from '../components/account'
-import FlashNotification from '../components/common/FlashNotification'
-import { LoadingSpinner, TextLink, LargeButton } from '../components/common'
+} from '../../components/account'
+import FlashNotification from '../../components/common/FlashNotification'
+import { LoadingSpinner, TextLink, LargeButton } from '../../components/common'
 import { View, ScrollView, Alert } from 'react-native'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import WalletStore from '../stores/WalletStore'
-import AccountStore from '../stores/AccountStore'
-import AppConstants from '../AppConstants'
-import AppConfig from '../AppConfig'
-import DateHelper from '../helpers/DateHelper'
-import NdauNumber from '../helpers/NdauNumber'
-import AsyncStorageHelper from '../model/AsyncStorageHelper'
+import AccountAPIHelper from '../../helpers/AccountAPIHelper'
+import WalletStore from '../../stores/WalletStore'
+import AccountStore from '../../stores/AccountStore'
+import AppConstants from '../../AppConstants'
+import AppConfig from '../../AppConfig'
+import DateHelper from '../../helpers/DateHelper'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import NdauNumber from '../../helpers/NdauNumber'
+import SettingsStore from '../../stores/SettingsStore'
 import ndaujs from 'ndaujs'
-import UserStore from '../stores/UserStore'
-import KeyMaster from '../helpers/KeyMaster'
-import { Transaction } from '../transactions/Transaction'
-import { NotifyTransaction } from '../transactions/NotifyTransaction'
-import UserData from '../model/UserData'
-import { FeeAlert } from '../components/alerts'
+import UserStore from '../../stores/UserStore'
+import KeyMaster from '../../helpers/KeyMaster'
+import { Transaction } from '../../transactions/Transaction'
+import { NotifyTransaction } from '../../transactions/NotifyTransaction'
+import UserData from '../../model/UserData'
+import { FeeAlert } from '../../components/alerts'
 
 class AccountDetails extends Component {
   constructor (props) {
@@ -64,7 +65,7 @@ class AccountDetails extends Component {
 
     this.setState({ account, wallet, accountsCanRxEAI })
     // fetch network asynchronously and update the state when it's done
-    AsyncStorageHelper.getNetwork().then(network => this.setState({ network }))
+    SettingsStore.getApplicationNetwork().then(network => this.setState({ network }))
   }
 
   lock = (account, wallet) => {
@@ -184,7 +185,7 @@ class AccountDetails extends Component {
     const weightedAverageAgeInDays = AccountAPIHelper.weightedAverageAgeInDays(
       account.addressData
     )
-    const lockBonusEAI = AccountAPIHelper.lockBonusEAI(
+    const lockBonusEAI = DataFormatHelper.lockBonusEAI(
       DateHelper.getDaysFromISODate(
         account.addressData.lock ? account.addressData.lock.noticePeriod : 0
       )

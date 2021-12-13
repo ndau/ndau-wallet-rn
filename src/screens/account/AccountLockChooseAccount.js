@@ -15,11 +15,11 @@ import {
   AccountLockContainer,
   AccountLockTypeButton,
   AccountLockLargerText
-} from '../components/account'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
-import FlashNotification from '../components/common/FlashNotification'
-import { RadioButton } from '../components/common'
+} from '../../components/account'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
+import FlashNotification from '../../components/common/FlashNotification'
+import { RadioButton } from '../../components/common'
 import { ScrollView } from 'react-native'
 
 const _ = require('lodash')

@@ -16,24 +16,24 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native'
-import SetupStore from '../stores/SetupStore'
+import SetupStore from '../../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
-import EntropyHelper from '../helpers/EntropyHelper'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import DataFormatHelper from '../helpers/DataFormatHelper'
-import UserStore from '../stores/UserStore'
-import AppConstants from '../AppConstants'
-import LogStore from '../stores/LogStore'
-import FlashNotification from '../components/common/FlashNotification'
+import EntropyHelper from '../../helpers/EntropyHelper'
+import MultiSafeHelper from '../../helpers/MultiSafeHelper'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import UserStore from '../../stores/UserStore'
+import AppConstants from '../../AppConstants'
+import LogStore from '../../stores/LogStore'
+import FlashNotification from '../../components/common/FlashNotification'
 import {
   SetupContainer,
   RecoveryPhraseConfirmation,
   RecoveryPhraseConfirmationButtons
-} from '../components/setup'
-import { LargeButtons, ParagraphText } from '../components/common'
+} from '../../components/setup'
+import { LargeButtons, ParagraphText } from '../../components/common'
 
 const _ = require('lodash')
 

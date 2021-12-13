@@ -22,6 +22,7 @@ import { H4, H3, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
 import {
   MainContainer,
   ContentContainer,
@@ -49,7 +50,7 @@ import {
 
 export function AccountPanel (props) {
   const accountAmount = new NdauNumber(
-    AccountAPIHelper.accountNdauAmount(props.account.addressData)
+    DataFormatHelper.accountNdauAmount(props.account.addressData)
   )
   const truncatedAddress = ndaujs.truncateAddress(props.account.address)
 
@@ -403,7 +404,7 @@ export function AccountButton (props) {
 
 export function AccountTotalPanel (props) {
   const amount = new NdauNumber(
-    AccountAPIHelper.accountNdauAmount(
+    DataFormatHelper.accountNdauAmount(
       props.account.addressData,
       true,
       AppConfig.NDAU_DETAIL_PRECISION

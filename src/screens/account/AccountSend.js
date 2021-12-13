@@ -19,9 +19,9 @@ import {
   AccountSendErrorText,
   AccountSendPanel,
   AccountScanContainer
-} from '../components/account'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import FlashNotification from '../components/common/FlashNotification'
+} from '../../components/account'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../../components/common/FlashNotification'
 import {
   LargeButton,
   TextInput,
@@ -30,13 +30,13 @@ import {
   LargeBorderButton,
   NdauQRCodeScanner,
   BarBorder
-} from '../components/common'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import { TransferTransaction } from '../transactions/TransferTransaction'
-import { Transaction } from '../transactions/Transaction'
-import DataFormatHelper from '../helpers/DataFormatHelper'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
+} from '../../components/common'
+import AccountAPIHelper from '../../helpers/AccountAPIHelper'
+import { TransferTransaction } from '../../transactions/TransferTransaction'
+import { Transaction } from '../../transactions/Transaction'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
 import {
   KeyboardAvoidingView,
   View,
@@ -44,8 +44,8 @@ import {
   Button,
   Text
 } from 'react-native'
-import AppConfig from '../AppConfig'
-import { FeeAlert } from '../components/alerts'
+import AppConfig from '../../AppConfig'
+import { FeeAlert } from '../../components/alerts'
 
 const _ = require('lodash')
 

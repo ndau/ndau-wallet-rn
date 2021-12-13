@@ -19,18 +19,18 @@ import {
   AccountLockOptionHeader,
   AccountLockOptionsPanel,
   AccountLockGreenText
-} from '../components/account'
+} from '../../components/account'
 import { ScrollView } from 'react-native'
-import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import AccountStore from '../stores/AccountStore'
-import WalletStore from '../stores/WalletStore'
-import AccountAPI from '../api/AccountAPI'
-import AppConstants from '../AppConstants'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import FlashNotification from '../components/common/FlashNotification'
-import { TextLink } from '../components/common'
-import { FeeAlert } from '../components/alerts'
-import AppConfig from '../AppConfig'
+import AccountAPIHelper from '../../helpers/AccountAPIHelper'
+import AccountStore from '../../stores/AccountStore'
+import WalletStore from '../../stores/WalletStore'
+import AccountAPI from '../../api/AccountAPI'
+import AppConstants from '../../AppConstants'
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
+import FlashNotification from '../../components/common/FlashNotification'
+import { TextLink } from '../../components/common'
+import { FeeAlert } from '../../components/alerts'
+import AppConfig from '../../AppConfig'
 
 class AccountLock extends Component {
   constructor (props) {

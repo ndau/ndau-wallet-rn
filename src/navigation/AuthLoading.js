@@ -10,7 +10,7 @@
 
 import React from 'react'
 import { ActivityIndicator, Alert, View } from 'react-native'
-import cssStyles from '../css/styles'
+import cssStyles from '../styles/styles'
 import AsyncStorageHelper from '../model/AsyncStorageHelper'
 import MultiSafe from '../model/MultiSafe'
 import FlashNotification from '../components/common/FlashNotification'

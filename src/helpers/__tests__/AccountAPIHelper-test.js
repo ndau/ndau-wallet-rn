@@ -102,26 +102,6 @@ test('populateWalletWithAddressData populates wallet with data from the API', as
   ).toEqual(['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz'])
 })
 
-test('make sure we can get the amount of ndau per account', async () => {
-  const wallet = data.testUser.wallets['7MP-4FV']
-
-  await AccountAPIHelper.populateWalletWithAddressData(wallet)
-
-  expect(wallet).toBeDefined()
-  expect(
-    AccountAPIHelper.accountNdauAmount(
-      wallet.accounts['ndarc8etbkidm5ewytxhvzida94sgg9mvr3aswufbty8zcun']
-        .addressData
-    )
-  ).toBe('4,200.00')
-  expect(
-    AccountAPIHelper.accountNdauAmount(
-      wallet.accounts['ndaiap4q2me85dtnp5naifa5d8xtmrimm4b997hr9mcm38vz']
-        .addressData
-    )
-  ).toBe('2,000.00')
-})
-
 test('make sure we can get the locked until date of ndau per account', async () => {
   const wallet = data.testUser.wallets['7MP-4FV']
 
@@ -228,15 +208,6 @@ test('if we can get a null if not present', async () => {
   const account = {}
 
   expect(AccountAPIHelper.eaiValueForDisplay(account)).toBeFalsy()
-})
-
-test('make sure that lockBonusEAI sends back the correct percentage', async () => {
-  expect(AccountAPIHelper.lockBonusEAI(45)).toBe(0)
-  expect(AccountAPIHelper.lockBonusEAI(91)).toBe(1)
-  expect(AccountAPIHelper.lockBonusEAI(199)).toBe(2)
-  expect(AccountAPIHelper.lockBonusEAI(390)).toBe(3)
-  expect(AccountAPIHelper.lockBonusEAI(734)).toBe(4)
-  expect(AccountAPIHelper.lockBonusEAI(1098)).toBe(5)
 })
 
 test('make sure totalSpendableNdau subtracts the holds correctly', async () => {
