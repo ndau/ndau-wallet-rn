@@ -12,81 +12,13 @@ def getPassword(String currentUser, String keyChain) {
         errorOutput = stderr
         ignoreExitValue true
     }
-    //noinspection GroovyAssignabilityCheck
+    // noinspection GroovyAssignabilityCheck
     stdout.toString().trim()
 }
 
 def pass = getPassword("kristoferpelchat","android_keystore")
 
-/**
- * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
- * and bundleReleaseJsAndAssets).
- * These basically call `react-native bundle` with the correct arguments during the Android build
- * cycle. By default, bundleDebugJsAndAssets is skipped, as in debug/dev mode we prefer to load the
- * bundle directly from the development server. Below you can see all the possible configurations
- * and their defaults. If you decide to add a configuration block, make sure to add it before the
- * `apply from: "../../node_modules/react-native/react.gradle"` line.
- *
- * project.ext.react = [
- *   // the name of the generated asset file containing your JS bundle
- *   bundleAssetName: "index.android.bundle",
- *
- *   // the entry file for bundle generation
- *   entryFile: "index.android.js",
- *
- *   // whether to bundle JS and assets in debug mode
- *   bundleInDebug: false,
- *
- *   // whether to bundle JS and assets in release mode
- *   bundleInRelease: true,
- *
- *   // whether to bundle JS and assets in another build variant (if configured).
- *   // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
- *   // The configuration property can be in the following formats
- *   //         'bundleIn${productFlavor}${buildType}'
- *   //         'bundleIn${buildType}'
- *   // bundleInFreeDebug: true,
- *   // bundleInPaidRelease: true,
- *   // bundleInBeta: true,
- *
- *   // whether to disable dev mode in custom build variants (by default only disabled in release)
- *   // for example: to disable dev mode in the staging build type (if configured)
- *   devDisabledInStaging: true,
- *   // The configuration property can be in the following formats
- *   //         'devDisabledIn${productFlavor}${buildType}'
- *   //         'devDisabledIn${buildType}'
- *
- *   // the root of your project, i.e. where "package.json" lives
- *   root: "../../",
- *
- *   // where to put the JS bundle asset in debug mode
- *   jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
- *
- *   // where to put the JS bundle asset in release mode
- *   jsBundleDirRelease: "$buildDir/intermediates/assets/release",
- *
- *   // where to put drawable resources / React Native assets, e.g. the ones you use via
- *   // require('./image.png')), in debug mode
- *   resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
- *
- *   // where to put drawable resources / React Native assets, e.g. the ones you use via
- *   // require('./image.png')), in release mode
- *   resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
- *
- *   // by default the gradle tasks are skipped if none of the JS files or assets change; this means
- *   // that we don't look at files in android/ or ios/ to determine whether the tasks are up to
- *   // date; if you have any other folders that you want to ignore for performance reasons (gradle
- *   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
- *   // for example, you might want to remove it from here.
- *   inputExcludes: ["android/**", "ios/**"],
- *
- *   // override which node gets called and with what additional arguments
- *   nodeExecutableAndArgs: ["node"],
- *
- *   // supply additional arguments to the packager
- *   extraPackagerArgs: []
- * ]
- */
+
 repositories {
     mavenCentral()
 }
@@ -244,37 +176,22 @@ dependencies {
       implementation jscFlavor
     }
 
-
-    implementation project(':react-native-mail')
-    implementation project(':react-native-share')
-    implementation project(':react-native-gesture-handler')
-    implementation project(':react-native-fs')
-    implementation project(':react-native-device-info')
-    implementation project(':react-native-version-number')
-    implementation project(':@react-native-async-storage')
-    implementation project(':react-native-svg')
-    implementation project(':react-native-linear-gradient')
-    implementation project(':react-native-background-fetch')
-    implementation project(':react-native-push-notification')
-    implementation project(':react-native-securerandom')
-    implementation (project(':react-native-camera'))
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation ("com.android.support:support-v4:27.1.0") {
         force = true
     }
-    implementation 'com.facebook.fresco:fresco:1.5.0'
-    implementation 'com.facebook.fresco:animated-gif:1.5.0'
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    
     implementation "com.android.support:appcompat-v7:28.0.0"
     implementation 'com.android.support:design:27.1.1'
     implementation "androidx.annotation:annotation:1.1.0"
     implementation "com.facebook.react:react-native:+"
-    implementation project(':keyaddr')
-
-    implementation project(':react-native-community-netinfo')
-
+    implementation 'com.facebook.fresco:fresco:1.5.0'
+    implementation 'com.facebook.fresco:animated-gif:1.5.0'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }
+
+    implementation project(':keyaddr')
 
     apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 
