@@ -118,9 +118,9 @@ android {
     }
     buildTypes {
         debug {
-            // Those two lines added in order to test proguard setup
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            // TODO: Added in order to test proguard setup in dev build. Remove when dev finished.
+            // minifyEnabled enableProguardInReleaseBuilds
+            // proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
            
             signingConfig signingConfigs.debug
             if (nativeArchitectures) {
