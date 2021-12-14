@@ -118,6 +118,10 @@ android {
     }
     buildTypes {
         debug {
+            // Those two lines added in order to test proguard setup
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+           
             signingConfig signingConfigs.debug
             if (nativeArchitectures) {
                 ndk {
