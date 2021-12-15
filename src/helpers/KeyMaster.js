@@ -8,7 +8,6 @@
  * - -- --- ---- -----
  */
 
-import User from '../model/User'
 import Key from '../model/Key'
 import Account from '../model/Account'
 import { NativeModules } from 'react-native'
@@ -17,7 +16,6 @@ import FlashNotification from '../components/common/FlashNotification'
 import Wallet from '../model/Wallet'
 import DataFormatHelper from './DataFormatHelper'
 import KeyPathHelper from './KeyPathHelper'
-import LogStore from '../stores/LogStore'
 
 /**
  * This function will return an array of addresses that can be
@@ -105,126 +103,6 @@ const getBIP44Addresses = async (rootPrivateKey, startIndex, endIndex) => {
   return addresses
 }
 
-/**
- * This function will create the initial User. If no userId is passed
- * in then you do not get any wallets created.
- *
- * @param  {string} recoveryBytes
- * @param  {string} userId
- * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
- * @param  {number} numberOfAccounts=0
- * @returns {User} an initial user object
- */
-const createFirstTimeUser = async (
-  recoveryBytes,
-  userId,
-  chainId = AppConstants.MAINNET_ADDRESS,
-  numberOfAccounts = 0
-) => {
-  if (!recoveryBytes) {
-    throw new Error('you MUST pass recoveryPhrase to this method')
-  }
-
-  try {
-    const user = new User()
-
-    if (userId) {
-      user.userId = userId
-
-      const wallet = await createWallet(
-        recoveryBytes,
-        null,
-        userId,
-        chainId,
-        numberOfAccounts
-      )
-      user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
-    }
-
-    LogStore.log(`User initially created is: ${JSON.stringify(user)}`)
-    return user
-  } catch (error) {
-    FlashNotification.showError(error)
-  }
-}
-
-/**
- * This function will create a user from the account creation
- * key passed in.
- *
- * @param  {string} recoveryBytes
- * @param  {string} accountCreationKey
- * @param  {string} walletId
- * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
- * @param  {number} numberOfAccounts=0
- * @param  {Wallet} wallet if a wallet is passed then update the wallet
- * @returns {User} an initial user object
- */
-const createWallet = async (
-  recoveryBytes,
-  accountCreationKey,
-  walletId,
-  chainId = AppConstants.MAINNET_ADDRESS,
-  numberOfAccounts = 0,
-  rootDerivedPath,
-  wallet
-) => {
-  if (!accountCreationKey && !recoveryBytes) {
-    throw new Error(
-      'you MUST pass either recoveryBytes or accountCreationKey to this method'
-    )
-  }
-
-  if (!walletId) {
-    throw new Error('you MUST pass walletId')
-  }
-
-  if (recoveryBytes) {
-    accountCreationKey = await _createAccountCreationKey(recoveryBytes)
-  }
-
-  try {
-    if (!wallet) {
-      wallet = new Wallet()
-      wallet.walletId = walletId
-      wallet.walletName = walletId
-
-      wallet.accountCreationKeyHash = DataFormatHelper.create8CharHash(
-        accountCreationKey
-      )
-
-      await _createInitialKeys(wallet, accountCreationKey)
-    }
-
-    // This function is used in many ways across the application
-    // We want the ability to use this to generate an wallet based on
-    // the accountCreateKeyPath. HOWEVER, if we have the scenario where
-    // we have the keys for genesis generated at root we have to make
-    // sure we genereate addresses and keys accordingly. What this does
-    // is creates BIP44 addresses for the amount of root accounts found
-    // on the blockchain. The recovery process will create the accounts.
-    // This method is to merely create the initial wallet with accountCreateKey
-    if (numberOfAccounts > 0) {
-      await addAccounts(
-        wallet,
-        accountCreationKey,
-        numberOfAccounts,
-        rootDerivedPath === ''
-          ? rootDerivedPath
-          : KeyPathHelper.accountCreationKeyPath(),
-        chainId,
-        recoveryBytes
-      )
-    }
-
-    LogStore.log(`Wallet created is: ${JSON.stringify(wallet)}`)
-
-    return wallet
-  } catch (error) {
-    FlashNotification.showError(error)
-  }
-}
-
 const getWalletFromUser = (user, walletId) => {
   return user.wallets[DataFormatHelper.create8CharHash(walletId)]
 }
@@ -238,34 +116,6 @@ const setWalletInUser = (user, wallet) => {
     DataFormatHelper.create8CharHash(wallet.walletId)
   ] = wallet)
 }
-/**
- * Add accounts to the wallet passed in.
- *
- * @param  {Wallet} wallet to have accounts added
- * @param  {string} accountCreationKey
- * @param  {number} numberOfAccounts to be added
- * @param  {string} rootDerivedPath=_generatedRootPth()
- * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
- * @param  {string} recoveryPhraseBytes
- */
-const addAccounts = async (
-  wallet,
-  accountCreationKey,
-  numberOfAccounts,
-  rootDerivedPath,
-  chainId = AppConstants.MAINNET_ADDRESS,
-  recoveryPhraseBytes
-) => {
-  await _createAccounts(
-    numberOfAccounts,
-    accountCreationKey,
-    wallet,
-    rootDerivedPath,
-    chainId,
-    recoveryPhraseBytes
-  )
-}
-
 
 /**
  * Given the wallet and the key hash, this function will pass back
@@ -287,29 +137,6 @@ const getPublicKeyFromHash = (wallet, hashForKey) => {
  */
 const getPrivateKeyFromHash = (wallet, hashForKey) => {
   return wallet.keys[hashForKey].privateKey
-}
-
-const _createAccountCreationKey = async recoveryBytes => {
-  const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-    recoveryBytes
-  )
-  const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
-    rootPrivateKey,
-    '/',
-    KeyPathHelper.accountCreationKeyPath()
-  )
-  return accountCreationKey
-}
-
-const _createInitialKeys = async (wallet, accountCreationKey) => {
-  const accountCreationPublicKey = await NativeModules.KeyaddrManager.toPublic(
-    accountCreationKey
-  )
-  wallet.keys[DataFormatHelper.create8CharHash(accountCreationKey)] = createKey(
-    accountCreationKey,
-    accountCreationPublicKey,
-    KeyPathHelper.accountCreationKeyPath()
-  )
 }
 
 const createKey = (privateKey, publicKey, path) => {
@@ -380,33 +207,9 @@ const createAccountFromPath = async (
   wallet.accounts[address] = account
 }
 
-const _createAccounts = async (
-  numberOfAccounts,
-  accountCreationKey,
-  wallet,
-  rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
-  chainId = AppConstants.MAINNET_ADDRESS,
-  recoveryPhraseBytes
-) => {
-  for (let i = 1; i <= numberOfAccounts; i++) {
-    await _createAccount(
-      accountCreationKey,
-      i,
-      wallet,
-      rootDerivedPath,
-      chainId,
-      recoveryPhraseBytes
-    )
-  }
-  LogStore.log(`Accounts created: ${wallet.accounts}`)
-}
-
 export default {
-  createFirstTimeUser,
-  createWallet,
   getRootAddresses,
   getBIP44Addresses,
-  addAccounts,
   getPublicKeyFromHash,
   getPrivateKeyFromHash,
   getWalletFromUser,

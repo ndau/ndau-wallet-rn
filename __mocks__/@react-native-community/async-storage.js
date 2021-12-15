@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import AsyncStorageMock from '@react-native-community/async-storage/jest/async-storage-mock'
+import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 
 AsyncStorageMock.getAllKeys = jest.fn(() => {
   return new Promise((resolve, reject) => {
