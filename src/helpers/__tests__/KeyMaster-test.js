@@ -12,7 +12,6 @@ import { NativeModules } from 'react-native'
 import sinon from 'sinon'
 import KeyMaster from '../KeyMaster'
 import MockHelper from '../MockHelper'
-import AppConstants from '../../AppConstants'
 
 MockHelper.mockServiceDiscovery()
 MockHelper.mockAccountsAPI()
@@ -44,18 +43,9 @@ let seedPhraseArray = [
   'drum',
   'buyer'
 ]
-const userId = 'TAC-3PY'
-const numberOfAccounts = 5
-const chainId = 'tn'
-const errorString = 'Error: you MUST pass recoveryPhrase to this method'
-const errorNewAccountUser = `Error: The user's wallet passed in has no accountCreationKeyHash`
 const errorGetRootAddresses = 'Error: you MUST pass rootPrivateKey'
 const errorGetBIP44Addresses = 'Error: you MUST pass rootPrivateKey'
-let recoveryPhraseString =
-  'goat amount liar amount expire adjust cage candy arch gather drum buyer'
 const bytes = 'ZWEQAwQFBgcICQoLDA0ODw=='
-const initialPrivateKey =
-  'npvt8aaaaaaaaaaaadyj632qv3ip7jhi66dxjzdtbvabf2nrrupjaqignfha5smckbu4nagfhwce3f9gfutkhmk5weuicjwyrsiax8qgq56bnhg5wrb6uwbigqk3bgw3'
 const bip44hardenedPrivateKey =
   'npvt8ard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkah8hjr9cnqmrxn4a9rcrzu9yerbyhhykt6nq586kyw8t2g3kkbk5a6m4pa'
 const publicKey =
@@ -423,38 +413,6 @@ const testWallet7MP4FVStart = {
   }
 }
 
-test('createFirstTimeUser test', async () => {
-  const firstTimeUser = await KeyMaster.createFirstTimeUser(
-    bytes,
-    userId,
-    chainId,
-    numberOfAccounts
-  )
-  expect(firstTimeUser).toBeDefined()
-})
-
-test('createFirstTimeUser with 0, as this will be possible post Genesis', async () => {
-  const firstTimeUser = await KeyMaster.createFirstTimeUser(
-    numberOfAccounts,
-    userId,
-    bytes,
-    chainId
-  )
-
-  expect(firstTimeUser).toBeDefined()
-  expect(JSON.stringify(firstTimeUser)).toBe(
-    `{"userId":"TAC-3PY","wallets":{"c79af3b6":{"walletId":"TAC-3PY","accountCreationKeyHash":"4cb4dca9","accounts":{},"keys":{"4cb4dca9":{"publicKey":"npubaard3952aaaaaetmg8gtxb6g75n9i3fxi8y3465qgjb7mmfv47nupz5kgettw7tpkazt5utca85h8ri4qquegqs8byaqhwx66uhnxx8xz4dqfzbgavvs4jkbj447","privateKey":"npvt8ard395saaaaafnu25p694rkaxkir29ux5quru9b6sq4m3au4gugm2riue5xuqyyeabkkdcz9mc688665xmid3kjbfrw628y7c5zit8vcz6x7hjuxgfeu4kasdf2","path":"/44'/20036'/100","derivedFromRoot":"yes"}}}}}`
-  )
-})
-
-test('createFirstTimeUser no bytes', async () => {
-  try {
-    await KeyMaster.createFirstTimeUser(null, userId, chainId)
-  } catch (error) {
-    expect(error.toString()).toBe(errorString)
-  }
-})
-
 test('test getRootAddresses to make sure we get back one address in the array', async () => {
   const addresses = await KeyMaster.getRootAddresses(
     bytes,
@@ -519,30 +477,6 @@ test('getPrivateKeyFromHash test', async () => {
     account.validationKeys[0]
   )
   expect(privateKey).toBe('validation5')
-})
-
-test('_createAccount test when empty string called will use root key', async () => {
-  const firstTimeUser = await KeyMaster.createFirstTimeUser(
-    bytes,
-    userId,
-    chainId,
-    numberOfAccounts
-  )
-
-  expect(firstTimeUser).toBeDefined()
-
-  const countBeforeCall = newKey.callCount
-  const wallet = firstTimeUser.wallets['c79af3b6']
-  await KeyMaster.addAccounts(
-    wallet,
-    initialPrivateKey,
-    1,
-    '',
-    AppConstants.MAINNET_ADDRESS,
-    bytes
-  )
-
-  expect(newKey.callCount).toBe(countBeforeCall + 1)
 })
 
 test('createAccountFromPath should add to wallets if passed', async () => {
