@@ -12,7 +12,6 @@ import React, { Component } from 'react'
 import {
   View,
   KeyboardAvoidingView,
-  Text,
   Linking,
   PixelRatio,
   Platform,
@@ -139,18 +138,8 @@ class SetupGetRecoveryPhrase extends Component {
       'mode',
       AppConstants.NORMAL_MODE
     )
-    switch (mode) {
-      case AppConstants.GENESIS_MODE:
-        introductionText = this.GENESIS_MODE_TEXT
-        break
-      case AppConstants.PASSWORD_RESET_MODE:
-        introductionText = this.PASSWORD_RESET_MODE_TEXT
-        break
-      default:
-        introductionText = this.NORMAL_MODE_TEXT
-    }
 
-    this.setState({ mode, introductionText })
+    this.setState({ mode, introductionText: this._getIntroductionText(mode) })
 
     this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
   }
@@ -177,6 +166,17 @@ class SetupGetRecoveryPhrase extends Component {
     Linking.openURL(
       'mailto:support@oneiro.freshdesk.com?subject=Lost Recovery Phrase'
     )
+  }
+
+  _getIntroductionText = (mode) => {
+    switch (mode) {
+      case AppConstants.GENESIS_MODE:
+        return this.GENESIS_MODE_TEXT
+      case AppConstants.PASSWORD_RESET_MODE:
+        return this.PASSWORD_RESET_MODE_TEXT
+      default:
+        return this.NORMAL_MODE_TEXT
+    }
   }
 
   _moveToNextWord = async () => {

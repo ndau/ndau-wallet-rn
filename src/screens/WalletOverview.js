@@ -11,8 +11,6 @@
 import React, { Component } from 'react'
 import { ScrollView, View, RefreshControl, AppState } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
-import KeyMaster from '../helpers/KeyMaster'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
 import { AppContainer, NdauTotal, TextLink } from '../components/common'
@@ -85,6 +83,9 @@ class WalletOverview extends Component {
   }
 
   _loadMetricsAndSetState = wallet => {
+    let totalNdau = '0'
+    let totalNdauNumber = '0'
+    let totalSpendable = '0'
     if (wallet) {
       totalNdau = new NdauNumber(
         AccountAPIHelper.accountTotalNdauAmount(wallet.accounts)
@@ -95,10 +96,6 @@ class WalletOverview extends Component {
       totalSpendable = new NdauNumber(
         AccountAPIHelper.totalSpendableNdau(wallet.accounts, totalNdauNumber)
       ).toSummary()
-    } else {
-      totalNdau = '0'
-      totalNdauNumber = '0'
-      totalSpendable = '0'
     }
     const currentPrice = AccountAPIHelper.currentPrice(
       NdauStore.getMarketPrice(),
