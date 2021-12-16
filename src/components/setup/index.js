@@ -360,6 +360,7 @@ export const RecoveryWordInput = props => {
               blurOnSubmit={false}
               onSubmitEditing={nextWord}
               autoCorrect={false}
+              spellCheck={false}
             />
           </View>
           <View>
