@@ -54,7 +54,7 @@ export function SetupWelcomeContainer ({ children }) {
 }
 
 export function SetupContainer (props) {
-  goBack = () => {
+  const goBack = () => {
     if (props.goBack) {
       props.goBack()
     } else {
@@ -80,7 +80,7 @@ export function SetupContainer (props) {
 }
 
 export function SetupContainerWithScrollView (props) {
-  goBack = () => {
+  const goBack = () => {
     props.navigation.goBack()
   }
   return (

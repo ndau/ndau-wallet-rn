@@ -64,7 +64,7 @@ class ContactSupport extends Component {
 
   onSubmit () {
     // do this last
-    defered = () => this.setState({ sending: false })
+    const defered = () => this.setState({ sending: false })
 
     // bounce if we're already sending, if not set flag
     if (this.state.sending) {
@@ -75,7 +75,7 @@ class ContactSupport extends Component {
     }
 
     // validate the fields
-    validateResult = this.validate()
+    const validateResult = this.validate()
     if (validateResult.length) {
       defered()
       FlashNotification.showError(

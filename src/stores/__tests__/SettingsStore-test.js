@@ -9,7 +9,7 @@
  */
 
 import SettingsStore from '../SettingsStore'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 describe('SettingsStore tests...', () => {
   it('should set MainNet by default and validate that is being used', async () => {

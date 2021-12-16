@@ -13,8 +13,8 @@ import { View } from 'react-native'
 import SetupStore from '../../stores/SetupStore'
 import MultiSafeHelper from '../../helpers/MultiSafeHelper'
 import UserData from '../../model/UserData'
-import OrderAPI from '../../api/OrderAPI'
 import UserStore from '../../stores/UserStore'
+import AccountHelper from '../../helpers/AccountHelper'
 import DataFormatHelper from '../../helpers/DataFormatHelper'
 import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
 import AppConstants from '../../AppConstants'
@@ -61,7 +61,7 @@ class SetupTermsOfService extends Component {
             )
           )
         } else {
-          user = await MultiSafeHelper.setupNewUser(
+          user = await AccountHelper.setupNewUser(
             user,
             DataFormatHelper.convertRecoveryArrayToString(
               SetupStore.recoveryPhrase

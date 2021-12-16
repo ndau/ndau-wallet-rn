@@ -29,7 +29,6 @@ import {
   CloseForBar,
   TitleBarGradient,
   AccountDetailsTitleBarGradient,
-  FullBarBorder,
   Label,
   TextInput
 } from '../common'
@@ -178,7 +177,7 @@ export function WalletOverviewHeaderActions (props) {
 }
 
 export function AccountDetailsContainer (props) {
-  goBack = () => {
+  const goBack = () => {
     props.navigation.goBack()
   }
   const title = props.account.addressData
@@ -193,7 +192,7 @@ export function AccountDetailsContainer (props) {
               backArrowStyle={styles.backArrowForLock}
               title={title}
               backBar
-              goBack={this.goBack}
+              goBack={goBack}
             />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
@@ -204,10 +203,10 @@ export function AccountDetailsContainer (props) {
 }
 
 export function AccountLockContainer (props) {
-  close = () => {
+  const close = () => {
     props.navigation.navigate('AccountDetails', { wallet: props.wallet })
   }
-  goBack = () => {
+  const goBack = () => {
     props.navigation.goBack()
   }
   return (
@@ -219,9 +218,9 @@ export function AccountLockContainer (props) {
               backArrowStyle={styles.backArrowForLock}
               title={props.title}
               closeBar
-              close={this.close}
+              close={close}
               backBar
-              goBack={this.goBack}
+              goBack={goBack}
             />
           </View>
           <ContentContainer>{props.children}</ContentContainer>
@@ -232,7 +231,7 @@ export function AccountLockContainer (props) {
 }
 
 export function AccountUnlockContainer (props) {
-  close = () => {
+  const close = () => {
     props.navigation.navigate('AccountDetails', {
       wallet: props.wallet,
       account: props.account
@@ -246,7 +245,7 @@ export function AccountUnlockContainer (props) {
             <AccountClosingBar
               title={props.title}
               closeBar
-              close={this.close}
+              close={close}
             />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
@@ -259,7 +258,7 @@ export function AccountUnlockContainer (props) {
 }
 
 export function AccountSendContainer (props) {
-  close = () => {
+  const close = () => {
     props.navigation.navigate('AccountDetails', {
       wallet: props.wallet,
       account: props.account
@@ -273,7 +272,7 @@ export function AccountSendContainer (props) {
             <AccountClosingBar
               title={props.title}
               closeBar
-              close={this.close}
+              close={close}
             />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
@@ -288,7 +287,7 @@ export function AccountSendContainer (props) {
 }
 
 export function AccountScanContainer (props) {
-  close = () => {
+  const close = () => {
     props.navigation.navigate('AccountDetails', {
       wallet: props.wallet,
       account: props.account
@@ -302,7 +301,7 @@ export function AccountScanContainer (props) {
             <AccountClosingBar
               title={props.title}
               closeBar
-              close={this.close}
+              close={close}
             />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
@@ -332,7 +331,7 @@ export function SettingsContainer (props) {
 }
 
 export function AccountHistoryContainer (props) {
-  goBack = () => {
+  const goBack = () => {
     props.navigation.goBack()
   }
   return (
@@ -343,7 +342,7 @@ export function AccountHistoryContainer (props) {
             <AccountClosingBar
               backArrowStyle={styles.backArrowForHistory}
               backBar
-              goBack={this.goBack}
+              goBack={goBack}
               {...props}
             />
           </View>

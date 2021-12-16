@@ -12,6 +12,7 @@ import { NativeModules } from 'react-native'
 import KeyMaster from './KeyMaster'
 import AccountAPI from '../api/AccountAPI'
 import AppConstants from '../AppConstants'
+import AccountHelper from './AccountHelper'
 import DataFormatHelper from './DataFormatHelper'
 import LogStore from '../stores/LogStore'
 import UserStore from '../stores/UserStore'
@@ -42,10 +43,10 @@ const recoverUser = async (recoveryPhraseString, user) => {
   let wallet
   let userId = AppConstants.TEMP_ID
   if (user) {
-    wallet = await KeyMaster.createWallet(recoveryPhraseBytes, null, userId)
+    wallet = await AccountHelper.createWallet(recoveryPhraseBytes, null, userId)
     user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
   } else {
-    user = await KeyMaster.createFirstTimeUser(recoveryPhraseBytes, userId)
+    user = await AccountHelper.createFirstTimeUser(recoveryPhraseBytes, userId)
     wallet = user.wallets[Object.keys(user.wallets)[0]]
   }
 

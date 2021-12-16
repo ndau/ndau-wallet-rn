@@ -65,7 +65,7 @@ class AccountLock extends Component {
 
       const lockData = await AccountAPI.getLockRates(account)
 
-      possibleLocks = lockData.map((data, index) => {
+      const possibleLocks = lockData.map((data, index) => {
         const total = AccountAPIHelper.eaiValueForDisplay({
           eaiValueForDisplay: data.eairate
         })

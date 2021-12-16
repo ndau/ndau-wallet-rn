@@ -22,7 +22,7 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
 import EntropyHelper from '../../helpers/EntropyHelper'
-import MultiSafeHelper from '../../helpers/MultiSafeHelper'
+import AccountHelper from '../../helpers/AccountHelper'
 import DataFormatHelper from '../../helpers/DataFormatHelper'
 import UserStore from '../../stores/UserStore'
 import AppConstants from '../../AppConstants'
@@ -72,7 +72,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       // if a user is present then we have wallets and can assume
       // they are logged in, so we get the password setup
       const password = await UserStore.getPassword()
-      user = await MultiSafeHelper.addNewWallet(
+      user = await AccountHelper.addNewWallet(
         user,
         DataFormatHelper.convertRecoveryArrayToString(
           SetupStore.recoveryPhrase
