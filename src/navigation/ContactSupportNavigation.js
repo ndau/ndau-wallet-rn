@@ -9,32 +9,16 @@
  */
 
 import React from 'react'
-import { createDrawerNavigator } from 'react-navigation-drawer'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ContactSupport from '../screens/ContactSupport'
-import AppDrawer from './AppDrawer'
 
-const ContactSupportScreen = ({ navigation }) => (
-  <ContactSupport navigation={navigation} />
-)
-ContactSupportScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
+const Stack = createNativeStackNavigator()
+const ContactSupportStack = ()  => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='ContactSupport' component={ContactSupport} />
+    </Stack.Navigator>
+  )
+}
 
-const ContactSupportStack = createStackNavigator({
-  ContactSupport: { screen: ContactSupportScreen }
-})
-
-const ContactSupportNavigation = createDrawerNavigator(
-  {
-    ContactSupport: {
-      path: '/contact-support',
-      screen: ContactSupportStack
-    }
-  },
-  {
-    contentComponent: AppDrawer
-  }
-)
-
-export default ContactSupportNavigation
+export default ContactSupportStack

@@ -39,16 +39,10 @@ class AccountLockType extends Component {
       wallet: WalletStore.getWallet(),
       whereToSendEAI: null,
       lockType: COMPOUND_TO_THIS_ACCOUNT,
-      accountsCanRxEAI: props.navigation.getParam(
-        'accountsCanRxEAI',
-        null
-      ),
+      accountsCanRxEAI: props.route.params?.accountsCanRxEAI ?? null,
       accountAddressForEAI: account.address,
       accountNicknameForEAI: account.addressData.nickname,
-      lockInformation: props.navigation.getParam(
-        'lockInformation',
-        null
-      ),
+      lockInformation: props.route.params?.lockInformation ?? null,
       spinner: false
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)

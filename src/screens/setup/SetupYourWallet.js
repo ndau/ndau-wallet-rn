@@ -26,11 +26,11 @@ class SetupYourWallet extends Component {
   }
 
   componentDidMount = () => {
-    this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
+    this.fromHamburger = this.props.route.params?.fromHamburger ?? null
   }
 
   goBack = () => {
-    this.props.navigation.navigate('Dashboard')
+    this.props.navigation.navigate('Drawer')
   }
 
   render () {

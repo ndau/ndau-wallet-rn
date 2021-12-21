@@ -33,7 +33,6 @@ import NdauStore from '../stores/NdauStore'
 import AccountHelper from '../helpers/AccountHelper'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import NdauNumber from '../helpers/NdauNumber'
-import { NavigationEvents } from 'react-navigation'
 import AppConfig from '../AppConfig'
 import { FeeAlert } from '../components/alerts'
 
@@ -57,6 +56,16 @@ class WalletOverview extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this._onRefresh()
+    })
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe()
+  }
+
   _handleAppStateChange = async nextAppState => {
     if (
       this.state.appState.match(/inactive|background/) &&
@@ -70,13 +79,13 @@ class WalletOverview extends Component {
   UNSAFE_componentWillMount = async () => {
     AppState.addEventListener('change', this._handleAppStateChange)
 
-    if (this.props.navigation.getParam('refresh')) {
+    if (this.props.route.params?.refresh) {
       await this._onRefresh()
     } else {
       this._loadMetricsAndSetState(WalletStore.getWallet())
     }
 
-    const error = this.props.navigation.getParam('error', null)
+    const error = this.props.route.params?.error ?? null
     if (error) {
       FlashNotification.showError(error)
     }
@@ -194,7 +203,6 @@ class WalletOverview extends Component {
               this.setState({ showFeesModal: visible })
             }}
           />
-          <NavigationEvents onWillFocus={payload => this._onRefresh()} />
           <NewAccountModalDialog
             number={this.state.number}
             subtractNumber={this.subtractNumber}

@@ -134,14 +134,11 @@ class SetupGetRecoveryPhrase extends Component {
       )
     }
 
-    const mode = this.props.navigation.getParam(
-      'mode',
-      AppConstants.NORMAL_MODE
-    )
+    const mode = this.props.route.params?.mode ?? AppConstants.NORMAL_MODE
 
     this.setState({ mode, introductionText: this._getIntroductionText(mode) })
 
-    this.fromHamburger = this.props.navigation.getParam('fromHamburger', null)
+    this.fromHamburger = this.props.route.params?.fromHamburger ?? null
   }
 
   componentWillUnmount () {
@@ -259,7 +256,7 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   goBack = () => {
-    this.props.navigation.navigate('Dashboard')
+    this.props.navigation.navigate('Drawer')
   }
 
   confirm = async () => {

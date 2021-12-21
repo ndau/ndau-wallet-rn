@@ -116,7 +116,8 @@ class Authentication extends Component {
           }
 
           this.setState({ spinner: false }, () => {
-            this.props.navigation.navigate('Dashboard', {
+            this.props.navigation.navigate('Drawer', {
+              screen: 'Dashboard',
               error: errorMessage
             })
           })

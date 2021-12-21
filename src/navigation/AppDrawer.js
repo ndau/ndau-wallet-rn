@@ -33,7 +33,7 @@ class AppDrawer extends React.Component {
 
   dashboard = () => {
     this.closeDrawer()
-    this.props.navigation.navigate('App')
+    this.props.navigation.navigate('Drawer', { screen: 'Dashboard' })
   }
 
   recoverWallet = async () => {
@@ -50,7 +50,7 @@ class AppDrawer extends React.Component {
 
   showSettings = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('Settings')
+    this.props.navigation.navigate('Drawer', { screen: 'Settings' })
   }
 
   getHardware () {
@@ -123,7 +123,7 @@ class AppDrawer extends React.Component {
           </DrawerEntryItem>
 
           <DrawerEntryItem
-            onPress={() => this.props.navigation.navigate('ContactSupport')}
+            onPress={() => this.props.navigation.navigate('Drawer', { screen: 'ContactSupport' })}
             fontAwesomeIconName='comment'
           >
             Contact support

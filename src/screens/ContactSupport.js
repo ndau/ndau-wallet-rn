@@ -115,7 +115,7 @@ class ContactSupport extends Component {
   render () {
     const { includeLogs, sent, description, email, sending } = this.state
     const sendDisabled = sending // don't let'em press send when already sending
-    const drawerDisabled = this.props.navigation.getParam('drawerDisabled')
+    const drawerDisabled = this.props.route.params?.drawerDisabled
     return (
       <AppContainer>
         <WaitingForBlockchainSpinner

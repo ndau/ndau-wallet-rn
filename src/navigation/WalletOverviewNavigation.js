@@ -9,10 +9,8 @@
  */
 
 import React from 'react'
-import { createDrawerNavigator } from 'react-navigation-drawer'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import WalletOverview from '../screens/WalletOverview'
-import AppDrawer from './AppDrawer'
 import AccountDetails from '../screens/account/AccountDetails'
 import AccountLock from '../screens/account/AccountLock'
 import AccountLockType from '../screens/account/AccountLockType'
@@ -24,107 +22,23 @@ import AccountSendConfirmation from '../screens/account/AccountSendConfirmation'
 import AccountHistory from '../screens/account/AccountHistory'
 import AccountLockConfirmation from '../screens/account/AccountLockConfirmation'
 
-const WalletOverviewScreen = ({ navigation }) => (
-  <WalletOverview navigation={navigation} />
-)
-WalletOverviewScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
+const Stack = createNativeStackNavigator()
+const WalletOverviewStack = ()  => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='WalletOverview' component={WalletOverview} />
+      <Stack.Screen name='AccountDetails' component={AccountDetails} />
+      <Stack.Screen name='AccountLock' component={AccountLock} />
+      <Stack.Screen name='AccountLockType' component={AccountLockType} />
+      <Stack.Screen name='AccountLockChooseAccount' component={AccountLockChooseAccount} />
+      <Stack.Screen name='AccountUnlock' component={AccountUnlock} />
+      <Stack.Screen name='AccountSend' component={AccountSend} />
+      <Stack.Screen name='AccountReceive' component={AccountReceive} />
+      <Stack.Screen name='AccountSendConfirmation' component={AccountSendConfirmation} />
+      <Stack.Screen name='AccountHistory' component={AccountHistory} />
+      <Stack.Screen name='AccountLockConfirmation' component={AccountLockConfirmation} />
+    </Stack.Navigator>
+  )
+}
 
-const AccountDetailsScreen = ({ navigation }) => (
-  <AccountDetails navigation={navigation} />
-)
-AccountDetailsScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountLockScreen = ({ navigation }) => (
-  <AccountLock navigation={navigation} />
-)
-AccountLockScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountLockTypeScreen = ({ navigation }) => (
-  <AccountLockType navigation={navigation} />
-)
-AccountLockTypeScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountLockChooseAccountScreen = ({ navigation }) => (
-  <AccountLockChooseAccount navigation={navigation} />
-)
-AccountLockChooseAccountScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountUnlockScreen = ({ navigation }) => (
-  <AccountUnlock navigation={navigation} />
-)
-AccountUnlockScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountSendScreen = ({ navigation }) => (
-  <AccountSend navigation={navigation} />
-)
-AccountSendScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountReceiveScreen = ({ navigation }) => (
-  <AccountReceive navigation={navigation} />
-)
-AccountReceiveScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountSendConfirmationScreen = ({ navigation }) => (
-  <AccountSendConfirmation navigation={navigation} />
-)
-AccountSendConfirmationScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountHistoryScreen = ({ navigation }) => (
-  <AccountHistory navigation={navigation} />
-)
-AccountHistoryScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const AccountLockConfirmationScreen = ({ navigation }) => (
-  <AccountLockConfirmation navigation={navigation} />
-)
-AccountLockConfirmationScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const WalletOverviewStack = createStackNavigator({
-  WalletOverview: { screen: WalletOverviewScreen },
-  AccountDetails: { screen: AccountDetailsScreen },
-  AccountLock: { screen: AccountLockScreen },
-  AccountLockType: { screen: AccountLockTypeScreen },
-  AccountLockChooseAccount: { screen: AccountLockChooseAccountScreen },
-  AccountUnlock: { screen: AccountUnlockScreen },
-  AccountSend: { screen: AccountSendScreen },
-  AccountReceive: { screen: AccountReceiveScreen },
-  AccountSendConfirmation: { screen: AccountSendConfirmationScreen },
-  AccountHistory: { screen: AccountHistoryScreen },
-  AccountLockConfirmation: { screen: AccountLockConfirmationScreen }
-})
-
-const WalletOverviewNavigation = createDrawerNavigator(
-  {
-    WalletOverview: {
-      path: '/walletoverview',
-      screen: WalletOverviewStack
-    }
-  },
-  {
-    contentComponent: AppDrawer
-  }
-)
-
-export default WalletOverviewNavigation
+export default WalletOverviewStack

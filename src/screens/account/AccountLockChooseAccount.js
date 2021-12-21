@@ -39,17 +39,11 @@ class AccountLockChooseAccount extends Component {
   }
 
   UNSAFE_componentWillMount = async () => {
-    const accountsCanRxEAI = this.props.navigation.getParam(
-      'accountsCanRxEAI',
-      {}
-    )
+    const accountsCanRxEAI = this.props.route.params?.accountsCanRxEAI ?? {}
 
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-    const lockInformation = this.props.navigation.getParam(
-      'lockInformation',
-      null
-    )
+    const lockInformation = this.props.route.params?.lockInformation ?? null
 
     // clone the object stored at the screen level.
     // the iteration of the clones keys allows us to

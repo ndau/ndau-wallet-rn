@@ -45,14 +45,11 @@ class AccountSendConfirmation extends Component {
   componentWillMount = async () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-    const address = this.props.navigation.getParam('address', null)
-    const amount = this.props.navigation.getParam('amount', null)
-    const transactionFee = this.props.navigation.getParam(
-      'transactionFee',
-      null
-    )
-    const sibFee = this.props.navigation.getParam('sibFee', null)
-    const total = this.props.navigation.getParam('total', null)
+    const address = this.props.route.params?.address ?? null
+    const amount = this.props.route.params?.amount ?? null
+    const transactionFee = this.props.route.params?.transactionFee ?? null
+    const sibFee = this.props.route.params?.sibFee ?? null
+    const total = this.props.route.params?.total ?? null
 
     this.setState({
       account,

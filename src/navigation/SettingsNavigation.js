@@ -9,30 +9,16 @@
  */
 
 import React from 'react'
-import { createDrawerNavigator } from 'react-navigation-drawer'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Settings from '../screens/Settings'
-import AppDrawer from './AppDrawer'
 
-const SettingsScreen = ({ navigation }) => <Settings navigation={navigation} />
-SettingsScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
+const Stack = createNativeStackNavigator()
+const SettingsStack = ()  => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='Settings' component={Settings} />
+    </Stack.Navigator>
+  )
+}
 
-const SettingsStack = createStackNavigator({
-  Settings: { screen: SettingsScreen }
-})
-
-const SettingsNavigation = createDrawerNavigator(
-  {
-    Settings: {
-      path: '/dashboard',
-      screen: SettingsStack
-    }
-  },
-  {
-    contentComponent: AppDrawer
-  }
-)
-
-export default SettingsNavigation
+export default SettingsStack

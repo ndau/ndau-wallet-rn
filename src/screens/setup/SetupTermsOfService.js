@@ -78,7 +78,7 @@ class SetupTermsOfService extends Component {
         UserStore.setPassword(SetupStore.encryptionPassword)
 
         this.setState({ spinner: false }, () => {
-          this.props.navigation.navigate('Dashboard')
+          this.props.navigation.navigate('Drawer', { screen: 'Dashboard' })
         })
       } catch (error) {
         FlashNotification.showError(
@@ -96,7 +96,7 @@ class SetupTermsOfService extends Component {
   }
 
   performFinishingAction = () => {
-    let mode = this.props.navigation.getParam('mode', AppConstants.TOS_SETUP)
+    let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP
     switch (mode) {
       case AppConstants.TOS_BUY:
         this.goBuyNdau()

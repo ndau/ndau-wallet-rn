@@ -9,32 +9,16 @@
  */
 
 import React from 'react'
-import { createDrawerNavigator } from 'react-navigation-drawer'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Dashboard from '../screens/Dashboard'
-import AppDrawer from './AppDrawer'
 
-const DashboardScreen = ({ navigation }) => (
-  <Dashboard navigation={navigation} />
-)
-DashboardScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
+const Stack = createNativeStackNavigator()
+const DashboardStack = ()  => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='Dashboard' component={Dashboard} />
+    </Stack.Navigator>
+  )
+}
 
-const DashboardStack = createStackNavigator({
-  Dashboard: { screen: DashboardScreen }
-})
-
-const DashboardNavigation = createDrawerNavigator(
-  {
-    Dashboard: {
-      path: '/dashboard',
-      screen: DashboardStack
-    }
-  },
-  {
-    contentComponent: AppDrawer
-  }
-)
-
-export default DashboardNavigation
+export default DashboardStack
