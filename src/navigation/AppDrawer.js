@@ -140,7 +140,7 @@ class AppDrawer extends React.Component {
             Settings
           </DrawerEntryItem>
 
-          {!SettingsStore.isMainNet() ? (
+          {!SettingsStore.isMainNetSync() ? (
             <View>
               <DrawerBorder />
               <DrawerEntryItem
@@ -150,7 +150,7 @@ class AppDrawer extends React.Component {
                     : 'laptop-code'
                 }
               >
-                {SettingsStore.getApplicationNetwork()} environment
+                {SettingsStore.getApplicationNetworkSync()} environment
               </DrawerEntryItem>
               <DrawerBorder />
             </View>

@@ -14,7 +14,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import AppDrawer from './AppDrawer'
 import DashboardNavigation from './DashboardNavigation'
 import ContactSupportNavigation from './ContactSupportNavigation'
-import WalletOverviewNavigation from './WalletOverviewNavigation'
 import SetupWelcome from '../screens/setup/SetupWelcome'
 import SetupWalletName from '../screens/setup/SetupWalletName'
 import SetupNewOrRecovery from '../screens/setup/SetupNewOrRecovery'
@@ -37,7 +36,6 @@ const DrawerNavigator = () => {
       <Drawer.Navigator drawerContent={(props) => <AppDrawer {...props} />} screenOptions={{headerShown:false}}>
         <Drawer.Screen name="DashboardNav" component={DashboardNavigation} />
         <Drawer.Screen name="ContactSupportNav" component={ContactSupportNavigation} />
-        <Drawer.Screen name="WalletOverview" component={WalletOverviewNavigation} />
         <Drawer.Screen name="SettingsNav" component={SettingsNavigation} />
       </Drawer.Navigator>
   )

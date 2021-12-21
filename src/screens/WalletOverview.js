@@ -211,7 +211,7 @@ class WalletOverview extends Component {
             ref={component => (this._newAccountModal = component)}
           />
 
-          <DrawerHeader {...this.props}>
+          <DrawerHeader navBack={true} {...this.props}>
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>

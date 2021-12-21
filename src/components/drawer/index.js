@@ -83,13 +83,17 @@ export const DrawerHeader = props => {
   return (
     <View style={styles.drawerHeaderContainer}>
       <Icon
-        name='bars'
+        name={props.navBack ? 'arrow-left' : 'bars'}
         size={32}
-        color='#fff'
+        color={props.navBack ? AppConstants.ICON_BUTTON_COLOR : '#fff'}
         containerStyle={styles.drawerButton}
         type='light'
         onPress={() => {
-          props.navigation.openDrawer()
+          if (props.navBack) {
+            props.navigation.goBack()
+          } else {
+            props.navigation.openDrawer()
+          }
         }}
       />
       <H4 style={styles.drawerHeaderText}>{props.children}</H4>

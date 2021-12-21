@@ -38,7 +38,11 @@ class SettingsStore {
     this.funcs.delete(func)
   }
 
-  getApplicationNetwork = async() =>{
+  getApplicationNetworkSync = () => {
+    return this._settings.applicationNetwork
+  }
+
+  getApplicationNetwork = async() => {
     if (!this._settings.applicationNetwork) {
       await this._ifNetworkNotSetDefaultIt()
       this._settings.applicationNetwork = await AsyncStorageHelper.getApplicationNetwork()
@@ -81,6 +85,11 @@ class SettingsStore {
     }
   }
   
+  isMainNetSync = () => {
+    const applicationNetwork = this._settings.applicationNetwork
+    return applicationNetwork && applicationNetwork.toLowerCase() === MAIN_NET
+  }
+
   /**
    * Is the application using mainnet
    */
