@@ -116,7 +116,7 @@ class Authentication extends Component {
           }
 
           this.setState({ spinner: false }, () => {
-            this.props.navigation.navigate('Drawer', {
+            this.props.navigation.replace('Drawer', {
               screen: 'DashboardNav',
               params: {
                 screen: 'Dashboard',
