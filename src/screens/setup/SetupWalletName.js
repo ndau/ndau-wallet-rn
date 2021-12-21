@@ -91,7 +91,7 @@ class SetupWalletName extends Component {
         }
       }
 
-      navigation.navigate('SetupEncryptionPassword', {
+      this.props.navigation.navigate('SetupEncryptionPassword', {
         user
       })
     }

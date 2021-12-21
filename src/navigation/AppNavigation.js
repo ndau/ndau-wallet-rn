@@ -35,20 +35,17 @@ const Drawer = createDrawerNavigator()
 const DrawerNavigator = () => {
   return (
       <Drawer.Navigator drawerContent={(props) => <AppDrawer {...props} />} screenOptions={{headerShown:false}}>
-        <Drawer.Screen name="Dashboard" component={DashboardNavigation} />
-        <Drawer.Screen name="ContactSupport" component={ContactSupportNavigation} />
+        <Drawer.Screen name="DashboardNav" component={DashboardNavigation} />
+        <Drawer.Screen name="ContactSupportNav" component={ContactSupportNavigation} />
         <Drawer.Screen name="WalletOverview" component={WalletOverviewNavigation} />
-        <Drawer.Screen name="Settings" component={SettingsNavigation} />
+        <Drawer.Screen name="SettingsNav" component={SettingsNavigation} />
       </Drawer.Navigator>
   )
 }
 
-const AppContainer = ()  => {
+const SetupStack = () => {
   return (
-    <Stack.Navigator initialRouteName="AuthLoading" screenOptions={{ headerShown:false }}>
-      <Stack.Screen name="AuthLoading" component={AuthLoading} />
-      <Stack.Screen name="Authentication" component={Authentication} />
-      <Stack.Screen name="ContactSupport" component={ContactSupport} />
+    <Stack.Navigator screenOptions={{ headerShown:false }}>
       <Stack.Screen name="SetupWelcome" component={SetupWelcome} />
       <Stack.Screen name="SetupWalletName" component={SetupWalletName} />
       <Stack.Screen name="SetupNewOrRecovery" component={SetupNewOrRecovery} />
@@ -58,6 +55,17 @@ const AppContainer = ()  => {
       <Stack.Screen name="SetupGetRecoveryPhrase" component={SetupGetRecoveryPhrase} />
       <Stack.Screen name="SetupTermsOfService" component={SetupTermsOfService} />
       <Stack.Screen name="SetupYourWallet" component={SetupYourWallet} />
+    </Stack.Navigator>
+  )
+}
+
+const AppContainer = ()  => {
+  return (
+    <Stack.Navigator initialRouteName="AuthLoading" screenOptions={{ headerShown:false }}>
+      <Stack.Screen name="AuthLoading" component={AuthLoading} />
+      <Stack.Screen name="Authentication" component={Authentication} />
+      <Stack.Screen name="ContactSupport" component={ContactSupport} />
+      <Stack.Screen name="Setup" component={SetupStack} />
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
     </Stack.Navigator>
   )

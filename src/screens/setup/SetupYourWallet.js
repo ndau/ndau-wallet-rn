@@ -30,7 +30,7 @@ class SetupYourWallet extends Component {
   }
 
   goBack = () => {
-    this.props.navigation.navigate('Drawer')
+    this.props.navigation.goBack()
   }
 
   render () {

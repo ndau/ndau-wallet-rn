@@ -181,7 +181,7 @@ class SetupEncryptionPassword extends Component {
 
         await UserData.loadUserData(user)
 
-        this.props.navigation.navigate('Drawer', { screen: 'Dashboard' })
+        this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
       } catch (error) {
         LogStore.error(error)
         FlashNotification.showError(error.message, false, false)

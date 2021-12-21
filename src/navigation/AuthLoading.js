@@ -34,13 +34,14 @@ class AuthLoadingScreen extends React.Component {
         // time for recovery as we need to create real account object for you
         // this is only done for users < 1.8, after 1.8 this should not happen
         // again as you will have a MultiSafe
-        this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-          mode: AppConstants.GENESIS_MODE
+        this.props.navigation.navigate('Setup', {
+          screen: 'SetupGetRecoveryPhrase',
+          params: { mode: AppConstants.GENESIS_MODE }
         })
       } else if (multiSafes) {
         this.props.navigation.navigate('Authentication')
       } else {
-        this.props.navigation.navigate('SetupWelcome')
+        this.props.navigation.navigate('Setup', { screen: 'SetupWelcome' })
       }
     } catch (error) {
       FlashNotification.showError(`Problem encountered: ${error.message}`)

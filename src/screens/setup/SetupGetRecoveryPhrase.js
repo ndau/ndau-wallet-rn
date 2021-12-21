@@ -256,7 +256,7 @@ class SetupGetRecoveryPhrase extends Component {
   }
 
   goBack = () => {
-    this.props.navigation.navigate('Drawer')
+    this.props.navigation.goBack()
   }
 
   confirm = async () => {

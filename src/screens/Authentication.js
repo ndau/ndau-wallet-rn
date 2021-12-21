@@ -117,8 +117,11 @@ class Authentication extends Component {
 
           this.setState({ spinner: false }, () => {
             this.props.navigation.navigate('Drawer', {
-              screen: 'Dashboard',
-              error: errorMessage
+              screen: 'DashboardNav',
+              params: {
+                screen: 'Dashboard',
+                params: { error: errorMessage }
+              }
             })
           })
         } else {
@@ -173,9 +176,12 @@ class Authentication extends Component {
 
   showPasswordReset = user => {
     FlashNotification.hideMessage()
-    this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-      user: user,
-      mode: AppConstants.PASSWORD_RESET_MODE
+    this.props.navigation.navigate('Setup', {
+      screen: 'SetupGetRecoveryPhrase',
+      params: {
+        user: user,
+        mode: AppConstants.PASSWORD_RESET_MODE
+      }
     })
   }
 

@@ -78,7 +78,7 @@ class SetupTermsOfService extends Component {
         UserStore.setPassword(SetupStore.encryptionPassword)
 
         this.setState({ spinner: false }, () => {
-          this.props.navigation.navigate('Drawer', { screen: 'Dashboard' })
+          this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
         })
       } catch (error) {
         FlashNotification.showError(
