@@ -57,13 +57,11 @@ class WalletOverview extends Component {
   }
 
   componentDidMount() {
-    this._unsubscribe = this.props.navigation.addListener('focus', () => {
-      this._onRefresh()
-    })
+    this.unsubscribe = this.props.navigation.addListener('focus', () => this._onRefresh())
   }
 
   componentWillUnmount() {
-    this._unsubscribe()
+    this.unsubscribe()
   }
 
   _handleAppStateChange = async nextAppState => {
