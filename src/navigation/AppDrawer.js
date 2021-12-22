@@ -144,6 +144,7 @@ class AppDrawer extends React.Component {
             <View>
               <DrawerBorder />
               <DrawerEntryItem
+                disabled={true}
                 fontAwesomeIconName={
                   SettingsStore.isTestNet()
                     ? 'flask'
@@ -156,7 +157,7 @@ class AppDrawer extends React.Component {
             </View>
           ) : null}
 
-          <DrawerEntryVersionItem>{this.getVersion()}</DrawerEntryVersionItem>
+          <DrawerEntryVersionItem disabled={true}>{this.getVersion()}</DrawerEntryVersionItem>
 
           <DrawerEntryItem
             bottom
