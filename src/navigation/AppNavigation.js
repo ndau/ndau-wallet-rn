@@ -9,14 +9,11 @@
  */
 
 import React from 'react'
-import {
-  createSwitchNavigator,
-  createAppContainer
-} from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import AppDrawer from './AppDrawer'
 import DashboardNavigation from './DashboardNavigation'
 import ContactSupportNavigation from './ContactSupportNavigation'
-import WalletOverviewNavigation from './WalletOverviewNavigation'
 import SetupWelcome from '../screens/setup/SetupWelcome'
 import SetupWalletName from '../screens/setup/SetupWalletName'
 import SetupNewOrRecovery from '../screens/setup/SetupNewOrRecovery'
@@ -31,125 +28,45 @@ import AuthLoading from './AuthLoading'
 import SettingsNavigation from './SettingsNavigation'
 import ContactSupport from '../screens/ContactSupport'
 
-const ContactSupportScreen = ({ navigation }) => (
-  <ContactSupport navigation={navigation} />
-)
-ContactSupportScreen.navigationOptions = {
-    headerShown: false
+const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator()
+
+const DrawerNavigator = () => {
+  return (
+      <Drawer.Navigator drawerContent={(props) => <AppDrawer {...props} />} screenOptions={{headerShown:false}}>
+        <Drawer.Screen name="DashboardNav" component={DashboardNavigation} />
+        <Drawer.Screen name="ContactSupportNav" component={ContactSupportNavigation} />
+        <Drawer.Screen name="SettingsNav" component={SettingsNavigation} />
+      </Drawer.Navigator>
+  )
 }
 
-const AuthenticationScreen = ({ navigation }) => (
-  <Authentication navigation={navigation} />
-)
-AuthenticationScreen.navigationOptions = {
-    headerShown: false
+const SetupStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown:false }}>
+      <Stack.Screen name="SetupWelcome" component={SetupWelcome} />
+      <Stack.Screen name="SetupWalletName" component={SetupWalletName} />
+      <Stack.Screen name="SetupNewOrRecovery" component={SetupNewOrRecovery} />
+      <Stack.Screen name="SetupEncryptionPassword" component={SetupEncryptionPassword} />
+      <Stack.Screen name="SetupConfirmRecoveryPhrase" component={SetupConfirmRecoveryPhrase} />
+      <Stack.Screen name="SetupRecoveryPhrase" component={SetupRecoveryPhrase} />
+      <Stack.Screen name="SetupGetRecoveryPhrase" component={SetupGetRecoveryPhrase} />
+      <Stack.Screen name="SetupTermsOfService" component={SetupTermsOfService} />
+      <Stack.Screen name="SetupYourWallet" component={SetupYourWallet} />
+    </Stack.Navigator>
+  )
 }
 
-const SetupWelcomeScreen = ({ navigation }) => (
-  <SetupWelcome navigation={navigation} />
-)
-SetupWelcomeScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
+const AppContainer = ()  => {
+  return (
+    <Stack.Navigator initialRouteName="AuthLoading" screenOptions={{ headerShown:false }}>
+      <Stack.Screen name="AuthLoading" component={AuthLoading} />
+      <Stack.Screen name="Authentication" component={Authentication} />
+      <Stack.Screen name="ContactSupport" component={ContactSupport} />
+      <Stack.Screen name="Setup" component={SetupStack} />
+      <Stack.Screen name="Drawer" component={DrawerNavigator} />
+    </Stack.Navigator>
+  )
+}
 
-const SetupWalletNameScreen = ({ navigation }) => (
-  <SetupWalletName navigation={navigation} />
-)
-SetupWalletNameScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupNewOrRecoveryScreen = ({ navigation }) => (
-  <SetupNewOrRecovery navigation={navigation} />
-)
-SetupNewOrRecoveryScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupEncryptionPasswordScreen = ({ navigation }) => (
-  <SetupEncryptionPassword navigation={navigation} />
-)
-SetupEncryptionPasswordScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupConfirmRecoveryPhraseScreen = ({ navigation }) => (
-  <SetupConfirmRecoveryPhrase navigation={navigation} />
-)
-SetupConfirmRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupRecoveryPhraseScreen = ({ navigation }) => (
-  <SetupRecoveryPhrase navigation={navigation} />
-)
-SetupRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupGetRecoveryPhraseScreen = ({ navigation }) => (
-  <SetupGetRecoveryPhrase navigation={navigation} />
-)
-SetupGetRecoveryPhraseScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupTermsOfServiceScreen = ({ navigation }) => (
-  <SetupTermsOfService navigation={navigation} />
-)
-SetupTermsOfServiceScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupYourWalletScreen = ({ navigation }) => (
-  <SetupYourWallet navigation={navigation} />
-)
-SetupYourWalletScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const DashboardNavigationScreen = ({ navigation }) => (
-  <DashboardNavigation navigation={navigation} />
-)
-DashboardNavigationScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const WalletOverviewNavigationScreen = ({ navigation }) => (
-  <WalletOverviewNavigation navigation={navigation} />
-)
-WalletOverviewNavigationScreen.navigationOptions = ({ navigation }) => ({
-    headerShown: false
-})
-
-const SetupStack = createStackNavigator({
-  Authentication: { screen: AuthenticationScreen },
-  ContactSupport: { screen: ContactSupportScreen },
-  SetupWelcome: { screen: SetupWelcomeScreen },
-  SetupWalletName: { screen: SetupWalletNameScreen },
-  SetupNewOrRecovery: { screen: SetupNewOrRecoveryScreen },
-  SetupEncryptionPassword: { screen: SetupEncryptionPasswordScreen },
-  SetupConfirmRecoveryPhrase: { screen: SetupConfirmRecoveryPhraseScreen },
-  SetupRecoveryPhrase: { screen: SetupRecoveryPhraseScreen },
-  SetupGetRecoveryPhrase: { screen: SetupGetRecoveryPhraseScreen },
-  SetupTermsOfService: { screen: SetupTermsOfServiceScreen },
-  SetupYourWallet: { screen: SetupYourWalletScreen }
-})
-
-const SwitchNavigator = createSwitchNavigator(
-  {
-    AuthLoading: AuthLoading,
-    App: DashboardNavigation,
-
-    ContactSupport: ContactSupportNavigation,
-    WalletOverview: WalletOverviewNavigation,
-    Setup: SetupStack,
-    Settings: SettingsNavigation
-  },
-  {
-    initialRouteName: 'AuthLoading',
-    headerMode: 'node'
-  }
-)
-
-export default createAppContainer(SwitchNavigator)
+export default AppContainer

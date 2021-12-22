@@ -8,6 +8,7 @@
  * - -- --- ---- -----
  */
 
+import 'react-native-gesture-handler' // Note: If you are building for Android or iOS, do not skip this step, or your app may crash in production even if it works fine in development.
 import React from 'react'
 import { LogBox, View, Text, NativeModules } from 'react-native'
 import AppNavigation from './navigation/AppNavigation'
@@ -19,6 +20,8 @@ import SettingsStore from './stores/SettingsStore'
 import ServiceDiscovery from './api/ServiceDiscovery'
 import { ThemeProvider } from 'nachos-ui'
 import { configureFontAwesomePro } from 'react-native-fontawesome-pro'
+import { NavigationContainer } from '@react-navigation/native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
 
@@ -61,7 +64,11 @@ export default class App extends React.Component {
               </View>
             </View>
           ) : null}
-          <AppNavigation />
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <AppNavigation />
+            </NavigationContainer>
+          </SafeAreaProvider>
           <FlashMessage position='top' />
           <OfflineMessage />
         </ThemeProvider>

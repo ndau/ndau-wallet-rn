@@ -19,14 +19,11 @@ class OfflineMessage extends PureComponent {
     NetInfo.fetch().then(isConnected => {
       this.handleConnectivityChange(isConnected)
     })
-    NetInfo.addEventListener(this.handleConnectivityChange)
+    this.unsubscribe = NetInfo.addEventListener(this.handleConnectivityChange)
   }
 
   componentWillUnmount () {
-    NetInfo.removeEventListener(
-      'connectionChange',
-      this.handleConnectivityChange
-    )
+    this.unsubscribe()
   }
 
   handleConnectivityChange = async isConnected => {

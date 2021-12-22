@@ -21,7 +21,7 @@ import {
   Switch,
   Linking
 } from 'react-native'
-import { SafeAreaView } from 'react-navigation'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './styles'

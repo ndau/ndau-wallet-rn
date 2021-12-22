@@ -103,10 +103,7 @@ class SetupEncryptionPassword extends Component {
       )
     }
 
-    const mode = this.props.navigation.getParam(
-      'mode',
-      AppConstants.NEW_PASSWORD_MODE
-    )
+    const mode = this.props.route.params?.mode ?? AppConstants.NEW_PASSWORD_MODE
     let instructionText = this.NEW_PASSWORD_MODE_TEXT
     if (mode === AppConstants.PASSWORD_RESET_MODE) {
       instructionText = this.PASSWORD_RESET_MODE_TEXT
@@ -172,10 +169,7 @@ class SetupEncryptionPassword extends Component {
 
   resetPassword = async () => {
     this.setState({ spinner: true }, async () => {
-      const recoveryPhraseString = this.props.navigation.getParam(
-        'recoveryPhraseString',
-        null
-      )
+      const recoveryPhraseString = this.props.route.params?.recoveryPhraseString ?? null
 
       try {
         await MultiSafeHelper.resetPassword(
@@ -187,7 +181,7 @@ class SetupEncryptionPassword extends Component {
 
         await UserData.loadUserData(user)
 
-        this.props.navigation.navigate('Dashboard')
+        this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
       } catch (error) {
         LogStore.error(error)
         FlashNotification.showError(error.message, false, false)

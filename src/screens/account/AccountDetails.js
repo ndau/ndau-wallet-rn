@@ -58,10 +58,7 @@ class AccountDetails extends Component {
   UNSAFE_componentWillMount = () => {
     const account = AccountStore.getAccount()
     const wallet = WalletStore.getWallet()
-    const accountsCanRxEAI = this.props.navigation.getParam(
-      'accountsCanRxEAI',
-      null
-    )
+    const accountsCanRxEAI = this.props.route.params?.accountsCanRxEAI ?? null
 
     this.setState({ account, wallet, accountsCanRxEAI })
     // fetch network asynchronously and update the state when it's done

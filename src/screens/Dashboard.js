@@ -70,7 +70,7 @@ class Dashboard extends Component {
     } else {
       this._loadMetricsAndSetState(user)
 
-      const error = this.props.navigation.getParam('error', null)
+      const error = this.props.route.params?.error ?? null
       if (error) {
         FlashNotification.showError(error)
       }

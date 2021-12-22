@@ -55,11 +55,8 @@ class AccountLock extends Component {
 
   UNSAFE_componentWillMount = async () => {
     this.setState({ spinner: true }, async () => {
-      const accountsCanRxEAI = this.props.navigation.getParam(
-        'accountsCanRxEAI',
-        null
-      )
-      const baseEAI = this.props.navigation.getParam('baseEAI', null)
+      const accountsCanRxEAI = this.props.route.params?.accountsCanRxEAI ?? null
+      const baseEAI = this.props.route.params?.baseEAI ?? null
       const account = AccountStore.getAccount()
       const wallet = WalletStore.getWallet()
 

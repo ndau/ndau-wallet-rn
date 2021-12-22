@@ -33,24 +33,28 @@ class AppDrawer extends React.Component {
 
   dashboard = () => {
     this.closeDrawer()
-    this.props.navigation.navigate('App')
+    this.props.navigation.navigate('Drawer', { screen: 'DashboardNav' })
   }
 
   recoverWallet = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('SetupGetRecoveryPhrase', {
-      fromHamburger: true
+    this.props.navigation.navigate('Setup', {
+      screen: 'SetupGetRecoveryPhrase',
+      params: { fromHamburger: true }
     })
   }
 
   addWallet = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('SetupYourWallet', { fromHamburger: true })
+    this.props.navigation.navigate('Setup', {
+      screen: 'SetupYourWallet',
+      params: { fromHamburger: true }
+    })
   }
 
   showSettings = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('Settings')
+    this.props.navigation.navigate('Drawer', { screen: 'SettingsNav' })
   }
 
   getHardware () {
@@ -123,7 +127,7 @@ class AppDrawer extends React.Component {
           </DrawerEntryItem>
 
           <DrawerEntryItem
-            onPress={() => this.props.navigation.navigate('ContactSupport')}
+            onPress={() => this.props.navigation.navigate('Drawer', { screen: 'ContactSupportNav' })}
             fontAwesomeIconName='comment'
           >
             Contact support
@@ -136,7 +140,7 @@ class AppDrawer extends React.Component {
             Settings
           </DrawerEntryItem>
 
-          {!SettingsStore.isMainNet() ? (
+          {!SettingsStore.isMainNetSync() ? (
             <View>
               <DrawerBorder />
               <DrawerEntryItem
@@ -146,7 +150,7 @@ class AppDrawer extends React.Component {
                     : 'laptop-code'
                 }
               >
-                {SettingsStore.getApplicationNetwork()} environment
+                {SettingsStore.getApplicationNetworkSync()} environment
               </DrawerEntryItem>
               <DrawerBorder />
             </View>

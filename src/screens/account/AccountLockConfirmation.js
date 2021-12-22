@@ -39,18 +39,9 @@ class AccountLockConfirmation extends Component {
     this.state = {
       account: AccountStore.getAccount(),
       wallet: WalletStore.getWallet(),
-      lockInformation: props.navigation.getParam(
-        'lockInformation',
-        null
-      ),
-      accountAddressForEAI: props.navigation.getParam(
-        'accountAddressForEAI',
-        null
-      ),
-      accountNicknameForEAI: props.navigation.getParam(
-        'accountNicknameForEAI',
-        null
-      ),
+      lockInformation: props.route.params?.lockInformation ?? null,
+      accountAddressForEAI: props.route.params?.accountAddressForEAI ?? null,
+      accountNicknameForEAI: props.route.params?.accountNicknameForEAI ?? null,
       confirmed: false,
       word: null,
       spinner: false,
