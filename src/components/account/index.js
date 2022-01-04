@@ -149,23 +149,16 @@ export function AccountPanel (props) {
           </View>
         </View>
       </LinearGradient>
-      <View style={styles.accountActionPanel}>
-        <View>
-          <TouchableOpacity {...props}>
-            <H4 style={styles.accountActionTextPanel}>View account details</H4>
-          </TouchableOpacity>
+      <TouchableOpacity {...props}>
+        <View style={styles.accountActionPanel}>
+          <H4 style={styles.accountActionTextPanel}>View account details</H4>
+          <Icon
+            name='chevron-right'
+            color={AppConstants.TEXT_COLOR}
+            type='light'
+          />
         </View>
-        <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-          <TouchableOpacity {...props}>
-            <Icon
-              name='chevron-right'
-              color={AppConstants.TEXT_COLOR}
-              containerStyle={styles.accountAngle}
-              type='light'
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }
