@@ -20,7 +20,7 @@ class FlashNotification extends Component {
     if (_.isError(message) && message.message) {
       const errorMessage = message.message
       showMessage({
-        errorMessage,
+        message: errorMessage,
         autoHide,
         backgroundColor: '#f5d8d1',
         color: '#f75f4b',
