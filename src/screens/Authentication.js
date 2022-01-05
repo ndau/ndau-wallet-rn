@@ -15,7 +15,9 @@ import {
   Platform,
   View,
   Keyboard,
-  ImageBackground
+  ImageBackground,
+  BackHandler,
+  NativeModules
 } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
@@ -36,11 +38,6 @@ import {
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 
-const ANDROID_SHRINK_SIZE = '18%'
-const ANDROID_NORMAL_SIZE = '30%'
-const IOS_SHRINK_SIZE = '15%'
-const IOS_NORMAL_SIZE = '32%'
-
 class Authentication extends Component {
   constructor (props) {
     super(props)
@@ -50,9 +47,7 @@ class Authentication extends Component {
       showErrorText: false,
       loginAttempt: 1,
       spinner: false,
-      keyboard: false,
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
+      keyboard: false
     }
 
     this.maxLoginAttempts = 10
@@ -144,7 +139,11 @@ class Authentication extends Component {
         {
           text: 'Exit app',
           onPress: () => {
-            RNExitApp.exitApp()
+            if (Platform.OS === 'ios') {
+              NativeModules.IOSNativeHelper.exitApp()
+            } else {
+              BackHandler.exitApp()
+            }
           }
         }
       ],
@@ -153,7 +152,7 @@ class Authentication extends Component {
   }
 
   showLoginError = () => {
-    if (this.state.loginAttempt === this.maxLoginAttempts) {
+    if (this.state.loginAttempt >= this.maxLoginAttempts) {
       this.showExitApp()
     }
     FlashNotification.showError(
@@ -200,21 +199,23 @@ class Authentication extends Component {
 
   keyboardWillShow = event => {
     this.setState({
-      keyboard: true,
-      lowerHeightAndroid: ANDROID_SHRINK_SIZE,
-      lowerHeightIOS: IOS_SHRINK_SIZE
+      keyboard: true
     })
   }
 
   keyboardWillHide = event => {
     this.setState({
-      keyboard: false,
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
+      keyboard: false
     })
   }
 
   render () {
+    let lowerHeightIOS = this.state.keyboard ? 15 : 32
+    let lowerHeightAndroid = this.state.keyboard ? 18 : 30
+    if (this.props.isNetShown) {
+      lowerHeightAndroid -= 1
+      lowerHeightIOS -= 2
+    }
     return (
       <LoginContainer>
         <ImageBackground
@@ -281,10 +282,10 @@ class Authentication extends Component {
               style={{
                 ...Platform.select({
                   ios: {
-                    height: this.state.lowerHeightIOS
+                    height: lowerHeightIOS + '%'
                   },
                   android: {
-                    height: this.state.lowerHeightAndroid
+                    height: lowerHeightAndroid + '%'
                   }
                 }),
                 flexDirection: 'column',

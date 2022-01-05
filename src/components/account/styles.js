@@ -39,7 +39,9 @@ export default StyleSheet.create({
   accountActionPanel: {
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: wp('4%')
   },
   walletOverviewHeaderActions: {
     flexDirection: 'row',
@@ -50,8 +52,7 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontSize: 16,
     fontFamily: 'Open Sans',
-    textAlign: 'left',
-    marginLeft: wp('4%')
+    textAlign: 'left'
   },
   accountTitleTextPanel: {
     color: AppConstants.TEXT_COLOR,
@@ -195,9 +196,6 @@ export default StyleSheet.create({
   },
   accountDetailsTextPanelTopMargin: {
     marginTop: '1%'
-  },
-  accountAngle: {
-    paddingRight: wp('4%')
   },
   accountDetailsIcons: {
     paddingTop: '4%',

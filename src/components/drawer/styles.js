@@ -82,19 +82,5 @@ export default (styles = StyleSheet.create({
     height: hp('6%'),
     textAlign: 'center',
     paddingTop: 4
-  },
-  contactSupportHeaderStyle: {
-    // mostly copied from drawerHeaderText
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 18,
-    fontWeight: '200',
-    width: wp('76%'),
-    height: hp('6%'),
-    paddingTop: 4,
-    marginLeft: '-10%',
-    zIndex: -1,
-    textAlign: 'left',
-    flex: 1
   }
 }))

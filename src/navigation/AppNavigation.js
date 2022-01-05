@@ -57,11 +57,13 @@ const SetupStack = () => {
   )
 }
 
-const AppContainer = ()  => {
+const AppContainer = (props) => {
   return (
     <Stack.Navigator initialRouteName="AuthLoading" screenOptions={{ headerShown:false }}>
       <Stack.Screen name="AuthLoading" component={AuthLoading} />
-      <Stack.Screen name="Authentication" component={Authentication} />
+      <Stack.Screen name="Authentication">
+        {(nestedProps) => <Authentication {...nestedProps} isNetShown={props.isNetShown} />}
+      </Stack.Screen> 
       <Stack.Screen name="ContactSupport" component={ContactSupport} />
       <Stack.Screen name="Setup" component={SetupStack} />
       <Stack.Screen name="Drawer" component={DrawerNavigator} />

@@ -43,6 +43,7 @@
 		9EF436232247222800892250 /* ndau-0.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EF436222247222800892250 /* ndau-0.ttf */; };
 		BDD4506950681F19798FBCC4 /* libPods-ndauwalletrn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7609B7F7FE439BF49A6153EC /* libPods-ndauwalletrn.a */; };
 		BE4E21C774B5F14281D1A443 /* libPods-ndauwalletrnTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 877BFDB66FB8D0510AED7598 /* libPods-ndauwalletrnTests.a */; };
+		D56D6B052785BEA700CD1128 /* IOSNativeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D56D6B042785BEA700CD1128 /* IOSNativeHelper.m */; };
 		E00C51ECBF9C458287708D8F /* libRNRandomBytes-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E14BCF54247349239FC1CD54 /* libRNRandomBytes-tvOS.a */; };
 		EBB1923B3609477B96DD7FD8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 47DAB571754742EBB9F53B6D /* libc++.tbd */; };
 /* End PBXBuildFile section */
@@ -389,6 +390,8 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C4C4CF2A8A9C319CF075CA88 /* Pods-ndauwalletrnTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ndauwalletrnTests.debug.xcconfig"; path = "Target Support Files/Pods-ndauwalletrnTests/Pods-ndauwalletrnTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D06263A25C844CAB9E1DB9C6 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
+		D56D6B032785BEA700CD1128 /* IOSNativeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOSNativeHelper.h; path = ndauwalletrn/IOSNativeHelper.h; sourceTree = "<group>"; };
+		D56D6B042785BEA700CD1128 /* IOSNativeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IOSNativeHelper.m; path = ndauwalletrn/IOSNativeHelper.m; sourceTree = "<group>"; };
 		DD58BF74CDBE463E9A40423D /* libRNRandomBytes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRandomBytes.a; sourceTree = "<group>"; };
 		DF0E38B9ECE24379833E53B9 /* libUdpSockets.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libUdpSockets.a; sourceTree = "<group>"; };
 		E14BCF54247349239FC1CD54 /* libRNRandomBytes-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNRandomBytes-tvOS.a"; sourceTree = "<group>"; };
@@ -531,6 +534,8 @@
 		13B07FAE1A68108700A75B9A /* ndauwalletrn */ = {
 			isa = PBXGroup;
 			children = (
+				D56D6B032785BEA700CD1128 /* IOSNativeHelper.h */,
+				D56D6B042785BEA700CD1128 /* IOSNativeHelper.m */,
 				985149F8276B592F005A8EB1 /* KeyaddrManager.h */,
 				985149F9276B592F005A8EB1 /* KeyaddrManager.m */,
 				9EF6095B220DCD430062947C /* ndauwalletrn.entitlements */,
@@ -1346,6 +1351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D56D6B052785BEA700CD1128 /* IOSNativeHelper.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				985149FA276B592F005A8EB1 /* KeyaddrManager.m in Sources */,

@@ -44,10 +44,6 @@ class ContactSupport extends Component {
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
-  onBack () {
-    this.props.navigation.navigate('Authentication')
-  }
-
   validate () {
     const msgs = []
     if (!this.state.email.match(/.@.*\.../) || this.state.email.length < 6) {
@@ -122,21 +118,7 @@ class ContactSupport extends Component {
           spinner={this.state.sending}
           label='Sending...'
         />
-        {drawerDisabled ? (
-          <View style={{ flexDirection: 'row', marginLeft: '4%' }}>
-            <Icon
-              size={32}
-              name='arrow-left'
-              color={AppConstants.ICON_BUTTON_COLOR}
-              onPress={() => this.onBack()}
-              type='light'
-              style={{ flex: 2 }}
-            />
-            <H4 style={styles.contactSupportHeaderStyle}>Contact Support</H4>
-          </View>
-        ) : (
-          <DrawerHeader {...this.props}>Contact Support</DrawerHeader>
-        )}
+        <DrawerHeader navBack={drawerDisabled} {...this.props}>Contact Support</DrawerHeader>
         <Text style={{ marginTop: '4%' }} />
         {sent ? (
           <ParagraphText>
