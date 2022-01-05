@@ -54,10 +54,11 @@ export default class App extends React.Component {
 
   render () {
     const { net } = this.state
+    const isNetShown = net !== 'mainnet' && net !== ''
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
         <ThemeProvider>
-          {net !== 'mainnet' && net !== '' ? (
+          {isNetShown ? (
             <View style={Styles.networkContainer}>
               <View style={Styles[`${net}BarStyle`]}>
                 <Text style={Styles.netBarText}>{net}</Text>
@@ -66,7 +67,7 @@ export default class App extends React.Component {
           ) : null}
           <SafeAreaProvider>
             <NavigationContainer>
-              <AppNavigation />
+              <AppNavigation isNetShown={isNetShown} />
             </NavigationContainer>
           </SafeAreaProvider>
           <FlashMessage position='top' />

@@ -36,11 +36,6 @@ import {
 } from '../components/common'
 import UserStore from '../stores/UserStore'
 
-const ANDROID_SHRINK_SIZE = '18%'
-const ANDROID_NORMAL_SIZE = '30%'
-const IOS_SHRINK_SIZE = '15%'
-const IOS_NORMAL_SIZE = '32%'
-
 class Authentication extends Component {
   constructor (props) {
     super(props)
@@ -51,8 +46,6 @@ class Authentication extends Component {
       loginAttempt: 1,
       spinner: false,
       keyboard: false,
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
     }
 
     this.maxLoginAttempts = 10
@@ -201,20 +194,22 @@ class Authentication extends Component {
   keyboardWillShow = event => {
     this.setState({
       keyboard: true,
-      lowerHeightAndroid: ANDROID_SHRINK_SIZE,
-      lowerHeightIOS: IOS_SHRINK_SIZE
     })
   }
 
   keyboardWillHide = event => {
     this.setState({
       keyboard: false,
-      lowerHeightAndroid: ANDROID_NORMAL_SIZE,
-      lowerHeightIOS: IOS_NORMAL_SIZE
     })
   }
 
   render () {
+    let lowerHeightIOS = this.state.keyboard ? 15 : 32
+    let lowerHeightAndroid = this.state.keyboard ? 18 : 30
+    if (this.props.isNetShown) {
+      lowerHeightAndroid -= 1
+      lowerHeightIOS -= 2
+    }
     return (
       <LoginContainer>
         <ImageBackground
@@ -281,10 +276,10 @@ class Authentication extends Component {
               style={{
                 ...Platform.select({
                   ios: {
-                    height: this.state.lowerHeightIOS
+                    height: lowerHeightIOS + '%'
                   },
                   android: {
-                    height: this.state.lowerHeightAndroid
+                    height: lowerHeightAndroid + '%'
                   }
                 }),
                 flexDirection: 'column',
