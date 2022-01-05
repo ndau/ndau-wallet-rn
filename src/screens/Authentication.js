@@ -15,7 +15,9 @@ import {
   Platform,
   View,
   Keyboard,
-  ImageBackground
+  ImageBackground,
+  BackHandler,
+  NativeModules
 } from 'react-native'
 import MultiSafeHelper from '../helpers/MultiSafeHelper'
 import UserData from '../model/UserData'
@@ -137,7 +139,11 @@ class Authentication extends Component {
         {
           text: 'Exit app',
           onPress: () => {
-            RNExitApp.exitApp()
+            if (Platform.OS === 'ios') {
+              NativeModules.IOSNativeHelper.exitApp()
+            } else {
+              BackHandler.exitApp()
+            }
           }
         }
       ],
@@ -146,7 +152,7 @@ class Authentication extends Component {
   }
 
   showLoginError = () => {
-    if (this.state.loginAttempt === this.maxLoginAttempts) {
+    if (this.state.loginAttempt >= this.maxLoginAttempts) {
       this.showExitApp()
     }
     FlashNotification.showError(
