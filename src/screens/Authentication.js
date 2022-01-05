@@ -47,7 +47,7 @@ class Authentication extends Component {
       showErrorText: false,
       loginAttempt: 1,
       spinner: false,
-      keyboard: false,
+      keyboard: false
     }
 
     this.maxLoginAttempts = 10
@@ -199,13 +199,13 @@ class Authentication extends Component {
 
   keyboardWillShow = event => {
     this.setState({
-      keyboard: true,
+      keyboard: true
     })
   }
 
   keyboardWillHide = event => {
     this.setState({
-      keyboard: false,
+      keyboard: false
     })
   }
 

@@ -57,7 +57,7 @@ const SetupStack = () => {
   )
 }
 
-const AppContainer = (props)  => {
+const AppContainer = (props) => {
   return (
     <Stack.Navigator initialRouteName="AuthLoading" screenOptions={{ headerShown:false }}>
       <Stack.Screen name="AuthLoading" component={AuthLoading} />
