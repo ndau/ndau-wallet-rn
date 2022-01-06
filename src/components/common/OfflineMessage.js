@@ -8,16 +8,15 @@
  * - -- --- ---- -----
  */
 
-import React, { PureComponent } from 'react'
+import { PureComponent } from 'react'
 import NetInfo from '@react-native-community/netinfo'
 import FlashNotification from './FlashNotification'
-import LogStore from '../../stores/LogStore'
 import DeviceStore from '../../stores/DeviceStore'
 
 class OfflineMessage extends PureComponent {
   componentDidMount () {
-    NetInfo.fetch().then(isConnected => {
-      this.handleConnectivityChange(isConnected)
+    NetInfo.fetch().then(state => {
+      this.handleConnectivityChange(state)
     })
     this.unsubscribe = NetInfo.addEventListener(this.handleConnectivityChange)
   }
@@ -26,8 +25,8 @@ class OfflineMessage extends PureComponent {
     this.unsubscribe()
   }
 
-  handleConnectivityChange = async isConnected => {
-    if (isConnected) {
+  handleConnectivityChange = async state => {
+    if (state.isConnected && state.isInternetReachable) {
       FlashNotification.hideMessage()
       DeviceStore.setOnline(true)
     } else {
