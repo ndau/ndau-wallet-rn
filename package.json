@@ -92,7 +92,7 @@
     "react-native-linear-gradient": "2.5.4",
     "react-native-loading-spinner-overlay": "2.0.0",
     "react-native-mail": "^3.0.7",
-    "react-native-modal": "^13.0.0",
+    "react-native-modal": "^12.1.0",
     "react-native-permissions": "1.1.1",
     "react-native-push-notification": "^8.1.1",
     "react-native-qrcode-svg": "^6.1.1",
