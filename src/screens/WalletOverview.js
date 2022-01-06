@@ -62,6 +62,7 @@ class WalletOverview extends Component {
 
   componentWillUnmount() {
     this.unsubscribe()
+    this.appStateSubscription.remove()
   }
 
   _handleAppStateChange = async nextAppState => {
@@ -75,7 +76,7 @@ class WalletOverview extends Component {
   }
 
   UNSAFE_componentWillMount = async () => {
-    AppState.addEventListener('change', this._handleAppStateChange)
+    this.appStateSubscription = AppState.addEventListener('change', this._handleAppStateChange)
 
     if (this.props.route.params?.refresh) {
       await this._onRefresh()
