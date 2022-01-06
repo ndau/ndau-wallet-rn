@@ -1224,10 +1224,10 @@
   dependencies:
     "deep-assign" "^3.0.0"
 
-"@react-native-clipboard/clipboard@^1.8.2":
-  "integrity" "sha512-IMUBqkwS6HyyHX1Dcu/yNqSYsgmI6UGilcUhD+qbH7tVQP8mX3k7hugr5K5IPzpGKaC1VSq4Lt7avy0jomHhLg=="
-  "resolved" "https://registry.npmjs.org/@react-native-clipboard/clipboard/-/clipboard-1.8.2.tgz"
-  "version" "1.8.2"
+"@react-native-clipboard/clipboard@^1.9.0":
+  "integrity" "sha512-O/ohFq1CAQLfoNc376Z3W6gvVcCJlje5AVk0JhsI8Q40hn+NXAWCnOM1bEePfC0uDMtp0/RCK6FotUvkQ6c4Zw=="
+  "resolved" "https://registry.npmjs.org/@react-native-clipboard/clipboard/-/clipboard-1.9.0.tgz"
+  "version" "1.9.0"
 
 "@react-native-community/cli-debugger-ui@^6.0.0-rc.0":
   "integrity" "sha512-achYcPPoWa9D02C5tn6TBzjeY443wQTyx37urptc75JpZ7gR5YHsDyIEEWa3DDYp1va9zx/iGg+uZ/hWw07GAw=="
@@ -1390,10 +1390,10 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz"
   "version" "1.1.0"
 
-"@react-native-community/netinfo@^6.0.0":
-  "integrity" "sha512-Z9M8VGcF2IZVOo2x+oUStvpCW/8HjIRi4+iQCu5n+PhC7OqCQX58KYAzdBr///alIfRXiu6oMb+lK+rXQH1FvQ=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-6.0.0.tgz"
-  "version" "6.0.0"
+"@react-native-community/netinfo@^7.1.7":
+  "integrity" "sha512-QCEuvbTAD7vyCsSsgbWedhTfXlClp4TVHVWYYMjnN7nz6xgZbSp+MI3oo7X5C4JlDHpRm/Q+63hsCgAqKt3WVA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-7.1.7.tgz"
+  "version" "7.1.7"
 
 "@react-native-community/push-notification-ios@^1.10.1":
   "integrity" "sha512-k6bZWUKLif4GjenyTD3aQLwA2VT3bNmt22INO/34lexnpmqkPDZF7nreqbckTHG0Zso9wDTe4N/AZJUC/d8iRg=="
@@ -3632,11 +3632,6 @@
   "integrity" "sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc="
   "resolved" "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   "version" "2.0.6"
-
-"fast-plist@^0.1.2":
-  "integrity" "sha1-pFr/NFGWAG1AbKbNzQX2kFHvNbg="
-  "resolved" "https://registry.npmjs.org/fast-plist/-/fast-plist-0.1.2.tgz"
-  "version" "0.1.2"
 
 "fb-watchman@^2.0.0":
   "integrity" "sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg=="
@@ -6738,14 +6733,10 @@
   dependencies:
     "prop-types" "^15.5.10"
 
-"react-native-background-fetch@2.6.0":
-  "integrity" "sha512-6a0ITgePMnFa1sVoCYeVuXvvjQzZavN7ynvchJixoQZEi8TreTuePUDxmzQVf7eZPCBciSaogfCoBwAzDRsK0Q=="
-  "resolved" "https://registry.npmjs.org/react-native-background-fetch/-/react-native-background-fetch-2.6.0.tgz"
-  "version" "2.6.0"
-  dependencies:
-    "fast-plist" "^0.1.2"
-    "plist" "^3.0.1"
-    "xcode" "^2.0.0"
+"react-native-background-fetch@^4.0.4":
+  "integrity" "sha512-vGcsIbv5TXblIqBonsMw1dbh/x/1np1NTMArLVz5rjdgUu330pc4o7X6VTxCWtzadajz0Fe1Y71xqXylpmBekA=="
+  "resolved" "https://registry.npmjs.org/react-native-background-fetch/-/react-native-background-fetch-4.0.4.tgz"
+  "version" "4.0.4"
 
 "react-native-barcode-mask@1.0.5":
   "integrity" "sha512-COXvJyCYK2lDmbgH9gJSZ/OCe0Pz1Faja9nY56InB7zGqqpGJATPHq84aXsK+T03iUqXmTxS6QcI32Ep6biOPQ=="
