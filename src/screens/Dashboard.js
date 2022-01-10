@@ -46,7 +46,7 @@ class Dashboard extends Component {
   }
 
   componentWillUnmount () {
-    AppState.removeEventListener('change', this._handleAppStateChange)
+    this.appStateSubscription.remove()
   }
 
   _handleAppStateChange = async nextAppState => {
@@ -78,11 +78,11 @@ class Dashboard extends Component {
   }
 
   UNSAFE_componentWillMount = async () => {
-    AppState.addEventListener('change', this._handleAppStateChange)
+    this.appStateSubscription = AppState.addEventListener('change', this._handleAppStateChange)
   }
 
   componentWillUnmount = async () => {
-    AppState.removeEventListener('change')
+    this.appStateSubscription.remove()
   }
 
   _loadMetricsAndSetState = user => {

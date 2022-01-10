@@ -70,3 +70,7 @@
 # keyaddr
 
 -keep class keyaddr.** { *; }
+
+# reanimated
+
+-keep class com.facebook.react.turbomodule.** { *; }

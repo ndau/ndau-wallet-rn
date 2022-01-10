@@ -676,7 +676,7 @@
     "@babel/helper-simple-access" "^7.14.5"
     "babel-plugin-dynamic-import-node" "^2.3.3"
 
-"@babel/plugin-transform-object-assign@^7.0.0":
+"@babel/plugin-transform-object-assign@^7.0.0", "@babel/plugin-transform-object-assign@^7.10.4":
   "integrity" "sha512-lvhjk4UN9xJJYB1mI5KC0/o1D5EcJXdbhVe+4fSk08D6ZN+iuAIs7LJC+71h8av9Ew4+uRq9452v9R93SFmQlQ=="
   "resolved" "https://registry.npmjs.org/@babel/plugin-transform-object-assign/-/plugin-transform-object-assign-7.14.5.tgz"
   "version" "7.14.5"
@@ -1224,10 +1224,10 @@
   dependencies:
     "deep-assign" "^3.0.0"
 
-"@react-native-clipboard/clipboard@^1.8.2":
-  "integrity" "sha512-IMUBqkwS6HyyHX1Dcu/yNqSYsgmI6UGilcUhD+qbH7tVQP8mX3k7hugr5K5IPzpGKaC1VSq4Lt7avy0jomHhLg=="
-  "resolved" "https://registry.npmjs.org/@react-native-clipboard/clipboard/-/clipboard-1.8.2.tgz"
-  "version" "1.8.2"
+"@react-native-clipboard/clipboard@^1.9.0":
+  "integrity" "sha512-O/ohFq1CAQLfoNc376Z3W6gvVcCJlje5AVk0JhsI8Q40hn+NXAWCnOM1bEePfC0uDMtp0/RCK6FotUvkQ6c4Zw=="
+  "resolved" "https://registry.npmjs.org/@react-native-clipboard/clipboard/-/clipboard-1.9.0.tgz"
+  "version" "1.9.0"
 
 "@react-native-community/cli-debugger-ui@^6.0.0-rc.0":
   "integrity" "sha512-achYcPPoWa9D02C5tn6TBzjeY443wQTyx37urptc75JpZ7gR5YHsDyIEEWa3DDYp1va9zx/iGg+uZ/hWw07GAw=="
@@ -1390,10 +1390,10 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz"
   "version" "1.1.0"
 
-"@react-native-community/netinfo@^6.0.0":
-  "integrity" "sha512-Z9M8VGcF2IZVOo2x+oUStvpCW/8HjIRi4+iQCu5n+PhC7OqCQX58KYAzdBr///alIfRXiu6oMb+lK+rXQH1FvQ=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-6.0.0.tgz"
-  "version" "6.0.0"
+"@react-native-community/netinfo@^7.1.7":
+  "integrity" "sha512-QCEuvbTAD7vyCsSsgbWedhTfXlClp4TVHVWYYMjnN7nz6xgZbSp+MI3oo7X5C4JlDHpRm/Q+63hsCgAqKt3WVA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-7.1.7.tgz"
+  "version" "7.1.7"
 
 "@react-native-community/push-notification-ios@^1.10.1":
   "integrity" "sha512-k6bZWUKLif4GjenyTD3aQLwA2VT3bNmt22INO/34lexnpmqkPDZF7nreqbckTHG0Zso9wDTe4N/AZJUC/d8iRg=="
@@ -2706,11 +2706,6 @@
   "resolved" "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz"
   "version" "1.2.7"
 
-"core-js@^2.4.1":
-  "integrity" "sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ=="
-  "resolved" "https://registry.npmjs.org/core-js/-/core-js-2.6.12.tgz"
-  "version" "2.6.12"
-
 "core-util-is@~1.0.0", "core-util-is@1.0.2":
   "integrity" "sha1-tf1UIgqivFq1eqtxQMlAdUUDwac="
   "resolved" "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
@@ -3638,11 +3633,6 @@
   "resolved" "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   "version" "2.0.6"
 
-"fast-plist@^0.1.2":
-  "integrity" "sha1-pFr/NFGWAG1AbKbNzQX2kFHvNbg="
-  "resolved" "https://registry.npmjs.org/fast-plist/-/fast-plist-0.1.2.tgz"
-  "version" "0.1.2"
-
 "fb-watchman@^2.0.0":
   "integrity" "sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg=="
   "resolved" "https://registry.npmjs.org/fb-watchman/-/fb-watchman-2.0.1.tgz"
@@ -3661,20 +3651,6 @@
   "version" "0.8.17"
   dependencies:
     "core-js" "^1.0.0"
-    "isomorphic-fetch" "^2.1.1"
-    "loose-envify" "^1.0.0"
-    "object-assign" "^4.1.0"
-    "promise" "^7.1.1"
-    "setimmediate" "^1.0.5"
-    "ua-parser-js" "^0.7.18"
-
-"fbjs@^1.0.0":
-  "integrity" "sha512-MUgcMEJaFhCaF1QtWGnmq9ZDRAzECTCRAF7O6UZIlAlkTs1SasiX9aP0Iw7wfD2mJ7wDTNfg2w7u5fSCwJk1OA=="
-  "resolved" "https://registry.npmjs.org/fbjs/-/fbjs-1.0.0.tgz"
-  "version" "1.0.0"
-  dependencies:
-    "core-js" "^2.4.1"
-    "fbjs-css-vars" "^1.0.0"
     "isomorphic-fetch" "^2.1.1"
     "loose-envify" "^1.0.0"
     "object-assign" "^4.1.0"
@@ -5897,6 +5873,11 @@
   dependencies:
     "minimist" "^1.2.5"
 
+"mockdate@^3.0.2":
+  "integrity" "sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ=="
+  "resolved" "https://registry.npmjs.org/mockdate/-/mockdate-3.0.5.tgz"
+  "version" "3.0.5"
+
 "moment@^2.24.0", "moment@2.29.1":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
@@ -6601,7 +6582,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.5.10", "prop-types@^15.5.4", "prop-types@^15.5.7", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@15.7.2":
+"prop-types@^15.5.10", "prop-types@^15.5.4", "prop-types@^15.5.7", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -6752,14 +6733,10 @@
   dependencies:
     "prop-types" "^15.5.10"
 
-"react-native-background-fetch@2.6.0":
-  "integrity" "sha512-6a0ITgePMnFa1sVoCYeVuXvvjQzZavN7ynvchJixoQZEi8TreTuePUDxmzQVf7eZPCBciSaogfCoBwAzDRsK0Q=="
-  "resolved" "https://registry.npmjs.org/react-native-background-fetch/-/react-native-background-fetch-2.6.0.tgz"
-  "version" "2.6.0"
-  dependencies:
-    "fast-plist" "^0.1.2"
-    "plist" "^3.0.1"
-    "xcode" "^2.0.0"
+"react-native-background-fetch@^4.0.4":
+  "integrity" "sha512-vGcsIbv5TXblIqBonsMw1dbh/x/1np1NTMArLVz5rjdgUu330pc4o7X6VTxCWtzadajz0Fe1Y71xqXylpmBekA=="
+  "resolved" "https://registry.npmjs.org/react-native-background-fetch/-/react-native-background-fetch-4.0.4.tgz"
+  "version" "4.0.4"
 
 "react-native-barcode-mask@1.0.5":
   "integrity" "sha512-COXvJyCYK2lDmbgH9gJSZ/OCe0Pz1Faja9nY56InB7zGqqpGJATPHq84aXsK+T03iUqXmTxS6QcI32Ep6biOPQ=="
@@ -6803,13 +6780,13 @@
   "resolved" "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-2.1.2.tgz"
   "version" "2.1.2"
 
-"react-native-flash-message@0.1.13":
-  "integrity" "sha512-7P0cOyF7dRJL6tgwIhKs3V9QXRFa1qXDymCx1BmQLzdWyc3qyD5HMv2L5EbYk3wj1BirLjaL7tkYyEETg2jSNQ=="
-  "resolved" "https://registry.npmjs.org/react-native-flash-message/-/react-native-flash-message-0.1.13.tgz"
-  "version" "0.1.13"
+"react-native-flash-message@^0.2.0":
+  "integrity" "sha512-hntGa5tq6TvO6LuCMQaO+r18sWY8T3aXBr4TvXvsbrCWazWZdG9P+oALp5UsvRkk/Vtr2fQ1pT5dG+9AM/RXyQ=="
+  "resolved" "https://registry.npmjs.org/react-native-flash-message/-/react-native-flash-message-0.2.0.tgz"
+  "version" "0.2.0"
   dependencies:
     "prop-types" "^15.7.2"
-    "react-native-iphone-x-helper" "^1.2.0"
+    "react-native-iphone-x-helper" "^1.3.1"
 
 "react-native-flipper@^0.34.0":
   "integrity" "sha512-48wgm29HJTOlZ0DibBsvXueEOY0EPIVL0wWKbwRfgrk86+luSEuLW3aZC50oJa95zSFb9qYShTV/6dWqh4Jamg=="
@@ -6831,7 +6808,7 @@
     "base-64" "^0.1.0"
     "utf8" "^3.0.0"
 
-"react-native-gesture-handler@^1.10.3", "react-native-gesture-handler@>= 1.0.0":
+"react-native-gesture-handler@*", "react-native-gesture-handler@^1.10.3", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"
   "version" "1.10.3"
@@ -6842,7 +6819,7 @@
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
 
-"react-native-iphone-x-helper@^1.2.0":
+"react-native-iphone-x-helper@^1.3.1":
   "integrity" "sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg=="
   "resolved" "https://registry.npmjs.org/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz"
   "version" "1.3.1"
@@ -6864,17 +6841,10 @@
   "resolved" "https://registry.npmjs.org/react-native-mail/-/react-native-mail-3.0.7.tgz"
   "version" "3.0.7"
 
-"react-native-modal-dropdown@0.6.2":
-  "integrity" "sha512-1jzByA+ME+q0mZJ2rZrLsf6jVwJhNxNHdg7I50xYZ9oYJsmmKwF9r/ks95tZxxks4Zvd7/FnaveNtyd+uevXAw=="
-  "resolved" "https://registry.npmjs.org/react-native-modal-dropdown/-/react-native-modal-dropdown-0.6.2.tgz"
-  "version" "0.6.2"
-  dependencies:
-    "prop-types" "^15.6.0"
-
-"react-native-modal@^11.1.0":
-  "integrity" "sha512-syRYDJYSh16bR37R5EKU9T/wC+5bEOfF17IUqf5URdhbEDd+hxyMInC++l45E8oI+MtdOaEp9yAws5xDqk8dnA=="
-  "resolved" "https://registry.npmjs.org/react-native-modal/-/react-native-modal-11.10.0.tgz"
-  "version" "11.10.0"
+"react-native-modal@^12.1.0":
+  "integrity" "sha512-9myTNZ75gz6MPg1Cngm01x59JbaVkTeWoZvmChmW//PbSAdfbP/dFPnzbidL9IDrRh6Ftuuq8WSuM0aoS5m2lg=="
+  "resolved" "https://registry.npmjs.org/react-native-modal/-/react-native-modal-12.1.0.tgz"
+  "version" "12.1.0"
   dependencies:
     "prop-types" "^15.6.2"
     "react-native-animatable" "1.3.3"
@@ -6897,12 +6867,15 @@
     "prop-types" "^15.7.2"
     "qrcode" "^1.4.4"
 
-"react-native-reanimated@^1.13.3", "react-native-reanimated@>= 1.0.0":
-  "integrity" "sha512-i714H24dv6ncpFO7/SZ0PfAMbvjgVbF8Ow2NPtowoZAz8osS54DmTMrkgJ9Za+uEku/s0AEaxqiXG2Xgntvv2g=="
-  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-1.13.3.tgz"
-  "version" "1.13.3"
+"react-native-reanimated@^2.2.4", "react-native-reanimated@>= 1.0.0":
+  "integrity" "sha512-Nn648MfEEnTCEiWsl1YmfkojiLyV0NMY0EiRdDRbZNfJVfxBuyqhCxI/4Jd7aBi162qpgf8XK2mByYgvF4zLrQ=="
+  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.2.4.tgz"
+  "version" "2.2.4"
   dependencies:
-    "fbjs" "^1.0.0"
+    "@babel/plugin-transform-object-assign" "^7.10.4"
+    "fbjs" "^3.0.0"
+    "mockdate" "^3.0.2"
+    "string-hash-64" "^1.0.3"
 
 "react-native-responsive-screen@1.2.2":
   "integrity" "sha512-0UDQIBD+bW7+3NNt+ukSleUkKxbRiNupmzLQjdjyRoAjqxidN8+1gs0mHXfmhowcg2b875zTYrtQUG3022yHKw=="
@@ -7831,6 +7804,11 @@
   "version" "1.1.1"
   dependencies:
     "safe-buffer" "~5.1.0"
+
+"string-hash-64@^1.0.3":
+  "integrity" "sha512-D5OKWKvDhyVWWn2x5Y9b+37NUllks34q1dCDhk/vYcso9fmhs+Tl3KR/gE4v5UNj2UA35cnX4KdVVGkG1deKqw=="
+  "resolved" "https://registry.npmjs.org/string-hash-64/-/string-hash-64-1.0.3.tgz"
+  "version" "1.0.3"
 
 "string-length@^4.0.1":
   "integrity" "sha512-+l6rNN5fYHNhZZy41RXsYptCjA2Igmq4EG7kZAYFQI1E1VTXarr6ZPXBg6eq7Y6eK4FEhY6AJlyuFIb/v/S0VQ=="
