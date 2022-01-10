@@ -37,7 +37,7 @@ const recoveryCache = {
 const getNodeAddress = async type => {
   const node =
     type === RECOVERY ? await getRecoveryServiceNodeURL() : await getBlockchainServiceNodeURL()
-  return PROTOCOL + '://' + node
+  return _prependProtocol(node)
 }
 
 const getBlockchainServiceNodeURL = async () => {
@@ -107,10 +107,29 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
     for (const node of Object.values(
       serviceDiscovery.networks[environment].nodes
     )) {
-      nodes.push(node.api)
+      // filter out unavailable nodes
+      const isOK = await _checkNodeStatus(node.api)
+      if (isOK) {
+        nodes.push(node.api)
+      }
     }
   }
   return nodes
+}
+
+const _checkNodeStatus = async (nodeAddress) => {
+  const healthAPI = _prependProtocol(nodeAddress + '/health')
+  try {
+    await APICommunicationHelper.get(healthAPI)
+    return true
+  } catch (error) {
+    LogStore.log(`Node is unavailable: ${error}`)
+    return false
+  } 
+}
+
+const _prependProtocol = (address) => {
+  return PROTOCOL + '://' + address
 }
 
 export default {
