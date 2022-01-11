@@ -37,7 +37,7 @@ const recoveryCache = {
 const getNodeAddress = async type => {
   const node =
     type === RECOVERY ? await getRecoveryServiceNodeURL() : await getBlockchainServiceNodeURL()
-  return PROTOCOL + '://' + node
+  return _prependProtocol(node)
 }
 
 const getBlockchainServiceNodeURL = async () => {
@@ -49,13 +49,18 @@ const getBlockchainServiceNodeURL = async () => {
       blockchainCache.nodes = await _parseServicesForNodes(response)
       blockchainCache.lastChecked = moment()
     }
+  } catch (error) {
+    LogStore.log(error)
+    throw new ServiceDiscoveryError()
+  }
 
+  if (blockchainCache.nodes?.length > 0) {      
     // return a random service for use
     return blockchainCache.nodes[
       Math.floor(Math.random() * blockchainCache.nodes.length)
     ]
-  } catch (error) {
-    LogStore.log(error)
+  } else {
+    LogStore.log('All nodes are unavailable')
     throw new ServiceDiscoveryError()
   }
 }
@@ -107,10 +112,29 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
     for (const node of Object.values(
       serviceDiscovery.networks[environment].nodes
     )) {
-      nodes.push(node.api)
+      // filter out unavailable nodes
+      const isOK = await _checkNodeStatus(node.api)
+      if (isOK) {
+        nodes.push(node.api)
+      }
     }
   }
   return nodes
+}
+
+const _checkNodeStatus = async (nodeAddress) => {
+  const healthAPI = _prependProtocol(nodeAddress + '/health')
+  try {
+    await APICommunicationHelper.get(healthAPI)
+    return true
+  } catch (error) {
+    LogStore.log(`Node is unavailable: ${error}`)
+    return false
+  } 
+}
+
+const _prependProtocol = (address) => {
+  return PROTOCOL + '://' + address
 }
 
 export default {
