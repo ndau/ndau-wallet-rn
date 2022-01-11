@@ -49,13 +49,18 @@ const getBlockchainServiceNodeURL = async () => {
       blockchainCache.nodes = await _parseServicesForNodes(response)
       blockchainCache.lastChecked = moment()
     }
+  } catch (error) {
+    LogStore.log(error)
+    throw new ServiceDiscoveryError()
+  }
 
+  if (blockchainCache.nodes?.length > 0) {      
     // return a random service for use
     return blockchainCache.nodes[
       Math.floor(Math.random() * blockchainCache.nodes.length)
     ]
-  } catch (error) {
-    LogStore.log(error)
+  } else {
+    LogStore.log('All nodes are unavailable')
     throw new ServiceDiscoveryError()
   }
 }
