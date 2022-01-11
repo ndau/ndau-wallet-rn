@@ -8,6 +8,8 @@
  * - -- --- ---- -----
  */
 
+import OfflineError from "./OfflineError"
+
 const GENERIC_ERROR_CODE = 1001
 const SUCCESS_CODE = 0
 
@@ -92,7 +94,7 @@ const _getError = axiosErr => {
 // shown if error not recognized
 const DEFAULT_UNKNOWN_MESSAGE = 'Blockchain API error: '
 
-class BlockchainAPIError extends Error {
+class BlockchainAPIError extends OfflineError {
   constructor (...args) {
     if (args) {
       super(...args)
