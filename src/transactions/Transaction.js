@@ -18,6 +18,7 @@ import LogStore from '../stores/LogStore'
 import AccountAPI from '../api/AccountAPI'
 import { ErrorsByMessage, Messages } from '../errors/BlockchainAPIError'
 import APIAddressHelper from '../helpers/APIAddressHelper'
+import OfflineError from '../errors/OfflineError'
 
 export const Transaction = {
   /**
@@ -87,7 +88,7 @@ export const Transaction = {
       // If it was an error, append the message to the flash message
       msg += `: ${msgOrErr.message}`
     }
-    FlashNotification.showError(msg)
+    FlashNotification.showError(new OfflineError(msg))
     if (msgOrErr instanceof Error) {
       throw msgOrErr
     } else {

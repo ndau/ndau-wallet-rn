@@ -21,6 +21,7 @@ import LogStore from '../../stores/LogStore'
 import FlashNotification from '../../components/common/FlashNotification'
 import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
 import AccountStore from '../../stores/AccountStore'
+import OfflineError from '../../errors/OfflineError'
 
 class AccountHistory extends Component {
   constructor (props) {
@@ -30,7 +31,7 @@ class AccountHistory extends Component {
       account: {},
       spinner: false
     }
-    navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {
@@ -45,7 +46,7 @@ class AccountHistory extends Component {
       } catch (error) {
         LogStore.log(error)
         FlashNotification.showError(
-          'Problem occured while getting account history from the blockchain.'
+          new OfflineError('Problem occured while getting account history from the blockchain.')
         )
       }
 

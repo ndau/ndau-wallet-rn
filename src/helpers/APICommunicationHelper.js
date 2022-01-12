@@ -9,6 +9,7 @@
  */
 
 import BlockchainAPIError from '../errors/BlockchainAPIError'
+import OfflineError from '../errors/OfflineError'
 import axios from 'axios'
 import LogStore from '../stores/LogStore'
 import DeviceStore from '../stores/DeviceStore'

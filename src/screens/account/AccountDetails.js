@@ -81,12 +81,12 @@ class AccountDetails extends Component {
 
   _notify = async (account, wallet) => {
     this.setState({ spinner: true }, async () => {
-      // First send out the Notify
-      Object.assign(NotifyTransaction.prototype, Transaction)
-      const notifyTransaction = new NotifyTransaction(wallet, account)
-      await notifyTransaction.createSignPrevalidateSubmit()
-
       try {
+        // First send out the Notify
+        Object.assign(NotifyTransaction.prototype, Transaction)
+        const notifyTransaction = new NotifyTransaction(wallet, account)
+        await notifyTransaction.createSignPrevalidateSubmit()
+
         // Ok now we have to refresh data on this page
         // So get the user from the store and load
         const user = UserStore.getUser()

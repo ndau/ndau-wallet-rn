@@ -184,7 +184,7 @@ class SetupEncryptionPassword extends Component {
         this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
       } catch (error) {
         LogStore.error(error)
-        FlashNotification.showError(error.message, false, false)
+        FlashNotification.showError(error, false, false)
       }
       this.setState({ spinner: false })
     })

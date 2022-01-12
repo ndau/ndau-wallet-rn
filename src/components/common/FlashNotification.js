@@ -20,10 +20,10 @@ const _ = require('lodash')
 class FlashNotification extends Component {
   static showError (message, autoHide = true, hideOnPress = true) {
     if (message instanceof OfflineError && message.shouldDisplayOffline && !DeviceStore.online()) {
-      FlashNotification.showErrorMessage('Cannot connect to the internet. Please check your internet connection and try again.', false, false)
+      this.showOfflineError()
       LogStore.error(message)
     } else if (message) {
-      FlashNotification.showErrorMessage(message, autoHide, hideOnPress)
+      this.showErrorMessage((_.isError(message) && message.message) ? message.message : message, autoHide, hideOnPress)
       LogStore.log(message)
     }
   }
@@ -32,12 +32,13 @@ class FlashNotification extends Component {
     showMessage({
       message,
       autoHide,
-      backgroundColor: '#f5d8d1',
-      color: '#f75f4b',
+      backgroundColor: AppConstants.FLASH_MESSAGE_ERROR_BACKGROUND_COLOR,
+      color: AppConstants.FLASH_MESSAGE_ERROR_COLOR,
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
       duration: 10000,
-      hideOnPress
+      hideOnPress,
+      onHide: this.onHide
     })
   }
 
@@ -50,13 +51,22 @@ class FlashNotification extends Component {
       fontSize: 20,
       fontFamily: 'TitilliumWeb-Regular',
       duration: 10000,
-      hideOnPress
+      hideOnPress,
+      onHide: this.onHide
     })
   }
 
+  static showOfflineError () {
+    this.showErrorMessage('Cannot connect to the internet. Please check your internet connection and try again.', false, false)
+  }
+
   static hideMessage () {
-    if (DeviceStore.online()) {
-      hideMessage()
+    hideMessage()
+  }
+
+  static onHide() {
+    if (!DeviceStore.online()) {
+      FlashNotification.showOfflineError()
     }
   }
 }
