@@ -35,6 +35,7 @@ import DataFormatHelper from '../helpers/DataFormatHelper'
 import NdauNumber from '../helpers/NdauNumber'
 import AppConfig from '../AppConfig'
 import { FeeAlert } from '../components/alerts'
+import OfflineError from '../errors/OfflineError'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -142,7 +143,7 @@ class WalletOverview extends Component {
       this.setState({ wallet, showFeesModal: true })
     } catch (error) {
       FlashNotification.showError(
-        `Problem adding new account: ${error.message}`
+        new OfflineError(`Problem adding new account: ${error.message}`)
       )
     }
   }

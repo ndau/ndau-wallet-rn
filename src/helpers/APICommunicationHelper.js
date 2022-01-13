@@ -9,6 +9,7 @@
  */
 
 import BlockchainAPIError from '../errors/BlockchainAPIError'
+import OfflineError from '../errors/OfflineError'
 import axios from 'axios'
 import LogStore from '../stores/LogStore'
 import DeviceStore from '../stores/DeviceStore'
@@ -33,7 +34,7 @@ const post = async (
         // don't make requests if the device is offline
         if (!DeviceStore.online()) {
           LogStore.log(`Device offline. Can't POST to ${url}`)
-          resolve()
+          reject(new OfflineError())
         }
         LogStore.log(
           `APICommunicationHelper.post ${JSON.stringify({
@@ -80,7 +81,7 @@ const get = async (url, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
         // don't make requests if the device is offline
         if (!DeviceStore.online()) {
           LogStore.log(`Device offline. Can't GET ${url}`)
-          resolve()
+          reject(new OfflineError())
         }
         LogStore.log(
           `APICommunicationHelper.get ${JSON.stringify({ url: url })}`

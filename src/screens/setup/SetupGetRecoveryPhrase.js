@@ -41,6 +41,7 @@ import {
 } from '../../components/common'
 import UserStore from '../../stores/UserStore'
 import { CustomOneButtonAlert } from '../../components/alerts'
+import OfflineError from '../../errors/OfflineError'
 
 const DEFAULT_ROW_LENGTH = 4
 
@@ -308,7 +309,7 @@ class SetupGetRecoveryPhrase extends Component {
           confirmationError: true
         })
         FlashNotification.showError(
-          !error.message ? this.NOT_ON_BLOCKCHAIN_MESSAGE : error.message,
+          new OfflineError(!error.message ? this.NOT_ON_BLOCKCHAIN_MESSAGE : error.message),
           true
         )
       }

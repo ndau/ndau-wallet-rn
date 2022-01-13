@@ -12,6 +12,7 @@ import { PureComponent } from 'react'
 import NetInfo from '@react-native-community/netinfo'
 import FlashNotification from './FlashNotification'
 import DeviceStore from '../../stores/DeviceStore'
+import OfflineError from '../../errors/OfflineError'
 
 class OfflineMessage extends PureComponent {
   componentDidMount () {
@@ -27,15 +28,11 @@ class OfflineMessage extends PureComponent {
 
   handleConnectivityChange = async state => {
     if (state.isConnected && state.isInternetReachable) {
-      FlashNotification.hideMessage()
       DeviceStore.setOnline(true)
+      FlashNotification.hideMessage()
     } else {
-      FlashNotification.showError(
-        `Cannot connect to the internet. Please check your internet connection and try again.`,
-        false,
-        false
-      )
       DeviceStore.setOnline(false)
+      FlashNotification.showError(new OfflineError())
     }
   }
 

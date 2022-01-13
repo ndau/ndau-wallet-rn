@@ -29,6 +29,7 @@ import {
   MainLegalTextHeading,
   LegalTextBold
 } from '../../components/common'
+import OfflineError from '../../errors/OfflineError'
 
 class SetupTermsOfService extends Component {
   constructor (props) {
@@ -81,10 +82,10 @@ class SetupTermsOfService extends Component {
           this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
         })
       } catch (error) {
-        FlashNotification.showError(
+        FlashNotification.showError(new OfflineError(
           error.message
             ? error.message
-            : 'Error occurred communicating with the blockchian'
+            : 'Error occurred communicating with the blockchian')
         )
         this.setState({ spinner: false })
       }

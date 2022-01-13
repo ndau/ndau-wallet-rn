@@ -16,18 +16,16 @@ import {
   TextInput,
   LargeButton
 } from '../components/common'
-import { H4 } from 'nachos-ui'
 import { DrawerHeader } from '../components/drawer'
 import axios from 'axios'
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import FlashNotification from '../components/common/FlashNotification'
 import LogStore from '../stores/LogStore'
+import DeviceStore from '../stores/DeviceStore'
 import AppConfig from '../AppConfig'
 import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import styles from '../components/drawer/styles'
-import AppConstants from '../AppConstants'
-import Icon from 'react-native-fontawesome-pro'
+import OfflineError from '../errors/OfflineError'
 
 class ContactSupport extends Component {
   constructor (props) {
@@ -79,6 +77,12 @@ class ContactSupport extends Component {
       )
       return
     }
+    
+    if (!DeviceStore.online()) {
+      FlashNotification.showOfflineError()
+      defered()
+      return
+    }
 
     const logs = this.state.includeLogs ? LogStore.getLogData() : []
     const ax = axios.create({
@@ -102,7 +106,7 @@ class ContactSupport extends Component {
         ) {
           msg = error.response.data.message
         }
-        FlashNotification.showError(`Message could not be sent: ${msg}`)
+        FlashNotification.showError(new OfflineError(`Message could not be sent: ${msg}`))
         LogStore.log(error)
       })
       .finally(defered)
