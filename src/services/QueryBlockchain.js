@@ -13,6 +13,7 @@ import NotificationService from './NotificationService'
 import AccountAPI from '../api/AccountAPI'
 import FlashNotification from '../components/common/FlashNotification'
 import AppConfig from '../AppConfig'
+import OfflineError from '../errors/OfflineError'
 
 const notificationService = new NotificationService()
 
@@ -33,14 +34,14 @@ const initialize = () => {
         }
       } catch (error) {
         FlashNotification.showError(
-          'Issue encountered querying the blockchain in the background'
+          new OfflineError('Issue encountered querying the blockchain in the background')
         )
       }
       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA)
     },
     error => {
       FlashNotification.showError(
-        'Issue encountered starting QueryBlockchain background fetch'
+        new OfflineError('Issue encountered starting QueryBlockchain background fetch')
       )
     }
   )
