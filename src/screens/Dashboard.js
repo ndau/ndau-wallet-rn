@@ -66,7 +66,7 @@ class Dashboard extends Component {
 
     if (Object.keys(user.wallets).length <= 1) {
       WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
-      this.props.navigation.navigate('WalletOverview')
+      this.props.navigation.navigate('WalletOverview', { drawerEnabled: true })
     } else {
       this._loadMetricsAndSetState(user)
 
@@ -75,14 +75,7 @@ class Dashboard extends Component {
         FlashNotification.showError(error)
       }
     }
-  }
-
-  UNSAFE_componentWillMount = async () => {
     this.appStateSubscription = AppState.addEventListener('change', this._handleAppStateChange)
-  }
-
-  componentWillUnmount = async () => {
-    this.appStateSubscription.remove()
   }
 
   _loadMetricsAndSetState = user => {
