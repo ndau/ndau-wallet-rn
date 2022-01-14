@@ -33,7 +33,7 @@ class AppDrawer extends React.Component {
 
   dashboard = () => {
     this.closeDrawer()
-    this.props.navigation.navigate('Drawer', { screen: 'DashboardNav' })
+    this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
   }
 
   recoverWallet = async () => {
@@ -54,7 +54,7 @@ class AppDrawer extends React.Component {
 
   showSettings = async () => {
     this.closeDrawer()
-    this.props.navigation.navigate('Drawer', { screen: 'SettingsNav' })
+    this.props.navigation.replace('Drawer', { screen: 'SettingsNav' })
   }
 
   getHardware () {
@@ -87,7 +87,7 @@ class AppDrawer extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.navigation.navigate('Authentication')
+            this.props.navigation.replace('Authentication')
           }
         }
       ],
@@ -127,7 +127,7 @@ class AppDrawer extends React.Component {
           </DrawerEntryItem>
 
           <DrawerEntryItem
-            onPress={() => this.props.navigation.navigate('Drawer', { screen: 'ContactSupportNav' })}
+            onPress={() => this.props.navigation.replace('Drawer', { screen: 'ContactSupportNav' })}
             fontAwesomeIconName='comment'
           >
             Contact support
