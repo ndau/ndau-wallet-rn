@@ -18,7 +18,7 @@ import AppConstants from '../../AppConstants'
 export default (styles = StyleSheet.create({
   outerDrawerContainer: {
     flex: 1,
-    height: hp('100%')
+    height: '100%'
   },
   drawerContainerOverlay: {
     position: 'absolute',
@@ -30,8 +30,8 @@ export default (styles = StyleSheet.create({
   drawerContainer: {
     flex: 1,
     flexDirection: 'row',
-    width: wp('100%'),
-    height: hp('100%'),
+    width: '100%',
+    height: '100%',
     marginTop: hp('2%'),
     marginBottom: hp('2.5%')
   },
