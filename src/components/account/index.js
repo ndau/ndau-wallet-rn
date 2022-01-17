@@ -61,7 +61,7 @@ export function AccountPanel (props) {
   } 
 
   return (
-    <View style={styles.accountPanels}>
+    <View style={(props.index == 0) ? { marginTop: hp('0%') } : styles.accountPanels}>
       <LinearGradient
         useAngle
         angle={135}

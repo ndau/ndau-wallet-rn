@@ -9,7 +9,7 @@
  */
 
 import React, { Component } from 'react'
-import { ScrollView, View, RefreshControl, AppState } from 'react-native'
+import { Alert, ScrollView, View, RefreshControl, AppState, Linking } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
@@ -17,6 +17,7 @@ import { AppContainer, NdauTotal, TextLink } from '../components/common'
 import { AccountPanel } from '../components/account'
 import {
   DashboardContainer,
+  DashboardButton,
   DashboardLabelWithIcon
 } from '../components/dashboard'
 import { DrawerHeader } from '../components/drawer'
@@ -129,6 +130,23 @@ class WalletOverview extends Component {
     this.setState({ number: (this.state.number += 1) })
   }
 
+  launchBuyNdauInBrowser = async () => {
+    const url = AppConfig.BUY_NDAU_URL
+
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) { 
+      await Linking.openURL(url)
+    } else {
+      Alert.alert(
+        'Error',
+        `Don't know how to open this URL: ${url}`,
+        [{ text: 'OK', onPress: () => {} }],
+        { cancelable: false }
+      )
+    }
+  }
+
   launchAddNewAccountDialog = () => {
     this._newAccountModal.showModal()
   }
@@ -215,29 +233,37 @@ class WalletOverview extends Component {
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
+          <DashboardContainer>
+            <DashboardTotalPanel
+              title={currentPrice}
+              titleRight='* at current price'
+            />
+
           <WalletOverviewHeaderActions>
             <DashboardLabelWithIcon
               greenFont
-              style={{ flex: 1.5, justifyContent: 'flex-start' }}
+              style={{ justifyContent: 'flex-start' }}
+              textStyle={{ fontSize: 12 }}
             >
               {totalSpendable}{' '}
-              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
+              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL} textStyle={{ fontSize: 12 }}>
                 spendable
               </TextLink>
             </DashboardLabelWithIcon>
             <DashboardLabelWithIcon
               onPress={() => this.launchAddNewAccountDialog()}
               fontAwesomeIconName='plus-circle'
-              style={{ justifyContent: 'flex-end' }}
+              style={{ justifyContent: 'center' }}
+              textStyle={{ fontSize: 12 }}
+              iconSize={18}
             >
               Add account
             </DashboardLabelWithIcon>
+
+            <DashboardButton onPress={() => this.launchBuyNdauInBrowser()}>
+              Buy ndau
+            </DashboardButton>   
           </WalletOverviewHeaderActions>
-          <DashboardContainer>
-            <DashboardTotalPanel
-              title={currentPrice}
-              titleRight='* at current price'
-            />
 
             <ScrollView
               refreshControl={
@@ -292,7 +318,7 @@ class WalletOverview extends Component {
                       }
                       return (
                         <AccountPanel
-                          key={index}
+                          index={index}
                           onPress={() =>
                             this._showAccountDetails(
                               wallet.accounts[accountKey],
