@@ -22,7 +22,7 @@ import {
 } from '../../components/account'
 import FlashNotification from '../../components/common/FlashNotification'
 import { LoadingSpinner, TextLink, LargeButton } from '../../components/common'
-import { View, ScrollView, Alert } from 'react-native'
+import { View, ScrollView, Alert, Linking } from 'react-native'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
 import WalletStore from '../../stores/WalletStore'
 import AccountStore from '../../stores/AccountStore'
@@ -48,7 +48,8 @@ class AccountDetails extends Component {
       wallet: {},
       accountsCanRxEAI: {},
       spinner: false,
-      showFeesModal: false
+      showFeesModal: false,
+      network: SettingsStore.getApplicationNetworkSync()
     }
 
     this.baseEAI = 0
@@ -132,6 +133,27 @@ class AccountDetails extends Component {
     this.props.navigation.navigate('AccountReceive')
   }
 
+  launchBlockchainExplorer = async () => {
+    const url = this.getExplorerUrl()
+
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) { 
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(
+        'Error',
+        `Don't know how to open this URL: ${url}`,
+        [{ text: 'OK', onPress: () => {} }],
+        { cancelable: false }
+      )
+    }
+  }
+
+  getExplorerUrl = () => {
+    return AppConfig.calcExplorerUrl(this.state.address, this.state.network)
+  }
+
   goBack = () => {
     this.props.navigation.goBack()
   }
@@ -198,10 +220,7 @@ class AccountDetails extends Component {
     }
     const accountAddress = this.state.account.address
     const addressTrunc = ndaujs.truncateAddress(accountAddress)
-    const explorerUrl = AppConfig.calcExplorerUrl(
-      accountAddress,
-      this.state.network
-    )
+    const explorerUrl = this.getExplorerUrl()
     const showAllAcctButtons = !isAccountLocked && spendableNdau > 0
     const spendableNdauDisplayed = new NdauNumber(spendableNdau).toDetail()
     return (
@@ -252,6 +271,22 @@ class AccountDetails extends Component {
           disabledReceive={isAccountLocked && accountLockedUntil !== null}
         />
         <ScrollView>
+          <AccountDetailsPanel addressPanel>
+            <AccountDetailsLargerText>Account address</AccountDetailsLargerText>
+            <AccountBorder />
+            <AccountParagraphText>
+              {accountAddress}
+            </AccountParagraphText>
+
+            <LargeButton
+              scroll
+              onPress={() => this.launchBlockchainExplorer()}
+              buttonStyle={{ marginTop: '4%' }}
+            >
+              View Transactions
+            </LargeButton>
+          </AccountDetailsPanel>
+
           <AccountDetailsPanel firstPanel>
             <AccountDetailsLargerText>Account status</AccountDetailsLargerText>
             <AccountBorder />

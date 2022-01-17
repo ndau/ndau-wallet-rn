@@ -318,6 +318,7 @@ class WalletOverview extends Component {
                       }
                       return (
                         <AccountPanel
+                          key={index}
                           index={index}
                           onPress={() =>
                             this._showAccountDetails(
