@@ -93,7 +93,7 @@ export function DashboardLabelWithIcon (props) {
 
 export function DashboardButton (props) {
   return (
-    <View style={[styles.dashboardLabelWithIconContainer, {justifyContent: 'flex-end'}]}>
+    <View style={[styles.dashboardLabelWithIconContainer, { justifyContent: 'flex-end' }]}>
       <Button
         style={styles.dashboardButtonBox}
         textStyle={styles.dashboardButtonText}

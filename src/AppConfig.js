@@ -39,6 +39,7 @@ const SPENDABLE_KNOWLEDGEBASE_URL =
   'https://ndaucollective.org/knowledge-base/spendable/'
 const EAI_KNOWLEDGEBASE_URL =
   'https://ndaucollective.org/knowledge-base/ecosystem-alignment-incentive-eai/'
+const BUY_NDAU_URL = 'https://ndau.io/buy'
 
 const MAX_LOG_ENTRIES = 101
 
@@ -66,6 +67,7 @@ export default {
   API_DEFAULT_TIMEOUT_MS,
   TRANSACTION_FEE_KNOWLEDGEBASE_URL,
   SIB_FEE_KNOWLEDGEBASE_URL,
+  BUY_NDAU_URL,
   MAX_LOG_ENTRIES,
   SPENDABLE_KNOWLEDGEBASE_URL,
   EAI_KNOWLEDGEBASE_URL,

@@ -131,7 +131,7 @@ class WalletOverview extends Component {
   }
 
   launchBuyNdauInBrowser = async () => {
-    const url = "https://ndau.io/buy"
+    const url = AppConfig.BUY_NDAU_URL
 
     const supported = await Linking.canOpenURL(url);
 
@@ -233,6 +233,12 @@ class WalletOverview extends Component {
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
+          <DashboardContainer>
+            <DashboardTotalPanel
+              title={currentPrice}
+              titleRight='* at current price'
+            />
+
           <WalletOverviewHeaderActions>
             <DashboardLabelWithIcon
               greenFont
@@ -257,11 +263,6 @@ class WalletOverview extends Component {
               Buy ndau
             </DashboardButton>   
           </WalletOverviewHeaderActions>
-          <DashboardContainer>
-            <DashboardTotalPanel
-              title={currentPrice}
-              titleRight='* at current price'
-            />
 
             <ScrollView
               refreshControl={
@@ -316,7 +317,7 @@ class WalletOverview extends Component {
                       }
                       return (
                         <AccountPanel
-                          key={index}
+                          index={index}
                           onPress={() =>
                             this._showAccountDetails(
                               wallet.accounts[accountKey],
