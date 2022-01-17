@@ -12,6 +12,7 @@ import React from 'react'
 import {
   View,
   TouchableOpacity,
+  TouchableHighlight,
   Text,
   Linking,
   Platform,
@@ -144,14 +145,12 @@ export function AccountPanel (props) {
             </Text>
           </View>
           <View style={styles.addressCopyButtonContainer}>
-            <Button
+            <TouchableHighlight 
+              underlayColor={AppConstants.SQUARE_BUTTON_COLOR} 
               style={styles.addressCopyButton}
-              textStyle={styles.addressCopyButtonText}
-              uppercase={false}
-              onPress={copyAddress}
-            >
-              Copy
-            </Button>
+              onPress={copyAddress}>
+              <Text style={styles.addressCopyButtonText}>Copy</Text>
+            </TouchableHighlight>
           </View>
         </View>
       </LinearGradient>

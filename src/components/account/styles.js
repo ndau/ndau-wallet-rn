@@ -551,7 +551,7 @@ export default StyleSheet.create({
     padding: 0
   },
   addressCopyButton: {
-    alignSelf: 'center',
+    justifyContent: 'center',
     width: wp('18%'),
     height: hp('5%'),
     borderRadius: 5,
@@ -560,7 +560,6 @@ export default StyleSheet.create({
     borderWidth: 2,
     backgroundColor: 'transparent',
     marginTop: hp('1%'),
-    paddingHorizontal: 0,
     padding: 0
   },
   addressButtonText: {
@@ -575,6 +574,7 @@ export default StyleSheet.create({
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 14,
-    paddingHorizontal: 0
+    fontWeight: '600',
+    textAlign: 'center'
   }
 })
