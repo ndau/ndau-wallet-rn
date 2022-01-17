@@ -80,7 +80,7 @@ export function DashboardLabelWithIcon (props) {
       {props.fontAwesomeIconName ? (
         <TouchableOpacity {...props}>
           <Icon
-            size={18}
+            size={props.iconSize ? props.iconSize : 24}
             name={props.fontAwesomeIconName}
             color={AppConstants.ICON_BUTTON_COLOR}
             type='light'

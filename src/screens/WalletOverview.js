@@ -255,6 +255,7 @@ class WalletOverview extends Component {
               fontAwesomeIconName='plus-circle'
               style={{ justifyContent: 'center' }}
               textStyle={{ fontSize: 12 }}
+              iconSize={18}
             >
               Add account
             </DashboardLabelWithIcon>
