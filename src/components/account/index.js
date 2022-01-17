@@ -12,12 +12,14 @@ import React from 'react'
 import {
   View,
   TouchableOpacity,
+  TouchableHighlight,
   Text,
   Linking,
   Platform,
   ScrollView
 } from 'react-native'
 import Clipboard from '@react-native-clipboard/clipboard';
+import FlashNotification from '../common/FlashNotification'
 import { H4, H3, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
@@ -52,6 +54,11 @@ export function AccountPanel (props) {
     DataFormatHelper.accountNdauAmount(props.account.addressData)
   )
   const truncatedAddress = ndaujs.truncateAddress(props.account.address)
+
+  const copyAddress = () => {
+    Clipboard.setString(props.account.address)
+    FlashNotification.showInformation('Account address has been copied to the clipboard.')
+  } 
 
   return (
     <View style={styles.accountPanels}>
@@ -138,14 +145,12 @@ export function AccountPanel (props) {
             </Text>
           </View>
           <View style={styles.addressCopyButtonContainer}>
-            <Button
+            <TouchableHighlight 
+              underlayColor={AppConstants.SQUARE_BUTTON_COLOR} 
               style={styles.addressCopyButton}
-              textStyle={styles.addressCopyButtonText}
-              uppercase={false}
-              onPress={() => Clipboard.setString(props.account.address)}
-            >
-              Copy
-            </Button>
+              onPress={copyAddress}>
+              <Text style={styles.addressCopyButtonText}>Copy</Text>
+            </TouchableHighlight>
           </View>
         </View>
       </LinearGradient>
