@@ -10,7 +10,7 @@
 
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
-import { H4, P } from 'nachos-ui'
+import { H4, P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './styles'
@@ -74,19 +74,34 @@ export function DashboardLabelWithIcon (props) {
   }
   return (
     <View style={[styles.dashboardLabelWithIconContainer, props.style]}>
-      <P style={[styles.dashboardLabelTextWithIcon, greenFont]}>
+      <P style={[styles.dashboardLabelTextWithIcon, greenFont, props.textStyle]}>
         {props.children}
       </P>
       {props.fontAwesomeIconName ? (
         <TouchableOpacity {...props}>
           <Icon
-            size={24}
+            size={18}
             name={props.fontAwesomeIconName}
             color={AppConstants.ICON_BUTTON_COLOR}
             type='light'
           />
         </TouchableOpacity>
       ) : null}
+    </View>
+  )
+}
+
+export function DashboardButton (props) {
+  return (
+    <View style={[styles.dashboardLabelWithIconContainer, {justifyContent: 'flex-end'}]}>
+      <Button
+        style={styles.dashboardButtonBox}
+        textStyle={styles.dashboardButtonText}
+        uppercase={false}
+        onPress={props.onPress}        
+      >
+        {props.children}
+      </Button>
     </View>
   )
 }

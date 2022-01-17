@@ -68,7 +68,7 @@ export function LoginContainer ({ children }) {
 
 export function TextLink (props) {
   return (
-    <H4 onPress={() => Linking.openURL(props.url)} style={styles.greenLinkText}>
+    <H4 onPress={() => Linking.openURL(props.url)} style={[styles.greenLinkText, props.textStyle]}>
       {props.children}
     </H4>
   )

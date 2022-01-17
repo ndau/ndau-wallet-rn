@@ -52,6 +52,26 @@ export default StyleSheet.create({
     marginTop: wp('2%'),
     marginBottom: wp('2%')
   },
+  dashboardButtonBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: hp('4.5%'),
+    maxHeight: hp('4.5%'),
+    marginStart: wp('8%'),
+    paddingHorizontal: 0,
+    borderRadius: 4,
+    padding: 0,
+    backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
+  },
+  dashboardButtonText: {
+    color: '#FFFFFF',
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    justifyContent: "center",
+    textAlign: "center"
+  },
   dashboardContainer: {
     flex: 1,
     width: wp('100%'),
