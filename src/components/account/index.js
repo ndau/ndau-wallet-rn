@@ -803,11 +803,12 @@ export function WalletTotalPanel (props) {
             html: `<!DOCTYPE html>
                   <html>
                   <head>
-                      <meta name="viewport" content="width=device-width, initial-scale=0.73">
-                      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                    <meta name="viewport" content="width=device-width, initial-scale=0.73">
                   </head>
+                  <body>
                     <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
                     <script src="https://widget.nomics.com/embed.js"></script>
+                  </body>
                   </html>`
           }}
         />

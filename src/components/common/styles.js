@@ -202,14 +202,12 @@ export default StyleSheet.create({
     textShadowRadius: 5,
     shadowOpacity: 0,
     textShadowColor: 'rgba(78, 149, 122, 1)',
-    textAlign: 'center',
-    alignSelf: 'flex-start'
+    textAlign: 'center'
   },
   ndauLarge: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 33,
-    alignSelf: 'flex-start',
     paddingRight: 4,
     paddingVertical: 0,
     marginTop: hp('3%')
