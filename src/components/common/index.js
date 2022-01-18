@@ -179,8 +179,8 @@ export function LargeButton (props) {
       ]}
     >
       <Button
-        style={[styles.largeButton, sideMargins, props.style]}
-        textStyle={[styles.largeButtonText, props.style]}
+        style={[props.isNegative ? styles.largeButtonNegative : styles.largeButton, sideMargins, props.style]}
+        textStyle={[props.isNegative ? styles.largeButtonTextNegative : styles.largeButtonText, props.style]}
         uppercase={false}
         {...props}
       >

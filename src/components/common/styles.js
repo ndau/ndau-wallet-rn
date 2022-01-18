@@ -75,11 +75,26 @@ export default StyleSheet.create({
     fontSize: 20,
     fontWeight: '600'
   },
+  largeButtonTextNegative: {
+    color: AppConstants.FLASH_MESSAGE_ERROR_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 20,
+    fontWeight: '600'
+  },
   largeButton: {
     zIndex: 100,
     width: wp('92%'),
     borderRadius: 4,
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,
+    padding: 0
+  },
+  largeButtonNegative: {
+    zIndex: 100,
+    width: wp('92%'),
+    borderRadius: 4,
+    borderColor: AppConstants.NUMBER_PICKER_COLOR,
+    borderWidth: 1,
+    backgroundColor: 'transparent',
     padding: 0
   },
   largeButtonMargin: {
