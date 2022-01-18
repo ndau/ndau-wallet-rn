@@ -164,6 +164,20 @@ export default StyleSheet.create({
     width: '100%',
     textAlign: 'right'
   },
+  dollarTotalContainer: {
+    ...Platform.select({
+      android: {
+        marginTop: hp('4%')
+      }
+    }),
+    flexShrink: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: hp('9%'),
+    padding: 0,
+    overflow: 'visible'
+  },
   ndauTotalContainer: {
     ...Platform.select({
       android: {

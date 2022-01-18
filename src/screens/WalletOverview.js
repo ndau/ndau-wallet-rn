@@ -13,7 +13,7 @@ import { Alert, ScrollView, View, RefreshControl, AppState, Linking } from 'reac
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
-import { AppContainer, NdauTotal, TextLink } from '../components/common'
+import { AppContainer, DollarTotal, NdauTotal, TextLink } from '../components/common'
 import { AccountPanel } from '../components/account'
 import {
   DashboardContainer,
@@ -232,7 +232,17 @@ class WalletOverview extends Component {
           <DrawerHeader navBack={!this.props.route.params?.drawerEnabled} {...this.props}>
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
-          <NdauTotal>{totalNdau}</NdauTotal>
+          <DollarTotal>{currentPrice}</DollarTotal>
+          <NdauTotal 
+            textStyle={{ fontSize: 28 }}
+            containerStyle={{ ...Platform.select({
+              android: {
+                marginTop: '0%'
+              }
+            })}}
+          >
+            {totalNdau}
+          </NdauTotal>
           <DashboardContainer>
             <WalletTotalPanel
               title='Current Blockchain Market Price: '
