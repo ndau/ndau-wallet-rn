@@ -164,6 +164,20 @@ export default StyleSheet.create({
     width: '100%',
     textAlign: 'right'
   },
+  dollarTotalContainer: {
+    ...Platform.select({
+      android: {
+        marginTop: hp('4%')
+      }
+    }),
+    flexShrink: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: hp('9%'),
+    padding: 0,
+    overflow: 'visible'
+  },
   ndauTotalContainer: {
     ...Platform.select({
       android: {
@@ -188,14 +202,12 @@ export default StyleSheet.create({
     textShadowRadius: 5,
     shadowOpacity: 0,
     textShadowColor: 'rgba(78, 149, 122, 1)',
-    textAlign: 'center',
-    alignSelf: 'flex-start'
+    textAlign: 'center'
   },
   ndauLarge: {
     color: '#FFFFFF',
     fontFamily: AppConstants.NDAU_ICON_FONT,
     fontSize: 33,
-    alignSelf: 'flex-start',
     paddingRight: 4,
     paddingVertical: 0,
     marginTop: hp('3%')

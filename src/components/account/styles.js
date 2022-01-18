@@ -424,6 +424,23 @@ export default StyleSheet.create({
     marginLeft: wp('4%'),
     marginRight: wp('4%')
   },
+  walletTotalPanelText: {
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 10,
+    fontWeight: '300',
+    marginTop: hp('1%'),
+    textAlign: 'center'
+  },
+  walletTotalPanelLinkText: {
+    color: '#8DC84F',
+    fontFamily: 'Open Sans',
+    fontSize: 10,
+    fontWeight: '300',
+    marginBottom: hp('1%'),
+    textAlign: 'center',
+    textDecorationLine: 'underline'
+  },
   dashboardTotalPanelTextContainer: {
     backgroundColor: '#293E63',
     marginTop: 0

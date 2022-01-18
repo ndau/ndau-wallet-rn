@@ -240,11 +240,21 @@ export function PasswordLinkText (props) {
   )
 }
 
+export function DollarTotal (props) {
+  return (
+    <View style={[styles.dollarTotalContainer]}>
+      <Text {...props} style={[styles.ndauTotalText]}>
+        {props.children}
+      </Text>
+    </View>
+  )
+}
+
 export function NdauTotal (props) {
   return (
-    <View style={[styles.ndauTotalContainer]}>
-      <Text style={styles.ndauLarge}>n</Text>
-      <Text {...props} style={[styles.ndauTotalText]}>
+    <View style={[styles.ndauTotalContainer, props.containerStyle]}>
+      <Text style={[styles.ndauLarge, props.textStyle]}>n</Text>
+      <Text {...props} style={[styles.ndauTotalText, props.textStyle]}>
         {props.children}
       </Text>
     </View>

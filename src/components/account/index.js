@@ -48,6 +48,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import { WebView } from 'react-native-webview'
 
 export function AccountPanel (props) {
   const accountAmount = new NdauNumber(
@@ -767,6 +768,50 @@ export function DashboardTotalPanel (props) {
         <P style={styles.totalAsterickTextVerySmallWhite}>
           * This is an estimated value of ndau based on recent trading volume.
         </P>
+      </View>
+    </CollapsibleBar>
+  )
+}
+
+export function WalletTotalPanel (props) {
+  return (
+    <CollapsibleBar
+      {...props}
+      style={styles.dashboardTotalPanel}
+      titleStyle={{ fontSize: 14 }}
+      titleStyleRight={[styles.dashboardTotalTitleLeft, { fontSize: 14 }]}
+      collapsible
+      showOnStart={false}
+      iconCollapsed='angle-down'
+      iconActive='angle-down'
+      iconOpened='angle-up'
+      tintColor={AppConstants.TEXT_COLOR}
+      upperBorder
+    >
+      <View style={[styles.dashboardTotalPanelTextContainer, { height: 280 }]}>
+        <Text style={styles.walletTotalPanelText}>
+          * Updated and recorded on the ndau blockchain every 5 minutes.
+        </Text>
+        <Text 
+          style={styles.walletTotalPanelLinkText}
+          onPress={() => Linking.openURL(AppConfig.BLOCKCHAIN_KNOWLEDGEBASE_URL)}
+        >
+          What is Blockchain Market Price and how is it calculated?
+        </Text>
+        <WebView
+          source={{
+            html: `<!DOCTYPE html>
+                  <html>
+                  <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=0.73">
+                  </head>
+                  <body>
+                    <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
+                    <script src="https://widget.nomics.com/embed.js"></script>
+                  </body>
+                  </html>`
+          }}
+        />
       </View>
     </CollapsibleBar>
   )

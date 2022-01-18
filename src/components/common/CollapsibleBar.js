@@ -138,7 +138,7 @@ class CollapsibleBar extends Component {
                   </View>
 
                   <View>
-                    <Text style={styles.barTitleRight}>{titleRight}</Text>
+                    <Text style={[styles.barTitleRight, titleStyleRight]}>{titleRight}</Text>
                   </View>
                 </View>
               )
