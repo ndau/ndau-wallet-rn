@@ -235,8 +235,8 @@ class WalletOverview extends Component {
           <NdauTotal>{totalNdau}</NdauTotal>
           <DashboardContainer>
             <WalletTotalPanel
-              title={currentPrice}
-              titleRight='* at current price'
+              title='Current Blockchain Market Price: '
+              titleRight={ NdauStore.getMarketPrice() }
             />
 
           <WalletOverviewHeaderActions>

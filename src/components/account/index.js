@@ -778,7 +778,8 @@ export function WalletTotalPanel (props) {
     <CollapsibleBar
       {...props}
       style={styles.dashboardTotalPanel}
-      titleStyle={styles.dashboardTotalTitleLeft}
+      titleStyle={{ fontSize: 14 }}
+      titleStyleRight={[styles.dashboardTotalTitleLeft, { fontSize: 14 }]}
       collapsible
       showOnStart={false}
       iconCollapsed='angle-down'
@@ -788,15 +789,21 @@ export function WalletTotalPanel (props) {
       upperBorder
     >
       <View style={[styles.dashboardTotalPanelTextContainer, { height: 280 }]}>
-        <P style={styles.totalAsterickTextVerySmallWhite}>
-          * This is an estimated value of ndau based on recent trading volume.
-        </P>
+        <Text style={styles.walletTotalPanelText}>
+          * Updated and recorded on the ndau blockchain every 5 minutes.
+        </Text>
+        <Text 
+          style={styles.walletTotalPanelLinkText}
+          onPress={() => Linking.openURL(AppConfig.BLOCKCHAIN_KNOWLEDGEBASE_URL)}
+        >
+          What is Blockchain Market Price and how is it calculated?
+        </Text>
         <WebView
           source={{
             html: `<!DOCTYPE html>
                   <html>
                   <head>
-                      <meta name="viewport" content="width=device-width, initial-scale=0.70">
+                      <meta name="viewport" content="width=device-width, initial-scale=0.73">
                       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                   </head>
                     <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
