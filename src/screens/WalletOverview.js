@@ -22,7 +22,7 @@ import {
 } from '../components/dashboard'
 import { DrawerHeader } from '../components/drawer'
 import {
-  DashboardTotalPanel,
+  WalletTotalPanel,
   WalletOverviewHeaderActions
 } from '../components/account'
 import UserData from '../model/UserData'
@@ -234,7 +234,7 @@ class WalletOverview extends Component {
           </DrawerHeader>
           <NdauTotal>{totalNdau}</NdauTotal>
           <DashboardContainer>
-            <DashboardTotalPanel
+            <WalletTotalPanel
               title={currentPrice}
               titleRight='* at current price'
             />

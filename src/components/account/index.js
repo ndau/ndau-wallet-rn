@@ -48,6 +48,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+import { WebView } from 'react-native-webview'
 
 export function AccountPanel (props) {
   const accountAmount = new NdauNumber(
@@ -767,6 +768,42 @@ export function DashboardTotalPanel (props) {
         <P style={styles.totalAsterickTextVerySmallWhite}>
           * This is an estimated value of ndau based on recent trading volume.
         </P>
+      </View>
+    </CollapsibleBar>
+  )
+}
+
+export function WalletTotalPanel (props) {
+  return (
+    <CollapsibleBar
+      {...props}
+      style={styles.dashboardTotalPanel}
+      titleStyle={styles.dashboardTotalTitleLeft}
+      collapsible
+      showOnStart={false}
+      iconCollapsed='angle-down'
+      iconActive='angle-down'
+      iconOpened='angle-up'
+      tintColor={AppConstants.TEXT_COLOR}
+      upperBorder
+    >
+      <View style={[styles.dashboardTotalPanelTextContainer, { height: 280 }]}>
+        <P style={styles.totalAsterickTextVerySmallWhite}>
+          * This is an estimated value of ndau based on recent trading volume.
+        </P>
+        <WebView
+          source={{
+            html: `<!DOCTYPE html>
+                  <html>
+                  <head>
+                      <meta name="viewport" content="width=device-width, initial-scale=0.70">
+                      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                  </head>
+                    <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
+                    <script src="https://widget.nomics.com/embed.js"></script>
+                  </html>`
+          }}
+        />
       </View>
     </CollapsibleBar>
   )
