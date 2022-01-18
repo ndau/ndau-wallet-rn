@@ -137,7 +137,6 @@ class AccountDetails extends Component {
     const url = this.getExplorerUrl()
 
     const supported = await Linking.canOpenURL(url);
-
     if (supported) { 
       await Linking.openURL(url);
     } else {
@@ -151,7 +150,7 @@ class AccountDetails extends Component {
   }
 
   getExplorerUrl = () => {
-    return AppConfig.calcExplorerUrl(this.state.address, this.state.network)
+    return AppConfig.calcExplorerUrl(this.state.account.address, this.state.network)
   }
 
   goBack = () => {
@@ -370,14 +369,10 @@ class AccountDetails extends Component {
                 being sent to:
               </AccountConfirmationItem>
             ) : null}
-            <AccountConfirmationItem
-              style={{ marginTop: '4%' }}
-              value={<TextLink url={explorerUrl}>{addressTrunc}</TextLink>}
-            >
-              Account Address:
-            </AccountConfirmationItem>
+            <AccountBorder verticalMargins={{ marginTop: '2%', marginBottom: '8%' }}  />
             <LargeButton
               scroll
+              isNegative={true}
               onPress={() => this.setState({ showRemoveModal: true })}
             >
               Remove account

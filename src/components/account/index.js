@@ -645,7 +645,7 @@ export function AccountBorder (props) {
   if (props.sideMargins) {
     sideMargins = styles.accountSideMargins
   }
-  return <View style={[styles.accountDetailsPanelBorder, sideMargins]} />
+  return <View style={[styles.accountDetailsPanelBorder, sideMargins, props.verticalMargins]} />
 }
 
 export function AccountIconText (props) {
