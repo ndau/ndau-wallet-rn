@@ -24,10 +24,6 @@ export function DashboardLabel (props) {
   )
 }
 
-export function DashboardContainer (props) {
-  return <View style={styles.dashboardContainer}>{props.children}</View>
-}
-
 export function DashboardPanel (props) {
   return (
     <TouchableOpacity onPress={props.onPress}>
@@ -71,21 +67,19 @@ export function DashboardLabelWithIcon (props) {
     greenFont = styles.walletOverviewGreenFont
   }
   return (
-    <View style={[styles.dashboardLabelWithIconContainer, props.style]}>
+    <TouchableOpacity {...props} disabled={!props.onPress} style={[styles.dashboardLabelWithIconContainer, props.style]}>
       <P style={[styles.dashboardLabelTextWithIcon, greenFont, props.textStyle]}>
         {props.children}
       </P>
       {props.fontAwesomeIconName ? (
-        <TouchableOpacity {...props}>
-          <Icon
-            size={props.iconSize ? props.iconSize : 24}
-            name={props.fontAwesomeIconName}
-            color={AppConstants.ICON_BUTTON_COLOR}
-            type='light'
-          />
-        </TouchableOpacity>
+        <Icon
+          size={props.iconSize ? props.iconSize : 24}
+          name={props.fontAwesomeIconName}
+          color={AppConstants.ICON_BUTTON_COLOR}
+          type='light'
+        />
       ) : null}
-    </View>
+    </TouchableOpacity>
   )
 }
 

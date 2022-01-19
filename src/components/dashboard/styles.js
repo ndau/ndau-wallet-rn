@@ -72,12 +72,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     textAlign: "center"
   },
-  dashboardContainer: {
-    flex: 1,
-    width: wp('100%'),
-    height: hp('100%'),
-    backgroundColor: '#0A1724'
-  },
   dashboardPanel: {
     width: wp('100%'),
     height: hp('8.5%'),
