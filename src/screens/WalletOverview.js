@@ -241,109 +241,111 @@ class WalletOverview extends Component {
               />
             }
           >
-          <DollarTotal>{currentPrice}</DollarTotal>
-          <NdauTotal 
-            textStyle={{ fontSize: 28 }}
-            containerStyle={{ ...Platform.select({
-              android: {
-                marginTop: '0%'
-              }
-            })}}
-          >
-            {totalNdau}
-          </NdauTotal>
+            <DollarTotal>{currentPrice}</DollarTotal>
+            <NdauTotal 
+              textStyle={{ fontSize: 28 }}
+              containerStyle={{ ...Platform.select({
+                android: {
+                  marginTop: '0%'
+                }
+              })}}
+            >
+              {totalNdau}
+            </NdauTotal>
+
             <WalletTotalPanel
               title='Current Blockchain Market Price: '
               titleRight={ NdauStore.getMarketPrice() }
             />
 
-          <WalletOverviewHeaderActions>
-            <DashboardLabelWithIcon
-              greenFont
-              style={{ justifyContent: 'flex-start' }}
-              textStyle={{ fontSize: 12 }}
-            >
-              {totalSpendable}{' '}
-              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL} textStyle={{ fontSize: 12 }}>
-                spendable
-              </TextLink>
-            </DashboardLabelWithIcon>
-            <DashboardLabelWithIcon
-              onPress={() => this.launchAddNewAccountDialog()}
-              fontAwesomeIconName='plus-circle'
-              style={{ justifyContent: 'center' }}
-              textStyle={{ fontSize: 12 }}
-              iconSize={18}
-            >
-              Add account
-            </DashboardLabelWithIcon>
+            <WalletOverviewHeaderActions>
+              <DashboardLabelWithIcon
+                greenFont
+                style={{ justifyContent: 'flex-start' }}
+                textStyle={{ fontSize: 12 }}
+              >
+                {totalSpendable}{' '}
+                <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL} textStyle={{ fontSize: 12 }}>
+                  spendable
+                </TextLink>
+              </DashboardLabelWithIcon>
+              <DashboardLabelWithIcon
+                onPress={() => this.launchAddNewAccountDialog()}
+                fontAwesomeIconName='plus-circle'
+                style={{ justifyContent: 'center' }}
+                textStyle={{ fontSize: 12 }}
+                iconSize={18}
+              >
+                Add account
+              </DashboardLabelWithIcon>
 
-            <DashboardButton onPress={() => this.launchBuyNdauInBrowser()}>
-              Buy ndau
-            </DashboardButton>   
-          </WalletOverviewHeaderActions>
-                {wallet
-                  ? Object.keys(wallet.accounts)
-                    .sort((a, b) => {
-                      if (
-                        !wallet.accounts[a].addressData.nickname ||
-                          !wallet.accounts[b].addressData.nickname
-                      ) {
-                        return 0
-                      }
+              <DashboardButton onPress={() => this.launchBuyNdauInBrowser()}>
+                Buy ndau
+              </DashboardButton>   
+            </WalletOverviewHeaderActions>
 
-                      const accountNumberA = parseInt(
-                        wallet.accounts[a].addressData.nickname.split(' ')[1]
-                      )
-                      const accountNumberB = parseInt(
-                        wallet.accounts[b].addressData.nickname.split(' ')[1]
-                      )
-                      if (accountNumberA < accountNumberB) {
-                        return -1
-                      } else if (accountNumberA > accountNumberB) {
-                        return 1
-                      }
-                      return 0
+            {wallet
+              ? Object.keys(wallet.accounts)
+                .sort((a, b) => {
+                  if (
+                    !wallet.accounts[a].addressData.nickname ||
+                      !wallet.accounts[b].addressData.nickname
+                  ) {
+                    return 0
+                  }
+
+                  const accountNumberA = parseInt(
+                    wallet.accounts[a].addressData.nickname.split(' ')[1]
+                  )
+                  const accountNumberB = parseInt(
+                    wallet.accounts[b].addressData.nickname.split(' ')[1]
+                  )
+                  if (accountNumberA < accountNumberB) {
+                    return -1
+                  } else if (accountNumberA > accountNumberB) {
+                    return 1
+                  }
+                  return 0
+                })
+                .map((accountKey, index) => {
+                  const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
+                    wallet.accounts[accountKey].addressData
+                  )
+                  const isAccountLocked = AccountAPIHelper.isAccountLocked(
+                    wallet.accounts[accountKey].addressData
+                  )
+                  const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
+                    wallet.accounts[accountKey].addressData
+                  )
+
+                  if (!wallet.accounts[accountKey].addressData.lock) {
+                    const address = wallet.accounts[accountKey].address
+                    const nickname =
+                        wallet.accounts[accountKey].addressData.nickname
+                    Object.assign(this.accountsCanRxEAI, {
+                      [nickname]: address
                     })
-                    .map((accountKey, index) => {
-                      const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-                        wallet.accounts[accountKey].addressData
-                      )
-                      const isAccountLocked = AccountAPIHelper.isAccountLocked(
-                        wallet.accounts[accountKey].addressData
-                      )
-                      const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-                        wallet.accounts[accountKey].addressData
-                      )
-
-                      if (!wallet.accounts[accountKey].addressData.lock) {
-                        const address = wallet.accounts[accountKey].address
-                        const nickname =
-                            wallet.accounts[accountKey].addressData.nickname
-                        Object.assign(this.accountsCanRxEAI, {
-                          [nickname]: address
-                        })
+                  }
+                  return (
+                    <AccountPanel
+                      key={index}
+                      index={index}
+                      onPress={() =>
+                        this._showAccountDetails(
+                          wallet.accounts[accountKey],
+                          wallet
+                        )
                       }
-                      return (
-                        <AccountPanel
-                          key={index}
-                          index={index}
-                          onPress={() =>
-                            this._showAccountDetails(
-                              wallet.accounts[accountKey],
-                              wallet
-                            )
-                          }
-                          account={wallet.accounts[accountKey]}
-                          icon={isAccountLocked ? 'lock' : 'lock-open'}
-                          accountLockedUntil={accountLockedUntil}
-                          accountNoticePeriod={accountNoticePeriod}
-                          isAccountLocked={isAccountLocked}
-                          {...this.props}
-                        />
-                      )
-                    })
-                  : null}
+                      account={wallet.accounts[accountKey]}
+                      icon={isAccountLocked ? 'lock' : 'lock-open'}
+                      accountLockedUntil={accountLockedUntil}
+                      accountNoticePeriod={accountNoticePeriod}
+                      isAccountLocked={isAccountLocked}
+                      {...this.props}
+                    />
+                  )
+                })
+              : null}
           </ScrollView>
         </AppContainer>
       )

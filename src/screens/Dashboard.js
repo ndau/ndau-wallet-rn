@@ -150,21 +150,21 @@ class Dashboard extends Component {
                 spendable
               </TextLink>
             </DashboardLabelWithIcon>
-              <DashboardTotalPanel
-                title={currentPrice}
-                titleRight='* at current price'
-              />
-              <DashboardLabel>Your wallets</DashboardLabel>
-              {wallets.map((wallet, index) => {
-                const walletName = DataFormatHelper.getWalletName(wallet)
-                return (
-                  <DashboardPanel
-                    key={index}
-                    walletName={DataFormatHelper.truncateString(walletName)}
-                    onPress={() => this._showWalletOverview(wallet)}
-                  />
-                )
-              })}
+            <DashboardTotalPanel
+              title={currentPrice}
+              titleRight='* at current price'
+            />
+            <DashboardLabel>Your wallets</DashboardLabel>
+            {wallets.map((wallet, index) => {
+              const walletName = DataFormatHelper.getWalletName(wallet)
+              return (
+                <DashboardPanel
+                  key={index}
+                  walletName={DataFormatHelper.truncateString(walletName)}
+                  onPress={() => this._showWalletOverview(wallet)}
+                />
+              )
+            })}
           </ScrollView>
         </AppContainer>
       )
