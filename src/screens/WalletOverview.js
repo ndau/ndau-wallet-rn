@@ -16,7 +16,6 @@ import FlashNotification from '../components/common/FlashNotification'
 import { AppContainer, DollarTotal, NdauTotal, TextLink } from '../components/common'
 import { AccountPanel } from '../components/account'
 import {
-  DashboardContainer,
   DashboardButton,
   DashboardLabelWithIcon
 } from '../components/dashboard'
@@ -232,6 +231,16 @@ class WalletOverview extends Component {
           <DrawerHeader navBack={!this.props.route.params?.drawerEnabled} {...this.props}>
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
+
+          <ScrollView
+            style={{ flex: 1 }}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+              />
+            }
+          >
           <DollarTotal>{currentPrice}</DollarTotal>
           <NdauTotal 
             textStyle={{ fontSize: 28 }}
@@ -243,7 +252,6 @@ class WalletOverview extends Component {
           >
             {totalNdau}
           </NdauTotal>
-          <DashboardContainer>
             <WalletTotalPanel
               title='Current Blockchain Market Price: '
               titleRight={ NdauStore.getMarketPrice() }
@@ -274,16 +282,6 @@ class WalletOverview extends Component {
               Buy ndau
             </DashboardButton>   
           </WalletOverviewHeaderActions>
-
-            <ScrollView
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh}
-                />
-              }
-            >
-              <View style={{ flex: 1 }}>
                 {wallet
                   ? Object.keys(wallet.accounts)
                     .sort((a, b) => {
@@ -346,9 +344,7 @@ class WalletOverview extends Component {
                       )
                     })
                   : null}
-              </View>
-            </ScrollView>
-          </DashboardContainer>
+          </ScrollView>
         </AppContainer>
       )
     } catch (error) {

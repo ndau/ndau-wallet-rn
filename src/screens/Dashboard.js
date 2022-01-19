@@ -18,7 +18,6 @@ import FlashNotification from '../components/common/FlashNotification'
 import { AppContainer, NdauTotal, TextLink } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
-  DashboardContainer,
   DashboardLabel,
   DashboardPanel,
   DashboardLabelWithIcon
@@ -134,7 +133,9 @@ class Dashboard extends Component {
 
       return (
         <AppContainer>
+          <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
           <ScrollView
+            style={{ flex: 1 }}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
@@ -142,7 +143,6 @@ class Dashboard extends Component {
               />
             }
           >
-            <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
               <Text>{totalSpendableNdau} </Text>
@@ -150,7 +150,6 @@ class Dashboard extends Component {
                 spendable
               </TextLink>
             </DashboardLabelWithIcon>
-            <DashboardContainer>
               <DashboardTotalPanel
                 title={currentPrice}
                 titleRight='* at current price'
@@ -166,7 +165,6 @@ class Dashboard extends Component {
                   />
                 )
               })}
-            </DashboardContainer>
           </ScrollView>
         </AppContainer>
       )
