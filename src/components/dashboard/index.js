@@ -9,8 +9,8 @@
  */
 
 import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
-import { H4, P, Button } from 'nachos-ui'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { P, Button } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './styles'
@@ -46,19 +46,17 @@ export function DashboardPanel (props) {
                 name='wallet'
                 size={36}
                 color={AppConstants.ICON_BUTTON_COLOR}
-                containerStyle={styles.dashboardWallet}
                 type='light'
               />
-              <H4 style={styles.dashboardActionTextPanel}>{props.walletName}</H4>
+              <Text style={styles.dashboardActionTextPanel}>{props.walletName}</Text>
             </View>
             <View style={styles.dashboardActionPanel}>
               <Icon
-                  name='angle-right'
-                  size={48}
-                  color={AppConstants.ICON_BUTTON_COLOR}
-                  containerStyle={styles.dashboardAngle}
-                  type='light'
-                />
+                name='angle-right'
+                size={48}
+                color={AppConstants.ICON_BUTTON_COLOR}
+                type='light'
+              />
             </View>
           </View>
         </LinearGradient>

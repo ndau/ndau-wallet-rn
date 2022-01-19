@@ -92,8 +92,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: hp('7%'),
-    width: hp('30%'),
+    marginLeft: wp('4%'),
     overflow: 'hidden'
   },
   dashboardActionPanels: {
@@ -113,24 +112,8 @@ export default StyleSheet.create({
   },
   dashboardActionPanel: {
     width: wp('18%'),
-    height: hp('10%'),
     backgroundColor: '#0F2748',
-    alignSelf: 'flex-end'
-  },
-  dashboardAngle: {
-    alignSelf: 'center',
-    ...Platform.select({
-      ios: {
-        paddingTop: hp('2.5%')
-      },
-      android: {
-        paddingTop: hp('2%')
-      }
-    })
-  },
-  dashboardWallet: {
-    alignSelf: 'center',
-    paddingTop: hp('1%'),
-    marginLeft: wp('4%')
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
