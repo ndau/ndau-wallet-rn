@@ -20,20 +20,6 @@ export default StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     opacity: 0.9
   },
-  dashboardLabelTextWithIcon: {
-    color: AppConstants.TEXT_COLOR,
-    fontFamily: 'Open Sans',
-    fontSize: 16,
-    marginRight: wp('2%'),
-    marginLeft: wp('4%')
-  },
-  walletOverviewGreenFont: {
-    color: AppConstants.LIGHT_GREEN_COLOR,
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 5,
-    shadowOpacity: 0,
-    textShadowColor: 'rgba(78,149,122,1)'
-  },
   dashboardLabelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',
@@ -42,21 +28,12 @@ export default StyleSheet.create({
     marginBottom: wp('2%'),
     marginLeft: wp('4%')
   },
-  dashboardLabelWithIconContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: hp('6.5%'),
-    maxHeight: hp('6.5%'),
-    marginTop: wp('2%'),
-    marginBottom: wp('2%')
-  },
   dashboardButtonBox: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'flex-end',
+    width: wp('22%'),
     height: hp('4.5%'),
     maxHeight: hp('4.5%'),
     marginStart: wp('8%'),
@@ -71,12 +48,6 @@ export default StyleSheet.create({
     fontSize: 12,
     justifyContent: "center",
     textAlign: "center"
-  },
-  dashboardContainer: {
-    flex: 1,
-    width: wp('100%'),
-    height: hp('100%'),
-    backgroundColor: '#0A1724'
   },
   dashboardPanel: {
     width: wp('100%'),

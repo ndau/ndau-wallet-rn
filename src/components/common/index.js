@@ -18,6 +18,7 @@ import {
   Image,
   Platform,
   ScrollView,
+  RefreshControl,
   Switch,
   Linking
 } from 'react-native'
@@ -292,23 +293,32 @@ export function ProgressBar (props) {
   )
 }
 
-export function LabelWithIcon (props) {
-  let margin = {}
-  if (!props.noMargin) {
-    margin = styles.labelTextMarginRight
-  }
+export function LabelWithTextLink (props) {
   return (
-    <View style={styles.labelWithIconContainer}>
-      <P style={[styles.labelText, margin]}>{props.children}</P>
+    <View style={[styles.labelWithTextLinkContainer]}>
+      <Text style={[styles.labelShadowText, props.textStyle]}>
+        {props.label}
+        <TextLink url={props.url} textStyle={props.textStyle}>
+          {props.linkText || 'spendable'}
+        </TextLink>
+      </Text>
+    </View>
+  )
+}
+
+export function LabelWithIcon (props) {
+  const margin = props.noMargin ? {} : styles.labelTextMarginRight
+  return (
+    <TouchableOpacity {...props} disabled={!props.textClickable} style={[styles.labelWithIconContainer, props.style]}>
+      <P style={[styles.labelText, margin, props.textStyle]}>{props.children}</P>
       <Icon
-        size={24}
+        size={props.iconSize || 24}
         name={props.fontAwesomeIconName}
         color={AppConstants.ICON_BUTTON_COLOR}
         type='light'
-        containerStyle={{ alignSelf: 'center' }}
         {...props}
       />
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -636,3 +646,21 @@ export function LoadingSpinner (props) {
     />
   )
 }
+
+export function RefreshScrollView (props) {
+  return (
+    <ScrollView
+      style={{ flex: 1 }}
+      refreshControl={
+        <RefreshControl
+          refreshing={props.refreshing}
+          onRefresh={props.onRefresh}
+          tintColor='white'
+        />
+      }
+    >
+      {props.children}
+    </ScrollView>
+  )
+}
+

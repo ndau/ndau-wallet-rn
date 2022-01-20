@@ -24,7 +24,7 @@ const initialize = () => {
       stopOnTerminate: false, // <-- Android-only,
       startOnBoot: true // <-- Android-only
     },
-    async () => {
+    async (taskId) => {
       try {
         if (await AccountAPI.isAddressDataNew()) {
           notificationService.localNotification(
@@ -37,12 +37,13 @@ const initialize = () => {
           new OfflineError('Issue encountered querying the blockchain in the background')
         )
       }
-      BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA)
+      BackgroundFetch.finish(taskId)
     },
-    error => {
+    async (taskId) => {
       FlashNotification.showError(
         new OfflineError('Issue encountered starting QueryBlockchain background fetch')
       )
+      BackgroundFetch.finish(taskId)
     }
   )
 

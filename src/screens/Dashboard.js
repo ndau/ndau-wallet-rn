@@ -9,19 +9,17 @@
  */
 
 import React, { Component } from 'react'
-import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
+import { AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
-import { AppContainer, NdauTotal, TextLink } from '../components/common'
+import { AppContainer, NdauTotal, LabelWithTextLink, RefreshScrollView } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
-  DashboardContainer,
   DashboardLabel,
-  DashboardPanel,
-  DashboardLabelWithIcon
+  DashboardPanel
 } from '../components/dashboard'
 import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
@@ -134,40 +132,33 @@ class Dashboard extends Component {
 
       return (
         <AppContainer>
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
-              />
-            }
+          <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
+          <RefreshScrollView
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
           >
-            <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
             <NdauTotal>{totalNdau}</NdauTotal>
-            <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
-              <Text>{totalSpendableNdau} </Text>
-              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
-                spendable
-              </TextLink>
-            </DashboardLabelWithIcon>
-            <DashboardContainer>
-              <DashboardTotalPanel
-                title={currentPrice}
-                titleRight='* at current price'
-              />
-              <DashboardLabel>Your wallets</DashboardLabel>
-              {wallets.map((wallet, index) => {
-                const walletName = DataFormatHelper.getWalletName(wallet)
-                return (
-                  <DashboardPanel
-                    key={index}
-                    walletName={DataFormatHelper.truncateString(walletName)}
-                    onPress={() => this._showWalletOverview(wallet)}
-                  />
-                )
-              })}
-            </DashboardContainer>
-          </ScrollView>
+            <LabelWithTextLink 
+              label={`${totalSpendableNdau} `}
+              linkText='spendable'
+              url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}
+            />
+            <DashboardTotalPanel
+              title={currentPrice}
+              titleRight='* at current price'
+            />
+            <DashboardLabel>Your wallets</DashboardLabel>
+            {wallets.map((wallet, index) => {
+              const walletName = DataFormatHelper.getWalletName(wallet)
+              return (
+                <DashboardPanel
+                  key={index}
+                  walletName={DataFormatHelper.truncateString(walletName)}
+                  onPress={() => this._showWalletOverview(wallet)}
+                />
+              )
+            })}
+          </RefreshScrollView>
         </AppContainer>
       )
     } catch (error) {

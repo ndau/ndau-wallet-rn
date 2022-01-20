@@ -9,17 +9,13 @@
  */
 
 import React, { Component } from 'react'
-import { Alert, ScrollView, View, RefreshControl, AppState, Linking } from 'react-native'
+import { Alert, AppState, Linking } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
-import { AppContainer, DollarTotal, NdauTotal, TextLink } from '../components/common'
+import { AppContainer, DollarTotal, NdauTotal, LabelWithIcon, LabelWithTextLink, RefreshScrollView } from '../components/common'
 import { AccountPanel } from '../components/account'
-import {
-  DashboardContainer,
-  DashboardButton,
-  DashboardLabelWithIcon
-} from '../components/dashboard'
+import { DashboardButton } from '../components/dashboard'
 import { DrawerHeader } from '../components/drawer'
 import {
   WalletTotalPanel,
@@ -232,123 +228,119 @@ class WalletOverview extends Component {
           <DrawerHeader navBack={!this.props.route.params?.drawerEnabled} {...this.props}>
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
-          <DollarTotal>{currentPrice}</DollarTotal>
-          <NdauTotal 
-            textStyle={{ fontSize: 28 }}
-            containerStyle={{ ...Platform.select({
-              android: {
-                marginTop: '0%'
-              }
-            })}}
+
+          <RefreshScrollView
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
           >
-            {totalNdau}
-          </NdauTotal>
-          <DashboardContainer>
+            <DollarTotal>{currentPrice}</DollarTotal>
+            <NdauTotal 
+              textStyle={{ fontSize: 28 }}
+              containerStyle={{ ...Platform.select({
+                android: {
+                  marginTop: '0%'
+                },
+                ios: {
+                  marginBottom: '4%'
+                }
+              })}}
+            >
+              {totalNdau}
+            </NdauTotal>
+
             <WalletTotalPanel
               title='Current Blockchain Market Price: '
-              titleRight={ NdauStore.getMarketPrice() }
+              titleRight={'$' + DataFormatHelper.formatUSDollarValue(NdauStore.getMarketPrice() || 0, 2)}
             />
 
-          <WalletOverviewHeaderActions>
-            <DashboardLabelWithIcon
-              greenFont
-              style={{ justifyContent: 'flex-start' }}
-              textStyle={{ fontSize: 12 }}
-            >
-              {totalSpendable}{' '}
-              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL} textStyle={{ fontSize: 12 }}>
-                spendable
-              </TextLink>
-            </DashboardLabelWithIcon>
-            <DashboardLabelWithIcon
-              onPress={() => this.launchAddNewAccountDialog()}
-              fontAwesomeIconName='plus-circle'
-              style={{ justifyContent: 'center' }}
-              textStyle={{ fontSize: 12 }}
-              iconSize={18}
-            >
-              Add account
-            </DashboardLabelWithIcon>
+            <WalletOverviewHeaderActions>
+              <LabelWithTextLink
+                label={`${totalSpendable} `}
+                linkText='spendable'
+                url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}
+                textStyle={{ fontSize: 12 }}
+              />
 
-            <DashboardButton onPress={() => this.launchBuyNdauInBrowser()}>
-              Buy ndau
-            </DashboardButton>   
-          </WalletOverviewHeaderActions>
+              <LabelWithIcon
+                noMargin
+                textClickable
+                onPress={() => this.launchAddNewAccountDialog()}
+                fontAwesomeIconName='plus-circle'
+                style={{ justifyContent: 'center', alignSelf: 'center'}}
+                textStyle={{ fontSize: 12 }}
+                iconSize={18}
+              >
+                Add account
+              </LabelWithIcon>
 
-            <ScrollView
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh}
-                />
-              }
-            >
-              <View style={{ flex: 1 }}>
-                {wallet
-                  ? Object.keys(wallet.accounts)
-                    .sort((a, b) => {
-                      if (
-                        !wallet.accounts[a].addressData.nickname ||
-                          !wallet.accounts[b].addressData.nickname
-                      ) {
-                        return 0
-                      }
+              <DashboardButton onPress={() => this.launchBuyNdauInBrowser()}>
+                Buy ndau
+              </DashboardButton>   
+            </WalletOverviewHeaderActions>
 
-                      const accountNumberA = parseInt(
-                        wallet.accounts[a].addressData.nickname.split(' ')[1]
-                      )
-                      const accountNumberB = parseInt(
-                        wallet.accounts[b].addressData.nickname.split(' ')[1]
-                      )
-                      if (accountNumberA < accountNumberB) {
-                        return -1
-                      } else if (accountNumberA > accountNumberB) {
-                        return 1
-                      }
-                      return 0
+            {wallet
+              ? Object.keys(wallet.accounts)
+                .sort((a, b) => {
+                  if (
+                    !wallet.accounts[a].addressData.nickname ||
+                      !wallet.accounts[b].addressData.nickname
+                  ) {
+                    return 0
+                  }
+
+                  const accountNumberA = parseInt(
+                    wallet.accounts[a].addressData.nickname.split(' ')[1]
+                  )
+                  const accountNumberB = parseInt(
+                    wallet.accounts[b].addressData.nickname.split(' ')[1]
+                  )
+                  if (accountNumberA < accountNumberB) {
+                    return -1
+                  } else if (accountNumberA > accountNumberB) {
+                    return 1
+                  }
+                  return 0
+                })
+                .map((accountKey, index) => {
+                  const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
+                    wallet.accounts[accountKey].addressData
+                  )
+                  const isAccountLocked = AccountAPIHelper.isAccountLocked(
+                    wallet.accounts[accountKey].addressData
+                  )
+                  const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
+                    wallet.accounts[accountKey].addressData
+                  )
+
+                  if (!wallet.accounts[accountKey].addressData.lock) {
+                    const address = wallet.accounts[accountKey].address
+                    const nickname =
+                        wallet.accounts[accountKey].addressData.nickname
+                    Object.assign(this.accountsCanRxEAI, {
+                      [nickname]: address
                     })
-                    .map((accountKey, index) => {
-                      const accountLockedUntil = AccountAPIHelper.accountLockedUntil(
-                        wallet.accounts[accountKey].addressData
-                      )
-                      const isAccountLocked = AccountAPIHelper.isAccountLocked(
-                        wallet.accounts[accountKey].addressData
-                      )
-                      const accountNoticePeriod = AccountAPIHelper.accountNoticePeriod(
-                        wallet.accounts[accountKey].addressData
-                      )
-
-                      if (!wallet.accounts[accountKey].addressData.lock) {
-                        const address = wallet.accounts[accountKey].address
-                        const nickname =
-                            wallet.accounts[accountKey].addressData.nickname
-                        Object.assign(this.accountsCanRxEAI, {
-                          [nickname]: address
-                        })
+                  }
+                  return (
+                    <AccountPanel
+                      key={index}
+                      index={index}
+                      onPress={() =>
+                        this._showAccountDetails(
+                          wallet.accounts[accountKey],
+                          wallet
+                        )
                       }
-                      return (
-                        <AccountPanel
-                          key={index}
-                          index={index}
-                          onPress={() =>
-                            this._showAccountDetails(
-                              wallet.accounts[accountKey],
-                              wallet
-                            )
-                          }
-                          account={wallet.accounts[accountKey]}
-                          icon={isAccountLocked ? 'lock' : 'lock-open'}
-                          accountLockedUntil={accountLockedUntil}
-                          accountNoticePeriod={accountNoticePeriod}
-                          isAccountLocked={isAccountLocked}
-                          {...this.props}
-                        />
-                      )
-                    })
-                  : null}
-              </View>
-            </ScrollView>
-          </DashboardContainer>
+                      account={wallet.accounts[accountKey]}
+                      icon={isAccountLocked ? 'lock' : 'lock-open'}
+                      accountLockedUntil={accountLockedUntil}
+                      accountNoticePeriod={accountNoticePeriod}
+                      isAccountLocked={isAccountLocked}
+                      {...this.props}
+                    />
+                  )
+                })
+              : null}
+          </RefreshScrollView>
         </AppContainer>
       )
     } catch (error) {
