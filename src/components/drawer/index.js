@@ -9,7 +9,7 @@
  */
 
 import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { H4 } from 'nachos-ui'
 import Icon from 'react-native-fontawesome-pro'
@@ -96,7 +96,7 @@ export const DrawerHeader = props => {
           }
         }}
       />
-      <H4 style={styles.drawerHeaderText}>{props.children}</H4>
+      <Text style={styles.drawerHeaderText}>{props.children}</Text>
     </View>
   )
 }
