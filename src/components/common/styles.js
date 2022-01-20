@@ -241,6 +241,26 @@ export default StyleSheet.create({
     paddingVertical: 0,
     marginLeft: '-10%'
   },
+  labelWithTextLinkContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: hp('6.5%'),
+    maxHeight: hp('6.5%'),
+    marginLeft: wp('4%'), 
+    marginTop: wp('2%'),
+    marginBottom: wp('2%')
+  },
+  labelShadowText: {
+    color: AppConstants.LIGHT_GREEN_COLOR,
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    shadowOpacity: 0,
+    textShadowColor: 'rgba(78,149,122,1)',
+    fontFamily: 'Open Sans',
+    fontSize: 16
+  }, 
   labelWithIconContainer: {
     flex: 1,
     flexDirection: 'row',

@@ -15,12 +15,11 @@ import UserData from '../model/UserData'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
-import { AppContainer, NdauTotal, TextLink, RefreshScrollView } from '../components/common'
+import { AppContainer, NdauTotal, LabelWithTextLink, RefreshScrollView } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardLabel,
-  DashboardPanel,
-  DashboardLabelWithIcon
+  DashboardPanel
 } from '../components/dashboard'
 import { DashboardTotalPanel } from '../components/account'
 import UserStore from '../stores/UserStore'
@@ -139,12 +138,11 @@ class Dashboard extends Component {
             onRefresh={this._onRefresh}
           >
             <NdauTotal>{totalNdau}</NdauTotal>
-            <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
-              <Text>{totalSpendableNdau} </Text>
-              <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
-                spendable
-              </TextLink>
-            </DashboardLabelWithIcon>
+            <LabelWithTextLink 
+              label={`${totalSpendableNdau} `}
+              linkText='spendable'
+              url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}
+            />
             <DashboardTotalPanel
               title={currentPrice}
               titleRight='* at current price'

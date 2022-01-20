@@ -46,6 +46,7 @@ export default StyleSheet.create({
   walletOverviewHeaderActions: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginRight: wp('4%')
   },
   accountActionTextPanel: {

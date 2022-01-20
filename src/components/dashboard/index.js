@@ -61,39 +61,15 @@ export function DashboardPanel (props) {
   )
 }
 
-export function DashboardLabelWithIcon (props) {
-  let greenFont = {}
-  if (props.greenFont) {
-    greenFont = styles.walletOverviewGreenFont
-  }
-  return (
-    <TouchableOpacity {...props} disabled={!props.onPress} style={[styles.dashboardLabelWithIconContainer, props.style]}>
-      <P style={[styles.dashboardLabelTextWithIcon, greenFont, props.textStyle]}>
-        {props.children}
-      </P>
-      {props.fontAwesomeIconName ? (
-        <Icon
-          size={props.iconSize ? props.iconSize : 24}
-          name={props.fontAwesomeIconName}
-          color={AppConstants.ICON_BUTTON_COLOR}
-          type='light'
-        />
-      ) : null}
-    </TouchableOpacity>
-  )
-}
-
 export function DashboardButton (props) {
   return (
-    <View style={[styles.dashboardLabelWithIconContainer, { justifyContent: 'flex-end' }]}>
-      <Button
-        style={styles.dashboardButtonBox}
-        textStyle={styles.dashboardButtonText}
-        uppercase={false}
-        onPress={props.onPress}        
-      >
-        {props.children}
-      </Button>
-    </View>
+    <Button
+      style={styles.dashboardButtonBox}
+      textStyle={styles.dashboardButtonText}
+      uppercase={false}
+      onPress={props.onPress}        
+    >
+      {props.children}
+    </Button>
   )
 }

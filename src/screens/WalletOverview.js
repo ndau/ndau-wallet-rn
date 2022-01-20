@@ -13,12 +13,9 @@ import { Alert, AppState, Linking } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
-import { AppContainer, DollarTotal, NdauTotal, TextLink, RefreshScrollView } from '../components/common'
+import { AppContainer, DollarTotal, NdauTotal, LabelWithIcon, LabelWithTextLink, RefreshScrollView } from '../components/common'
 import { AccountPanel } from '../components/account'
-import {
-  DashboardButton,
-  DashboardLabelWithIcon
-} from '../components/dashboard'
+import { DashboardButton } from '../components/dashboard'
 import { DrawerHeader } from '../components/drawer'
 import {
   WalletTotalPanel,
@@ -242,6 +239,9 @@ class WalletOverview extends Component {
               containerStyle={{ ...Platform.select({
                 android: {
                   marginTop: '0%'
+                },
+                ios: {
+                  marginBottom: '4%'
                 }
               })}}
             >
@@ -254,25 +254,24 @@ class WalletOverview extends Component {
             />
 
             <WalletOverviewHeaderActions>
-              <DashboardLabelWithIcon
-                greenFont
-                style={{ justifyContent: 'flex-start' }}
+              <LabelWithTextLink
+                label={`${totalSpendable} `}
+                linkText='spendable'
+                url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}
                 textStyle={{ fontSize: 12 }}
-              >
-                {totalSpendable}{' '}
-                <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL} textStyle={{ fontSize: 12 }}>
-                  spendable
-                </TextLink>
-              </DashboardLabelWithIcon>
-              <DashboardLabelWithIcon
+              />
+
+              <LabelWithIcon
+                noMargin
+                textClickable
                 onPress={() => this.launchAddNewAccountDialog()}
                 fontAwesomeIconName='plus-circle'
-                style={{ justifyContent: 'center' }}
+                style={{ justifyContent: 'center', alignSelf: 'center'}}
                 textStyle={{ fontSize: 12 }}
                 iconSize={18}
               >
                 Add account
-              </DashboardLabelWithIcon>
+              </LabelWithIcon>
 
               <DashboardButton onPress={() => this.launchBuyNdauInBrowser()}>
                 Buy ndau
