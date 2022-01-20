@@ -255,7 +255,7 @@ class WalletOverview extends Component {
 
             <WalletTotalPanel
               title='Current Blockchain Market Price: '
-              titleRight={ NdauStore.getMarketPrice() }
+              titleRight={'$' + DataFormatHelper.formatUSDollarValue(NdauStore.getMarketPrice() || 0, 2)}
             />
 
             <WalletOverviewHeaderActions>
