@@ -245,6 +245,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     maxHeight: hp('7%'),
     minHeight: hp('7%')
   },
