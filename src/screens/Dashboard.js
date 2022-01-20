@@ -9,13 +9,13 @@
  */
 
 import React, { Component } from 'react'
-import { ScrollView, RefreshControl, AppState, Text } from 'react-native'
+import { AppState, Text } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import UserData from '../model/UserData'
 import DataFormatHelper from '../helpers/DataFormatHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
-import { AppContainer, NdauTotal, TextLink } from '../components/common'
+import { AppContainer, NdauTotal, TextLink, RefreshScrollView } from '../components/common'
 import { DrawerHeader } from '../components/drawer'
 import {
   DashboardLabel,
@@ -134,14 +134,9 @@ class Dashboard extends Component {
       return (
         <AppContainer>
           <DrawerHeader {...this.props}>Dashboard</DrawerHeader>
-          <ScrollView
-            style={{ flex: 1 }}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
-              />
-            }
+          <RefreshScrollView
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
           >
             <NdauTotal>{totalNdau}</NdauTotal>
             <DashboardLabelWithIcon greenFont style={{ textAlign: 'center' }}>
@@ -165,7 +160,7 @@ class Dashboard extends Component {
                 />
               )
             })}
-          </ScrollView>
+          </RefreshScrollView>
         </AppContainer>
       )
     } catch (error) {

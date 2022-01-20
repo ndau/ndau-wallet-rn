@@ -18,6 +18,7 @@ import {
   Image,
   Platform,
   ScrollView,
+  RefreshControl,
   Switch,
   Linking
 } from 'react-native'
@@ -636,3 +637,21 @@ export function LoadingSpinner (props) {
     />
   )
 }
+
+export function RefreshScrollView (props) {
+  return (
+    <ScrollView
+      style={{ flex: 1 }}
+      refreshControl={
+        <RefreshControl
+          refreshing={props.refreshing}
+          onRefresh={props.onRefresh}
+          tintColor='white'
+        />
+      }
+    >
+      {props.children}
+    </ScrollView>
+  )
+}
+

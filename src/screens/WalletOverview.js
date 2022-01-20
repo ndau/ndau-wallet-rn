@@ -9,11 +9,11 @@
  */
 
 import React, { Component } from 'react'
-import { Alert, ScrollView, View, RefreshControl, AppState, Linking } from 'react-native'
+import { Alert, AppState, Linking } from 'react-native'
 import AccountAPIHelper from '../helpers/AccountAPIHelper'
 import LogStore from '../stores/LogStore'
 import FlashNotification from '../components/common/FlashNotification'
-import { AppContainer, DollarTotal, NdauTotal, TextLink } from '../components/common'
+import { AppContainer, DollarTotal, NdauTotal, TextLink, RefreshScrollView } from '../components/common'
 import { AccountPanel } from '../components/account'
 import {
   DashboardButton,
@@ -232,14 +232,9 @@ class WalletOverview extends Component {
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
 
-          <ScrollView
-            style={{ flex: 1 }}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
-              />
-            }
+          <RefreshScrollView
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
           >
             <DollarTotal>{currentPrice}</DollarTotal>
             <NdauTotal 
@@ -346,7 +341,7 @@ class WalletOverview extends Component {
                   )
                 })
               : null}
-          </ScrollView>
+          </RefreshScrollView>
         </AppContainer>
       )
     } catch (error) {
