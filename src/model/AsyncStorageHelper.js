@@ -15,6 +15,7 @@ const CURRENT_USER_KEY = '@CurrentUserKey'
 
 const APPLICATION_PASSWORD = '@ApplicationPassword'
 const APPLICATION_NETWORK = '@ApplicationNetwork'
+const NOTIFICATION_SETTINGS = '@NotificationSettings'
 const DEBUG_ROWS = 'debug-rows'
 
 const LAST_ACCOUNT_DATA = '@LastAccountData'
@@ -52,6 +53,22 @@ const getApplicationNetwork = async () => {
   return await AsyncStorage.getItem(APPLICATION_NETWORK)
 }
 
+/** Cache notifications settings
+ *
+ * @param {boolean} isEnabled
+ */
+ const setNotificationSettings = async isEnabled => {
+   await AsyncStorage.setItem(NOTIFICATION_SETTINGS, JSON.stringify(isEnabled))
+}
+
+/**
+* Get the cached notification settings out of AsyncStorage
+*/
+const getNotificationSettings = async () => {
+  const result = await AsyncStorage.getItem(NOTIFICATION_SETTINGS)
+  return result ? JSON.parse(result) : false
+}
+
 /**
  * This function is deprecated. It is only kept around for the 1.8 release. After that
  * we can look at phasing this out.
@@ -68,6 +85,7 @@ const getAllKeys = async () => {
         key =>
           key !== CURRENT_USER_KEY &&
           key !== APPLICATION_NETWORK &&
+          key !== NOTIFICATION_SETTINGS &&
           key !== APPLICATION_PASSWORD &&
           key !== DEBUG_ROWS &&
           key !== LAST_ACCOUNT_DATA
@@ -83,5 +101,7 @@ export default {
   setLastAccountData,
   getLastAccountData,
   setApplicationNetwork,
-  getApplicationNetwork
+  getApplicationNetwork,
+  getNotificationSettings,
+  setNotificationSettings
 }

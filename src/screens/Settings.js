@@ -32,6 +32,7 @@ class Settings extends Component {
       mainnet: true,
       testnet: false,
       devnet: false,
+      notifications: false,
       spinner: false,
       found: null
     }
@@ -42,8 +43,9 @@ class Settings extends Component {
     const mainnet = await SettingsStore.isMainNet()
     const devnet = await SettingsStore.isDevNet()
     const testnet = await SettingsStore.isTestNet()
+    const notifications = await SettingsStore.getNotificationSettings()
 
-    this.setState({ mainnet, devnet, testnet })
+    this.setState({ mainnet, devnet, testnet, notifications})
   }
 
   useMainnet = async () => {
@@ -78,7 +80,8 @@ class Settings extends Component {
     const found = this.state.found
     return (
       <SettingsContainer {...this.props} title='Settings'>
-        <ParagraphText>
+
+        <ParagraphText textStyle={{ marginVertical: '4%' }}>
           Select which node environment you would like to use.
         </ParagraphText>
         <BooleanSetting
@@ -102,7 +105,29 @@ class Settings extends Component {
           style={[
             acctStyles.accountDetailsPanelBorder,
             acctStyles.accountSideMargins,
-            { marginTop: '4%', marginBottom: '4%' }
+            { marginBottom: '4%' }
+          ]}
+        />
+
+        <ParagraphText textStyle={{ marginBottom: '4%' }}>
+          Allow ndau to send you notifications regarding transactions.
+        </ParagraphText>
+        <BooleanSetting
+          title='Enable'
+          value={this.state.notifications}
+          onValueChange={
+            (switchValue) => {
+              this.setState({notifications: switchValue})
+              SettingsStore.setNotificationSettings(!this.state.notifications)
+            }
+          }
+        />
+
+        <View
+          style={[
+            acctStyles.accountDetailsPanelBorder,
+            acctStyles.accountSideMargins,
+            { marginBottom: '4%' }
           ]}
         />
 

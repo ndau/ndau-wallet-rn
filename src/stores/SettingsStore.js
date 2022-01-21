@@ -50,6 +50,18 @@ class SettingsStore {
     return this._settings.applicationNetwork
   }
 
+  setNotificationSettings = async (isEnabled) => {
+    this._settings.notificationSettings = isEnabled
+    await AsyncStorageHelper.setNotificationSettings(isEnabled)
+  }
+
+  getNotificationSettings = async () => {
+    if (!this._settings.notificationSettings) {
+      this._settings.notificationSettings = await AsyncStorageHelper.getNotificationSettings()
+    }
+    return this._settings.notificationSettings
+  }
+
   /**
    * Application will be using mainnet
    */
