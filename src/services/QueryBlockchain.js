@@ -20,12 +20,15 @@ import SettingsStore from '../stores/SettingsStore'
 const notificationService = new NotificationService()
 
 const initialize = async () => {
-  const notificationEnabled = await SettingsStore.getNotificationSettings()
-  if (notificationEnabled) {
+  if (await notificationEnabled()) {
     start()
   } else {
     stop()
   }
+}
+
+const notificationEnabled = async () => {
+  return await SettingsStore.getNotificationSettings()
 }
 
 const isAppActive = () => { 
@@ -33,29 +36,31 @@ const isAppActive = () => {
 }
 
 const checkAccountData = async (taskId) => {
-  try {
-    if (await AccountAPI.isAddressDataNew()) {
+  if (await notificationEnabled()) {
+    try {
+      if (await AccountAPI.isAddressDataNew()) {
+        if (isAppActive()) {
+          FlashNotification.showInformation('You have new data on the blockchain')
+        } else {
+          notificationService.localNotification(
+            'Blockchain Update',
+            'You have new data on the blockchain'
+          )
+        }
+      }
+    } catch (error) {
       if (isAppActive()) {
-        FlashNotification.showInformation('You have new data on the blockchain')
-      } else {
-        notificationService.localNotification(
-          'Blockchain Update',
-          'You have new data on the blockchain'
+        FlashNotification.showError(
+          new OfflineError('Issue encountered querying the blockchain in the background')
         )
       }
-    }
-  } catch (error) {
-    if (isAppActive()) {
-      FlashNotification.showError(
-        new OfflineError('Issue encountered querying the blockchain in the background')
-      )
     }
   }
   BackgroundFetch.finish(taskId)
 }
 
 const onTimeout = async (taskId) => {
-  if (isAppActive()) {
+  if (await notificationEnabled() && isAppActive()) {
     FlashNotification.showError(
       new OfflineError('Issue encountered starting QueryBlockchain background fetch')
     )
