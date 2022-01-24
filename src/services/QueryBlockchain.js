@@ -9,6 +9,7 @@
  */
 
 import BackgroundFetch from 'react-native-background-fetch'
+import { AppState } from 'react-native'
 import NotificationService from './NotificationService'
 import AccountAPI from '../api/AccountAPI'
 import FlashNotification from '../components/common/FlashNotification'
@@ -27,26 +28,38 @@ const initialize = async () => {
   }
 }
 
+const isAppActive = () => { 
+  return AppState.currentState === 'active'
+}
+
 const checkAccountData = async (taskId) => {
   try {
     if (await AccountAPI.isAddressDataNew()) {
-      notificationService.localNotification(
-        'Blockchain Update',
-        'You have new data on the blockchain'
-      )
+      if (isAppActive()) {
+        FlashNotification.showInformation('You have new data on the blockchain')
+      } else {
+        notificationService.localNotification(
+          'Blockchain Update',
+          'You have new data on the blockchain'
+        )
+      }
     }
   } catch (error) {
-    FlashNotification.showError(
-      new OfflineError('Issue encountered querying the blockchain in the background')
-    )
+    if (isAppActive()) {
+      FlashNotification.showError(
+        new OfflineError('Issue encountered querying the blockchain in the background')
+      )
+    }
   }
   BackgroundFetch.finish(taskId)
 }
 
 const onTimeout = async (taskId) => {
-  FlashNotification.showError(
-    new OfflineError('Issue encountered starting QueryBlockchain background fetch')
-  )
+  if (isAppActive()) {
+    FlashNotification.showError(
+      new OfflineError('Issue encountered starting QueryBlockchain background fetch')
+    )
+  }
   // This task has exceeded its allowed running-time.
   // You must stop what you're doing immediately finish(taskId)
   BackgroundFetch.finish(taskId)
@@ -90,9 +103,8 @@ const registerTask = () => {
 }
 
 const QueryBlockchainHeadlessTask = async (event) => {
-  // Get task id from event {}:
   const taskId = event.taskId
-  const isTimeout = event.timeout  // <-- true when your background-time has expired.
+  const isTimeout = event.timeout
   if (isTimeout) {
     onTimeout(taskId)
   } else {
