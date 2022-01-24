@@ -14,38 +14,17 @@ import AccountAPI from '../api/AccountAPI'
 import FlashNotification from '../components/common/FlashNotification'
 import AppConfig from '../AppConfig'
 import OfflineError from '../errors/OfflineError'
+import SettingsStore from '../stores/SettingsStore'
 
 const notificationService = new NotificationService()
 
-const initialize = () => {
-  BackgroundFetch.configure(
-    {
-      minimumFetchInterval: AppConfig.BACKGROUND_TASK_INTERVAL, // <-- minutes (15 is minimum allowed)
-      stopOnTerminate: false, // <-- Android-only,
-      startOnBoot: true, // <-- Android-only
-      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY,
-      requiresCharging: false,
-      requiresDeviceIdle: false,
-      requiresBatteryNotLow: false,
-      requiresStorageNotLow: false,
-      enableHeadless: true
-    },
-    checkAccountData,
-    onTimeout
-  )
-
-  BackgroundFetch.status(status => {
-    switch (status) {
-      case BackgroundFetch.STATUS_RESTRICTED:
-        FlashNotification.showError('BackgroundFetch is restricted')
-        break
-      case BackgroundFetch.STATUS_DENIED:
-        FlashNotification.showError(
-          'BackgroundFetch is denied. Settings should be enabled to use BackgroundFetch within native code.'
-        )
-        break
-    }
-  })
+const initialize = async () => {
+  const notificationEnabled = await SettingsStore.getNotificationSettings()
+  if (notificationEnabled) {
+    start()
+  } else {
+    stop()
+  }
 }
 
 const checkAccountData = async (taskId) => {
@@ -73,6 +52,39 @@ const onTimeout = async (taskId) => {
   BackgroundFetch.finish(taskId)
 }
 
+const stop = () => {
+  BackgroundFetch.stop()
+}
+
+const start = async () => {
+  const status = await BackgroundFetch.configure(
+    {
+      minimumFetchInterval: AppConfig.BACKGROUND_TASK_INTERVAL, // <-- minutes (15 is minimum allowed)
+      stopOnTerminate: false, // <-- Android-only,
+      startOnBoot: true, // <-- Android-only
+      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY,
+      requiresCharging: false,
+      requiresDeviceIdle: false,
+      requiresBatteryNotLow: false,
+      requiresStorageNotLow: false,
+      enableHeadless: true
+    },
+    checkAccountData,
+    onTimeout
+  )
+
+  switch (status) {
+    case BackgroundFetch.STATUS_RESTRICTED:
+      FlashNotification.showError('BackgroundFetch is restricted')
+      break
+    case BackgroundFetch.STATUS_DENIED:
+      FlashNotification.showError(
+        'BackgroundFetch is denied. Settings should be enabled to use BackgroundFetch within native code.'
+      )
+      break
+  }
+}
+
 const registerTask = () => {
   BackgroundFetch.registerHeadlessTask(QueryBlockchainHeadlessTask)
 }
@@ -90,5 +102,7 @@ const QueryBlockchainHeadlessTask = async (event) => {
 
 export default {
   initialize,
-  registerTask
+  registerTask,
+  start,
+  stop
 }

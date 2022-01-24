@@ -21,8 +21,8 @@ import acctStyles from '../components/account/styles'
 import { LargeButton } from '../components/common'
 import LogStore from '../stores/LogStore'
 import RecoveryPhraseHelper from '../helpers/RecoveryPhraseHelper'
-
 import SettingsStore, { TEST_NET, MAIN_NET, DEV_NET } from '../stores/SettingsStore'
+import QueryBlockchain from '../services/QueryBlockchain'
 
 class Settings extends Component {
   constructor (props) {
@@ -76,6 +76,16 @@ class Settings extends Component {
     })
   }
 
+  enableNotifications = (isEnabled) => {
+    this.setState({notifications: isEnabled})
+    SettingsStore.setNotificationSettings(!this.state.notifications)
+    if (isEnabled) {
+      QueryBlockchain.start()
+    } else {
+      QueryBlockchain.stop()
+    }
+  }
+
   render () {
     const found = this.state.found
     return (
@@ -115,12 +125,7 @@ class Settings extends Component {
         <BooleanSetting
           title='Enable'
           value={this.state.notifications}
-          onValueChange={
-            (switchValue) => {
-              this.setState({notifications: switchValue})
-              SettingsStore.setNotificationSettings(!this.state.notifications)
-            }
-          }
+          onValueChange={this.enableNotifications}
         />
 
         <View
