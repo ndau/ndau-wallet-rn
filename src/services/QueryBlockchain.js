@@ -22,29 +22,16 @@ const initialize = () => {
     {
       minimumFetchInterval: AppConfig.BACKGROUND_TASK_INTERVAL, // <-- minutes (15 is minimum allowed)
       stopOnTerminate: false, // <-- Android-only,
-      startOnBoot: true // <-- Android-only
+      startOnBoot: true, // <-- Android-only
+      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY,
+      requiresCharging: false,
+      requiresDeviceIdle: false,
+      requiresBatteryNotLow: false,
+      requiresStorageNotLow: false,
+      enableHeadless: true
     },
-    async (taskId) => {
-      try {
-        if (await AccountAPI.isAddressDataNew()) {
-          notificationService.localNotification(
-            'Blockchain Update',
-            'You have new data on the blockchain'
-          )
-        }
-      } catch (error) {
-        FlashNotification.showError(
-          new OfflineError('Issue encountered querying the blockchain in the background')
-        )
-      }
-      BackgroundFetch.finish(taskId)
-    },
-    async (taskId) => {
-      FlashNotification.showError(
-        new OfflineError('Issue encountered starting QueryBlockchain background fetch')
-      )
-      BackgroundFetch.finish(taskId)
-    }
+    checkAccountData,
+    onTimeout
   )
 
   BackgroundFetch.status(status => {
@@ -61,6 +48,47 @@ const initialize = () => {
   })
 }
 
+const checkAccountData = async (taskId) => {
+  try {
+    if (await AccountAPI.isAddressDataNew()) {
+      notificationService.localNotification(
+        'Blockchain Update',
+        'You have new data on the blockchain'
+      )
+    }
+  } catch (error) {
+    FlashNotification.showError(
+      new OfflineError('Issue encountered querying the blockchain in the background')
+    )
+  }
+  BackgroundFetch.finish(taskId)
+}
+
+const onTimeout = async (taskId) => {
+  FlashNotification.showError(
+    new OfflineError('Issue encountered starting QueryBlockchain background fetch')
+  )
+  // This task has exceeded its allowed running-time.
+  // You must stop what you're doing immediately finish(taskId)
+  BackgroundFetch.finish(taskId)
+}
+
+const registerTask = () => {
+  BackgroundFetch.registerHeadlessTask(QueryBlockchainHeadlessTask)
+}
+
+const QueryBlockchainHeadlessTask = async (event) => {
+  // Get task id from event {}:
+  const taskId = event.taskId
+  const isTimeout = event.timeout  // <-- true when your background-time has expired.
+  if (isTimeout) {
+    onTimeout(taskId)
+  } else {
+    checkAccountData(taskId)
+  }
+}
+
 export default {
-  initialize
+  initialize,
+  registerTask
 }

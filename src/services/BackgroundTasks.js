@@ -14,6 +14,11 @@ const initialize = () => {
   QueryBlockchain.initialize()
 }
 
+const register = () => {
+  QueryBlockchain.registerTask()
+}
+
 export default {
-  initialize
+  initialize,
+  register
 }

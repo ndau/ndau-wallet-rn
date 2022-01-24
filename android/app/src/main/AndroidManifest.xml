@@ -45,9 +45,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-
-        <meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_name" android:value="ndau-wallet-channel"/>
+    
+        <meta-data android:name="com.dieam.reactnativepushnotification.default_notification_channel_id" android:value="default-channel-id" />
+        <meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_name" android:value="Default channel"/>
         <meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_description" android:value="Channel to facilitate ndau wallet push notifications"/>
         <meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@android:color/white"/>
     </application>
