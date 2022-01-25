@@ -54,8 +54,8 @@ class AccountSend extends Component {
     super(props)
     this.state = {
       address: '',
-      account: {},
-      wallet: {},
+      account: AccountStore.getAccount(),
+      wallet: WalletStore.getWallet(),
       spinner: false,
       scanning: false,
       cameraType: 'back',
@@ -76,13 +76,6 @@ class AccountSend extends Component {
       2000
     )
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
-  }
-
-  componentDidMount = async () => {
-    const account = AccountStore.getAccount()
-    const wallet = WalletStore.getWallet()
-
-    this.setState({ account, wallet })
   }
 
   componentDidMount = () => {

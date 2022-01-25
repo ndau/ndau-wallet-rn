@@ -31,36 +31,16 @@ class AccountSendConfirmation extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      address: '',
-      account: {},
-      wallet: {},
+      address: props.route.params?.address ?? '',
+      account: AccountStore.getAccount(),
+      wallet: WalletStore.getWallet(),
       spinner: false,
-      amount: 0,
-      transactionFee: 0,
-      sibFee: 0
+      amount: props.route.params?.amount ?? 0,
+      transactionFee: props.route.params?.transactionFee ?? 0,
+      sibFee: props.route.params?.sibFee ?? 0,
+      total: props.route.params?.total ?? 0
     }
     props.navigation.addListener('didBlur', FlashNotification.hideMessage)
-  }
-
-  componentWillMount = async () => {
-    const account = AccountStore.getAccount()
-    const wallet = WalletStore.getWallet()
-    const address = this.props.route.params?.address ?? null
-    const amount = this.props.route.params?.amount ?? null
-    const transactionFee = this.props.route.params?.transactionFee ?? null
-    const sibFee = this.props.route.params?.sibFee ?? null
-    const total = this.props.route.params?.total ?? null
-
-    this.setState({
-      account,
-      wallet,
-      address,
-      amount,
-      transactionFee,
-      sibFee,
-      total,
-      spinner: false
-    })
   }
 
   componentDidMount () {
