@@ -9,7 +9,7 @@
  */
 
 import PushNotificationIOS from '@react-native-community/push-notification-ios'
-import PushNotification, { Importance } from 'react-native-push-notification';
+import PushNotification, { Importance } from 'react-native-push-notification'
 import LogStore from '../stores/LogStore'
 
 const CHANNEL_ID = 'default-channel-id'
@@ -18,7 +18,6 @@ const CHANNEL_NAME = 'Default channel'
 export default class NotificationService {
   
   constructor() {
-    this.lastChannelCounter = 0
 
     this.createDefaultChannels()
 
@@ -81,40 +80,34 @@ export default class NotificationService {
         importance: Importance.HIGH // (optional) default: Importance.HIGH. Int value of the Android notification importance
       },
       (created) => LogStore.log(`createChannel ${CHANNEL_ID} returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
-    );
+    )
   }
 
   popInitialNotification() {
-    PushNotification.popInitialNotification((notification) => LogStore.log('InitialNotification:', notification));
+    PushNotification.popInitialNotification((notification) => LogStore.log('InitialNotification:', notification))
   }
 
   cancelAll() {
-    PushNotification.cancelAllLocalNotifications();
+    PushNotification.cancelAllLocalNotifications()
   }
 
-  localNotification (title, message) {
-    PushNotification.localNotification({
+  getNotificationProperties(props) {
+    return {
       /* Android Only Properties */
       channelId: CHANNEL_ID, // (required) channelId, if the channel doesn't exist, notification will not trigger.
       largeIcon: 'ic_launcher', // (optional) default: "ic_launcher"
-      smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher"
-
+      smallIcon: 'ic_notification_small', // (optional) default: "ic_notification" with fallback for "ic_launcher"
       when: Date.now(), // (optional) Add a timestamp pertaining to the notification (usually the time the event occurred). For apps targeting Build.VERSION_CODES.N and above, this time is not shown anymore by default and must be opted into by using `showWhen`, default: null.
-
-      /* iOS and Android properties */
-      title: title, // (optional)
-      message: message // (required)
-    })
+      ...props
+    }
   }
 
-  scheduleNotification(title, message, date) {
-    PushNotification.localNotificationSchedule({
-      date: date,
-      repeatType: 'minute',
-      channelId: CHANNEL_ID,
-      title: title,
-      message: message
-    })
+  localNotification (title, message) {
+    PushNotification.localNotification(this.getNotificationProperties({title, message}))
+  }
+
+  scheduleNotification(title, message, date = new Date(Date.now()), repeatTime = 1, repeatType = 'minute') {
+    PushNotification.localNotificationSchedule(this.getNotificationProperties({title, message, date, repeatTime, repeatType}))
   }
 
   onNotification(notification) {
@@ -135,7 +128,7 @@ export default class NotificationService {
   }
 
   onAction(notification) {
-    LogStore.log('Notification action received:');
+    LogStore.log('Notification action received:')
     LogStore.log(notification.action)
     LogStore.log(notification)
 
