@@ -25,9 +25,10 @@ import AppConfig from '../AppConfig'
 const post = async (
   url,
   data,
+  retries = AppConfig.API_MAX_RETRIES,
   timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS
 ) => {
-  let retriesLeft = AppConfig.API_MAX_RETRIES
+  let retriesLeft = retries
   return new Promise(async function (resolve, reject) {
     const once = async () => {
       try {
@@ -55,7 +56,7 @@ const post = async (
             response: error.response
           })}`
         )
-        if (safeStatus >= 500 && retriesLeft) {
+        if (safeStatus >= 500 && retriesLeft > 0) {
           retriesLeft--
           setTimeout(once, AppConfig.API_RETRY_DELAY_MS)
         } else {
@@ -73,8 +74,8 @@ const post = async (
  * @param {string} url to GET
  * @param {number} timeoutMS default to DEFAULT_TIMEOUT_MS, set to desired timeout
  */
-const get = async (url, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
-  let retriesLeft = AppConfig.API_MAX_RETRIES
+const get = async (url, retries = AppConfig.API_MAX_RETRIES, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
+  let retriesLeft = retries
   return new Promise(async function (resolve, reject) {
     const once = async () => {
       try {
@@ -100,7 +101,7 @@ const get = async (url, timeoutMS = AppConfig.API_DEFAULT_TIMEOUT_MS) => {
             response: error.response
           })}`
         )
-        if (safeStatus >= 500 && retriesLeft) {
+        if (safeStatus >= 500 && retriesLeft > 0) {
           retriesLeft--
           setTimeout(once, AppConfig.API_RETRY_DELAY_MS)
         } else {
