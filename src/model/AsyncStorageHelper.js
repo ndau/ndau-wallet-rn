@@ -19,12 +19,13 @@ const NOTIFICATION_SETTINGS = '@NotificationSettings'
 const DEBUG_ROWS = 'debug-rows'
 
 const LAST_ACCOUNT_DATA = '@LastAccountData'
+const ACCOUNT_ADDRESSES = '@AccountAddresses'
 
 /**
- * Cache the last call to address data so we can check to see if we
+ * Cache the last call to account data so we can check to see if we
  * have gotten anything new
  *
- * @param {string} lastAccountData
+ * @param {object} lastAccountData
  */
 const setLastAccountData = async lastAccountData => {
   await AsyncStorage.setItem(LAST_ACCOUNT_DATA, JSON.stringify(lastAccountData))
@@ -36,6 +37,23 @@ const setLastAccountData = async lastAccountData => {
 const getLastAccountData = async () => {
   const lastAccountData = await AsyncStorage.getItem(LAST_ACCOUNT_DATA)
   return JSON.parse(lastAccountData)
+}
+
+/**
+ * Cache addresses 
+ *
+ * @param {string []} addresses
+ */
+ const setAccountAddresses = async addresses => {
+  await AsyncStorage.setItem(ACCOUNT_ADDRESSES, JSON.stringify(addresses))
+}
+
+/**
+ * Get the cached addresses out of AsyncStorage
+ */
+const getAccountAddresses = async () => {
+  const addresses = await AsyncStorage.getItem(ACCOUNT_ADDRESSES)
+  return JSON.parse(addresses)
 }
 
 /** Cache the network which is used
@@ -100,6 +118,8 @@ export default {
   getAllKeys,
   setLastAccountData,
   getLastAccountData,
+  setAccountAddresses,
+  getAccountAddresses,
   setApplicationNetwork,
   getApplicationNetwork,
   getNotificationSettings,
