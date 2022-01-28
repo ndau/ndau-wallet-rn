@@ -50,6 +50,10 @@ export class SetValidationTransaction {
     )
   }
 
+  addSignatureToJsonTransaction = signature => {
+    this._jsonTransaction.signature = signature
+  }
+
   getSignature = () => {
     return this._jsonTransaction.signature
   }

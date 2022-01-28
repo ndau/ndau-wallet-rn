@@ -84,7 +84,7 @@ const getApplicationNetwork = async () => {
 */
 const getNotificationSettings = async () => {
   const result = await AsyncStorage.getItem(NOTIFICATION_SETTINGS)
-  return result ? JSON.parse(result) : false
+  return result ? JSON.parse(result) : true
 }
 
 /**

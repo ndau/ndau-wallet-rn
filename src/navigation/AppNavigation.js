@@ -33,7 +33,7 @@ const Drawer = createDrawerNavigator()
 
 const DrawerNavigator = () => {
   return (
-      <Drawer.Navigator drawerContent={(props) => <AppDrawer {...props} />} screenOptions={{headerShown: false, drawerStyle: {width: '75%'}, swipeEnabled: false}}>
+      <Drawer.Navigator drawerContent={(props) => <AppDrawer {...props} />} backBehavior='none' screenOptions={{headerShown: false, drawerStyle: {width: '75%'}, swipeEnabled: false}}>
         <Drawer.Screen name="DashboardNav" component={DashboardNavigation} />
         <Drawer.Screen name="ContactSupportNav" component={ContactSupportNavigation} />
         <Drawer.Screen name="SettingsNav" component={SettingsNavigation} />

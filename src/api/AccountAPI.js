@@ -29,19 +29,8 @@ const getAddressData = async addresses => {
       // Get all account
       const accounts = Object.values(user.wallets).map((wallet) => Object.keys(wallet.accounts)).reduce((previous, current) => previous.concat(current))
       await AsyncStorageHelper.setAccountAddresses(accounts)
-      // Get the last stored account data
-      let lastAccountData = await AsyncStorageHelper.getLastAccountData() ?? {}
-      // Remove non existing account
-      Object.keys(lastAccountData).forEach((key) => {
-        if (!accounts.includes(key)) {
-          delete lastAccountData[key]
-        }
-      })
-      // Update with latest account data
-      for (const [key, value] of Object.entries(accountData)) {
-        lastAccountData[key] = { lastEAIUpdate: value.lastEAIUpdate, lastWAAUpdate: value.lastWAAUpdate }
-      }
-      await AsyncStorageHelper.setLastAccountData(lastAccountData)
+      
+      await updateLastAccountData(accounts, accountData)
     }
     return accountData
   } catch (error) {
@@ -76,18 +65,41 @@ const isAddressDataNew = async accountAddresses => {
     const current = Object.entries(accountData)
 
     // Return true if numbers of entries are different
-    if (Object.entries(lastAccountData).length != current.length) return true
+    if (Object.entries(lastAccountData).length != current.length) {
+      await updateLastAccountData(addresses, accountData)
+      return true
+    }
 
     // Return if something's different 
     const misMatched = current.filter(([key, value]) => 
       (!lastAccountData[key] || lastAccountData[key].lastEAIUpdate != value.lastEAIUpdate || lastAccountData[key].lastWAAUpdate != value.lastWAAUpdate)
     )
+
+    if (misMatched.length > 0) {
+      await updateLastAccountData(addresses, accountData)
+    }
     return misMatched.length > 0
 
   } catch (error) {
     LogStore.log(error)
     throw new BlockchainAPIError(error)
   }
+}
+
+const updateLastAccountData = async (accounts, accountData) => {
+  let lastAccountData = await AsyncStorageHelper.getLastAccountData() ?? {}
+  // Remove non existing account
+  Object.keys(lastAccountData).forEach((key) => {
+    if (!accounts.includes(key)) {
+      delete lastAccountData[key]
+    }
+  })
+  // Update with latest account data
+  for (const [key, value] of Object.entries(accountData)) {
+    lastAccountData[key] = { lastEAIUpdate: value.lastEAIUpdate, lastWAAUpdate: value.lastWAAUpdate }
+  }
+
+  await AsyncStorageHelper.setLastAccountData(lastAccountData)
 }
 
 const getNextSequence = async address => {
