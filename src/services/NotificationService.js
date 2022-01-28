@@ -9,28 +9,30 @@
  */
 
 import PushNotificationIOS from '@react-native-community/push-notification-ios'
-import PushNotification, { Importance } from 'react-native-push-notification';
+import PushNotification, { Importance } from 'react-native-push-notification'
 import LogStore from '../stores/LogStore'
 
+const CHANNEL_ID = 'default-channel-id'
+const CHANNEL_NAME = 'Default channel'
+
 export default class NotificationService {
-  constructor(onRegister, onNotification) {
-    this.lastId = 0;
-    this.lastChannelCounter = 0;
+  
+  constructor() {
 
-    this.createDefaultChannels();
+    this.createDefaultChannels()
 
-    this.configure();
+    this.configure()
 
     // Clear badge number at start
     PushNotification.getApplicationIconBadgeNumber(function (number) {
       if (number > 0) {
-        PushNotification.setApplicationIconBadgeNumber(0);
+        PushNotification.setApplicationIconBadgeNumber(0)
       }
-    });
+    })
     
     PushNotification.getChannels(function(channels) {
-      LogStore.log(channels);
-    });
+      LogStore.log(channels)
+    })
   }
   
   configure () {
@@ -73,74 +75,39 @@ export default class NotificationService {
   createDefaultChannels() {
     PushNotification.createChannel(
       {
-        channelId: "default-channel-id", // (required)
-        channelName: `Default channel`, // (required)
-        channelDescription: "A default channel", // (optional) default: undefined.
-        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
-        importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
-        vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
+        channelId: CHANNEL_ID, // (required)
+        channelName: CHANNEL_NAME, // (required)
+        importance: Importance.HIGH // (optional) default: Importance.HIGH. Int value of the Android notification importance
       },
-      (created) => LogStore.log(`createChannel 'default-channel-id' returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
-    );
+      (created) => LogStore.log(`createChannel ${CHANNEL_ID} returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+    )
   }
 
   popInitialNotification() {
-    PushNotification.popInitialNotification((notification) => LogStore.log('InitialNotication:', notification));
+    PushNotification.popInitialNotification((notification) => LogStore.log('InitialNotification:', notification))
   }
 
   cancelAll() {
-    PushNotification.cancelAllLocalNotifications();
+    PushNotification.cancelAllLocalNotifications()
+  }
+
+  getNotificationProperties(props) {
+    return {
+      /* Android Only Properties */
+      channelId: CHANNEL_ID, // (required) channelId, if the channel doesn't exist, notification will not trigger.
+      largeIcon: 'ic_launcher', // (optional) default: "ic_launcher"
+      smallIcon: 'ic_notification_small', // (optional) default: "ic_notification" with fallback for "ic_launcher"
+      when: Date.now(), // (optional) Add a timestamp pertaining to the notification (usually the time the event occurred). For apps targeting Build.VERSION_CODES.N and above, this time is not shown anymore by default and must be opted into by using `showWhen`, default: null.
+      ...props
+    }
   }
 
   localNotification (title, message) {
-    this.lastId++;
-    PushNotification.localNotification({
-      /* Android Only Properties */
-      channelId: 'default-channel-id', // (required) channelId, if the channel doesn't exist, notification will not trigger.
-      ticker: 'My Notification Ticker', // (optional)
-      autoCancel: true, // (optional) default: true
-      largeIcon: 'ic_launcher', // (optional) default: "ic_launcher"
-      smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher"
-      bigText: 'My big text that will be shown when notification is expanded', // (optional) default: "message" prop
-      subText: 'This is a subText', // (optional) default: none
-      color: 'red', // (optional) default: system default
-      vibrate: true, // (optional) default: true
-      vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
-      tag: 'some_tag', // (optional) add tag to message
-      group: 'group', // (optional) add group to message
-      groupSummary: false, // (optional) set this notification to be the group summary for a group of notifications, default: false
-      ongoing: false, // (optional) set whether this is an "ongoing" notification
-      actions: ['Yes', 'No'], // (Android only) See the doc for notification actions to know more
-      invokeApp: true, // (optional) This enable click on actions to bring back the application to foreground or stay in background, default: true
-
-      when: null, // (optionnal) Add a timestamp pertaining to the notification (usually the time the event occurred). For apps targeting Build.VERSION_CODES.N and above, this time is not shown anymore by default and must be opted into by using `showWhen`, default: null.
-      usesChronometer: false, // (optional) Show the `when` field as a stopwatch. Instead of presenting `when` as a timestamp, the notification will show an automatically updating display of the minutes and seconds since when. Useful when showing an elapsed time (like an ongoing phone call), default: false.
-      timeoutAfter: null, // (optional) Specifies a duration in milliseconds after which this notification should be canceled, if it is not already canceled, default: null
-
-      /* iOS only properties */
-      category: '', // (optional) default: empty string
-      subtitle: "My Notification Subtitle", // (optional) smaller title below notification title
-
-      /* iOS and Android properties */
-      id: this.lastId, // (optional) Valid unique 32 bit integer specified as string. default: Autogenerated Unique ID
-      title: title, // (optional)
-      message: message, // (required)
-      userInfo: { screen: 'home' }, // (optional) default: {} (using null throws a JSON value '<null>' error)
-      playSound: true, // (optional) default: true
-      soundName: /*soundName ? soundName :*/ 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-      // number: 10 // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
-    });
+    PushNotification.localNotification(this.getNotificationProperties({title, message}))
   }
 
-  scheduleNotification(title, message) {
-    this.lastId++;
-    PushNotification.localNotificationSchedule({
-      date: new Date(Date.now() + 3 * 1000), // in 3 secs
-      repeatType: 'minute',
-      channelId: 'default-channel-id',
-      title: title,
-      message: message
-    });
+  scheduleNotification(title, message, date = new Date(Date.now()), repeatTime = 1, repeatType = 'minute') {
+    PushNotification.localNotificationSchedule(this.getNotificationProperties({title, message, date, repeatTime, repeatType}))
   }
 
   onNotification(notification) {
@@ -153,25 +120,23 @@ export default class NotificationService {
   }
 
   onRegister(token) {
-    LogStore.log('NotificationHandler:', token);
+    LogStore.log('NotificationHandler:', token)
 
     if (typeof this._onRegister === 'function') {
-      this._onRegister(token);
+      this._onRegister(token)
     }
   }
 
   onAction(notification) {
-    LogStore.log('Notification action received:');
-    LogStore.log(notification.action);
-    LogStore.log(notification);
+    LogStore.log('Notification action received:')
+    LogStore.log(notification.action)
+    LogStore.log(notification)
 
-    if(notification.action === 'Yes') {
-      PushNotification.invokeApp(notification);
-    }
+    PushNotification.invokeApp(notification)
   }
 
   // (optional) Called when the user fails to register for remote notifications. Typically occurs when APNS is having issues, or the device is a simulator. (iOS)
   onRegistrationError(err) {
-    LogStore.log(err);
+    LogStore.log(err)
   }
 }

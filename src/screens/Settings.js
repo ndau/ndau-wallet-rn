@@ -21,8 +21,8 @@ import acctStyles from '../components/account/styles'
 import { LargeButton } from '../components/common'
 import LogStore from '../stores/LogStore'
 import RecoveryPhraseHelper from '../helpers/RecoveryPhraseHelper'
-
 import SettingsStore, { TEST_NET, MAIN_NET, DEV_NET } from '../stores/SettingsStore'
+import QueryBlockchain from '../services/QueryBlockchain'
 
 class Settings extends Component {
   constructor (props) {
@@ -32,6 +32,7 @@ class Settings extends Component {
       mainnet: true,
       testnet: false,
       devnet: false,
+      notifications: false,
       spinner: false,
       found: null
     }
@@ -42,8 +43,9 @@ class Settings extends Component {
     const mainnet = await SettingsStore.isMainNet()
     const devnet = await SettingsStore.isDevNet()
     const testnet = await SettingsStore.isTestNet()
+    const notifications = await SettingsStore.getNotificationSettings()
 
-    this.setState({ mainnet, devnet, testnet })
+    this.setState({ mainnet, devnet, testnet, notifications})
   }
 
   useMainnet = async () => {
@@ -74,11 +76,22 @@ class Settings extends Component {
     })
   }
 
+  enableNotifications = (isEnabled) => {
+    this.setState({notifications: isEnabled})
+    SettingsStore.setNotificationSettings(!this.state.notifications)
+    if (isEnabled) {
+      QueryBlockchain.start()
+    } else {
+      QueryBlockchain.stop()
+    }
+  }
+
   render () {
     const found = this.state.found
     return (
       <SettingsContainer {...this.props} title='Settings'>
-        <ParagraphText>
+
+        <ParagraphText textStyle={{ marginVertical: '4%' }}>
           Select which node environment you would like to use.
         </ParagraphText>
         <BooleanSetting
@@ -102,7 +115,24 @@ class Settings extends Component {
           style={[
             acctStyles.accountDetailsPanelBorder,
             acctStyles.accountSideMargins,
-            { marginTop: '4%', marginBottom: '4%' }
+            { marginBottom: '4%' }
+          ]}
+        />
+
+        <ParagraphText textStyle={{ marginBottom: '4%' }}>
+          Allow ndau to send you notifications regarding transactions.
+        </ParagraphText>
+        <BooleanSetting
+          title='Enable'
+          value={this.state.notifications}
+          onValueChange={this.enableNotifications}
+        />
+
+        <View
+          style={[
+            acctStyles.accountDetailsPanelBorder,
+            acctStyles.accountSideMargins,
+            { marginBottom: '4%' }
           ]}
         />
 

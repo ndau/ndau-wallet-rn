@@ -125,7 +125,7 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
 const _checkNodeStatus = async (nodeAddress) => {
   const healthAPI = _prependProtocol(nodeAddress + '/health')
   try {
-    await APICommunicationHelper.get(healthAPI)
+    await APICommunicationHelper.get(healthAPI, 0)
     return true
   } catch (error) {
     LogStore.log(`Node is unavailable: ${error}`)

@@ -211,14 +211,14 @@ PODS:
   - React-jsinspector (0.66.3)
   - React-logger (0.66.3):
     - glog
-  - react-native-camera (2.10.2):
-    - React
-    - react-native-camera/RCT (= 2.10.2)
-    - react-native-camera/RN (= 2.10.2)
-  - react-native-camera/RCT (2.10.2):
-    - React
-  - react-native-camera/RN (2.10.2):
-    - React
+  - react-native-camera (4.2.1):
+    - React-Core
+    - react-native-camera/RCT (= 4.2.1)
+    - react-native-camera/RN (= 4.2.1)
+  - react-native-camera/RCT (4.2.1):
+    - React-Core
+  - react-native-camera/RN (4.2.1):
+    - React-Core
   - react-native-mail (3.0.7):
     - React
   - react-native-netinfo (7.1.7):
@@ -530,7 +530,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 433a691aee158533a6a6ee9c86cb4a1684fa2853
   React-jsinspector: d9c8eb0b53f0da206fed56612b289fec84991157
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
-  react-native-camera: 89f0367c52e3ed70dd042c6362891cf7869f8e1c
+  react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-mail: 021d8ee60e374609f5689ef354dc8e36839a9ba6
   react-native-netinfo: 27f287f2d191693f3b9d01a4273137fcf91c3b5d
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057

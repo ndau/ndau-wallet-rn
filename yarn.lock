@@ -6743,10 +6743,10 @@
   "resolved" "https://registry.npmjs.org/react-native-background-fetch/-/react-native-background-fetch-4.0.4.tgz"
   "version" "4.0.4"
 
-"react-native-barcode-mask@1.0.5":
-  "integrity" "sha512-COXvJyCYK2lDmbgH9gJSZ/OCe0Pz1Faja9nY56InB7zGqqpGJATPHq84aXsK+T03iUqXmTxS6QcI32Ep6biOPQ=="
-  "resolved" "https://registry.npmjs.org/react-native-barcode-mask/-/react-native-barcode-mask-1.0.5.tgz"
-  "version" "1.0.5"
+"react-native-barcode-mask@^1.2.4":
+  "integrity" "sha512-Jh3mEs/xUBs/z9mKkj2mM07MMQ2SdtW9mU4FOo5DQyA2kDte6lW87vIYFkWw1nxpzc7sy28ahMsgId8LTtKZsg=="
+  "resolved" "https://registry.npmjs.org/react-native-barcode-mask/-/react-native-barcode-mask-1.2.4.tgz"
+  "version" "1.2.4"
   dependencies:
     "prop-types" "^15.6.2"
 
@@ -6757,10 +6757,10 @@
   dependencies:
     "prop-types" "^15.5.10"
 
-"react-native-camera@2.10.2":
-  "integrity" "sha512-SWhAY36PLHRGetCjxALcKAgxuEiqqD6PtBg36E/JYtlH2zXkOQ0N2VIdV5amIo2xr9uDSa28r78emgVrH7z6dA=="
-  "resolved" "https://registry.npmjs.org/react-native-camera/-/react-native-camera-2.10.2.tgz"
-  "version" "2.10.2"
+"react-native-camera@^4.2.1":
+  "integrity" "sha512-+Vkql24PFYQfsPRznJCvPwJQfyzCnjlcww/iZ4Ej80bgivKjL9eU0IMQIXp4yi6XCrKi4voWXxIDPMupQZKeIQ=="
+  "resolved" "https://registry.npmjs.org/react-native-camera/-/react-native-camera-4.2.1.tgz"
+  "version" "4.2.1"
   dependencies:
     "prop-types" "^15.6.2"
 
