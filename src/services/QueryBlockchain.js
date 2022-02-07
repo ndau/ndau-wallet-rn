@@ -37,15 +37,13 @@ const isAppActive = () => {
 
 const checkAccountData = async (taskId) => {
   if (await notificationEnabled()) {
+    const message = 'You have received ndau'
     try {
       if (await AccountAPI.isAddressDataNew()) {
         if (isAppActive()) {
-          FlashNotification.showInformation('You have new data on the blockchain')
+          FlashNotification.showInformation(message)
         } else {
-          notificationService.localNotification(
-            'Blockchain Update',
-            'You have new data on the blockchain'
-          )
+          notificationService.localNotification('Blockchain Update', message)
         }
       }
     } catch (error) {
