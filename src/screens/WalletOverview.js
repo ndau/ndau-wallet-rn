@@ -129,7 +129,7 @@ class WalletOverview extends Component {
   launchBuyNdauInBrowser = async () => {
     const url = AppConfig.BUY_NDAU_URL
 
-    const supported = await Linking.canOpenURL(url);
+    const supported = await Linking.canOpenURL(url)
 
     if (supported) { 
       await Linking.openURL(url)
