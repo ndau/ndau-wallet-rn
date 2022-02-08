@@ -194,6 +194,8 @@ class WalletOverview extends Component {
 
   render = () => {
     try {
+      const user = UserStore.getUser()
+      const navBack = Object.keys(user.wallets).length > 1
       const wallet = WalletStore.getWallet()
 
       LogStore.log(`Rendering wallet: ${JSON.stringify(wallet)}`)
@@ -225,7 +227,7 @@ class WalletOverview extends Component {
             ref={component => (this._newAccountModal = component)}
           />
 
-          <DrawerHeader navBack={!this.props.route.params?.drawerEnabled} {...this.props}>
+          <DrawerHeader navBack={navBack} {...this.props}>
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
 

@@ -64,7 +64,7 @@ class Dashboard extends Component {
 
     if (Object.keys(user.wallets).length <= 1) {
       WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
-      this.props.navigation.replace('WalletOverview', { drawerEnabled: true })
+      this.props.navigation.replace('WalletOverview')
     } else {
       this._loadMetricsAndSetState(user)
 
