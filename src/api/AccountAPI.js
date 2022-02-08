@@ -72,7 +72,7 @@ const isAddressDataNew = async accountAddresses => {
 
     // Return if something's different 
     const misMatched = current.filter(([key, value]) => 
-      (!lastAccountData[key] || lastAccountData[key].lastEAIUpdate != value.lastEAIUpdate || lastAccountData[key].lastWAAUpdate != value.lastWAAUpdate)
+      ((lastAccountData[key]?.balance ?? 0) < value.balance)
     )
 
     if (misMatched.length > 0) {
@@ -96,7 +96,7 @@ const updateLastAccountData = async (accounts, accountData) => {
   })
   // Update with latest account data
   for (const [key, value] of Object.entries(accountData)) {
-    lastAccountData[key] = { lastEAIUpdate: value.lastEAIUpdate, lastWAAUpdate: value.lastWAAUpdate }
+    lastAccountData[key] = { balance: value.balance }
   }
 
   await AsyncStorageHelper.setLastAccountData(lastAccountData)
