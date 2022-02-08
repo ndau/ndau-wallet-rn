@@ -146,7 +146,7 @@ class AppDrawer extends React.Component {
               <DrawerEntryItem
                 disabled={true}
                 fontAwesomeIconName={
-                  SettingsStore.isTestNet()
+                  SettingsStore.isTestNetSync()
                     ? 'flask'
                     : 'laptop-code'
                 }
