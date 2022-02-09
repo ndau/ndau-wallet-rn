@@ -18,7 +18,6 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.horcrux.svg.SvgPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
