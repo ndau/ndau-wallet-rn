@@ -22,13 +22,6 @@ export default class NotificationService {
     this.createDefaultChannels()
 
     this.configure()
-
-    // Clear badge number at start
-    PushNotification.getApplicationIconBadgeNumber(function (number) {
-      if (number > 0) {
-        PushNotification.setApplicationIconBadgeNumber(0)
-      }
-    })
     
     PushNotification.getChannels(function(channels) {
       LogStore.log(channels)
@@ -86,8 +79,9 @@ export default class NotificationService {
     PushNotification.popInitialNotification((notification) => LogStore.log('InitialNotification:', notification))
   }
 
-  cancelAll() {
-    PushNotification.cancelAllLocalNotifications()
+  static clearAll() {
+    PushNotification.removeAllDeliveredNotifications()
+    PushNotification.setApplicationIconBadgeNumber(0)
   }
 
   getNotificationProperties(props) {
@@ -102,12 +96,15 @@ export default class NotificationService {
   }
 
   localNotification (title, message) {
-    PushNotification.localNotification(this.getNotificationProperties({title, message}))
+    PushNotification.getDeliveredNotifications((notifications) => {
+      const number = notifications.length + 1
+      PushNotification.localNotification(this.getNotificationProperties({title, message, number}))
+    })
   }
 
   onNotification(notification) {
     LogStore.log(`NOTIFICATION: ${notification}`)
-
+    NotificationService.clearAll()
     // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
     notification.finish(PushNotificationIOS.FetchResult.NoData)
   }
