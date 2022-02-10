@@ -1390,10 +1390,10 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz"
   "version" "1.1.0"
 
-"@react-native-community/netinfo@^7.1.7":
-  "integrity" "sha512-QCEuvbTAD7vyCsSsgbWedhTfXlClp4TVHVWYYMjnN7nz6xgZbSp+MI3oo7X5C4JlDHpRm/Q+63hsCgAqKt3WVA=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-7.1.7.tgz"
-  "version" "7.1.7"
+"@react-native-community/netinfo@^8.0.0":
+  "integrity" "sha512-8cjkbOWe55vzzc64hfjDv6GWSY8+kfEnxRbwTf9l3hFYDIUMRmMoW+SwxE+QoAfMY32nbEERDy68iev3busRFQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-8.0.0.tgz"
+  "version" "8.0.0"
 
 "@react-native-community/push-notification-ios@^1.10.1":
   "integrity" "sha512-k6bZWUKLif4GjenyTD3aQLwA2VT3bNmt22INO/34lexnpmqkPDZF7nreqbckTHG0Zso9wDTe4N/AZJUC/d8iRg=="

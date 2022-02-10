@@ -21,9 +21,9 @@ const notificationService = new NotificationService()
 
 const initialize = async () => {
   if (await notificationEnabled()) {
-    start()
+    await start()
   } else {
-    stop()
+    await stop()
   }
 }
 
@@ -68,8 +68,8 @@ const onTimeout = async (taskId) => {
   BackgroundFetch.finish(taskId)
 }
 
-const stop = () => {
-  BackgroundFetch.stop()
+const stop = async () => {
+  await BackgroundFetch.stop()
 }
 
 const start = async () => {
