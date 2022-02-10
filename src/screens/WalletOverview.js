@@ -51,7 +51,7 @@ class WalletOverview extends Component {
 
     this.isTestNet = false
     this.accountsCanRxEAI = []
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentDidMount() {

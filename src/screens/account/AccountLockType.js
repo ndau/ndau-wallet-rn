@@ -45,7 +45,7 @@ class AccountLockType extends Component {
       lockInformation: props.route.params?.lockInformation ?? null,
       spinner: false
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   _handleAccountSelection = () => {

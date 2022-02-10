@@ -40,7 +40,7 @@ class Dashboard extends Component {
       spinner: false,
       appState: AppState.currentState
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentWillUnmount () {

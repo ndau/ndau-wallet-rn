@@ -57,7 +57,7 @@ class SetupEncryptionPassword extends Component {
       instructionText: this.NEW_PASSWORD_MODE_TEXT,
       upperHeight: SetupEncryptionPassword.TEXT_HEIGHT_NO_KEYBOARD
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentWillUnmount () {

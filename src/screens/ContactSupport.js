@@ -39,7 +39,7 @@ class ContactSupport extends Component {
       emailStatus: 'normal',
       sending: false
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   validate () {

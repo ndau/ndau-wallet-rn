@@ -27,7 +27,7 @@ class SetupWelcome extends Component {
       toggleCount: 1,
       maxToggle: 10
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentWillUnmount () {

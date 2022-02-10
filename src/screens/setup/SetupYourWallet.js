@@ -18,7 +18,7 @@ import { LargeButtons, ParagraphText } from '../../components/common'
 class SetupYourWallet extends Component {
   constructor (props) {
     super()
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
   showNextSetup = async () => {
     await EntropyHelper.generateEntropy()

@@ -40,7 +40,7 @@ class AccountSendConfirmation extends Component {
       sibFee: props.route.params?.sibFee ?? 0,
       total: props.route.params?.total ?? 0
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentDidMount () {

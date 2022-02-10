@@ -53,7 +53,7 @@ class AccountDetails extends Component {
     }
 
     this.baseEAI = 0
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   UNSAFE_componentWillMount = () => {

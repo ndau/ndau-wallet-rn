@@ -36,7 +36,7 @@ class Settings extends Component {
       spinner: false,
       found: null
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   async componentDidMount () {

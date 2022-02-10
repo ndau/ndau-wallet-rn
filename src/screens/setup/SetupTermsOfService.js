@@ -39,7 +39,7 @@ class SetupTermsOfService extends Component {
       agree: !!__DEV__,
       spinner: false
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   finishSetup = async () => {

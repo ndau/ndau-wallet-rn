@@ -49,7 +49,7 @@ class SetupRecoveryPhrase extends Component {
         `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
       )
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentDidMount = () => {
