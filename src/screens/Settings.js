@@ -78,7 +78,7 @@ class Settings extends Component {
 
   enableNotifications = async (isEnabled) => {
     this.setState({notifications: isEnabled})
-    SettingsStore.setNotificationSettings(!this.state.notifications)
+    await SettingsStore.setNotificationSettings(isEnabled)
     if (isEnabled) {
       await QueryBlockchain.start()
     } else {
