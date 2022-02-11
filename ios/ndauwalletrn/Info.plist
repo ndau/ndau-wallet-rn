@@ -26,6 +26,11 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>277</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>http</string>
+		<string>https</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -75,7 +80,6 @@
 	<array>
 		<string>fetch</string>
 		<string>processing</string>
-		<string>remote-notification</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

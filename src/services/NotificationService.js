@@ -22,13 +22,6 @@ export default class NotificationService {
     this.createDefaultChannels()
 
     this.configure()
-
-    // Clear badge number at start
-    PushNotification.getApplicationIconBadgeNumber(function (number) {
-      if (number > 0) {
-        PushNotification.setApplicationIconBadgeNumber(0)
-      }
-    })
     
     PushNotification.getChannels(function(channels) {
       LogStore.log(channels)
@@ -38,7 +31,7 @@ export default class NotificationService {
   configure () {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
-      onRegister: this.onAction,
+      onRegister: this.onRegister,
 
       // (required) Called when a remote or local notification is opened or received
       onNotification: this.onNotification,
@@ -48,9 +41,6 @@ export default class NotificationService {
 
       // (optional) Called when the user fails to register for remote notifications. Typically occurs when APNS is having issues, or the device is a simulator. (iOS)
       onRegistrationError: this.onRegistrationError,
-
-      // ANDROID ONLY: GCM or FCM Sender ID (product_number) (optional - not required for local notifications, but is need to receive remote push notifications)
-      senderID: 'XXXXXX',
 
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
@@ -67,8 +57,10 @@ export default class NotificationService {
        * (optional) default: true
        * - Specified if permissions (ios) and token (android and ios) will requested or not,
        * - if not, you must call PushNotificationsHandler.requestPermissions() later
+       * - if you are not using remote notification or do not have Firebase installed, use this:
+       *     requestPermissions: Platform.OS === 'ios'
        */
-      requestPermissions: true
+      requestPermissions: Platform.OS === 'ios'
     })
   }
 
@@ -87,8 +79,9 @@ export default class NotificationService {
     PushNotification.popInitialNotification((notification) => LogStore.log('InitialNotification:', notification))
   }
 
-  cancelAll() {
-    PushNotification.cancelAllLocalNotifications()
+  static clearAll() {
+    PushNotification.removeAllDeliveredNotifications()
+    PushNotification.setApplicationIconBadgeNumber(0)
   }
 
   getNotificationProperties(props) {
@@ -103,18 +96,15 @@ export default class NotificationService {
   }
 
   localNotification (title, message) {
-    PushNotification.localNotification(this.getNotificationProperties({title, message}))
-  }
-
-  scheduleNotification(title, message, date = new Date(Date.now()), repeatTime = 1, repeatType = 'minute') {
-    PushNotification.localNotificationSchedule(this.getNotificationProperties({title, message, date, repeatTime, repeatType}))
+    PushNotification.getDeliveredNotifications((notifications) => {
+      const number = notifications.length + 1
+      PushNotification.localNotification(this.getNotificationProperties({title, message, number}))
+    })
   }
 
   onNotification(notification) {
     LogStore.log(`NOTIFICATION: ${notification}`)
-
-    // TODO process the notification
-
+    NotificationService.clearAll()
     // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
     notification.finish(PushNotificationIOS.FetchResult.NoData)
   }

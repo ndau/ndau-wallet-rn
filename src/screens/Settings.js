@@ -36,7 +36,7 @@ class Settings extends Component {
       spinner: false,
       found: null
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   async componentDidMount () {
@@ -76,13 +76,13 @@ class Settings extends Component {
     })
   }
 
-  enableNotifications = (isEnabled) => {
+  enableNotifications = async (isEnabled) => {
     this.setState({notifications: isEnabled})
-    SettingsStore.setNotificationSettings(!this.state.notifications)
+    await SettingsStore.setNotificationSettings(isEnabled)
     if (isEnabled) {
-      QueryBlockchain.start()
+      await QueryBlockchain.start()
     } else {
-      QueryBlockchain.stop()
+      await QueryBlockchain.stop()
     }
   }
 

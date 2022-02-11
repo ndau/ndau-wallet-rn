@@ -47,7 +47,7 @@ class AccountLockConfirmation extends Component {
       spinner: false,
       transactionFee: '(loading...)'
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentDidMount () {

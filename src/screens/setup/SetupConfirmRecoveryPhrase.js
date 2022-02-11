@@ -63,7 +63,7 @@ class SetupConfirmRecoveryPhrase extends Component {
       boxWidth = '100%'
       boxHeight = '15%'
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   showNextSetup = async () => {

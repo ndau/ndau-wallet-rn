@@ -51,7 +51,7 @@ class WalletOverview extends Component {
 
     this.isTestNet = false
     this.accountsCanRxEAI = []
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentDidMount() {
@@ -129,7 +129,7 @@ class WalletOverview extends Component {
   launchBuyNdauInBrowser = async () => {
     const url = AppConfig.BUY_NDAU_URL
 
-    const supported = await Linking.canOpenURL(url);
+    const supported = await Linking.canOpenURL(url)
 
     if (supported) { 
       await Linking.openURL(url)
@@ -194,6 +194,8 @@ class WalletOverview extends Component {
 
   render = () => {
     try {
+      const user = UserStore.getUser()
+      const navBack = Object.keys(user.wallets).length > 1
       const wallet = WalletStore.getWallet()
 
       LogStore.log(`Rendering wallet: ${JSON.stringify(wallet)}`)
@@ -225,7 +227,7 @@ class WalletOverview extends Component {
             ref={component => (this._newAccountModal = component)}
           />
 
-          <DrawerHeader navBack={!this.props.route.params?.drawerEnabled} {...this.props}>
+          <DrawerHeader navBack={navBack} {...this.props}>
             {DataFormatHelper.truncateString(walletName)}
           </DrawerHeader>
 

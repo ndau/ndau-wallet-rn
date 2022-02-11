@@ -96,11 +96,6 @@ class SettingsStore {
       await this.useMainNet()
     }
   }
-  
-  isMainNetSync = () => {
-    const applicationNetwork = this._settings.applicationNetwork
-    return applicationNetwork && applicationNetwork.toLowerCase() === MAIN_NET
-  }
 
   /**
    * Is the application using mainnet
@@ -110,11 +105,21 @@ class SettingsStore {
     return applicationNetwork && applicationNetwork.toLowerCase() === MAIN_NET
   }
   
+  isMainNetSync = () => {
+    const applicationNetwork = this._settings.applicationNetwork
+    return applicationNetwork && applicationNetwork.toLowerCase() === MAIN_NET
+  }
+
   /**
    * Is the application using testnet
    */
   isTestNet = async () => {
     const applicationNetwork = await this.getApplicationNetwork()
+    return applicationNetwork && applicationNetwork.toLowerCase() === TEST_NET
+  }
+
+  isTestNetSync = () => {
+    const applicationNetwork = this._settings.applicationNetwork
     return applicationNetwork && applicationNetwork.toLowerCase() === TEST_NET
   }
   

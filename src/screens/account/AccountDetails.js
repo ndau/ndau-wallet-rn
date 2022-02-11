@@ -53,7 +53,7 @@ class AccountDetails extends Component {
     }
 
     this.baseEAI = 0
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   UNSAFE_componentWillMount = () => {
@@ -136,9 +136,9 @@ class AccountDetails extends Component {
   launchBlockchainExplorer = async () => {
     const url = this.getExplorerUrl()
 
-    const supported = await Linking.canOpenURL(url);
+    const supported = await Linking.canOpenURL(url)
     if (supported) { 
-      await Linking.openURL(url);
+      await Linking.openURL(url)
     } else {
       Alert.alert(
         'Error',

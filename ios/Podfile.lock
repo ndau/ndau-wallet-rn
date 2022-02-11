@@ -221,7 +221,7 @@ PODS:
     - React-Core
   - react-native-mail (3.0.7):
     - React
-  - react-native-netinfo (7.1.7):
+  - react-native-netinfo (8.0.0):
     - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
@@ -532,7 +532,7 @@ SPEC CHECKSUMS:
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-mail: 021d8ee60e374609f5689ef354dc8e36839a9ba6
-  react-native-netinfo: 27f287f2d191693f3b9d01a4273137fcf91c3b5d
+  react-native-netinfo: ba4ea50d836c60580c59079233c400753fe5bcb6
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-version-number: b415bbec6a13f2df62bf978e85bc0d699462f37f
   react-native-webview: 28a8636d97ee641f2ee8f20492d7a6c269c1d703

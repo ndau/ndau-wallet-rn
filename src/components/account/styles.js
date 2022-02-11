@@ -299,13 +299,13 @@ export default StyleSheet.create({
     marginBottom: hp('2.5%')
   },
   accountLargeButton: {
+    padding: 0,
     width: wp('92%'),
     height: hp('6%'),
     borderRadius: 4,
     backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
   },
   accountLargeButtonText: {
-    height: hp('5%'),
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Titillium Web',
     fontSize: 20,

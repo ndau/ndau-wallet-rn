@@ -25,7 +25,7 @@ class SetupWalletName extends Component {
 
     this.walletCount = 1
     this.defaultWalletId = 'Wallet 1'
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentDidMount = () => {

@@ -51,7 +51,7 @@ class Authentication extends Component {
     }
 
     this.maxLoginAttempts = 10
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentDidMount () {

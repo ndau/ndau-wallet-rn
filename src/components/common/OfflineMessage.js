@@ -27,7 +27,7 @@ class OfflineMessage extends PureComponent {
   }
 
   handleConnectivityChange = async state => {
-    if (state.isConnected && state.isInternetReachable) {
+    if (state.isConnected && state.isInternetReachable !== false) {
       DeviceStore.setOnline(true)
       FlashNotification.hideMessage()
     } else {

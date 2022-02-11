@@ -10,7 +10,7 @@
 
 import 'react-native-gesture-handler' // Note: If you are building for Android or iOS, do not skip this step, or your app may crash in production even if it works fine in development.
 import React from 'react'
-import { LogBox, View, Text, NativeModules } from 'react-native'
+import { LogBox, View, Text, NativeModules, AppState } from 'react-native'
 import AppNavigation from './navigation/AppNavigation'
 import FlashMessage from 'react-native-flash-message'
 import OfflineMessage from './components/common/OfflineMessage'
@@ -22,6 +22,7 @@ import { ThemeProvider } from 'nachos-ui'
 import { configureFontAwesomePro } from 'react-native-fontawesome-pro'
 import { NavigationContainer } from '@react-navigation/native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import NotificationService from './services/NotificationService'
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
 
@@ -43,13 +44,33 @@ export default class App extends React.Component {
 
     BackgroundTasks.initialize()
     this.state = {
-      net: ''
+      net: '',
+      appState: AppState.currentState
     }
     const updater = net => {
       this.setState({ net: net })
       ServiceDiscovery.invalidateCache()
     }
     SettingsStore.addListener(updater)
+  }
+
+  componentDidMount() {
+    NotificationService.clearAll()
+    this.appStateSubscription = AppState.addEventListener('change', this._handleAppStateChange)
+  }
+
+  componentWillUnmount() {
+    this.appStateSubscription.remove()
+  }
+
+  _handleAppStateChange = async nextAppState => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      NotificationService.clearAll()
+    }
+    this.setState({ appState: nextAppState })
   }
 
   render () {

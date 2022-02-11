@@ -20,7 +20,7 @@ import { LargeButtons, ParagraphText } from '../../components/common'
 class SetupNewOrRecovery extends Component {
   constructor (props) {
     super(props)
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
   componentWillUnmount () {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)

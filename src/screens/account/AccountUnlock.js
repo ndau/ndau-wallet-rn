@@ -35,7 +35,7 @@ class AccountUnlock extends Component {
       wallet: {},
       spinner: false
     }
-    props.navigation.addListener('didBlur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
 
   componentWillMount = async () => {
