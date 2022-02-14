@@ -21,11 +21,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.4</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>277</string>
+	<string>292</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>http</string>
@@ -45,23 +45,25 @@
 		</dict>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>The ndau wallet does not currently use music data.</string>
+	<string>The ndau wallet does not use your media library.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>The ndau wallet does not use Bluetooth data.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>The ndau wallet does not currently use Bluetooth data.</string>
+	<string>The ndau wallet does not use Bluetooth data.</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>The ndau wallet does not currently use calendar data.</string>
+	<string>The ndau wallet does not use calendar data.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>The ndau wallet will use your camera to scan a QR token for account verification purposes.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>The ndau wallet app does NOT use your location in any way.</string>
+	<string>The ndau walle does not use your location in any way.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The ndau wallet app does NOT use your location in any way.</string>
+	<string>The ndau wallet does not use your location in any way.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>The ndau wallet does not currently use motion data.</string>
+	<string>The ndau wallet does not use motion data.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The ndau wallet does not currently use any photo data.</string>
+	<string>The ndau wallet does not use any photo data.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>The ndau wallet does not currently use speech data.</string>
+	<string>The ndau wallet does not use speech data.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TitilliumWeb-Bold.ttf</string>
@@ -93,5 +95,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>The nday wallet does not use your music library.</string>
 </dict>
 </plist>
