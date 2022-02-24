@@ -330,7 +330,7 @@ class AccountDetails extends Component {
                 Receiving EAI from {receivingEAIFrom}
               </AccountParagraphText>
             ) : null}
-            <AccountParagraphText customIconName='usd-circle'>
+            <AccountParagraphText customIconName='fa-coins'>
               {spendableNdauDisplayed}{' '}
               <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
                 spendable
