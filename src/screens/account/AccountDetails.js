@@ -133,6 +133,14 @@ class AccountDetails extends Component {
     this.props.navigation.navigate('AccountReceive')
   }
 
+  setEAI = (account, wallet) => {
+    AccountStore.setAccount(account)
+    WalletStore.setWallet(wallet)
+    this.props.navigation.navigate('AccountSetEAIType', {
+      accountsCanRxEAI: this.state.accountsCanRxEAI
+    })
+  }
+
   launchBlockchainExplorer = async () => {
     const url = this.getExplorerUrl()
 
@@ -263,6 +271,7 @@ class AccountDetails extends Component {
           lock={this.lock}
           send={this.send}
           receive={this.receive}
+          setEAI={this.setEAI}
           account={this.state.account}
           wallet={this.state.wallet}
           disableLock={!showAllAcctButtons}
@@ -330,7 +339,7 @@ class AccountDetails extends Component {
                 Receiving EAI from {receivingEAIFrom}
               </AccountParagraphText>
             ) : null}
-            <AccountParagraphText customIconName='fa-coins'>
+            <AccountParagraphText customIconName='coins'>
               {spendableNdauDisplayed}{' '}
               <TextLink url={AppConfig.SPENDABLE_KNOWLEDGEBASE_URL}>
                 spendable

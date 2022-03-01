@@ -162,7 +162,7 @@ class AccountLockConfirmation extends Component {
             <AccountIconText>
               Account will unlock in {this.state.lockInformation.lock}
             </AccountIconText>
-            <AccountIconText iconColor={AppConstants.LIGHT_GREEN_COLOR} iconName='fa-coins'>
+            <AccountIconText iconColor={AppConstants.LIGHT_GREEN_COLOR} iconName='coins'>
               {this.state.account.addressData.nickname} will be charged a{' '}
               <TextLink url={AppConfig.TRANSACTION_FEE_KNOWLEDGEBASE_URL}>
                 fee

@@ -25,7 +25,7 @@ export default StyleSheet.create({
   },
   accountDetailsTitlePanel: { width: wp('100%'), height: hp('7%') },
   accountButton: {
-    width: wp('30%'),
+    width: wp('22%'),
     height: hp('5%'),
     borderRadius: 22,
     borderColor: AppConstants.SQUARE_BUTTON_COLOR,
@@ -339,9 +339,16 @@ export default StyleSheet.create({
     }),
     marginLeft: wp('4%')
   },
-  accountLockDetailsTextPanel: {
-    marginLeft: wp('4%'),
-    marginRight: wp('4%')
+  backArrowForSetEAI: {
+    ...Platform.select({
+      ios: {
+        marginTop: hp('1.2%')
+      },
+      android: {
+        marginTop: hp('.8%')
+      }
+    }),
+    marginLeft: wp('4%')
   },
   lockAccountCheckmark: {
     marginTop: hp('1.4%'),
@@ -462,6 +469,88 @@ export default StyleSheet.create({
     backgroundColor: '#293E63',
     paddingHorizontal: wp('4%')
   },
+  accountSetEAIOption: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    borderRadius: 4,
+    backgroundColor: '#0F2748',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    marginBottom: hp('2%')
+  },
+  accountSetEAIOptionSelected: {
+    backgroundColor: '#293E63',
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2
+  },
+  accountSetEAIOptionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: 'transparent',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountSetEAIOptionHeaderTextTop: {
+    flex: 1.5,
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400'
+  },
+  accountSetEAIOptionHeaderText: {
+    flex: 1.5,
+    justifyContent: 'center',
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400'
+  },
+  accountSetEAICheckbox: {
+    paddingTop: hp('1.5%'),
+    paddingLeft: wp('1%')
+  },
+  accountSetEAIOptionText: {
+    flex: 1,
+    justifyContent: 'center',
+    textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        lineHeight: 24
+      },
+      android: {
+        lineHeight: 17
+      }
+    }),
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 16,
+    fontWeight: '400'
+  },
+  accountSetEAIOptionTextSmall: {
+    flex: 0.5,
+    justifyContent: 'center',
+    textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        lineHeight: 24
+      },
+      android: {
+        lineHeight: 17
+      }
+    }),
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 16,
+    fontWeight: '400'
+  },
   accountLockOption: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -544,6 +633,117 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '400'
   },
+  accountSetEAIPanel: {
+    width: wp('100%'),
+    minHeight: hp('85%'),
+    backgroundColor: '#0A1724',
+    paddingTop: 0
+  },
+  accountSetEAIOptionsPanel: {
+    width: wp('100%'),
+    backgroundColor: '#0A1724',
+    paddingTop: 0
+  },
+  accountSetEAIGreenText: {
+    color: AppConstants.GREEN_TEXT_COLOR,
+    fontFamily: 'Open Sans',
+    fontSize: 16,
+    fontWeight: '800'
+  },
+  accountSetEAIButtonContainer: {
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%'),
+    backgroundColor: '#0A1724'
+  },
+  accountSetEAIButtonTypeContainer: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: wp('4%'),
+    marginBottom: hp('2.5%'),
+    backgroundColor: '#0A1724'
+  },
+  accountSetEAIOption: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    borderRadius: 4,
+    backgroundColor: '#0F2748',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
+    marginBottom: hp('2%')
+  },
+  accountSetEAIOptionSelected: {
+    backgroundColor: '#293E63',
+    borderRadius: 4,
+    borderColor: AppConstants.SQUARE_BUTTON_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 2
+  },
+  accountSetEAIOptionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: wp('92%'),
+    height: hp('6%'),
+    borderRadius: 4,
+    backgroundColor: 'transparent',
+    paddingHorizontal: wp('4%'),
+    marginLeft: wp('4%'),
+    marginRight: wp('4%')
+  },
+  accountSetEAIOptionHeaderTextTop: {
+    flex: 1.5,
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400'
+  },
+  accountSetEAIOptionHeaderText: {
+    flex: 1.5,
+    justifyContent: 'center',
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 14,
+    fontWeight: '400'
+  },
+  accountSetEAICheckbox: {
+    paddingTop: hp('1.5%'),
+    paddingLeft: wp('1%')
+  },
+  accountSetEAIOptionText: {
+    flex: 1,
+    justifyContent: 'center',
+    textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        lineHeight: 24
+      },
+      android: {
+        lineHeight: 17
+      }
+    }),
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 16,
+    fontWeight: '400'
+  },
+  accountSetEAIOptionTextSmall: {
+    flex: 0.5,
+    justifyContent: 'center',
+    textAlign: 'center',
+    ...Platform.select({
+      ios: {
+        lineHeight: 24
+      },
+      android: {
+        lineHeight: 17
+      }
+    }),
+    color: AppConstants.TEXT_COLOR,
+    fontFamily: 'Titillium Web',
+    fontSize: 16,
+    fontWeight: '400'
+  },  
   addressCopyPanelText: {
     color: AppConstants.TEXT_COLOR,
     fontFamily: 'Open Sans',

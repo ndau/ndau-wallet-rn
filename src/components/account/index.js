@@ -446,6 +446,15 @@ export function AccountDetailsButtonPanel (props) {
           Lock
         </AccountButton>
       </View>
+      <View>
+        <AccountButton
+          disabled={props.disableLock}
+          onPress={() => props.setEAI(props.account, props.wallet)}
+          customIconName='coins'
+        >
+          SetEAI
+        </AccountButton>
+      </View>
     </View>
   )
 }
@@ -557,6 +566,123 @@ export function AccountLockConfirmBottomPanel (props) {
   )
 }
 
+export function AccountSetEAIContainer (props) {
+  const close = () => {
+    props.navigation.navigate('AccountDetails', { wallet: props.wallet })
+  }
+  const goBack = () => {
+    props.navigation.goBack()
+  }
+  return (
+    <MainContainer>
+      <View style={{ flex: 1 }}>
+        <TitleBarGradient>
+          <View style={styles.accountTitlePanel}>
+            <AccountClosingBar
+              backArrowStyle={styles.backArrowForLock}
+              title={props.title}
+              closeBar
+              close={close}
+              backBar
+              goBack={goBack}
+            />
+          </View>
+          <ContentContainer>{props.children}</ContentContainer>
+        </TitleBarGradient>
+      </View>
+    </MainContainer>
+  )
+}
+
+export function AccountSetEAIDetailsPanel (props) {
+  return (
+    <View style={styles.accountSetEAIDetailsPanel}>
+      <View>{props.children}</View>
+    </View>
+  )
+}
+
+export function AccountSetEAIOptionsPanel (props) {
+  return (
+    <View style={styles.accountSetEAIOptionsPanel}>
+      <View>{props.children}</View>
+    </View>
+  )
+}
+
+export function AccountSetEAIConfirmBottomPanel (props) {
+  return (
+    <View style={styles.accountSetEAIButtonTypeContainer}>
+     <Button
+        style={styles.accountLargeButton}
+        textStyle={styles.accountLargeButtonText}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
+export function AccountSetEAIButton (props) {
+  return (
+    <View style={styles.accountSetEAIButtonContainer}>
+      <View>
+        <H4 style={styles.setEAISmallerText}>{props.smallText}</H4>
+      </View>
+      <Button
+        style={styles.accountLargeButton}
+        textStyle={styles.accountLargeButtonText}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
+export function AccountSetEAITypeButton (props) {
+  return (
+    <View style={styles.accountSetEAIButtonTypeContainer}>
+      <View>
+        <H4 style={styles.setEAISmallerText}>{props.smallText}</H4>
+      </View>
+      <Button
+        style={styles.accountLargeButton}
+        textStyle={styles.accountLargeButtonText}
+        uppercase={false}
+        {...props}
+      >
+        {props.children}
+      </Button>
+    </View>
+  )
+}
+
+export function AccountSetEAINoteText (props) {
+  return (
+    <View>
+      <H4 style={[styles.setEAISmallerText, styles.accountSideMargins]}>
+        {props.children}
+      </H4>
+    </View>
+  )
+}
+
+export function AccountSetEAILargerText (props) {
+  return (
+    <View style={styles.accountSetEAIDetailsTextPanel}>
+      <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
+    </View>
+  )
+}
+
+export function AccountSetEAIGreenText (props) {
+  return <H4 style={styles.accountSetEAIGreenText}>{props.children}</H4>
+}
+
 export function AccountSendButton (props) {
   return (
     <View style={styles.accountSendButtonContainer}>
@@ -610,6 +736,7 @@ export function AccountLockTypeButton (props) {
     </View>
   )
 }
+
 
 export function AccountLockNoteText (props) {
   return (
