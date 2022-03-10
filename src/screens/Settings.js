@@ -148,7 +148,7 @@ class Settings extends Component {
         </LargeButton>
         {found !== null ? (
           <ParagraphText>
-            {found} accounts were found and added to your wallet.
+            {found} new accounts were found and added to your wallet.
           </ParagraphText>
         ) : null}
         <LoadingSpinner

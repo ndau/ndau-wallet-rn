@@ -448,7 +448,7 @@ export function AccountDetailsButtonPanel (props) {
       </View>
       <View>
         <AccountButton
-          disabled={props.disableLock}
+          disabled={false}
           onPress={() => props.setEAI(props.account, props.wallet)}
           customIconName='coins'
         >
