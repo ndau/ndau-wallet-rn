@@ -227,11 +227,11 @@ const lockBonusEAI = weightedAverageAgeInDays => {
   if (!weightedAverageAgeInDays) return 0
 
   if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('3y')) {
-    return 5
+    return 15
   } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('2y')) {
-    return 4
+    return 10
   } else if (weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('1y')) {
-    return 3
+    return 5
   } else if (
     weightedAverageAgeInDays >= DateHelper.getDaysFromISODate('180d')
   ) {

@@ -22,6 +22,8 @@ import {
 } from '../../components/account'
 import { ScrollView } from 'react-native'
 import AccountAPIHelper from '../../helpers/AccountAPIHelper'
+import DataFormatHelper from '../../helpers/DataFormatHelper'
+import DateHelper from '../../helpers/DateHelper'
 import AccountStore from '../../stores/AccountStore'
 import WalletStore from '../../stores/WalletStore'
 import AccountAPI from '../../api/AccountAPI'
@@ -61,12 +63,13 @@ class AccountLock extends Component {
       const wallet = WalletStore.getWallet()
 
       const lockData = await AccountAPI.getLockRates(account)
+      const lockPeriods = ["90d", "180d", "1y", "2y", "3y"]
 
       const possibleLocks = lockData.map((data, index) => {
         const total = AccountAPIHelper.eaiValueForDisplay({
           eaiValueForDisplay: data.eairate
         })
-        const bonus = index + 1
+        const bonus = DataFormatHelper.lockBonusEAI(DateHelper.getDaysFromISODate(lockPeriods[index]))
         const base = total - bonus
         return {
           bonus,
