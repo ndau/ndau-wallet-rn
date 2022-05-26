@@ -1,0 +1,114 @@
+{
+  "networks": {
+    "devnet": {
+      "nodes": {
+        "devnet-0": {
+          "api": "api.ndau.tech:30300",
+          "p2p": "p2p.ndau.tech:30200",
+          "rpc": "api.ndau.tech:30100"
+        },
+        "devnet-1": {
+          "api": "api.ndau.tech:30301",
+          "p2p": "p2p.ndau.tech:30201",
+          "rpc": "api.ndau.tech:30101"
+        },
+        "devnet-2": {
+          "api": "api.ndau.tech:30302",
+          "p2p": "p2p.ndau.tech:30202",
+          "rpc": "api.ndau.tech:30102"
+        },
+        "devnet-3": {
+          "api": "api.ndau.tech:30303",
+          "p2p": "p2p.ndau.tech:30203",
+          "rpc": "api.ndau.tech:30103"
+        },
+        "devnet-4": {
+          "api": "api.ndau.tech:30304",
+          "p2p": "p2p.ndau.tech:30204",
+          "rpc": "api.ndau.tech:30104"
+        }
+      }
+    },
+    "mainnet": {
+      "nodes": {
+        "mainnet-0": {
+          "api": "api.ndau.tech:31300",
+          "p2p": "p2p.ndau.tech:31200",
+          "rpc": "api.ndau.tech:31100"
+        },
+        "mainnet-1": {
+          "api": "api.ndau.tech:31301",
+          "p2p": "p2p.ndau.tech:31201",
+          "rpc": "api.ndau.tech:31101"
+        },
+        "mainnet-2": {
+          "api": "api.ndau.tech:31302",
+          "p2p": "p2p.ndau.tech:31202",
+          "rpc": "api.ndau.tech:31102"
+        },
+        "mainnet-3": {
+          "api": "api.ndau.tech:31303",
+          "p2p": "p2p.ndau.tech:31203",
+          "rpc": "api.ndau.tech:31103"
+        },
+        "mainnet-4": {
+          "api": "api.ndau.tech:31304",
+          "p2p": "p2p.ndau.tech:31204",
+          "rpc": "api.ndau.tech:31104"
+        }
+      }
+    },
+    "testnet": {
+      "nodes": {
+        "testnet-0": {
+          "api": "api.ndau.tech:31300",
+          "p2p": "p2p.ndau.tech:31200",
+          "rpc": "api.ndau.tech:31100"
+        },
+        "testnet-1": {
+          "api": "api.ndau.tech:31301",
+          "p2p": "p2p.ndau.tech:31201",
+          "rpc": "api.ndau.tech:31101"
+        },
+        "testnet-2": {
+          "api": "api.ndau.tech:31302",
+          "p2p": "p2p.ndau.tech:31202",
+          "rpc": "api.ndau.tech:31102"
+        },
+        "testnet-3": {
+          "api": "api.ndau.tech:31303",
+          "p2p": "p2p.ndau.tech:31203",
+          "rpc": "api.ndau.tech:31103"
+        },
+        "testnet-4": {
+          "api": "api.ndau.tech:31304",
+          "p2p": "p2p.ndau.tech:31204",
+          "rpc": "api.ndau.tech:31104"
+        }
+      }
+    }
+  },
+  "recovery": {
+    "devnet": {
+      "nodes": {
+        "devnet-0": {
+          "api": "recovery.ndau.tech"
+        }
+      }
+    },
+    "mainnet": {
+      "nodes": {
+        "mainnet-0": {
+          "api": "recovery.ndau.tech"
+        }
+      }
+    },
+    "testnet": {
+      "nodes": {
+        "testnet-0": {
+          "api": "recovery-testnet.ndau.tech:20036"
+        }
+      }
+    }
+  }
+}
