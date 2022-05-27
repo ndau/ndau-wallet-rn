@@ -30,6 +30,7 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "@tradle/react-native-http": "^2.0.0",
+    "@walletconnect/client": "^2.0.0-beta.26",
     "assert": "^1.1.1",
     "axios": "^0.27.2",
     "browserify-zlib": "~0.1.4",
