@@ -11,6 +11,7 @@
 import React, { Component } from 'react'
 import { BackHandler,Button } from 'react-native'
 import SettingsStore from '../../stores/SettingsStore'
+import WalletConnectClient from '@walletconnect/client/dist/umd/index.min';
 import {
   SetupWelcomeContainer,
   LargeText,
@@ -41,6 +42,26 @@ class SetupWelcome extends Component {
   componentDidMount = async () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
     await SettingsStore.useMainNet()
+    try{
+    const client = await WalletConnectClient.init({
+      controller: true,
+      projectId: "0c8a9a722b71919b51bc0975e47c4d7d",
+      relayUrl: "wss://relay.walletconnect.com",
+      metadata: {
+        name: "Test Wallet",
+        description: "Test Wallet",
+        url: "#",
+        icons: ["https://walletconnect.com/walletconnect-logo.png"],
+      },
+    });
+    console.log(client.pair.toString());
+    
+    const a=await client.pair({ uri:"wc:0e6bf046ec54ecfafa3fe4187da17e9e0784c5e233134f0581aacea10c59b59a@2?controller=false&publicKey=c450a8344419da6a046eb3b0a6656c89a965ed8b5a5155b007e312c8b46efd4b&relay=%7B%22protocol%22%3A%22waku%22%7D" });
+    alert(a);
+  }
+  catch(e){
+    console.log(e);
+  }
   }
 
   showNextSetup = () => {
