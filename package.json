@@ -17,7 +17,7 @@
     "jest-fetch-mock": "2.1.2",
     "jest-react-native": "18.0.0",
     "jest-serializer-enzyme": "1.0.0",
-    "jsdom": "15.1.1",
+    "jsdom": "16.5.0",
     "metro-react-native-babel-preset": "^0.66.2",
     "react-test-renderer": "17.0.2",
     "sinon": "7.3.2"
