@@ -46,7 +46,7 @@ class SetupTermsOfService extends Component {
     this.setState({ spinner: true }, async () => {
       try {
         LogStore.log('Finishing Setup...')
-
+console.log("222");
         let user = UserStore.getUser()
 
         if (user) {
@@ -73,7 +73,7 @@ class SetupTermsOfService extends Component {
             SetupStore.addressType
           )
         }
-
+console.log(user,"after setup new user")
         await UserData.loadUserData(user)
 
         UserStore.setPassword(SetupStore.encryptionPassword)
@@ -97,16 +97,17 @@ class SetupTermsOfService extends Component {
   }
 
   performFinishingAction = () => {
-    let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP
-    switch (mode) {
-      case AppConstants.TOS_BUY:
-        this.goBuyNdau()
-        break
-      case AppConstants.TOS_SETUP:
-      default:
-        this.finishSetup()
-        break
-    }
+    this.props.navigation.replace("Explore");
+    // let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP
+    // switch (mode) {
+    //   case AppConstants.TOS_BUY:
+    //     this.goBuyNdau()
+    //     break
+    //   case AppConstants.TOS_SETUP:
+    //   default:
+    //     this.finishSetup()
+    //     break
+    // }
   }
 
   render () {

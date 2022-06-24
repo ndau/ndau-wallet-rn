@@ -37,7 +37,7 @@ export function DrawerExit (props) {
   return (
     <View style={styles.drawerExit}>
       <TouchableOpacity {...props}>
-        <Icon size={36} name='times' color='#ffffff' type='light' />
+        {/* <Icon size={36} name='times' color='#ffffff' type='light' /> */}
       </TouchableOpacity>
     </View>
   )

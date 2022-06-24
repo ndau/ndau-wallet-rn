@@ -7,16 +7,18 @@
  * https://www.apache.org/licenses/LICENSE-2.0.txt
  * - -- --- ---- -----
  */
-
 import React, { Component } from 'react'
 import { PixelRatio, NativeModules, Alert } from 'react-native'
+
 import SetupStore from '../../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen'
+const bip39 = require('bip39');
 import AppConstants from '../../AppConstants'
 import LogStore from '../../stores/LogStore'
+import randomWords from 'random-words';
 import {
   SetupContainer,
   RecoveryPhraseConfirmationTextOnly
@@ -24,6 +26,7 @@ import {
 import FlashNotification from '../../components/common/FlashNotification'
 import { LargeButtons, ParagraphText } from '../../components/common'
 import DataFormatHelper from '../../helpers/DataFormatHelper'
+// import {crypto} from 'crypto-random-string/browser';
 
 var _ = require('lodash')
 
@@ -80,27 +83,33 @@ class SetupRecoveryPhrase extends Component {
   generateRecoveryPhrase = async () => {
     try{
     console.log(SetupStore.entropy,"Setup Entropy");
-    
+    debugger;
     const KeyaddrManager = NativeModules.KeyaddrManager;
 console.log({KeyaddrManager});
 
-    const seeds = await KeyaddrManager.keyaddrWordsFromBytes(
-      AppConstants.APP_LANGUAGE,
-      SetupStore.entropy
-    )
+//     const seed = await KeyaddrManager.keyaddrWordsFromBytes(
+//       AppConstants.APP_LANGUAGE,
+//       SetupStore.entropy
+//     )
 
- console.log(seeds);
+// console.log(seed);
 
-    const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(
-      AppConstants.APP_LANGUAGE,
-      seeds
-    )
-    if (!_(seedBytes).isEqual(SetupStore.entropy)) {
-      this.showExitApp()
-    } else {
-      LogStore.log(`the seedBytes and entropy are equal.`)
-    }
-    const recoveryPhrase = seeds.split(/\s+/g)
+//     const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(
+//       AppConstants.APP_LANGUAGE,
+//       seeds
+//     )
+//     console.log(seedBytes);
+    // if (!_(seedBytes).isEqual(SetupStore.entropy)) {
+    //   this.showExitApp()
+    // } else {
+    //   LogStore.log(`the seedBytes and entropy are equal.`)
+    // }
+    const seeds=['aaaa', 'aaaa', 'aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa']
+  const a=bip39.generateMnemonic().split(" ");
+  // console.log(bip39.generateMnemonic(),"bip39")
+  // console.log(randomWords(12),"random number")
+    // const recoveryPhrase = randomWords(12)
+      const recoveryPhrase =a;
     this.setState({ recoveryPhrase: recoveryPhrase })
 
     // Shuffle the deck with a Fisher-Yates shuffle algorithm;

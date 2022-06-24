@@ -21,6 +21,9 @@ import Wallet from '../model/Wallet'
 import User from '../model/User'
 import FlashNotification from '../components/common/FlashNotification'
 import LogStore from '../stores/LogStore'
+const bip39 = require('bip39');
+import BIP32Factory from 'bip32';
+
 
 /**
  * This function will persist the user information after any setup is
@@ -44,18 +47,31 @@ import LogStore from '../stores/LogStore'
 ) => {
   if (!user) {
     LogStore.log('Generating all keys from phrase given...')
-    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-      AppConstants.APP_LANGUAGE,
-      recoveryPhraseString
-    )
-
+    console.log(recoveryPhraseString);
+    // const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+    //   AppConstants.APP_LANGUAGE,
+      
+    // )
+    const recoveryPhraseAsBytes=bip39.mnemonicToSeedSync(recoveryPhraseString).toString('hex');
+    // function strToUtf16Bytes(str) {
+    //   const bytes = [];
+    //   for (let ii = 0; ii < str.length; ii++) {
+    //     const code = str.charCodeAt(ii); // x00-xFFFF
+    //     bytes.push(code & 255, code >> 8); // low, high
+    //   }
+    //   return bytes;
+    // }
+    // const recoveryPhraseAsBytes=strToUtf16Bytes(recoveryPhraseString).join(",");
+console.log(recoveryPhraseAsBytes);
     user = await createFirstTimeUser(
       recoveryPhraseAsBytes,
       walletId,
       addressType,
       numberOfAccounts
     )
+    console.log(user);
   }
+  console.log(user,"first user");
 
   return MultiSafeHelper.saveUser(
     user,
@@ -81,6 +97,7 @@ import LogStore from '../stores/LogStore'
   chainId = AppConstants.MAINNET_ADDRESS,
   numberOfAccounts = 0
 ) => {
+  console.log('inside first user');
   if (!recoveryBytes) {
     throw new Error('you MUST pass recoveryPhrase to this method')
   }
@@ -98,6 +115,7 @@ import LogStore from '../stores/LogStore'
         chainId,
         numberOfAccounts
       )
+      console.log(wallet,"wallet created");
       user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
@@ -172,6 +190,7 @@ import LogStore from '../stores/LogStore'
   rootDerivedPath,
   wallet
 ) => {
+  console.log("Inside wallet create")
   if (!accountCreationKey && !recoveryBytes) {
     throw new Error(
       'you MUST pass either recoveryBytes or accountCreationKey to this method'
@@ -369,15 +388,20 @@ const _createAccounts = async (
 }
 
 const _createAccountCreationKey = async recoveryBytes => {
-  const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-    recoveryBytes
-  )
-  const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
-    rootPrivateKey,
-    '/',
-    KeyPathHelper.accountCreationKeyPath()
-  )
-  return accountCreationKey
+  console.log("testing account");
+  const bip32 = BIP32Factory();
+  let node= bip32.fromBase58(recoveryBytes);
+  let child= node.derivePath('m/0/0');
+  console.log("key pass",child);
+  // const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
+  //   recoveryBytes
+  // )
+  // const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
+  //   rootPrivateKey,
+  //   '/',
+  //   KeyPathHelper.accountCreationKeyPath()
+  // )
+  return child;
 }
 
 const _createInitialKeys = async (wallet, accountCreationKey) => {

@@ -9,6 +9,7 @@
  */
 
 import React, { Component } from 'react'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BackHandler,Button } from 'react-native'
 import SettingsStore from '../../stores/SettingsStore'
 import WalletConnectClient from '@walletconnect/client/dist/umd/index.min';
@@ -19,6 +20,7 @@ import {
 } from '../../components/setup'
 import FlashNotification from '../../components/common/FlashNotification'
 import { LargeButton, ParagraphText } from '../../components/common'
+
 
 class SetupWelcome extends Component {
   constructor (props) {
@@ -47,17 +49,22 @@ class SetupWelcome extends Component {
       controller: true,
       projectId: "0c8a9a722b71919b51bc0975e47c4d7d",
       relayUrl: "wss://relay.walletconnect.com",
-      metadata: {
-        name: "Test Wallet",
-        description: "Test Wallet",
-        url: "#",
-        icons: ["https://walletconnect.com/walletconnect-logo.png"],
-      },
-    });
-    console.log(client.pair.toString());
+   
+        metadata: {
+          name: 'React Wallet',
+          description: 'React Wallet for WalletConnect',
+          url: 'https://walletconnect.com/',
+          icons: ['https://avatars.githubusercontent.com/u/37784886']
+        },
+        storageOptions: {
+          asyncStorage: AsyncStorage,
+        },
+      })
     
-    const a=await client.pair({ uri:"wc:0e6bf046ec54ecfafa3fe4187da17e9e0784c5e233134f0581aacea10c59b59a@2?controller=false&publicKey=c450a8344419da6a046eb3b0a6656c89a965ed8b5a5155b007e312c8b46efd4b&relay=%7B%22protocol%22%3A%22waku%22%7D" });
-    alert(a);
+    console.log(client);
+      const session = await client.pair({uri:"wc:2dc5b95f047583f5635acfd79127cc4d131148ae30c9f0006df38d5053b6a4c6@2?controller=false&publicKey=82a2d8c3773d84fb98defdf030cffabc3b31ad97487ee878bb98588b8534a402&relay=%7B%22protocol%22%3A%22waku%22%7D"})
+      console.log("AWAIS HELLO");
+ console.log(session,33);
   }
   catch(e){
     console.log(e);

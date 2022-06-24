@@ -268,13 +268,13 @@ export function ProgressBar (props) {
   return (
     <View style={styles.progressBarContainer}>
       <View style={styles.backArrow}>
-        <Icon
+        {/* <Icon
           size={32}
           name='arrow-left'
           color={AppConstants.ICON_BUTTON_COLOR}
           onPress={props.goBack}
           type='light'
-        />
+        /> */}
       </View>
       <Progress
         progress={props.pageNumber ? props.pageNumber / SETUP_SCREEN_TOTAL : 0}
@@ -311,13 +311,13 @@ export function LabelWithIcon (props) {
   return (
     <TouchableOpacity {...props} disabled={!props.textClickable} style={[styles.labelWithIconContainer, props.style]}>
       <P style={[styles.labelText, margin, props.textStyle]}>{props.children}</P>
-      <Icon
+      {/* <Icon
         size={props.iconSize || 24}
         name={props.fontAwesomeIconName}
         color={AppConstants.ICON_BUTTON_COLOR}
         type='light'
         {...props}
-      />
+      /> */}
     </TouchableOpacity>
   )
 }
@@ -362,14 +362,14 @@ export function CheckBox (props) {
         onPress={() => onValueChange(!checked)}
         {...props}
       >
-        {isChecked && !checkComponent && (
+        {/* {isChecked && !checkComponent && (
           <Icon
             color={AppConstants.TEXT_COLOR}
             name='check'
             size={18}
             type='light'
           />
-        )}
+        )} */}
         {isChecked && checkComponent}
       </TouchableOpacity>
       <P style={[styles.checkboxLabel]} {...props}>
@@ -516,13 +516,13 @@ export function ContentContainer (props) {
 export function CloseForBar (props) {
   return (
     <View style={styles.closeForBar}>
-      <Icon
+      {/* <Icon
         size={36}
         name='times'
         color={AppConstants.ICON_BUTTON_COLOR}
         onPress={props.close}
         type='light'
-      />
+      /> */}
     </View>
   )
 }

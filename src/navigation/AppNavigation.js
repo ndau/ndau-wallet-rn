@@ -27,6 +27,9 @@ import Authentication from '../screens/Authentication'
 import AuthLoading from './AuthLoading'
 import SettingsNavigation from './SettingsNavigation'
 import ContactSupport from '../screens/ContactSupport'
+import Explore from '../screens/Explore'
+import Block from '../screens/Block'
+import Transections from '../screens/Transections'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -45,7 +48,7 @@ const SetupStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown:false }}>
       <Stack.Screen name="SetupWelcome" component={SetupWelcome} />
-   
+      <Stack.Screen name="Explore" component={Explore} />
       <Stack.Screen name="SetupWalletName" component={SetupWalletName} />
       <Stack.Screen name="SetupNewOrRecovery" component={SetupNewOrRecovery} />
       <Stack.Screen name="SetupEncryptionPassword" component={SetupEncryptionPassword} />
@@ -63,8 +66,12 @@ const AppContainer = (props) => {
     <Stack.Navigator initialRouteName="AuthLoading" screenOptions={{ headerShown:false }}>
       <Stack.Screen name="AuthLoading" component={AuthLoading} />
       <Stack.Screen name="Authentication">
+        
         {(nestedProps) => <Authentication {...nestedProps} isNetShown={props.isNetShown} />}
       </Stack.Screen> 
+      <Stack.Screen name="Blockchain Explorer" component={Explore} />
+      <Stack.Screen name="Transection" component={Transections} />
+      <Stack.Screen name="Block" component={Block} />
       <Stack.Screen name="ContactSupport" component={ContactSupport} />
       <Stack.Screen name="Setup" component={SetupStack} />
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
