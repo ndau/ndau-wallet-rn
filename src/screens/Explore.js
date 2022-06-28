@@ -17,10 +17,14 @@ import axios from 'axios';
 
 const Explore = () => {
   const [data, setData] = React.useState({});
+  const [loading,setloading]=React.useState(true);
   React.useEffect(() => {
+    setloading(true);
     axios.get('https://mainnet-0.ndau.tech:3030/price/current').then(res => {
       setData(res.data);
+      setloading(false);
     });
+    
     addusd();
   }, []);
 
@@ -239,7 +243,7 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>NEXT ISSUED PRICE</Text>
 
-                      <Text style={{color: '#ffffff'}}>{nextIssuePrice}</Text>
+                      <Text style={{color: '#ffffff'}}>${nextIssuePrice.toFixed(4)}</Text>
                     </View>
                   </Col>
                 </Row>
@@ -284,7 +288,7 @@ const Explore = () => {
                 </Row>
                 <Row style={{marginTop: 10}}>
                   <Col style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Image source={require('./stats.png')} />
+                    <Image source={require('./Browser.png')} />
                     <Text style={{color: 'grey'}}>Current Market Price</Text>
                     <Text style={{color: 'white'}}>
                       ${(data?.marketPrice / 10 ** 11).toFixed(3)}
@@ -301,8 +305,35 @@ const Explore = () => {
                     }}
                     javaScriptEnabled
                     nestedScrollEnabled
+                    useWebKit={true}
                     allowUniversalAccessFromFileURLs
-                    domStorageEnabled
+                    injectedJavaScript={` const script = document.createElement('script');
+
+                    script.src = 'https://widget.nomics.com/embed.js';
+                    script.async = true;
+               
+                
+                   const h1=document.createElement('h1');
+                   h1.innerText="hello"
+                   
+                    document.body.appendChild(script);
+                    console.log(document);
+                    `}
+                    domStorageEnabled={true}
+                    onContentProcessDidTerminate={(syntheticEvent) => {
+                      const { nativeEvent } = syntheticEvent
+                      console.log('Content process terminated, reloading', nativeEvent)
+                      this.refs.webview.reload()
+                  }}
+                  onMessage={event => {console.log(event)}}
+                  onError={(syntheticEvent) => {
+                      const { nativeEvent } = syntheticEvent
+                      console.log('WebView error: ', nativeEvent)
+                  }}
+                    androidHardwareAccelerationDisabled={false}
+                    androidLayerType={'hardware'}
+                    startInLoadingState={true}
+                      javaScriptEnabledAndroid={true}
                     allowFileAccessFromFileURLs
                     setBuiltInZoomControls={false}
                     originWhitelist={['*']}
@@ -316,7 +347,7 @@ const Explore = () => {
                   <body>
                   <div >
                     <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
-                    <script src="https://widget.nomics.com/embed.js"></script>
+                   
                     </div>
                   </body>
                   </html>`,
