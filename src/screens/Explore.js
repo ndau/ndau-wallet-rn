@@ -119,7 +119,7 @@ const Explore = () => {
   return (
     <View style={{flex: 1, backgroundColor: '#181F28'}}>
       <Appbar.Header style={{backgroundColor: '#181F28'}}>
-        <Appbar.Action icon="close" onPress={() => this.close()} />
+        <Appbar.Action icon="menu" onPress={() => this.close()} />
         <ContentTitle title={'Blockchain Explorer'} style={{color: 'white'}} />
       </Appbar.Header>
       <View style={{flex: 1}}>
@@ -187,6 +187,8 @@ const Explore = () => {
                       width: '94%',
                       justifyContent: 'space-between',
                       flexDirection: 'row',
+                      alignItems:"center",
+                      height:40,
                     }}>
                     <Text style={{color: '#F89D1C'}}>Statistics</Text>
                     <Image source={require('./stats.png')} />
@@ -221,7 +223,7 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>NDAU ISSUES</Text>
 
-                      <Text style={{color: '#ffffff'}}>
+                      <Text style={{color: '#ffffff',fontSize:16,fontWeight:'bold'}}>
                         {addusd(
                           humanizeNumber(
                             convertNapuToNdau(data?.totalIssued, 0),
@@ -243,7 +245,7 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>NEXT ISSUED PRICE</Text>
 
-                      <Text style={{color: '#ffffff'}}>${nextIssuePrice.toFixed(4)}</Text>
+                      <Text style={{color: '#ffffff',fontSize:16,fontWeight:'bold'}}>${nextIssuePrice.toFixed(4)}</Text>
                     </View>
                   </Col>
                 </Row>
@@ -259,7 +261,7 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>SIB IN EFFECT</Text>
 
-                      <Text style={{color: '#ffffff'}}>
+                      <Text style={{color: '#ffffff',fontSize:16,fontWeight:'bold'}}>
                         {(data?.sib / 10000000000).toFixed(3)}%
                       </Text>
                     </View>
@@ -276,7 +278,7 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>NDAU IN CIRCULATION</Text>
 
-                      <Text style={{color: '#ffffff'}}> {addusd(
+                      <Text style={{color: '#ffffff',fontSize:16,fontWeight:'bold'}}> {addusd(
                           humanizeNumber(
                             convertNapuToNdau(data?.totalNdau, 0),
                             0,

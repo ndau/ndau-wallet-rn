@@ -57,7 +57,7 @@ const Block = () => {
   return (
     <View style={{flex: 1, backgroundColor: '#181F28'}}>
       <Appbar.Header style={{backgroundColor: '#181F28'}}>
-        <Appbar.Action icon="close" onPress={() => this.close()} />
+      <Appbar.Action icon="menu" onPress={() => this.close()} />
         <ContentTitle title={'Blockchain Explorer'} style={{color: 'white'}} />
       </Appbar.Header>
       <View style={{backgroundColor:"#132A47",flex:1,borderRadius:20}}>
