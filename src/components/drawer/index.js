@@ -99,6 +99,22 @@ export const DrawerHeader = props => {
         }}
       />
       <Text style={styles.drawerHeaderText}>{props.children}</Text>
+      <Icon
+        name={'qrcode'}
+        size={32}
+        color={props.navBack ? AppConstants.ICON_BUTTON_COLOR : '#fff'}
+        containerStyle={styles.drawerRightButton}
+        type='light'
+        onPress={() => {
+          props.navigation.navigate('ScanQR')
+          // if (props.navBack) {
+          //   props.navigation.goBack()
+          // } else {
+          //   props.navigation.dispatch(DrawerActions.openDrawer())
+          //   // props.navigation.openDrawer()
+          // }
+        }}
+      />
     </View>
   )
 }

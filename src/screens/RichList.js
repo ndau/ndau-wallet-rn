@@ -21,7 +21,7 @@ import {
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 
-const Transections = () => {
+const RichList = () => {
   const [total, setTotal] = React.useState();
   const [loading, setloading] = React.useState();
   const [highest, sethighest] = React.useState();
@@ -52,7 +52,7 @@ const Transections = () => {
     if (hours >= 24) {
       let day = hours / 24;
       return `${Math.floor(day)} Days ago`;
-    } else if (result.toPrecision(2) > 60) {
+    } else if (result.toPrecision(2) > 59) {
       return `${Math.floor(hours)} hrs ago`;
     } else {
       return `${Math.floor(result.toPrecision(2))} min ago`;
@@ -132,7 +132,7 @@ else{
             navigation.goBack();
           }}
         />
-        <ContentTitle title={'Latest Transactions'} style={{color: 'white'}} />
+        <ContentTitle title={'Rich List'} style={{color: 'white'}} />
       </Appbar.Header>
       {loading ? (
         <ActivityIndicator style={{textAlign: 'center'}} />
@@ -149,7 +149,7 @@ else{
 
                     marginRight: 'auto',
                     justifyContent: 'space-between',
-                    width: '85%',
+                    width: '95%',
                     margin: 8,
                   }}>
                   <Text
@@ -160,7 +160,7 @@ else{
                       opacity: 0.5,
                     }}>
                     {' '}
-                    TX
+                    O1
                   </Text>
                   <View>
                     <TouchableOpacity onPress={() => move(item)}>
@@ -170,17 +170,20 @@ else{
                           paddingRight:10,
                         
                         }}>
-                        {(item.TxHash).substring(0, 7)}.....
+                      0X0000....7705FA
                       </Text>
                       <Text style={{color: 'white', opacity: 0.5}}>
-                        {datecal(item.Timestamp)}
+                      Eth2 Deposit Contract
                       </Text>
                     </TouchableOpacity>
                   </View>
-                  <Text style={{color:"#FFFFFF",opacity:0.5,width:100}}
+                  <View>
+                  <Text style={{color:"#FFFFFF",opacity:0.5}}
                >
-                  {item.TxType}
+               blnc: 12,982,037.000069 Ether
                   </Text>
+                  <Text style={{color:"#FFFFFF",opacity:0.5}}>Txns: 205,252</Text>
+                </View>
                 </View>
                 <View
                   style={{
@@ -213,4 +216,4 @@ else{
   );
 };
 
-export default Transections;
+export default RichList;
