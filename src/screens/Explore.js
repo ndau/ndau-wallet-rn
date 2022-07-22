@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {Col, Row, Grid} from 'react-native-paper-grid';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {WebView} from 'react-native-webview';
@@ -17,13 +18,35 @@ import axios from 'axios';
 
 const Explore = () => {
   const [data, setData] = React.useState({});
+  const [loading, setloading] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState(null);
+  const [items, setItems] = React.useState([
+    {label: 'Rich List', value: 'Rich List'},
+    {label: 'Top Statistics', value: 'Top Statistics'},
+  ]);
+
   React.useEffect(() => {
+    setloading(true);
     axios.get('https://mainnet-0.ndau.tech:3030/price/current').then(res => {
       setData(res.data);
+      setloading(false);
     });
+
     addusd();
   }, []);
 
+
+  const moveBy=(val)=>{
+    if (val == 'Rich List') {
+     
+      navigation.navigate('RichList');
+    }
+    else if(val == 'Top Statistics'){
+      navigation.navigate('Statistics');
+     
+    }
+  }
   const ContentTitle = ({title, style}) => (
     <Appbar.Content
       title={<Text style={style}> {title} </Text>}
@@ -40,7 +63,7 @@ const Explore = () => {
       return humanize ? humanizeNumber(ndauAmount, decimals) : ndauAmount;
     }
   };
-  const addusd = (num=0) => {
+  const addusd = (num = 0) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
   const price_at_unit = nunits_sold => {
@@ -115,7 +138,7 @@ const Explore = () => {
   return (
     <View style={{flex: 1, backgroundColor: '#181F28'}}>
       <Appbar.Header style={{backgroundColor: '#181F28'}}>
-        <Appbar.Action icon="close" onPress={() => this.close()} />
+        <Appbar.Action icon="menu" onPress={() => this.close()} />
         <ContentTitle title={'Blockchain Explorer'} style={{color: 'white'}} />
       </Appbar.Header>
       <View style={{flex: 1}}>
@@ -147,7 +170,7 @@ const Explore = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Block')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Block')} style={{textAlign:"center",alignItems:"center"}}>
                   <Image source={require('./box.png')} />
                   <Text style={{color: '#F89D1C'}}>Block</Text>
                 </TouchableOpacity>
@@ -164,29 +187,67 @@ const Explore = () => {
                   alignItems: 'center',
                 }}>
                 <TouchableOpacity
+                style={{alignItems:"center"}}
                   onPress={() => navigation.navigate('Transection')}>
                   <Image
                     source={require('./dollars.png')}
-                    style={{marginLeft: 10}}
+              
                   />
                   <Text style={{color: '#F89D1C', textAlign: 'center'}}>
-                    Transection
+                    Transaction
                   </Text>
                 </TouchableOpacity>
               </Col>
             </Row>
             <Row style={{marginTop: 10}}>
-              <Col size={1} style={{backgroundColor: '#012D5A'}}>
+              <Col size={1} style={{zIndex: 20000, position: 'relative'}}>
                 <View style={{flexDirection: 'column', alignItems: 'center'}}>
-                  <View
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('stats')}
                     style={{
-                      width: '94%',
+                      width: '100%',
                       justifyContent: 'space-between',
                       flexDirection: 'row',
+                      alignItems: 'center',
+                      height: 40,
                     }}>
-                    <Text style={{color: '#F89D1C'}}>Statistics</Text>
-                    <Image source={require('./stats.png')} />
-                  </View>
+                    <DropDownPicker
+                    autoScroll={false}
+                    onChangeValue={(value)=>moveBy(value)}
+                      style={{
+                        backgroundColor: '#012D5A',
+                        color: '#F89D1C',
+                        paddingVertical: 20,
+                        borderWidth: 0,
+                      }}
+                  
+                    
+                      ArrowUpIconComponent={({style}) => (
+                        <Image source={require('./stats.png')} />
+                      )}
+                      ArrowDownIconComponent={({style}) => (
+                        <Image source={require('./stats.png')} />
+                      )}
+                      dropDownContainerStyle={{
+                        backgroundColor: '#012D5A',
+                      }}
+                      placeholderStyle={{
+                        color: '#F89D1C',
+                      }}
+                      listItemLabelStyle={{
+                        color: '#8096AD',
+                      }}
+                      placeholder="Select "
+                      open={open}
+                      value={value}
+                      items={items}
+                      setOpen={setOpen}
+                      setValue={setValue}
+                      setItems={setItems}
+                    />
+                    {/* <Text style={{color: '#F89D1C'}}>Statistics</Text>
+                    <Image source={require('./stats.png')} /> */}
+                  </TouchableOpacity>
                 </View>
               </Col>
             </Row>
@@ -217,7 +278,12 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>NDAU ISSUES</Text>
 
-                      <Text style={{color: '#ffffff'}}>
+                      <Text
+                        style={{
+                          color: '#ffffff',
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                        }}>
                         {addusd(
                           humanizeNumber(
                             convertNapuToNdau(data?.totalIssued, 0),
@@ -239,7 +305,14 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>NEXT ISSUED PRICE</Text>
 
-                      <Text style={{color: '#ffffff'}}>{nextIssuePrice}</Text>
+                      <Text
+                        style={{
+                          color: '#ffffff',
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                        }}>
+                        ${nextIssuePrice.toFixed(4)}
+                      </Text>
                     </View>
                   </Col>
                 </Row>
@@ -255,7 +328,12 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>SIB IN EFFECT</Text>
 
-                      <Text style={{color: '#ffffff'}}>
+                      <Text
+                        style={{
+                          color: '#ffffff',
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                        }}>
                         {(data?.sib / 10000000000).toFixed(3)}%
                       </Text>
                     </View>
@@ -272,21 +350,33 @@ const Explore = () => {
                       }}>
                       <Text style={{color: 'grey'}}>NDAU IN CIRCULATION</Text>
 
-                      <Text style={{color: '#ffffff'}}> {addusd(
+                      <Text
+                        style={{
+                          color: '#ffffff',
+                          fontSize: 16,
+                          fontWeight: 'bold',
+                        }}>
+                        {' '}
+                        {addusd(
                           humanizeNumber(
                             convertNapuToNdau(data?.totalNdau, 0),
                             0,
                           ),
                         )}
-                    </Text>
+                      </Text>
                     </View>
                   </Col>
                 </Row>
                 <Row style={{marginTop: 10}}>
                   <Col style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Image source={require('./stats.png')} />
+                    <Image source={require('./Browser.png')} />
                     <Text style={{color: 'grey'}}>Current Market Price</Text>
-                    <Text style={{color: 'white'}}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                      }}>
                       ${(data?.marketPrice / 10 ** 11).toFixed(3)}
                     </Text>
                   </Col>
@@ -301,8 +391,39 @@ const Explore = () => {
                     }}
                     javaScriptEnabled
                     nestedScrollEnabled
+                    useWebKit={true}
                     allowUniversalAccessFromFileURLs
-                    domStorageEnabled
+                    injectedJavaScript={` const script = document.createElement('script');
+
+                    script.src = 'https://widget.nomics.com/embed.js';
+                    script.async = true;
+               
+                
+                   const h1=document.createElement('h1');
+                
+                   
+                    document.body.appendChild(script);
+                    console.log(document);
+                    `}
+                    domStorageEnabled={true}
+                    onContentProcessDidTerminate={syntheticEvent => {
+                      const {nativeEvent} = syntheticEvent;
+                      console.log(
+                        'Content process terminated, reloading',
+                        nativeEvent,
+                      );
+                      this.refs.webview.reload();
+                    }}
+                    onMessage={event => {
+                      console.log(event);
+                    }}
+                    onError={syntheticEvent => {
+                      const {nativeEvent} = syntheticEvent;
+                      console.log('WebView error: ', nativeEvent);
+                    }}
+                    androidLayerType={'hardware'}
+                    startInLoadingState={true}
+                    javaScriptEnabledAndroid={true}
                     allowFileAccessFromFileURLs
                     setBuiltInZoomControls={false}
                     originWhitelist={['*']}
@@ -316,7 +437,7 @@ const Explore = () => {
                   <body>
                   <div >
                     <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
-                    <script src="https://widget.nomics.com/embed.js"></script>
+                   
                     </div>
                   </body>
                   </html>`,

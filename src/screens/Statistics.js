@@ -21,7 +21,7 @@ import {
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 
-const Transections = () => {
+const Statistics = () => {
   const [total, setTotal] = React.useState();
   const [loading, setloading] = React.useState();
   const [highest, sethighest] = React.useState();
@@ -52,7 +52,7 @@ const Transections = () => {
     if (hours >= 24) {
       let day = hours / 24;
       return `${Math.floor(day)} Days ago`;
-    } else if (result.toPrecision(2) > 60) {
+    } else if (result.toPrecision(2) > 59) {
       return `${Math.floor(hours)} hrs ago`;
     } else {
       return `${Math.floor(result.toPrecision(2))} min ago`;
@@ -132,7 +132,7 @@ else{
             navigation.goBack();
           }}
         />
-        <ContentTitle title={'Latest Transactions'} style={{color: 'white'}} />
+        <ContentTitle title={'Top Statistics'} style={{color: 'white'}} />
       </Appbar.Header>
       {loading ? (
         <ActivityIndicator style={{textAlign: 'center'}} />
@@ -152,35 +152,32 @@ else{
                     width: '85%',
                     margin: 8,
                   }}>
-                  <Text
-                    style={{
-                      backgroundColor: '#012D5A',
-                      padding: 10,
-                      color: '#FFFFFF',
-                      opacity: 0.5,
-                    }}>
-                    {' '}
-                    TX
-                  </Text>
+                 
                   <View>
                     <TouchableOpacity onPress={() => move(item)}>
                       <Text
                         style={{
-                          color: '#F89D1C',
+                          color: 'white',  
                           paddingRight:10,
                         
                         }}>
-                        {(item.TxHash).substring(0, 7)}.....
+                  Top ETH Sender
                       </Text>
-                      <Text style={{color: 'white', opacity: 0.5}}>
-                        {datecal(item.Timestamp)}
+                      <Text style={{ color: '#F89D1C', opacity: 0.5}}>
+                      0XD8D98E..A1EE8604
                       </Text>
                     </TouchableOpacity>
                   </View>
-                  <Text style={{color:"#FFFFFF",opacity:0.5,width:100}}
+                  <View>
+                  <Text style={{color:"#FFFFFF",opacity:0.5}}
                >
-                  {item.TxType}
+           Total ETH
                   </Text>
+                  <Text style={{  color: '#FFFFFF',opacity:0.75}}
+               >
+           250,000
+                  </Text>
+                  </View>
                 </View>
                 <View
                   style={{
@@ -213,4 +210,4 @@ else{
   );
 };
 
-export default Transections;
+export default Statistics;

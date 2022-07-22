@@ -87,49 +87,49 @@ class Authentication extends Component {
   }
 
   login = async () => {
-    // this.setState({ spinner: true }, async () => {
-    //   try {
-    //     let user = await MultiSafeHelper.getDefaultUser(this.state.password)
-    //     if (user) {
-    //       FlashNotification.hideMessage()
-    //       UserStore.setUser(user)
+    this.setState({ spinner: true }, async () => {
+      try {
+        let user = await MultiSafeHelper.getDefaultUser(this.state.password)
+        if (user) {
+          FlashNotification.hideMessage()
+          UserStore.setUser(user)
 
-    //       LogStore.log(
-    //         `User in Authentication found is ${JSON.stringify(user)}`
-    //       )
+          LogStore.log(
+            `User in Authentication found is ${JSON.stringify(user)}`
+          )
 
-    //       // cache the password
-    //       UserStore.setPassword(this.state.password)
-    //       let errorMessage = null
+          // cache the password
+          UserStore.setPassword(this.state.password)
+          let errorMessage = null
 
-    //       try {
-    //         await UserData.loadUserData(user)
-    //       } catch (error) {
-    //         FlashNotification.showError(error)
-    //         LogStore.log(error)
-    //         errorMessage = error.message
-    //       }
+          try {
+            await UserData.loadUserData(user)
+          } catch (error) {
+            FlashNotification.showError(error)
+            LogStore.log(error)
+            errorMessage = error.message
+          }
 
-    //       this.setState({ spinner: false }, () => {
-    //         this.props.navigation.replace('Drawer', {
-    //           screen: 'DashboardNav',
-    //           params: {
-    //             screen: 'Dashboard',
-    //             params: { error: errorMessage }
-    //           }
-    //         })
-    //       })
-    //     } else {
-    //       this.showLoginError()
-    //       this.setState({ spinner: false })
-    //     }
-    //   } catch (error) {
-    //     LogStore.log(error)
-    //     this.showLoginError()
-    //     this.setState({ spinner: false })
-    //   }
-    // })
-    this.props.navigation.navigate("Blockchain Explorer", {screen: 'Explore'});
+          this.setState({ spinner: false }, () => {
+            this.props.navigation.replace('Drawer', {
+              screen: 'DashboardNav',
+              params: {
+                screen: 'Dashboard',
+                params: { error: errorMessage }
+              }
+            })
+          })
+        } else {
+          this.showLoginError()
+          this.setState({ spinner: false })
+        }
+      } catch (error) {
+        LogStore.log(error)
+        this.showLoginError()
+        this.setState({ spinner: false })
+      }
+    })
+    // this.props.navigation.navigate("Blockchain Explorer", {screen: 'Explore'});
   }
 
   showExitApp () {

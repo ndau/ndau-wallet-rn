@@ -82,34 +82,35 @@ class SetupRecoveryPhrase extends Component {
 
   generateRecoveryPhrase = async () => {
     try{
-    console.log(SetupStore.entropy,"Setup Entropy");
-    debugger;
+    // console.log(SetupStore.entropy,"Setup Entropy");
+    // debugger;
     const KeyaddrManager = NativeModules.KeyaddrManager;
 console.log({KeyaddrManager});
 
-//     const seed = await KeyaddrManager.keyaddrWordsFromBytes(
-//       AppConstants.APP_LANGUAGE,
-//       SetupStore.entropy
-//     )
+    const seed = await KeyaddrManager.keyaddrWordsFromBytes(
+      AppConstants.APP_LANGUAGE,
+      SetupStore.entropy
+    )
 
-// console.log(seed);
+ console.log(seed);
 
-//     const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(
-//       AppConstants.APP_LANGUAGE,
-//       seeds
-//     )
-//     console.log(seedBytes);
-    // if (!_(seedBytes).isEqual(SetupStore.entropy)) {
-    //   this.showExitApp()
-    // } else {
-    //   LogStore.log(`the seedBytes and entropy are equal.`)
-    // }
-    const seeds=['aaaa', 'aaaa', 'aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa']
-  const a=bip39.generateMnemonic().split(" ");
+    const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(
+      AppConstants.APP_LANGUAGE,
+      seed
+    )
+    console.log(seedBytes);
+    if (!_(seedBytes).isEqual(SetupStore.entropy)) {
+      this.showExitApp()
+    } else {
+      LogStore.log(`the seedBytes and entropy are equal.`)
+    }
+    // const seeds=['aaaa', 'aaaa', 'aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa']
+  // const a=bip39.generateMnemonic().split(" ");
   // console.log(bip39.generateMnemonic(),"bip39")
   // console.log(randomWords(12),"random number")
     // const recoveryPhrase = randomWords(12)
-      const recoveryPhrase =a;
+      // const recoveryPhrase =a;
+      const recoveryPhrase = seed.split(/\s+/g)
     this.setState({ recoveryPhrase: recoveryPhrase })
 
     // Shuffle the deck with a Fisher-Yates shuffle algorithm;

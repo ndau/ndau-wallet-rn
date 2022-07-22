@@ -268,13 +268,13 @@ export function ProgressBar (props) {
   return (
     <View style={styles.progressBarContainer}>
       <View style={styles.backArrow}>
-        {/* <Icon
+        <Icon
           size={32}
           name='arrow-left'
           color={AppConstants.ICON_BUTTON_COLOR}
           onPress={props.goBack}
           type='light'
-        /> */}
+        />
       </View>
       <Progress
         progress={props.pageNumber ? props.pageNumber / SETUP_SCREEN_TOTAL : 0}

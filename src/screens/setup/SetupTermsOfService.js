@@ -69,17 +69,21 @@ console.log("222");
             ),
             SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
             SetupStore.numberOfAccounts,
+            SetupStore.entropy,
             SetupStore.encryptionPassword,
             SetupStore.addressType
           )
         }
 console.log(user,"after setup new user")
-        await UserData.loadUserData(user)
+await UserData.loadUserData(user)
+console.log("console .. 76");
+this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
 
-        UserStore.setPassword(SetupStore.encryptionPassword)
+UserStore.setPassword(SetupStore.encryptionPassword)
 
         this.setState({ spinner: false }, () => {
-          this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
+          console.log("console .. 77");
+          this.props.navigation.replace('Drawer', { screen: 'Dashboard' })
         })
       } catch (error) {
         FlashNotification.showError(new OfflineError(
@@ -97,17 +101,17 @@ console.log(user,"after setup new user")
   }
 
   performFinishingAction = () => {
-    this.props.navigation.replace("Explore");
-    // let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP
-    // switch (mode) {
-    //   case AppConstants.TOS_BUY:
-    //     this.goBuyNdau()
-    //     break
-    //   case AppConstants.TOS_SETUP:
-    //   default:
-    //     this.finishSetup()
-    //     break
-    // }
+    // this.props.navigation.replace("Explore");
+    let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP
+    switch (mode) {
+      case AppConstants.TOS_BUY:
+        this.goBuyNdau()
+        break
+      case AppConstants.TOS_SETUP:
+      default:
+        this.finishSetup()
+        break
+    }
   }
 
   render () {

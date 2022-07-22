@@ -25,7 +25,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import NotificationService from './services/NotificationService'
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
-
+configureFontAwesomePro();
 LogBox.ignoreLogs([
   'Warning: isMounted(...) is deprecated',
   'Module RCTImageLoader'
@@ -38,9 +38,6 @@ LogBox.ignoreLogs([
 'Require cycle:'
 ])
 LogBox.ignoreLogs(['Class RCTCxxModule'])
-configureFontAwesomePro()
-// configureFontAwesomePro('solid')
-// configureFontAwesomePro('light')
 
 const { UIManager } = NativeModules
 UIManager.setLayoutAnimationEnabledExperimental &&
@@ -82,6 +79,8 @@ export default class App extends React.Component {
   }
 
   render () {
+    configureFontAwesomePro('solid')
+configureFontAwesomePro('light')
     const { net } = this.state
     const isNetShown = net !== 'mainnet' && net !== ''
     return (

@@ -30,6 +30,12 @@ import ContactSupport from '../screens/ContactSupport'
 import Explore from '../screens/Explore'
 import Block from '../screens/Block'
 import Transections from '../screens/Transections'
+import DetailBlock from '../screens/DetailBlock'
+import DetailTransection from '../screens/DetailTransections'
+import Stats from '../screens/stats'
+import RichList from '../screens/RichList'
+import Statistics from '../screens/Statistics'
+import ScanQR from '../screens/ScanQR'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -49,6 +55,7 @@ const SetupStack = () => {
     <Stack.Navigator screenOptions={{ headerShown:false }}>
       <Stack.Screen name="SetupWelcome" component={SetupWelcome} />
       <Stack.Screen name="Explore" component={Explore} />
+      <Stack.Screen name="DetailBlock" component={DetailBlock} />
       <Stack.Screen name="SetupWalletName" component={SetupWalletName} />
       <Stack.Screen name="SetupNewOrRecovery" component={SetupNewOrRecovery} />
       <Stack.Screen name="SetupEncryptionPassword" component={SetupEncryptionPassword} />
@@ -72,9 +79,20 @@ const AppContainer = (props) => {
       <Stack.Screen name="Blockchain Explorer" component={Explore} />
       <Stack.Screen name="Transection" component={Transections} />
       <Stack.Screen name="Block" component={Block} />
+      <Stack.Screen name="DetailBlock" component={DetailBlock} />
       <Stack.Screen name="ContactSupport" component={ContactSupport} />
       <Stack.Screen name="Setup" component={SetupStack} />
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      <Stack.Screen name="DetailTransection" component={DetailTransection} />
+      <Stack.Screen name='ScanQR' component={ScanQR}/>
+      <Stack.Screen name="stats" component={Stats} />
+      <Stack.Screen name="RichList" component={RichList} />
+      <Stack.Screen name="Statistics" component={Statistics} />
+      
+      
+      
+    
+
     </Stack.Navigator>
   )
 }

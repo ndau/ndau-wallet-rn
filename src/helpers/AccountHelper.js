@@ -42,36 +42,24 @@ import BIP32Factory from 'bip32';
   recoveryPhraseString,
   walletId,
   numberOfAccounts,
+  entropy,
   encryptionPassword,
   addressType = AppConstants.MAINNET_ADDRESS
 ) => {
   if (!user) {
     LogStore.log('Generating all keys from phrase given...')
-    console.log(recoveryPhraseString);
-    // const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-    //   AppConstants.APP_LANGUAGE,
-      
-    // )
-    const recoveryPhraseAsBytes=bip39.mnemonicToSeedSync(recoveryPhraseString).toString('hex');
-    // function strToUtf16Bytes(str) {
-    //   const bytes = [];
-    //   for (let ii = 0; ii < str.length; ii++) {
-    //     const code = str.charCodeAt(ii); // x00-xFFFF
-    //     bytes.push(code & 255, code >> 8); // low, high
-    //   }
-    //   return bytes;
-    // }
-    // const recoveryPhraseAsBytes=strToUtf16Bytes(recoveryPhraseString).join(",");
-console.log(recoveryPhraseAsBytes);
+    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+      AppConstants.APP_LANGUAGE,
+      recoveryPhraseString
+    )
+
     user = await createFirstTimeUser(
       recoveryPhraseAsBytes,
       walletId,
       addressType,
       numberOfAccounts
     )
-    console.log(user);
   }
-  console.log(user,"first user");
 
   return MultiSafeHelper.saveUser(
     user,
@@ -202,7 +190,9 @@ console.log(recoveryPhraseAsBytes);
   }
 
   if (recoveryBytes) {
+    console.log("Inside wallet create and inside recoveryBytes",recoveryBytes)
     accountCreationKey = await _createAccountCreationKey(recoveryBytes)
+    console.log("Inside wallet create and  after",accountCreationKey)
   }
 
   try {
@@ -388,20 +378,18 @@ const _createAccounts = async (
 }
 
 const _createAccountCreationKey = async recoveryBytes => {
-  console.log("testing account");
-  const bip32 = BIP32Factory();
-  let node= bip32.fromBase58(recoveryBytes);
-  let child= node.derivePath('m/0/0');
-  console.log("key pass",child);
-  // const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-  //   recoveryBytes
-  // )
-  // const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
-  //   rootPrivateKey,
-  //   '/',
-  //   KeyPathHelper.accountCreationKeyPath()
-  // )
-  return child;
+  console.log("testing account",recoveryBytes);
+  const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
+    recoveryBytes
+  )
+  console.log('accountCreationKey....',rootPrivateKey)
+  const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
+    rootPrivateKey,
+    '/',
+    KeyPathHelper.accountCreationKeyPath()
+  )
+  console.log('accountCreationKey....',accountCreationKey)
+  return accountCreationKey;
 }
 
 const _createInitialKeys = async (wallet, accountCreationKey) => {

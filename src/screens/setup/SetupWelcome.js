@@ -10,7 +10,9 @@
 
 import React, { Component } from 'react'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NativeModules } from 'react-native';
 import { BackHandler,Button } from 'react-native'
+import KeyPathHelper from '../../helpers/KeyPathHelper';
 import SettingsStore from '../../stores/SettingsStore'
 import WalletConnectClient from '@walletconnect/client/dist/umd/index.min';
 import {
@@ -44,31 +46,45 @@ class SetupWelcome extends Component {
   componentDidMount = async () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
     await SettingsStore.useMainNet()
-    try{
-    const client = await WalletConnectClient.init({
-      controller: true,
-      projectId: "0c8a9a722b71919b51bc0975e47c4d7d",
-      relayUrl: "wss://relay.walletconnect.com",
+//     try{
+//     const client = await WalletConnectClient.init({
+//       controller: true,
+//       projectId: "0c8a9a722b71919b51bc0975e47c4d7d",
+//       relayUrl: "wss://relay.walletconnect.com",
    
-        metadata: {
-          name: 'React Wallet',
-          description: 'React Wallet for WalletConnect',
-          url: 'https://walletconnect.com/',
-          icons: ['https://avatars.githubusercontent.com/u/37784886']
-        },
-        storageOptions: {
-          asyncStorage: AsyncStorage,
-        },
-      })
+//         metadata: {
+//           name: 'React Wallet',
+//           description: 'React Wallet for WalletConnect',
+//           url: 'https://walletconnect.com/',
+//           icons: ['https://avatars.githubusercontent.com/u/37784886']
+//         },
+//         storageOptions: {
+//           asyncStorage: AsyncStorage,
+//         },
+//       })
     
-    console.log(client);
-      const session = await client.pair({uri:"wc:2dc5b95f047583f5635acfd79127cc4d131148ae30c9f0006df38d5053b6a4c6@2?controller=false&publicKey=82a2d8c3773d84fb98defdf030cffabc3b31ad97487ee878bb98588b8534a402&relay=%7B%22protocol%22%3A%22waku%22%7D"})
-      console.log("AWAIS HELLO");
- console.log(session,33);
-  }
-  catch(e){
-    console.log(e);
-  }
+//     console.log(client);
+//       const session = await client.pair({uri:"wc:2dc5b95f047583f5635acfd79127cc4d131148ae30c9f0006df38d5053b6a4c6@2?controller=false&publicKey=82a2d8c3773d84fb98defdf030cffabc3b31ad97487ee878bb98588b8534a402&relay=%7B%22protocol%22%3A%22waku%22%7D"})
+//       console.log("AWAIS HELLO");
+//  console.log(session,33);
+//   }
+//   catch(e){
+//     console.log(e);
+//   }
+
+
+
+console.log("testing account",'sO/ozAQ04oe8r67Lesc9Pg==');
+const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
+  'sO/ozAQ04oe8r67Lesc9Pg=='
+)
+console.log('accountCreationKey....',rootPrivateKey)
+const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
+  rootPrivateKey,
+  '/',
+  KeyPathHelper.accountCreationKeyPath()
+)
+console.log('accountCreationKey....',accountCreationKey)
   }
 
   showNextSetup = () => {
