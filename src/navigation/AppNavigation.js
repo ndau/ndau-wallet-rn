@@ -36,6 +36,10 @@ import Stats from '../screens/stats'
 import RichList from '../screens/RichList'
 import Statistics from '../screens/Statistics'
 import ScanQR from '../screens/ScanQR'
+import ExploreStack from './ExplorerNavigation'
+import Account from '../screens/Accounts'
+import AllTransactions from '../screens/AllTransactions'
+import FilterByTypeTransactions from '../screens/FilterByTypeTransactions'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -46,6 +50,7 @@ const DrawerNavigator = () => {
         <Drawer.Screen name="DashboardNav" component={DashboardNavigation} />
         <Drawer.Screen name="ContactSupportNav" component={ContactSupportNavigation} />
         <Drawer.Screen name="SettingsNav" component={SettingsNavigation} />
+        <Drawer.Screen name="ExploreNav" component={ExploreStack} />
       </Drawer.Navigator>
   )
 }
@@ -88,7 +93,10 @@ const AppContainer = (props) => {
       <Stack.Screen name="stats" component={Stats} />
       <Stack.Screen name="RichList" component={RichList} />
       <Stack.Screen name="Statistics" component={Statistics} />
-      
+      <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="AllTransations" component={AllTransactions} />
+      <Stack.Screen name="FilterByTypeTransactions" component={FilterByTypeTransactions} />
+
       
       
     

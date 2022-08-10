@@ -129,11 +129,12 @@ const Block = () => {
                     {' '}
                     BK
                   </Text>
-                  <View>
+                  <View style={{width:'30%'}}>
                     <TouchableOpacity onPress={() => move(item)}>
                       <Text
                         style={{
                           color: '#F89D1C',
+                          textAlign:'left',
                           textDecorationLine: 'underline',
                         }}>
                         {item.header.height}

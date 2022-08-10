@@ -16,7 +16,9 @@ import './shim.js'
 import crypto from 'crypto'
 import BackgroundTasks from './src/services/BackgroundTasks'
 
-
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 AppRegistry.registerComponent('nduwallet', () => App)
 BackgroundTasks.register()

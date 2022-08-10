@@ -362,14 +362,14 @@ export function CheckBox (props) {
         onPress={() => onValueChange(!checked)}
         {...props}
       >
-        {/* {isChecked && !checkComponent && (
+        {isChecked && !checkComponent && (
           <Icon
             color={AppConstants.TEXT_COLOR}
             name='check'
             size={18}
             type='light'
           />
-        )} */}
+        )}
         {isChecked && checkComponent}
       </TouchableOpacity>
       <P style={[styles.checkboxLabel]} {...props}>
