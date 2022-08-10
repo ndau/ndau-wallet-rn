@@ -13,6 +13,12 @@ react: 17.0.2</br>
 react-native: 0.68.2,
 <h2>Build Instructions</h2>
 
+The font assets used by the ndau wallet app are specified in the .npmrc file in the ndau-wallet-rn folder. As these are licensed fonts they are not included here. Contact a member of the core team to get the access token you will need.
+
+     @fortawesome:registry=https://npm.fontawesome.com/</br>
+     //npm.fontawesome.com/:_authToken=YOUR_TOKEN_HERE</br>
+Replace YOUR_TOKEN_HERE with the FontAwesomePro token. The text above is correct - @fortawesome is not a typo. Now npm install:
+
      npm install
  <b>Note:Please try it on real Device,Due to some packages does not support in emulator.</b></br>
  
