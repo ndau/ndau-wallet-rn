@@ -35,6 +35,10 @@ class AppDrawer extends React.Component {
     this.closeDrawer()
     this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
   }
+  explorer = () => {
+    this.closeDrawer()
+    this.props.navigation.replace('Drawer', { screen: 'ExploreNav' })
+  }
 
   recoverWallet = async () => {
     this.closeDrawer()
@@ -139,6 +143,13 @@ class AppDrawer extends React.Component {
           >
             Settings
           </DrawerEntryItem>
+          <DrawerEntryItem
+            onPress={() => this.explorer()}
+            fontAwesomeIconName='cog'
+          >
+            Explore
+          </DrawerEntryItem>
+
 
           {!SettingsStore.isMainNetSync() ? (
             <View>

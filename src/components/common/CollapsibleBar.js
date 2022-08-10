@@ -91,6 +91,7 @@ class CollapsibleBar extends Component {
       style,
       iconStyle,
       title,
+      iconName,
       titleStyle,
       titleStyleLeft,
       titleStyleMiddle,
@@ -114,19 +115,19 @@ class CollapsibleBar extends Component {
             {this.props.titleRight !== undefined ? (
               this.props.titleMiddle ? (
                 <View style={styles.barTextTitleContainerWithMiddle}>
-                  <View>
-                    <Text style={[styles.barTitleLeft, titleStyleLeft]}>
+                  <View style={[styles.barTitleLeftStyle]}>
+                    <Text numberOfLines={1} style={[styles.barTitleLeft, titleStyleLeft]}>
                       {title}
                     </Text>
                   </View>
-                  <View>
-                    <Text style={[styles.barTitleMiddle, titleStyleMiddle]}>
+                  <View style={[styles.barTitleMiddleStyle]}>
+                    <Text numberOfLines={1} style={[styles.barTitleMiddle, titleStyleMiddle]}>
                       {titleMiddle}
                     </Text>
                   </View>
                   <View>
-                    <Text style={[styles.barTitleRight, titleStyleRight]}>
-                      <Text style={styles.ndauSmall}>n</Text>
+                    <Text numberOfLines={1} style={[styles.barTitleRight, titleStyleRight]}>
+                      {/* <Text style={styles.ndauSmall}>{titleRight?titleRight:n}</Text> */}
                       {titleRight}
                     </Text>
                   </View>
@@ -134,19 +135,19 @@ class CollapsibleBar extends Component {
               ) : (
                 <View style={styles.barTextTitleContainer}>
                   <View>
-                    <Text style={[styles.titleLeft, titleStyle]}>{title}</Text>
+                    <Text numberOfLines={1} style={[styles.titleLeft, titleStyle]}>{title}</Text>
                   </View>
 
                   <View>
-                    <Text style={[styles.barTitleRight, titleStyleRight]}>{titleRight}</Text>
+                    <Text numberOfLines={1} style={[styles.barTitleRight, titleStyleRight]}>{titleRight}</Text>
                   </View>
                 </View>
               )
             ) : (
-              <Text style={[styles.title, titleStyle]}>{title}</Text>
+              <Text numberOfLines={1} style={[styles.title, titleStyle]}>{title}</Text>
             )}
             <Icon
-              name={icon}
+              name={iconName?iconName:icon}
               size={this.props.iconSize || iconSize}
               color={this.props.tintColor || tintColor}
               containerStyle={[styles.icon, iconStyle]}

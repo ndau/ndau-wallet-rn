@@ -62,8 +62,8 @@ class Dashboard extends Component {
 
     LogStore.log(`User to be drawn: ${JSON.stringify(user)}`)
 
-    if (Object.keys(user.wallets).length <= 1) {
-      WalletStore.setWallet(user.wallets[Object.keys(user.wallets)[0]])
+    if (Object.keys(user?.wallets).length <= 1) {
+      WalletStore.setWallet(user.wallets[Object.keys(user?.wallets)[0]])
       this.props.navigation.replace('WalletOverview')
     } else {
       this._loadMetricsAndSetState(user)
@@ -120,7 +120,7 @@ class Dashboard extends Component {
   }
 
   _showWalletOverview = wallet => {
-    WalletStore.setWallet(wallet)
+    WalletStore?.setWallet(wallet)
     this.props.navigation.navigate('WalletOverview')
   }
 
@@ -128,7 +128,7 @@ class Dashboard extends Component {
     try {
       const user = UserStore.getUser()
       const { totalNdau, totalSpendableNdau, currentPrice } = this.state
-      const wallets = Object.values(user.wallets)
+      const wallets = Object.values(user?.wallets)
 
       return (
         <AppContainer>
@@ -148,7 +148,7 @@ class Dashboard extends Component {
               titleRight='* at current price'
             />
             <DashboardLabel>Your wallets</DashboardLabel>
-            {wallets.map((wallet, index) => {
+            {wallets?.map((wallet, index) => {
               const walletName = DataFormatHelper.getWalletName(wallet)
               return (
                 <DashboardPanel

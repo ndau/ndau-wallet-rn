@@ -15,12 +15,14 @@ import {WebView} from 'react-native-webview';
 import {Appbar, Button, Searchbar, Card} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-
+import {DrawerActions} from '@react-navigation/native';
+import { DrawerHeader } from '../components/drawer'
 const Explore = () => {
   const [data, setData] = React.useState({});
   const [loading, setloading] = React.useState(true);
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
+  const [error,setError]=React.useState(false);
   const [items, setItems] = React.useState([
     {label: 'Rich List', value: 'Rich List'},
     {label: 'Top Statistics', value: 'Top Statistics'},
@@ -28,14 +30,24 @@ const Explore = () => {
 
   React.useEffect(() => {
     setloading(true);
+    console.log('mount')
+    dataarray()
     axios.get('https://mainnet-0.ndau.tech:3030/price/current').then(res => {
       setData(res.data);
       setloading(false);
     });
 
     addusd();
-  }, []);
 
+    return ()=>{
+      console.log('unmount')
+    }
+  },[]);
+
+
+
+
+ 
 
   const moveBy=(val)=>{
     if (val == 'Rich List') {
@@ -55,7 +67,19 @@ const Explore = () => {
   );
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const onChangeSearch = query => setSearchQuery(query);
+  const onChangeSearch = query =>{ 
+    
+    setSearchQuery(query);
+    if(query.length ==0)
+    {
+      console.log('empty,.....')
+      setError(true)
+    }
+    else{
+      setError(false)
+    }
+  
+  };
   const navigation = useNavigation();
   const convertNapuToNdau = (napuAmount, humanize = true, decimals = 8) => {
     if (napuAmount === 0 || napuAmount) {
@@ -114,7 +138,6 @@ const Explore = () => {
         useGrouping: true,
         minimumSignificantDigits: 1,
       });
-
       if (minimumDecimals && typeof minimumDecimals === 'number') {
         let decimalPlace = numberString.indexOf('.');
         if (decimalPlace === -1) {
@@ -133,14 +156,68 @@ const Explore = () => {
     }
   };
 
-  // Returns the price of the next ndau given the number already sold
+  // Returns the price of the next ndau given the number already 
+  close=()=>{
+
+    navigation.dispatch(DrawerActions.openDrawer())
+  }
+
+  const dataarray=()=>{
+    const chunkSize = 10;
+  const arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+  const groups = arr.map((e, i) => { 
+       return i % chunkSize === 0 ? arr.slice(i, i + chunkSize) : null; 
+  }).filter(e => { return e; });
+  console.log(groups[0])
+  }
+  goToTransactions=(val)=>{
+    console.log('value',val)
+
+    axios
+            .get(
+              // `https://mainnet-1.ndau.tech:3030/account/account/${val}`,
+              `https://mainnet-1.ndau.tech:3030/transaction/detail/${val}?node=mainnet`
+            )
+            .then(res => {
+            
+              if(res.data){
+              console.log('data',res);
+               navigation.navigate('DetailTransection',{val:res.data});
+               setError(false)
+            
+              // setItems(res.data[val]?.validationKeys.map((val)=>({label:val.substring(0, 40)+'...' ,value:val.substring(0, 40) +'...' })))
+              }
+              else{
+                console.log('empty')
+                setError(true)
+                //  navigation.navigate('DetailTransection',{val:res.data});
+
+                // setEmpty(res.data[val]);
+              }
+              // setloading(false);
+          
+            }).catch((e)=>{
+              console.log('error',e);
+              setError(true)
+              // setloading(false);
+    // setError(true);
+    
+            });
+
+    //  
+
+
+  }
 
   return (
     <View style={{flex: 1, backgroundColor: '#181F28'}}>
+          {/* <DrawerHeader {...this.props}>Dashboard</DrawerHeader> */}
+
       <Appbar.Header style={{backgroundColor: '#181F28'}}>
-        <Appbar.Action icon="menu" onPress={() => this.close()} />
+        <Appbar.Action icon="menu" onPress={() => close()} />
         <ContentTitle title={'Blockchain Explorer'} style={{color: 'white'}} />
       </Appbar.Header>
+      
       <View style={{flex: 1}}>
         <ScrollView>
           <Grid>
@@ -153,12 +230,30 @@ const Explore = () => {
                   color: '#FFFFFF',
                 }}
                 placeholder="Search"
+                inputStyle={{color:'#ffff'}}
                 iconColor="#FFFFFF"
                 placeholderTextColor="#ffffff"
                 onChangeText={onChangeSearch}
+              onSubmitEditing={()=>{
+                if(searchQuery.length==48)
+                {
+                  navigation.navigate('Account',{val:searchQuery});
+                }
+                else if(searchQuery.length==22)
+                {
+                    goToTransactions(searchQuery);
+             
+                }
+                else{
+                  setError(true)
+                  // alert('Invalid Entery');
+                }
+              }}
                 value={searchQuery}
               />
+              {error && searchQuery.length !=0 ?  <Text style={{color:'red'}}>Invalid Entry</Text>:null}
             </View>
+            
             <Row style={{marginTop: 5, alignItems: 'center'}}>
               <Col
                 size={19}
@@ -188,7 +283,8 @@ const Explore = () => {
                 }}>
                 <TouchableOpacity
                 style={{alignItems:"center"}}
-                  onPress={() => navigation.navigate('Transection')}>
+                  onPress={() =>
+                   navigation.navigate('Transection')}>
                   <Image
                     source={require('./dollars.png')}
               
@@ -213,12 +309,14 @@ const Explore = () => {
                     }}>
                     <DropDownPicker
                     autoScroll={false}
+                    theme="DARK"
                     onChangeValue={(value)=>moveBy(value)}
                       style={{
                         backgroundColor: '#012D5A',
-                        color: '#F89D1C',
+                        color: '#FFFF',
                         paddingVertical: 20,
                         borderWidth: 0,
+                        
                       }}
                   
                     
@@ -235,12 +333,17 @@ const Explore = () => {
                         color: '#F89D1C',
                       }}
                       listItemLabelStyle={{
-                        color: '#8096AD',
+                        color: '#ffff',
                       }}
+                      
                       placeholder="Select "
                       open={open}
                       value={value}
                       items={items}
+                      onSelectItem={(value)=>{
+                        moveBy(value.value)
+                        // console.log('value',value.value)
+                      }}
                       setOpen={setOpen}
                       setValue={setValue}
                       setItems={setItems}
@@ -343,12 +446,13 @@ const Explore = () => {
                       style={{
                         flexDirection: 'column',
                         alignItems: 'center',
-                        padding: 20,
+                        paddingVertical: 20,
+                        
 
                         borderLeftWidth: 1,
                         borderColor: 'grey',
                       }}>
-                      <Text style={{color: 'grey'}}>NDAU IN CIRCULATION</Text>
+                      <Text style={{color: 'grey',textAlign:'center'}}>NDAU IN CIRCULATION</Text>
 
                       <Text
                         style={{
@@ -382,7 +486,29 @@ const Explore = () => {
                   </Col>
                 </Row>
                 <View style={{flex: 1, marginTop: 5}} collapsable={false}>
-                  <WebView
+                <WebView
+                    style={{
+                      height: 230,
+                      
+                      width: '95%',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                    }}
+          source={{
+            
+            html: `<!DOCTYPE html>
+                  <html>
+                  <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=0.73">
+                  </head>
+                  <body>
+                    <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
+                    <script src="https://widget.nomics.com/embed.js"></script>
+                  </body>
+                  </html>`
+          }}
+        />
+                  {/* <WebView
                     style={{
                       height: 230,
                       width: '95%',
@@ -442,7 +568,7 @@ const Explore = () => {
                   </body>
                   </html>`,
                     }}
-                  />
+                  /> */}
                 </View>
               </Col>
             </Row>

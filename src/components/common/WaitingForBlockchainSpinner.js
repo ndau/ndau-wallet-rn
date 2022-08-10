@@ -13,9 +13,11 @@ import Spinner from 'react-native-loading-spinner-overlay'
 
 class WaitingForBlockchainSpinner extends Component {
   render () {
-    return (
+
+    console.log(this.props.spinner)
+    return  this.props.spinner && (
       <Spinner
-        visible={this.props.spinner}
+        visible={true}
         textContent={this.props.label || 'Talking to blockchain...'}
         textStyle={{
           color: '#ffffff',

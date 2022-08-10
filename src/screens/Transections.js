@@ -162,7 +162,7 @@ else{
                     {' '}
                     TX
                   </Text>
-                  <View>
+                  <View style={{width:'30%'}}>
                     <TouchableOpacity onPress={() => move(item)}>
                       <Text
                         style={{
@@ -201,7 +201,6 @@ else{
               numberOfPages={Math.ceil(highest / numberOfItemsPerPage)}
               onPageChange={pages => {setOldPage(page); setPage(pages)}}
               label={`${from + 1}-${to} of ${highest}`}
-        
               numberOfItemsPerPage={numberOfItemsPerPage}
               onItemsPerPageChange={onItemsPerPageChange}
               selectPageDropdownLabel={'Rows per page'}
