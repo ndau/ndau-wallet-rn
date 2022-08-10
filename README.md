@@ -2,35 +2,42 @@
 React Native implementation of the ndau wallet application
 
 
-Software Versions
+<h2>Software Versions</h2>
+
 These instructions are current as of the following releases:
 
+node v16.15.1</br>
+npm 8.11.0</br>
+Cocoapods 1.11.2</br>
+react: 17.0.2</br>
+react-native: 0.68.2,
+<h2>Build Instructions</h2>
 
-
-node v16.15.1
-npm 8.11.0
-Cocoapods 1.11.2
-"react": "17.0.2",
-    "react-native": "0.68.2",
-npm: 
-
-Error: Unable to resolve module stream from D:\myProject\today\node_modules\cipher-base\index.js: stream could not be found within the project or in these directories:
-  node_modules
-  1 | var Buffer = require('safe-buffer').Buffer
-> 2 | var Transform = require('stream').Transform
+     npm install
+ <b>Note:Please try it on real Device,Due to some packages does not support in emulator.</b></br>
+ 
+ <h2>Troubleshooting</h2>
+<b>Error:</b> Unable to resolve module stream from D:\Project\node_modules\cipher-base\index.js: stream could not be found within the project or in these directories:
+  node_modules</br>
+  1 | var Buffer = require('safe-buffer').Buffer</br>
+> 2 | var Transform = require('stream').Transform</br>
     |                          ^
-  3 | var StringDecoder = require('string_decoder').StringDecoder
+  3 | var StringDecoder = require('string_decoder').StringDecoder</br>
   4 | var inherits = require('inherits')
+</br>
+     
+     
+     install npm i stream 
 
-install npm i stream
 
-
-A problem occurred evaluating project ':randombytes'.
+<b>A problem occurred evaluating project ':randombytes'.</b>
 > Could not find method compile() for arguments [com.facebook.react:react-native:0.13.+] on object of type org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler.
 
  Cannot find module '@babel/plugin-transform-shorthand-properties'
 
-    "@babel/preset-env":"7.18.0",
+   add package.json devdependency
+   
+     "@babel/preset-env":"7.18.0",
 
 
 
