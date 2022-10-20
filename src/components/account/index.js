@@ -409,10 +409,10 @@ export function AccountTotalPanel (props) {
     )
   ).toDetail()
   return (
-    <View style={styles.ndauTotalContainerMedium}>
+    <TouchableOpacity style={styles.ndauTotalContainerMedium} onPress={()=>{props.onPress()}}>
       <P style={styles.ndauMedium}>n</P>
       <H4 style={styles.accountTotalPanelText}>{amount}</H4>
-    </View>
+    </TouchableOpacity>
   )
 }
 

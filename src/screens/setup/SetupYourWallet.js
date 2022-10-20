@@ -21,6 +21,7 @@ class SetupYourWallet extends Component {
     props.navigation.addListener('blur', FlashNotification.hideMessage)
   }
   showNextSetup = async () => {
+    console.log(3);
     await EntropyHelper.generateEntropy()
     this.props.navigation.navigate('SetupRecoveryPhrase')
   }

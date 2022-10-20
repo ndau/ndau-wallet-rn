@@ -19,8 +19,8 @@ xcuserdata
 DerivedData
 *.hmap
 *.ipa
-**/*.xcuserstate
-project.xcworkspace
+*.xcuserstate
+ios/.xcode.env.local
 
 # Android/IntelliJ
 #
@@ -36,13 +36,12 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-!examples/npmrc/.npmrc
-/.npmrc
 
 # BUCK
 buck-out/
 \.buckd/
 *.keystore
+!debug.keystore
 
 # fastlane
 #
@@ -51,20 +50,14 @@ buck-out/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/
 
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
 
 # Bundle artifact
 *.jsbundle
 
-/remote-content
-/assets/fonts
-/android/app/src/main/assets/fonts
-
-# make sure we never check in the user test data component
-/src/helpers/UserTestData.js
-.npmrc
-
-# CocoaPods
+# Ruby / CocoaPods
 /ios/Pods/
+/vendor/bundle/

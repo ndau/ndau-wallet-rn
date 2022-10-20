@@ -89,7 +89,7 @@ const get = async (url, retries = AppConfig.API_MAX_RETRIES, timeoutMS = AppConf
         )
         const response = await axios.get(url, { timeout: timeoutMS })
 
-        LogStore.log(`Response is: ${JSON.stringify(response)}`)
+        // LogStore.log(`Response is: ${JSON.stringify(response)}`)
         resolve(response.data)
       } catch (error) {
         const safeStatus =

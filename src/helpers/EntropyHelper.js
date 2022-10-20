@@ -23,9 +23,14 @@ import { generateSecureRandom } from 'react-native-securerandom'
  * @returns {string} Base64 version of entropy
  */
 const generateEntropy = async (byteCount = 16) => {
-  const secureRandom = await generateSecureRandom(byteCount)
+  let initArray =new Uint8Array(byteCount);
+  console.log({initArray});
+  const secureRandom = await crypto.getRandomValues(initArray);
+  console.log({secureRandom});
   const secureRandomString = String.fromCharCode.apply(null, secureRandom)
+  console.log({secureRandomString});
   const base64Value = Base64.encode(secureRandomString)
+  console.log({base64Value});
 
   SetupStore.entropy = base64Value
   return base64Value

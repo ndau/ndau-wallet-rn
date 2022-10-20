@@ -46,7 +46,7 @@ class SetupTermsOfService extends Component {
     this.setState({ spinner: true }, async () => {
       try {
         LogStore.log('Finishing Setup...')
-
+console.log("222");
         let user = UserStore.getUser()
 
         if (user) {
@@ -69,19 +69,24 @@ class SetupTermsOfService extends Component {
             ),
             SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
             SetupStore.numberOfAccounts,
+            SetupStore.entropy,
             SetupStore.encryptionPassword,
             SetupStore.addressType
           )
         }
+console.log(user,"after setup new user")
+await UserData.loadUserData(user)
+console.log("console .. 76");
+this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
 
-        await UserData.loadUserData(user)
-
-        UserStore.setPassword(SetupStore.encryptionPassword)
+UserStore.setPassword(SetupStore.encryptionPassword)
 
         this.setState({ spinner: false }, () => {
-          this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
+          console.log("console .. 77");
+          this.props.navigation.replace('Drawer', { screen: 'Dashboard' })
         })
       } catch (error) {
+        console.log("console .. 76",error);
         FlashNotification.showError(new OfflineError(
           error.message
             ? error.message
@@ -97,6 +102,7 @@ class SetupTermsOfService extends Component {
   }
 
   performFinishingAction = () => {
+    // this.props.navigation.replace("Explore");
     let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP
     switch (mode) {
       case AppConstants.TOS_BUY:

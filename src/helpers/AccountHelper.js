@@ -39,6 +39,7 @@ import LogStore from '../stores/LogStore'
   recoveryPhraseString,
   walletId,
   numberOfAccounts,
+  entropy,
   encryptionPassword,
   addressType = AppConstants.MAINNET_ADDRESS
 ) => {
@@ -81,6 +82,7 @@ import LogStore from '../stores/LogStore'
   chainId = AppConstants.MAINNET_ADDRESS,
   numberOfAccounts = 0
 ) => {
+  console.log('inside first user');
   if (!recoveryBytes) {
     throw new Error('you MUST pass recoveryPhrase to this method')
   }
@@ -98,6 +100,7 @@ import LogStore from '../stores/LogStore'
         chainId,
         numberOfAccounts
       )
+      console.log(wallet,"wallet created");
       user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
     }
 
@@ -172,6 +175,7 @@ import LogStore from '../stores/LogStore'
   rootDerivedPath,
   wallet
 ) => {
+  console.log("Inside wallet create")
   if (!accountCreationKey && !recoveryBytes) {
     throw new Error(
       'you MUST pass either recoveryBytes or accountCreationKey to this method'
@@ -183,7 +187,9 @@ import LogStore from '../stores/LogStore'
   }
 
   if (recoveryBytes) {
+    console.log("Inside wallet create and inside recoveryBytes",recoveryBytes)
     accountCreationKey = await _createAccountCreationKey(recoveryBytes)
+    console.log("Inside wallet create and  after",accountCreationKey)
   }
 
   try {
@@ -369,15 +375,18 @@ const _createAccounts = async (
 }
 
 const _createAccountCreationKey = async recoveryBytes => {
+  console.log("testing account",recoveryBytes);
   const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
     recoveryBytes
   )
+  console.log('accountCreationKey....',rootPrivateKey)
   const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
     rootPrivateKey,
     '/',
     KeyPathHelper.accountCreationKeyPath()
   )
-  return accountCreationKey
+  console.log('accountCreationKey....',accountCreationKey)
+  return accountCreationKey;
 }
 
 const _createInitialKeys = async (wallet, accountCreationKey) => {

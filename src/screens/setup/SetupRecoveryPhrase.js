@@ -7,9 +7,9 @@
  * https://www.apache.org/licenses/LICENSE-2.0.txt
  * - -- --- ---- -----
  */
-
 import React, { Component } from 'react'
 import { PixelRatio, NativeModules, Alert } from 'react-native'
+
 import SetupStore from '../../stores/SetupStore'
 import {
   widthPercentageToDP as wp,
@@ -24,6 +24,7 @@ import {
 import FlashNotification from '../../components/common/FlashNotification'
 import { LargeButtons, ParagraphText } from '../../components/common'
 import DataFormatHelper from '../../helpers/DataFormatHelper'
+// import {crypto} from 'crypto-random-string/browser';
 
 var _ = require('lodash')
 
@@ -53,7 +54,12 @@ class SetupRecoveryPhrase extends Component {
   }
 
   componentDidMount = () => {
+    try{
     this.generateRecoveryPhrase()
+    }
+    catch(e){
+      console.log(e);
+    }
   }
 
   showExitApp () {
@@ -73,21 +79,36 @@ class SetupRecoveryPhrase extends Component {
   }
 
   generateRecoveryPhrase = async () => {
-    const KeyaddrManager = NativeModules.KeyaddrManager
-    const seeds = await KeyaddrManager.keyaddrWordsFromBytes(
+    try{
+    // console.log(SetupStore.entropy,"Setup Entropy");
+    // debugger;
+    const KeyaddrManager = NativeModules.KeyaddrManager;
+console.log({KeyaddrManager});
+
+    const seed = await KeyaddrManager.keyaddrWordsFromBytes(
       AppConstants.APP_LANGUAGE,
       SetupStore.entropy
     )
+
+ console.log(seed);
+
     const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(
       AppConstants.APP_LANGUAGE,
-      seeds
+      seed
     )
+    console.log(seedBytes);
     if (!_(seedBytes).isEqual(SetupStore.entropy)) {
       this.showExitApp()
     } else {
       LogStore.log(`the seedBytes and entropy are equal.`)
     }
-    const recoveryPhrase = seeds.split(/\s+/g)
+    // const seeds=['aaaa', 'aaaa', 'aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa']
+  // const a=bip39.generateMnemonic().split(" ");
+  // console.log(bip39.generateMnemonic(),"bip39")
+  // console.log(randomWords(12),"random number")
+    // const recoveryPhrase = randomWords(12)
+      // const recoveryPhrase =a;
+      const recoveryPhrase = seed.split(/\s+/g)
     this.setState({ recoveryPhrase: recoveryPhrase })
 
     // Shuffle the deck with a Fisher-Yates shuffle algorithm;
@@ -106,6 +127,10 @@ class SetupRecoveryPhrase extends Component {
       a[c] = i
       return a
     }, [])
+  }
+  catch(e){
+    alert(e);
+  }
   }
 
   showNextSetup = () => {

@@ -98,7 +98,7 @@ const _parseServicesForNodes = async (serviceDiscovery, type) => {
   let environment = await SettingsStore.getApplicationNetwork()
   // if we are in simulators then force to testnet
   if (__DEV__) {
-    await SettingsStore.useTestNet()
+    await SettingsStore.useMainNet()
     environment = await SettingsStore.getApplicationNetwork()
   }
 

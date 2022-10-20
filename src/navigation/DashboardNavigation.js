@@ -25,18 +25,21 @@ import AccountSetEAIType from '../screens/account/AccountSetEAIType'
 import AccountSetEAIChooseAccount from '../screens/account/AccountSetEAIChooseAccount'
 import AccountSetEAIConfirmation from '../screens/account/AccountSetEAIConfirmation'
 import AccountHistory from '../screens/account/AccountHistory'
+import useSignEventHandler from '../hooks/useSignEvents'
 
 
 const Stack = createNativeStackNavigator()
 const DashboardStack = ()  => {
+  useSignEventHandler()
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Dashboard' component={Dashboard} />
-      <Stack.Screen name='WalletOverview' component={WalletOverview} />
-      <Stack.Screen name='AccountDetails' component={AccountDetails} />
-      <Stack.Screen name='AccountLock' component={AccountLock} />
-      <Stack.Screen name='AccountLockType' component={AccountLockType} />
-      <Stack.Screen name='AccountLockChooseAccount' component={AccountLockChooseAccount} />
+    <Stack.Screen name='WalletOverview' component={WalletOverview} />
+        <Stack.Screen name='AccountDetails' component={AccountDetails} />
+    <Stack.Screen name='AccountLock' component={AccountLock} /> 
+ <Stack.Screen name='AccountLockType' component={AccountLockType} /> 
+       <Stack.Screen name='AccountLockChooseAccount' component={AccountLockChooseAccount} />
       <Stack.Screen name='AccountLockConfirmation' component={AccountLockConfirmation} />
       <Stack.Screen name='AccountUnlock' component={AccountUnlock} />
       <Stack.Screen name='AccountSend' component={AccountSend} />
@@ -45,7 +48,7 @@ const DashboardStack = ()  => {
       <Stack.Screen name='AccountSetEAIType' component={AccountSetEAIType} />
       <Stack.Screen name='AccountSetEAIChooseAccount' component={AccountSetEAIChooseAccount} />
       <Stack.Screen name='AccountSetEAIConfirmation' component={AccountSetEAIConfirmation} />
-      <Stack.Screen name='AccountHistory' component={AccountHistory} />
+      <Stack.Screen name='AccountHistory' component={AccountHistory} /> 
     </Stack.Navigator>
   )
 }

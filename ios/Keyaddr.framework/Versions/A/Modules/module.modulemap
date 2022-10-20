@@ -1,8 +1,0 @@
-framework module "Keyaddr" {
-	header "ref.h"
-    header "Keyaddr.objc.h"
-    header "Universe.objc.h"
-    header "Keyaddr.h"
-
-    export *
-}

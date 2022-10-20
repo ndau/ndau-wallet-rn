@@ -27,7 +27,7 @@ import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
-import { RNCamera } from 'react-native-camera'
+// import { RNCamera } from 'react-native-camera'
 import BarcodeMask from 'react-native-barcode-mask'
 import QRCode from 'react-native-qrcode-svg'
 // It would be ideal to use the below library as it is faster. However
@@ -311,13 +311,13 @@ export function LabelWithIcon (props) {
   return (
     <TouchableOpacity {...props} disabled={!props.textClickable} style={[styles.labelWithIconContainer, props.style]}>
       <P style={[styles.labelText, margin, props.textStyle]}>{props.children}</P>
-      <Icon
+      {/* <Icon
         size={props.iconSize || 24}
         name={props.fontAwesomeIconName}
         color={AppConstants.ICON_BUTTON_COLOR}
         type='light'
         {...props}
-      />
+      /> */}
     </TouchableOpacity>
   )
 }
@@ -516,13 +516,13 @@ export function ContentContainer (props) {
 export function CloseForBar (props) {
   return (
     <View style={styles.closeForBar}>
-      <Icon
+      {/* <Icon
         size={36}
         name='times'
         color={AppConstants.ICON_BUTTON_COLOR}
         onPress={props.close}
         type='light'
-      />
+      /> */}
     </View>
   )
 }
@@ -609,7 +609,7 @@ export function NdauQRCodeScanner (props) {
         backgroundColor: '#000'
       }}
     >
-      <RNCamera
+      {/* <RNCamera
         style={{
           flex: 1
         }}
@@ -618,7 +618,7 @@ export function NdauQRCodeScanner (props) {
       >
         <BarcodeMask width={250} height={250} showAnimatedLine={false} />
         {props.children}
-      </RNCamera>
+      </RNCamera> */}
     </View>
   )
 }

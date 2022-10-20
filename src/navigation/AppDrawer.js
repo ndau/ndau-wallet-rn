@@ -35,7 +35,14 @@ class AppDrawer extends React.Component {
     this.closeDrawer()
     this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
   }
-
+  explorer = () => {
+    this.closeDrawer()
+    this.props.navigation.replace('Drawer', { screen: 'ExploreNav' })
+  }
+  session = () => {
+    this.closeDrawer()
+    this.props.navigation.replace('Drawer', { screen: 'PairingNav' })
+  }
   recoverWallet = async () => {
     this.closeDrawer()
     this.props.navigation.navigate('Setup', {
@@ -138,6 +145,18 @@ class AppDrawer extends React.Component {
             fontAwesomeIconName='cog'
           >
             Settings
+          </DrawerEntryItem>
+          <DrawerEntryItem
+            onPress={() => this.explorer()}
+            fontAwesomeIconName='globe'
+          >
+            Explore
+          </DrawerEntryItem>
+          <DrawerEntryItem
+            onPress={() => this.session()}
+            fontAwesomeIconName='stopwatch'
+          >
+            Sessions
           </DrawerEntryItem>
 
           {!SettingsStore.isMainNetSync() ? (

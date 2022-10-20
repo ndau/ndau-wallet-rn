@@ -1,21 +1,27 @@
-/* ----- ---- --- -- -
- * Copyright 2020 The Axiom Foundation. All Rights Reserved.
- *
- * Licensed under the Apache License 2.0 (the "License").  You may not use
- * this file except in compliance with the License.  You can obtain a copy
- * in the file LICENSE in the source distribution or at
- * https://www.apache.org/licenses/LICENSE-2.0.txt
- * - -- --- ---- -----
+/**
+ * @format
  */
+import {AppRegistry} from 'react-native';
 
-import { AppRegistry } from 'react-native'
-import App from './src/app'
-import LogStore from './src/stores/LogStore'
 import BackgroundTasks from './src/services/BackgroundTasks'
+import 'react-native-get-random-values'
+// import crypto from 'crypto'
 
-if (__DEV__) {
-  import('./ReactotronConfig').then(() => LogStore.log('Reactotron Configured'))
-}
+import {name as appName} from './app.json';
+import { Text,TextInput,LogBox } from 'react-native';
+import App from './src/app'
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
-AppRegistry.registerComponent('ndauwalletrn', () => App)
+AppRegistry.registerComponent(appName, () => App);
 BackgroundTasks.register()
+
+// if (Text.defaultProps == null) {
+//     Text.defaultProps = {};
+//     Text.defaultProps.allowFontScaling = false;
+// }
+
+// if (TextInput.defaultProps == null) {
+//     TextInput.defaultProps = {};
+//     TextInput.defaultProps.allowFontScaling = false;
+// }

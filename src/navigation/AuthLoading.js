@@ -35,7 +35,7 @@ class AuthLoadingScreen extends React.Component {
         // this is only done for users < 1.8, after 1.8 this should not happen
         // again as you will have a MultiSafe
         this.props.navigation.replace('Setup', {
-          screen: 'SetupGetRecoveryPhrase',
+          screen: 'SetupWelcome',
           params: { mode: AppConstants.GENESIS_MODE }
         })
       } else if (multiSafes) {
@@ -47,6 +47,7 @@ class AuthLoadingScreen extends React.Component {
       FlashNotification.showError(`Problem encountered: ${error.message}`)
     }
   }
+
 
   // Render any loading content that you like here
   render () {

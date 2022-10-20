@@ -87,6 +87,7 @@ class Authentication extends Component {
   }
 
   login = async () => {
+    
     this.setState({ spinner: true }, async () => {
       try {
         let user = await MultiSafeHelper.getDefaultUser(this.state.password)
@@ -129,6 +130,7 @@ class Authentication extends Component {
         this.setState({ spinner: false })
       }
     })
+    // this.props.navigation.navigate("Blockchain Explorer", {screen: 'Explore'});
   }
 
   showExitApp () {
