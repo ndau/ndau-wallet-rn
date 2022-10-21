@@ -21,7 +21,6 @@ import {
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-fontawesome-pro';
-import {set} from 'react-native-reanimated';
 import Data123 from '../dummyData.json';
 const RichList = () => {
   const [total, setTotal] = React.useState();
