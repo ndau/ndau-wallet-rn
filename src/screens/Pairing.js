@@ -2,11 +2,9 @@ import { fal } from '@fortawesome/pro-light-svg-icons';
 import { on } from 'events';
 import React, { useState,useRef } from 'react'
 import { View ,Text,Image,TouchableOpacity,Button,TextInput, ImageBackground, ScrollView} from 'react-native'
-import { RNCamera,onGoogleVisionBarcodesDetected } from 'react-native-camera';
 import Modal from "react-native-modal";
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-fontawesome-pro'
-import { useCamera } from 'react-native-camera-hooks';
 import { signClient } from '../utils/WalletConnectUtil';
 import {Appbar, Searchbar, Card} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';

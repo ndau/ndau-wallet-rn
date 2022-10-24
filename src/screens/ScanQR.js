@@ -1,6 +1,5 @@
 // import React,{useState,useRef} from 'react'
 // import { Button, Text, TextInput, View } from 'react-native'
-// import {RNCamera} from 'react-native-camera';
 
 // import { signClient } from '../utils/WalletConnectUtil'
 
@@ -44,26 +43,31 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Button,
   TextInput,
-  ImageBackground,
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-fontawesome-pro';
 
-import {RNCamera, onGoogleVisionBarcodesDetected} from 'react-native-camera';
-import Modal from 'react-native-modal';
+import {
+  Camera,
+  useCameraDevices,
+  useIsAppForeground,
+  useFrameProcessor,
+} from 'react-native-vision-camera';
+import {
+  BarcodeFormat,
+  scanBarcodes,
+  runOnJS,
+} from 'vision-camera-code-scanner';
 import {useNavigation} from '@react-navigation/native';
-import {useCamera} from 'react-native-camera-hooks';
-import {signClient} from '../utils/WalletConnectUtil';
 import {Appbar, Searchbar, Card} from 'react-native-paper';
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {Console} from 'console';
+
 export default function ScanQR() {
   const [barcodes, setBarcodes] = useState('');
   const [pairValue, setPairValue] = useState('');
@@ -71,6 +75,46 @@ export default function ScanQR() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigation = useNavigation();
+
+  const cameraRef = useRef(null);
+  const devices = useCameraDevices();
+  const device = devices.back;
+  // const isAppForeground = useIsAppForeground()
+  const [hasPermission, setHasPermission] = useState(false);
+
+  const frameProcessor = useFrameProcessor(frame => {
+    'worklet';
+    const detectedBarcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE], {
+      checkInverted: true,
+    });
+    runOnJS(barcodeRecognized)(detectedBarcodes);
+  }, []);
+  //  Alternatively use the underlying function:
+  // const [frameProcessor, qrCodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+  //   checkInverted: true,
+  // });
+  
+
+  console.log(`QR Codes in Frame: ${barcodes}`);
+
+  useEffect(() => {
+    (async () => {
+      const status = await Camera.requestCameraPermission();
+      switch (status) {
+        case 'authorized':
+          setHasPermission(true);
+          console.log('hasPermission..... set');
+          break;
+        case 'not-determined':
+          const status = await Camera.requestCameraPermission();
+          setHasPermission(status == 'authorized');
+        default:
+      }
+    })();
+  }, []);
+
+  console.log('devcies............:', devices);
+  console.log('hasPermission............:', hasPermission);
 
   function onSessionProposal(event) {
     console.log(event, 'event...1');
@@ -97,13 +141,13 @@ export default function ScanQR() {
   //   }
   // }, [])
   // const [first, setfirst] = useState(second)
-  const cameraRef = useRef(null);
   const ContentTitle = ({title, style}) => (
     <Appbar.Content
       title={<Text style={style}> {title} </Text>}
       style={{alignItems: 'center', elevation: 0}}
     />
   );
+
   async function onPair(_barcodes) {
     if (scan) {
       try {
@@ -166,8 +210,10 @@ export default function ScanQR() {
       }
     }
   }
+
   const barcodeRecognized = barcodes => {
     console.log('barcodes', barcodes);
+    console.log(`barcodes..........: ${barcodes}`);
     setBarcodes(barcodes);
 
     if (barcodes) {
@@ -231,12 +277,9 @@ export default function ScanQR() {
                 width: wp('10%'),
                 alignItems: 'center',
               }}>
-              {scan ? (
-                <RNCamera
+              {scan && device && hasPermission ? (
+                <Camera
                   ref={cameraRef}
-                  onCameraReady={e => {
-                    console.log('ready', e);
-                  }}
                   style={{
                     position: 'absolute',
                     // maxHeight: 140,
@@ -248,8 +291,12 @@ export default function ScanQR() {
                     alignItems: 'center',
                     width: hp('45%'),
                   }}
-                  captureAudio={false}
-                  onBarCodeRead={barcodeRecognized}></RNCamera>
+                  device={device}
+                  isActive={true}
+                  frameProcessor={frameProcessor}
+                  frameProcessorFps={5}
+                  //isActive={isAppForeground}
+                />
               ) : (
                 <View
                   style={{
