@@ -53,13 +53,8 @@ import {
   Camera,
   useCameraDevices,
   useIsAppForeground,
-  useFrameProcessor,
 } from 'react-native-vision-camera';
-import {
-  BarcodeFormat,
-  scanBarcodes,
-  runOnJS,
-} from 'vision-camera-code-scanner';
+import {BarcodeFormat, useScanBarcodes} from 'vision-camera-code-scanner';
 import {useNavigation} from '@react-navigation/native';
 import {Appbar, Searchbar, Card} from 'react-native-paper';
 
@@ -69,9 +64,7 @@ import {
 } from 'react-native-responsive-screen';
 
 export default function ScanQR() {
-  const [barcodes, setBarcodes] = useState('');
   const [pairValue, setPairValue] = useState('');
-  const [scan, setScan] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigation = useNavigation();
@@ -81,21 +74,11 @@ export default function ScanQR() {
   const device = devices.back;
   // const isAppForeground = useIsAppForeground()
   const [hasPermission, setHasPermission] = useState(false);
+  const [isScanned, setIsScanned] = React.useState(false);
 
-  const frameProcessor = useFrameProcessor(frame => {
-    'worklet';
-    const detectedBarcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE], {
-      checkInverted: true,
-    });
-    runOnJS(barcodeRecognized)(detectedBarcodes);
-  }, []);
-  //  Alternatively use the underlying function:
-  // const [frameProcessor, qrCodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
-  //   checkInverted: true,
-  // });
-  
-
-  console.log(`QR Codes in Frame: ${barcodes}`);
+  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+    checkInverted: true,
+  });
 
   useEffect(() => {
     (async () => {
@@ -103,7 +86,6 @@ export default function ScanQR() {
       switch (status) {
         case 'authorized':
           setHasPermission(true);
-          console.log('hasPermission..... set');
           break;
         case 'not-determined':
           const status = await Camera.requestCameraPermission();
@@ -113,8 +95,12 @@ export default function ScanQR() {
     })();
   }, []);
 
-  console.log('devcies............:', devices);
-  console.log('hasPermission............:', hasPermission);
+  React.useEffect(() => {
+    onPair();
+    // return () => {
+    //   barcodes;
+    // };
+  }, [barcodes]);
 
   function onSessionProposal(event) {
     console.log(event, 'event...1');
@@ -148,11 +134,13 @@ export default function ScanQR() {
     />
   );
 
-  async function onPair(_barcodes) {
-    if (scan) {
+  async function onPair() {
+    if (barcodes && barcodes.length > 0 && isScanned === false) {
+      setIsScanned(true);
       try {
-        // console.log('if............', _barcodes.data);
+        console.log('barcode............', barcodes);
         let socketId;
+        let retry = 0;
 
         async function getIdWithRetry() {
           setTimeout(() => {
@@ -160,21 +148,17 @@ export default function ScanQR() {
             socketId = Socket.id;
             console.log('socket id', socketId);
             if (socketId) {
-              console.log(_barcodes, 'barcodes');
+              console.log('barcodes.data', barcodes.data);
 
-              console.log(_barcodes.data, 'barcodes.data');
-
-              // console.log(
-              //   socketId,
-              //   'socketID is defined',
-              //   JSON.parse(barcodes.data),
-              // );
               SessionBloc.setPurposalModal(true);
-              SessionBloc.setSocketLogin(_barcodes.data, socketId);
+              SessionBloc.setSocketLogin(barcodes.data, socketId);
 
               return;
             } else {
-              getIdWithRetry();
+              if (retry < 5) {
+                getIdWithRetry();
+                retry++;
+              }
             }
           }, 100);
         }
@@ -183,58 +167,59 @@ export default function ScanQR() {
         // Socket.on('confirm_wallet_login', data => {
         //   console.log('confirm....', data);
         // });
-        console.log('final Value is ' + finalValue);
+        console.log('final Value is ', finalValue);
         // let data = await signClient.pair({
         //   uri: barcodes.data,
         // });
 
         // console.log('data', data);
-        setBarcodes('');
+        // setBarcodes('');
         onClose();
       } catch (e) {
         console.log('error', e);
-        setError('');
+        setError(e.message);
       }
-    } else {
-      try {
-        // let data = await signClient.pair({
-        //   uri: pairValue,
-        // });
-        // console.log('else............', _barcodes.data);
-        setPairValue('');
-        console.log('data', data);
-        onClose();
-      } catch (e) {
-        console.log('error', e);
-        setError('Invalid URL');
-      }
+      // } else {
+      //   try {
+      //     // let data = await signClient.pair({
+      //     //   uri: pairValue,
+      //     // });
+      //     // console.log('else............', _barcodes.data);
+      //     setPairValue('');
+      //     console.log('data', data);
+      //     onClose();
+      //   } catch (e) {
+      //     console.log('error', e);
+      //     setError('Invalid URL');
+      //   }
     }
   }
 
-  const barcodeRecognized = barcodes => {
-    console.log('barcodes', barcodes);
-    console.log(`barcodes..........: ${barcodes}`);
-    setBarcodes(barcodes);
+  // const barcodeRecognized = barcodes => {
+  //   console.log('barcodes', barcodes);
+  //   console.log(barcodes);
+  //   // setBarcodes(barcodes);
 
-    if (barcodes) {
-      onPair(barcodes);
-      // this.setState({
-      //     modelVisible:true
-      // })
-    }
-  };
+  //   if (barcodes) {
+  //     onPair(barcodes);
+  //     // this.setState({
+  //     //     modelVisible:true
+  //     // })
+  //   }
+  // };
 
   const onClose = () => {
     navigation.goBack();
   };
 
   const onScanQr = () => {
-    setScan(true);
+    setIsScanned(false);
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 900);
   };
+
   const onConnect = () => {
     if (pairValue.length == 0) {
       setError('Please Enter Input valid url');
@@ -243,6 +228,7 @@ export default function ScanQR() {
       onPair();
     }
   };
+
   console.log('status', loading);
   return (
     <View style={{flex: 1, backgroundColor: '#47515b'}}>
@@ -277,15 +263,15 @@ export default function ScanQR() {
                 width: wp('10%'),
                 alignItems: 'center',
               }}>
-              {scan && device && hasPermission ? (
+              {!isScanned && device && hasPermission ? (
                 <Camera
                   ref={cameraRef}
                   style={{
                     position: 'absolute',
                     // maxHeight: 140,
-                    top: hp('9%'),
+                    // top: hp('9%'),
                     opacity: loading ? 0 : 1,
-                    height: hp('10%'),
+                    height: hp('45%'),
 
                     // maxWidth: 150,
                     alignItems: 'center',
@@ -295,6 +281,7 @@ export default function ScanQR() {
                   isActive={true}
                   frameProcessor={frameProcessor}
                   frameProcessorFps={5}
+                  audio={false}
                   //isActive={isAppForeground}
                 />
               ) : (
@@ -340,21 +327,21 @@ export default function ScanQR() {
               />
             </View>
 
-            {/* </ImageBackground> */}
-
-            <TouchableOpacity
-              onPress={() => onScanQr()}
-              style={{
-                backgroundColor: '#4C9578',
-                padding: '2%',
-                marginTop: hp('35%'),
-                width: wp('50%'),
-                borderRadius: 6,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={{color: '#D8FFE4'}}>Scan QR</Text>
-            </TouchableOpacity>
+            {isScanned && (
+              <TouchableOpacity
+                onPress={() => onScanQr()}
+                style={{
+                  backgroundColor: '#4C9578',
+                  padding: '2%',
+                  marginTop: hp('35%'),
+                  width: wp('50%'),
+                  borderRadius: 6,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={{color: '#D8FFE4'}}>Rescan</Text>
+              </TouchableOpacity>
+            )}
           </View>
           <View
             style={{
@@ -370,7 +357,7 @@ export default function ScanQR() {
 
             <TextInput
               placeholderTextColor={'#FFFFFF'}
-              placeholder="Enter Wc:..."
+              placeholder="Enter WC:..."
               style={{
                 backgroundColor: '#fff',
                 width: '85%',
@@ -384,11 +371,11 @@ export default function ScanQR() {
               }}
               value={pairValue}
               onChangeText={e => {
-                setPairValue(e), setError(''), setScan(false);
+                setPairValue(e), setError(''), setIsScanned(true);
               }}
             />
             <TouchableOpacity
-              disabled={scan}
+              disabled={!isScanned}
               onPress={() => {
                 onConnect();
               }}
