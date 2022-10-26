@@ -27,8 +27,6 @@ import { Button, Progress, H4, P, Checkbox, Input, RadioGroup } from 'nachos-ui'
 import LinearGradient from 'react-native-linear-gradient'
 import styles from './styles'
 import AppConstants from '../../AppConstants'
-// import { RNCamera } from 'react-native-camera'
-import BarcodeMask from 'react-native-barcode-mask'
 import QRCode from 'react-native-qrcode-svg'
 // It would be ideal to use the below library as it is faster. However
 // there seemed to be an issue with how it creates a black border. Even padding

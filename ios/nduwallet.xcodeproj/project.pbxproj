@@ -12,8 +12,21 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		25125573CDE24BAE98F4B5B8 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3229D2B0A3F04410A96EAD1C /* OpenSans-Bold.ttf */; };
+		35837CD92902ED5B00B68625 /* KeyaddrManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 35837CD82902ED5B00B68625 /* KeyaddrManager.m */; };
+		35837CDA2902ED5B00B68625 /* KeyaddrManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 35837CD82902ED5B00B68625 /* KeyaddrManager.m */; };
+		35837CDC2902FC2600B68625 /* Keyaddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35837CDB2902FC2600B68625 /* Keyaddr.framework */; };
+		35837CDD2902FC2600B68625 /* Keyaddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35837CDB2902FC2600B68625 /* Keyaddr.framework */; };
+		4586E44FFCD040879BAE3FEA /* TitilliumWeb-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A563A23A5D0A40E7AC323120 /* TitilliumWeb-Italic.ttf */; };
+		5E64D0F5C8164C5CA359063D /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57E09AD1CBF343A0956B48E2 /* TitilliumWeb-Light.ttf */; };
+		73FA372C02224FD8B9394A8C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8C5A534CB1C4427B653DE37 /* OpenSans-Regular.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-nduwallet-nduwalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-nduwallet-nduwalletTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8DD659D9AF8E40A3844E0355 /* TitilliumWeb-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F880F7429974FFB80A60D06 /* TitilliumWeb-Bold.ttf */; };
+		D5C6E3C137DA4EECADEF4B59 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81831AA784224212949BAF32 /* OpenSans-Light.ttf */; };
+		E54DE3AA339744948CBC8124 /* TitilliumWeb-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DCE77DC89E8415885A593F3 /* TitilliumWeb-Regular.ttf */; };
+		E716A1243F4D4448A99CAED0 /* ndau-0.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26E995C9D3B64428ACD28DD3 /* ndau-0.ttf */; };
+		FD2B5710E060438C9F96A11E /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36D68BF93AD741FA8490031C /* OpenSans-Italic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,12 +50,24 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = nduwallet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = nduwallet/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-nduwallet-nduwalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-nduwallet-nduwalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F880F7429974FFB80A60D06 /* TitilliumWeb-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-Bold.ttf"; path = "../assets/fonts/TitilliumWeb-Bold.ttf"; sourceTree = "<group>"; };
+		26E995C9D3B64428ACD28DD3 /* ndau-0.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ndau-0.ttf"; path = "../assets/fonts/ndau-0.ttf"; sourceTree = "<group>"; };
+		3229D2B0A3F04410A96EAD1C /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		35837CD72902E66A00B68625 /* KeyaddrManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyaddrManager.h; sourceTree = "<group>"; };
+		35837CD82902ED5B00B68625 /* KeyaddrManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyaddrManager.m; sourceTree = "<group>"; };
+		35837CDB2902FC2600B68625 /* Keyaddr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Keyaddr.framework; sourceTree = "<group>"; };
+		36D68BF93AD741FA8490031C /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-nduwallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nduwallet.debug.xcconfig"; path = "Target Support Files/Pods-nduwallet/Pods-nduwallet.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-nduwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nduwallet.release.xcconfig"; path = "Target Support Files/Pods-nduwallet/Pods-nduwallet.release.xcconfig"; sourceTree = "<group>"; };
+		57E09AD1CBF343A0956B48E2 /* TitilliumWeb-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-Light.ttf"; path = "../assets/fonts/TitilliumWeb-Light.ttf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-nduwallet-nduwalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nduwallet-nduwalletTests.debug.xcconfig"; path = "Target Support Files/Pods-nduwallet-nduwalletTests/Pods-nduwallet-nduwalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-nduwallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-nduwallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DCE77DC89E8415885A593F3 /* TitilliumWeb-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-Regular.ttf"; path = "../assets/fonts/TitilliumWeb-Regular.ttf"; sourceTree = "<group>"; };
+		81831AA784224212949BAF32 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = nduwallet/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-nduwallet-nduwalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nduwallet-nduwalletTests.release.xcconfig"; path = "Target Support Files/Pods-nduwallet-nduwalletTests/Pods-nduwallet-nduwalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		A563A23A5D0A40E7AC323120 /* TitilliumWeb-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-Italic.ttf"; path = "../assets/fonts/TitilliumWeb-Italic.ttf"; sourceTree = "<group>"; };
+		A8C5A534CB1C4427B653DE37 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -52,6 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7699B88040F8A987B510C191 /* libPods-nduwallet-nduwalletTests.a in Frameworks */,
+				35837CDD2902FC2600B68625 /* Keyaddr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C80B921A6F3F58F76C31292 /* libPods-nduwallet.a in Frameworks */,
+				35837CDC2902FC2600B68625 /* Keyaddr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,12 +143,16 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				35837CDB2902FC2600B68625 /* Keyaddr.framework */,
+				35837CD72902E66A00B68625 /* KeyaddrManager.h */,
+				35837CD82902ED5B00B68625 /* KeyaddrManager.m */,
 				13B07FAE1A68108700A75B9A /* nduwallet */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* nduwalletTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				DA724708B0E444A08E3CB799 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -146,6 +177,22 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-nduwallet-nduwalletTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DA724708B0E444A08E3CB799 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3229D2B0A3F04410A96EAD1C /* OpenSans-Bold.ttf */,
+				36D68BF93AD741FA8490031C /* OpenSans-Italic.ttf */,
+				81831AA784224212949BAF32 /* OpenSans-Light.ttf */,
+				A8C5A534CB1C4427B653DE37 /* OpenSans-Regular.ttf */,
+				1F880F7429974FFB80A60D06 /* TitilliumWeb-Bold.ttf */,
+				A563A23A5D0A40E7AC323120 /* TitilliumWeb-Italic.ttf */,
+				57E09AD1CBF343A0956B48E2 /* TitilliumWeb-Light.ttf */,
+				7DCE77DC89E8415885A593F3 /* TitilliumWeb-Regular.ttf */,
+				26E995C9D3B64428ACD28DD3 /* ndau-0.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +291,15 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				25125573CDE24BAE98F4B5B8 /* OpenSans-Bold.ttf in Resources */,
+				FD2B5710E060438C9F96A11E /* OpenSans-Italic.ttf in Resources */,
+				D5C6E3C137DA4EECADEF4B59 /* OpenSans-Light.ttf in Resources */,
+				73FA372C02224FD8B9394A8C /* OpenSans-Regular.ttf in Resources */,
+				8DD659D9AF8E40A3844E0355 /* TitilliumWeb-Bold.ttf in Resources */,
+				4586E44FFCD040879BAE3FEA /* TitilliumWeb-Italic.ttf in Resources */,
+				5E64D0F5C8164C5CA359063D /* TitilliumWeb-Light.ttf in Resources */,
+				E54DE3AA339744948CBC8124 /* TitilliumWeb-Regular.ttf in Resources */,
+				E716A1243F4D4448A99CAED0 /* ndau-0.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35837CDA2902ED5B00B68625 /* KeyaddrManager.m in Sources */,
 				00E356F31AD99517003FC87E /* nduwalletTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35837CD92902ED5B00B68625 /* KeyaddrManager.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -433,6 +491,10 @@
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-nduwallet-nduwalletTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -461,6 +523,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = nduwalletTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -487,6 +553,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = nduwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -512,6 +582,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = nduwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -596,6 +670,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -659,6 +734,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
