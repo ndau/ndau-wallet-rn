@@ -9,7 +9,7 @@ export let Socket;
 export async function createSignClient(_address, barcode) {
   Socket = socketIOClient(ENDPOINT);
 
-  Socket.on('connection', data => {
+  Socket.on('connect', data => {
     console.log(data, 'connect event data');
     console.log(Socket.id, 'connect event socket.id');
     SessionBloc.setSocketLogin(barcode, Socket.id);
