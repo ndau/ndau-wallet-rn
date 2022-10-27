@@ -186,7 +186,7 @@ const App = () => {
           <OfflineMessage />
         </ThemeProvider>
       </View>
-      {purposalModal && <PurposalModal />}
+  {purposalModal &&     <PurposalModal />}
       {/* <FilterByCategoryModel/> */}
       {alertPopup && <ErrorModal />}
       {featurePurposalModel && <FeaturePurposalModal />}

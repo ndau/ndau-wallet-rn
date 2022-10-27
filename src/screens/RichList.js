@@ -22,6 +22,7 @@ import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-fontawesome-pro';
 import Data123 from '../dummyData.json';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const RichList = () => {
   const [total, setTotal] = React.useState();
   const [loading, setloading] = React.useState(true);
@@ -159,11 +160,13 @@ const RichList = () => {
                     style={{
                       display: 'flex',
                       flexDirection: 'row',
-
+// backgroundColor:'red',
+marginVertical:heightPercentageToDP('2.5%'),
                       marginRight: 'auto',
                       justifyContent: 'space-between',
                       width: '95%',
-                      margin: 8,
+
+                      margin: widthPercentageToDP('2%'),
                     }}>
                     <Text
                       style={{

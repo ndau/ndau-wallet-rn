@@ -38,6 +38,7 @@ var state = proxy({
   adminData:'',
   featurePurposalData:'',
   socketId:'',
+  accountAddress:''
 });
 var SessionBloc = {
   state: state,
@@ -58,6 +59,11 @@ setAppPurposal: function (data,popup,approve) {
   state.appPurposalData = data;
   state.appPurposalModel=popup;
   state.isApprove=approve;
+},
+
+setAccountAddress:function (address) {
+state.accountAddress=address;
+  
 },
 setAdminPurposal: function (data,popup,approve) {
 

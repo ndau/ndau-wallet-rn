@@ -50,17 +50,9 @@ class CommonButton extends Component {
             </Text>
 
           </TouchableOpacity >
-          {/* <Button
-            style={styles.text}
-            disabledContainerStyle={styles.disabledStyle}
-            containerStyle={styles.containerStyle}
-            onPress={this.props.onPress}
-            {...this.props} */}
-          {/* > */}
-           
-          {/* </Button> */}
+          
         </View>
-      // </Padding>
+     </Padding>
     )
   }
 }

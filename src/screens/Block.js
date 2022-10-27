@@ -20,6 +20,7 @@ import {
 } from 'react-native-paper';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const Block = () => {
   const [total, setTotal] = React.useState();
@@ -117,6 +118,7 @@ const Block = () => {
                     marginRight: 'auto',
                     justifyContent: 'space-between',
                     width: '80%',
+                    marginVertical:heightPercentageToDP('2.5%'),
                     margin: 8,
                   }}>
                   <Text

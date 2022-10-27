@@ -230,6 +230,7 @@ class AccountDetails extends Component {
     const explorerUrl = this.getExplorerUrl()
     const showAllAcctButtons = !isAccountLocked && spendableNdau > 0
     const spendableNdauDisplayed = new NdauNumber(spendableNdau).toDetail()
+    console.log('props,,,,,,,,,,,,,,,,,,',this.state.account)
     return (
       <AccountDetailsContainer
         goBack={this.goBack}

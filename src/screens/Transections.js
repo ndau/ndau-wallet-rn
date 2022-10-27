@@ -20,6 +20,7 @@ import {
 } from 'react-native-paper';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const Transections = () => {
   const [total, setTotal] = React.useState();
@@ -146,7 +147,7 @@ else{
                   style={{
                     display: 'flex',
                     flexDirection: 'row',
-
+                    marginVertical:heightPercentageToDP('2.5%'),
                     marginRight: 'auto',
                     justifyContent: 'space-between',
                     width: '85%',

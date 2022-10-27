@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSnapshot} from 'valtio';
 import {BlurView} from '@react-native-community/blur';
+import ndaujs from 'ndaujs';
 
 import WalletStore from '../../stores/WalletStore';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,11 +29,17 @@ import SessionBloc from '../../blocs/SessionBloc';
 
 const PurposalModal = () => {
   const [checked, setchecked] = useState(true);
-  const {proposal, socketId, socketLogin} = useSnapshot(SessionBloc.state);
+  const {proposal, socketId, socketLogin, accountAddress} = useSnapshot(
+    SessionBloc.state,
+  );
   // const data = JSON.parse(proposal);
   // console.log('data....', data);
   const wallet = WalletStore.getWallet();
   let loginData = socketLogin != null ? JSON.parse(socketLogin) : '';
+  console.log(
+    'socketLogin...............',
+    typeof Object.keys(wallet.accounts)[0],
+  );
   const onReject = async () => {
     try {
       const wallet = WalletStore.getWallet();
@@ -56,7 +63,6 @@ const PurposalModal = () => {
       // console.log('reject error', e);
       // SessionBloc.setPurposalModal(false);
     }
-
     // ModalStore.close()
   };
   const onApprove = async () => {
@@ -65,7 +71,7 @@ const PurposalModal = () => {
       Socket.emit('app-ndau_connection-established-server', {
         website_socket_id: loginData.website_socket_id,
         connection_type: 'wallet',
-        wallet_address: Object.keys(wallet.accounts)[0],
+        wallet_address: accountAddress,
         app_socket_id: socketId,
       });
       console.log('connected sucessfully');
@@ -350,6 +356,44 @@ const PurposalModal = () => {
                   </Text>
                 </View>
               </View> */}
+              <View
+                style={{
+                  borderColor: 'grey',
+                  position: 'absolute',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderWidth: 3,
+                  borderRadius: 5,
+                  bottom: '12%',
+                  marginTop: '3%',
+                  paddingVertical: '4%',
+                  paddingHorizontal: '4%',
+                }}>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderColor: 'grey',
+                    backgroundColor: 'rgba(255, 255, 255, 0.19)',
+                    height: hp('3.5%'),
+                    width: wp('6.5%'),
+                    borderRadius: 4,
+                  }}>
+                  {checked ? (
+                    <Icon
+                      name="check"
+                      size={24}
+                      color="#fff"
+                      style={{marginRight: '4%'}}
+                    />
+                  ) : null}
+                </View>
+                <Text style={{color: '#fff'}}>
+                  {ndaujs.truncateAddress(accountAddress)}
+                </Text>
+              </View>
               <View style={styles.btnContainer}>
                 <TouchableOpacity
                   onPress={() => onReject()}
