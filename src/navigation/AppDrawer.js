@@ -152,12 +152,12 @@ class AppDrawer extends React.Component {
           >
             Explore
           </DrawerEntryItem>
-          <DrawerEntryItem
+          {/* <DrawerEntryItem
             onPress={() => this.session()}
             fontAwesomeIconName='stopwatch'
           >
             Sessions
-          </DrawerEntryItem>
+          </DrawerEntryItem> */}
 
           {!SettingsStore.isMainNetSync() ? (
             <View>

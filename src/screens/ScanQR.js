@@ -35,7 +35,7 @@
 import {fal} from '@fortawesome/pro-light-svg-icons';
 import {on} from 'events';
 import {useFocusEffect} from '@react-navigation/native';
-import {Socket} from '../utils/WalletConnectUtil';
+import {createSignClient, Socket} from '../utils/WalletConnectUtil';
 import SessionBloc from '../blocs/SessionBloc';
 import React, {useState, useRef, useEffect} from 'react';
 import {
@@ -63,7 +63,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-export default function ScanQR() {
+export default function ScanQR({route}) {
+  console.log('abc.................', route.params?.account?.address);
   const [pairValue, setPairValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -138,42 +139,23 @@ export default function ScanQR() {
     if (barcodes && barcodes.length > 0 && isScanned === false) {
       setIsScanned(true);
       try {
-        console.log('barcode............', barcodes);
-        let socketId;
-        let retry = 0;
-
-        async function getIdWithRetry() {
-          setTimeout(() => {
-            console.log('getting socket id');
-            socketId = Socket.id;
-            console.log('socket id', socketId);
-            if (socketId) {
-              console.log('barcodes.data', barcodes.data);
-
-              SessionBloc.setPurposalModal(true);
-              SessionBloc.setSocketLogin(barcodes.data, socketId);
-
-              return;
-            } else {
-              if (retry < 5) {
-                getIdWithRetry();
-                retry++;
-              }
-            }
-          }, 100);
-        }
-
-        let finalValue = getIdWithRetry();
+        console.log('barcode............', barcodes[0].content.data);
+        const {id: socketId } = await createSignClient(
+          route.params?.account?.address,
+          barcodes[0].content.data,
+        );
         // Socket.on('confirm_wallet_login', data => {
         //   console.log('confirm....', data);
         // });
-        console.log('final Value is ', finalValue);
+        // console.log('final Value is ', finalValue);
         // let data = await signClient.pair({
         //   uri: barcodes.data,
         // });
 
         // console.log('data', data);
         // setBarcodes('');
+        // SessionBloc.setSocketLogin(barcodes.data, socketId);
+        // SessionBloc.setPurposalModal(true);
         onClose();
       } catch (e) {
         console.log('error', e);

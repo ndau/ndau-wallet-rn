@@ -18,6 +18,7 @@ import {
   Platform,
   ScrollView
 } from 'react-native'
+
 import Clipboard from '@react-native-clipboard/clipboard';
 import FlashNotification from '../common/FlashNotification'
 import { H4, H3, P, Button } from 'nachos-ui'
@@ -188,6 +189,7 @@ export function AccountDetailsContainer (props) {
         <AccountDetailsTitleBarGradient>
           <View style={styles.accountDetailsTitlePanel}>
             <AccountClosingBar
+              props={props}
               backArrowStyle={styles.backArrowForLock}
               title={title}
               backBar
@@ -539,6 +541,25 @@ export function AccountClosingBar (props) {
       ) : (
         <View style={styles.closeIcon} />
       )}
+
+      { props.props?.route?.name==='AccountDetails'? 
+        <Icon
+          name={'qrcode'}
+          size={32}
+          color={props.navBack ? AppConstants.ICON_BUTTON_COLOR : '#fff'}
+          containerStyle={{  paddingTop: hp('1%')}}
+          type="light"
+          onPress={() => {
+            props.props.navigation.navigate('ScanQR',{account:props.props.account});
+            // if (props.navBack) {
+            //   props.navigation.goBack()
+            // } else {
+            //   props.navigation.dispatch(DrawerActions.openDrawer())
+            //   // props.navigation.openDrawer()
+            // }
+          }}
+        />
+      :null} 
     </View>
   )
 }
