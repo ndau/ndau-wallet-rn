@@ -6,7 +6,7 @@ export default function useInitialization() {
   const [ready, setReady] = useState(false)
 
   async function onInitializeSign() {
-    await createSignClient()
+    // await createSignClient()
     setReady(true)
   }
 

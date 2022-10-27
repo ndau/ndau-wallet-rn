@@ -1,7 +1,7 @@
 import {fal} from '@fortawesome/pro-light-svg-icons';
 import {on} from 'events';
 import {useFocusEffect} from '@react-navigation/native';
-import {Socket} from '../utils/WalletConnectUtil';
+import {createSignClient, Socket} from '../utils/WalletConnectUtil';
 import SessionBloc from '../blocs/SessionBloc';
 import React, {useState, useRef, useEffect} from 'react';
 import {
@@ -49,35 +49,43 @@ export default function ScanQR({route}) {
   async function onPair(_barcodes) {
     if (scan) {
       try {
-        // console.log('if............', _barcodes.data);
-        let socketId;
-        async function getIdWithRetry() {
-          setTimeout(() => {
-            console.log('getting socket id');
-            socketId = Socket.id;
-            console.log('socket id', socketId);
-            if (socketId) {
-              console.log(_barcodes, 'barcodes');
-              console.log(_barcodes.data, 'barcodes.data');
-              // console.log(
-              //   socketId,
-              //   'socketID is defined',
-              //   JSON.parse(barcodes.data),
-              // );
-              SessionBloc.setSocketLogin(_barcodes.data, socketId);
-              SessionBloc.setAccountAddress(route.params?.account?.address);
-              SessionBloc.setPurposalModal(true);
-              return;
-            } else {
-              getIdWithRetry();
-            }
-          }, 100);
+        if (_barcodes.data) {
+          await createSignClient(
+            route.params?.account?.address,
+            _barcodes.data,
+          );
         }
-        let finalValue = getIdWithRetry();
+        // console.log('consolllllllllllllllllllllllll;', Socket);
+
+        // // console.log('if............', _barcodes.data);
+        // let socketId;
+        // async function getIdWithRetry() {
+        //   setTimeout(() => {
+        //     console.log('getting socket id');
+        //     socketId = Socket.id;
+        //     console.log('socket id', socketId);
+        //     if (socketId) {
+        //       console.log(_barcodes, 'barcodes');
+        //       console.log(_barcodes.data, 'barcodes.data');
+        //       // console.log(
+        //       //   socketId,
+        //       //   'socketID is defined',
+        //       //   JSON.parse(barcodes.data),
+        //       // );
+        //       SessionBloc.setSocketLogin(_barcodes.data, socketId);
+        //       SessionBloc.setAccountAddress(route.params?.account?.address);
+        //       SessionBloc.setPurposalModal(true);
+        //       return;
+        //     } else {
+        //       getIdWithRetry();
+        //     }
+        //   }, 100);
+        // }
+        // let finalValue = getIdWithRetry();
         // Socket.on('confirm_wallet_login', data => {
         //   console.log('confirm....', data);
         // });
-        console.log('final Value is ' + finalValue);
+        // console.log('final Value is ' + finalValue);
         // let data = await signClient.pair({
         //   uri: barcodes.data,
         // });

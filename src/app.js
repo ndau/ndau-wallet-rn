@@ -149,7 +149,7 @@ const App = () => {
     SettingsStore.addListener(updater);
     async function getData() {
       NotificationService.clearAll();
-      await createSignClient();
+      // await createSignClient();
     }
     getData();
     const appStateSubscription = AppState.addEventListener(
@@ -186,7 +186,7 @@ const App = () => {
           <OfflineMessage />
         </ThemeProvider>
       </View>
-  {purposalModal &&     <PurposalModal />}
+      {purposalModal && <PurposalModal />}
       {/* <FilterByCategoryModel/> */}
       {alertPopup && <ErrorModal />}
       {featurePurposalModel && <FeaturePurposalModal />}

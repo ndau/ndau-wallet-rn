@@ -13,7 +13,8 @@ export default function useSignEventHandler() {
 
 
   useEffect(() => {
-    createSignClient();
+    // createSignClient();
+    if(Socket){
     Socket.on('server-ndau_connection-established-app', data => {
       console.log('confirm...1.>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', data);
     });
@@ -62,6 +63,7 @@ export default function useSignEventHandler() {
       // SessionBloc.setVotingProposal(JSON.stringify(data));
       // SessionBloc.setVotingRequestlModal(true);
     });
+  }
     
 
     console.log('data.......return ')
