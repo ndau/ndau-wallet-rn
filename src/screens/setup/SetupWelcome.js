@@ -47,16 +47,6 @@ class SetupWelcome extends Component {
   componentDidMount = async () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     await SettingsStore.useMainNet();
-
-    const socket = socketIOClient('http://192.168.100.30:3001/', {
-      reconnectionDelayMax: 10000,
-
-      query: {
-        dao_socket_id: 'TAfPspDiuVmd-8RMAAAR',
-        connection_type: 'wallet',
-      },
-    });
-    console.log('socket......', socket);
   };
 
   showNextSetup = () => {

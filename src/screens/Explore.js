@@ -25,7 +25,7 @@ const Explore = () => {
   const [error,setError]=React.useState(false);
   const [items, setItems] = React.useState([
     {label: 'Rich List', value: 'Rich List'},
-    {label: 'Top Statistics', value: 'Top Statistics'},
+    // {label: 'Top Statistics', value: 'Top Statistics'},
   ]);
 
   React.useEffect(() => {
@@ -302,19 +302,22 @@ const Explore = () => {
                     onPress={() => navigation.navigate('stats')}
                     style={{
                       width: '100%',
+
                       justifyContent: 'space-between',
                       flexDirection: 'row',
                       alignItems: 'center',
                       height: 40,
                     }}>
                     <DropDownPicker
-                    autoScroll={false}
-                    theme="DARK"
-                    onChangeValue={(value)=>moveBy(value)}
+                      autoScroll={false}
+                      
+                      theme="DARK"
+                      onChangeValue={(value)=>moveBy(value)}
                       style={{
                         backgroundColor: '#012D5A',
                         color: '#FFFF',
                         paddingVertical: 20,
+
                         borderWidth: 0,
                         
                       }}
@@ -357,6 +360,7 @@ const Explore = () => {
             <Row
               style={{
                 flex: 1,
+                zIndex:-5,
                 borderRadius: 10,
                 backgroundColor: '#132A47',
                 marginTop: 20,
@@ -364,10 +368,11 @@ const Explore = () => {
               nopad>
               <Col
                 style={{
-                  shadowOffset: {width: 20, height: 10},
+                  // shadowOffset: {width: 20, height: 10},
                   shadowOpacity: 0.8,
                   shadowRadius: 2,
                   elevation: 5,
+
                 }}>
                 <Row style={{marginTop: 10}} nopad>
                   <Col size={1} nopad>
@@ -406,7 +411,7 @@ const Explore = () => {
                         borderLeftWidth: 1,
                         borderColor: 'grey',
                       }}>
-                      <Text style={{color: 'grey'}}>NEXT ISSUED PRICE</Text>
+                      <Text style={{color: 'grey',shadowColor:'red',shadowOpacity:0}}>NEXT ISSUED PRICE</Text>
 
                       <Text
                         style={{

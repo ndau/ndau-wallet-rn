@@ -100,7 +100,7 @@ export const DrawerHeader = props => {
         }}
       />
       <Text style={styles.drawerHeaderText}>{props.children}</Text>
-     { props?.route?.name==='WalletOverview'? <Icon
+     {/* {  props?.route?.name==='WalletOverview'? <Icon
         name={'qrcode'}
         size={32}
         color={props.navBack ? AppConstants.ICON_BUTTON_COLOR : '#fff'}
@@ -115,7 +115,7 @@ export const DrawerHeader = props => {
           //   // props.navigation.openDrawer()
           // }
         }}
-      />:null}
+      />:null} */}
     </View>
   );
 };

@@ -21,6 +21,10 @@ import {
   WalletTotalPanel,
   WalletOverviewHeaderActions
 } from '../components/account'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen'
 import UserData from '../model/UserData'
 import UserStore from '../stores/UserStore'
 import NewAccountModalDialog from '../components/common/NewAccountModalDialog'
@@ -33,6 +37,7 @@ import NdauNumber from '../helpers/NdauNumber'
 import AppConfig from '../AppConfig'
 import { FeeAlert } from '../components/alerts'
 import OfflineError from '../errors/OfflineError'
+import AppConstants from '../AppConstants'
 
 class WalletOverview extends Component {
   constructor (props) {
@@ -263,17 +268,29 @@ class WalletOverview extends Component {
                 textStyle={{ fontSize: 12 }}
               />
 
-              <LabelWithIcon
+              {/* <LabelWithIcon
                 noMargin
                 textClickable
                 onPress={() => this.launchAddNewAccountDialog()}
                 fontAwesomeIconName='plus-circle'
-                style={{ justifyContent: 'center', alignSelf: 'center'}}
+                style={{ 
+             
+          
+           
+                  paddingHorizontal: 0,
+                  borderRadius: 4,
+                  
+                  padding: 0,
+                  backgroundColor: AppConstants.SQUARE_BUTTON_COLOR
+                }}
                 textStyle={{ fontSize: 12 }}
                 iconSize={18}
               >
                 Add account
-              </LabelWithIcon>
+              </LabelWithIcon> */}
+              <DashboardButton style={{backgroundColor: AppConstants.SQUARE_BUTTON_COLOR,width:wp('30.4%')}} onPress={() => this.launchAddNewAccountDialog()}>
+              Add account
+              </DashboardButton>   
 
               <DashboardButton onPress={() => this.launchBuyNdauInBrowser()}>
                 Buy ndau
