@@ -8,19 +8,19 @@
  * - -- --- ---- -----
  */
 
-import UserStore from '../stores/UserStore'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import KeyMaster from '../helpers/KeyMaster'
-import AccountAPIHelper from './AccountAPIHelper'
-import AppConstants from '../AppConstants'
-import { NativeModules } from 'react-native'
-import DataFormatHelper from './DataFormatHelper'
-import KeyPathHelper from './KeyPathHelper'
-import Account from '../model/Account'
-import Wallet from '../model/Wallet'
-import User from '../model/User'
-import FlashNotification from '../components/common/FlashNotification'
-import LogStore from '../stores/LogStore'
+import UserStore from '../stores/UserStore';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
+import KeyMaster from '../helpers/KeyMaster';
+import AccountAPIHelper from './AccountAPIHelper';
+import AppConstants from '../AppConstants';
+import {NativeModules} from 'react-native';
+import DataFormatHelper from './DataFormatHelper';
+import KeyPathHelper from './KeyPathHelper';
+import Account from '../model/Account';
+import Wallet from '../model/Wallet';
+import User from '../model/User';
+import FlashNotification from '../components/common/FlashNotification';
+import LogStore from '../stores/LogStore';
 
 /**
  * This function will persist the user information after any setup is
@@ -34,37 +34,38 @@ import LogStore from '../stores/LogStore'
  * @param {string} encryptionPassword
  * @param {string} addressType=AppConstants.MAINNET_ADDRESS
  */
- const setupNewUser = async (
+const setupNewUser = async (
   user,
   recoveryPhraseString,
   walletId,
   numberOfAccounts,
   entropy,
   encryptionPassword,
-  addressType = AppConstants.MAINNET_ADDRESS
+  addressType = AppConstants.MAINNET_ADDRESS,
 ) => {
   if (!user) {
-    LogStore.log('Generating all keys from phrase given...')
-    const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-      AppConstants.APP_LANGUAGE,
-      recoveryPhraseString
-    )
+    LogStore.log('Generating all keys from phrase given...');
+    const recoveryPhraseAsBytes =
+      await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+        AppConstants.APP_LANGUAGE,
+        recoveryPhraseString,
+      );
 
     user = await createFirstTimeUser(
       recoveryPhraseAsBytes,
       walletId,
       addressType,
-      numberOfAccounts
-    )
+      numberOfAccounts,
+    );
   }
 
   return MultiSafeHelper.saveUser(
     user,
     encryptionPassword,
     recoveryPhraseString,
-    walletId
-  )
-}
+    walletId,
+  );
+};
 
 /**
  * This function will create the initial User. If no userId is passed
@@ -76,40 +77,40 @@ import LogStore from '../stores/LogStore'
  * @param  {number} numberOfAccounts=0
  * @returns {User} an initial user object
  */
- const createFirstTimeUser = async (
+const createFirstTimeUser = async (
   recoveryBytes,
   userId,
   chainId = AppConstants.MAINNET_ADDRESS,
-  numberOfAccounts = 0
+  numberOfAccounts = 0,
 ) => {
   console.log('inside first user');
   if (!recoveryBytes) {
-    throw new Error('you MUST pass recoveryPhrase to this method')
+    throw new Error('you MUST pass recoveryPhrase to this method');
   }
 
   try {
-    const user = new User()
+    const user = new User();
 
     if (userId) {
-      user.userId = userId
+      user.userId = userId;
 
       const wallet = await createWallet(
         recoveryBytes,
         null,
         userId,
         chainId,
-        numberOfAccounts
-      )
-      console.log(wallet,"wallet created");
-      user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet
+        numberOfAccounts,
+      );
+      console.log(wallet, 'wallet created');
+      user.wallets[DataFormatHelper.create8CharHash(userId)] = wallet;
     }
 
-    LogStore.log(`User initially created is: ${JSON.stringify(user)}`)
-    return user
+    LogStore.log(`User initially created is: ${JSON.stringify(user)}`);
+    return user;
   } catch (error) {
-    FlashNotification.showError(error)
+    FlashNotification.showError(error);
   }
-}
+};
 
 /**
  * This function simply add a new walletyarn to an existing storageKey
@@ -122,37 +123,38 @@ import LogStore from '../stores/LogStore'
  * @param {string} encryptionPassword
  * @param {string} addressType=AppConstants.MAINNET_ADDRESS
  */
- const addNewWallet = async (
+const addNewWallet = async (
   user,
   recoveryPhraseString,
   walletId,
   storageKey,
   numberOfAccounts,
   encryptionPassword,
-  addressType = AppConstants.MAINNET_ADDRESS
+  addressType = AppConstants.MAINNET_ADDRESS,
 ) => {
-  const recoveryPhraseAsBytes = await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
-    AppConstants.APP_LANGUAGE,
-    recoveryPhraseString
-  )
+  const recoveryPhraseAsBytes =
+    await NativeModules.KeyaddrManager.keyaddrWordsToBytes(
+      AppConstants.APP_LANGUAGE,
+      recoveryPhraseString,
+    );
 
   const wallet = await createWallet(
     recoveryPhraseAsBytes,
     null,
     walletId,
     addressType,
-    numberOfAccounts
-  )
+    numberOfAccounts,
+  );
 
-  user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet
+  user.wallets[DataFormatHelper.create8CharHash(walletId)] = wallet;
 
   return MultiSafeHelper.saveUser(
     user,
     encryptionPassword,
     recoveryPhraseString,
-    storageKey
-  )
-}
+    storageKey,
+  );
+};
 
 /**
  * This function will create a user from the account creation
@@ -166,43 +168,42 @@ import LogStore from '../stores/LogStore'
  * @param  {Wallet} wallet if a wallet is passed then update the wallet
  * @returns {User} an initial user object
  */
- const createWallet = async (
+const createWallet = async (
   recoveryBytes,
   accountCreationKey,
   walletId,
   chainId = AppConstants.MAINNET_ADDRESS,
   numberOfAccounts = 0,
   rootDerivedPath,
-  wallet
+  wallet,
 ) => {
-  console.log("Inside wallet create")
+  console.log('Inside wallet create');
   if (!accountCreationKey && !recoveryBytes) {
     throw new Error(
-      'you MUST pass either recoveryBytes or accountCreationKey to this method'
-    )
+      'you MUST pass either recoveryBytes or accountCreationKey to this method',
+    );
   }
 
   if (!walletId) {
-    throw new Error('you MUST pass walletId')
+    throw new Error('you MUST pass walletId');
   }
 
   if (recoveryBytes) {
-    console.log("Inside wallet create and inside recoveryBytes",recoveryBytes)
-    accountCreationKey = await _createAccountCreationKey(recoveryBytes)
-    console.log("Inside wallet create and  after",accountCreationKey)
+    // console.log("Inside wallet create and inside recoveryBytes",recoveryBytes)
+    accountCreationKey = await _createAccountCreationKey(recoveryBytes);
+    // console.log("Inside wallet create and  after",accountCreationKey)
   }
 
   try {
     if (!wallet) {
-      wallet = new Wallet()
-      wallet.walletId = walletId
-      wallet.walletName = walletId
+      wallet = new Wallet();
+      wallet.walletId = walletId;
+      wallet.walletName = walletId;
 
-      wallet.accountCreationKeyHash = DataFormatHelper.create8CharHash(
-        accountCreationKey
-      )
+      wallet.accountCreationKeyHash =
+        DataFormatHelper.create8CharHash(accountCreationKey);
 
-      await _createInitialKeys(wallet, accountCreationKey)
+      await _createInitialKeys(wallet, accountCreationKey);
     }
 
     // This function is used in many ways across the application
@@ -222,17 +223,17 @@ import LogStore from '../stores/LogStore'
           ? rootDerivedPath
           : KeyPathHelper.accountCreationKeyPath(),
         chainId,
-        recoveryBytes
-      )
+        recoveryBytes,
+      );
     }
 
-    LogStore.log(`Wallet created is: ${JSON.stringify(wallet)}`)
+    LogStore.log(`Wallet created is: ${JSON.stringify(wallet)}`);
 
-    return wallet
+    return wallet;
   } catch (error) {
-    FlashNotification.showError(error)
+    FlashNotification.showError(error);
   }
-}
+};
 
 /**
  * Add accounts to the wallet passed in.
@@ -244,13 +245,13 @@ import LogStore from '../stores/LogStore'
  * @param  {string} chainId=AppConstants.MAINNET_ADDRESS
  * @param  {string} recoveryPhraseBytes
  */
- const addAccounts = async (
+const addAccounts = async (
   wallet,
   accountCreationKey,
   numberOfAccounts,
   rootDerivedPath,
   chainId = AppConstants.MAINNET_ADDRESS,
-  recoveryPhraseBytes
+  recoveryPhraseBytes,
 ) => {
   await _createAccounts(
     numberOfAccounts,
@@ -258,21 +259,21 @@ import LogStore from '../stores/LogStore'
     wallet,
     rootDerivedPath,
     chainId,
-    recoveryPhraseBytes
-  )
-}
+    recoveryPhraseBytes,
+  );
+};
 
 const createAccounts = async (wallet, numberOfAccounts = 1) => {
-  const password = await UserStore.getPassword()
-  const user = await MultiSafeHelper.getDefaultUser(password)
-  const newWallet = await createNewAccount(wallet, numberOfAccounts)
+  const password = await UserStore.getPassword();
+  const user = await MultiSafeHelper.getDefaultUser(password);
+  const newWallet = await createNewAccount(wallet, numberOfAccounts);
 
-  KeyMaster.setWalletInUser(user, newWallet)
+  KeyMaster.setWalletInUser(user, newWallet);
 
-  await MultiSafeHelper.saveUser(user, password)
+  await MultiSafeHelper.saveUser(user, password);
 
-  return newWallet
-}
+  return newWallet;
+};
 
 /**
  * create a new account(s) and send back the address created
@@ -285,25 +286,27 @@ const createAccounts = async (wallet, numberOfAccounts = 1) => {
  */
 const createNewAccount = async (wallet, numberOfAccounts = 1) => {
   if (!wallet.accountCreationKeyHash) {
-    throw new Error(`The user's wallet passed in has no accountCreationKeyHash`)
+    throw new Error(
+      `The user's wallet passed in has no accountCreationKeyHash`,
+    );
   }
 
   const accountCreationKey =
-    wallet.keys[wallet.accountCreationKeyHash].privateKey
+    wallet.keys[wallet.accountCreationKeyHash].privateKey;
   const pathIndexIncrementor = DataFormatHelper.getNextPathIndex(
     wallet,
-    KeyPathHelper.accountCreationKeyPath()
-  )
+    KeyPathHelper.accountCreationKeyPath(),
+  );
 
   for (let i = 0; i < numberOfAccounts; i++) {
-    const pathIndex = i + pathIndexIncrementor
-    await _createAccount(accountCreationKey, pathIndex, wallet)
+    const pathIndex = i + pathIndexIncrementor;
+    await _createAccount(accountCreationKey, pathIndex, wallet);
   }
 
-  await AccountAPIHelper.populateWalletWithAddressData(wallet)
+  await AccountAPIHelper.populateWalletWithAddressData(wallet);
 
-  return wallet
-}
+  return wallet;
+};
 
 const _createAccount = async (
   accountCreationKey,
@@ -311,14 +314,14 @@ const _createAccount = async (
   wallet,
   rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
   chainId = AppConstants.MAINNET_ADDRESS,
-  recoveryPhraseBytes
+  recoveryPhraseBytes,
 ) => {
   if (childIndex < 0) {
-    throw new Error('You cannot create an index less than zero')
+    throw new Error('You cannot create an index less than zero');
   }
-  const account = new Account()
+  const account = new Account();
 
-  let correctAccountCreationKey = accountCreationKey
+  let correctAccountCreationKey = accountCreationKey;
   // So if rootDerivedPath is the empty string ('') then
   // we need to generate accounts at the root of the tree.
   // This was because in version 1.6 we genereated keys at root
@@ -327,31 +330,35 @@ const _createAccount = async (
   // out there that do have their genesis accounts generated at root
   if (rootDerivedPath === '') {
     const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-      recoveryPhraseBytes
-    )
-    correctAccountCreationKey = rootPrivateKey
+      recoveryPhraseBytes,
+    );
+    correctAccountCreationKey = rootPrivateKey;
   }
 
-  const childPath = rootDerivedPath + '/' + childIndex
+  const childPath = rootDerivedPath + '/' + childIndex;
   const privateKeyForAddress = await NativeModules.KeyaddrManager.child(
     correctAccountCreationKey,
-    childIndex
-  )
-  account.ownershipKey = DataFormatHelper.create8CharHash(privateKeyForAddress)
+    childIndex,
+  );
+  account.ownershipKey = DataFormatHelper.create8CharHash(privateKeyForAddress);
 
-  const privateKeyHash = DataFormatHelper.create8CharHash(privateKeyForAddress)
+  const privateKeyHash = DataFormatHelper.create8CharHash(privateKeyForAddress);
   const publicKey = await NativeModules.KeyaddrManager.toPublic(
-    privateKeyForAddress
-  )
+    privateKeyForAddress,
+  );
 
-  const newKey = KeyMaster.createKey(privateKeyForAddress, publicKey, childPath)
-  wallet.keys[privateKeyHash] = newKey
+  const newKey = KeyMaster.createKey(
+    privateKeyForAddress,
+    publicKey,
+    childPath,
+  );
+  wallet.keys[privateKeyHash] = newKey;
 
-  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey)
-  account.address = address
+  const address = await NativeModules.KeyaddrManager.ndauAddress(publicKey);
+  account.address = address;
 
-  wallet.accounts[address] = account
-}
+  wallet.accounts[address] = account;
+};
 
 const _createAccounts = async (
   numberOfAccounts,
@@ -359,7 +366,7 @@ const _createAccounts = async (
   wallet,
   rootDerivedPath = KeyPathHelper.accountCreationKeyPath(),
   chainId = AppConstants.MAINNET_ADDRESS,
-  recoveryPhraseBytes
+  recoveryPhraseBytes,
 ) => {
   for (let i = 1; i <= numberOfAccounts; i++) {
     await _createAccount(
@@ -368,37 +375,39 @@ const _createAccounts = async (
       wallet,
       rootDerivedPath,
       chainId,
-      recoveryPhraseBytes
-    )
+      recoveryPhraseBytes,
+    );
   }
-  LogStore.log(`Accounts created: ${wallet.accounts}`)
-}
+  LogStore.log(`Accounts created: ${wallet.accounts.length}`);
+};
 
 const _createAccountCreationKey = async recoveryBytes => {
-  console.log("testing account",recoveryBytes);
+  console.log('testing account', recoveryBytes);
   const rootPrivateKey = await NativeModules.KeyaddrManager.newKey(
-    recoveryBytes
-  )
-  console.log('accountCreationKey....',rootPrivateKey)
+    recoveryBytes,
+  );
+  // console.log('rootPrivateKey....',rootPrivateKey) // Ex: npvta8jaftcjecmy3u74b98zndjae2h2a4a7dsfsge7ap48dtkgk2u4b37a7sxkqyaaaaaaaaaaaaa8pzrhby5excg96xvkj837i4zmtrkagqf6ypb3b85wgv9euzivmk2xjy7dkx4f7
   const accountCreationKey = await NativeModules.KeyaddrManager.deriveFrom(
     rootPrivateKey,
     '/',
-    KeyPathHelper.accountCreationKeyPath()
-  )
-  console.log('accountCreationKey....',accountCreationKey)
+    KeyPathHelper.accountCreationKeyPath(),
+  );
+  console.log('accountCreationKey....', accountCreationKey); //  Ex: npvta8jaftcjea6fvmes7hh6jx3q6rjsfizuht3baj32cn8r53npduuzv3dm5ppkka6cqmdsaaaantn2awg7yd8am4wvni6giphe4hnmtvbmsfwp49hsu5fwskbaegti4vp8ki38p87f
+
   return accountCreationKey;
-}
+};
 
 const _createInitialKeys = async (wallet, accountCreationKey) => {
   const accountCreationPublicKey = await NativeModules.KeyaddrManager.toPublic(
-    accountCreationKey
-  )
-  wallet.keys[DataFormatHelper.create8CharHash(accountCreationKey)] = KeyMaster.createKey(
     accountCreationKey,
-    accountCreationPublicKey,
-    KeyPathHelper.accountCreationKeyPath()
-  )
-}
+  );
+  wallet.keys[DataFormatHelper.create8CharHash(accountCreationKey)] =
+    KeyMaster.createKey(
+      accountCreationKey,
+      accountCreationPublicKey,
+      KeyPathHelper.accountCreationKeyPath(),
+    );
+};
 
 export default {
   setupNewUser,
@@ -407,5 +416,5 @@ export default {
   createWallet,
   addAccounts,
   createAccounts,
-  createNewAccount
-}
+  createNewAccount,
+};

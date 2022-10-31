@@ -8,115 +8,111 @@
  * - -- --- ---- -----
  */
 
-import React, { Component } from 'react'
-import { View } from 'react-native'
-import SetupStore from '../../stores/SetupStore'
-import MultiSafeHelper from '../../helpers/MultiSafeHelper'
-import UserData from '../../model/UserData'
-import UserStore from '../../stores/UserStore'
-import AccountHelper from '../../helpers/AccountHelper'
-import DataFormatHelper from '../../helpers/DataFormatHelper'
-import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner'
-import AppConstants from '../../AppConstants'
-import LogStore from '../../stores/LogStore'
-import { SetupContainerWithScrollView } from '../../components/setup'
-import FlashNotification from '../../components/common/FlashNotification'
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import SetupStore from '../../stores/SetupStore';
+import MultiSafeHelper from '../../helpers/MultiSafeHelper';
+import UserData from '../../model/UserData';
+import UserStore from '../../stores/UserStore';
+import AccountHelper from '../../helpers/AccountHelper';
+import DataFormatHelper from '../../helpers/DataFormatHelper';
+import WaitingForBlockchainSpinner from '../../components/common/WaitingForBlockchainSpinner';
+import AppConstants from '../../AppConstants';
+import LogStore from '../../stores/LogStore';
+import {SetupContainerWithScrollView} from '../../components/setup';
+import FlashNotification from '../../components/common/FlashNotification';
 import {
   LargeButton,
   CheckBox,
   LegalText,
   LegalTextHeading,
   MainLegalTextHeading,
-  LegalTextBold
-} from '../../components/common'
-import OfflineError from '../../errors/OfflineError'
+  LegalTextBold,
+} from '../../components/common';
+import OfflineError from '../../errors/OfflineError';
 
 class SetupTermsOfService extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       agree: !!__DEV__,
-      spinner: false
-    }
-    props.navigation.addListener('blur', FlashNotification.hideMessage)
+      spinner: false,
+    };
+    props.navigation.addListener('blur', FlashNotification.hideMessage);
   }
 
   finishSetup = async () => {
-    this.setState({ spinner: true }, async () => {
+    this.setState({spinner: true}, async () => {
       try {
-        LogStore.log('Finishing Setup...')
-console.log("222");
-        let user = UserStore.getUser()
+        LogStore.log('Finishing Setup...');
+        let user = UserStore.getUser();
 
         if (user) {
-          let password = await UserStore.getPassword()
+          let password = await UserStore.getPassword();
           if (!password) {
-            password = SetupStore.encryptionPassword
+            password = SetupStore.encryptionPassword;
           }
           user = await MultiSafeHelper.saveUser(
             user,
             password,
             DataFormatHelper.convertRecoveryArrayToString(
-              SetupStore.recoveryPhrase
-            )
-          )
+              SetupStore.recoveryPhrase,
+            ),
+          );
         } else {
           user = await AccountHelper.setupNewUser(
             user,
             DataFormatHelper.convertRecoveryArrayToString(
-              SetupStore.recoveryPhrase
+              SetupStore.recoveryPhrase,
             ),
             SetupStore.walletId ? SetupStore.walletId : SetupStore.userId,
             SetupStore.numberOfAccounts,
             SetupStore.entropy,
             SetupStore.encryptionPassword,
-            SetupStore.addressType
-          )
+            SetupStore.addressType,
+          );
         }
-console.log(user,"after setup new user")
-await UserData.loadUserData(user)
-console.log("console .. 76");
-this.props.navigation.replace('Drawer', { screen: 'DashboardNav' })
-
-UserStore.setPassword(SetupStore.encryptionPassword)
-
-        this.setState({ spinner: false }, () => {
-          console.log("console .. 77");
-          this.props.navigation.replace('Drawer', { screen: 'Dashboard' })
-        })
+        console.log(user, 'after setup new user');
+        await UserData.loadUserData(user);
+        UserStore.setPassword(SetupStore.encryptionPassword);
+        this.setState({spinner: false}, () => {
+          this.props.navigation.replace('Drawer', {screen: 'DashboardNav'});
+        });
       } catch (error) {
-        console.log("console .. 76",error);
-        FlashNotification.showError(new OfflineError(
-          error.message
-            ? error.message
-            : 'Error occurred communicating with the blockchian')
-        )
-        this.setState({ spinner: false })
+        console.log('console .. 76', error);
+        FlashNotification.showError(
+          new OfflineError(
+            error.message
+              ? error.message
+              : 'Error occurred communicating with the blockchian',
+          ),
+        );
+        this.setState({spinner: false});
       }
-    })
-  }
+    });
+  };
 
   checkedAgree = () => {
-    this.setState({ agree: !this.state.agree })
-  }
+    this.setState({agree: !this.state.agree});
+  };
 
   performFinishingAction = () => {
     // this.props.navigation.replace("Explore");
-    let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP
+    let mode = this.props.route.params?.mode ?? AppConstants.TOS_SETUP;
     switch (mode) {
       case AppConstants.TOS_BUY:
-        this.goBuyNdau()
-        break
+        this.goBuyNdau();
+        break;
       case AppConstants.TOS_SETUP:
       default:
-        this.finishSetup()
-        break
+        this.finishSetup();
+        break;
     }
-  }
+  };
 
-  render () {
-    SetupStore.printData()
+  render() {
+    SetupStore.printData();
 
     return (
       <SetupContainerWithScrollView {...this.props} pageNumber={18}>
@@ -505,20 +501,19 @@ UserStore.setPassword(SetupStore.encryptionPassword)
           <CheckBox
             onValueChange={this.checkedAgree}
             checked={this.state.agree}
-            label='I agree to the terms of use'
+            label="I agree to the terms of use"
             scroll
           />
           <LargeButton
             scroll
             onPress={this.performFinishingAction}
-            disabled={!this.state.agree}
-          >
+            disabled={!this.state.agree}>
             Next
           </LargeButton>
         </View>
       </SetupContainerWithScrollView>
-    )
+    );
   }
 }
 
-export default SetupTermsOfService
+export default SetupTermsOfService;
