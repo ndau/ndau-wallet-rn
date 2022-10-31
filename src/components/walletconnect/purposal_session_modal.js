@@ -33,12 +33,11 @@ const PurposalModal = () => {
     SessionBloc.state,
   );
   // const data = JSON.parse(proposal);
-  console.log(', socketId, socketLogin, accountAddress....', socketId, socketLogin, accountAddress);
   const wallet = WalletStore.getWallet();
   let loginData = socketLogin != null ? JSON.parse(socketLogin) : '';
   console.log(
     'socketLogin...............',
-    typeof Object.keys(wallet.accounts)[0],
+    wallet,
   );
   const onReject = async () => {
     try {

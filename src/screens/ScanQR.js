@@ -137,58 +137,39 @@ export default function ScanQR({route}) {
 
   async function onPair() {
     if (barcodes && barcodes.length > 0 && isScanned === false) {
-      setIsScanned(true);
       try {
-        console.log('barcode............', barcodes[0].content.data);
-        const {id: socketId } = await createSignClient(
-          route.params?.account?.address,
-          barcodes[0].content.data,
-        );
-        // Socket.on('confirm_wallet_login', data => {
-        //   console.log('confirm....', data);
-        // });
-        // console.log('final Value is ', finalValue);
-        // let data = await signClient.pair({
-        //   uri: barcodes.data,
-        // });
-
-        // console.log('data', data);
-        // setBarcodes('');
-        // SessionBloc.setSocketLogin(barcodes.data, socketId);
-        // SessionBloc.setPurposalModal(true);
-        onClose();
+        const loginData = JSON.parse(barcodes[0].content.data);
+        const {website_socket_id, website_url, request} = loginData;
+        if (!website_socket_id || !website_url || request !== 'login') {
+          setIsScanned(false);
+          setError('Invalid QR code');
+        } else {
+          try {
+            await createSignClient(
+              route.params?.account?.address,
+              barcodes[0].content.data,
+            );
+            setIsScanned(true);
+            onClose();
+          } catch (e) {
+            console.log('error', e);
+            setIsScanned(false);
+          }
+        }
       } catch (e) {
-        console.log('error', e);
-        setError(e.message);
+        setIsScanned(false);
+        setError('Invalid QR code format');
       }
-      // } else {
-      //   try {
-      //     // let data = await signClient.pair({
-      //     //   uri: pairValue,
-      //     // });
-      //     // console.log('else............', _barcodes.data);
-      //     setPairValue('');
-      //     console.log('data', data);
-      //     onClose();
-      //   } catch (e) {
-      //     console.log('error', e);
-      //     setError('Invalid URL');
-      //   }
+
+      // Socket.on('confirm_wallet_login', data => {
+      //   console.log('confirm....', data);
+      // });
+      // console.log('final Value is ', finalValue);
+      // let data = await signClient.pair({
+      //   uri: barcodes.data,
+      // });
     }
   }
-
-  // const barcodeRecognized = barcodes => {
-  //   console.log('barcodes', barcodes);
-  //   console.log(barcodes);
-  //   // setBarcodes(barcodes);
-
-  //   if (barcodes) {
-  //     onPair(barcodes);
-  //     // this.setState({
-  //     //     modelVisible:true
-  //     // })
-  //   }
-  // };
 
   const onClose = () => {
     navigation.goBack();

@@ -149,7 +149,7 @@ const App = () => {
     SettingsStore.addListener(updater);
     async function getData() {
       NotificationService.clearAll();
-      await createSignClient();
+      // await createSignClient();
     }
     getData();
     const appStateSubscription = AppState.addEventListener(
