@@ -35,6 +35,7 @@ import ErrorModal from './components/walletconnect/error_session';
 import AppPurposalModal from './components/walletconnect/app_purposal_aprove_reject';
 import FeaturePurposalModal from './components/walletconnect/feature_purposal_request_model';
 import AdminPurposalModal from './components/walletconnect/admin_feature_model';
+
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
 configureFontAwesomePro();
@@ -150,6 +151,7 @@ const App = () => {
     async function getData() {
       NotificationService.clearAll();
       // await createSignClient();
+
     }
     getData();
     const appStateSubscription = AppState.addEventListener(

@@ -1,24 +1,6 @@
 import React from 'react';
 import {proxy} from 'valtio';
 
-// interface State {
-//   proposal: string
-// }
-
-// const state = proxy<State>({
-//   proposal: ''
-// })
-
-// const SessionBloc = {
-//   state,
-
-//   setProposal(proposal: State['proposal']) {
-//     state.proposal = proposal
-//   }
-// }
-
-// export default SessionBloc;
-
 var state = proxy({
   proposal: '',
   purposalModal: false,
@@ -38,6 +20,8 @@ var state = proxy({
   featurePurposalData: '',
   socketId: '',
   accountAddress: '',
+  accountPrivateKey: '',
+  accountPublicKey: '',
 });
 var SessionBloc = {
   state: state,
@@ -59,6 +43,12 @@ var SessionBloc = {
 
   setAccountAddress: function (address) {
     state.accountAddress = address;
+  },
+  setAccountPrivateKey: function (key) {
+    state.accountPrivateKey = key;
+  },
+  setAccountPubkicKey: function (key) {
+    state.accountPublicKey = key;
   },
 
   setAdminPurposal: function (data, popup, approve) {

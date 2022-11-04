@@ -1,3 +1,4 @@
+import {NativeModules} from 'react-native';
 import {Modal, Portal, Provider} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -7,6 +8,10 @@ import {BlurView} from '@react-native-community/blur';
 import WalletStore from '../../stores/WalletStore';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/dist/Feather';
+
+// import ValidationKeyMaster from '../helpers/ValidationKeyMaster';
+// import KeyMaster from '../helpers/KeyMaster';
+import TxSignPrep from '../../model/TxSignPrep';
 
 import {
   Text,
@@ -32,15 +37,17 @@ const FeaturePurposalModal = () => {
     proposal,
     socketId,
     socketLogin,
-    featurePurposalData,
+    featurePurposalData: purposalData,
     appPurposalData,
     appPurposalModel,
     isApprove,
+    accountAddress,
+    accountPubkicKey,
+    accountPrivateKey,
   } = useSnapshot(SessionBloc.state);
   // const data = JSON.parse(proposal);
   // console.log('data....', data);
   const wallet = WalletStore.getWallet();
-  let purposalData = featurePurposalData;
   // featurePurposalData != null ? JSON.parse(featurePurposalData) : '';
 
   const onReject = async () => {
