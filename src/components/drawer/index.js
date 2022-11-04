@@ -81,7 +81,6 @@ export function DrawerEntryVersionItem(props) {
 }
 
 export const DrawerHeader = props => {
-  console.log(props?.route?.name==='WalletOverview'?'true............':'false..............',props.route)
   return (
     <View style={styles.drawerHeaderContainer}>
       <Icon

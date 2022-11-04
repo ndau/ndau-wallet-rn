@@ -40,8 +40,6 @@ import ExploreStack from './ExplorerNavigation';
 import Account from '../screens/Accounts';
 import AllTransactions from '../screens/AllTransactions';
 import FilterByTypeTransactions from '../screens/FilterByTypeTransactions';
-import useInitialization from '../hooks/useInitialization';
-// import useSignEventHandler from '../hooks/useSignEvents';
 import Pairing from '../screens/Pairing';
 
 const Stack = createNativeStackNavigator();
@@ -105,8 +103,6 @@ const SetupStack = () => {
 };
 
 const AppContainer = props => {
-  // useSignEventHandler();
-
   return (
     <Stack.Navigator
       initialRouteName="SetupStack"

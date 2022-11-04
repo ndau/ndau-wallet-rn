@@ -1,3 +1,4 @@
+import {NativeModules} from 'react-native';
 import {Modal, Portal, Provider} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,23 +26,34 @@ import {
 import SessionBloc from '../../blocs/SessionBloc';
 // import VectorIcon from 'react-native-vector-icons/Feather';
 // import CollapsibleBar from './CollapsibleBar';
+import TxSignPrep from '../../model/TxSignPrep';
 
 const VotingModal = () => {
   const [checked, setchecked] = useState(true);
-  const {proposal, alertPopup} = useSnapshot(SessionBloc.state);
+  const {proposal, accountAddress, accountPublicKey, accountPrivateKey} =
+    useSnapshot(SessionBloc.state);
+
   const data = JSON.parse(proposal);
+  const {
+    proposal_id,
+    voting_option_id,
+    proposal_heading,
+    voting_option_heading,
+  } = data;
   console.log('data....', data);
+
+  const app_socket_id = Socket.id;
   const wallet = WalletStore.getWallet();
+  const wallet_address = Object.keys(wallet.accounts)[0];
   const onReject = async () => {
     try {
-      const wallet = WalletStore.getWallet();
       data.is_approved = 'true';
-      data.app_socket_id = Socket.id;
-      data.wallet_address = Object.keys(wallet.accounts)[0];
+      data.app_socket_id = app_socket_id;
+      data.wallet_address = wallet_address;
       Socket.emit('app-create_vote-rejected-server', data);
       //TODO: We will change the name of this event
       // Socket.emit('app-create_vote-fulfilled-server', data);
-      console.log('Approved sucessfully', data);
+      console.log('Reject sucessfully', data);
       SessionBloc.setVotingRequestlModal(false);
       // if (proposal) {
       //   await signClient.reject({
@@ -57,15 +69,45 @@ const VotingModal = () => {
 
     // ModalStore.close()
   };
+
   const onApprove = async () => {
     try {
+      const ballot = JSON.stringify({
+        vote: 'yes',
+        proposal: {
+          proposal_id,
+          proposal_heading,
+          voting_option_id,
+          voting_option_heading,
+        },
+        pubkey: accountPublicKey,
+      });
+      const preparedTransaction = new TxSignPrep().prepare(ballot);
+      const base64EncodedPrepTx = preparedTransaction.b64encode();
+      console.log('base64EncodedPrepTx', base64EncodedPrepTx);
+      // Get the signature to use in the transaction
+      const signature = await NativeModules.KeyaddrManager.sign(
+        accountPrivateKey,
+        base64EncodedPrepTx,
+      );
+      console.log('signature', signature);
+
       const wallet = WalletStore.getWallet();
       data.is_approved = 'true';
-      data.app_socket_id = Socket.id;
-      data.wallet_address = Object.keys(wallet.accounts)[0];
+
       // Socket.emit('app-create_vote-confirmed-server', data);
-      Socket.emit('appCreateVoteConfirmedServer', data);
-      console.log('Approved sucessfully', data);
+
+      Socket.emit('appCreateVoteConfirmedServer', {
+        app_socket_id,
+        proposal_id,
+        voting_option_id,
+        proposal_heading,
+        voting_option_heading,
+        wallet_address,
+        ballot,
+        signature,
+      });
+      console.log('Approved sucessfully', {});
       SessionBloc.setVotingRequestlModal(false);
       //   SessionBloc.setVotingRequestlModal(false);
       // if (proposal) {

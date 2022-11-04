@@ -1,7 +1,7 @@
 /**
  * @format
  */
- import 'react-native-reanimated';
+import 'react-native-reanimated';
 import {AppRegistry} from 'react-native';
 
 import BackgroundTasks from './src/services/BackgroundTasks';

@@ -234,6 +234,7 @@ class AccountDetails extends Component {
       <AccountDetailsContainer
         goBack={this.goBack}
         account={this.state.account}
+        wallet={this.state.wallet}
         {...this.props}
       >
         <LoadingSpinner

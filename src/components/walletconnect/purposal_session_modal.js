@@ -35,10 +35,7 @@ const PurposalModal = () => {
   // const data = JSON.parse(proposal);
   const wallet = WalletStore.getWallet();
   let loginData = socketLogin != null ? JSON.parse(socketLogin) : '';
-  console.log(
-    'socketLogin...............',
-    wallet,
-  );
+
   const onReject = async () => {
     try {
       const wallet = WalletStore.getWallet();

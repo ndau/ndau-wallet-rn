@@ -2,18 +2,27 @@
 import React from 'react';
 import socketIOClient from 'socket.io-client';
 import SessionBloc from '../blocs/SessionBloc';
-const ENDPOINT = 'http://backend.bpc-dao.ndau.tech/';
+const ENDPOINT = 'https://dev.backend.bpcdao.ndau.tech/';
 
 export let Socket;
 
-export async function createSignClient(_address, barcode) {
+export async function createSignClient(
+  account,
+  privateKey,
+  publicKey,
+  barcode,
+) {
   Socket = socketIOClient(ENDPOINT);
 
   Socket.on('connect', data => {
     console.log(data, 'connect event data');
     console.log(Socket.id, 'connect event socket.id');
+
     SessionBloc.setSocketLogin(barcode, Socket.id);
-    SessionBloc.setAccountAddress(_address);
+    SessionBloc.setAccountAddress(account.address);
+    SessionBloc.setAccountPrivateKey(privateKey);
+    SessionBloc.setAccountPubkicKey(publicKey);
+
     SessionBloc.setPurposalModal(true);
   });
 
@@ -53,6 +62,7 @@ export async function createSignClient(_address, barcode) {
 
   Socket.on('server-feature_proposal-request-app', data => {
     console.log('server-feature_proposal-request-app', data);
+    console.log('server-feature_proposal-request-app.......data', data);
     SessionBloc.setFeaturePurposal(data, true);
     // SessionBloc.setVotingProposal(JSON.stringify(data));
     // SessionBloc.setVotingRequestlModal(true);

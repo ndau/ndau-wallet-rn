@@ -43,7 +43,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  TextInput,
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
@@ -62,72 +61,36 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {
+  LargeButton,
+  TextInput,
+  Label,
+  OrBorder,
+  LargeBorderButton,
+  NdauQRCodeScanner,
+  BarBorder,
+} from '../components/common';
+import {
+  AccountSendContainer,
+  AccountDetailPanel,
+  AccountSendButton,
+  AccountHeaderText,
+  AccountConfirmationItem,
+  AccountSendErrorText,
+  AccountSendPanel,
+  AccountScanContainer,
+} from '../components/account';
+import ValidationKeyMaster from '../helpers/ValidationKeyMaster';
+import KeyMaster from '../helpers/KeyMaster';
 
 export default function ScanQR({route}) {
-  console.log('abc.................', route.params?.account?.address);
+  const {account, wallet} = route.params;
   const [pairValue, setPairValue] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigation = useNavigation();
 
-  const cameraRef = useRef(null);
-  const devices = useCameraDevices();
-  const device = devices.back;
-  // const isAppForeground = useIsAppForeground()
-  const [hasPermission, setHasPermission] = useState(false);
   const [isScanned, setIsScanned] = React.useState(false);
 
-  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
-    checkInverted: true,
-  });
-
-  useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      switch (status) {
-        case 'authorized':
-          setHasPermission(true);
-          break;
-        case 'not-determined':
-          const status = await Camera.requestCameraPermission();
-          setHasPermission(status == 'authorized');
-        default:
-      }
-    })();
-  }, []);
-
-  React.useEffect(() => {
-    onPair();
-    // return () => {
-    //   barcodes;
-    // };
-  }, [barcodes]);
-
-  function onSessionProposal(event) {
-    console.log(event, 'event...1');
-    // SessionBloc.setProposal(JSON.stringify(event))
-    // console.log('event..',event)
-    // SessionBloc.setNavigation(navigation)
-    // SessionBloc.setPurposalModal(true)
-
-    // navigation.navigate({ name: 'SessionProposal', params: {} })
-  }
-
-  // useEffect(() => {
-  //   signClient.on('session_proposal', onSessionProposal)
-  //   // signClient.on('session_request', onSessionRequest)
-  //   // signClient.on('session_ping', data => console.log('ping', data))
-  //   // signClient.on('session_event', data => console.log('event', data))
-  //   // signClient.on('session_update', data => console.log('update', data))
-  //   // signClient.on('session_delete', data => console.log('delete', data))
-  //   return () => {
-  //     signClient.removeListener('session_proposal', onSessionProposal);
-  //     // signClient.removeListener('session_request', onSessionRequest)
-  //     // TODOs
-
-  //   }
-  // }, [])
-  // const [first, setfirst] = useState(second)
   const ContentTitle = ({title, style}) => (
     <Appbar.Content
       title={<Text style={style}> {title} </Text>}
@@ -135,20 +98,37 @@ export default function ScanQR({route}) {
     />
   );
 
-  async function onPair() {
-    if (barcodes && barcodes.length > 0 && isScanned === false) {
+  async function onPair(barcode) {
+    if (barcode && barcode.data) {
       try {
-        const loginData = JSON.parse(barcodes[0].content.data);
+        const loginData = JSON.parse(barcode.data);
         const {website_socket_id, website_url, request} = loginData;
         if (!website_socket_id || !website_url || request !== 'login') {
           setIsScanned(false);
           setError('Invalid QR code');
         } else {
+          const walletAccountKeys = Object.keys(wallet.accounts);
+          await ValidationKeyMaster.addValidationKey(
+            wallet,
+            wallet.accounts[walletAccountKeys],
+          );
+          const validationKeys =
+            wallet.accounts[walletAccountKeys].validationKeys;
+          console.log('validationKeys', validationKeys);
+          console.log('wallet.............', wallet);
+          const privateKey = KeyMaster.getPrivateKeyFromHash(
+            wallet,
+            validationKeys[0],
+          );
+          const publicKey = KeyMaster.getPublicKeyFromHash(
+            wallet,
+            validationKeys[0],
+          );
+          console.log('privateKeyFromHash', privateKey);
+          console.log('publicKey', publicKey);
+
           try {
-            await createSignClient(
-              route.params?.account?.address,
-              barcodes[0].content.data,
-            );
+            await createSignClient(account, privateKey, publicKey, barcode.data);
             setIsScanned(true);
             onClose();
           } catch (e) {
@@ -160,14 +140,6 @@ export default function ScanQR({route}) {
         setIsScanned(false);
         setError('Invalid QR code format');
       }
-
-      // Socket.on('confirm_wallet_login', data => {
-      //   console.log('confirm....', data);
-      // });
-      // console.log('final Value is ', finalValue);
-      // let data = await signClient.pair({
-      //   uri: barcodes.data,
-      // });
     }
   }
 
@@ -175,24 +147,24 @@ export default function ScanQR({route}) {
     navigation.goBack();
   };
 
-  const onScanQr = () => {
-    setIsScanned(false);
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 900);
-  };
+  // const onScanQr = () => {
+  //   setIsScanned(false);
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 900);
+  // };
 
   const onConnect = () => {
     if (pairValue.length == 0) {
       setError('Please Enter Input valid url');
       // setError('Incorrect Input')
     } else {
-      onPair();
+      onPair(pairValue);
     }
   };
 
-  console.log('status', loading);
+  console.log('new code 1............');
   return (
     <View style={{flex: 1, backgroundColor: '#47515b'}}>
       <Appbar.Header style={{backgroundColor: '#47515b', elevation: 0}}>
@@ -210,106 +182,21 @@ export default function ScanQR({route}) {
           <View
             style={{
               backgroundColor: '#47515b',
-              height: hp('60%'),
+              height: hp('45%'),
               alignItems: 'center',
               // justifyContent: 'space-evenly',
             }}>
-            {/* <Text style={{color: '#9F9F9F', fontSize: 18}}>
-              Scan QR code to connect
-            </Text> */}
-
-            {/* <ImageBackground source={require('../../img/border.png')} style={{height:'20%',width:'100%',backgroundColor:'red',alignItems:'center',resizeMode:'cover'}}> */}
-            <View
-              style={{
-                height: hp('10%'),
-                marginVertical: hp('5%'),
-                width: wp('10%'),
-                alignItems: 'center',
-              }}>
-              {!isScanned && device && hasPermission ? (
-                <Camera
-                  ref={cameraRef}
-                  style={{
-                    position: 'absolute',
-                    // maxHeight: 140,
-                    // top: hp('9%'),
-                    opacity: loading ? 0 : 1,
-                    height: hp('45%'),
-
-                    // maxWidth: 150,
-                    alignItems: 'center',
-                    width: hp('45%'),
-                  }}
-                  device={device}
-                  isActive={true}
-                  frameProcessor={frameProcessor}
-                  frameProcessorFps={5}
-                  audio={false}
-                  //isActive={isAppForeground}
-                />
-              ) : (
-                <View
-                  style={{
-                    backgroundColor: 'black',
-                    position: 'absolute',
-                    // maxHeight: 140,
-                    // top:hp('8.2%'),
-
-                    height: hp('45%'),
-
-                    // maxWidth: 150,
-                    alignItems: 'center',
-                    width: hp('45%'),
-                  }}></View>
-              )}
-              {loading && (
-                <ActivityIndicator
-                  color={'#4C9578'}
-                  style={{position: 'absolute', top: hp('10%')}}
-                  size={35}
-                />
-              )}
-              <View
-                style={{
-                  height: hp('7%'),
-                  width: wp('100%'),
-                  top: hp('-7%'),
-                  position: 'absolute',
-                  backgroundColor: '#47515b',
-                }}></View>
-
-              <Image
-                style={{
-                  height: hp('45%'),
-
-                  width: hp('45%'),
-                  // top:100,
-                  resizeMode: 'contain',
-                }}
-                source={require('../../img/border.png')}
-              />
-            </View>
-
-            {isScanned && (
-              <TouchableOpacity
-                onPress={() => onScanQr()}
-                style={{
-                  backgroundColor: '#4C9578',
-                  padding: '2%',
-                  marginTop: hp('35%'),
-                  width: wp('50%'),
-                  borderRadius: 6,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text style={{color: '#D8FFE4'}}>Rescan</Text>
-              </TouchableOpacity>
-            )}
+            <NdauQRCodeScanner
+              onBarCodeRead={e => {
+                console.log('Get back barcode............');
+                onPair(e);
+              }}
+            />
           </View>
           <View
             style={{
               backgroundColor: '#47515b',
-              height: hp('30%'),
+              height: hp('45%'),
               alignItems: 'center',
               justifyContent: 'center',
             }}>
@@ -318,7 +205,7 @@ export default function ScanQR({route}) {
               Or use wallet connect url
             </Text>
 
-            <TextInput
+            {/* <TextInput
               placeholderTextColor={'#FFFFFF'}
               placeholder="Enter WC:..."
               style={{
@@ -336,6 +223,19 @@ export default function ScanQR({route}) {
               onChangeText={e => {
                 setPairValue(e), setError(''), setIsScanned(true);
               }}
+            /> */}
+            <TextInput
+              style={{
+                width: '85%',
+              }}
+              onChangeText={e => {
+                setPairValue(e), setError(''), setIsScanned(true);
+              }}
+              value={pairValue}
+              placeholder="Enter WC:..."
+              autoCapitalize="none"
+              noBottomMargin
+              noSideMargins
             />
             <TouchableOpacity
               disabled={!isScanned}
@@ -343,12 +243,10 @@ export default function ScanQR({route}) {
                 onConnect();
               }}
               style={{
-                position: 'absolute',
                 backgroundColor: '#4C9578',
                 padding: '2%',
-                right: '9%',
+                width: wp('100%'),
                 borderRadius: 6,
-                top: '51%',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
