@@ -22,11 +22,10 @@ import {
   Switch,
   Linking,
 } from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, Progress, H4, P, Checkbox, Input, RadioGroup} from 'nachos-ui';
 import LinearGradient from 'react-native-linear-gradient';
-import styles from './styles';
-import AppConstants from '../../AppConstants';
 import QRCode from 'react-native-qrcode-svg';
 // It would be ideal to use the below library as it is faster. However
 // there seemed to be an issue with how it creates a black border. Even padding
@@ -41,12 +40,11 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-fontawesome-pro';
-import {
-  Camera,
-  useCameraDevices,
-  useIsAppForeground,
-} from 'react-native-vision-camera';
+import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {BarcodeFormat, useScanBarcodes} from 'vision-camera-code-scanner';
+
+import styles from './styles';
+import AppConstants from '../../AppConstants';
 
 export function KeyboardScroller(props) {
   return (
@@ -609,7 +607,7 @@ export function NdauQRCodeScanner(props) {
   const cameraRef = useRef(null);
   const devices = useCameraDevices();
   const device = devices.back;
-  // const isAppForeground = useIsAppForeground()
+  const isFocused = useIsFocused();
   const [hasPermission, setHasPermission] = useState(false);
   const [isScanned, setIsScanned] = React.useState(false);
 
@@ -669,11 +667,10 @@ export function NdauQRCodeScanner(props) {
               alignItems: 'center',
             }}
             device={device}
-            isActive={true}
+            isActive={isFocused}
             frameProcessor={frameProcessor}
             frameProcessorFps={5}
             audio={false}
-            //isActive={isAppForeground}
           />
           <Image
             style={{
@@ -696,7 +693,6 @@ export function NdauQRCodeScanner(props) {
                 width: wp('100%'),
                 padding: '2%',
                 borderRadius: 6,
-                alignItems: 'center',
                 justifyContent: 'center',
               }}>
               <Text style={{color: '#D8FFE4'}}>Rescan</Text>

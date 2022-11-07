@@ -1,86 +1,21 @@
-// import React,{useState,useRef} from 'react'
-// import { Button, Text, TextInput, View } from 'react-native'
-
-// import { signClient } from '../utils/WalletConnectUtil'
-
-// export default function WalletView() {
-//   const [pairValue, setPairValue] = useState('')
-//   const inputRef = useRef(null);
-
-//   async function onPair() {
-//     try{
-//       await signClient.pair({ uri: pairValue })
-
-//       setPairValue('');
-//     }catch(e){console.log('error',e)}
-
-//   }
-
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'#181F28' }}>
-//       <Text>Pair</Text>
-//       <RNCamera
-// style={{height:300,width:200}}
-// // torchMode={this.state.torchOn ? Camera.constants.TorchMode.on : Camera.constants.TorchMode.off}
-
-// ref={inputRef}
-// ></RNCamera>
-//       <TextInput placeholder='Enter Wc:...' style={{backgroundColor:'#fff',height:100,width:'100%'}} value={pairValue} onChangeText={setPairValue} />
-//       <View style={{marginTop: 20,}}></View>
-//       <Button title="Pair"  onPress={onPair} />
-//     </View>
-//   )
-// }
-
-import {fal} from '@fortawesome/pro-light-svg-icons';
-import {on} from 'events';
-import {useFocusEffect} from '@react-navigation/native';
 import {createSignClient, Socket} from '../utils/WalletConnectUtil';
-import SessionBloc from '../blocs/SessionBloc';
 import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
+  KeyboardAvoidingView,
 } from 'react-native';
 import Icon from 'react-native-fontawesome-pro';
-
-import {
-  Camera,
-  useCameraDevices,
-  useIsAppForeground,
-} from 'react-native-vision-camera';
-import {BarcodeFormat, useScanBarcodes} from 'vision-camera-code-scanner';
 import {useNavigation} from '@react-navigation/native';
 import {Appbar, Searchbar, Card} from 'react-native-paper';
-
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {
-  LargeButton,
-  TextInput,
-  Label,
-  OrBorder,
-  LargeBorderButton,
-  NdauQRCodeScanner,
-  BarBorder,
-} from '../components/common';
-import {
-  AccountSendContainer,
-  AccountDetailPanel,
-  AccountSendButton,
-  AccountHeaderText,
-  AccountConfirmationItem,
-  AccountSendErrorText,
-  AccountSendPanel,
-  AccountScanContainer,
-} from '../components/account';
-import ValidationKeyMaster from '../helpers/ValidationKeyMaster';
+import {TextInput, NdauQRCodeScanner} from '../components/common';
+
 import KeyMaster from '../helpers/KeyMaster';
 
 export default function ScanQR({route}) {
@@ -98,6 +33,7 @@ export default function ScanQR({route}) {
     />
   );
 
+  console.log('account..........', account);
   async function onPair(barcode) {
     if (barcode && barcode.data) {
       try {
@@ -107,33 +43,41 @@ export default function ScanQR({route}) {
           setIsScanned(false);
           setError('Invalid QR code');
         } else {
-          const walletAccountKeys = Object.keys(wallet.accounts);
-          await ValidationKeyMaster.addValidationKey(
-            wallet,
-            wallet.accounts[walletAccountKeys],
-          );
-          const validationKeys =
-            wallet.accounts[walletAccountKeys].validationKeys;
-          console.log('validationKeys', validationKeys);
-          console.log('wallet.............', wallet);
-          const privateKey = KeyMaster.getPrivateKeyFromHash(
-            wallet,
-            validationKeys[0],
-          );
-          const publicKey = KeyMaster.getPublicKeyFromHash(
-            wallet,
-            validationKeys[0],
-          );
-          console.log('privateKeyFromHash', privateKey);
-          console.log('publicKey', publicKey);
+          const walletAccount = wallet.accounts[account.address];
 
-          try {
-            await createSignClient(account, privateKey, publicKey, barcode.data);
-            setIsScanned(true);
-            onClose();
-          } catch (e) {
-            console.log('error', e);
-            setIsScanned(false);
+          console.log('walletAccount...', walletAccount);
+          const validationKeys = walletAccount.validationKeys;
+          console.log('validationKeys........', validationKeys);
+          console.log('wallet.............', wallet);
+          if (!validationKeys || validationKeys.length == 0) {
+            setError(
+              'This address is empty. Please select a wallet with ndau balance',
+            );
+          } else {
+            const privateKey = KeyMaster.getPrivateKeyFromHash(
+              wallet,
+              validationKeys[0],
+            );
+            const publicKey = KeyMaster.getPublicKeyFromHash(
+              wallet,
+              validationKeys[0],
+            );
+            console.log('privateKeyFromHash', privateKey);
+            console.log('publicKey', publicKey);
+
+            try {
+              await createSignClient(
+                account,
+                privateKey,
+                publicKey,
+                barcode.data,
+              );
+              setIsScanned(true);
+              onClose();
+            } catch (e) {
+              console.log('error', e);
+              setIsScanned(false);
+            }
           }
         }
       } catch (e) {
@@ -147,14 +91,6 @@ export default function ScanQR({route}) {
     navigation.goBack();
   };
 
-  // const onScanQr = () => {
-  //   setIsScanned(false);
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 900);
-  // };
-
   const onConnect = () => {
     if (pairValue.length == 0) {
       setError('Please Enter Input valid url');
@@ -164,7 +100,6 @@ export default function ScanQR({route}) {
     }
   };
 
-  console.log('new code 1............');
   return (
     <View style={{flex: 1, backgroundColor: '#47515b'}}>
       <Appbar.Header style={{backgroundColor: '#47515b', elevation: 0}}>
@@ -193,75 +128,59 @@ export default function ScanQR({route}) {
               }}
             />
           </View>
-          <View
-            style={{
-              backgroundColor: '#47515b',
-              height: hp('45%'),
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            {/* <View> */}
-            <Text style={{color: '#9F9F9F', fontSize: 18, paddingBottom: '4%'}}>
-              Or use wallet connect url
-            </Text>
-
-            {/* <TextInput
-              placeholderTextColor={'#FFFFFF'}
-              placeholder="Enter WC:..."
+          <KeyboardAvoidingView behavior="height" style={{flex: 1}}>
+            <View
               style={{
-                backgroundColor: '#fff',
-                width: '85%',
-                borderColor: '#395470',
-                backgroundColor: '#1A283A',
-                borderRadius: 10,
-                fontSize: 13,
-                color: '#fff',
-                paddingHorizontal: '4%',
-                borderWidth: 1,
-              }}
-              value={pairValue}
-              onChangeText={e => {
-                setPairValue(e), setError(''), setIsScanned(true);
-              }}
-            /> */}
-            <TextInput
-              style={{
-                width: '85%',
-              }}
-              onChangeText={e => {
-                setPairValue(e), setError(''), setIsScanned(true);
-              }}
-              value={pairValue}
-              placeholder="Enter WC:..."
-              autoCapitalize="none"
-              noBottomMargin
-              noSideMargins
-            />
-            <TouchableOpacity
-              disabled={!isScanned}
-              onPress={() => {
-                onConnect();
-              }}
-              style={{
-                backgroundColor: '#4C9578',
-                padding: '2%',
-                width: wp('100%'),
-                borderRadius: 6,
+                backgroundColor: '#47515b',
+                height: hp('45%'),
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Text style={{color: '#D8FFE4'}}>Connect</Text>
-            </TouchableOpacity>
-            <Text
-              style={{
-                position: 'absolute',
-                bottom: hp('6%'),
-                left: wp('8%'),
-                color: 'red',
-              }}>
-              {error}
-            </Text>
-          </View>
+              <Text
+                style={{color: '#9F9F9F', fontSize: 18, paddingBottom: '4%'}}>
+                Or use wallet connect url
+              </Text>
+              <TextInput
+                style={{
+                  width: '85%',
+                }}
+                onChangeText={e => {
+                  setPairValue(e), setError(''), setIsScanned(true);
+                }}
+                value={pairValue}
+                placeholder="Enter WC:..."
+                autoCapitalize="none"
+                noBottomMargin
+                noSideMargins
+              />
+
+              <TouchableOpacity
+                disabled={!isScanned}
+                onPress={() => {
+                  onConnect();
+                }}
+                style={{
+                  backgroundColor: '#4C9578',
+                  padding: '2%',
+                  width: wp('100%'),
+                  borderRadius: 6,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={{color: '#D8FFE4'}}>Connect</Text>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  position: 'absolute',
+                  padding: '2%',
+                  bottom: hp('6%'),
+                  justifyContent: 'center',
+                  color: 'red',
+                }}>
+                {error}
+              </Text>
+            </View>
+          </KeyboardAvoidingView>
         </View>
       </ScrollView>
 
