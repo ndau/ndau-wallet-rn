@@ -30,7 +30,7 @@ import TxSignPrep from '../../model/TxSignPrep';
 
 const VotingModal = () => {
   const [checked, setchecked] = useState(true);
-  const {proposal, accountAddress, accountPublicKey, accountPrivateKey} =
+  const {proposal, accountAddress: wallet_address, accountPublicKey, accountPrivateKey} =
     useSnapshot(SessionBloc.state);
 
   const data = JSON.parse(proposal);
@@ -44,7 +44,6 @@ const VotingModal = () => {
 
   const app_socket_id = Socket.id;
   const wallet = WalletStore.getWallet();
-  const wallet_address = Object.keys(wallet.accounts)[0];
   const onReject = async () => {
     try {
       data.is_approved = 'true';
