@@ -24,7 +24,7 @@ import {
 } from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Button, Progress, H4, P, Checkbox, Input, RadioGroup} from 'nachos-ui';
+import {Button, Progress, H4, P, Input, RadioGroup} from 'nachos-ui';
 import LinearGradient from 'react-native-linear-gradient';
 import QRCode from 'react-native-qrcode-svg';
 // It would be ideal to use the below library as it is faster. However

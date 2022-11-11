@@ -15,6 +15,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Image,
   ImageBackground,
   FlatList,
 } from 'react-native';
@@ -61,6 +62,7 @@ const PurposalModal = () => {
     }
     // ModalStore.close()
   };
+
   const onApprove = async () => {
     try {
       const wallet = WalletStore.getWallet();
@@ -181,13 +183,16 @@ const PurposalModal = () => {
                     width: wp('95%'),
                     borderRadius: wp('2%'),
                   }}>
-                  <View
+                  <Image
                     style={{
                       height: hp('7%'),
                       width: hp('7%'),
                       backgroundColor: 'grey',
                       borderRadius: hp('10%'),
-                    }}></View>
+                    }}
+                    resizeMode="contain"
+                    source={require('img/wallet-connect.png')}
+                  />
                   <Text
                     style={{
                       color: '#fff',

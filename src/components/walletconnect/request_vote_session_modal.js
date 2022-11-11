@@ -15,7 +15,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
+  Image,
   FlatList,
 } from 'react-native';
 import {Socket} from '../../utils/WalletConnectUtil';
@@ -30,8 +30,12 @@ import TxSignPrep from '../../model/TxSignPrep';
 
 const VotingModal = () => {
   const [checked, setchecked] = useState(true);
-  const {proposal, accountAddress: wallet_address, accountPublicKey, accountPrivateKey} =
-    useSnapshot(SessionBloc.state);
+  const {
+    proposal,
+    accountAddress: wallet_address,
+    accountPublicKey,
+    accountPrivateKey,
+  } = useSnapshot(SessionBloc.state);
 
   const data = JSON.parse(proposal);
   const {
@@ -42,8 +46,9 @@ const VotingModal = () => {
   } = data;
   console.log('data....', data);
 
-  const app_socket_id = Socket.id;
+  const app_socket_id = Socket?.id;
   const wallet = WalletStore.getWallet();
+
   const onReject = async () => {
     try {
       data.is_approved = 'true';
@@ -157,9 +162,9 @@ const VotingModal = () => {
       SessionBloc.setVotingRequestlModal(false);
     }
   };
+
   return (
     <Portal>
-      {/* <ImageBackground  style={{backgroundColor:'white',flexGrow:1,justifyContent:'center',shadowOpacity:0,borderRadius:30}} source={require('../../../img/bg.png')}> */}
       <View
         style={{
           flex: 1,
@@ -218,13 +223,16 @@ const VotingModal = () => {
                     width: wp('95%'),
                     borderRadius: wp('2%'),
                   }}>
-                  <View
+                  <Image
                     style={{
                       height: hp('7%'),
                       width: hp('7%'),
                       backgroundColor: 'grey',
                       borderRadius: hp('10%'),
-                    }}></View>
+                    }}
+                    resizeMode="contain"
+                    source={require('img/wallet-connect.png')}
+                  />
                   <Text
                     style={{
                       color: '#fff',
@@ -316,77 +324,6 @@ const VotingModal = () => {
                   </View>
                 </View>
               </View>
-              {/* <View
-          style={{
-            flexDirection: 'row',
-            paddingTop: '4%',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            borderBottomWidth: 1,
-            paddingBottom: '4%',
-            borderBottomColor: 'grey',
-          }}>
-          <View style={styles.circle}></View>
-          <Text style={styles.urlText}>
-            https://react-app.walletconnect.com
-          </Text>
-        </View> */}
-              {/* <View style={{height: '20%'}}>
-                <ScrollView
-                  showsVerticalScrollIndicator={false}
-                  scrollEnabled={true}></ScrollView>
-              </View>
-              <View style={{marginVertical: '6%'}}>
-                <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
-                  Account
-                </Text>
-                <View
-                  style={{
-                    borderColor: 'grey',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    borderWidth: 3,
-                    borderRadius: 5,
-                    marginTop: '3%',
-                    paddingVertical: '4%',
-                    paddingHorizontal: '4%',
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      // toggleCheck();
-                    }}>
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderColor: 'grey',
-                        backgroundColor: 'rgba(255, 255, 255, 0.19)',
-                        height: hp('3.5%'),
-                        width: wp('6.5%'),
-                        borderRadius: 4,
-                      }}>
-                      {checked ? (
-                        <Icon
-                          name="check"
-                          size={24}
-                          color="#fff"
-                          style={{marginRight: '4%'}}
-                        />
-                      ) : null}
-                    </View>
-                  </TouchableOpacity>
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      color: '#fff',
-                      fontSize: 16,
-                      marginLeft: wp('20%'),
-                      width: '70%',
-                    }}>
-                    {Object.keys(wallet.accounts)[0]}
-                  </Text>
-                </View>
-              </View> */}
               <View style={styles.btnContainer}>
                 <TouchableOpacity
                   onPress={() => onReject()}
@@ -417,10 +354,8 @@ const VotingModal = () => {
                 </TouchableOpacity>
               </View>
             </View>
-            {/* </ScrollView> */}
           </Modal>
         </BlurView>
-        {/* </ImageBackground> */}
       </View>
     </Portal>
   );

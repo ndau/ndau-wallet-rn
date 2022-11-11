@@ -2,10 +2,10 @@ import React from 'react';
 import {proxy} from 'valtio';
 
 var state = proxy({
-  proposal: '',
   purposalModal: false,
-  votingRequestModal: false,
   socketLogin: '',
+  votingRequestModal: false,
+  proposal: '',
   request: '',
   navigation: '',
   infomessage: '',
