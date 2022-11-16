@@ -2,14 +2,13 @@
  * @format
  */
 import 'react-native-reanimated';
-import {AppRegistry} from 'react-native';
+import {AppRegistry, LogBox} from 'react-native';
 
 import BackgroundTasks from './src/services/BackgroundTasks';
 import 'react-native-get-random-values';
 // import crypto from 'crypto'
 
 import {name as appName} from './app.json';
-import {Text, TextInput, LogBox} from 'react-native';
 import App from './src/app';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
