@@ -8048,17 +8048,10 @@
   "resolved" "https://registry.npmjs.org/react-native-version-number/-/react-native-version-number-0.3.6.tgz"
   "version" "0.3.6"
 
-<<<<<<< HEAD
 "react-native-vision-camera@^2.15.0", "react-native-vision-camera@>=2.0.0", "react-native-vision-camera@>=2.9.4":
   "integrity" "sha512-2OJlU9MfoCP5wre8VH+V3zKQv7YX4i61YLbsSX+G7zEaYJTuQXY5GKsNa0r0x42zf9UDm+Cmv3fqHT/p69AvqQ=="
   "resolved" "https://registry.npmjs.org/react-native-vision-camera/-/react-native-vision-camera-2.15.0.tgz"
   "version" "2.15.0"
-=======
-react-native-vision-camera@^2.15.2:
-  version "2.15.2"
-  resolved "https://registry.yarnpkg.com/react-native-vision-camera/-/react-native-vision-camera-2.15.2.tgz#96a17c8b4e557df317734897853a861e0cfbc3ed"
-  integrity sha512-pkVj0r2nbZaj3+bB9CGPNistCUyoCgS2SmawzugrZs5oMlFWlgZYuJj+6s3Q98xTGgV/8/ST0njohB6soDi0VA==
->>>>>>> d000d72461eff63589ecdee0ffa9728d04f4e862
 
 "react-native-webview@^11.23.0":
   "integrity" "sha512-mGrgsMnYcQONvQy59xpBn87sKqkCsSkqIDRo+c2Ov4ISYl1j90wFBs+qViVJRWdoNHVuoCAZ4nZkJ65mhDpHhA=="
