@@ -8,9 +8,6 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 31
         targetSdkVersion = 31
-        androidXCore = "1.6.0"
-        VisionCameraCodeScanner_targetSdkVersion = 31
-        VisionCameraCodeScanner_compileSdkVersion = 31
 
         if (System.properties['os.arch'] == "aarch64") {
             // For M1 Users we need to use the NDK 24 which added support for aarch64
@@ -62,8 +59,6 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             force 'com.facebook.react:react-native:0.69.4'
-            force 'androidx.core:core-ktx:1.6.0'
-
         }
     }
 }

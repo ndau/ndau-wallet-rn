@@ -8,8 +8,8 @@ export let Socket;
 
 export async function createSignClient(
   account,
-  // privateKey,
-  // publicKey,
+  privateKey,
+  publicKey,
   barcode,
 ) {
   Socket = socketIOClient(ENDPOINT);
@@ -20,8 +20,8 @@ export async function createSignClient(
 
     SessionBloc.setSocketLogin(barcode, Socket.id);
     SessionBloc.setAccountAddress(account.address);
-    // SessionBloc.setAccountPrivateKey(privateKey);
-    // SessionBloc.setAccountPubkicKey(publicKey);
+    SessionBloc.setAccountPrivateKey(privateKey);
+    SessionBloc.setAccountPubkicKey(publicKey);
 
     SessionBloc.setPurposalModal(true);
   });
