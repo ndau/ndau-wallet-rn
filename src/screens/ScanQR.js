@@ -45,40 +45,40 @@ export default function ScanQR({route}) {
         } else {
           const walletAccount = wallet.accounts[account.address];
 
-          console.log('walletAccount...', walletAccount);
+          console.log('walletAccount...', loginData);
           const validationKeys = walletAccount.validationKeys;
           console.log('validationKeys........', validationKeys);
           console.log('wallet.............', wallet);
-          if (!validationKeys || validationKeys.length == 0) {
-            setError(
-              'This address is empty. Please select a wallet with ndau balance',
-            );
-          } else {
-            const privateKey = KeyMaster.getPrivateKeyFromHash(
-              wallet,
-              validationKeys[0],
-            );
-            const publicKey = KeyMaster.getPublicKeyFromHash(
-              wallet,
-              validationKeys[0],
-            );
-            console.log('privateKeyFromHash', privateKey);
-            console.log('publicKey', publicKey);
+          // if (!validationKeys || validationKeys.length == 0) {
+          //   setError(
+          //     'This address is empty. Please select a wallet with ndau balance',
+          //   );
+          // } else {
+          //   const privateKey = KeyMaster.getPrivateKeyFromHash(
+          //     wallet,
+          //     validationKeys[0],
+          //   );
+          //   const publicKey = KeyMaster.getPublicKeyFromHash(
+          //     wallet,
+          //     validationKeys[0],
+          //   );
+          //   console.log('privateKeyFromHash', privateKey);
+          //   console.log('publicKey', publicKey);
 
-            try {
-              await createSignClient(
-                account,
-                privateKey,
-                publicKey,
-                barcode.data,
-              );
-              setIsScanned(true);
-              onClose();
-            } catch (e) {
-              console.log('error', e);
-              setIsScanned(false);
-            }
+          try {
+            await createSignClient(
+              account,
+              // privateKey,
+              // publicKey,
+              loginData,
+            );
+            setIsScanned(true);
+            onClose();
+          } catch (e) {
+            console.log('error', e);
+            setIsScanned(false);
           }
+          // }
         }
       } catch (e) {
         setIsScanned(false);
