@@ -1,4 +1,4 @@
-package com.nduwallet;
+package com.ndauwallet;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;

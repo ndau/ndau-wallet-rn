@@ -1,4 +1,4 @@
-package com.nduwallet.newarchitecture;
+package com.ndauwallet.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.nduwallet.BuildConfig;
-import com.nduwallet.newarchitecture.components.MainComponentsRegistry;
-import com.nduwallet.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.ndauwallet.BuildConfig;
+import com.ndauwallet.newarchitecture.components.MainComponentsRegistry;
+import com.ndauwallet.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

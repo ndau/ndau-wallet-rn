@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface nduwalletTests : XCTestCase
+@interface ndauwalletTests : XCTestCase
 
 @end
 
-@implementation nduwalletTests
+@implementation ndauwalletTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
