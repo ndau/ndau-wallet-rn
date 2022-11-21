@@ -259,12 +259,21 @@ export function AccountSendContainer(props) {
       account: props.account,
     });
   };
+  const goBack = () => {
+    props.navigation.goBack();
+  };
   return (
     <MainContainer>
       <View style={{flex: 1}}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
-            <AccountClosingBar title={props.title} closeBar close={close} />
+            <AccountClosingBar
+              title={props.title}
+              closeBar
+              close={close}
+              backBar
+              goBack={goBack}
+            />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
             <ScrollView keyboardShouldPersistTaps="always">
