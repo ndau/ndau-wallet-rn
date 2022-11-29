@@ -39,17 +39,17 @@ Install the following tools:
 ## Software Versions
 
 These instructions are current as of the following releases:
- - macOS 11.6 (Big Sur)
- - Xcode 13.0
- - nvm 0.38.0
- - node v14.18.0
+ - macOS 12.0.1 (Monterey)
+ - Xcode 13.4.1
+ - nvm 0.39.1
+ - node v14.17.6
  - npm 6.14.15
  - Cocoapods 1.11.2
 ## Build Instructions
 
 Use `nvm` to install `Node.js`:
 ```
-nvm install v14.18.0
+nvm install v14.17.6
 ```
 The font assets used by the ndau wallet app are specified in the `.npmrc` file in the `ndau-wallet-rn` folder. As these are licensed fonts they are not included here. Contact a member of the core team to get the access token you will need.
 ```
@@ -64,6 +64,8 @@ npm install
 Set up iOS and Android projects with the correct `node_module` libraries:
 ```
 react-native link
+
+// Or, due to autolinking, link and unlink commands have been removed in React Native 0.69. So I try instead: npx react-native-asset
 ```
 Re-run `npm install` and load all assets:
 ```
@@ -76,6 +78,12 @@ npm start
 ```
 Leave it running and return to the original shell:
 ```
+
+Run once for the first time:
+```
+bundle install
+```
+
 cd ios
 pod install
 ```

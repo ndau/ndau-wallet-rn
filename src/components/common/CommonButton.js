@@ -10,8 +10,8 @@
 
 import React, { Component } from 'react'
 
-import { StyleSheet, Text, View } from 'react-native'
-import Button from 'react-native-button'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+// import Button from 'react-native-button'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -32,14 +32,13 @@ class CommonButton extends Component {
         {...this.props}
       >
         <View style={styles.containerStyle}>
-          <Button
-            style={styles.text}
-            disabledContainerStyle={styles.disabledStyle}
-            containerStyle={styles.containerStyle}
-            onPress={this.props.onPress}
-            {...this.props}
+          <TouchableOpacity  style={
+          styles.containerStyle
+          }
+          onPress={this.props.onPress}
+          {...this.props}
           >
-            <Text style={styles.text}>
+        <Text style={styles.text}>
               {// "name" is required
                 this.props.iconProps && this.props.iconProps.name && (
                   <Text>
@@ -49,7 +48,9 @@ class CommonButton extends Component {
                 )}
               {this.props.title}
             </Text>
-          </Button>
+
+          </TouchableOpacity >
+          
         </View>
       </Padding>
     )

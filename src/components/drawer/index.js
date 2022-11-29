@@ -8,60 +8,61 @@
  * - -- --- ---- -----
  */
 
-import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import styles from './styles'
-import { H4 } from 'nachos-ui'
-import Icon from 'react-native-fontawesome-pro'
-import LinearGradient from 'react-native-linear-gradient'
-import { MainContainer, FullScreenDualColorGradient } from '../common'
-import AppConstants from '../../AppConstants'
-
-export function DrawerContainer (props) {
+import React from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
+import styles from './styles';
+import {H4} from 'nachos-ui';
+import Icon from 'react-native-fontawesome-pro';
+import LinearGradient from 'react-native-linear-gradient';
+import {MainContainer, FullScreenDualColorGradient} from '../common';
+import AppConstants from '../../AppConstants';
+import {DrawerActions} from '@react-navigation/native';
+export function DrawerContainer(props) {
   return (
     <MainContainer>
       <View style={styles.outerDrawerContainer}>
         <LinearGradient
           locations={[0, 1.0]}
           colors={['#0F2748', '#293E63']}
-          style={[styles.drawerContainerOverlay]}
-        >
+          style={[styles.drawerContainerOverlay]}>
           <View style={styles.drawerContainer}>{props.children}</View>
         </LinearGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function DrawerExit (props) {
+export function DrawerExit(props) {
   return (
     <View style={styles.drawerExit}>
       <TouchableOpacity {...props}>
-        <Icon size={36} name='times' color='#ffffff' type='light' />
+        {/* <Icon size={36} name='times' color='#ffffff' type='light' /> */}
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
-export function DrawerEntryItem (props) {
+export function DrawerEntryItem(props) {
   return (
     <View style={styles.drawerEntry}>
       <TouchableOpacity {...props}>
-        <Icon
-          size={22}
-          name={props.fontAwesomeIconName}
-          color={AppConstants.ICON_BUTTON_COLOR}
-          type='light'
-        />
+     
+          <Icon
+            size={22}
+            name={props.fontAwesomeIconName}
+            color={AppConstants.ICON_BUTTON_COLOR}
+            type="light"
+          />
+        
       </TouchableOpacity>
       <TouchableOpacity {...props}>
         <H4 style={styles.drawerText}>{props.children}</H4>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
-export function DrawerEntryVersionItem (props) {
+export function DrawerEntryVersionItem(props) {
   return (
     <View style={styles.drawerVersionEntry}>
       <TouchableOpacity {...props}>
@@ -69,14 +70,14 @@ export function DrawerEntryVersionItem (props) {
           size={22}
           name={props.fontAwesomeIconName}
           color={AppConstants.ICON_BUTTON_COLOR}
-          type='light'
+          type="light"
         />
       </TouchableOpacity>
       <TouchableOpacity {...props}>
         <H4 style={styles.drawerText}>{props.children}</H4>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 export const DrawerHeader = props => {
@@ -87,16 +88,33 @@ export const DrawerHeader = props => {
         size={32}
         color={props.navBack ? AppConstants.ICON_BUTTON_COLOR : '#fff'}
         containerStyle={styles.drawerButton}
-        type='light'
+        type="light"
         onPress={() => {
           if (props.navBack) {
-            props.navigation.goBack()
+            props.navigation.goBack();
           } else {
-            props.navigation.openDrawer()
+            props.navigation.dispatch(DrawerActions.openDrawer());
+            // props.navigation.openDrawer()
           }
         }}
       />
       <Text style={styles.drawerHeaderText}>{props.children}</Text>
+     {/* {  props?.route?.name==='WalletOverview'? <Icon
+        name={'qrcode'}
+        size={32}
+        color={props.navBack ? AppConstants.ICON_BUTTON_COLOR : '#fff'}
+        containerStyle={styles.drawerRightButton}
+        type="light"
+        onPress={() => {
+          props.navigation.navigate('ScanQR');
+          // if (props.navBack) {
+          //   props.navigation.goBack()
+          // } else {
+          //   props.navigation.dispatch(DrawerActions.openDrawer())
+          //   // props.navigation.openDrawer()
+          // }
+        }}
+      />:null} */}
     </View>
-  )
-}
+  );
+};

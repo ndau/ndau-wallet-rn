@@ -15,6 +15,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
+  Button,
   NativeModules,
   LayoutAnimation
 } from 'react-native'
@@ -328,13 +329,13 @@ export const RecoveryWordInput = props => {
           margin: wp('6%')
         }}
       >
-        <Icon
+        {/* <Icon
           name='arrow-square-left'
           color={AppConstants.ICON_BUTTON_COLOR}
           size={48}
           type='light'
           onPress={prevWord}
-        />
+        /> */}
         <View
           style={{
             flex: 3,
@@ -369,13 +370,14 @@ export const RecoveryWordInput = props => {
             ) : null}
           </View>
         </View>
-        <Icon
+        {/* <Icon
           name='arrow-square-right'
           color={AppConstants.ICON_BUTTON_COLOR}
           size={48}
           type='light'
           onPress={nextWord}
-        />
+        /> */}
+        <Button title="click"  onPress={nextWord}/>
       </View>
       {props.keyboardShown ? (
         <RecoveryWords words={wordsArray} handleWordClick={handleWordClick} />

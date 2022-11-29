@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import React from 'react'
+import React from 'react';
 import {
   View,
   TouchableOpacity,
@@ -16,15 +16,16 @@ import {
   Text,
   Linking,
   Platform,
-  ScrollView
-} from 'react-native'
+  ScrollView,
+} from 'react-native';
+
 import Clipboard from '@react-native-clipboard/clipboard';
-import FlashNotification from '../common/FlashNotification'
-import { H4, H3, P, Button } from 'nachos-ui'
-import Icon from 'react-native-fontawesome-pro'
-import LinearGradient from 'react-native-linear-gradient'
-import AccountAPIHelper from '../../helpers/AccountAPIHelper'
-import DataFormatHelper from '../../helpers/DataFormatHelper'
+import FlashNotification from '../common/FlashNotification';
+import {H4, H3, P, Button} from 'nachos-ui';
+import Icon from 'react-native-fontawesome-pro';
+import LinearGradient from 'react-native-linear-gradient';
+import AccountAPIHelper from '../../helpers/AccountAPIHelper';
+import DataFormatHelper from '../../helpers/DataFormatHelper';
 import {
   MainContainer,
   ContentContainer,
@@ -32,58 +33,58 @@ import {
   TitleBarGradient,
   AccountDetailsTitleBarGradient,
   Label,
-  TextInput
-} from '../common'
-import CollapsibleBar from '../common/CollapsibleBar'
-import styles from './styles'
-import AccountHistoryHelper from '../../helpers/AccountHistoryHelper'
-import AppConstants from '../../AppConstants'
-import ndaujs from 'ndaujs'
-import AppConfig from '../../AppConfig'
-import NdauNumber from '../../helpers/NdauNumber'
-import { DrawerHeader } from '../drawer'
-import Share from 'react-native-share'
-import LogStore from '../../stores/LogStore'
+  TextInput,
+} from '../common';
+import CollapsibleBar from '../common/CollapsibleBar';
+import styles from './styles';
+import AccountHistoryHelper from '../../helpers/AccountHistoryHelper';
+import AppConstants from '../../AppConstants';
+import ndaujs from 'ndaujs';
+import AppConfig from '../../AppConfig';
+import NdauNumber from '../../helpers/NdauNumber';
+import {DrawerHeader} from '../drawer';
+import Share from 'react-native-share';
+import LogStore from '../../stores/LogStore';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
-import { WebView } from 'react-native-webview'
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {WebView} from 'react-native-webview';
 
-export function AccountPanel (props) {
+export function AccountPanel(props) {
   const accountAmount = new NdauNumber(
-    DataFormatHelper.accountNdauAmount(props.account.addressData)
-  )
-  const truncatedAddress = ndaujs.truncateAddress(props.account.address)
+    DataFormatHelper.accountNdauAmount(props.account.addressData),
+  );
+  const truncatedAddress = ndaujs.truncateAddress(props.account.address);
 
   const copyAddress = () => {
-    Clipboard.setString(props.account.address)
-    FlashNotification.showInformation('Account address has been copied to the clipboard.')
-  } 
+    Clipboard.setString(props.account.address);
+    FlashNotification.showInformation(
+      'Account address has been copied to the clipboard.',
+    );
+  };
 
   return (
-    <View style={(props.index == 0) ? { marginTop: hp('0%') } : styles.accountPanels}>
+    <View
+      style={props.index == 0 ? {marginTop: hp('0%')} : styles.accountPanels}>
       <LinearGradient
         useAngle
         angle={135}
-        angleCenter={{ x: 0.5, y: 0.5 }}
+        angleCenter={{x: 0.5, y: 0.5}}
         locations={[0, 1.0]}
-        colors={['#0F2748', '#293E63']}
-      >
+        colors={['#0F2748', '#293E63']}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
+            alignItems: 'center',
+          }}>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
-              alignItems: 'center'
-            }}
-          >
+              alignItems: 'center',
+            }}>
             <Text style={styles.accountTitleTextPanel}>
               {AccountAPIHelper.accountNickname(props.account.addressData)}
             </Text>
@@ -92,24 +93,24 @@ export function AccountPanel (props) {
               size={18}
               color={AppConstants.ICON_BUTTON_COLOR}
               containerStyle={styles.accountNicknameIcon}
-              type='solid'
+              type="solid"
             />
             {props.isAccountLocked ? (
               props.accountLockedUntil === null ? (
                 <Icon
-                  name='clock'
+                  name="clock"
                   size={18}
                   color={AppConstants.CAUTION_ICON_COLOR}
                   containerStyle={styles.accountNicknameIcon}
-                  type='light'
+                  type="light"
                 />
               ) : (
                 <Icon
-                  name='clock'
+                  name="clock"
                   size={18}
                   color={AppConstants.ICON_BUTTON_COLOR}
                   containerStyle={styles.accountNicknameIcon}
-                  type='light'
+                  type="light"
                 />
               )
             ) : null}
@@ -129,25 +130,23 @@ export function AccountPanel (props) {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
+            alignItems: 'center',
+          }}>
           <View
             style={{
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
               paddingLeft: wp('4%'),
-              paddingBottom: hp('1%')
-            }}
-          >
+              paddingBottom: hp('1%'),
+            }}>
             <Text style={styles.addressCopyPanelTextOnDetail}>
               {truncatedAddress}
             </Text>
           </View>
           <View style={styles.addressCopyButtonContainer}>
-            <TouchableHighlight 
-              underlayColor={AppConstants.SQUARE_BUTTON_COLOR} 
+            <TouchableHighlight
+              underlayColor={AppConstants.SQUARE_BUTTON_COLOR}
               style={styles.addressCopyButton}
               onPress={copyAddress}>
               <Text style={styles.addressCopyButtonText}>Copy</Text>
@@ -159,35 +158,36 @@ export function AccountPanel (props) {
         <View style={styles.accountActionPanel}>
           <H4 style={styles.accountActionTextPanel}>View account details</H4>
           <Icon
-            name='chevron-right'
+            name="chevron-right"
             color={AppConstants.TEXT_COLOR}
-            type='light'
+            type="light"
           />
         </View>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
-export function WalletOverviewHeaderActions (props) {
+export function WalletOverviewHeaderActions(props) {
   return (
     <View style={styles.walletOverviewHeaderActions}>{props.children}</View>
-  )
+  );
 }
 
-export function AccountDetailsContainer (props) {
+export function AccountDetailsContainer(props) {
   const goBack = () => {
-    props.navigation.goBack()
-  }
+    props.navigation.goBack();
+  };
   const title = props.account.addressData
     ? props.account.addressData.nickname
-    : 'Account'
+    : 'Account';
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <AccountDetailsTitleBarGradient>
           <View style={styles.accountDetailsTitlePanel}>
             <AccountClosingBar
+              props={props}
               backArrowStyle={styles.backArrowForLock}
               title={title}
               backBar
@@ -198,19 +198,19 @@ export function AccountDetailsContainer (props) {
         </AccountDetailsTitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function AccountLockContainer (props) {
+export function AccountLockContainer(props) {
   const close = () => {
-    props.navigation.navigate('AccountDetails', { wallet: props.wallet })
-  }
+    props.navigation.navigate('AccountDetails', {wallet: props.wallet});
+  };
   const goBack = () => {
-    props.navigation.goBack()
-  }
+    props.navigation.goBack();
+  };
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
@@ -226,26 +226,22 @@ export function AccountLockContainer (props) {
         </TitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function AccountUnlockContainer (props) {
+export function AccountUnlockContainer(props) {
   const close = () => {
     props.navigation.navigate('AccountDetails', {
       wallet: props.wallet,
-      account: props.account
-    })
-  }
+      account: props.account,
+    });
+  };
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
-            <AccountClosingBar
-              title={props.title}
-              closeBar
-              close={close}
-            />
+            <AccountClosingBar title={props.title} closeBar close={close} />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
             {props.children}
@@ -253,55 +249,56 @@ export function AccountUnlockContainer (props) {
         </TitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function AccountSendContainer (props) {
+export function AccountSendContainer(props) {
   const close = () => {
     props.navigation.navigate('AccountDetails', {
       wallet: props.wallet,
-      account: props.account
-    })
-  }
+      account: props.account,
+    });
+  };
+  const goBack = () => {
+    props.navigation.goBack();
+  };
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
               title={props.title}
               closeBar
               close={close}
+              backBar
+              goBack={goBack}
             />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
-            <ScrollView keyboardShouldPersistTaps='always'>
+            <ScrollView keyboardShouldPersistTaps="always">
               {props.children}
             </ScrollView>
           </ContentContainer>
         </TitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function AccountScanContainer (props) {
+export function AccountScanContainer(props) {
   const close = () => {
     props.navigation.navigate('AccountDetails', {
       wallet: props.wallet,
-      account: props.account
-    })
-  }
+      account: props.account,
+    });
+  };
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
-            <AccountClosingBar
-              title={props.title}
-              closeBar
-              close={close}
-            />
+            <AccountClosingBar title={props.title} closeBar close={close} />
           </View>
           <ContentContainer style={styles.accountContentPanel}>
             {props.children}
@@ -309,15 +306,14 @@ export function AccountScanContainer (props) {
         </TitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function SettingsContainer (props) {
+export function SettingsContainer(props) {
   return (
     <MainContainer>
       <View
-        style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}
-      >
+        style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
         <TitleBarGradient>
           <DrawerHeader {...props}>{props.title}</DrawerHeader>
           <ContentContainer style={styles.accountContentPanel}>
@@ -326,16 +322,16 @@ export function SettingsContainer (props) {
         </TitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function AccountHistoryContainer (props) {
+export function AccountHistoryContainer(props) {
   const goBack = () => {
-    props.navigation.goBack()
-  }
+    props.navigation.goBack();
+  };
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
@@ -349,7 +345,7 @@ export function AccountHistoryContainer (props) {
         </TitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
 /**
@@ -362,18 +358,15 @@ export function AccountHistoryContainer (props) {
  *
  * @param {Object} props
  */
-export function AccountButton (props) {
+export function AccountButton(props) {
   return (
-    <View
-      style={[styles.accountButton, props.disabled ? { opacity: 0.3 } : {}]}
-    >
+    <View style={[styles.accountButton, props.disabled ? {opacity: 0.3} : {}]}>
       <TouchableOpacity
         disabled={props.disabled}
         activeOpacity={0.8}
-        accessibilityTraits='button'
-        accessibilityComponentType='button'
-        {...props}
-      >
+        accessibilityTraits="button"
+        accessibilityComponentType="button"
+        {...props}>
         <View style={styles.accountButtonInnerPanel}>
           <Text style={styles.accountButtonText}>
             {props.children}{' '}
@@ -382,7 +375,7 @@ export function AccountButton (props) {
                 name={props.customIconName}
                 size={18}
                 color={AppConstants.ICON_BUTTON_COLOR}
-                type='light'
+                type="light"
               />
             ) : null}
           </Text>
@@ -391,40 +384,43 @@ export function AccountButton (props) {
               name={props.customIconName}
               size={18}
               color={AppConstants.ICON_BUTTON_COLOR}
-              type='light'
+              type="light"
             />
           ) : null}
         </View>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
-export function AccountTotalPanel (props) {
+export function AccountTotalPanel(props) {
   const amount = new NdauNumber(
     DataFormatHelper.accountNdauAmount(
       props.account.addressData,
       true,
-      AppConfig.NDAU_DETAIL_PRECISION
-    )
-  ).toDetail()
+      AppConfig.NDAU_DETAIL_PRECISION,
+    ),
+  ).toDetail();
   return (
-    <View style={styles.ndauTotalContainerMedium}>
+    <TouchableOpacity
+      style={styles.ndauTotalContainerMedium}
+      onPress={() => {
+        props.onPress();
+      }}>
       <P style={styles.ndauMedium}>n</P>
       <H4 style={styles.accountTotalPanelText}>{amount}</H4>
-    </View>
-  )
+    </TouchableOpacity>
+  );
 }
 
-export function AccountDetailsButtonPanel (props) {
+export function AccountDetailsButtonPanel(props) {
   return (
     <View style={styles.accountDetailsButtonPanel}>
       <View>
         <AccountButton
           disabled={props.disableSend}
           onPress={() => props.send(props.account, props.wallet)}
-          customIconName='arrow-alt-up'
-        >
+          customIconName="arrow-alt-up">
           Send
         </AccountButton>
       </View>
@@ -432,8 +428,7 @@ export function AccountDetailsButtonPanel (props) {
         <AccountButton
           disabled={props.disabledReceive}
           onPress={() => props.receive(props.account, props.wallet)}
-          customIconName='arrow-alt-down'
-        >
+          customIconName="arrow-alt-down">
           Receive
         </AccountButton>
       </View>
@@ -441,8 +436,7 @@ export function AccountDetailsButtonPanel (props) {
         <AccountButton
           disabled={props.disableLock}
           onPress={() => props.lock(props.account, props.wallet)}
-          customIconName='lock'
-        >
+          customIconName="lock">
           Lock
         </AccountButton>
       </View>
@@ -450,36 +444,35 @@ export function AccountDetailsButtonPanel (props) {
         <AccountButton
           disabled={false}
           onPress={() => props.setEAI(props.account, props.wallet)}
-          customIconName='coins'
-        >
+          customIconName="coins">
           SetEAI
         </AccountButton>
       </View>
     </View>
-  )
+  );
 }
 
-export function AccountLockDetailsPanel (props) {
+export function AccountLockDetailsPanel(props) {
   return (
     <View style={styles.accountLockPanel}>
       <View>{props.children}</View>
     </View>
-  )
+  );
 }
 
-export function AccountLockOptionsPanel (props) {
+export function AccountLockOptionsPanel(props) {
   return (
     <View style={styles.accountLockOptionsPanel}>
       <View>{props.children}</View>
     </View>
-  )
+  );
 }
 
-export function AccountReceiveParagraphText (props) {
-  return <P style={styles.accountReceiveParagraphText}>{props.children}</P>
+export function AccountReceiveParagraphText(props) {
+  return <P style={styles.accountReceiveParagraphText}>{props.children}</P>;
 }
 
-export function AccountParagraphText (props) {
+export function AccountParagraphText(props) {
   return (
     <View style={styles.accountDetailsItemPanel}>
       {props.customIconName ? (
@@ -495,38 +488,38 @@ export function AccountParagraphText (props) {
         <P style={styles.accountDetailsParagraphText}>{props.children}</P>
       </View>
     </View>
-  )
+  );
 }
 
-export function AccountHeaderText (props) {
-  return <H3 style={styles.accountDetailsLargerText}>{props.children}</H3>
+export function AccountHeaderText(props) {
+  return <H3 style={styles.accountDetailsLargerText}>{props.children}</H3>;
 }
 
-export function AccountDetailsPanel (props) {
-  let additionalProps = {}
+export function AccountDetailsPanel(props) {
+  let additionalProps = {};
   if (props.firstPanel) {
-    additionalProps = styles.firstAccountDetailsPanel
+    additionalProps = styles.firstAccountDetailsPanel;
   } else if (props.secondPanel) {
-    additionalProps = styles.secondAccountDetailsPanel
+    additionalProps = styles.secondAccountDetailsPanel;
   }
   return (
     <View style={[styles.accountDetailsPanel, additionalProps]}>
       {props.children}
     </View>
-  )
+  );
 }
 
-export function AccountClosingBar (props) {
+export function AccountClosingBar(props) {
   return (
     <View style={styles.accountClosingBarContainer}>
       {props.backBar ? (
         <View style={[styles.backArrow, props.backArrowStyle]}>
           <Icon
             size={32}
-            name='arrow-left'
+            name="arrow-left"
             color={AppConstants.ICON_BUTTON_COLOR}
             onPress={props.goBack}
-            type='light'
+            type="light"
           />
         </View>
       ) : (
@@ -539,43 +532,64 @@ export function AccountClosingBar (props) {
       ) : (
         <View style={styles.closeIcon} />
       )}
+
+      {props.props?.route?.name === 'AccountDetails' ? (
+        <Icon
+          name={'qrcode'}
+          size={32}
+          color={props.navBack ? AppConstants.ICON_BUTTON_COLOR : '#fff'}
+          containerStyle={{paddingTop: hp('1%')}}
+          type="light"
+          onPress={() => {
+            props.props.navigation.navigate('ScanQR', {
+              account: props.props.account,
+              wallet: props.props.wallet,
+            });
+            // if (props.navBack) {
+            //   props.navigation.goBack()
+            // } else {
+            //   props.navigation.dispatch(DrawerActions.openDrawer())
+            //   // props.navigation.openDrawer()
+            // }
+          }}
+        />
+      ) : null}
     </View>
-  )
+  );
 }
 
-export function AccountLockConfirmBottomPanel (props) {
+export function AccountLockConfirmBottomPanel(props) {
   return (
     <View style={styles.accountLockButtonTypeContainer}>
       <Label noMargin>Please enter the word 'Lock' to confirm</Label>
       <TextInput
         onChangeText={word => props.onChangeText(word)}
-        placeholder='Enter the word...'
+        placeholder="Enter the word..."
         value={props.word}
-        autoCapitalize='none'
+        autoCapitalize="none"
         noSideMargins
       />
       <Button
         style={styles.accountLargeButton}
         textStyle={styles.accountLargeButtonText}
         uppercase={false}
-        {...props}
-      >
+        {...props}>
         {props.children}
       </Button>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAIContainer (props) {
+export function AccountSetEAIContainer(props) {
   const close = () => {
-    props.navigation.navigate('AccountDetails', { wallet: props.wallet })
-  }
+    props.navigation.navigate('AccountDetails', {wallet: props.wallet});
+  };
   const goBack = () => {
-    props.navigation.goBack()
-  }
+    props.navigation.goBack();
+  };
   return (
     <MainContainer>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TitleBarGradient>
           <View style={styles.accountTitlePanel}>
             <AccountClosingBar
@@ -591,41 +605,40 @@ export function AccountSetEAIContainer (props) {
         </TitleBarGradient>
       </View>
     </MainContainer>
-  )
+  );
 }
 
-export function AccountSetEAIDetailsPanel (props) {
+export function AccountSetEAIDetailsPanel(props) {
   return (
     <View style={styles.accountSetEAIDetailsPanel}>
       <View>{props.children}</View>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAIOptionsPanel (props) {
+export function AccountSetEAIOptionsPanel(props) {
   return (
     <View style={styles.accountSetEAIOptionsPanel}>
       <View>{props.children}</View>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAIConfirmBottomPanel (props) {
+export function AccountSetEAIConfirmBottomPanel(props) {
   return (
     <View style={styles.accountSetEAIButtonTypeContainer}>
-     <Button
+      <Button
         style={styles.accountLargeButton}
         textStyle={styles.accountLargeButtonText}
         uppercase={false}
-        {...props}
-      >
+        {...props}>
         {props.children}
       </Button>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAIButton (props) {
+export function AccountSetEAIButton(props) {
   return (
     <View style={styles.accountSetEAIButtonContainer}>
       <View>
@@ -635,15 +648,14 @@ export function AccountSetEAIButton (props) {
         style={styles.accountLargeButton}
         textStyle={styles.accountLargeButtonText}
         uppercase={false}
-        {...props}
-      >
+        {...props}>
         {props.children}
       </Button>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAITypeButton (props) {
+export function AccountSetEAITypeButton(props) {
   return (
     <View style={styles.accountSetEAIButtonTypeContainer}>
       <View>
@@ -653,37 +665,36 @@ export function AccountSetEAITypeButton (props) {
         style={styles.accountLargeButton}
         textStyle={styles.accountLargeButtonText}
         uppercase={false}
-        {...props}
-      >
+        {...props}>
         {props.children}
       </Button>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAINoteText (props) {
+export function AccountSetEAINoteText(props) {
   return (
     <View>
       <H4 style={[styles.setEAISmallerText, styles.accountSideMargins]}>
         {props.children}
       </H4>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAILargerText (props) {
+export function AccountSetEAILargerText(props) {
   return (
     <View style={styles.accountSetEAIDetailsTextPanel}>
       <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
     </View>
-  )
+  );
 }
 
-export function AccountSetEAIGreenText (props) {
-  return <H4 style={styles.accountSetEAIGreenText}>{props.children}</H4>
+export function AccountSetEAIGreenText(props) {
+  return <H4 style={styles.accountSetEAIGreenText}>{props.children}</H4>;
 }
 
-export function AccountSendButton (props) {
+export function AccountSendButton(props) {
   return (
     <View style={styles.accountSendButtonContainer}>
       <View>
@@ -693,15 +704,14 @@ export function AccountSendButton (props) {
         style={styles.accountLargeButton}
         textStyle={styles.accountLargeButtonText}
         uppercase={false}
-        {...props}
-      >
+        {...props}>
         {props.children}
       </Button>
     </View>
-  )
+  );
 }
 
-export function AccountLockButton (props) {
+export function AccountLockButton(props) {
   return (
     <View style={styles.accountLockButtonContainer}>
       <View>
@@ -711,15 +721,14 @@ export function AccountLockButton (props) {
         style={styles.accountLargeButton}
         textStyle={styles.accountLargeButtonText}
         uppercase={false}
-        {...props}
-      >
+        {...props}>
         {props.children}
       </Button>
     </View>
-  )
+  );
 }
 
-export function AccountLockTypeButton (props) {
+export function AccountLockTypeButton(props) {
   return (
     <View style={styles.accountLockButtonTypeContainer}>
       <View>
@@ -729,54 +738,60 @@ export function AccountLockTypeButton (props) {
         style={styles.accountLargeButton}
         textStyle={styles.accountLargeButtonText}
         uppercase={false}
-        {...props}
-      >
+        {...props}>
         {props.children}
       </Button>
     </View>
-  )
+  );
 }
 
-
-export function AccountLockNoteText (props) {
+export function AccountLockNoteText(props) {
   return (
     <View>
       <H4 style={[styles.lockSmallerText, styles.accountSideMargins]}>
         {props.children}
       </H4>
     </View>
-  )
+  );
 }
 
-export function AccountLockLargerText (props) {
+export function AccountLockLargerText(props) {
   return (
     <View style={styles.accountLockDetailsTextPanel}>
       <H4 style={styles.accountDetailsParagraphText}>{props.children}</H4>
     </View>
-  )
+  );
 }
 
-export function AccountLockGreenText (props) {
-  return <H4 style={styles.accountLockGreenText}>{props.children}</H4>
+export function AccountLockGreenText(props) {
+  return <H4 style={styles.accountLockGreenText}>{props.children}</H4>;
 }
 
-export function AccountDetailsLargerText (props) {
+export function AccountDetailsLargerText(props) {
   return (
     <View style={[styles.accountDetailsTextPanelTopMargin]}>
       <H4 style={styles.accountDetailsLargerText}>{props.children}</H4>
     </View>
-  )
+  );
 }
 
-export function AccountBorder (props) {
-  let sideMargins = {}
+export function AccountBorder(props) {
+  let sideMargins = {};
   if (props.sideMargins) {
-    sideMargins = styles.accountSideMargins
+    sideMargins = styles.accountSideMargins;
   }
-  return <View style={[styles.accountDetailsPanelBorder, sideMargins, props.verticalMargins]} />
+  return (
+    <View
+      style={[
+        styles.accountDetailsPanelBorder,
+        sideMargins,
+        props.verticalMargins,
+      ]}
+    />
+  );
 }
 
-export function AccountIconText (props) {
+export function AccountIconText(props) {
   return (
     <View style={styles.lockAccountTextPanelWithSmallText}>
       <View style={styles.lockAccountCheckmark}>
@@ -786,43 +801,42 @@ export function AccountIconText (props) {
           color={
             props.iconColor ? props.iconColor : AppConstants.CHECKBOX_COLOR
           }
-          type='light'
+          type="light"
         />
       </View>
       <View>
         <H4 style={styles.accountDetailsSmallerText}>{props.children}</H4>
       </View>
     </View>
-  )
+  );
 }
 
-export function AccountHistoryPanel (props) {
-  return <View style={styles.accountHistoryPanel}>{props.children}</View>
+export function AccountHistoryPanel(props) {
+  return <View style={styles.accountHistoryPanel}>{props.children}</View>;
 }
 
-export function AccountDetailPanel (props) {
-  return <View style={styles.accountDetailsPanel}>{props.children}</View>
+export function AccountDetailPanel(props) {
+  return <View style={styles.accountDetailsPanel}>{props.children}</View>;
 }
 
-export function AccountSendPanel (props) {
-  return <View style={styles.accountSendPanel}>{props.children}</View>
+export function AccountSendPanel(props) {
+  return <View style={styles.accountSendPanel}>{props.children}</View>;
 }
 
-export function AccountHistoryPanels (props) {
+export function AccountHistoryPanels(props) {
   if (!AccountHistoryHelper.hasItems(props.accountHistory)) {
-    return null
+    return null;
   }
 
   return props.accountHistory.Items.map((item, index) => {
-    const transactionDestination = AccountHistoryHelper.getTransactionDestination(
-      item
-    )
-    const transactionSource = AccountHistoryHelper.getTransactionSource(item)
+    const transactionDestination =
+      AccountHistoryHelper.getTransactionDestination(item);
+    const transactionSource = AccountHistoryHelper.getTransactionSource(item);
     const destinationUsed =
-      transactionDestination && props.address !== transactionDestination
-    const sourceUsed = transactionSource && props.address !== transactionSource
-    const dest = ndaujs.truncateAddress(transactionDestination)
-    const source = ndaujs.truncateAddress(transactionSource)
+      transactionDestination && props.address !== transactionDestination;
+    const sourceUsed = transactionSource && props.address !== transactionSource;
+    const dest = ndaujs.truncateAddress(transactionDestination);
+    const source = ndaujs.truncateAddress(transactionSource);
 
     return (
       <CollapsibleBar
@@ -832,12 +846,11 @@ export function AccountHistoryPanels (props) {
         titleRight={AccountHistoryHelper.getTransactionBalance(item)}
         collapsible
         showOnStart={false}
-        iconCollapsed='angle-down'
-        iconActive='angle-down'
-        iconOpened='angle-up'
+        iconCollapsed="angle-down"
+        iconActive="angle-down"
+        iconOpened="angle-up"
         tintColor={AppConstants.ICON_BUTTON_COLOR}
-        lowerBorder
-      >
+        lowerBorder>
         <View style={styles.accountHistoryTextPanelWithSmallText}>
           <View>
             <H4 style={styles.accountHistorySmallerTextBold}>
@@ -873,11 +886,11 @@ export function AccountHistoryPanels (props) {
           </View>
         ) : null}
       </CollapsibleBar>
-    )
-  })
+    );
+  });
 }
 
-export function DashboardTotalPanel (props) {
+export function DashboardTotalPanel(props) {
   return (
     <CollapsibleBar
       {...props}
@@ -885,44 +898,43 @@ export function DashboardTotalPanel (props) {
       titleStyle={styles.dashboardTotalTitleLeft}
       collapsible
       showOnStart={false}
-      iconCollapsed='angle-down'
-      iconActive='angle-down'
-      iconOpened='angle-up'
+      iconCollapsed="angle-down"
+      iconActive="angle-down"
+      iconOpened="angle-up"
       tintColor={AppConstants.TEXT_COLOR}
-      upperBorder
-    >
+      upperBorder>
       <View style={styles.dashboardTotalPanelTextContainer}>
         <P style={styles.totalAsterickTextVerySmallWhite}>
           * This is an estimated value of ndau based on recent trading volume.
         </P>
       </View>
     </CollapsibleBar>
-  )
+  );
 }
 
-export function WalletTotalPanel (props) {
+export function WalletTotalPanel(props) {
   return (
     <CollapsibleBar
       {...props}
       style={styles.dashboardTotalPanel}
-      titleStyle={{ fontSize: 14 }}
-      titleStyleRight={[styles.dashboardTotalTitleLeft, { fontSize: 14 }]}
+      titleStyle={{fontSize: 14}}
+      titleStyleRight={[styles.dashboardTotalTitleLeft, {fontSize: 14}]}
       collapsible
       showOnStart={false}
-      iconCollapsed='angle-down'
-      iconActive='angle-down'
-      iconOpened='angle-up'
+      iconCollapsed="angle-down"
+      iconActive="angle-down"
+      iconOpened="angle-up"
       tintColor={AppConstants.TEXT_COLOR}
-      upperBorder
-    >
-      <View style={[styles.dashboardTotalPanelTextContainer, { height: 280 }]}>
+      upperBorder>
+      <View style={[styles.dashboardTotalPanelTextContainer, {height: 280}]}>
         <Text style={styles.walletTotalPanelText}>
           * Updated and recorded on the ndau blockchain every 5 minutes.
         </Text>
-        <Text 
+        <Text
           style={styles.walletTotalPanelLinkText}
-          onPress={() => Linking.openURL(AppConfig.BLOCKCHAIN_KNOWLEDGEBASE_URL)}
-        >
+          onPress={() =>
+            Linking.openURL(AppConfig.BLOCKCHAIN_KNOWLEDGEBASE_URL)
+          }>
           What is Blockchain Market Price and how is it calculated?
         </Text>
         <WebView
@@ -936,25 +948,22 @@ export function WalletTotalPanel (props) {
                     <div class="nomics-ticker-widget" data-name="Ndau" data-base="XND" data-quote="USD"></div>
                     <script src="https://widget.nomics.com/embed.js"></script>
                   </body>
-                  </html>`
+                  </html>`,
           }}
         />
       </View>
     </CollapsibleBar>
-  )
+  );
 }
 
-export function AccountConfirmationItem (props) {
+export function AccountConfirmationItem(props) {
   return (
-    <View
-      style={[styles.accountSendTextPanelWithSmallText, { ...props.style }]}
-    >
+    <View style={[styles.accountSendTextPanelWithSmallText, {...props.style}]}>
       <View>
         {props.url ? (
           <H4
             onPress={() => Linking.openURL(props.url)}
-            style={styles.accountHistoryLinkText}
-          >
+            style={styles.accountHistoryLinkText}>
             {props.children}
           </H4>
         ) : (
@@ -963,8 +972,7 @@ export function AccountConfirmationItem (props) {
               props.largerText
                 ? styles.accountHistoryLargerTextBold
                 : styles.accountHistorySmallerText
-            }
-          >
+            }>
             {props.children}
           </H4>
         )}
@@ -975,36 +983,34 @@ export function AccountConfirmationItem (props) {
             props.largerText
               ? styles.accountHistoryLargerTextBold
               : styles.accountHistorySmallerText
-          }
-        >
+          }>
           {props.value}
         </H4>
       </View>
     </View>
-  )
+  );
 }
 
-export function AccountSendErrorText (props) {
+export function AccountSendErrorText(props) {
   return (
     <View style={styles.accountSideMargins}>
       <View>
         <H4
           style={[
             styles.accountHistorySmallerText,
-            styles.accountSendErrorColor
-          ]}
-        >
+            styles.accountSendErrorColor,
+          ]}>
           {props.children}
         </H4>
       </View>
     </View>
-  )
+  );
 }
 
-export function AccountLockOption (props) {
-  let selectedStyle = {}
+export function AccountLockOption(props) {
+  let selectedStyle = {};
   if (props.selected) {
-    selectedStyle = styles.accountLockOptionSelected
+    selectedStyle = styles.accountLockOptionSelected;
   }
   return (
     <TouchableOpacity {...props}>
@@ -1021,17 +1027,17 @@ export function AccountLockOption (props) {
           <Icon
             containerStyle={styles.accountLockCheckbox}
             size={18}
-            name='check'
-            color='#85BE4D'
-            type='light'
+            name="check"
+            color="#85BE4D"
+            type="light"
           />
         ) : null}
       </View>
     </TouchableOpacity>
-  )
+  );
 }
 
-export function AccountLockOptionHeader (props) {
+export function AccountLockOptionHeader(props) {
   return (
     <View style={styles.accountLockOptionHeader}>
       <P style={styles.accountLockOptionHeaderTextTop}>Lock for</P>
@@ -1039,34 +1045,34 @@ export function AccountLockOptionHeader (props) {
       <P style={styles.accountLockOptionHeaderTextTop}>Bonus</P>
       <P style={styles.accountLockOptionHeaderTextTop}>Total</P>
     </View>
-  )
+  );
 }
 
-export function AddressSharePanel (props) {
-  const address = props.address
-  const truncatedAddress = ndaujs.truncateAddress(address)
+export function AddressSharePanel(props) {
+  const address = props.address;
+  const truncatedAddress = ndaujs.truncateAddress(address);
 
   const share = async address => {
     try {
       await Share.open({
         message: address,
-        title: 'ndau address'
-      })
+        title: 'ndau address',
+      });
     } catch (error) {
-      LogStore.log(error)
+      LogStore.log(error);
     }
-  }
+  };
 
-  let transparentBackground = {}
+  let transparentBackground = {};
   if (props.transparent) {
     transparentBackground = {
-      backgroundColor: 'transparent'
-    }
+      backgroundColor: 'transparent',
+    };
   }
 
-  let noPadding = {}
+  let noPadding = {};
   if (props.noPadding) {
-    noPadding = { paddingHorizontal: 0 }
+    noPadding = {paddingHorizontal: 0};
   }
 
   return (
@@ -1075,25 +1081,22 @@ export function AddressSharePanel (props) {
         props.scroll
           ? styles.addressCopyPanelContainerScrollView
           : styles.addressCopyPanelContainerBottomNoBorder
-      }
-    >
+      }>
       <View
         style={[
           styles.addressCopyPanel,
           transparentBackground,
           noPadding,
-          props.style
+          props.style,
         ]}
-        {...props}
-      >
+        {...props}>
         <View
           style={{
             flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
+            alignItems: 'center',
+          }}>
           <View>
             <Text style={styles.addressCopyPanelText}>{truncatedAddress}</Text>
           </View>
@@ -1103,13 +1106,12 @@ export function AddressSharePanel (props) {
               textStyle={styles.addressButtonText}
               uppercase={false}
               onPress={() => share(props.address)}
-              {...props}
-            >
+              {...props}>
               Share
             </Button>
           </View>
         </View>
       </View>
     </View>
-  )
+  );
 }

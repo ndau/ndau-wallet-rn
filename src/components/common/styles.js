@@ -494,7 +494,17 @@ export default StyleSheet.create({
   barTitleMiddle: {
     color: AppConstants.TEXT_COLOR,
     fontSize: 16,
-    fontFamily: 'TitilliumWeb-Light'
+    fontFamily: 'TitilliumWeb-Light',
+ 
+  },
+  barTitleLeftStyle:{
+    width:'35%',alignItems:'flex-start',
+  },
+  barTitleMiddleStyle:{
+
+width:'45%',alignItems:'flex-start',
+alignSelf:'flex-start',
+alignContent:'flex-start'
   },
   barTitleRight: {
     color: AppConstants.TEXT_COLOR,

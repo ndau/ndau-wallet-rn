@@ -8,9 +8,8 @@
  * - -- --- ---- -----
  */
 
-import SetupStore from '../stores/SetupStore'
-import Base64 from 'base-64'
-import { generateSecureRandom } from 'react-native-securerandom'
+import SetupStore from '../stores/SetupStore';
+import Base64 from 'base-64';
 
 /**
  * This method will generate entropy and both return the value
@@ -23,14 +22,18 @@ import { generateSecureRandom } from 'react-native-securerandom'
  * @returns {string} Base64 version of entropy
  */
 const generateEntropy = async (byteCount = 16) => {
-  const secureRandom = await generateSecureRandom(byteCount)
-  const secureRandomString = String.fromCharCode.apply(null, secureRandom)
-  const base64Value = Base64.encode(secureRandomString)
+  let initArray = new Uint8Array(byteCount);
+  const secureRandom = await crypto.getRandomValues(initArray);
+  console.log({secureRandom});
+  const secureRandomString = String.fromCharCode.apply(null, secureRandom);
+  console.log({secureRandomString});
+  const base64Value = Base64.encode(secureRandomString);
+  console.log({base64Value});
 
-  SetupStore.entropy = base64Value
-  return base64Value
-}
+  SetupStore.entropy = base64Value;
+  return base64Value;
+};
 
 export default {
-  generateEntropy
-}
+  generateEntropy,
+};

@@ -40,8 +40,9 @@ class AccountHistory extends Component {
 
       try {
         const accountHistory = await AccountHistoryHelper.getAccountHistory(
-          account.address
+          'ndaekyty73hd56gynsswuj5q9em68tp6ed5v7tpft872hvuc'
         )
+        console.log('accccccccc........',accountHistory)
         this.setState({ accountHistory })
       } catch (error) {
         LogStore.log(error)

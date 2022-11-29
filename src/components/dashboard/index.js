@@ -64,8 +64,8 @@ export function DashboardPanel (props) {
 export function DashboardButton (props) {
   return (
     <Button
-      style={styles.dashboardButtonBox}
-      textStyle={styles.dashboardButtonText}
+      style={[styles.dashboardButtonBox,props.style]}
+      textStyle={[styles.dashboardButtonText,]}
       uppercase={false}
       onPress={props.onPress}        
     >

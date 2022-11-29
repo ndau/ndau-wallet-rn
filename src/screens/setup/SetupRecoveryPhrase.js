@@ -7,56 +7,61 @@
  * https://www.apache.org/licenses/LICENSE-2.0.txt
  * - -- --- ---- -----
  */
+import React, {Component} from 'react';
+import {PixelRatio, NativeModules, Alert} from 'react-native';
 
-import React, { Component } from 'react'
-import { PixelRatio, NativeModules, Alert } from 'react-native'
-import SetupStore from '../../stores/SetupStore'
+import SetupStore from '../../stores/SetupStore';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from 'react-native-responsive-screen'
-import AppConstants from '../../AppConstants'
-import LogStore from '../../stores/LogStore'
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import AppConstants from '../../AppConstants';
+import LogStore from '../../stores/LogStore';
 import {
   SetupContainer,
-  RecoveryPhraseConfirmationTextOnly
-} from '../../components/setup'
-import FlashNotification from '../../components/common/FlashNotification'
-import { LargeButtons, ParagraphText } from '../../components/common'
-import DataFormatHelper from '../../helpers/DataFormatHelper'
+  RecoveryPhraseConfirmationTextOnly,
+} from '../../components/setup';
+import FlashNotification from '../../components/common/FlashNotification';
+import {LargeButtons, ParagraphText} from '../../components/common';
+import DataFormatHelper from '../../helpers/DataFormatHelper';
+// import {crypto} from 'crypto-random-string/browser';
 
-var _ = require('lodash')
+var _ = require('lodash');
 
-const DEFAULT_ROW_LENGTH = 4
+const DEFAULT_ROW_LENGTH = 4;
 
 class SetupRecoveryPhrase extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      recoveryPhrase: []
-    }
+      recoveryPhrase: [],
+    };
 
-    this.boxWidth = '30%'
-    this.boxHeight = '14%'
-    this.rowLength = DEFAULT_ROW_LENGTH
+    this.boxWidth = '30%';
+    this.boxHeight = '14%';
+    this.rowLength = DEFAULT_ROW_LENGTH;
     // if someone has cranked up the font use 1 row instead
-    LogStore.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`)
+    LogStore.log(`PixelRatio.getFontScale is ${PixelRatio.getFontScale()}`);
     if (PixelRatio.getFontScale() > 2) {
-      this.rowLength = 1
-      this.boxWidth = '100%'
-      this.boxHeight = '30%'
+      this.rowLength = 1;
+      this.boxWidth = '100%';
+      this.boxHeight = '30%';
       LogStore.log(
-        `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`
-      )
+        `boxWidth: ${this.boxWidth} and boxHeight: ${this.boxHeight}`,
+      );
     }
-    props.navigation.addListener('blur', FlashNotification.hideMessage)
+    props.navigation.addListener('blur', FlashNotification.hideMessage);
   }
 
   componentDidMount = () => {
-    this.generateRecoveryPhrase()
-  }
+    try {
+      this.generateRecoveryPhrase();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  showExitApp () {
+  showExitApp() {
     Alert.alert(
       '',
       `Problem occurred validating the phrase, please contact Oneiro.`,
@@ -64,71 +69,89 @@ class SetupRecoveryPhrase extends Component {
         {
           text: 'Exit app',
           onPress: () => {
-            RNExitApp.exitApp()
-          }
-        }
+            RNExitApp.exitApp();
+          },
+        },
       ],
-      { cancelable: false }
-    )
+      {cancelable: false},
+    );
   }
 
   generateRecoveryPhrase = async () => {
-    const KeyaddrManager = NativeModules.KeyaddrManager
-    const seeds = await KeyaddrManager.keyaddrWordsFromBytes(
-      AppConstants.APP_LANGUAGE,
-      SetupStore.entropy
-    )
-    const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(
-      AppConstants.APP_LANGUAGE,
-      seeds
-    )
-    if (!_(seedBytes).isEqual(SetupStore.entropy)) {
-      this.showExitApp()
-    } else {
-      LogStore.log(`the seedBytes and entropy are equal.`)
-    }
-    const recoveryPhrase = seeds.split(/\s+/g)
-    this.setState({ recoveryPhrase: recoveryPhrase })
+    try {
+      // console.log(SetupStore.entropy,"Setup Entropy");
+      // debugger;
+      const KeyaddrManager = NativeModules.KeyaddrManager;
+      console.log({KeyaddrManager});
 
-    // Shuffle the deck with a Fisher-Yates shuffle algorithm;
-    // walks through the array backwards once, exchanging each value
-    // with a random element from the remainder of the array
-    let map = recoveryPhrase.map((e, i) => i)
-    let arr = recoveryPhrase.slice()
-    for (let i = arr.length - 1; i >= 0; i--) {
-      let r = Math.floor(Math.random() * i)
-      ;[map[i], map[r]] = [map[r], map[i]]
-      ;[arr[i], arr[r]] = [arr[r], arr[i]]
+      const seed = await KeyaddrManager.keyaddrWordsFromBytes(
+        AppConstants.APP_LANGUAGE,
+        SetupStore.entropy,
+      );
+
+      console.log(seed); // Ex: pony benefit make vocal group ice hat height joy hurry alone replace
+
+      const seedBytes = await KeyaddrManager.keyaddrWordsToBytes(
+        AppConstants.APP_LANGUAGE,
+        seed,
+      );
+      console.log(seedBytes); // Ex: p+KmGnqmbuBaY1V4jfQb2w==
+      if (!_(seedBytes).isEqual(SetupStore.entropy)) {
+        this.showExitApp();
+      } else {
+        LogStore.log(`the seedBytes and entropy are equal.`);
+      }
+      // const seeds=['aaaa', 'aaaa', 'aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa','aaaa']
+      // const a=bip39.generateMnemonic().split(" ");
+      // console.log(bip39.generateMnemonic(),"bip39")
+      // console.log(randomWords(12),"random number")
+      // const recoveryPhrase = randomWords(12)
+      // const recoveryPhrase =a;
+      const recoveryPhrase = seed.split(/\s+/g);
+      this.setState({recoveryPhrase: recoveryPhrase});
+
+      // Shuffle the deck with a Fisher-Yates shuffle algorithm;
+      // walks through the array backwards once, exchanging each value
+      // with a random element from the remainder of the array
+      let map = recoveryPhrase.map((e, i) => i);
+      let arr = recoveryPhrase.slice();
+      for (let i = arr.length - 1; i >= 0; i--) {
+        let r = Math.floor(Math.random() * i);
+        [map[i], map[r]] = [map[r], map[i]];
+        [arr[i], arr[r]] = [arr[r], arr[i]];
+      }
+      this.shuffledWords = arr;
+      // turn array inside out
+      this.shuffleMap = map.reduce((a, c, i) => {
+        a[c] = i;
+        return a;
+      }, []);
+    } catch (e) {
+      alert(e);
     }
-    this.shuffledWords = arr
-    // turn array inside out
-    this.shuffleMap = map.reduce((a, c, i) => {
-      a[c] = i
-      return a
-    }, [])
-  }
+  };
 
   showNextSetup = () => {
-    SetupStore.recoveryPhrase = this.state.recoveryPhrase
-    SetupStore.shuffledMap = this.shuffleMap
-    SetupStore.shuffledWords = this.shuffledWords
+    SetupStore.recoveryPhrase = this.state.recoveryPhrase;
+    SetupStore.shuffledMap = this.shuffleMap;
+    SetupStore.shuffledWords = this.shuffledWords;
 
-    const { navigation } = this.props
-    navigation.navigate('SetupConfirmRecoveryPhrase')
-  }
+    const {navigation} = this.props;
+    navigation.navigate('SetupConfirmRecoveryPhrase');
+  };
 
-  render () {
+  render() {
     // chop the words into DEFAULT_ROW_LENGTH-tuples
     const words = DataFormatHelper.groupArrayIntoRows(
       this.state.recoveryPhrase,
-      this.rowLength
-    )
+      this.rowLength,
+    );
     const styles = {
       rowTextView: {
         height: hp(this.boxHeight),
-        width: wp(this.boxWidth)
-      }
-    }
+        width: wp(this.boxWidth),
+      },
+    };
 
     return (
       <SetupContainer {...this.props} pageNumber={15}>
@@ -144,13 +167,12 @@ class SetupRecoveryPhrase extends Component {
           sideMargins
           bottom
           onPress={() => this.showNextSetup()}
-          text='We will confirm on the next screen.'
-        >
+          text="We will confirm on the next screen.">
           I wrote it down
         </LargeButtons>
       </SetupContainer>
-    )
+    );
   }
 }
 
-export default SetupRecoveryPhrase
+export default SetupRecoveryPhrase;

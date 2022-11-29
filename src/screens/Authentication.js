@@ -8,7 +8,7 @@
  * - -- --- ---- -----
  */
 
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -17,16 +17,16 @@ import {
   Keyboard,
   ImageBackground,
   BackHandler,
-  NativeModules
-} from 'react-native'
-import MultiSafeHelper from '../helpers/MultiSafeHelper'
-import UserData from '../model/UserData'
-import AppConstants from '../AppConstants'
-import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner'
-import LogStore from '../stores/LogStore'
-import FlashNotification from '../components/common/FlashNotification'
+  NativeModules,
+} from 'react-native';
+import MultiSafeHelper from '../helpers/MultiSafeHelper';
+import UserData from '../model/UserData';
+import AppConstants from '../AppConstants';
+import WaitingForBlockchainSpinner from '../components/common/WaitingForBlockchainSpinner';
+import LogStore from '../stores/LogStore';
+import FlashNotification from '../components/common/FlashNotification';
 
-import styles from '../components/common/styles'
+import styles from '../components/common/styles';
 import {
   LoginContainer,
   LabelWithIcon,
@@ -34,104 +34,107 @@ import {
   PasswordLinkText,
   PasswordLinkContainer,
   LargeButton,
-  LoginImage
-} from '../components/common'
-import UserStore from '../stores/UserStore'
+  LoginImage,
+} from '../components/common';
+import UserStore from '../stores/UserStore';
 
 class Authentication extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       password: '',
       showErrorText: false,
       loginAttempt: 1,
       spinner: false,
-      keyboard: false
-    }
+      keyboard: false,
+    };
 
-    this.maxLoginAttempts = 10
-    props.navigation.addListener('blur', FlashNotification.hideMessage)
+    this.maxLoginAttempts = 10;
+    props.navigation.addListener('blur', FlashNotification.hideMessage);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (Platform.OS === 'ios') {
       this.keyboardWillShowSub = Keyboard.addListener(
         'keyboardWillShow',
-        this.keyboardWillShow
-      )
+        this.keyboardWillShow,
+      );
       this.keyboardWillHideSub = Keyboard.addListener(
         'keyboardWillHide',
-        this.keyboardWillHide
-      )
+        this.keyboardWillHide,
+      );
     } else {
       this.keyboardDidShowSub = Keyboard.addListener(
         'keyboardDidShow',
-        this.keyboardWillShow
-      )
+        this.keyboardWillShow,
+      );
       this.keyboardDidHideSub = Keyboard.addListener(
         'keyboardDidHide',
-        this.keyboardWillHide
-      )
+        this.keyboardWillHide,
+      );
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (Platform.OS === 'ios') {
-      this.keyboardWillShowSub.remove()
-      this.keyboardWillHideSub.remove()
+      this.keyboardWillShowSub.remove();
+      this.keyboardWillHideSub.remove();
     } else {
-      this.keyboardDidShowSub.remove()
-      this.keyboardDidHideSub.remove()
+      this.keyboardDidShowSub.remove();
+      this.keyboardDidHideSub.remove();
     }
   }
 
   login = async () => {
-    this.setState({ spinner: true }, async () => {
+    this.setState({spinner: true}, async () => {
       try {
-        let user = await MultiSafeHelper.getDefaultUser(this.state.password)
+        let user = await MultiSafeHelper.getDefaultUser(this.state.password);
+        console.log('user data:');
+        console.log(user);
         if (user) {
-          FlashNotification.hideMessage()
-          UserStore.setUser(user)
+          FlashNotification.hideMessage();
+          UserStore.setUser(user);
 
           LogStore.log(
-            `User in Authentication found is ${JSON.stringify(user)}`
-          )
+            `User in Authentication found is ${JSON.stringify(user)}`,
+          );
 
           // cache the password
-          UserStore.setPassword(this.state.password)
-          let errorMessage = null
+          UserStore.setPassword(this.state.password);
+          let errorMessage = null;
 
           try {
-            await UserData.loadUserData(user)
+            await UserData.loadUserData(user);
           } catch (error) {
-            FlashNotification.showError(error)
-            LogStore.log(error)
-            errorMessage = error.message
+            FlashNotification.showError(error);
+            LogStore.log(error);
+            errorMessage = error.message;
           }
 
-          this.setState({ spinner: false }, () => {
+          this.setState({spinner: false}, () => {
             this.props.navigation.replace('Drawer', {
               screen: 'DashboardNav',
               params: {
                 screen: 'Dashboard',
-                params: { error: errorMessage }
-              }
-            })
-          })
+                params: {error: errorMessage},
+              },
+            });
+          });
         } else {
-          this.showLoginError()
-          this.setState({ spinner: false })
+          this.showLoginError();
+          this.setState({spinner: false});
         }
       } catch (error) {
-        LogStore.log(error)
-        this.showLoginError()
-        this.setState({ spinner: false })
+        LogStore.log(error);
+        this.showLoginError();
+        this.setState({spinner: false});
       }
-    })
-  }
+    });
+    // this.props.navigation.navigate("Blockchain Explorer", {screen: 'Explore'});
+  };
 
-  showExitApp () {
+  showExitApp() {
     Alert.alert(
       '',
       `You have hit the maximum amount of login attempts.`,
@@ -140,132 +143,125 @@ class Authentication extends Component {
           text: 'Exit app',
           onPress: () => {
             if (Platform.OS === 'ios') {
-              NativeModules.IOSNativeHelper.exitApp()
+              NativeModules.IOSNativeHelper.exitApp();
             } else {
-              BackHandler.exitApp()
+              BackHandler.exitApp();
             }
-          }
-        }
+          },
+        },
       ],
-      { cancelable: false }
-    )
+      {cancelable: false},
+    );
   }
 
   showLoginError = () => {
     if (this.state.loginAttempt >= this.maxLoginAttempts) {
-      this.showExitApp()
+      this.showExitApp();
     }
     FlashNotification.showError(
-      `Login attempt ${this.state.loginAttempt} of ${
-        this.maxLoginAttempts
-      } failed.`
-    )
-    this.setState({ loginAttempt: this.state.loginAttempt + 1 })
-  }
+      `Login attempt ${this.state.loginAttempt} of ${this.maxLoginAttempts} failed.`,
+    );
+    this.setState({loginAttempt: this.state.loginAttempt + 1});
+  };
 
   showInformation = () => {
     Alert.alert(
       'Information',
       'Please enter the password you chose to encrypt this application. ' +
         'This is not the same as your 12-word recovery phrase.',
-      [{ text: 'OK', onPress: () => {} }],
-      { cancelable: false }
-    )
-  }
+      [{text: 'OK', onPress: () => {}}],
+      {cancelable: false},
+    );
+  };
 
   showPasswordReset = user => {
-    FlashNotification.hideMessage()
+    FlashNotification.hideMessage();
     this.props.navigation.navigate('Setup', {
       screen: 'SetupGetRecoveryPhrase',
       params: {
         user: user,
-        mode: AppConstants.PASSWORD_RESET_MODE
-      }
-    })
-  }
+        mode: AppConstants.PASSWORD_RESET_MODE,
+      },
+    });
+  };
 
   showContactSupport = () => {
-    FlashNotification.hideMessage()
+    FlashNotification.hideMessage();
     this.props.navigation.navigate('ContactSupport', {
-      drawerDisabled: true
-    })
-  }
+      drawerDisabled: true,
+    });
+  };
 
   dropDownSelected = (index, value) => {
     this.setState({
-      userId: value
-    })
-  }
+      userId: value,
+    });
+  };
 
   keyboardWillShow = event => {
     this.setState({
-      keyboard: true
-    })
-  }
+      keyboard: true,
+    });
+  };
 
   keyboardWillHide = event => {
     this.setState({
-      keyboard: false
-    })
-  }
+      keyboard: false,
+    });
+  };
 
-  render () {
-    let lowerHeightIOS = this.state.keyboard ? 15 : 32
-    let lowerHeightAndroid = this.state.keyboard ? 18 : 30
+  render() {
+    let lowerHeightIOS = this.state.keyboard ? 15 : 32;
+    let lowerHeightAndroid = this.state.keyboard ? 18 : 30;
     if (this.props.isNetShown) {
-      lowerHeightAndroid -= 1
-      lowerHeightIOS -= 2
+      lowerHeightAndroid -= 1;
+      lowerHeightIOS -= 2;
     }
     return (
       <LoginContainer>
         <ImageBackground
           style={{}}
           source={require('img/bloom.png')}
-          imageStyle={styles.setupContainerBackgroundImage}
-        >
+          imageStyle={styles.setupContainerBackgroundImage}>
           <KeyboardAvoidingView
             keyboardVerticalOffset={Platform.OS === 'ios' ? -30 : -110}
-            behavior={Platform.OS === 'ios' ? 'height' : 'position'}
-          >
+            behavior={Platform.OS === 'ios' ? 'height' : 'position'}>
             <WaitingForBlockchainSpinner spinner={this.state.spinner} />
             <View
               style={{
                 ...Platform.select({
                   ios: {
-                    height: this.state.keyboard ? '35%' : '39%'
+                    height: this.state.keyboard ? '35%' : '39%',
                   },
                   android: {
-                    height: this.state.keyboard ? '40%' : '40%'
-                  }
-                })
-              }}
-            >
+                    height: this.state.keyboard ? '40%' : '40%',
+                  },
+                }),
+              }}>
               <LoginImage />
             </View>
             <View
               style={{
                 ...Platform.select({
                   ios: {
-                    height: this.state.keyboard ? '32%' : '33%'
+                    height: this.state.keyboard ? '32%' : '33%',
                   },
                   android: {
-                    height: this.state.keyboard ? '33%' : '32%'
-                  }
-                })
-              }}
-            >
+                    height: this.state.keyboard ? '33%' : '32%',
+                  },
+                }),
+              }}>
               <LabelWithIcon
                 onPress={this.showInformation}
-                fontAwesomeIconName='info-circle'
-              >
+                fontAwesomeIconName="info-circle">
                 Password
               </LabelWithIcon>
               <TextInput
-                onChangeText={password => this.setState({ password })}
+                onChangeText={password => this.setState({password})}
                 value={this.state.password}
-                placeholder='Enter your password...'
+                placeholder="Enter your password..."
                 secureTextEntry
-                autoCapitalize='none'
+                autoCapitalize="none"
                 onSubmitEditing={this.login}
               />
               <PasswordLinkContainer>
@@ -282,16 +278,15 @@ class Authentication extends Component {
               style={{
                 ...Platform.select({
                   ios: {
-                    height: lowerHeightIOS + '%'
+                    height: lowerHeightIOS + '%',
                   },
                   android: {
-                    height: lowerHeightAndroid + '%'
-                  }
+                    height: lowerHeightAndroid + '%',
+                  },
                 }),
                 flexDirection: 'column',
-                justifyContent: 'flex-end'
-              }}
-            >
+                justifyContent: 'flex-end',
+              }}>
               <LargeButton sideMargins onPress={this.login}>
                 Login
               </LargeButton>
@@ -299,8 +294,8 @@ class Authentication extends Component {
           </KeyboardAvoidingView>
         </ImageBackground>
       </LoginContainer>
-    )
+    );
   }
 }
 
-export default Authentication
+export default Authentication;

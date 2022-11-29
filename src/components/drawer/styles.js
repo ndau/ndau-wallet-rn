@@ -44,6 +44,9 @@ export default (styles = StyleSheet.create({
   drawerButton: {
     paddingLeft: wp('4%')
   },
+  drawerRightButton:{
+    paddingRight: wp('4%')
+  },
   drawerEntry: {
     flex: 1,
     flexDirection: 'row',
