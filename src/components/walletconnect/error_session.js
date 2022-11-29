@@ -59,7 +59,7 @@ const ErrorModal = () => {
                 textAlign: 'center',
                 fontSize: 22,
               }}>
-              Alert Purposal
+              Alert Proposal
             </Text>
 
             {/* <View
@@ -88,7 +88,7 @@ const ErrorModal = () => {
                   fontWeight: 'bold',
                   fontSize: 18,
                 }}>
-                Your Already voted for this purposal.
+                Youu have already voted for this proposal.
               </Text>
             </View>
             <TouchableOpacity

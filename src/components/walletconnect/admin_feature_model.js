@@ -26,14 +26,14 @@ import SessionBloc from '../../blocs/SessionBloc';
 // import VectorIcon from 'react-native-vector-icons/Feather';
 // import CollapsibleBar from './CollapsibleBar';
 
-const AdminPurposalModal = () => {
+const AdminProposalModal = () => {
   const [checked, setchecked] = useState(true);
   const {
     proposal,
     socketId,
     socketLogin,
-    appPurposalData,
-    adminPurposalModel,
+    appProposalData,
+    adminProposalModel,
     adminData,
     adminApprove,
   } = useSnapshot(SessionBloc.state);
@@ -52,7 +52,7 @@ const AdminPurposalModal = () => {
           app_socket_id: socketId,
         },
       );
-      SessionBloc.setAdminPurposal('', false, true);
+      SessionBloc.setAdminProposal('', false, true);
 
       //   LogStore.log(`Rendering wallet: ${JSON.stringify(wallet)}`);
       // if (proposal) {
@@ -61,11 +61,11 @@ const AdminPurposalModal = () => {
       //     reason: getSdkError('USER_REJECTED_METHODS'),
       //   });
       // }
-      // SessionBloc.setPurposalModal(false);
+      // SessionBloc.setProposalModal(false);
     } catch (e) {
-      SessionBloc.setAdminPurposal('', false, true);
+      SessionBloc.setAdminProposal('', false, true);
       // console.log('reject error', e);
-      // SessionBloc.setPurposalModal(false);
+      // SessionBloc.setProposalModal(false);
     }
 
     // ModalStore.close()
@@ -81,7 +81,7 @@ const AdminPurposalModal = () => {
           app_socket_id: socketId,
         },
       );
-      SessionBloc.setAdminPurposal('', false, false);
+      SessionBloc.setAdminProposal('', false, false);
 
       console.log('connected sucessfully');
       //   SessionBloc.set(false);
@@ -115,7 +115,7 @@ const AdminPurposalModal = () => {
       //     namespaces,
       //   });
       //   await acknowledged();
-      //   SessionBloc.setPurposalModal(false);
+      //   SessionBloc.setProposalModal(false);
       //   console.log('approved', topic);
       //   try {
       //     await AsyncStorage.setItem('Topic', topic);
@@ -130,7 +130,7 @@ const AdminPurposalModal = () => {
       } catch (e) {
         // saving error
       }
-      SessionBloc.setAdminPurposal('', false, false);
+      SessionBloc.setAdminProposal('', false, false);
     }
   };
   return (
@@ -171,7 +171,7 @@ const AdminPurposalModal = () => {
                   textAlign: 'center',
                   fontSize: 22,
                 }}>
-                Session Purposal
+                Session Proposal
               </Text>
               <LinearGradient
                 start={{x: 0, y: 0}}
@@ -390,4 +390,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 });
-export default AdminPurposalModal;
+export default AdminProposalModal;
