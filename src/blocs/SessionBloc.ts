@@ -2,7 +2,7 @@ import React from 'react';
 import {proxy} from 'valtio';
 
 var state = proxy({
-  purposalModal: false,
+  proposalModal: false,
   socketLogin: '',
   votingRequestModal: false,
   proposal: '',
@@ -72,7 +72,7 @@ var SessionBloc = {
     state.navigation = navigation;
   },
   setProposalModal: function (modalVisible) {
-    state.purposalModal = modalVisible;
+    state.proposalModal = modalVisible;
   },
   setVotingRequestlModal: function (modalVisible) {
     state.votingRequestModal = modalVisible;
