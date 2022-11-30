@@ -23,7 +23,7 @@ export async function createSignClient(
     SessionBloc.setAccountPrivateKey(privateKey);
     SessionBloc.setAccountPubkicKey(publicKey);
 
-    SessionBloc.setPurposalModal(true);
+    SessionBloc.setProposalModal(true);
   });
 
   Socket.on('server-ndau_connection-established-app', data => {
@@ -48,14 +48,14 @@ export async function createSignClient(
 
   Socket.on('server-proposal_reject-request-app', data => {
     console.log('server-proposal_reject-request-app', data);
-    SessionBloc.setAppPurposal(data, true, false);
+    SessionBloc.setAppProposal(data, true, false);
     // SessionBloc.setVotingProposal(JSON.stringify(data));
     // SessionBloc.setVotingRequestlModal(true);
   });
 
   Socket.on('server-proposal_approve-request-app', data => {
     console.log('server-proposal_approve-request-app', data);
-    SessionBloc.setAppPurposal(data, true, true);
+    SessionBloc.setAppProposal(data, true, true);
     // SessionBloc.setVotingProposal(JSON.stringify(data));
     // SessionBloc.setVotingRequestlModal(true);
   });
@@ -63,21 +63,21 @@ export async function createSignClient(
   Socket.on('server-feature_proposal-request-app', data => {
     console.log('server-feature_proposal-request-app', data);
     console.log('server-feature_proposal-request-app.......data', data);
-    SessionBloc.setFeaturePurposal(data, true);
+    SessionBloc.setFeatureProposal(data, true);
     // SessionBloc.setVotingProposal(JSON.stringify(data));
     // SessionBloc.setVotingRequestlModal(true);
   });
 
   Socket.on('server-add_admin-request-app', data => {
     console.log('server-add_admin-request-app', data);
-    SessionBloc.setAdminPurposal(data, true, true);
+    SessionBloc.setAdminProposal(data, true, true);
     // SessionBloc.setVotingProposal(JSON.stringify(data));
     // SessionBloc.setVotingRequestlModal(true);
   });
 
   Socket.on('server-delete_admin-request-app', data => {
     console.log('server-delete_admin-request-app', data);
-    SessionBloc.setAdminPurposal(data, true, false);
+    SessionBloc.setAdminProposal(data, true, false);
     // SessionBloc.setVotingProposal(JSON.stringify(data));
     // SessionBloc.setVotingRequestlModal(true);
   });

@@ -65,10 +65,10 @@ const VotingModal = () => {
       //     reason: getSdkError('USER_REJECTED_METHODS'),
       //   });
       // }
-      // SessionBloc.setPurposalModal(false);
+      // SessionBloc.setProposalModal(false);
     } catch (e) {
       // console.log('reject error', e);
-      // SessionBloc.setPurposalModal(false);
+      // SessionBloc.setProposalModal(false);
     }
 
     // ModalStore.close()
@@ -144,7 +144,7 @@ const VotingModal = () => {
       //     namespaces,
       //   });
       //   await acknowledged();
-      //   SessionBloc.setPurposalModal(false);
+      //   SessionBloc.setProposalModal(false);
       //   console.log('approved', topic);
       //   try {
       //     await AsyncStorage.setItem('Topic', topic);
@@ -200,7 +200,7 @@ const VotingModal = () => {
                   textAlign: 'center',
                   fontSize: 22,
                 }}>
-                Voting Purposal
+                Voting Proposal
               </Text>
               <LinearGradient
                 start={{x: 0, y: 0}}
@@ -270,7 +270,7 @@ const VotingModal = () => {
                       fontWeight: 'bold',
                       fontSize: 18,
                     }}>
-                    {'Purposal Heading::'}{' '}
+                    {'Proposal Heading::'}{' '}
                     <Text style={{fontSize: 15}}>
                       {data && data.proposal_heading}
                     </Text>
@@ -282,7 +282,7 @@ const VotingModal = () => {
                         fontWeight: 'bold',
                         fontSize: 18,
                       }}>
-                      Purposal ID::{data && data.proposal_id}
+                      Proposal ID::{data && data.proposal_id}
                     </Text>
 
                     {/* { data.params?.requiredNamespaces[key]?.methods&& data?.params?.requiredNamespaces[key]?.methods.lenght !=0 ? data.params.requiredNamespaces[key].methods.map(e=>{

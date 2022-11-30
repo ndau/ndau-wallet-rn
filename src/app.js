@@ -29,12 +29,12 @@ import {createSignClient} from './utils/WalletConnectUtil';
 import VotingModal from './components/walletconnect/request_vote_session_modal';
 import useInitialization from './hooks/useInitialization';
 import FilterByCategoryModel from './components/common/filterByCategory';
-import PurposalModal from './components/walletconnect/purposal_session_modal';
+import ProposalModal from './components/walletconnect/proposal_session_modal';
 import SessionBloc from './blocs/SessionBloc';
 import ErrorModal from './components/walletconnect/error_session';
-import AppPurposalModal from './components/walletconnect/app_purposal_aprove_reject';
-import FeaturePurposalModal from './components/walletconnect/feature_purposal_request_model';
-import AdminPurposalModal from './components/walletconnect/admin_feature_model';
+import AppProposalModal from './components/walletconnect/app_proposal_approve_reject';
+import FeatureProposalModal from './components/walletconnect/feature_proposal_request_model';
+import AdminProposalModal from './components/walletconnect/admin_feature_model';
 
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
@@ -124,13 +124,13 @@ const App = () => {
   const [netInfo, setnet] = useState('');
   const [appState, setAppstate] = useState(AppState.currentState);
   let {
-    purposalModal,
-    appPurposalModel,
+    proposalModal,
+    appProposalModel,
     votingRequestModal,
     alertPopup,
-    adminPurposalModel,
+    adminProposalModel,
     adminApprove,
-    featurePurposalModel,
+    featureProposalModel,
   } = useSnapshot(SessionBloc.state);
 
   handleAppStateChange = async nextAppState => {
@@ -188,13 +188,13 @@ const App = () => {
           <OfflineMessage />
         </ThemeProvider>
       </View>
-      {purposalModal && <PurposalModal />}
+      {proposalModal && <ProposalModal />}
       {/* <FilterByCategoryModel/> */}
       {alertPopup && <ErrorModal />}
-      {featurePurposalModel && <FeaturePurposalModal />}
-      {appPurposalModel && <AppPurposalModal />}
+      {featureProposalModel && <FeatureProposalModal />}
+      {appProposalModel && <AppProposalModal />}
       {votingRequestModal && <VotingModal />}
-      {adminPurposalModel && <AdminPurposalModal />}
+      {adminProposalModel && <AdminProposalModal />}
     </Provider>
   );
 };

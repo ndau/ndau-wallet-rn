@@ -11,13 +11,13 @@ var state = proxy({
   infomessage: '',
   isApprove: false,
   alertPopup: false,
-  appPurposalData: '',
-  appPurposalModel: false,
-  featurePurposalModel: false,
-  adminPurposalModel: false,
+  appProposalData: '',
+  appProposalModel: false,
+  featureProposalModel: false,
+  adminProposalModel: false,
   adminApprove: false,
   adminData: '',
-  featurePurposalData: '',
+  featureProposalData: '',
   socketId: '',
   accountAddress: '',
   accountPrivateKey: '',
@@ -35,9 +35,9 @@ var SessionBloc = {
   setAlertPopup: function (popup) {
     state.alertPopup = popup;
   },
-  setAppPurposal: function (data, popup, approve) {
-    state.appPurposalData = data;
-    state.appPurposalModel = popup;
+  setAppProposal: function (data, popup, approve) {
+    state.appProposalData = data;
+    state.appProposalModel = popup;
     state.isApprove = approve;
   },
 
@@ -51,19 +51,19 @@ var SessionBloc = {
     state.accountPublicKey = key;
   },
 
-  setAdminPurposal: function (data, popup, approve) {
+  setAdminProposal: function (data, popup, approve) {
     state.adminData = data;
-    state.adminPurposalModel = popup;
+    state.adminProposalModel = popup;
     state.adminApprove = approve;
   },
 
-  setFeaturePurposal: function (data, popup) {
-    state.featurePurposalData = data;
-    state.featurePurposalModel = popup;
+  setFeatureProposal: function (data, popup) {
+    state.featureProposalData = data;
+    state.featureProposalModel = popup;
   },
-  setAddAdminPurposal: function (data, popup) {
-    state.featurePurposalData = data;
-    state.featurePurposalModel = popup;
+  setAddAdminProposal: function (data, popup) {
+    state.featureProposalData = data;
+    state.featureProposalModel = popup;
   },
   setRequest: function (request) {
     state.request = request;
@@ -71,7 +71,7 @@ var SessionBloc = {
   setNavigation: function (navigation) {
     state.navigation = navigation;
   },
-  setPurposalModal: function (modalVisible) {
+  setProposalModal: function (modalVisible) {
     state.purposalModal = modalVisible;
   },
   setVotingRequestlModal: function (modalVisible) {
