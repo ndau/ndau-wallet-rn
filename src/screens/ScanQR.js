@@ -79,7 +79,7 @@ export default function ScanQR({route}) {
                   barcode.data,
                 );
                 setIsScanned(true);
-                onClose();
+                goBack();
               } catch (e) {
                 console.log('error', e);
                 setIsScanned(false);
@@ -210,7 +210,7 @@ export default function ScanQR({route}) {
               <WalletConnectInfo
                 sideMargins
                 onPress={() => launchWalletConnectGuide()}>
-                Learn more about WalletConnect
+                What is WalletConnect?
               </WalletConnectInfo>
               <Text
                 style={{
@@ -226,18 +226,6 @@ export default function ScanQR({route}) {
           </KeyboardAvoidingView>
         </View>
       </ScrollView>
-
-      {/* <TextInput placeholder='Enter Wc:...' style={{backgroundColor:'#fff',height:100,width:'100%'}} value={pairValue} onChangeText={setPairValue} />
-      <View style={{marginTop: 20,}}></View>
-      <Button title="Pair"  onPress={onPair} /> */}
-      {/* { barcodes&& <View>
-      
-      <Text style={{fontWeight:'bold',color:'#fff'}}>Data:  <Text style={{fontWeight:'400'}}></Text>{barcodes&&barcodes.data?barcodes.data:''}</Text>
-                <Text style={{fontWeight:'bold',color:'#fff'}}>RawData:  <Text style={{fontWeight:'400'}}></Text>{barcodes&&barcodes.rawData?barcodes.rawData:''}</Text>
-                <Text style={{fontWeight:'bold',color:'#fff'}}>Type:  <Text style={{fontWeight:'400'}}></Text>{barcodes&&barcodes.type?barcodes.type:''}</Text>
-
-      </View>} */}
-      {/* <Image style={{ height:hp('100%'),position:'absolute',width:('100%'),resizeMode:'contain'}} source={require('../../img/scan.gif')}/> */}
     </View>
   );
 }
