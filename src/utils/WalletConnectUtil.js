@@ -2,7 +2,7 @@
 import React from 'react';
 import socketIOClient from 'socket.io-client';
 import SessionBloc from '../blocs/SessionBloc';
-const ENDPOINT = 'https://dev.backend.bpcdao.ndau.tech/';
+const ENDPOINT = 'https://backend.bpcdao.ndau.tech/';
 
 export let Socket;
 
