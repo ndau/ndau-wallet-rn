@@ -141,7 +141,7 @@ android {
         applicationId "com.ndauplus"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 300311
+        versionCode 300312
         versionName "3.0.3"
         multiDexEnabled true
 

@@ -86,7 +86,7 @@ const VotingModal = () => {
       // SessionBloc.setProposalModal(false);
     } catch (e) {
       // console.log('reject error', e);
-      SessionBloc.setPurposalModal(false);
+      SessionBloc.setProposalModal(false);
       // SessionBloc.setProposalModal(false);
     }
   };

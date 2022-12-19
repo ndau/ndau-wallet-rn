@@ -88,7 +88,7 @@ const ErrorModal = () => {
                   fontWeight: 'bold',
                   fontSize: 18,
                 }}>
-                Youu have already voted for this proposal.
+                You have already voted for this proposal.
               </Text>
             </View>
             <TouchableOpacity
