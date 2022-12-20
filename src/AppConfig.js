@@ -32,13 +32,13 @@ const API_RETRY_DELAY_MS = 1 * 1000 // 1 * 1000 = 1 second (in miliseconds)
 const API_DEFAULT_TIMEOUT_MS = 10 * 1000 // 10 * 1000 = 10 seconds (in miliseconds)
 
 const TRANSACTION_FEE_KNOWLEDGEBASE_URL =
-  'https://ndaucollective.org/knowledge-base/transaction-fees/'
+  'https://ndau.io/knowledge-base/transaction-fees/'
 const SIB_FEE_KNOWLEDGEBASE_URL =
-  'https://ndaucollective.org/knowledge-base/stabilization-incentive-burn-sib/'
+  'https://ndau.io/knowledge-base/stabilization-incentive-burn-sib/'
 const SPENDABLE_KNOWLEDGEBASE_URL =
-  'https://ndaucollective.org/knowledge-base/spendable/'
+  'https://ndau.io/knowledge-base/spendable/'
 const EAI_KNOWLEDGEBASE_URL =
-  'https://ndaucollective.org/knowledge-base/ecosystem-alignment-incentive-eai/'
+  'https://ndau.io/knowledge-base/ecosystem-alignment-incentive-eai/'
 const BLOCKCHAIN_KNOWLEDGEBASE_URL = 
   'https://ndau.io/knowledge-base/what-is-market-price-and-how-is-it-recorded-on-the-ndau-blockchain/'
 const BUY_NDAU_URL = 'https://ndau.io/buy'
@@ -46,7 +46,7 @@ const BUY_NDAU_URL = 'https://ndau.io/buy'
 const MAX_LOG_ENTRIES = 101
 
 const calcExplorerUrl = (address, network) =>
-  `https://explorer.service.ndau.tech/account/${address}/?node=${network}`
+  `https://explorer.ndau.tech/account/${address}/?node=${network}`
 
 const FRESHDESK_INTEGRATION_API_KEY = 'WfxQlzgny92866U26BCxvshY2nCf8kO531Yyfdkj'
 const FRESHDESK_TICKET_ENDPOINT =
