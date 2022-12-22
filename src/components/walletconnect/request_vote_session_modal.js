@@ -1,10 +1,9 @@
 import {NativeModules} from 'react-native';
-import {Modal, Portal} from 'react-native-paper';
+import {Modal, Portal, Provider} from 'react-native-paper';
 import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSnapshot} from 'valtio';
 import {BlurView} from '@react-native-community/blur';
-import yaml from 'yaml';
 import WalletStore from '../../stores/WalletStore';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,8 +13,10 @@ import {
   Text,
   View,
   StyleSheet,
+  ScrollView,
   TouchableOpacity,
   Image,
+  FlatList,
 } from 'react-native';
 import {Socket} from '../../utils/WalletConnectUtil';
 import {
@@ -46,26 +47,7 @@ const VotingModal = () => {
   console.log('data....', data);
 
   const app_socket_id = Socket?.id;
-
-  const createBased64Ballot = (vote) => {
-    const ballot = yaml.stringify({
-      vote,
-      proposal: {
-        proposal_id,
-        proposal_heading,
-        voting_option_id,
-        voting_option_heading,
-      },
-      wallet_address,
-      validation_key: accountPublicKey,
-    });
-
-    const preparedTransaction = new TxSignPrep().prepare(ballot);
-    const base64EncodedPrepTx = preparedTransaction.b64encode();
-    console.log('base64 ballot', base64EncodedPrepTx);
-
-    return base64EncodedPrepTx;
-  };
+  const wallet = WalletStore.getWallet();
 
   const onReject = async () => {
     try {
@@ -86,15 +68,27 @@ const VotingModal = () => {
       // SessionBloc.setProposalModal(false);
     } catch (e) {
       // console.log('reject error', e);
-      SessionBloc.setProposalModal(false);
       // SessionBloc.setProposalModal(false);
     }
+
+    // ModalStore.close()
   };
 
   const onApprove = async () => {
     try {
-      const base64EncodedPrepTx = createBased64Ballot('yes');
-
+      const ballot = JSON.stringify({
+        vote: 'yes',
+        proposal: {
+          proposal_id,
+          proposal_heading,
+          voting_option_id,
+          voting_option_heading,
+        },
+        pubkey: accountPublicKey,
+      });
+      const preparedTransaction = new TxSignPrep().prepare(ballot);
+      const base64EncodedPrepTx = preparedTransaction.b64encode();
+      console.log('base64EncodedPrepTx', base64EncodedPrepTx);
       // Get the signature to use in the transaction
       const signature = await NativeModules.KeyaddrManager.sign(
         accountPrivateKey,
@@ -102,6 +96,7 @@ const VotingModal = () => {
       );
       console.log('signature', signature);
 
+      const wallet = WalletStore.getWallet();
       data.is_approved = 'true';
 
       // Socket.emit('app-create_vote-confirmed-server', data);
