@@ -141,8 +141,8 @@ android {
         applicationId "com.ndauplus"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 300313
-        versionName "3.0.3"
+        versionCode 300314
+        versionName "3.0.4"
         multiDexEnabled true
 
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
