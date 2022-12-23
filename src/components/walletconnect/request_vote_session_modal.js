@@ -1,31 +1,18 @@
 import {NativeModules} from 'react-native';
-import {Modal, Portal, Provider} from 'react-native-paper';
-import React, {useEffect, useState} from 'react';
+import {Modal, Portal} from 'react-native-paper';
+import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSnapshot} from 'valtio';
 import {BlurView} from '@react-native-community/blur';
-import WalletStore from '../../stores/WalletStore';
+import yaml from 'yaml';
 
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/dist/Feather';
-
-import {
-  Text,
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  FlatList,
-} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Socket} from '../../utils/WalletConnectUtil';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import SessionBloc from '../../blocs/SessionBloc';
-// import VectorIcon from 'react-native-vector-icons/Feather';
-// import CollapsibleBar from './CollapsibleBar';
 import TxSignPrep from '../../model/TxSignPrep';
 
 const VotingModal = () => {
@@ -47,7 +34,26 @@ const VotingModal = () => {
   console.log('data....', data);
 
   const app_socket_id = Socket?.id;
-  const wallet = WalletStore.getWallet();
+
+  const createBased64Ballot = vote => {
+    const ballot = yaml.stringify({
+      vote,
+      proposal: {
+        proposal_id,
+        proposal_heading,
+        voting_option_id,
+        voting_option_heading,
+      },
+      wallet_address,
+      validation_key: accountPublicKey,
+    });
+
+    const preparedTransaction = new TxSignPrep().prepare(ballot);
+    const base64EncodedPrepTx = preparedTransaction.b64encode();
+    console.log('base64 ballot', base64EncodedPrepTx);
+
+    return base64EncodedPrepTx;
+  };
 
   const onReject = async () => {
     try {
@@ -76,19 +82,8 @@ const VotingModal = () => {
 
   const onApprove = async () => {
     try {
-      const ballot = JSON.stringify({
-        vote: 'yes',
-        proposal: {
-          proposal_id,
-          proposal_heading,
-          voting_option_id,
-          voting_option_heading,
-        },
-        pubkey: accountPublicKey,
-      });
-      const preparedTransaction = new TxSignPrep().prepare(ballot);
-      const base64EncodedPrepTx = preparedTransaction.b64encode();
-      console.log('base64EncodedPrepTx', base64EncodedPrepTx);
+      const base64EncodedPrepTx = createBased64Ballot('yes');
+
       // Get the signature to use in the transaction
       const signature = await NativeModules.KeyaddrManager.sign(
         accountPrivateKey,
@@ -96,7 +91,6 @@ const VotingModal = () => {
       );
       console.log('signature', signature);
 
-      const wallet = WalletStore.getWallet();
       data.is_approved = 'true';
 
       // Socket.emit('app-create_vote-confirmed-server', data);
