@@ -113,7 +113,7 @@ const VotingModal = () => {
         proposal_heading,
         voting_option_heading,
         wallet_address,
-        ballot,
+        ballot: base64EncodedPrepTx,
         signature,
       });
       console.log('Approved sucessfully', {});
