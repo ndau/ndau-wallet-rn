@@ -149,7 +149,33 @@ There are a few steps you may want to take to troubleshoot these kinds of errors
 
 1. Make sure Xcode is installed and open it to accept the license agreement if it prompts you. You can install it from the Mac App Store.
 2. Open Xcode's Preferences, the Locations tab, and make sure that the `Command Line Tools` menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run `npm/yarn run ios` after doing so.
-3. If that doesn't work, open the Simulator, and under the app menu select `Reset Contents and Settings...`. After that has finished, quit the Simulator, and re-run `npm/yarn run ios`.
+  3. If that doesn't work, open the Simulator, and under the app menu select `Reset Contents and Settings...`. After that has finished, quit the Simulator, and re-run `npm/yarn run ios`.
+
+## WebSocket Events
+
+### Signing Events
+
+#### server-sign_text-request-app
+Request to sign arbitrary text in base64 format.
+
+**Payload:**
+- `text`: Base64 encoded text to sign
+- `messageId`: Unique identifier
+- `description`: Human readable description (optional)
+
+**Example:**
+```
+"I agreed to the conversion to Revo to wallet 0xqwerty123" → base64
+```
+
+#### app-sign_text-response-server
+Response from the app after text signing request.
+
+**Payload:**
+- `app_socket_id`: Socket ID of the app
+- `messageId`: Unique identifier from the request
+- `signed`: Boolean indicating if the text was signed
+- `signature`: The generated signature (only if `signed` is true)
 
 Updates:
 

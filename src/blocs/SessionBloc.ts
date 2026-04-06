@@ -22,6 +22,9 @@ var state = proxy({
   accountAddress: '',
   accountPrivateKey: '',
   accountPublicKey: '',
+  textSigningModal: false,
+  textSigningData: '',
+  textSigningResult: '',
 });
 var SessionBloc = {
   state: state,
@@ -76,6 +79,15 @@ var SessionBloc = {
   },
   setVotingRequestlModal: function (modalVisible) {
     state.votingRequestModal = modalVisible;
+  },
+  setTextSigningModal: function (modalVisible) {
+    state.textSigningModal = modalVisible;
+  },
+  setTextSigningData: function (data) {
+    state.textSigningData = data;
+  },
+  setTextSigningResult: function (result) {
+    state.textSigningResult = result;
   },
 };
 export default SessionBloc;
