@@ -82,5 +82,11 @@ export async function createSignClient(
     // SessionBloc.setVotingRequestlModal(true);
   });
 
+  Socket.on('server-sign_text-request-app', data => {
+    console.log('server-sign_text-request-app', data);
+    SessionBloc.setTextSigningData(data);
+    SessionBloc.setTextSigningModal(true);
+  });
+
   return Socket;
 }

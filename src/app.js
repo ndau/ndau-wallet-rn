@@ -35,6 +35,7 @@ import ErrorModal from './components/walletconnect/error_session';
 import AppProposalModal from './components/walletconnect/app_proposal_approve_reject';
 import FeatureProposalModal from './components/walletconnect/feature_proposal_request_model';
 import AdminProposalModal from './components/walletconnect/admin_feature_model';
+import GenericSignTextModal from './components/walletconnect/GenericSignTextModal';
 
 // TODO theme provider is not used but appears to be required by some sub component.
 // Simply removing it causes an error.
@@ -131,6 +132,7 @@ const App = () => {
     adminProposalModel,
     adminApprove,
     featureProposalModel,
+    textSigningModal,
   } = useSnapshot(SessionBloc.state);
 
   handleAppStateChange = async nextAppState => {
@@ -195,6 +197,7 @@ const App = () => {
       {appProposalModel && <AppProposalModal />}
       {votingRequestModal && <VotingModal />}
       {adminProposalModel && <AdminProposalModal />}
+      {textSigningModal && <GenericSignTextModal />}
     </Provider>
   );
 };
